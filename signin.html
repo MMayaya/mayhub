@@ -50,6 +50,8 @@
 <script type="module">
     // 1. Updated Imports to v12.11.0
     import { initializeApp } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-app.js";
+import { initializeAppCheck, ReCaptchaV3Provider } 
+from "https://www.gstatic.com/firebasejs/12.11.0/firebase-app-check.js";
     import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-analytics.js";
     import { getAuth, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-auth.js";
 
@@ -66,6 +68,12 @@
 
     // 3. Initialize Firebase Services
     const app = initializeApp(firebaseConfig);
+
+const appCheck = initializeAppCheck(app, {
+  provider: new ReCaptchaV3Provider('6LfPNb0sAAAAAKWmsT-rqt2jQTfOuJWTN9Wlv4Vj'),
+  isTokenAutoRefreshEnabled: true
+});
+
     const analytics = getAnalytics(app);
     const auth = getAuth(app);
     const provider = new GoogleAuthProvider();

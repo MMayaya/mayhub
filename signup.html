@@ -15,24 +15,122 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Create Account | May Learning Hub</title>
     <style>
-        body { font-family: 'Segoe UI', sans-serif; background-color: #f0f4f8; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; padding: 20px 0; }
-        .auth-card { background: white; padding: 2.5rem; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); width: 100%; max-width: 420px; text-align: center; }
-        .auth-card h2 { color: #002b5e; margin-bottom: 1rem; }
-        input, select { width: 100%; padding: 12px; margin: 8px 0; border: 1px solid #ddd; border-radius: 8px; box-sizing: border-box; font-size: 14px; }
-        
-        /* Subject Group Styling */
-        .subject-group { text-align: left; margin: 10px 0; padding: 10px; border: 1px solid #eee; border-radius: 8px; background: #fafafa; }
-        .subject-group label { display: block; font-weight: 600; font-size: 0.85rem; margin-bottom: 8px; color: #555; }
-        .checkbox-item { display: flex; align-items: center; gap: 10px; margin-bottom: 5px; font-size: 0.9rem; cursor: pointer; }
-        .checkbox-item input { width: auto; margin: 0; cursor: pointer; }
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #f0f4f8;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px 0;
+        }
 
-        .btn { width: 100%; padding: 12px; border: none; border-radius: 8px; cursor: pointer; font-weight: 600; margin-top: 10px; transition: 0.3s; }
-        .btn-primary { background: #004080; color: white; }
-        .btn-google { background: white; color: #555; border: 1px solid #ddd; display: flex; align-items: center; justify-content: center; gap: 10px; }
-        .divider { margin: 20px 0; color: #888; position: relative; }
-        .divider::before, .divider::after { content: ""; position: absolute; top: 50%; width: 40%; height: 1px; background: #ddd; }
-        .divider::before { left: 0; } .divider::after { right: 0; }
-        .hidden { display: none; }
+        .auth-card {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 420px;
+            text-align: center;
+        }
+
+        .auth-card h2 {
+            color: #002b5e;
+            margin-bottom: 1rem;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 12px;
+            margin: 8px 0;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-sizing: border-box;
+            font-size: 14px;
+        }
+
+        .subject-group {
+            text-align: left;
+            margin: 10px 0;
+            padding: 10px;
+            border: 1px solid #eee;
+            border-radius: 8px;
+            background: #fafafa;
+        }
+
+        .subject-group label {
+            display: block;
+            font-weight: 600;
+            font-size: 0.85rem;
+            margin-bottom: 8px;
+            color: #555;
+        }
+
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 5px;
+            font-size: 0.9rem;
+            cursor: pointer;
+        }
+
+        .checkbox-item input {
+            width: auto;
+            margin: 0;
+            cursor: pointer;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            margin-top: 10px;
+            transition: 0.3s;
+        }
+
+        .btn-primary {
+            background: #004080;
+            color: white;
+        }
+
+        .btn-google {
+            background: white;
+            color: #555;
+            border: 1px solid #ddd;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .divider {
+            margin: 20px 0;
+            color: #888;
+            position: relative;
+        }
+
+        .divider::before,
+        .divider::after {
+            content: "";
+            position: absolute;
+            top: 50%;
+            width: 40%;
+            height: 1px;
+            background: #ddd;
+        }
+
+        .divider::before { left: 0; }
+        .divider::after { right: 0; }
+
+        .hidden {
+            display: none;
+        }
     </style>
 </head>
 <body>
@@ -91,6 +189,7 @@
 
 <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-app.js";
+    import { initializeAppCheck, ReCaptchaV3Provider } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-app-check.js";
     import { getAuth, createUserWithEmailAndPassword, updateProfile, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-auth.js";
     import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
 
@@ -104,29 +203,32 @@
     };
 
     const app = initializeApp(firebaseConfig);
+
+    const appCheck = initializeAppCheck(app, {
+        provider: new ReCaptchaV3Provider("6LfPNb0sAAAAAKWmsT-rqt2jQTfOuJWTN9Wlv4Vj"),
+        isTokenAutoRefreshEnabled: true
+    });
+
     const auth = getAuth(app);
     const db = getFirestore(app);
     const provider = new GoogleAuthProvider();
 
-    // DOM Elements
     const roleSelect = document.getElementById('role');
     const gradeSelect = document.getElementById('grade');
     const learnerSection = document.getElementById('learnerSection');
     const teacherSection = document.getElementById('teacherSection');
     const learnerSubjects = document.getElementById('learnerSubjects');
 
-    // UI Logic for Role Visibility
     roleSelect.onchange = () => {
         if (roleSelect.value === 'learner') {
             learnerSection.classList.remove('hidden');
             teacherSection.classList.add('hidden');
-        } else {
+        } else if (roleSelect.value === 'teacher') {
             teacherSection.classList.remove('hidden');
             learnerSection.classList.add('hidden');
         }
     };
 
-    // UI Logic for Learner Grade (Show subjects for 10-12)
     gradeSelect.onchange = () => {
         const gradeVal = parseInt(gradeSelect.value);
         if (gradeVal >= 10) {
@@ -136,29 +238,43 @@
         }
     };
 
-    const handleRedirect = () => { window.location.href = 'index.html'; };
+    const handleRedirect = () => {
+        window.location.href = 'index.html';
+    };
 
     document.getElementById('emailSignup').onclick = async () => {
-        const name = document.getElementById('username').value;
-        const email = document.getElementById('email').value;
+        const name = document.getElementById('username').value.trim();
+        const email = document.getElementById('email').value.trim();
         const pass = document.getElementById('password').value;
         const role = roleSelect.value;
-        const school = document.getElementById('school').value;
-        
-        // Validation
+        const school = document.getElementById('school').value.trim();
+
         if (!name || !email || !pass || !role || !school) {
             alert("Please fill in all basic information.");
             return;
         }
 
-        // Collect Subjects based on Role
         let selectedSubjects = [];
+
         if (role === 'teacher') {
             selectedSubjects = Array.from(document.querySelectorAll('.t-sub:checked')).map(cb => cb.value);
-            if (selectedSubjects.length === 0) return alert("Please select at least one subject.");
-        } else if (role === 'learner' && parseInt(gradeSelect.value) >= 10) {
-            selectedSubjects = Array.from(document.querySelectorAll('.l-sub:checked')).map(cb => cb.value);
-            if (selectedSubjects.length === 0) return alert("Please select your subjects.");
+            if (selectedSubjects.length === 0) {
+                alert("Please select at least one subject.");
+                return;
+            }
+        } else if (role === 'learner') {
+            if (!gradeSelect.value) {
+                alert("Please select your grade.");
+                return;
+            }
+
+            if (parseInt(gradeSelect.value) >= 10) {
+                selectedSubjects = Array.from(document.querySelectorAll('.l-sub:checked')).map(cb => cb.value);
+                if (selectedSubjects.length === 0) {
+                    alert("Please select your subjects.");
+                    return;
+                }
+            }
         }
 
         try {
@@ -176,15 +292,17 @@
 
             if (role === 'learner') {
                 userData.grade = gradeSelect.value;
-                if (parseInt(gradeSelect.value) >= 10) userData.subjects = selectedSubjects;
+                if (parseInt(gradeSelect.value) >= 10) {
+                    userData.subjects = selectedSubjects;
+                }
             } else {
                 userData.subjects = selectedSubjects;
             }
 
             await setDoc(doc(db, "users", userCredential.user.uid), userData);
             handleRedirect();
-        } catch (err) { 
-            alert("Signup Error: " + err.message); 
+        } catch (err) {
+            alert("Signup Error: " + err.message);
         }
     };
 
@@ -192,8 +310,8 @@
         try {
             await signInWithPopup(auth, provider);
             handleRedirect();
-        } catch (err) { 
-            alert("Google Error: " + err.message); 
+        } catch (err) {
+            alert("Google Error: " + err.message);
         }
     };
 </script>
