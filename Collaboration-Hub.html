@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-8GCWSKNDL7"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-8GCWSKNDL7');
+</script>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-8GCWSKNDL7"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-8GCWSKNDL7');
+</script>
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Collaboration Hub features shared educational resources from guest educators, including Mathematics revision material for May Learning Hub.">
+    <meta name="theme-color" content="#002b5e">
+    <meta property="og:title" content="May Learning Hub | Collaboration Hub">
+    <meta property="og:description" content="Shared Revision Material from guest educators.">
+    <meta property="og:type" content="website">
+    <title>Collaboration Hub | May Learning Hub</title>
+    <style>
+        /* --- ALL ORIGINAL STYLES PRESERVED --- */
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f4f8;
+            color: #333;
+            line-height: 1.6;
+        }
+        img { max-width: 100%; display: block; }
+        a:focus-visible,
+        button:focus-visible,
+        summary:focus-visible,
+        input:focus-visible,
+        select:focus-visible,
+        textarea:focus-visible {
+            outline: 3px solid #66a3ff;
+            outline-offset: 3px;
+            border-radius: 6px;
+        }
+
+        /* Hub Toggle Component Styles */
+        .hub-toggle-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 2rem;
+            opacity: 0;
+            animation: fadeInUp 0.8s ease-out 0.2s forwards;
+        }
+        .hub-switch {
+            background-color: #dbe4ee;
+            border-radius: 50px;
+            padding: 5px;
+            display: flex;
+            width: 100%;
+            max-width: 450px;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .hub-switch a {
+            flex: 1;
+            text-align: center;
+            padding: 12px 20px;
+            text-decoration: none;
+            color: #5d6c7c;
+            font-weight: 700;
+            border-radius: 50px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            font-size: 0.95rem;
+        }
+        .hub-switch a.active {
+            background-color: #002b5e;
+            color: #ffffff;
+            box-shadow: 0 4px 12px rgba(0,43,94,0.3);
+        }
+
+        @keyframes slideInLeft {
+            0% { opacity: 0; transform: translateX(-100px); }
+            100% { opacity: 1; transform: translateX(0); }
+        }
+        @keyframes slideInRight {
+            0% { opacity: 0; transform: translateX(50px); }
+            100% { opacity: 1; transform: translateX(0); }
+        }
+        @keyframes slideInDown {
+            0% { opacity: 0; transform: translateY(-30px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeInUp {
+            0% { opacity: 0; transform: translateY(40px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeIn {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+        @keyframes pulseGlowRed {
+            0% { box-shadow: 0 0 0 rgba(255, 59, 59, 0), 0 5px 14px rgba(0,0,0,0.08); }
+            50% { box-shadow: 0 0 18px rgba(255, 59, 59, 0.35), 0 8px 18px rgba(0,0,0,0.12); }
+            100% { box-shadow: 0 0 0 rgba(255, 59, 59, 0), 0 5px 14px rgba(0,0,0,0.08); }
+        }
+
+        nav {
+            background-color: #002b5e;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.12);
+            opacity: 0;
+            animation: slideInDown 0.6s ease-out forwards;
+        }
+        .logo {
+            color: #fff;
+            font-size: 1.45rem;
+            font-weight: bold;
+            text-decoration: none;
+            white-space: nowrap;
+        }
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        .nav-links a {
+            color: #cce0ff;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.45rem 0.7rem;
+            border-radius: 6px;
+        }
+        .nav-links a:hover {
+            color: #fff;
+            background-color: rgba(255,255,255,0.08);
+        }
+
+        header {
+            background: linear-gradient(135deg, #004080, #0059b3);
+            color: #fff;
+            padding: 3rem 1rem 2.5rem;
+            overflow: hidden;
+            margin-bottom: 2rem;
+        }
+        .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            flex-wrap: wrap;
+        }
+        .header-logo {
+            width: 120px;
+            height: 120px;
+            object-fit: contain;
+            background: #fff;
+            border-radius: 50%;
+            padding: 5px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            opacity: 0;
+            animation: slideInLeft 0.8s ease-out 0.2s forwards;
+        }
+        .header-text {
+            text-align: left;
+            max-width: 700px;
+            opacity: 0;
+            animation: slideInRight 0.8s ease-out 0.4s forwards;
+        }
+        .header-text h1 { font-size: 2.4rem; margin-bottom: 0.3rem; }
+
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        .section-title { font-size: 1.8rem; color: #003a75; margin-bottom: 0.35rem; }
+        .intro-panel {
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+            padding: 1.5rem 1.8rem;
+            margin-bottom: 1.2rem;
+            border-left: 4px solid #002b5e; /* Matching Hub Color */
+            opacity: 0;
+            animation: fadeInUp 0.8s ease-out 0.3s forwards;
+        }
+
+        /* What's New Styling (Kept exactly same) */
+        .whats-new-panel {
+            background: linear-gradient(135deg, #ff4d4d, #ff2a2a, #ff6b6b);
+            border: 2px solid #ff1a1a;
+            border-radius: 12px;
+            padding: 1rem;
+            margin-bottom: 2rem;
+            animation: pulseGlowRed 2.6s ease-in-out infinite;
+            color: #fff;
+        }
+        .whats-new-list { list-style: none; margin-top: 10px; }
+        .whats-new-list li a {
+            display: block;
+            background: rgba(255,255,255,0.18);
+            color: #fff;
+            text-decoration: none;
+            padding: 0.8rem;
+            margin-bottom: 5px;
+            border-radius: 8px;
+            border-left: 4px solid white;
+        }
+
+        /* Subjects Grid & Cards */
+        .subjects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        .subject-card {
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            overflow: hidden;
+            border-top: 5px solid #002b5e;
+            opacity: 0;
+            animation: fadeInUp 0.8s ease-out 0.5s forwards;
+        }
+        .subject-header {
+            background-color: #e6f0fa;
+            padding: 1.5rem;
+            text-align: center;
+            border-bottom: 1px solid #b3d4ff;
+        }
+        .subject-header h2 { color: #004080; }
+        
+        .revision-material-tag {
+            display: inline-block;
+            background: #002b5e;
+            color: white;
+            padding: 3px 10px;
+            border-radius: 5px;
+            font-size: 0.75rem;
+            font-weight: bold;
+            margin-top: 5px;
+            text-transform: uppercase;
+        }
+
+        details { padding: 1rem; border-bottom: 1px solid #eee; }
+        summary { font-weight: bold; font-size: 1.15rem; color: #00509e; cursor: pointer; list-style: none; }
+        summary::before { content: "▶ "; color: #3385ff; display: inline-block; transition: transform 0.2s; }
+        details[open] summary::before { transform: rotate(90deg); }
+
+        .content-links { list-style: none; margin-top: 10px; }
+        .content-links li a {
+            display: block;
+            text-decoration: none;
+            color: #004080;
+            background-color: #f0f7ff;
+            padding: 0.7rem 1rem;
+            border-radius: 6px;
+            border-left: 3px solid #002b5e;
+            margin-bottom: 8px;
+            transition: 0.2s;
+        }
+        .content-links li a:hover { background-color: #e6f0fa; padding-left: 1.3rem; }
+
+        footer {
+            background-color: #002b5e;
+            color: #fff;
+            padding: 3rem 1rem;
+            text-align: center;
+            margin-top: 3rem;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="index.html" class="logo">May Learning Hub</a>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="about.html">About</a>
+            <a href="suppdown.html">App &amp; Support</a>
+        </div>
+    </nav>
+
+    <header>
+        <div class="header-content">
+            <img src="May Learning Hub Logo.jpg" alt="Logo" class="header-logo">
+            <div class="header-text">
+                <h1>Collaboration Hub</h1>
+                <p style="font-style: italic; color: #c7deff; font-size: 1.2rem;">Expert resources shared by guest educators.</p>
+                <p style="color: #e6f0fa; margin-top: 10px;">Supporting your learning journey with additional specialist content.</p>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="hub-toggle-container">
+            <div class="hub-switch">
+                <a href="index.html">Main Hub</a>
+                <a href="Collaboration-Hub.html" class="active">Collaboration Hub</a>
+            </div>
+        </div>
+
+        <section class="intro-panel" aria-labelledby="collab-title">
+            <h2 class="section-title" id="collab-title">Shared Educational Resources</h2>
+            <p>
+                Welcome to the Collaboration Hub. This space is dedicated to high-quality resources contributed by fellow educators. Here, you will find specialized material designed to complement our core subjects, starting with Mathematics revision resources.
+            </p>
+        </section>
+
+        <section class="whats-new-panel">
+            <h2 style="font-size: 1.2rem;">✨ Latest in Collaboration Hub</h2>
+            <ul class="whats-new-list">
+                <li>
+                    <a href="Collaboration Hub/Maths/Grade 12/Algebra/algebra.html">
+                        <strong>NEW:</strong> Grade 12 Mathematics - Algebra Revision
+                    </a>
+                </li>
+            </ul>
+        </section>
+
+        <section id="subjects">
+            <h2 class="section-title">Mathematics Corner</h2>
+            <p style="margin-bottom: 2rem; color: #555;">Browse through expert-shared Mathematics content.</p>
+            
+            <main class="subjects-grid">
+                <section class="subject-card">
+                    <div class="subject-header">
+                        <h2>Mathematics</h2>
+                        <p>Grades 10–12</p>
+                        <span class="revision-material-tag">Revision Material</span>
+                    </div>
+                    <div class="subject-body">
+                        <details open>
+                            <summary>Grade 12</summary>
+                            <div style="padding: 10px 15px;">
+                                <h4 style="color: #555; border-bottom: 1px dashed #ccc; margin-bottom: 10px;">Algebra</h4>
+                                <ul class="content-links">
+                                    <li>
+                                        <a href="Collaboration Hub/Maths/Grade 12/Algebra/algebra.html">
+                                            📝 Algebra Revision Presentation
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </details>
+
+                        <details>
+                            <summary>Grade 11</summary>
+                            <p style="padding: 1rem; color: #888; font-style: italic;">Content currently being prepared...</p>
+                        </details>
+                        <details>
+                            <summary>Grade 10</summary>
+                            <p style="padding: 1rem; color: #888; font-style: italic;">Content currently being prepared...</p>
+                        </details>
+                    </div>
+                </section>
+
+                <section class="subject-card" style="opacity: 0.6; border-top-color: #ccc;">
+                    <div class="subject-header">
+                        <h2 style="color: #999;">Other Subjects</h2>
+                        <p>Coming Soon</p>
+                    </div>
+                    <div style="padding: 2rem; text-align: center; color: #999;">
+                        New collaborations with educators are in progress.
+                    </div>
+                </section>
+            </main>
+        </section>
+
+        <section style="background: linear-gradient(135deg, #003a75, #004f9f); color: #fff; border-radius: 14px; padding: 1.8rem; margin: 2rem 0; display: flex; justify-content: space-between; align-items: center; gap: 1rem; flex-wrap: wrap;">
+            <div>
+                <h2 style="font-size: 1.5rem;">Are you an educator?</h2>
+                <p style="color: #dbe9ff;">Want to share your resources on May Learning Hub? Use the feedback form on the main page to get in touch!</p>
+            </div>
+            <a href="index.html#feedback" style="background: white; color: #004080; padding: 12px 20px; border-radius: 8px; text-decoration: none; font-weight: bold;">Contact Me</a>
+        </section>
+    </div>
+
+    <footer>
+        <div class="container">
+            <h3 style="margin-bottom: 10px;">May Learning Hub</h3>
+            <p style="color: #d4e3f7; font-size: 0.9rem;">&copy; 2026 Collaboration Hub. Teachers and learners on the same page.</p>
+        </div>
+    </footer>
+</body>
+</html>
