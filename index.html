@@ -549,6 +549,7 @@
         .icon-notes::before { content: "📝 "; }
         .icon-games::before { content: "🎮 "; }
         .icon-activities::before { content: "🛠️ "; }
+        .icon-doc::before { content: "📂 "; }
         .cta-panel {
             background: linear-gradient(135deg, #003a75, #004f9f);
             color: #fff;
@@ -1221,19 +1222,22 @@
                 id: 'social-sciences-content',
                 subjectName: 'Social Sciences',
                 basePath: 'Social-Sciences',
-                grades: [8, 9]
+                grades: [8, 9],
+                capsDoc: 'Gr 8-9 CAPS.pdf'
             },
             {
                 id: 'geography-content',
                 subjectName: 'Geography',
                 basePath: 'Geography',
-                grades: [10, 11, 12]
+                grades: [10, 11, 12],
+                capsDoc: 'Gr 10-12 CAPS.pdf'
             },
             {
                 id: 'life-sciences-content',
                 subjectName: 'Life Sciences',
                 basePath: 'Life-Sciences',
-                grades: [10, 11, 12]
+                grades: [10, 11, 12],
+                capsDoc: 'Gr 10-12 CAPS.pdf'
             }
         ];
         const searchableLinks = [];
@@ -1291,6 +1295,31 @@
                         </div>
                     `;
                 }
+                
+                // --- NEW DOE DOCUMENTS SECTION ---
+                html += `
+                    <div class="term-section">
+                        <h4>DOE Documents</h4>
+                        <ul class="content-links">
+                            <li>
+                                <a href="${subject.basePath}/Term-1/Grade-${grade}/Documents/ATP.pdf" class="icon-doc">
+                                    Annual Teaching Plan
+                                </a>
+                            </li>
+                            <li>
+                                <a href="${subject.basePath}/Term-1/Grade-${grade}/Documents/PoA.pdf" class="icon-doc">
+                                    Programme of Assessment
+                                </a>
+                            </li>
+                            <li>
+                                <a href="${subject.basePath}/${subject.capsDoc}" class="icon-doc">
+                                    CAPS Document
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                `;
+                
                 html += `</details>`;
             });
             container.innerHTML = html;
