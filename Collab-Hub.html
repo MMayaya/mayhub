@@ -1,16 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-8GCWSKNDL7"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-8GCWSKNDL7');
-</script>
-
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-8GCWSKNDL7"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -28,7 +18,6 @@
     <meta property="og:type" content="website">
     <title>Collaboration Hub | May Learning Hub</title>
     <style>
-        /* --- ALL ORIGINAL STYLES PRESERVED --- */
         * { box-sizing: border-box; margin: 0; padding: 0; }
         html { scroll-behavior: smooth; }
         body {
@@ -49,38 +38,44 @@
             border-radius: 6px;
         }
 
-        /* Hub Toggle Component Styles */
+        /* --- HUB TOGGLE STYLES (Unified with Main Hub) --- */
         .hub-toggle-container {
             display: flex;
             justify-content: center;
-            margin-bottom: 2rem;
+            margin: 2rem 0 1rem;
             opacity: 0;
             animation: fadeInUp 0.8s ease-out 0.2s forwards;
         }
-        .hub-switch {
-            background-color: #dbe4ee;
-            border-radius: 50px;
-            padding: 5px;
+        .hub-toggle {
             display: flex;
-            width: 100%;
-            max-width: 450px;
+            background: #dbe4ee;
+            padding: 5px;
+            border-radius: 50px;
             box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 550px;
+            position: relative;
         }
-        .hub-switch a {
+        .toggle-option {
             flex: 1;
             text-align: center;
-            padding: 12px 20px;
-            text-decoration: none;
-            color: #5d6c7c;
-            font-weight: 700;
+            padding: 12px 0;
             border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            color: #5d6c7c;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             font-size: 0.95rem;
+            z-index: 1;
         }
-        .hub-switch a.active {
-            background-color: #002b5e;
-            color: #ffffff;
-            box-shadow: 0 4px 12px rgba(0,43,94,0.3);
+        .toggle-option.active {
+            color: #fff;
+            background-color: #004080;
+            box-shadow: 0 4px 12px rgba(0,64,128,0.25);
+        }
+        .toggle-option:not(.active):hover {
+            background-color: rgba(255,255,255,0.4);
+            color: #002b5e;
         }
 
         @keyframes slideInLeft {
@@ -190,12 +185,11 @@
             box-shadow: 0 4px 10px rgba(0,0,0,0.08);
             padding: 1.5rem 1.8rem;
             margin-bottom: 1.2rem;
-            border-left: 4px solid #002b5e; /* Matching Hub Color */
+            border-left: 4px solid #002b5e; 
             opacity: 0;
             animation: fadeInUp 0.8s ease-out 0.3s forwards;
         }
 
-        /* What's New Styling (Kept exactly same) */
         .whats-new-panel {
             background: linear-gradient(135deg, #ff4d4d, #ff2a2a, #ff6b6b);
             border: 2px solid #ff1a1a;
@@ -217,7 +211,6 @@
             border-left: 4px solid white;
         }
 
-        /* Subjects Grid & Cards */
         .subjects-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -279,6 +272,14 @@
             text-align: center;
             margin-top: 3rem;
         }
+        
+        /* Mobile styling for the 3-way toggle */
+        @media (max-width: 480px) {
+            .toggle-option {
+                font-size: 0.85rem;
+                padding: 10px 2px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -304,9 +305,10 @@
 
     <div class="container">
         <div class="hub-toggle-container">
-            <div class="hub-switch">
-                <a href="index.html">Main Hub</a>
-                <a href="Collaboration-Hub.html" class="active">Collaboration Hub</a>
+            <div class="hub-toggle">
+                <a href="index.html" class="toggle-option">Main Hub</a>
+                <a href="Collab-Hub.html" class="toggle-option active">Collab Hub</a>
+                <a href="exam-hub.html" class="toggle-option">Exam Hub</a>
             </div>
         </div>
 

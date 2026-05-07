@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-8GCWSKNDL7"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-8GCWSKNDL7');
+</script>
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="May Learning Hub Exam Archive. Past question papers and memorandums for Social Sciences, Geography, and Life Sciences.">
+    <meta name="theme-color" content="#002b5e">
+    <title>Learning Hub | Exam Hub</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f4f8;
+            color: #333;
+            line-height: 1.6;
+        }
+        img { max-width: 100%; display: block; }
+        a:focus-visible, button:focus-visible, summary:focus-visible, input:focus-visible {
+            outline: 3px solid #66a3ff;
+            outline-offset: 3px;
+            border-radius: 6px;
+        }
+        
+        /* Animations */
+        @keyframes slideInDown {
+            0% { opacity: 0; transform: translateY(-30px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeInUp {
+            0% { opacity: 0; transform: translateY(40px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Nav */
+        nav {
+            background-color: #002b5e;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.12);
+            animation: slideInDown 0.6s ease-out forwards;
+        }
+        .logo { color: #fff; font-size: 1.45rem; font-weight: bold; text-decoration: none; }
+        .nav-toggle { display: none; background: transparent; border: none; color: #fff; font-size: 1.6rem; cursor: pointer; }
+        .nav-links { display: flex; gap: 1rem; flex-wrap: wrap; }
+        .nav-links a { color: #cce0ff; text-decoration: none; font-weight: 500; padding: 0.45rem 0.7rem; border-radius: 6px; transition: 0.3s; }
+        .nav-links a:hover, .nav-links a.active { color: #fff; background-color: rgba(255,255,255,0.08); }
+
+        /* Header Specific to Exam Hub */
+        header {
+            background: linear-gradient(135deg, #001f40, #003366);
+            color: #fff;
+            padding: 3rem 1rem;
+            text-align: center;
+            margin-bottom: 2rem;
+            border-bottom: 5px solid #ffcc00;
+        }
+        .header-content { max-width: 800px; margin: 0 auto; animation: fadeInUp 0.8s ease-out forwards; }
+        .header-content h1 { font-size: 2.5rem; margin-bottom: 0.5rem; color: #ffcc00; }
+        .header-content p { font-size: 1.1rem; color: #d4e3f7; }
+
+        /* Hub Toggle */
+        .hub-toggle-container { display: flex; justify-content: center; margin: 2rem 0 1rem; animation: fadeInUp 0.8s ease-out 0.2s forwards; }
+        .hub-toggle { display: flex; background: #dbe4ee; padding: 5px; border-radius: 50px; width: 100%; max-width: 550px; box-shadow: inset 0 2px 4px rgba(0,0,0,0.1); }
+        .toggle-option { flex: 1; text-align: center; padding: 12px 0; border-radius: 50px; text-decoration: none; font-weight: 700; color: #5d6c7c; transition: 0.3s; font-size: 0.95rem; }
+        .toggle-option.active { color: #002b5e; background-color: #ffcc00; box-shadow: 0 4px 12px rgba(255, 204, 0, 0.4); }
+        .toggle-option:not(.active):hover { background-color: rgba(255,255,255,0.4); color: #002b5e; }
+
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        
+        /* Exam Archive Grid */
+        .subjects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+        .subject-card {
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+            overflow: hidden;
+            border-top: 5px solid #ffcc00;
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+        .subject-header {
+            background-color: #fcf9eb;
+            padding: 1.5rem;
+            text-align: center;
+            border-bottom: 1px solid #f0e6b3;
+        }
+        .subject-header h2 { color: #003366; font-size: 1.5rem; margin-bottom: 0.2rem; }
+        .subject-header p { font-size: 0.95rem; color: #665c33; font-weight: 500; }
+        
+        details { padding: 1rem; border-bottom: 1px solid #eee; }
+        details[open] { background-color: #fcfdfe; }
+        summary { font-weight: bold; font-size: 1.2rem; color: #004080; cursor: pointer; list-style: none; padding: 0.5rem 0; }
+        summary::-webkit-details-marker { display: none; }
+        summary::before { content: "📁 "; font-size: 1em; display: inline-block; transition: transform 0.2s; margin-right: 8px; }
+        details[open] summary::before { content: "📂 "; }
+        
+        .exam-year-section { margin-top: 1rem; padding-left: 1rem; }
+        .exam-year-section h4 { color: #555; margin-bottom: 0.8rem; font-size: 1.05rem; border-bottom: 2px solid #ffcc00; display: inline-block; padding-bottom: 2px; }
+        
+        .paper-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #f4f8fd;
+            padding: 0.7rem 1rem;
+            border-radius: 6px;
+            margin-bottom: 0.5rem;
+            border: 1px solid #ddecfa;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+        .paper-row:hover { background-color: #eaf2fb; border-color: #c0dcf7; }
+        .paper-title { font-weight: 600; color: #003366; font-size: 0.95rem; }
+        
+        .paper-actions { display: flex; gap: 0.5rem; }
+        .doc-btn {
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: bold;
+            padding: 0.3rem 0.6rem;
+            border-radius: 4px;
+            transition: 0.2s;
+        }
+        .btn-qp { background-color: #fff; color: #004080; border: 1px solid #004080; }
+        .btn-qp:hover { background-color: #004080; color: #fff; }
+        .btn-memo { background-color: #e6ffe6; color: #006600; border: 1px solid #00cc00; }
+        .btn-memo:hover { background-color: #00cc00; color: #fff; }
+        
+        .badge-kzn { background: #002b5e; color: #fff; font-size: 0.65rem; padding: 2px 6px; border-radius: 4px; margin-left: 8px; vertical-align: middle; }
+        .badge-nat { background: #666; color: #fff; font-size: 0.65rem; padding: 2px 6px; border-radius: 4px; margin-left: 8px; vertical-align: middle; }
+
+        footer { background-color: #002b5e; color: #fff; margin-top: 3rem; text-align: center; padding: 2rem 20px; }
+        footer a { color: #ffcc00; text-decoration: none; }
+        footer a:hover { text-decoration: underline; }
+
+        @media (max-width: 768px) {
+            .nav-toggle { display: block; }
+            .nav-links { display: none; flex-direction: column; width: 100%; padding-top: 1rem; }
+            .nav-links.show { display: flex; }
+            .paper-row { flex-direction: column; align-items: flex-start; }
+            .paper-actions { width: 100%; justify-content: flex-start; }
+        }
+        @media (max-width: 480px) {
+            .toggle-option { font-size: 0.85rem; padding: 10px 2px; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav aria-label="Main navigation">
+        <a href="index.html" class="logo">May Learning Hub</a>
+        <button class="nav-toggle" id="navToggle">☰</button>
+        <div class="nav-links" id="navLinks">
+            <a href="index.html">Home</a>
+            <a href="about.html">About</a>
+            <a href="suppdown.html">App & Support</a>
+        </div>
+    </nav>
+
+    <header>
+        <div class="header-content">
+            <h1>🎓 Past Examination Archive</h1>
+            <p>Access previous question papers and official memorandums to prepare for your assessments and final exams.</p>
+        </div>
+    </header>
+
+    <div class="container">
+        
+        <div class="hub-toggle-container">
+            <div class="hub-toggle">
+                <a href="index.html" class="toggle-option">Main Hub</a>
+                <a href="Collab-Hub.html" class="toggle-option">Collab Hub</a>
+                <a href="#" class="toggle-option active">Exam Hub</a>
+            </div>
+        </div>
+
+        <main class="subjects-grid">
+            
+            <section class="subject-card" style="animation-delay: 0.2s;">
+                <div class="subject-header">
+                    <h2>Social Sciences</h2>
+                    <p>Grades 8 – 9</p>
+                </div>
+                
+                <details>
+                    <summary>Grade 8</summary>
+                    <div class="exam-year-section">
+                        <h4>2025 Final Exams</h4>
+                        <div class="paper-row">
+                            <span class="paper-title">History Paper 1</span>
+                            <div class="paper-actions">
+                                <a href="exam-hub/Social-Sciences/Grade8/2025_History_P1_QP.pdf" class="doc-btn btn-qp">📄 QP</a>
+                                <a href="exam-hub/Social-Sciences/Grade8/2025_History_P1_Memo.pdf" class="doc-btn btn-memo">✔️ Memo</a>
+                            </div>
+                        </div>
+                        <div class="paper-row">
+                            <span class="paper-title">Geography Paper 2</span>
+                            <div class="paper-actions">
+                                <a href="exam-hub/Social-Sciences/Grade8/2025_Geography_P2_QP.pdf" class="doc-btn btn-qp">📄 QP</a>
+                                <a href="exam-hub/Social-Sciences/Grade8/2025_Geography_P2_Memo.pdf" class="doc-btn btn-memo">✔️ Memo</a>
+                            </div>
+                        </div>
+                    </div>
+                </details>
+
+                <details>
+                    <summary>Grade 9</summary>
+                    <div class="exam-year-section">
+                        <h4>2025 Final Exams</h4>
+                        <div class="paper-row">
+                            <span class="paper-title">History Paper 1</span>
+                            <div class="paper-actions">
+                                <a href="exam-hub/Social-Sciences/Grade9/2025_History_P1_QP.pdf" class="doc-btn btn-qp">📄 QP</a>
+                                <a href="exam-hub/Social-Sciences/Grade9/2025_History_P1_Memo.pdf" class="doc-btn btn-memo">✔️ Memo</a>
+                            </div>
+                        </div>
+                        <div class="paper-row">
+                            <span class="paper-title">Geography Paper 2</span>
+                            <div class="paper-actions">
+                                <a href="exam-hub/Social-Sciences/Grade9/2025_Geography_P2_QP.pdf" class="doc-btn btn-qp">📄 QP</a>
+                                <a href="exam-hub/Social-Sciences/Grade9/2025_Geography_P2_Memo.pdf" class="doc-btn btn-memo">✔️ Memo</a>
+                            </div>
+                        </div>
+                    </div>
+                </details>
+            </section>
+
+            <section class="subject-card" style="animation-delay: 0.4s;">
+                <div class="subject-header">
+                    <h2>Geography</h2>
+                    <p>Grades 10 – 12</p>
+                </div>
+                
+                <details>
+                    <summary>Grade 10</summary>
+                    <div class="exam-year-section">
+                        <h4>2025 Final Exams</h4>
+                        <div class="paper-row">
+                            <span class="paper-title">Paper 1</span>
+                            <div class="paper-actions">
+                                <a href="exam-hub/Geography/Grade10/2025_P1_QP.pdf" class="doc-btn btn-qp">📄 QP</a>
+                                <a href="exam-hub/Geography/Grade10/2025_P1_Memo.pdf" class="doc-btn btn-memo">✔️ Memo</a>
+                            </div>
+                        </div>
+                        <div class="paper-row">
+                            <span class="paper-title">Paper 2</span>
+                            <div class="paper-actions">
+                                <a href="exam-hub/Geography/Grade10/2025_P2_QP.pdf" class="doc-btn btn-qp">📄 QP</a>
+                                <a href="exam-hub/Geography/Grade10/2025_P2_Memo.pdf" class="doc-btn btn-memo">✔️ Memo</a>
+                            </div>
+                        </div>
+                    </div>
+                </details>
+
+                <details>
+                    <summary>Grade 11</summary>
+                    <div class="exam-year-section">
+                        <h4>EC November 2023</h4>
+                        <div class="paper-row">
+                            <span class="paper-title">Paper 1</span>
+                            <div class="paper-actions">
+                                <a href="exam-hub/Geography/Grade11/ECGeog_NovP1_QP.pdf" class="doc-btn btn-qp">📄 QP</a>
+                                <a href="exam-hub/Geography/Grade11/ECGeog_NovP1_QP_Memo.pdf" class="doc-btn btn-memo">✔️ Memo</a>
+                            </div>
+                        </div>
+                        <div class="paper-row">
+                            <span class="paper-title">Paper 2</span>
+                            <div class="paper-actions">
+                                <a href="exam-hub/Geography/Grade11/ECGeog_NovP2_QP.pdf" class="doc-btn btn-qp">📄 QP</a>
+                                <a href="exam-hub/Geography/Grade11/ECGeog_NovP2_Memo.pdf" class="doc-btn btn-memo">✔️ Memo</a>
+                            </div>
+                        </div>
+                    </div>
+                </details>
+
+                <details>
+                    <summary>Grade 12 (NSC)</summary>
+                    <div class="exam-year-section">
+                        <h4>2025 Preparatory Exams</h4>
+                        <div class="paper-row">
+                            <span class="paper-title">Paper 1 <span class="badge-kzn">KZN</span></span>
+                            <div class="paper-actions">
+                                <a href="exam-hub/Geography/Grade12/2025_Prep_P1_KZN_QP.pdf" class="doc-btn btn-qp">📄 QP</a>
+                                <a href="exam-hub/Geography/Grade12/2025_Prep_P1_KZN_Memo.pdf" class="doc-btn btn-memo">✔️ Memo</a>
+                            </div>
+                        </div>
+                        <div class="paper-row">
+                            <span class="paper-title">Paper 2 <span class="badge-kzn">KZN</span></span>
+                            <div class="paper-actions">
+                                <a href="exam-hub/Geography/Grade12/2025_Prep_P2_KZN_QP.pdf" class="doc-btn btn-qp">📄 QP</a>
+                                <a href="exam-hub/Geography/Grade12/2025_Prep_P2_KZN_Memo.pdf" class="doc-btn btn-memo">✔️ Memo</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="exam-year-section">
+                        <h4>2024 Final Exams</h4>
+                        <div class="paper-row">
+                            <span class="paper-title">Paper 1 <span class="badge-nat">National</span></span>
+                            <div class="paper-actions">
+                                <a href="exam-hub/Geography/Grade12/2024_Final_P1_Nat_QP.pdf" class="doc-btn btn-qp">📄 QP</a>
+                                <a href="exam-hub/Geography/Grade12/2024_Final_P1_Nat_Memo.pdf" class="doc-btn btn-memo">✔️ Memo</a>
+                            </div>
+                        </div>
+                        <div class="paper-row">
+                            <span class="paper-title">Paper 2 <span class="badge-nat">National</span></span>
+                            <div class="paper-actions">
+                                <a href="exam-hub/Geography/Grade12/2024_Final_P2_Nat_QP.pdf" class="doc-btn btn-qp">📄 QP</a>
+                                <a href="exam-hub/Geography/Grade12/2024_Final_P2_Nat_Memo.pdf" class="doc-btn btn-memo">✔️ Memo</a>
+                            </div>
+                        </div>
+                    </div>
+                </details>
+            </section>
+
+            <section class="subject-card" style="animation-delay: 0.6s;">
+                <div class="subject-header">
+                    <h2>Life Sciences</h2>
+                    <p>Grades 10 – 12</p>
+                </div>
+                
+                <details>
+                    <summary>Grade 10</summary>
+                    <div class="exam-year-section">
+                        <h4>2025 Final Exams</h4>
+                        <div class="paper-row">
+                            <span class="paper-title">Paper 1</span>
+                            <div class="paper-actions">
+                                <a href="exam-hub/Life-Sciences/Grade10/2025_P1_QP.pdf" class="doc-btn btn-qp">📄 QP</a>
+                                <a href="exam-hub/Life-Sciences/Grade10/2025_P1_Memo.pdf" class="doc-btn btn-memo">✔️ Memo</a>
+                            </div>
+                        </div>
+                        <div class="paper-row">
+                            <span class="paper-title">Paper 2</span>
+                            <div class="paper-actions">
+                                <a href="exam-hub/Life-Sciences/Grade10/2025_P2_QP.pdf" class="doc-btn btn-qp">📄 QP</a>
+                                <a href="exam-hub/Life-Sciences/Grade10/2025_P2_Memo.pdf" class="doc-btn btn-memo">✔️ Memo</a>
+                            </div>
+                        </div>
+                    </div>
+                </details>
+
+                <details>
+                    <summary>Grade 11</summary>
+                    <div class="exam-year-section">
+                        <h4>2025 Final Exams</h4>
+                        <div class="paper-row">
+                            <span class="paper-title">Paper 1</span>
+                            <div class="paper-actions">
+                                <a href="exam-hub/Life-Sciences/Grade11/2025_P1_QP.pdf" class="doc-btn btn-qp">📄 QP</a>
+                                <a href="exam-hub/Life-Sciences/Grade11/2025_P1_Memo.pdf" class="doc-btn btn-memo">✔️ Memo</a>
+                            </div>
+                        </div>
+                        <div class="paper-row">
+                            <span class="paper-title">Paper 2</span>
+                            <div class="paper-actions">
+                                <a href="exam-hub/Life-Sciences/Grade11/2025_P2_QP.pdf" class="doc-btn btn-qp">📄 QP</a>
+                                <a href="exam-hub/Life-Sciences/Grade11/2025_P2_Memo.pdf" class="doc-btn btn-memo">✔️ Memo</a>
+                            </div>
+                        </div>
+                    </div>
+                </details>
+
+                <details>
+                    <summary>Grade 12 (NSC)</summary>
+                    <div class="exam-year-section">
+                        <h4>2025 Preparatory Exams</h4>
+                        <div class="paper-row">
+                            <span class="paper-title">Paper 1 <span class="badge-kzn">KZN</span></span>
+                            <div class="paper-actions">
+                                <a href="exam-hub/Life-Sciences/Grade12/2025_Prep_P1_KZN_QP.pdf" class="doc-btn btn-qp">📄 QP</a>
+                                <a href="exam-hub/Life-Sciences/Grade12/2025_Prep_P1_KZN_Memo.pdf" class="doc-btn btn-memo">✔️ Memo</a>
+                            </div>
+                        </div>
+                        <div class="paper-row">
+                            <span class="paper-title">Paper 2 <span class="badge-kzn">KZN</span></span>
+                            <div class="paper-actions">
+                                <a href="exam-hub/Life-Sciences/Grade12/2025_Prep_P2_KZN_QP.pdf" class="doc-btn btn-qp">📄 QP</a>
+                                <a href="exam-hub/Life-Sciences/Grade12/2025_Prep_P2_KZN_Memo.pdf" class="doc-btn btn-memo">✔️ Memo</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="exam-year-section">
+                        <h4>2024 Final Exams</h4>
+                        <div class="paper-row">
+                            <span class="paper-title">Paper 1 <span class="badge-nat">National</span></span>
+                            <div class="paper-actions">
+                                <a href="exam-hub/Life-Sciences/Grade12/2024_Final_P1_Nat_QP.pdf" class="doc-btn btn-qp">📄 QP</a>
+                                <a href="exam-hub/Life-Sciences/Grade12/2024_Final_P1_Nat_Memo.pdf" class="doc-btn btn-memo">✔️ Memo</a>
+                            </div>
+                        </div>
+                        <div class="paper-row">
+                            <span class="paper-title">Paper 2 <span class="badge-nat">National</span></span>
+                            <div class="paper-actions">
+                                <a href="exam-hub/Life-Sciences/Grade12/2024_Final_P2_Nat_QP.pdf" class="doc-btn btn-qp">📄 QP</a>
+                                <a href="exam-hub/Life-Sciences/Grade12/2024_Final_P2_Nat_Memo.pdf" class="doc-btn btn-memo">✔️ Memo</a>
+                            </div>
+                        </div>
+                    </div>
+                </details>
+            </section>
+
+        </main>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 May Learning Hub. All rights reserved. | <a href="index.html">Back to Main Hub</a></p>
+    </footer>
+
+    <script>
+        // Simple mobile nav toggle script
+        const navToggle = document.getElementById('navToggle');
+        const navLinks = document.getElementById('navLinks');
+        navToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('show');
+        });
+    </script>
+</body>
+</html>

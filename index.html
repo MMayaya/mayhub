@@ -11,10 +11,10 @@
     
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="May Learning Hub provides CAPS-aligned notes, educational games, activities, and revision support for Social Sciences, Geography, and Life Sciences learners and teachers.">
+    <meta name="description" content="May Learning Hub provides CAPS-aligned presentations, educational games, activities, and revision support for Social Sciences, Geography, and Life Sciences learners and teachers.">
     <meta name="theme-color" content="#002b5e">
     <meta property="og:title" content="May Learning Hub | Home">
-    <meta property="og:description" content="CAPS-aligned notes, games, and activities for learners and teachers.">
+    <meta property="og:description" content="CAPS-aligned presentations, games, and activities for learners and teachers.">
     <meta property="og:type" content="website">
     <title>Learning Hub | Home</title>
     <style>
@@ -69,7 +69,7 @@
             }
         }
 
-        /* --- COLLABORATION TOGGLE STYLES --- */
+        /* --- HUB TOGGLE STYLES --- */
         .hub-toggle-container {
             display: flex;
             justify-content: center;
@@ -84,7 +84,7 @@
             border-radius: 50px;
             box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
             width: 100%;
-            max-width: 400px;
+            max-width: 550px;
             position: relative;
         }
         .toggle-option {
@@ -272,6 +272,7 @@
         .btn-whatsapp:hover {
             background-color: #1fb65a;
         }
+
         .container {
             max-width: 1200px;
             margin: 0 auto;
@@ -509,7 +510,7 @@
             display: inline-block;
             transition: transform 0.2s;
         }
-        details[open] summary::before {
+        details[open] > summary::before {
             transform: rotate(90deg);
         }
         .term-section {
@@ -546,10 +547,59 @@
             border-left: 3px solid #3385ff;
             padding-left: 1.2rem;
         }
+
+        /* --- LEARNING GUIDES STYLES --- */
+        .learning-guides-details {
+            margin: 0.7rem 0 1rem;
+            padding: 0.75rem 0.9rem;
+            background: #f7fbff;
+            border: 1px solid #d9e9ff;
+            border-radius: 8px;
+        }
+        .learning-guides-details[open] {
+            background: #f3f9ff;
+        }
+        .learning-guides-details summary {
+            font-size: 1rem;
+            color: #003a75;
+            padding: 0.2rem 0;
+        }
+        .learning-guides-details summary::before {
+            color: #e60000;
+        }
+        .learning-guide-note {
+            font-size: 0.86rem;
+            color: #5d6c7c;
+            margin: 0.45rem 0 0.65rem;
+        }
+        .learning-guides-list {
+            list-style: none;
+            display: grid;
+            gap: 0.45rem;
+        }
+        .learning-guides-list a {
+            display: block;
+            text-decoration: none;
+            color: #004080;
+            background: #fff;
+            border: 1px solid #dbeaff;
+            border-left: 3px solid #e60000;
+            border-radius: 6px;
+            padding: 0.5rem 0.75rem;
+            font-size: 0.92rem;
+            transition: all 0.2s ease;
+        }
+        .learning-guides-list a:hover {
+            background: #eaf3ff;
+            padding-left: 0.95rem;
+        }
+
         .icon-notes::before { content: "📝 "; }
         .icon-games::before { content: "🎮 "; }
         .icon-activities::before { content: "🛠️ "; }
         .icon-doc::before { content: "📂 "; }
+        .icon-pdf::before { content: "📕 "; }
+        
         .cta-panel {
             background: linear-gradient(135deg, #003a75, #004f9f);
             color: #fff;
@@ -827,6 +877,13 @@
             .whats-new-subtitle {
                 font-size: 0.78rem;
             }
+            .toggle-option {
+                font-size: 0.85rem;
+                padding: 10px 2px;
+            }
+            .term-section {
+                padding-left: 0.4rem;
+            }
         }
         @media (prefers-reduced-motion: reduce) {
             html { scroll-behavior: auto; }
@@ -858,7 +915,7 @@
                 <h1>Welcome to May Learning Hub</h1>
                 <p class="motto">Teachers and learners, finally on the same page.</p>
                 <p class="instructions">
-                    Explore CAPS-aligned notes, educational games, and classroom activities for Social Sciences, Geography, and Life Sciences.
+                    Explore CAPS-aligned presentations, educational games, and classroom activities for Social Sciences, Geography, and Life Sciences.
                 </p>
                 <div class="hero-actions">
                     <a href="#subjects" class="btn btn-primary">Start Learning</a>
@@ -872,21 +929,22 @@
         <div class="hub-toggle-container">
             <div class="hub-toggle">
                 <a href="index.html" class="toggle-option active">Main Hub</a>
-                <a href="Collaboration-Hub.html" class="toggle-option">Collaboration Hub</a>
+                <a href="Collab-Hub.html" class="toggle-option">Collab Hub</a>
+                <a href="exam-hub.html" class="toggle-option">Exam Hub</a>
             </div>
         </div>
 
         <section class="intro-panel" aria-labelledby="intro-title">
             <h2 class="section-title" id="intro-title">Comprehensive Educational Framework</h2>
             <p>
-                May Learning Hub provides a professional, CAPS-aligned educational experience specifically designed by educators to meet practical classroom needs. Our platform integrates high-quality curriculum notes with interactive revision games and guided classroom activities, offering a centralized, scalable resource hub that evolves alongside modern teaching requirements.
+                May Learning Hub provides a professional, CAPS-aligned educational experience specifically designed by educators to meet practical classroom needs. Our platform integrates high-quality curriculum presentations with interactive revision games and guided classroom activities, offering a centralized, scalable resource hub that evolves alongside modern teaching requirements.
             </p>
         </section>
         
         <section class="whats-new-grid" aria-label="Latest updates">
             <section class="whats-new-panel" aria-labelledby="whats-new-notes-title">
                 <div class="whats-new-header">
-                    <h2 class="whats-new-title" id="whats-new-notes-title">What’s New — Notes / Presentations</h2>
+                    <h2 class="whats-new-title" id="whats-new-notes-title">What’s New — Presentations</h2>
                     <p class="whats-new-subtitle">Fresh presentations and newly added lesson content.</p>
                 </div>
                 <ul class="whats-new-list">
@@ -994,17 +1052,17 @@
         </section>
         <section class="search-panel" aria-labelledby="search-title">
             <h2 class="section-title" id="search-title">Quick Search</h2>
-            <p class="section-subtitle">Search by subject, grade, term, or content type.</p>
+            <p class="section-subtitle">Search by subject, grade, term, topic, or content type.</p>
             <div class="search-bar">
                 <label for="siteSearch" class="sr-only">Search site content</label>
                 <input
                     type="text"
                     id="siteSearch"
-                    placeholder="Try: Geography Grade 12 Term 1 Notes"
+                    placeholder="Try: Geography Grade 10 Term 2 Plate Tectonics"
                     autocomplete="off"
                 >
             </div>
-            <p class="search-help">Examples: “Social Sciences Grade 8 Games”, “Life Sciences Term 3 Activities”, “Geography Notes”.</p>
+            <p class="search-help">Examples: “Social Sciences Grade 8 Games”, “Life Sciences Term 3 Activities”, “Geography Grade 10 Plate Tectonics”.</p>
             <div class="search-results" id="searchResults" aria-live="polite">
                 <ul id="searchResultsList"></ul>
             </div>
@@ -1012,7 +1070,7 @@
         <section id="subjects" aria-labelledby="subjects-title">
             <h2 class="section-title" id="subjects-title">Browse by Subject, Grade, and Term</h2>
             <p class="section-subtitle">
-                Select your subject below to access notes, games, and activities...
+                Select your subject below to access presentations, games, activities, and learning guides.
             </p>
             <main class="subjects-grid" id="subjectsGrid">
                 <section class="subject-card">
@@ -1087,9 +1145,10 @@
                                     <option value="">Select one</option>
                                     <option value="General Feedback">General Feedback</option>
                                     <option value="Report Broken Link">Report Broken Link</option>
-                                    <option value="Request Notes">Request Notes</option>
+                                    <option value="Request Presentation">Request Presentation</option>
                                     <option value="Request Game">Request Game</option>
                                     <option value="Request Activity">Request Activity</option>
+                                    <option value="Request Learning Guide">Request Learning Guide</option>
                                     <option value="Support Help">Support Help</option>
                                 </select>
                             </div>
@@ -1127,7 +1186,7 @@
                         <ul class="mini-list">
                             <li>Request a missing topic or grade</li>
                             <li>Report broken pages or links</li>
-                            <li>Ask for notes, games, or activities</li>
+                            <li>Ask for presentations, games, activities, or learning guides</li>
                             <li>Send support questions about the app or site</li>
                         </ul>
                     </div>
@@ -1140,7 +1199,7 @@
                     <div class="feedback-card">
                         <h3>Helpful Note</h3>
                         <p>
-                            Be as specific as possible when sending a request. Include the <strong>subject</strong>, <strong>grade</strong>, <strong>term</strong>, and whether you need <strong>notes</strong>, a <strong>game</strong>, or an <strong>activity</strong>.
+                            Be as specific as possible when sending a request. Include the <strong>subject</strong>, <strong>grade</strong>, <strong>term</strong>, and whether you need a <strong>presentation</strong>, a <strong>game</strong>, an <strong>activity</strong>, or a <strong>learning guide</strong>.
                         </p>
                     </div>
                 </div>
@@ -1152,12 +1211,13 @@
             <div class="footer-brand">
                 <h3>May Learning Hub</h3>
                 <p>
-                    A growing learning platform for teachers and learners, designed to make notes, games, and activities easier to access and use.
+                    A growing learning platform for teachers and learners, designed to make presentations, games, activities, and learning guides easier to access and use.
                 </p>
             </div>
             <div class="footer-links">
                 <h4>Quick Links</h4>
                 <a href="index.html">Home</a>
+                <a href="exam-hub.html">Exam Hub</a>
                 <a href="about.html">About</a>
                 <a href="#feedback">Feedback</a>
                 <a href="suppdown.html">App &amp; Support</a>
@@ -1165,7 +1225,7 @@
             <div class="footer-note">
                 <h4>Site Note</h4>
                 <p>
-                    Content is organised by subject, grade, and term to support structured classroom learning, revision, and app-based access.
+                    Content is organised by subject, grade, and term to support structured classroom learning, revision, Learning Guides, and app-based access.
                 </p>
             </div>
         </div>
@@ -1178,6 +1238,7 @@
         import { initializeApp } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-app.js";
         import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-analytics.js";
         import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-auth.js";
+        
         const firebaseConfig = {
             apiKey: "AIzaSyApyOAfcEB8nGc-B3IO4X8wIl-nVi3nKeo",
             authDomain: "maylearninghub.firebaseapp.com",
@@ -1191,9 +1252,11 @@
         const analytics = getAnalytics(app);
         const auth = getAuth(app);
         let currentUser = null;
+        
         onAuthStateChanged(auth, (user) => {
             currentUser = user;
         });
+        
         document.addEventListener('click', (e) => {
             const link = e.target.closest('a');
             if (link && link.href.includes('/Activities/')) {
@@ -1205,18 +1268,21 @@
                 }
             }
         });
+        
         const navToggle = document.getElementById('navToggle');
         const navLinks = document.getElementById('navLinks');
         navToggle.addEventListener('click', () => {
             const isOpen = navLinks.classList.toggle('show');
             navToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
         });
+        
         const siteLogo = document.getElementById('siteLogo');
         const logoFallback = document.getElementById('logoFallback');
         siteLogo.addEventListener('error', function () {
             this.style.display = 'none';
             logoFallback.style.display = 'flex';
         });
+
         const subjectsData = [
             {
                 id: 'social-sciences-content',
@@ -1240,13 +1306,52 @@
                 capsDoc: 'Gr 10-12 CAPS.pdf'
             }
         ];
+
+        /*
+            Learning Guide structure:
+            - Add more subjects, grades, and terms here whenever you create new Learning Guides.
+            - Recommended folder path:
+              Subject/Term-X/Grade-Y/LearningGuides/Your-PDF-Name.pdf
+            - Example:
+              Geography/Term-2/Grade-10/LearningGuides/Plate-Tectonics.pdf
+        */
+        const pdfGuidesData = {
+            Geography: {
+                10: {
+                    2: [
+                        {
+                            title: 'Structure of the Earth',
+                            href: 'Geography/Term-2/Grade-10/LearningGuides/Structure-of-the-Earth.pdf'
+                        },
+                        {
+                            title: 'Plate Tectonics',
+                            href: 'Geography/Term-2/Grade-10/LearningGuides/Plate-Tectonics.pdf'
+                        },
+                        {
+                            title: 'Folding and Faulting',
+                            href: 'Geography/Term-2/Grade-10/LearningGuides/Folding-and-Faulting.pdf'
+                        },
+                        {
+                            title: 'Earthquakes',
+                            href: 'Geography/Term-2/Grade-10/LearningGuides/Earthquakes.pdf'
+                        },
+                        {
+                            title: 'Volcanoes',
+                            href: 'Geography/Term-2/Grade-10/LearningGuides/Volcanoes.pdf'
+                        }
+                    ]
+                }
+            }
+        };
+        
         const searchableLinks = [];
+        
         function createTermLinks(subjectName, basePath, grade, term) {
             const items = [
                 {
-                    label: 'Notes',
+                    label: 'Presentation',
                     className: 'icon-notes',
-                    type: 'Notes',
+                    type: 'Presentation',
                     href: `${basePath}/Term-${term}/Grade-${grade}/Notes/notes.html`
                 },
                 {
@@ -1262,6 +1367,7 @@
                     href: `${basePath}/Term-${term}/Grade-${grade}/Activities/activities.html`
                 }
             ];
+            
             items.forEach(item => {
                 searchableLinks.push({
                     subject: subjectName,
@@ -1272,6 +1378,7 @@
                     href: item.href
                 });
             });
+            
             return items.map(item => `
                 <li>
                     <a href="${item.href}" class="${item.className}">
@@ -1280,6 +1387,42 @@
                 </li>
             `).join('');
         }
+
+        function createLearningGuideLinks(subjectName, grade, term) {
+            const guides = pdfGuidesData?.[subjectName]?.[grade]?.[term] || [];
+
+            if (guides.length === 0) {
+                return '';
+            }
+
+            guides.forEach(guide => {
+                searchableLinks.push({
+                    subject: subjectName,
+                    grade: grade,
+                    term: term,
+                    type: 'Learning Guide',
+                    label: `${subjectName} Grade ${grade} Term ${term} Learning Guide: ${guide.title}`,
+                    href: guide.href
+                });
+            });
+
+            return `
+                <details class="learning-guides-details">
+                    <summary>Learning Guides</summary>
+                    <p class="learning-guide-note">Click a topic below to open its learning guide.</p>
+                    <ul class="learning-guides-list">
+                        ${guides.map((guide, index) => `
+                            <li>
+                                <a href="${guide.href}" class="icon-pdf" target="_blank" rel="noopener noreferrer">
+                                    ${index + 1}. ${guide.title}
+                                </a>
+                            </li>
+                        `).join('')}
+                    </ul>
+                </details>
+            `;
+        }
+
         function buildSubjectContent(subject) {
             const container = document.getElementById(subject.id);
             let html = '';
@@ -1292,11 +1435,11 @@
                             <ul class="content-links">
                                 ${createTermLinks(subject.subjectName, subject.basePath, grade, term)}
                             </ul>
+                            ${createLearningGuideLinks(subject.subjectName, grade, term)}
                         </div>
                     `;
                 }
                 
-                // --- NEW DOE DOCUMENTS SECTION ---
                 html += `
                     <div class="term-section">
                         <h4>DOE Documents</h4>
@@ -1324,10 +1467,13 @@
             });
             container.innerHTML = html;
         }
+        
         subjectsData.forEach(buildSubjectContent);
+        
         const siteSearch = document.getElementById('siteSearch');
         const searchResults = document.getElementById('searchResults');
         const searchResultsList = document.getElementById('searchResultsList');
+        
         function renderSearchResults(results, query) {
             if (!query.trim()) {
                 searchResults.classList.remove('active');
@@ -1340,7 +1486,7 @@
                     <li>
                         <a href="javascript:void(0)">
                             No matches found
-                            <span class="result-meta">Try searching by subject, grade, term, or type such as Notes, Games, or Activities.</span>
+                            <span class="result-meta">Try searching by subject, grade, term, topic, or type such as Presentations, Games, Activities, or Learning Guide.</span>
                         </a>
                     </li>
                 `;
@@ -1356,6 +1502,7 @@
                 </li>
             `).join('');
         }
+        
         siteSearch.addEventListener('input', function () {
             const query = this.value.toLowerCase().trim();
             const filtered = searchableLinks.filter(item => {
@@ -1364,8 +1511,10 @@
             });
             renderSearchResults(filtered, query);
         });
+        
         const feedbackForm = document.getElementById('feedbackForm');
         const formStatus = document.getElementById('formStatus');
+        
         feedbackForm.addEventListener('submit', async function (event) {
             event.preventDefault();
             formStatus.className = 'form-status';
