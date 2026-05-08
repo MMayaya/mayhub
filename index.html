@@ -560,12 +560,16 @@
             background: #f3f9ff;
         }
         .learning-guides-details summary {
-            font-size: 1rem;
-            color: #003a75;
-            padding: 0.2rem 0;
+            font-size: 1.05rem;
+            font-weight: bold;
+            color: #ffffff; /* White text */
+            background-color: #e60000; /* Red background */
+            padding: 0.6rem 0.8rem;
+            border-radius: 6px;
+            margin-bottom: 0.5rem;
         }
         .learning-guides-details summary::before {
-            color: #e60000;
+            color: #ffffff; /* White arrow */
         }
         .learning-guide-note {
             font-size: 0.86rem;
@@ -1340,6 +1344,30 @@
                             href: 'Geography/Term-2/Grade-10/LearningGuides/Volcanoes.pdf'
                         }
                     ]
+                },
+                11: {
+                    2: [
+                        {
+                            title: 'Hilly Landscapes and Plateaus',
+                            href: 'Geography/Term-2/Grade-11/LearningGuides/Hilly-Landscapes-and-Plateaus.pdf'
+                        },
+                        {
+                            title: 'Horizontal Rock Strata',
+                            href: 'Geography/Term-2/Grade-11/LearningGuides/Horizontal-Rock-Strata.pdf'
+                        },
+                        {
+                            title: 'Inclined Rock Strata',
+                            href: 'Geography/Term-2/Grade-11/LearningGuides/Inclined-Rock-Strata.pdf'
+                        },
+                        {
+                            title: 'Massive Igneous Rocks',
+                            href: 'Geography/Term-2/Grade-11/LearningGuides/Massive-Igneous-Rocks.pdf'
+                        },
+                        {
+                            title: 'Slopes',
+                            href: 'Geography/Term-2/Grade-11/LearningGuides/Slopes.pdf'
+                        }
+                    ]
                 }
             }
         };
@@ -1428,18 +1456,8 @@
             let html = '';
             subject.grades.forEach(grade => {
                 html += `<details><summary>Grade ${grade}</summary>`;
-                for (let term = 1; term <= 4; term++) {
-                    html += `
-                        <div class="term-section">
-                            <h4>Term ${term}</h4>
-                            <ul class="content-links">
-                                ${createTermLinks(subject.subjectName, subject.basePath, grade, term)}
-                            </ul>
-                            ${createLearningGuideLinks(subject.subjectName, grade, term)}
-                        </div>
-                    `;
-                }
                 
+                // DOE Documents moved to the beginning
                 html += `
                     <div class="term-section">
                         <h4>DOE Documents</h4>
@@ -1462,6 +1480,18 @@
                         </ul>
                     </div>
                 `;
+
+                for (let term = 1; term <= 4; term++) {
+                    html += `
+                        <div class="term-section">
+                            <h4>Term ${term}</h4>
+                            <ul class="content-links">
+                                ${createTermLinks(subject.subjectName, subject.basePath, grade, term)}
+                            </ul>
+                            ${createLearningGuideLinks(subject.subjectName, grade, term)}
+                        </div>
+                    `;
+                }
                 
                 html += `</details>`;
             });
