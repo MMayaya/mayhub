@@ -57,17 +57,6 @@
             0% { opacity: 0; }
             100% { opacity: 1; }
         }
-        @keyframes pulseGlowRed {
-            0% {
-                box-shadow: 0 0 0 rgba(255, 59, 59, 0), 0 5px 14px rgba(0,0,0,0.08);
-            }
-            50% {
-                box-shadow: 0 0 18px rgba(255, 59, 59, 0.35), 0 8px 18px rgba(0,0,0,0.12);
-            }
-            100% {
-                box-shadow: 0 0 0 rgba(255, 59, 59, 0), 0 5px 14px rgba(0,0,0,0.08);
-            }
-        }
 
         /* --- HUB TOGGLE STYLES --- */
         .hub-toggle-container {
@@ -301,93 +290,6 @@
             font-size: 1rem;
             line-height: 1.6;
             color: #444;
-        }
-        .whats-new-grid {
-            display: grid;
-            grid-template-columns: repeat(2, minmax(0, 1fr));
-            gap: 0.85rem;
-            margin-bottom: 1.5rem;
-        }
-        .whats-new-panel {
-            background: linear-gradient(135deg, #ff4d4d, #ff2a2a, #ff6b6b);
-            border: 2px solid #ff1a1a;
-            border-radius: 12px;
-            padding: 0.75rem 0.85rem;
-            box-shadow: 0 5px 14px rgba(0,0,0,0.08);
-            opacity: 0;
-            animation:
-                fadeInUp 0.8s ease-out 0.38s forwards,
-                pulseGlowRed 2.6s ease-in-out 1.6s infinite;
-            position: relative;
-            overflow: hidden;
-            min-width: 0;
-        }
-        .whats-new-panel::before {
-            content: "✨";
-            position: absolute;
-            top: 8px;
-            right: 12px;
-            font-size: 1rem;
-            opacity: 0.9;
-        }
-        .whats-new-header {
-            display: flex;
-            align-items: center;
-            gap: 0.45rem;
-            margin-bottom: 0.45rem;
-            flex-wrap: wrap;
-            padding-right: 1rem;
-        }
-        .whats-new-title {
-            font-size: 1.05rem;
-            color: #fff;
-            margin: 0;
-            line-height: 1.2;
-        }
-        .whats-new-subtitle {
-            color: #ffe5e5;
-            font-size: 0.82rem;
-            font-weight: 500;
-        }
-        .whats-new-list {
-            list-style: none;
-            display: grid;
-            gap: 0.42rem;
-        }
-        .whats-new-list li a {
-            display: block;
-            text-decoration: none;
-            background: rgba(255,255,255,0.18);
-            border: 1px solid rgba(255,255,255,0.18);
-            border-left: 4px solid #ffffff;
-            color: #fff;
-            border-radius: 8px;
-            padding: 0.5rem 0.65rem;
-            transition: transform 0.2s ease, background-color 0.2s ease;
-            line-height: 1.25;
-            font-size: 0.93rem;
-        }
-        .whats-new-list li a:hover {
-            background: rgba(255,255,255,0.28);
-            transform: translateX(4px);
-        }
-        .new-tag {
-            display: inline-block;
-            background: #fff;
-            color: #e60000;
-            font-size: 0.65rem;
-            font-weight: 800;
-            padding: 0.12rem 0.42rem;
-            border-radius: 999px;
-            margin-right: 0.35rem;
-            letter-spacing: 0.3px;
-            vertical-align: middle;
-        }
-        .whats-new-meta {
-            display: block;
-            margin-top: 0.08rem;
-            font-size: 0.76rem;
-            color: #ffe3e3;
         }
         .search-panel,
         .feedback-panel {
@@ -820,9 +722,6 @@
             .hero-actions {
                 justify-content: center;
             }
-            .whats-new-grid {
-                grid-template-columns: 1fr;
-            }
             .search-panel,
             .feedback-panel {
                 padding: 1rem;
@@ -874,12 +773,6 @@
             }
             .section-title {
                 font-size: 1.45rem;
-            }
-            .whats-new-title {
-                font-size: 0.98rem;
-            }
-            .whats-new-subtitle {
-                font-size: 0.78rem;
             }
             .toggle-option {
                 font-size: 0.85rem;
@@ -945,115 +838,6 @@
             </p>
         </section>
         
-        <section class="whats-new-grid" aria-label="Latest updates">
-            <section class="whats-new-panel" aria-labelledby="whats-new-notes-title">
-                <div class="whats-new-header">
-                    <h2 class="whats-new-title" id="whats-new-notes-title">What’s New — Presentations</h2>
-                    <p class="whats-new-subtitle">Fresh presentations and newly added lesson content.</p>
-                </div>
-                <ul class="whats-new-list">
-                    <li>
-                        <a href="Social-Sciences/Term-2/Grade-8/Notes/notes.html">
-                            <span class="new-tag">NEW</span>
-                            Social Sciences Grade 8 Term 2 Presentation
-                            <span class="whats-new-meta">Latest presentation added for Social Sciences.</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="Social-Sciences/Term-2/Grade-9/Notes/notes.html">
-                            <span class="new-tag">NEW</span>
-                            Social Sciences Grade 9 Term 2 Presentation
-                            <span class="whats-new-meta">Latest presentation added for Social Sciences.</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="Geography/Term-2/Grade-10/Notes/notes.html">
-                            <span class="new-tag">NEW</span>
-                            Geography Grade 10 Term 2 Presentation
-                            <span class="whats-new-meta">Latest presentation for Grade 10 Geography.</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="Geography/Term-2/Grade-11/Notes/notes.html">
-                            <span class="new-tag">NEW</span>
-                            Geography Grade 11 Term 2 Presentation
-                            <span class="whats-new-meta">Latest presentation for Grade 11 Geography.</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="Geography/Term-2/Grade-12/Notes/notes.html">
-                            <span class="new-tag">NEW</span>
-                            Geography Grade 12 Term 2 Presentation
-                            <span class="whats-new-meta">Latest presentation for Grade 12 Geography.</span>
-                        </a>
-                    </li>
-                </ul>
-            </section>
-            <section class="whats-new-panel" aria-labelledby="whats-new-games-title">
-                <div class="whats-new-header">
-                    <h2 class="whats-new-title" id="whats-new-games-title">What’s New — Games/ Imidlalo</h2>
-                    <p class="whats-new-subtitle">Fresh interactive games and revision activities.</p>
-                </div>
-                <ul class="whats-new-list">
-                    <li>
-                        <a href="Social-Sciences/Term-1/Grade-8/Games/games.html">
-                            <span class="new-tag">NEW</span>
-                            Social Sciences Grade 8 Term 1 Games
-                            <span class="whats-new-meta">New interactive revision games for Social Sciences.</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="Social-Sciences/Term-1/Grade-9/Games/games.html">
-                            <span class="new-tag">NEW</span>
-                            Social Sciences Grade 9 Term 1 Games
-                            <span class="whats-new-meta">New interactive revision games for Social Sciences.</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="Geography/Term-1/Grade-10/Games/games.html">
-                            <span class="new-tag">NEW</span>
-                            Geography Grade 10 Term 1 Games
-                            <span class="whats-new-meta">New interactive revision games for Geography learners.</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="Geography/Term-1/Grade-11/Games/games.html">
-                            <span class="new-tag">NEW</span>
-                            Geography Grade 11 Term 1 Games
-                            <span class="whats-new-meta">Newly added Geography interactive games.</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="Geography/Term-1/Grade-12/Games/games.html">
-                            <span class="new-tag">NEW</span>
-                            Geography Grade 12 Term 1 Games
-                            <span class="whats-new-meta">Newly added Geography interactive games.</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="Life-Sciences/Term-1/Grade-10/Games/games.html">
-                            <span class="new-tag">NEW</span>
-                            Life Sciences Grade 10 Term 1 Games
-                            <span class="whats-new-meta">New interactive revision games for Life Sciences.</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="Life-Sciences/Term-1/Grade-11/Games/games.html">
-                            <span class="new-tag">NEW</span>
-                            Life Sciences Grade 11 Term 1 Games
-                            <span class="whats-new-meta">New interactive revision games for Life Sciences.</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="Life-Sciences/Term-1/Grade-12/Games/games.html">
-                            <span class="new-tag">NEW</span>
-                            Life Sciences Grade 12 Term 1 Games
-                            <span class="whats-new-meta">New interactive revision games for Life Sciences.</span>
-                        </a>
-                    </li>
-                </ul>
-            </section>
-        </section>
         <section class="search-panel" aria-labelledby="search-title">
             <h2 class="section-title" id="search-title">Quick Search</h2>
             <p class="section-subtitle">Search by subject, grade, term, topic, or content type.</p>
