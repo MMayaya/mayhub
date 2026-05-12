@@ -426,6 +426,26 @@
             border-bottom: 1px dashed #ccc;
             padding-bottom: 0.2rem;
         }
+        
+        /* Added styles for the collapsible sections */
+        .doe-heading {
+            color: #555;
+            font-size: 1.05rem;
+            border-bottom: 1px dashed #ccc;
+            padding-bottom: 0.2rem;
+            margin-bottom: 0.5rem;
+        }
+        .term-heading {
+            background-color: #003a75;
+            color: #ffffff !important;
+            padding: 0.5rem 0.8rem;
+            border-radius: 6px;
+            margin-bottom: 0.5rem;
+        }
+        .term-heading::before {
+            color: #ffffff !important;
+        }
+
         .content-links {
             list-style-type: none;
             display: flex;
@@ -1104,6 +1124,36 @@
               Geography/Term-2/Grade-10/LearningGuides/Plate-Tectonics.pdf
         */
         const pdfGuidesData = {
+            'Social Sciences': {
+                8: {
+                    2: [
+                        {
+                            title: 'Increasing Labour Control',
+                            href: 'Social-Sciences/Term-2/Grade-8/LearningGuides/Increasing-Labour-Control.pdf'
+                        },
+                        {
+                            title: 'Deep-Level Mining',
+                            href: 'Social-Sciences/Term-2/Grade-8/LearningGuides/Deep-Level-Mining.pdf'
+                        },
+                        {
+                            title: 'Turning Point In SA',
+                            href: 'Social-Sciences/Term-2/Grade-8/LearningGuides/Turning-Point-In-SA.pdf'
+                        },
+                        {
+                            title: 'Factors Affecting Temperature and Rainfall',
+                            href: 'Social-Sciences/Term-2/Grade-8/LearningGuides/Factors-Affecting-Temperature-and-Rainfall.pdf'
+                        },
+                        {
+                            title: 'Elements of Weather',
+                            href: 'Social-Sciences/Term-2/Grade-8/LearningGuides/Elements-of-Weather.pdf'
+                        },
+                        {
+                            title: 'Climate Around The World',
+                            href: 'Social-Sciences/Term-2/Grade-8/LearningGuides/Climate-Around-The-World.pdf'
+                        }
+                    ]
+                }
+            },
             Geography: {
                 10: {
                     2: [
@@ -1241,10 +1291,10 @@
             subject.grades.forEach(grade => {
                 html += `<details><summary>Grade ${grade}</summary>`;
                 
-                // DOE Documents moved to the beginning
+                // DOE Documents moved to the beginning and made collapsible
                 html += `
-                    <div class="term-section">
-                        <h4>DOE Documents</h4>
+                    <details class="term-section">
+                        <summary class="doe-heading">DOE Documents</summary>
                         <ul class="content-links">
                             <li>
                                 <a href="${subject.basePath}/Term-1/Grade-${grade}/Documents/ATP.pdf" class="icon-doc">
@@ -1262,18 +1312,18 @@
                                 </a>
                             </li>
                         </ul>
-                    </div>
+                    </details>
                 `;
 
                 for (let term = 1; term <= 4; term++) {
                     html += `
-                        <div class="term-section">
-                            <h4>Term ${term}</h4>
+                        <details class="term-section">
+                            <summary class="term-heading">Term ${term}</summary>
                             <ul class="content-links">
                                 ${createTermLinks(subject.subjectName, subject.basePath, grade, term)}
                             </ul>
                             ${createLearningGuideLinks(subject.subjectName, grade, term)}
-                        </div>
+                        </details>
                     `;
                 }
                 
