@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-8GCWSKNDL7"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-8GCWSKNDL7');
+    </script>
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grade 11 Geography Chat | May Learning Hub</title>
+    <style>
+        /* --- EXISTING CORE STYLES --- */
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f4f8;
+            color: #333;
+            line-height: 1.6;
+        }
+        img { max-width: 100%; display: block; }
+        a:focus-visible, button:focus-visible, input:focus-visible {
+            outline: 3px solid #66a3ff;
+            outline-offset: 3px;
+            border-radius: 6px;
+        }
+
+        /* --- NAV & HEADER STYLES --- */
+        nav {
+            background-color: #002b5e;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.12);
+        }
+        .logo {
+            color: #fff;
+            font-size: 1.45rem;
+            font-weight: bold;
+            text-decoration: none;
+        }
+        .nav-links { display: flex; gap: 1rem; }
+        .nav-links a {
+            color: #cce0ff;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.45rem 0.7rem;
+            border-radius: 6px;
+            transition: color 0.3s, background-color 0.3s;
+        }
+        .nav-links a:hover { color: #fff; background-color: rgba(255,255,255,0.08); }
+
+        header {
+            background: linear-gradient(135deg, #004080, #0059b3);
+            color: #fff;
+            padding: 2rem 1rem;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+        header h1 { font-size: 2rem; margin-bottom: 0.5rem; }
+        .motto { color: #c7deff; font-style: italic; }
+
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        
+        /* --- TERM TOGGLE STYLES (Adapted from your Hub Toggle) --- */
+        .hub-toggle-container {
+            display: flex;
+            justify-content: center;
+            margin: 1rem 0 2rem;
+        }
+        .hub-toggle {
+            display: flex;
+            background: #dbe4ee;
+            padding: 5px;
+            border-radius: 50px;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 600px;
+        }
+        .toggle-option {
+            flex: 1;
+            text-align: center;
+            padding: 12px 0;
+            border-radius: 50px;
+            border: none;
+            background: transparent;
+            font-weight: 700;
+            color: #5d6c7c;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.95rem;
+        }
+        .toggle-option.active {
+            color: #fff;
+            background-color: #004080;
+            box-shadow: 0 4px 12px rgba(0,64,128,0.25);
+        }
+        .toggle-option:not(.active):hover {
+            background-color: rgba(255,255,255,0.4);
+            color: #002b5e;
+        }
+
+        /* --- CHATROOM STYLES --- */
+        .chat-panel {
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+            border-top: 5px solid #3385ff;
+            display: flex;
+            flex-direction: column;
+            height: 600px;
+            margin-bottom: 3rem;
+            overflow: hidden;
+        }
+        .chat-header {
+            background-color: #e6f0fa;
+            padding: 15px 20px;
+            border-bottom: 1px solid #b3d4ff;
+            font-weight: bold;
+            color: #004080;
+            text-align: center;
+        }
+        #auth-warning {
+            background: #ffe6e6;
+            color: #cc0000;
+            text-align: center;
+            padding: 10px;
+            font-weight: bold;
+            display: none;
+        }
+        .messages-container {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            background-color: #f9fcff;
+        }
+        .message {
+            max-width: 80%;
+            padding: 12px 16px;
+            border-radius: 12px;
+            font-size: 0.95rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+        .message.sent {
+            background-color: #dbe9ff;
+            align-self: flex-end;
+            border-bottom-right-radius: 2px;
+            border: 1px solid #b3d4ff;
+        }
+        .message.received {
+            background-color: #fff;
+            align-self: flex-start;
+            border-bottom-left-radius: 2px;
+            border: 1px solid #e0e0e0;
+        }
+        .message-meta {
+            font-size: 0.75rem;
+            color: #5d6c7c;
+            margin-bottom: 4px;
+            font-weight: bold;
+        }
+        .input-area {
+            display: flex;
+            padding: 15px;
+            background: #fff;
+            border-top: 1px solid #dcecff;
+        }
+        #message-input {
+            flex: 1;
+            padding: 12px 15px;
+            border: 1px solid #b8d1f0;
+            border-radius: 25px;
+            outline: none;
+            font-size: 1rem;
+            background: #fbfdff;
+        }
+        #message-input:focus { border-color: #66a3ff; }
+        
+        .btn-send {
+            background-color: #004080;
+            color: white;
+            border: none;
+            padding: 0 25px;
+            margin-left: 10px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background 0.2s;
+        }
+        .btn-send:hover { background-color: #002b5e; }
+        .btn-send:disabled { background-color: #ccc; cursor: not-allowed; }
+
+        /* Footer */
+        footer {
+            background-color: #002b5e;
+            color: #fff;
+            text-align: center;
+            padding: 1.5rem;
+        }
+    </style>
+</head>
+<body>
+    
+    <nav aria-label="Main navigation">
+        <a href="../../../../index.html" class="logo">May Learning Hub</a>
+        <div class="nav-links">
+            <a href="../../../../index.html">Home</a>
+            <a href="../../../../about.html">About</a>
+            <a href="../../../../suppdown.html">App & Support</a>
+        </div>
+    </nav>
+
+    <header>
+        <h1>Grade 11 Geography Chat</h1>
+        <p class="motto">Ask questions, share notes, and discuss topics with your class.</p>
+    </header>
+
+    <div class="container">
+        
+        <div class="hub-toggle-container">
+            <div class="hub-toggle" id="term-selector">
+                <button class="toggle-option active" data-term="1">Term 1</button>
+                <button class="toggle-option" data-term="2">Term 2</button>
+                <button class="toggle-option" data-term="3">Term 3</button>
+                <button class="toggle-option" data-term="4">Term 4</button>
+            </div>
+        </div>
+
+        <div class="chat-panel">
+            <div class="chat-header" id="chat-title">
+                📍 Currently viewing: Term 1 Discussions
+            </div>
+            <div id="auth-warning">
+    You must be signed in to participate in the discussion. <br>
+    <a href="../../../../signin.html" style="color: #cc0000; text-decoration: underline; font-weight: bold;">Click here to Sign In</a>
+</div>
+            
+            <div class="messages-container" id="messages-container">
+                </div>
+
+            <form class="input-area" id="chat-form">
+                <input type="text" id="message-input" placeholder="Type your question or answer here..." required autocomplete="off" disabled>
+                <button type="submit" class="btn-send" id="send-btn" disabled>Send</button>
+            </form>
+        </div>
+
+    </div>
+
+    <footer>
+        <p>&copy; 2026 May Learning Hub. All rights reserved.</p>
+    </footer>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-app.js";
+        import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-auth.js";
+        import { getFirestore, collection, query, where, orderBy, onSnapshot, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
+
+        // Your exact Firebase Config
+        const firebaseConfig = {
+            apiKey: "AIzaSyApyOAfcEB8nGc-B3IO4X8wIl-nVi3nKeo",
+            authDomain: "maylearninghub.firebaseapp.com",
+            projectId: "maylearninghub",
+            storageBucket: "maylearninghub.firebasestorage.app",
+            messagingSenderId: "237875455146",
+            appId: "1:237875455146:web:21310d33b56664d669dcd3",
+            measurementId: "G-LJMFCM44TQ"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
+        // UI Elements
+        const messagesContainer = document.getElementById('messages-container');
+        const chatForm = document.getElementById('chat-form');
+        const messageInput = document.getElementById('message-input');
+        const sendBtn = document.getElementById('send-btn');
+        const authWarning = document.getElementById('auth-warning');
+        const chatTitle = document.getElementById('chat-title');
+        const termButtons = document.querySelectorAll('.toggle-option');
+
+        // State variables
+        let currentUser = null;
+        let currentTerm = "1"; 
+        let unsubscribe = null; // Used to stop listening to old terms when switching
+
+        // 1. Monitor Auth State
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                currentUser = user;
+                authWarning.style.display = 'none';
+                messageInput.disabled = false;
+                sendBtn.disabled = false;
+                loadMessages(currentTerm);
+            } else {
+                currentUser = null;
+                authWarning.style.display = 'block';
+                messageInput.disabled = true;
+                sendBtn.disabled = true;
+                messagesContainer.innerHTML = '';
+            }
+        });
+
+        // 2. Handle Term Switching
+        termButtons.forEach(button => {
+            button.addEventListener('click', (e) => {
+                // Update UI styles
+                termButtons.forEach(btn => btn.classList.remove('active'));
+                e.target.classList.add('active');
+                
+                // Update State and Title
+                currentTerm = e.target.getAttribute('data-term');
+                chatTitle.innerText = `📍 Currently viewing: Term ${currentTerm} Discussions`;
+                
+                // Load new messages if user is logged in
+                if(currentUser) {
+                    loadMessages(currentTerm);
+                }
+            });
+        });
+
+        // 3. Load Messages for the Selected Term
+        function loadMessages(term) {
+            // Unsubscribe from previous listener to prevent overlap
+            if (unsubscribe) {
+                unsubscribe();
+            }
+
+            const q = query(
+                collection(db, "messages"),
+                where("grade", "==", "Grade 11"),
+                where("subject", "==", "Geography"),
+                where("term", "==", term), // Filters by selected term
+                orderBy("createdAt", "asc")
+            );
+
+            unsubscribe = onSnapshot(q, (snapshot) => {
+                messagesContainer.innerHTML = ''; 
+                snapshot.forEach((doc) => {
+                    displayMessage(doc.data());
+                });
+                messagesContainer.scrollTop = messagesContainer.scrollHeight;
+            });
+        }
+
+        // 4. Display Message HTML
+        function displayMessage(data) {
+            const isSentByMe = currentUser && data.uid === currentUser.uid;
+            
+            const messageDiv = document.createElement('div');
+            messageDiv.classList.add('message');
+            messageDiv.classList.add(isSentByMe ? 'sent' : 'received');
+
+            const metaDiv = document.createElement('div');
+            metaDiv.classList.add('message-meta');
+            metaDiv.textContent = data.senderName || "Student"; 
+
+            const textDiv = document.createElement('div');
+            textDiv.textContent = data.text;
+
+            messageDiv.appendChild(metaDiv);
+            messageDiv.appendChild(textDiv);
+            messagesContainer.appendChild(messageDiv);
+        }
+
+        // 5. Submit New Message
+        chatForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const text = messageInput.value.trim();
+
+            if (text && currentUser) {
+                try {
+                    await addDoc(collection(db, "messages"), {
+                        text: text,
+                        grade: "Grade 11",
+                        subject: "Geography",
+                        term: currentTerm, // Attaches the message to the current active term
+                        uid: currentUser.uid,
+                        senderName: currentUser.displayName || currentUser.email.split('@')[0], // Fallback to email prefix
+                        createdAt: serverTimestamp()
+                    });
+                    messageInput.value = ''; 
+                } catch (error) {
+                    console.error("Error writing document: ", error);
+                    alert("Failed to send message.");
+                }
+            }
+        });
+    </script>
+</body>
+</html>

@@ -526,6 +526,25 @@
         .icon-doc::before { content: "📂 "; }
         .icon-pdf::before { content: "📕 "; }
         
+        /* --- CHAT BUTTON GLOW STYLE --- */
+        .btn-chat-glow {
+            background: #0066ff;
+            color: #ffffff !important;
+            padding: 3px 12px;
+            border-radius: 20px;
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: bold;
+            box-shadow: 0 0 8px rgba(0, 102, 255, 0.8), 0 0 15px rgba(0, 102, 255, 0.4);
+            float: right;
+            transition: all 0.3s ease;
+            margin-top: -2px;
+        }
+        .btn-chat-glow:hover {
+            background: #3385ff;
+            box-shadow: 0 0 12px rgba(51, 133, 255, 1), 0 0 20px rgba(51, 133, 255, 0.6);
+        }
+
         .cta-panel {
             background: linear-gradient(135deg, #003a75, #004f9f);
             color: #fff;
@@ -1289,7 +1308,15 @@
             const container = document.getElementById(subject.id);
             let html = '';
             subject.grades.forEach(grade => {
-                html += `<details><summary>Grade ${grade}</summary>`;
+                
+                // --- GLOWY BLUE CHAT BUTTON LOGIC ---
+                let chatBtn = '';
+                if (subject.subjectName === 'Geography' && grade === 11) {
+                    // Updated href to match the nested folder structure: Geography/Term-1/Grade-11/Chat/chat.html
+                    chatBtn = `<a href="${subject.basePath}/Term-1/Grade-${grade}/Chat/chat.html" class="btn-chat-glow" onclick="event.stopPropagation()">Chatroom</a>`;
+                }
+
+                html += `<details><summary>Grade ${grade} ${chatBtn}</summary>`;
                 
                 // DOE Documents moved to the beginning and made collapsible
                 html += `
