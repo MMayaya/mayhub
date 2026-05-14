@@ -21,20 +21,23 @@
         input { width: 100%; padding: 12px; margin: 8px 0; border: 1px solid #ddd; border-radius: 8px; box-sizing: border-box; }
         .btn { width: 100%; padding: 12px; border: none; border-radius: 8px; cursor: pointer; font-weight: 600; margin-top: 10px; transition: 0.3s; }
         .btn-primary { background: #004080; color: white; }
+        .btn-primary:disabled { background: #9bb3cc; cursor: not-allowed; }
         .btn-google { background: white; color: #555; border: 1px solid #ddd; display: flex; align-items: center; justify-content: center; gap: 10px; }
+        .btn-google:disabled { opacity: 0.6; cursor: not-allowed; }
         .divider { margin: 20px 0; color: #888; position: relative; }
         .divider::before, .divider::after { content: ""; position: absolute; top: 50%; width: 40%; height: 1px; background: #ddd; }
         .divider::before { left: 0; } .divider::after { right: 0; }
+        #status-message { margin-top: 12px; font-size: 0.9rem; color: #cc0000; font-weight: 600; }
     </style>
 </head>
 <body>
 
 <div class="auth-card">
     <h2>May Learning Hub</h2>
-    <p>Sign in to access activities</p>
-    
-    <input type="email" id="email" placeholder="Email Address">
-    <input type="password" id="password" placeholder="Password">
+    <p>Sign in to access activities and chatrooms</p>
+
+    <input type="email" id="email" placeholder="Email Address" autocomplete="email">
+    <input type="password" id="password" placeholder="Password" autocomplete="current-password">
     <button id="emailLogin" class="btn btn-primary">Sign In</button>
 
     <div class="divider">OR</div>
@@ -43,19 +46,25 @@
         <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/action/google.svg" width="18" alt="">
         Sign in with Google
     </button>
-    
+
+    <div id="status-message"></div>
+
     <p style="margin-top:20px; font-size: 0.9rem;">New here? <a href="signup.html" style="color:#004080;">Create an account</a></p>
 </div>
 
 <script type="module">
-    // 1. Updated Imports to v12.11.0
+    // Firebase imports
     import { initializeApp } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-app.js";
-import { initializeAppCheck, ReCaptchaV3Provider } 
-from "https://www.gstatic.com/firebasejs/12.11.0/firebase-app-check.js";
+    import { initializeAppCheck, ReCaptchaV3Provider } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-app-check.js";
     import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-analytics.js";
-    import { getAuth, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-auth.js";
+    import { 
+        getAuth, 
+        signInWithEmailAndPassword, 
+        GoogleAuthProvider, 
+        signInWithPopup 
+    } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-auth.js";
 
-    // 2. Your Config (Updated with measurementId)
+    // Firebase config
     const firebaseConfig = {
         apiKey: "AIzaSyApyOAfcEB8nGc-B3IO4X8wIl-nVi3nKeo",
         authDomain: "maylearninghub.firebaseapp.com",
@@ -66,44 +75,108 @@ from "https://www.gstatic.com/firebasejs/12.11.0/firebase-app-check.js";
         measurementId: "G-LJMFCM44TQ"
     };
 
-    // 3. Initialize Firebase Services
+    // Initialize Firebase services
     const app = initializeApp(firebaseConfig);
 
-const appCheck = initializeAppCheck(app, {
-  provider: new ReCaptchaV3Provider('6LfPNb0sAAAAAKWmsT-rqt2jQTfOuJWTN9Wlv4Vj'),
-  isTokenAutoRefreshEnabled: true
-});
+    const appCheck = initializeAppCheck(app, {
+        provider: new ReCaptchaV3Provider('6LfPNb0sAAAAAKWmsT-rqt2jQTfOuJWTN9Wlv4Vj'),
+        isTokenAutoRefreshEnabled: true
+    });
 
     const analytics = getAnalytics(app);
     const auth = getAuth(app);
     const provider = new GoogleAuthProvider();
 
-    // Redirection Logic
+    // UI elements
+    const emailInput = document.getElementById('email');
+    const passwordInput = document.getElementById('password');
+    const emailLoginBtn = document.getElementById('emailLogin');
+    const googleLoginBtn = document.getElementById('googleLogin');
+    const statusMessage = document.getElementById('status-message');
+
+    function setLoading(isLoading) {
+        emailLoginBtn.disabled = isLoading;
+        googleLoginBtn.disabled = isLoading;
+        emailLoginBtn.textContent = isLoading ? "Signing in..." : "Sign In";
+    }
+
+    function showError(message) {
+        console.error(message);
+        statusMessage.textContent = message;
+    }
+
+    // Redirection logic
+    // Priority:
+    // 1. URL redirect, for example signin.html?redirect=chatroom.html
+    // 2. sessionStorage redirectURL, used by protected pages like the chatroom
+    // 3. index.html as the fallback
     const handleRedirect = () => {
-        const nextURL = sessionStorage.getItem('redirectURL') || 'index.html';
+        const urlParams = new URLSearchParams(window.location.search);
+        const urlRedirect = urlParams.get('redirect');
+        const savedRedirect = sessionStorage.getItem('redirectURL');
+
+        let nextURL = urlRedirect || savedRedirect || 'index.html';
+
+        // Basic safety check: avoid redirecting to unknown external websites.
+        // This allows normal relative links and same-domain absolute links.
+        try {
+            const destination = new URL(nextURL, window.location.origin);
+
+            if (destination.origin !== window.location.origin) {
+                console.warn("Blocked external redirect:", nextURL);
+                nextURL = 'index.html';
+            } else {
+                nextURL = destination.href;
+            }
+        } catch (error) {
+            console.warn("Invalid redirect URL:", nextURL, error);
+            nextURL = 'index.html';
+        }
+
         sessionStorage.removeItem('redirectURL');
         window.location.href = nextURL;
     };
 
-    // Email Login
-    document.getElementById('emailLogin').onclick = async () => {
-        const email = document.getElementById('email').value;
-        const pass = document.getElementById('password').value;
+    // Email login
+    emailLoginBtn.onclick = async () => {
+        const email = emailInput.value.trim();
+        const pass = passwordInput.value;
+
+        statusMessage.textContent = '';
+
+        if (!email || !pass) {
+            showError("Please enter both your email address and password.");
+            return;
+        }
+
         try {
+            setLoading(true);
             await signInWithEmailAndPassword(auth, email, pass);
             handleRedirect();
         } catch (err) { 
-            alert("Error: " + err.message); 
+            showError("Error: " + err.message);
+            setLoading(false);
         }
     };
 
-    // Google Login
-    document.getElementById('googleLogin').onclick = async () => {
+    // Allow Enter key to submit email/password login
+    passwordInput.addEventListener('keydown', (event) => {
+        if (event.key === 'Enter') {
+            emailLoginBtn.click();
+        }
+    });
+
+    // Google login
+    googleLoginBtn.onclick = async () => {
+        statusMessage.textContent = '';
+
         try {
+            setLoading(true);
             await signInWithPopup(auth, provider);
             handleRedirect();
         } catch (err) { 
-            alert("Error: " + err.message); 
+            showError("Error: " + err.message);
+            setLoading(false);
         }
     };
 </script>

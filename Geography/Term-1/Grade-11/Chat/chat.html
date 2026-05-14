@@ -243,7 +243,7 @@
             </div>
             <div id="auth-warning">
     You must be signed in to participate in the discussion. <br>
-    <a href="../../../../signin.html" style="color: #cc0000; text-decoration: underline; font-weight: bold;">Click here to Sign In</a>
+    <a href="../../../../signin.html" id="signin-link" style="color: #cc0000; text-decoration: underline; font-weight: bold;">Click here to Sign In</a>
 </div>
             
             <div class="messages-container" id="messages-container">
@@ -263,6 +263,7 @@
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-app.js";
+        import { initializeAppCheck, ReCaptchaV3Provider } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-app-check.js";
         import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-auth.js";
         import { getFirestore, collection, query, where, orderBy, onSnapshot, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
 
@@ -278,6 +279,13 @@
         };
 
         const app = initializeApp(firebaseConfig);
+
+        // App Check must be initialized on this page too, especially if Firestore enforcement is enabled.
+        const appCheck = initializeAppCheck(app, {
+            provider: new ReCaptchaV3Provider('6LfPNb0sAAAAAKWmsT-rqt2jQTfOuJWTN9Wlv4Vj'),
+            isTokenAutoRefreshEnabled: true
+        });
+
         const auth = getAuth(app);
         const db = getFirestore(app);
 
@@ -289,21 +297,34 @@
         const authWarning = document.getElementById('auth-warning');
         const chatTitle = document.getElementById('chat-title');
         const termButtons = document.querySelectorAll('.toggle-option');
+        const signInLink = document.getElementById('signin-link');
 
         // State variables
         let currentUser = null;
         let currentTerm = "1"; 
         let unsubscribe = null; // Used to stop listening to old terms when switching
 
+        // Save the current chatroom URL before sending the learner to the sign-in page.
+        // Your sign-in page already checks sessionStorage.redirectURL after successful login.
+        if (signInLink) {
+            signInLink.addEventListener('click', () => {
+                sessionStorage.setItem('redirectURL', window.location.href);
+            });
+        }
+
         // 1. Monitor Auth State
         onAuthStateChanged(auth, (user) => {
             if (user) {
+                console.log("Signed in user detected on chatroom page:", user.uid, user.email);
+
                 currentUser = user;
                 authWarning.style.display = 'none';
                 messageInput.disabled = false;
                 sendBtn.disabled = false;
                 loadMessages(currentTerm);
             } else {
+                console.log("No signed-in user detected on chatroom page.");
+
                 currentUser = null;
                 authWarning.style.display = 'block';
                 messageInput.disabled = true;
@@ -345,13 +366,35 @@
                 orderBy("createdAt", "asc")
             );
 
-            unsubscribe = onSnapshot(q, (snapshot) => {
-                messagesContainer.innerHTML = ''; 
-                snapshot.forEach((doc) => {
-                    displayMessage(doc.data());
-                });
-                messagesContainer.scrollTop = messagesContainer.scrollHeight;
-            });
+            unsubscribe = onSnapshot(
+                q,
+                (snapshot) => {
+                    messagesContainer.innerHTML = ''; 
+                    snapshot.forEach((doc) => {
+                        displayMessage(doc.data());
+                    });
+                    messagesContainer.scrollTop = messagesContainer.scrollHeight;
+                },
+                (error) => {
+                    console.error("Error loading messages:", error);
+
+                    let helpfulMessage = error.message;
+
+                    if (error.message && error.message.toLowerCase().includes("index")) {
+                        helpfulMessage = "Firestore needs a composite index for this chat query. Open the browser Console and click the index creation link Firebase provides.";
+                    } else if (error.code === "permission-denied") {
+                        helpfulMessage = "Permission denied. Check Firestore rules, sign-in state, or App Check enforcement.";
+                    } else if (error.message && error.message.toLowerCase().includes("appcheck")) {
+                        helpfulMessage = "App Check blocked this request. Confirm that this page uses App Check and that your domain is allowed in Firebase/App Check.";
+                    }
+
+                    messagesContainer.innerHTML = `
+                        <div style="color:red; font-weight:bold; background:#ffe6e6; padding:12px; border-radius:8px;">
+                            Failed to load messages:<br>${helpfulMessage}
+                        </div>
+                    `;
+                }
+            );
         }
 
         // 4. Display Message HTML
@@ -387,13 +430,22 @@
                         subject: "Geography",
                         term: currentTerm, // Attaches the message to the current active term
                         uid: currentUser.uid,
-                        senderName: currentUser.displayName || currentUser.email.split('@')[0], // Fallback to email prefix
+                        senderName: currentUser.displayName || currentUser.email?.split('@')[0] || "Student", // Fallback to email prefix or Student
                         createdAt: serverTimestamp()
                     });
                     messageInput.value = ''; 
                 } catch (error) {
-                    console.error("Error writing document: ", error);
-                    alert("Failed to send message.");
+                    console.error("Error writing document:", error);
+
+                    let helpfulMessage = error.message;
+
+                    if (error.code === "permission-denied") {
+                        helpfulMessage = "Permission denied. You may be signed in, but Firestore rules or App Check may be blocking the message.";
+                    } else if (error.message && error.message.toLowerCase().includes("appcheck")) {
+                        helpfulMessage = "App Check blocked the message. Check App Check enforcement, the reCAPTCHA key, and allowed domains.";
+                    }
+
+                    alert("Failed to send message: " + helpfulMessage);
                 }
             }
         });
