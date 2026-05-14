@@ -169,6 +169,14 @@
             color: #5d6c7c;
             margin-bottom: 4px;
             font-weight: bold;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            align-items: center;
+        }
+        .message-time {
+            font-weight: normal;
+            color: #7a8794;
         }
         .input-area {
             display: flex;
@@ -400,21 +408,48 @@
         // 4. Display Message HTML
         function displayMessage(data) {
             const isSentByMe = currentUser && data.uid === currentUser.uid;
-            
+
             const messageDiv = document.createElement('div');
             messageDiv.classList.add('message');
             messageDiv.classList.add(isSentByMe ? 'sent' : 'received');
 
             const metaDiv = document.createElement('div');
             metaDiv.classList.add('message-meta');
-            metaDiv.textContent = data.senderName || "Student"; 
+
+            const senderSpan = document.createElement('span');
+            senderSpan.textContent = data.senderName || "Student";
+
+            const timeSpan = document.createElement('span');
+            timeSpan.classList.add('message-time');
+            timeSpan.textContent = `• ${formatMessageTime(data.createdAt)}`;
 
             const textDiv = document.createElement('div');
             textDiv.textContent = data.text;
 
+            metaDiv.appendChild(senderSpan);
+            metaDiv.appendChild(timeSpan);
+
             messageDiv.appendChild(metaDiv);
             messageDiv.appendChild(textDiv);
             messagesContainer.appendChild(messageDiv);
+        }
+
+        // Convert Firestore Timestamp into a readable South African date/time
+        function formatMessageTime(timestamp) {
+            if (!timestamp || !timestamp.toDate) {
+                return "sending...";
+            }
+
+            const date = timestamp.toDate();
+
+            return date.toLocaleString("en-ZA", {
+                day: "2-digit",
+                month: "short",
+                year: "numeric",
+                hour: "2-digit",
+                minute: "2-digit",
+                hour12: false
+            });
         }
 
         // 5. Submit New Message
