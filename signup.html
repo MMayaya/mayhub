@@ -37,7 +37,8 @@
         }
 
         .auth-card h2 {
-            color: #002b5e;
+            color: #0056ff; /* Vibrant Blue */
+            text-shadow: 0 0 10px rgba(0, 86, 255, 0.2);
             margin-bottom: 1rem;
         }
 
@@ -91,16 +92,24 @@
             cursor: pointer;
             font-weight: 600;
             margin-top: 10px;
-            transition: 0.3s;
+            transition: all 0.3s ease;
         }
 
+        /* NEW: Vibrant Glowy Blue Button */
         .btn-primary {
-            background: #004080;
+            background: linear-gradient(135deg, #0056ff, #00d4ff);
             color: white;
+            box-shadow: 0 4px 15px rgba(0, 212, 255, 0.4);
+        }
+        
+        .btn-primary:hover:not(:disabled) {
+            box-shadow: 0 6px 20px rgba(0, 212, 255, 0.6);
+            transform: translateY(-1px);
         }
         
         .btn-primary:disabled { 
-            background: #9bb3cc; 
+            background: #a1c4f4; 
+            box-shadow: none;
             cursor: not-allowed; 
         }
 
@@ -113,6 +122,17 @@
             font-size: 0.9rem; 
             color: #cc0000; 
             font-weight: 600; 
+        }
+        
+        .link-text {
+            color: #0072ff; 
+            text-decoration: none;
+            font-weight: 600;
+        }
+        
+        .link-text:hover {
+            text-decoration: underline;
+            text-shadow: 0 0 8px rgba(0, 114, 255, 0.3);
         }
     </style>
 </head>
@@ -162,7 +182,7 @@
     
     <div id="status-message"></div>
     
-    <p style="margin-top:20px; font-size: 0.9rem;">Already have an account? <a href="signin.html" style="color:#004080;">Sign In</a></p>
+    <p style="margin-top:20px; font-size: 0.9rem;">Already have an account? <a href="signin.html" class="link-text">Sign In</a></p>
 </div>
 
 <script type="module">
@@ -187,6 +207,11 @@
 
     const app = initializeApp(firebaseConfig);
 
+    // --- FIX 1: Allow App Check to work on local computer for testing ---
+    if (window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1") {
+        self.FIREBASE_APPCHECK_DEBUG_TOKEN = true;
+    }
+
     const appCheck = initializeAppCheck(app, {
         provider: new ReCaptchaV3Provider("6LfPNb0sAAAAAKWmsT-rqt2jQTfOuJWTN9Wlv4Vj"),
         isTokenAutoRefreshEnabled: true
@@ -204,19 +229,18 @@
     const emailSignupBtn = document.getElementById('emailSignup');
     const statusMessage = document.getElementById('status-message');
     
-    let isSigningUp = false; // Prevents premature redirection while Firestore saves data
+    let isSigningUp = false; 
 
     function setLoading(isLoading) {
         emailSignupBtn.disabled = isLoading;
         emailSignupBtn.textContent = isLoading ? "Creating Account..." : "Create Account";
     }
 
-    function showError(message) {
-        console.error(message);
+    function showStatus(message, color = "#cc0000") {
         statusMessage.textContent = message;
+        statusMessage.style.color = color;
     }
 
-    // Redirection logic matching signin.html
     const handleRedirect = () => {
         const urlParams = new URLSearchParams(window.location.search);
         const urlRedirect = urlParams.get('redirect');
@@ -239,14 +263,12 @@
         window.location.href = nextURL;
     };
 
-    // Auto-redirect if the user visits this page but is already logged in
     onAuthStateChanged(auth, (user) => {
         if (user && !isSigningUp) {
             handleRedirect();
         }
     });
 
-    // Handle form visibility
     roleSelect.onchange = () => {
         if (roleSelect.value === 'learner') {
             learnerSection.classList.remove('hidden');
@@ -266,10 +288,9 @@
         }
     };
 
-    // Validate form inputs 
     function validateAndGetUserData(name, email, role, school) {
         if (!name || !email || !role || !school) {
-            showError("Please fill in all basic information (Name, Email, Role, School).");
+            showStatus("Please fill in all basic information (Name, Email, Role, School).");
             return null;
         }
 
@@ -278,19 +299,19 @@
         if (role === 'teacher') {
             selectedSubjects = Array.from(document.querySelectorAll('.t-sub:checked')).map(cb => cb.value);
             if (selectedSubjects.length === 0) {
-                showError("Please select at least one subject.");
+                showStatus("Please select at least one subject.");
                 return null;
             }
         } else if (role === 'learner') {
             if (!gradeSelect.value) {
-                showError("Please select your grade.");
+                showStatus("Please select your grade.");
                 return null;
             }
 
             if (parseInt(gradeSelect.value) >= 10) {
                 selectedSubjects = Array.from(document.querySelectorAll('.l-sub:checked')).map(cb => cb.value);
                 if (selectedSubjects.length === 0) {
-                    showError("Please select your subjects.");
+                    showStatus("Please select your subjects.");
                     return null;
                 }
             }
@@ -316,7 +337,6 @@
         return userData;
     }
 
-    // Email Signup
     emailSignupBtn.onclick = async () => {
         statusMessage.textContent = '';
         
@@ -327,7 +347,7 @@
         const school = document.getElementById('school').value.trim();
 
         if (!pass || pass.length < 6) {
-            showError("Password must be at least 6 characters long.");
+            showStatus("Password must be at least 6 characters long.");
             return;
         }
 
@@ -338,15 +358,28 @@
             setLoading(true);
             isSigningUp = true; 
             
+            // Step 1: Create Auth User
+            showStatus("Creating secure profile...", "#0056ff");
             const userCredential = await createUserWithEmailAndPassword(auth, email, pass);
             await updateProfile(userCredential.user, { displayName: name });
 
             userData.uid = userCredential.user.uid;
             
+            // Step 2: Save to Firestore
+            showStatus("Saving data to database...", "#0056ff");
             await setDoc(doc(db, "users", userCredential.user.uid), userData);
-            handleRedirect();
+            
+            // Step 3: Success
+            showStatus("Success! Redirecting...", "#00c853");
+            
+            // Brief pause so it doesn't redirect before Firestore completely finalizes the network connection
+            setTimeout(() => {
+                handleRedirect();
+            }, 800);
+
         } catch (err) {
-            showError("Signup Error: " + err.message);
+            console.error("Signup Failed: ", err);
+            showStatus("Error: " + err.message);
             setLoading(false);
             isSigningUp = false;
         }
