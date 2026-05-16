@@ -104,40 +104,6 @@
             cursor: not-allowed; 
         }
 
-        .btn-google {
-            background: white;
-            color: #555;
-            border: 1px solid #ddd;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-        }
-        
-        .btn-google:disabled { 
-            opacity: 0.6; 
-            cursor: not-allowed; 
-        }
-
-        .divider {
-            margin: 20px 0;
-            color: #888;
-            position: relative;
-        }
-
-        .divider::before,
-        .divider::after {
-            content: "";
-            position: absolute;
-            top: 50%;
-            width: 40%;
-            height: 1px;
-            background: #ddd;
-        }
-
-        .divider::before { left: 0; }
-        .divider::after { right: 0; }
-
         .hidden {
             display: none;
         }
@@ -193,13 +159,6 @@
     <input type="text" id="school" placeholder="School Name">
 
     <button id="emailSignup" class="btn btn-primary">Create Account</button>
-
-    <div class="divider">OR</div>
-
-    <button id="googleSignup" class="btn btn-google">
-        <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/action/google.svg" width="18" alt="">
-        Sign up with Google
-    </button>
     
     <div id="status-message"></div>
     
@@ -213,8 +172,6 @@
         getAuth, 
         createUserWithEmailAndPassword, 
         updateProfile, 
-        GoogleAuthProvider, 
-        signInWithPopup,
         onAuthStateChanged
     } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-auth.js";
     import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
@@ -237,7 +194,6 @@
 
     const auth = getAuth(app);
     const db = getFirestore(app);
-    const provider = new GoogleAuthProvider();
 
     // UI elements
     const roleSelect = document.getElementById('role');
@@ -246,14 +202,12 @@
     const teacherSection = document.getElementById('teacherSection');
     const learnerSubjects = document.getElementById('learnerSubjects');
     const emailSignupBtn = document.getElementById('emailSignup');
-    const googleSignupBtn = document.getElementById('googleSignup');
     const statusMessage = document.getElementById('status-message');
     
     let isSigningUp = false; // Prevents premature redirection while Firestore saves data
 
     function setLoading(isLoading) {
         emailSignupBtn.disabled = isLoading;
-        googleSignupBtn.disabled = isLoading;
         emailSignupBtn.textContent = isLoading ? "Creating Account..." : "Create Account";
     }
 
@@ -312,7 +266,7 @@
         }
     };
 
-    // Validate form inputs (Used for both Email and Google Signup)
+    // Validate form inputs 
     function validateAndGetUserData(name, email, role, school) {
         if (!name || !email || !role || !school) {
             showError("Please fill in all basic information (Name, Email, Role, School).");
@@ -393,50 +347,6 @@
             handleRedirect();
         } catch (err) {
             showError("Signup Error: " + err.message);
-            setLoading(false);
-            isSigningUp = false;
-        }
-    };
-
-    // Google Signup (Ensures profile data is also saved to Firestore)
-    googleSignupBtn.onclick = async () => {
-        statusMessage.textContent = '';
-        
-        const name = document.getElementById('username').value.trim();
-        const role = roleSelect.value;
-        const school = document.getElementById('school').value.trim();
-        
-        // We bypass the manual email check for the validate function here 
-        // since Google will provide the email, but we still need the role and school.
-        const mockEmailForValidation = "google@placeholder.com"; 
-        
-        const partialUserData = validateAndGetUserData(
-            name || "GoogleUser", // Provide fallback to pass validation if name is empty
-            mockEmailForValidation, 
-            role, 
-            school
-        );
-        
-        if (!partialUserData) return;
-
-        try {
-            setLoading(true);
-            isSigningUp = true;
-            
-            const result = await signInWithPopup(auth, provider);
-            const user = result.user;
-            
-            // Overwrite with actual verified Google data
-            partialUserData.uid = user.uid;
-            partialUserData.email = user.email;
-            partialUserData.fullName = name || user.displayName;
-
-            // Merge true prevents overwriting existing data if they accidentally click sign up instead of sign in
-            await setDoc(doc(db, "users", user.uid), partialUserData, { merge: true });
-            
-            handleRedirect();
-        } catch (err) {
-            showError("Google Error: " + err.message);
             setLoading(false);
             isSigningUp = false;
         }

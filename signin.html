@@ -22,11 +22,9 @@
         .btn { width: 100%; padding: 12px; border: none; border-radius: 8px; cursor: pointer; font-weight: 600; margin-top: 10px; transition: 0.3s; }
         .btn-primary { background: #004080; color: white; }
         .btn-primary:disabled { background: #9bb3cc; cursor: not-allowed; }
-        .btn-google { background: white; color: #555; border: 1px solid #ddd; display: flex; align-items: center; justify-content: center; gap: 10px; }
-        .btn-google:disabled { opacity: 0.6; cursor: not-allowed; }
-        .divider { margin: 20px 0; color: #888; position: relative; }
-        .divider::before, .divider::after { content: ""; position: absolute; top: 50%; width: 40%; height: 1px; background: #ddd; }
-        .divider::before { left: 0; } .divider::after { right: 0; }
+        .forgot-password-container { text-align: right; margin: 4px 0 12px 0; }
+        .forgot-password-link { color: #004080; font-size: 0.85rem; text-decoration: none; font-weight: 500; }
+        .forgot-password-link:hover { text-decoration: underline; }
         #status-message { margin-top: 12px; font-size: 0.9rem; color: #cc0000; font-weight: 600; }
     </style>
 </head>
@@ -38,14 +36,12 @@
 
     <input type="email" id="email" placeholder="Email Address" autocomplete="email">
     <input type="password" id="password" placeholder="Password" autocomplete="current-password">
+    
+    <div class="forgot-password-container">
+        <a href="#" id="forgotPassword" class="forgot-password-link">Forgot Password?</a>
+    </div>
+
     <button id="emailLogin" class="btn btn-primary">Sign In</button>
-
-    <div class="divider">OR</div>
-
-    <button id="googleLogin" class="btn btn-google">
-        <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/action/google.svg" width="18" alt="">
-        Sign in with Google
-    </button>
 
     <div id="status-message"></div>
 
@@ -60,9 +56,8 @@
     import { 
         getAuth, 
         signInWithEmailAndPassword, 
-        GoogleAuthProvider, 
-        signInWithPopup,
-        onAuthStateChanged // <-- ADDED THIS IMPORT
+        onAuthStateChanged,
+        sendPasswordResetEmail 
     } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-auth.js";
 
     // Firebase config
@@ -86,24 +81,32 @@
 
     const analytics = getAnalytics(app);
     const auth = getAuth(app);
-    const provider = new GoogleAuthProvider();
 
     // UI elements
     const emailInput = document.getElementById('email');
     const passwordInput = document.getElementById('password');
     const emailLoginBtn = document.getElementById('emailLogin');
-    const googleLoginBtn = document.getElementById('googleLogin');
+    const forgotPasswordLink = document.getElementById('forgotPassword');
     const statusMessage = document.getElementById('status-message');
 
-    function setLoading(isLoading) {
+    function setLoading(isLoading, customText = null) {
         emailLoginBtn.disabled = isLoading;
-        googleLoginBtn.disabled = isLoading;
-        emailLoginBtn.textContent = isLoading ? "Signing in..." : "Sign In";
+        if (isLoading) {
+            emailLoginBtn.textContent = customText || "Signing in...";
+        } else {
+            emailLoginBtn.textContent = "Sign In";
+        }
     }
 
     function showError(message) {
         console.error(message);
         statusMessage.textContent = message;
+        statusMessage.style.color = "#cc0000";
+    }
+
+    function showSuccess(message) {
+        statusMessage.textContent = message;
+        statusMessage.style.color = "#006600";
     }
 
     // Redirection logic
@@ -131,15 +134,13 @@
         window.location.href = nextURL;
     };
 
-    // --- ADDED AUTO-REDIRECT LOGIC ---
-    // If the user lands on the sign-in page but is already logged in, route them away immediately
+    // Auto-redirect logic
     onAuthStateChanged(auth, (user) => {
         if (user) {
-            setLoading(true); // Visually disable buttons while redirecting
+            setLoading(true); 
             handleRedirect();
         }
     });
-    // ---------------------------------
 
     // Email login
     emailLoginBtn.onclick = async () => {
@@ -156,8 +157,30 @@
         try {
             setLoading(true);
             await signInWithEmailAndPassword(auth, email, pass);
-            // We no longer need handleRedirect() here because onAuthStateChanged will catch the successful login and run it automatically!
         } catch (err) { 
+            showError("Error: " + err.message);
+            setLoading(false);
+        }
+    };
+
+    // Password reset functionality
+    forgotPasswordLink.onclick = async (e) => {
+        e.preventDefault();
+        const email = emailInput.value.trim();
+
+        statusMessage.textContent = '';
+
+        if (!email) {
+            showError("Please enter your email address first to reset your password.");
+            return;
+        }
+
+        try {
+            setLoading(true, "Sending...");
+            await sendPasswordResetEmail(auth, email);
+            showSuccess("Password reset email sent! Please check your inbox.");
+            setLoading(false);
+        } catch (err) {
             showError("Error: " + err.message);
             setLoading(false);
         }
@@ -169,20 +192,6 @@
             emailLoginBtn.click();
         }
     });
-
-    // Google login
-    googleLoginBtn.onclick = async () => {
-        statusMessage.textContent = '';
-
-        try {
-            setLoading(true);
-            await signInWithPopup(auth, provider);
-            // Same here: onAuthStateChanged handles the redirect once the popup succeeds.
-        } catch (err) { 
-            showError("Error: " + err.message);
-            setLoading(false);
-        }
-    };
 </script>
 </body>
 </html>
