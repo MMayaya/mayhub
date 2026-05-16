@@ -17,14 +17,35 @@
     <style>
         body { font-family: 'Segoe UI', sans-serif; background-color: #f0f4f8; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
         .auth-card { background: white; padding: 2.5rem; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); width: 100%; max-width: 400px; text-align: center; }
-        .auth-card h2 { color: #002b5e; margin-bottom: 1.5rem; }
+        
+        /* Vibrant Blue Heading */
+        .auth-card h2 { 
+            color: #0056ff; 
+            text-shadow: 0 0 10px rgba(0, 86, 255, 0.2);
+            margin-bottom: 1.5rem; 
+        }
+        
         input { width: 100%; padding: 12px; margin: 8px 0; border: 1px solid #ddd; border-radius: 8px; box-sizing: border-box; }
-        .btn { width: 100%; padding: 12px; border: none; border-radius: 8px; cursor: pointer; font-weight: 600; margin-top: 10px; transition: 0.3s; }
-        .btn-primary { background: #004080; color: white; }
-        .btn-primary:disabled { background: #9bb3cc; cursor: not-allowed; }
+        .btn { width: 100%; padding: 12px; border: none; border-radius: 8px; cursor: pointer; font-weight: 600; margin-top: 10px; transition: all 0.3s ease; }
+        
+        /* Vibrant Glowy Blue Button */
+        .btn-primary { 
+            background: linear-gradient(135deg, #0056ff, #00d4ff); 
+            color: white; 
+            box-shadow: 0 4px 15px rgba(0, 212, 255, 0.4);
+        }
+        .btn-primary:hover:not(:disabled) {
+            box-shadow: 0 6px 20px rgba(0, 212, 255, 0.6);
+            transform: translateY(-1px);
+        }
+        .btn-primary:disabled { background: #a1c4f4; box-shadow: none; cursor: not-allowed; }
+        
         .forgot-password-container { text-align: right; margin: 4px 0 12px 0; }
-        .forgot-password-link { color: #004080; font-size: 0.85rem; text-decoration: none; font-weight: 500; }
-        .forgot-password-link:hover { text-decoration: underline; }
+        
+        /* Vibrant Links */
+        .link-text { color: #0072ff; font-size: 0.85rem; text-decoration: none; font-weight: 600; }
+        .link-text:hover { text-decoration: underline; text-shadow: 0 0 8px rgba(0, 114, 255, 0.3); }
+        
         #status-message { margin-top: 12px; font-size: 0.9rem; color: #cc0000; font-weight: 600; }
     </style>
 </head>
@@ -38,14 +59,14 @@
     <input type="password" id="password" placeholder="Password" autocomplete="current-password">
     
     <div class="forgot-password-container">
-        <a href="#" id="forgotPassword" class="forgot-password-link">Forgot Password?</a>
+        <a href="#" id="forgotPassword" class="link-text">Forgot Password?</a>
     </div>
 
     <button id="emailLogin" class="btn btn-primary">Sign In</button>
 
     <div id="status-message"></div>
 
-    <p style="margin-top:20px; font-size: 0.9rem;">New here? <a href="signup.html" style="color:#004080;">Create an account</a></p>
+    <p style="margin-top:20px; font-size: 0.9rem;">New here? <a href="signup.html" class="link-text" style="font-size: 0.9rem;">Create an account</a></p>
 </div>
 
 <script type="module">
@@ -73,6 +94,11 @@
 
     // Initialize Firebase services
     const app = initializeApp(firebaseConfig);
+
+    // --- FIX 1: Allow App Check to work on local computer for testing ---
+    if (window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1") {
+        self.FIREBASE_APPCHECK_DEBUG_TOKEN = true;
+    }
 
     const appCheck = initializeAppCheck(app, {
         provider: new ReCaptchaV3Provider('6LfPNb0sAAAAAKWmsT-rqt2jQTfOuJWTN9Wlv4Vj'),
@@ -106,7 +132,7 @@
 
     function showSuccess(message) {
         statusMessage.textContent = message;
-        statusMessage.style.color = "#006600";
+        statusMessage.style.color = "#00c853"; // Vibrant green for success
     }
 
     // Redirection logic
@@ -120,13 +146,11 @@
         try {
             const destination = new URL(nextURL, window.location.origin);
             if (destination.origin !== window.location.origin) {
-                console.warn("Blocked external redirect:", nextURL);
                 nextURL = 'index.html';
             } else {
                 nextURL = destination.href;
             }
         } catch (error) {
-            console.warn("Invalid redirect URL:", nextURL, error);
             nextURL = 'index.html';
         }
 
@@ -176,8 +200,11 @@
         }
 
         try {
-            setLoading(true, "Sending...");
+            setLoading(true, "Sending Link...");
+            
+            // Network request to Firebase Auth
             await sendPasswordResetEmail(auth, email);
+            
             showSuccess("Password reset email sent! Please check your inbox.");
             setLoading(false);
         } catch (err) {
