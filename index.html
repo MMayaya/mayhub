@@ -1065,6 +1065,8 @@
     <script type="module">
         // --- 1. FIREBASE SETUP ---
         import { initializeApp } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-app.js";
+        // Added AppCheck import to match your signin page
+        import { initializeAppCheck, ReCaptchaV3Provider } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-app-check.js";
         import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-analytics.js";
         import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-auth.js";
         
@@ -1078,21 +1080,37 @@
             measurementId: "G-LJMFCM44TQ"
         };
         const app = initializeApp(firebaseConfig);
+        
+        // Initializing AppCheck to prevent token/verification issues
+        const appCheck = initializeAppCheck(app, {
+            provider: new ReCaptchaV3Provider('6LfPNb0sAAAAAKWmsT-rqt2jQTfOuJWTN9Wlv4Vj'),
+            isTokenAutoRefreshEnabled: true
+        });
+
         const analytics = getAnalytics(app);
         const auth = getAuth(app);
+        
         let currentUser = null;
+        let isAuthReady = false; // Tracks if Firebase has finished loading the session
         
         onAuthStateChanged(auth, (user) => {
             currentUser = user;
+            isAuthReady = true; 
         });
         
         document.addEventListener('click', (e) => {
             const link = e.target.closest('a');
-            if (link && link.href.includes('/Activities/')) {
-                if (!currentUser) {
+            
+            // Now checking for BOTH Activities and Chat routes
+            if (link && (link.href.includes('/Activities/') || link.href.includes('/Chat/'))) {
+                
+                // Only block the user if Firebase has explicitly confirmed they are NOT logged in.
+                // If they click before Firebase loads, it passes them to the destination page, 
+                // and the destination page's auth state observer will catch them anyway!
+                if (isAuthReady && !currentUser) {
                     e.preventDefault(); 
                     sessionStorage.setItem('redirectURL', link.href);
-                    alert("Please sign in to access Activities!");
+                    alert("Please sign in to access this section!");
                     window.location.href = 'signin.html';
                 }
             }

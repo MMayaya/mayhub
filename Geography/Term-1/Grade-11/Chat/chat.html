@@ -70,7 +70,7 @@
 
         .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
         
-        /* --- TERM TOGGLE STYLES (Adapted from your Hub Toggle) --- */
+        /* --- TERM TOGGLE STYLES --- */
         .hub-toggle-container {
             display: flex;
             justify-content: center;
@@ -129,12 +129,13 @@
             text-align: center;
         }
         #auth-warning {
-            background: #ffe6e6;
-            color: #cc0000;
+            background: #eaf3ff;
+            color: #004080;
             text-align: center;
-            padding: 10px;
+            padding: 15px;
             font-weight: bold;
             display: none;
+            border-bottom: 1px solid #b3d4ff;
         }
         .messages-container {
             flex: 1;
@@ -249,13 +250,13 @@
             <div class="chat-header" id="chat-title">
                 📍 Currently viewing: Term 1 Discussions
             </div>
-            <div id="auth-warning">
-    You must be signed in to participate in the discussion. <br>
-    <a href="../../../../signin.html" id="signin-link" style="color: #cc0000; text-decoration: underline; font-weight: bold;">Click here to Sign In</a>
-</div>
             
-            <div class="messages-container" id="messages-container">
-                </div>
+            <!-- Updated Warning UI -->
+            <div id="auth-warning">
+                Checking secure session... Redirecting if necessary.
+            </div>
+            
+            <div class="messages-container" id="messages-container"></div>
 
             <form class="input-area" id="chat-form">
                 <input type="text" id="message-input" placeholder="Type your question or answer here..." required autocomplete="off" disabled>
@@ -275,7 +276,7 @@
         import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-auth.js";
         import { getFirestore, collection, query, where, orderBy, onSnapshot, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
 
-        // Your exact Firebase Config
+        // Firebase Config
         const firebaseConfig = {
             apiKey: "AIzaSyApyOAfcEB8nGc-B3IO4X8wIl-nVi3nKeo",
             authDomain: "maylearninghub.firebaseapp.com",
@@ -288,7 +289,6 @@
 
         const app = initializeApp(firebaseConfig);
 
-        // App Check must be initialized on this page too, especially if Firestore enforcement is enabled.
         const appCheck = initializeAppCheck(app, {
             provider: new ReCaptchaV3Provider('6LfPNb0sAAAAAKWmsT-rqt2jQTfOuJWTN9Wlv4Vj'),
             isTokenAutoRefreshEnabled: true
@@ -305,54 +305,47 @@
         const authWarning = document.getElementById('auth-warning');
         const chatTitle = document.getElementById('chat-title');
         const termButtons = document.querySelectorAll('.toggle-option');
-        const signInLink = document.getElementById('signin-link');
 
         // State variables
         let currentUser = null;
         let currentTerm = "1"; 
-        let unsubscribe = null; // Used to stop listening to old terms when switching
+        let unsubscribe = null;
 
-        // Save the current chatroom URL before sending the learner to the sign-in page.
-        // Your sign-in page already checks sessionStorage.redirectURL after successful login.
-        if (signInLink) {
-            signInLink.addEventListener('click', () => {
-                sessionStorage.setItem('redirectURL', window.location.href);
-            });
-        }
-
-        // 1. Monitor Auth State
+        // 1. Monitor Auth State with Auto-Redirect
         onAuthStateChanged(auth, (user) => {
             if (user) {
-                console.log("Signed in user detected on chatroom page:", user.uid, user.email);
-
+                console.log("Signed in user detected:", user.email);
                 currentUser = user;
                 authWarning.style.display = 'none';
                 messageInput.disabled = false;
                 sendBtn.disabled = false;
                 loadMessages(currentTerm);
             } else {
-                console.log("No signed-in user detected on chatroom page.");
-
-                currentUser = null;
+                console.log("No active session. Redirecting to sign in...");
+                
+                // Show visual feedback while redirecting
+                authWarning.innerHTML = "Secure session required. Redirecting to Sign In...";
                 authWarning.style.display = 'block';
                 messageInput.disabled = true;
                 sendBtn.disabled = true;
-                messagesContainer.innerHTML = '';
+                
+                // Save this chatroom's exact URL
+                sessionStorage.setItem('redirectURL', window.location.href);
+                
+                // Bounce them back up the directory tree to the sign-in page
+                window.location.href = '../../../../signin.html';
             }
         });
 
         // 2. Handle Term Switching
         termButtons.forEach(button => {
             button.addEventListener('click', (e) => {
-                // Update UI styles
                 termButtons.forEach(btn => btn.classList.remove('active'));
                 e.target.classList.add('active');
                 
-                // Update State and Title
                 currentTerm = e.target.getAttribute('data-term');
                 chatTitle.innerText = `📍 Currently viewing: Term ${currentTerm} Discussions`;
                 
-                // Load new messages if user is logged in
                 if(currentUser) {
                     loadMessages(currentTerm);
                 }
@@ -361,7 +354,6 @@
 
         // 3. Load Messages for the Selected Term
         function loadMessages(term) {
-            // Unsubscribe from previous listener to prevent overlap
             if (unsubscribe) {
                 unsubscribe();
             }
@@ -370,7 +362,7 @@
                 collection(db, "messages"),
                 where("grade", "==", "Grade 11"),
                 where("subject", "==", "Geography"),
-                where("term", "==", term), // Filters by selected term
+                where("term", "==", term),
                 orderBy("createdAt", "asc")
             );
 
@@ -385,7 +377,6 @@
                 },
                 (error) => {
                     console.error("Error loading messages:", error);
-
                     let helpfulMessage = error.message;
 
                     if (error.message && error.message.toLowerCase().includes("index")) {
@@ -434,14 +425,11 @@
             messagesContainer.appendChild(messageDiv);
         }
 
-        // Convert Firestore Timestamp into a readable South African date/time
         function formatMessageTime(timestamp) {
             if (!timestamp || !timestamp.toDate) {
                 return "sending...";
             }
-
             const date = timestamp.toDate();
-
             return date.toLocaleString("en-ZA", {
                 day: "2-digit",
                 month: "short",
@@ -463,15 +451,14 @@
                         text: text,
                         grade: "Grade 11",
                         subject: "Geography",
-                        term: currentTerm, // Attaches the message to the current active term
+                        term: currentTerm, 
                         uid: currentUser.uid,
-                        senderName: currentUser.displayName || currentUser.email?.split('@')[0] || "Student", // Fallback to email prefix or Student
+                        senderName: currentUser.displayName || currentUser.email?.split('@')[0] || "Student",
                         createdAt: serverTimestamp()
                     });
                     messageInput.value = ''; 
                 } catch (error) {
                     console.error("Error writing document:", error);
-
                     let helpfulMessage = error.message;
 
                     if (error.code === "permission-denied") {
@@ -479,7 +466,6 @@
                     } else if (error.message && error.message.toLowerCase().includes("appcheck")) {
                         helpfulMessage = "App Check blocked the message. Check App Check enforcement, the reCAPTCHA key, and allowed domains.";
                     }
-
                     alert("Failed to send message: " + helpfulMessage);
                 }
             }

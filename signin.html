@@ -61,7 +61,8 @@
         getAuth, 
         signInWithEmailAndPassword, 
         GoogleAuthProvider, 
-        signInWithPopup 
+        signInWithPopup,
+        onAuthStateChanged // <-- ADDED THIS IMPORT
     } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-auth.js";
 
     // Firebase config
@@ -106,10 +107,6 @@
     }
 
     // Redirection logic
-    // Priority:
-    // 1. URL redirect, for example signin.html?redirect=chatroom.html
-    // 2. sessionStorage redirectURL, used by protected pages like the chatroom
-    // 3. index.html as the fallback
     const handleRedirect = () => {
         const urlParams = new URLSearchParams(window.location.search);
         const urlRedirect = urlParams.get('redirect');
@@ -117,11 +114,8 @@
 
         let nextURL = urlRedirect || savedRedirect || 'index.html';
 
-        // Basic safety check: avoid redirecting to unknown external websites.
-        // This allows normal relative links and same-domain absolute links.
         try {
             const destination = new URL(nextURL, window.location.origin);
-
             if (destination.origin !== window.location.origin) {
                 console.warn("Blocked external redirect:", nextURL);
                 nextURL = 'index.html';
@@ -136,6 +130,16 @@
         sessionStorage.removeItem('redirectURL');
         window.location.href = nextURL;
     };
+
+    // --- ADDED AUTO-REDIRECT LOGIC ---
+    // If the user lands on the sign-in page but is already logged in, route them away immediately
+    onAuthStateChanged(auth, (user) => {
+        if (user) {
+            setLoading(true); // Visually disable buttons while redirecting
+            handleRedirect();
+        }
+    });
+    // ---------------------------------
 
     // Email login
     emailLoginBtn.onclick = async () => {
@@ -152,7 +156,7 @@
         try {
             setLoading(true);
             await signInWithEmailAndPassword(auth, email, pass);
-            handleRedirect();
+            // We no longer need handleRedirect() here because onAuthStateChanged will catch the successful login and run it automatically!
         } catch (err) { 
             showError("Error: " + err.message);
             setLoading(false);
@@ -173,7 +177,7 @@
         try {
             setLoading(true);
             await signInWithPopup(auth, provider);
-            handleRedirect();
+            // Same here: onAuthStateChanged handles the redirect once the popup succeeds.
         } catch (err) { 
             showError("Error: " + err.message);
             setLoading(false);
