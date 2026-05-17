@@ -14,41 +14,97 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign In | May Learning Hub</title>
+
     <style>
-        body { font-family: 'Segoe UI', sans-serif; background-color: #f0f4f8; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
-        .auth-card { background: white; padding: 2.5rem; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); width: 100%; max-width: 400px; text-align: center; }
+        body { 
+            font-family: 'Segoe UI', sans-serif; 
+            background-color: #f0f4f8; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            height: 100vh; 
+            margin: 0; 
+        }
+
+        .auth-card { 
+            background: white; 
+            padding: 2.5rem; 
+            border-radius: 12px; 
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1); 
+            width: 100%; 
+            max-width: 400px; 
+            text-align: center; 
+        }
         
-        /* Vibrant Blue Heading */
         .auth-card h2 { 
             color: #0056ff; 
             text-shadow: 0 0 10px rgba(0, 86, 255, 0.2);
             margin-bottom: 1.5rem; 
         }
         
-        input { width: 100%; padding: 12px; margin: 8px 0; border: 1px solid #ddd; border-radius: 8px; box-sizing: border-box; }
-        .btn { width: 100%; padding: 12px; border: none; border-radius: 8px; cursor: pointer; font-weight: 600; margin-top: 10px; transition: all 0.3s ease; }
+        input { 
+            width: 100%; 
+            padding: 12px; 
+            margin: 8px 0; 
+            border: 1px solid #ddd; 
+            border-radius: 8px; 
+            box-sizing: border-box; 
+        }
+
+        .btn { 
+            width: 100%; 
+            padding: 12px; 
+            border: none; 
+            border-radius: 8px; 
+            cursor: pointer; 
+            font-weight: 600; 
+            margin-top: 10px; 
+            transition: all 0.3s ease; 
+        }
         
-        /* Vibrant Glowy Blue Button */
         .btn-primary { 
             background: linear-gradient(135deg, #0056ff, #00d4ff); 
             color: white; 
             box-shadow: 0 4px 15px rgba(0, 212, 255, 0.4);
         }
+
         .btn-primary:hover:not(:disabled) {
             box-shadow: 0 6px 20px rgba(0, 212, 255, 0.6);
             transform: translateY(-1px);
         }
-        .btn-primary:disabled { background: #a1c4f4; box-shadow: none; cursor: not-allowed; }
+
+        .btn-primary:disabled { 
+            background: #a1c4f4; 
+            box-shadow: none; 
+            cursor: not-allowed; 
+        }
         
-        .forgot-password-container { text-align: right; margin: 4px 0 12px 0; }
+        .forgot-password-container { 
+            text-align: right; 
+            margin: 4px 0 12px 0; 
+        }
         
-        /* Vibrant Links */
-        .link-text { color: #0072ff; font-size: 0.85rem; text-decoration: none; font-weight: 600; }
-        .link-text:hover { text-decoration: underline; text-shadow: 0 0 8px rgba(0, 114, 255, 0.3); }
+        .link-text { 
+            color: #0072ff; 
+            font-size: 0.85rem; 
+            text-decoration: none; 
+            font-weight: 600; 
+        }
+
+        .link-text:hover { 
+            text-decoration: underline; 
+            text-shadow: 0 0 8px rgba(0, 114, 255, 0.3); 
+        }
         
-        #status-message { margin-top: 12px; font-size: 0.9rem; color: #cc0000; font-weight: 600; }
+        #status-message { 
+            margin-top: 12px; 
+            font-size: 0.9rem; 
+            color: #cc0000; 
+            font-weight: 600; 
+        }
     </style>
 </head>
+
 <body>
 
 <div class="auth-card">
@@ -66,7 +122,10 @@
 
     <div id="status-message"></div>
 
-    <p style="margin-top:20px; font-size: 0.9rem;">New here? <a href="signup.html" class="link-text" style="font-size: 0.9rem;">Create an account</a></p>
+    <p style="margin-top:20px; font-size: 0.9rem;">
+        New here? 
+        <a href="signup.html" class="link-text" style="font-size: 0.9rem;">Create an account</a>
+    </p>
 </div>
 
 <script type="module">
@@ -95,7 +154,7 @@
     // Initialize Firebase services
     const app = initializeApp(firebaseConfig);
 
-    // --- FIX 1: Allow App Check to work on local computer for testing ---
+    // Allow App Check to work on local computer for testing
     if (window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1") {
         self.FIREBASE_APPCHECK_DEBUG_TOKEN = true;
     }
@@ -117,6 +176,7 @@
 
     function setLoading(isLoading, customText = null) {
         emailLoginBtn.disabled = isLoading;
+
         if (isLoading) {
             emailLoginBtn.textContent = customText || "Signing in...";
         } else {
@@ -132,7 +192,7 @@
 
     function showSuccess(message) {
         statusMessage.textContent = message;
-        statusMessage.style.color = "#00c853"; // Vibrant green for success
+        statusMessage.style.color = "#00c853";
     }
 
     // Redirection logic
@@ -145,11 +205,13 @@
 
         try {
             const destination = new URL(nextURL, window.location.origin);
+
             if (destination.origin !== window.location.origin) {
                 nextURL = 'index.html';
             } else {
                 nextURL = destination.href;
             }
+
         } catch (error) {
             nextURL = 'index.html';
         }
@@ -190,8 +252,8 @@
     // Password reset functionality
     forgotPasswordLink.onclick = async (e) => {
         e.preventDefault();
-        const email = emailInput.value.trim();
 
+        const email = emailInput.value.trim();
         statusMessage.textContent = '';
 
         if (!email) {
@@ -201,14 +263,22 @@
 
         try {
             setLoading(true, "Sending Link...");
-            
-            // Network request to Firebase Auth
-            await sendPasswordResetEmail(auth, email);
-            
-            showSuccess("Password reset email sent! Please check your inbox.");
+
+            // Password reset settings
+            const actionCodeSettings = {
+                url: "https://maylearninghub.co.za/signin.html",
+                handleCodeInApp: false
+            };
+
+            // Send Firebase password reset email
+            await sendPasswordResetEmail(auth, email, actionCodeSettings);
+
+            showSuccess("Password reset email sent! Please check your inbox or spam folder.");
             setLoading(false);
+
         } catch (err) {
-            showError("Error: " + err.message);
+            console.error("Password reset error:", err.code, err.message);
+            showError("Error: " + err.code + " - " + err.message);
             setLoading(false);
         }
     };
@@ -220,5 +290,6 @@
         }
     });
 </script>
+
 </body>
 </html>
