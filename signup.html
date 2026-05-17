@@ -42,6 +42,11 @@
             margin-bottom: 1rem;
         }
 
+        .name-row {
+            display: flex;
+            gap: 10px;
+        }
+
         input, select {
             width: 100%;
             padding: 12px;
@@ -95,7 +100,7 @@
             transition: all 0.3s ease;
         }
 
-        /* NEW: Vibrant Glowy Blue Button */
+        /* Vibrant Glowy Blue Button */
         .btn-primary {
             background: linear-gradient(135deg, #0056ff, #00d4ff);
             color: white;
@@ -142,9 +147,29 @@
     <h2>Join May Learning Hub</h2>
     <p>Create your profile to get started</p>
     
-    <input type="text" id="username" placeholder="Full Name">
+    <div class="name-row">
+        <input type="text" id="firstName" placeholder="First Name">
+        <input type="text" id="lastName" placeholder="Surname">
+    </div>
+    
     <input type="email" id="email" placeholder="Email Address">
+    <input type="tel" id="phone" placeholder="Contact Number (Optional)">
+    
+    <select id="province">
+        <option value="" disabled selected>Select Your Province</option>
+        <option value="Eastern Cape">Eastern Cape</option>
+        <option value="Free State">Free State</option>
+        <option value="Gauteng">Gauteng</option>
+        <option value="KwaZulu-Natal">KwaZulu-Natal</option>
+        <option value="Limpopo">Limpopo</option>
+        <option value="Mpumalanga">Mpumalanga</option>
+        <option value="Northern Cape">Northern Cape</option>
+        <option value="North West">North West</option>
+        <option value="Western Cape">Western Cape</option>
+    </select>
+    
     <input type="password" id="password" placeholder="Password (min. 6 characters)">
+    <input type="password" id="confirmPassword" placeholder="Confirm Password">
     
     <select id="role">
         <option value="" disabled selected>I am a...</option>
@@ -207,7 +232,7 @@
 
     const app = initializeApp(firebaseConfig);
 
-    // --- FIX 1: Allow App Check to work on local computer for testing ---
+    // Allow App Check to work on local computer for testing
     if (window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1") {
         self.FIREBASE_APPCHECK_DEBUG_TOKEN = true;
     }
@@ -288,9 +313,10 @@
         }
     };
 
-    function validateAndGetUserData(name, email, role, school) {
-        if (!name || !email || !role || !school) {
-            showStatus("Please fill in all basic information (Name, Email, Role, School).");
+    function validateAndGetUserData(firstName, lastName, email, phone, province, role, school) {
+        // Phone is optional, so it is excluded from the required check
+        if (!firstName || !lastName || !email || !province || !role || !school) {
+            showStatus("Please fill in all required fields (First Name, Surname, Email, Province, Role, School).");
             return null;
         }
 
@@ -318,12 +344,18 @@
         }
 
         const userData = {
-            fullName: name,
+            fullName: `${firstName} ${lastName}`,
             email: email,
+            province: province,
             role: role,
             school: school,
             createdAt: new Date()
         };
+
+        // Only add the phone number field to the database if the user actually typed one
+        if (phone) {
+            userData.phone = phone;
+        }
 
         if (role === 'learner') {
             userData.grade = gradeSelect.value;
@@ -340,9 +372,13 @@
     emailSignupBtn.onclick = async () => {
         statusMessage.textContent = '';
         
-        const name = document.getElementById('username').value.trim();
+        const firstName = document.getElementById('firstName').value.trim();
+        const lastName = document.getElementById('lastName').value.trim();
         const email = document.getElementById('email').value.trim();
+        const phone = document.getElementById('phone').value.trim();
+        const province = document.getElementById('province').value;
         const pass = document.getElementById('password').value;
+        const confirmPass = document.getElementById('confirmPassword').value;
         const role = roleSelect.value;
         const school = document.getElementById('school').value.trim();
 
@@ -351,7 +387,12 @@
             return;
         }
 
-        const userData = validateAndGetUserData(name, email, role, school);
+        if (pass !== confirmPass) {
+            showStatus("Passwords do not match. Please try again.");
+            return;
+        }
+
+        const userData = validateAndGetUserData(firstName, lastName, email, phone, province, role, school);
         if (!userData) return; 
 
         try {
@@ -361,7 +402,10 @@
             // Step 1: Create Auth User
             showStatus("Creating secure profile...", "#0056ff");
             const userCredential = await createUserWithEmailAndPassword(auth, email, pass);
-            await updateProfile(userCredential.user, { displayName: name });
+            
+            // Combine names for Firebase Auth display name
+            const fullDisplayName = `${firstName} ${lastName}`;
+            await updateProfile(userCredential.user, { displayName: fullDisplayName });
 
             userData.uid = userCredential.user.uid;
             
@@ -372,7 +416,6 @@
             // Step 3: Success
             showStatus("Success! Redirecting...", "#00c853");
             
-            // Brief pause so it doesn't redirect before Firestore completely finalizes the network connection
             setTimeout(() => {
                 handleRedirect();
             }, 800);
