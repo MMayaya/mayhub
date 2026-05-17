@@ -1332,8 +1332,8 @@
                 // --- GLOWY BLUE CHAT BUTTON LOGIC ---
                 let chatBtn = '';
                 if (subject.subjectName === 'Geography' && grade === 11) {
-                    // Updated href to match the nested folder structure: Geography/Term-1/Grade-11/Chat/chat.html
-                    chatBtn = `<a href="${subject.basePath}/Term-1/Grade-${grade}/Chat/chat.html" class="btn-chat-glow" onclick="event.stopPropagation()">Chatroom</a>`;
+                    // Updated href to match the nested folder structure: Geography/Term-1/Grade-11/LearningForum/LForum.html
+                    chatBtn = `<a href="${subject.basePath}/Term-1/Grade-${grade}/LearningForum/LForum.html" class="btn-chat-glow" onclick="event.stopPropagation()">Learning Forum</a>`;
                 }
 
                 html += `<details><summary>Grade ${grade} ${chatBtn}</summary>`;

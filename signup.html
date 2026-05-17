@@ -1,14 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-8GCWSKNDL7"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-8GCWSKNDL7');
-</script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-8GCWSKNDL7"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-8GCWSKNDL7');
+    </script>
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -342,13 +341,13 @@
             }
         }
 
+        // Clean user object, NO global restriction fields added here!
         const userData = {
             fullName: `${firstName} ${lastName}`,
             email: email,
             province: province,
             role: role,
             school: school,
-            status: "pending", // <-- THIS IS THE NEW ADDITION
             createdAt: new Date()
         };
 

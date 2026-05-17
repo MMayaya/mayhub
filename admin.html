@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard | May Learning Hub</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f0f4f8; color: #333; }
+        
+        /* Nav */
+        nav { background-color: #002b5e; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 10px rgba(0,0,0,0.12); }
+        .logo { color: #fff; font-size: 1.45rem; font-weight: bold; text-decoration: none; }
+        .nav-links a { color: #cce0ff; text-decoration: none; font-weight: 500; padding: 0.45rem 0.7rem; border-radius: 6px; }
+        .nav-links a:hover { color: #fff; background-color: rgba(255,255,255,0.08); }
+
+        /* Header */
+        header { background: linear-gradient(135deg, #003366, #0056ff); color: #fff; padding: 2rem 1rem; text-align: center; margin-bottom: 2rem; box-shadow: 0 4px 15px rgba(0,43,94,0.15); }
+        header h1 { font-size: 2rem; }
+
+        /* Dashboard Container */
+        .container { max-width: 1000px; margin: 0 auto; padding: 0 20px; }
+        
+        #access-denied { display: none; text-align: center; background: #fff; padding: 40px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); color: #cc0000; }
+        #admin-panel { display: none; }
+
+        .dashboard-card { background: #fff; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); border-top: 5px solid #0056ff; padding: 20px; margin-bottom: 30px; }
+        .dashboard-card h2 { color: #004080; margin-bottom: 15px; border-bottom: 2px solid #e6f0fa; padding-bottom: 10px; }
+
+        /* Pending Requests List */
+        .request-item { display: flex; justify-content: space-between; align-items: center; background: #f9fcff; border: 1px solid #cce0ff; padding: 15px 20px; border-radius: 8px; margin-bottom: 10px; transition: transform 0.2s; }
+        .request-item:hover { transform: translateX(5px); box-shadow: 0 2px 8px rgba(0,86,255,0.1); }
+        
+        .student-info h4 { color: #002b5e; font-size: 1.1rem; margin-bottom: 4px; }
+        .student-info p { color: #5d6c7c; font-size: 0.9rem; }
+        .student-info span.badge { background: #0056ff; color: white; padding: 3px 8px; border-radius: 12px; font-size: 0.75rem; font-weight: bold; margin-left: 10px; }
+
+        .btn-approve { background: #00c853; color: white; border: none; padding: 10px 20px; border-radius: 25px; font-weight: bold; cursor: pointer; transition: background 0.2s; box-shadow: 0 2px 10px rgba(0,200,83,0.3); }
+        .btn-approve:hover { background: #009624; transform: translateY(-1px); }
+        .btn-approve:disabled { background: #ccc; cursor: not-allowed; box-shadow: none; }
+
+        .empty-state { text-align: center; padding: 40px; color: #7a8794; font-weight: bold; font-size: 1.1rem; }
+    </style>
+</head>
+<body>
+
+    <nav aria-label="Main navigation">
+        <a href="index.html" class="logo">May Learning Hub</a>
+        <div class="nav-links">
+            <a href="index.html">Back to Home</a>
+        </div>
+    </nav>
+
+    <header>
+        <h1>Admin Control Center</h1>
+        <p>Manage learning forum access and platform settings.</p>
+    </header>
+
+    <div class="container">
+        
+        <div id="access-denied">
+            <h2>⛔ Access Denied</h2>
+            <p>You do not have administrative privileges to view this page.</p>
+        </div>
+
+        <div id="admin-panel">
+            <div class="dashboard-card">
+                <h2>Pending Forum Requests</h2>
+                <div id="requests-container">
+                    <div class="empty-state">Loading pending requests...</div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-app.js";
+        import { initializeAppCheck, ReCaptchaV3Provider } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-app-check.js";
+        import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-auth.js";
+        import { getFirestore, collection, query, where, onSnapshot, doc, updateDoc } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
+
+        // ==========================================
+        // 🚨 YOUR ADMIN UID 🚨
+        const MY_ADMIN_UID = "hVp1p5UP9WQ8JTvngErmjVkrXcj1";
+        // ==========================================
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyApyOAfcEB8nGc-B3IO4X8wIl-nVi3nKeo",
+            authDomain: "maylearninghub.firebaseapp.com",
+            projectId: "maylearninghub",
+            storageBucket: "maylearninghub.firebasestorage.app",
+            messagingSenderId: "237875455146",
+            appId: "1:237875455146:web:21310d33b56664d669dcd3",
+            measurementId: "G-LJMFCM44TQ"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const appCheck = initializeAppCheck(app, {
+            provider: new ReCaptchaV3Provider('6LfPNb0sAAAAAKWmsT-rqt2jQTfOuJWTN9Wlv4Vj'),
+            isTokenAutoRefreshEnabled: true
+        });
+
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
+        const accessDenied = document.getElementById('access-denied');
+        const adminPanel = document.getElementById('admin-panel');
+        const requestsContainer = document.getElementById('requests-container');
+
+        // Check if the logged-in user is the Admin
+        onAuthStateChanged(auth, (user) => {
+            if (user && user.uid === MY_ADMIN_UID) {
+                accessDenied.style.display = 'none';
+                adminPanel.style.display = 'block';
+                loadPendingRequests();
+            } else {
+                adminPanel.style.display = 'none';
+                accessDenied.style.display = 'block';
+            }
+        });
+
+        function loadPendingRequests() {
+            // Query Firestore for anyone with chatStatus == 'pending'
+            const q = query(collection(db, "users"), where("chatStatus", "==", "pending"));
+
+            onSnapshot(q, (snapshot) => {
+                requestsContainer.innerHTML = ''; // Clear current list
+
+                if (snapshot.empty) {
+                    requestsContainer.innerHTML = '<div class="empty-state">✅ All caught up! No pending requests.</div>';
+                    return;
+                }
+
+                snapshot.forEach((userDoc) => {
+                    const student = userDoc.data();
+                    const studentId = userDoc.id;
+
+                    const itemDiv = document.createElement('div');
+                    itemDiv.className = 'request-item';
+
+                    itemDiv.innerHTML = `
+                        <div class="student-info">
+                            <h4>${student.fullName} <span class="badge">Grade ${student.grade || 'N/A'}</span></h4>
+                            <p>${student.email}</p>
+                            <p style="font-size: 0.8rem; margin-top: 2px;">School: ${student.school}</p>
+                        </div>
+                        <button class="btn-approve" data-uid="${studentId}">Approve</button>
+                    `;
+                    
+                    requestsContainer.appendChild(itemDiv);
+                });
+
+                // Attach click listeners to all new Approve buttons
+                document.querySelectorAll('.btn-approve').forEach(button => {
+                    button.addEventListener('click', approveStudent);
+                });
+            }, (error) => {
+                console.error("Error fetching requests:", error);
+                requestsContainer.innerHTML = `<div class="empty-state" style="color:red;">Error loading data. Check console.</div>`;
+            });
+        }
+
+        async function approveStudent(event) {
+            const button = event.target;
+            const studentUid = button.getAttribute('data-uid');
+            
+            button.disabled = true;
+            button.innerText = "Approving...";
+
+            try {
+                // Update their database document to 'verified'
+                await updateDoc(doc(db, "users", studentUid), {
+                    chatStatus: "verified"
+                });
+                
+                // Note: The onSnapshot listener will automatically remove them from the list!
+            } catch (error) {
+                console.error("Error approving student:", error);
+                alert("Failed to approve. Check your security rules.");
+                button.disabled = false;
+                button.innerText = "Approve";
+            }
+        }
+    </script>
+</body>
+</html>
