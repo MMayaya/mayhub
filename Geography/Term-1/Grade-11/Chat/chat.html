@@ -119,6 +119,7 @@
             height: 600px;
             margin-bottom: 3rem;
             overflow: hidden;
+            position: relative;
         }
         .chat-header {
             background-color: #e6f0fa;
@@ -137,11 +138,49 @@
             display: none;
             border-bottom: 1px solid #b3d4ff;
         }
+        
+        /* VERIFICATION PANEL */
+        #verification-panel {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            padding: 30px;
+            text-align: center;
+            background-color: #f9fcff;
+            color: #002b5e;
+        }
+        .verification-box {
+            background: #fff;
+            border: 1px solid #b3d4ff;
+            padding: 25px;
+            border-radius: 10px;
+            margin-top: 20px;
+            max-width: 500px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            text-align: left;
+        }
+        .verification-box h3 {
+            color: #004080;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #e6f0fa;
+            padding-bottom: 10px;
+        }
+        .verification-box ol {
+            margin-left: 25px;
+            margin-top: 15px;
+            color: #333;
+        }
+        .verification-box li {
+            margin-bottom: 10px;
+        }
+
         .messages-container {
             flex: 1;
             padding: 20px;
             overflow-y: auto;
-            display: flex;
+            display: none; /* Hidden by default until verified */
             flex-direction: column;
             gap: 15px;
             background-color: #f9fcff;
@@ -180,7 +219,7 @@
             color: #7a8794;
         }
         .input-area {
-            display: flex;
+            display: none; /* Hidden by default until verified */
             padding: 15px;
             background: #fff;
             border-top: 1px solid #dcecff;
@@ -232,7 +271,7 @@
 
     <header>
         <h1>Grade 11 Geography Chat</h1>
-        <p class="motto">Ask questions, share notes, and discuss topics with your class.</p>
+        <p class="motto">Exclusive to learners of Nonhlevu Secondary School.</p>
     </header>
 
     <div class="container">
@@ -251,9 +290,23 @@
                 📍 Currently viewing: Term 1 Discussions
             </div>
             
-            <!-- Updated Warning UI -->
             <div id="auth-warning">
                 Checking secure session... Redirecting if necessary.
+            </div>
+
+            <div id="verification-panel">
+                <h2>Account Pending Verification</h2>
+                <p style="margin-top: 10px;">This chatroom is strictly exclusive to verified learners of <strong>Nonhlevu Secondary School</strong>.</p>
+                
+                <div class="verification-box">
+                    <h3>How to verify your account:</h3>
+                    <p>Please send a WhatsApp message to <strong>068 44 0856</strong> containing:</p>
+                    <ol>
+                        <li>A picture of yourself wearing the Nonhlevu Secondary School uniform.</li>
+                        <li>In the picture, clearly hold a piece of paper with the <strong>email address</strong> you used to sign up written on it.</li>
+                    </ol>
+                    <p style="margin-top: 20px; font-size: 0.9em; color: #5d6c7c;">Once your details are verified by the admin, this page will automatically unlock and grant you access to the chatroom.</p>
+                </div>
             </div>
             
             <div class="messages-container" id="messages-container"></div>
@@ -274,7 +327,8 @@
         import { initializeApp } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-app.js";
         import { initializeAppCheck, ReCaptchaV3Provider } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-app-check.js";
         import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-auth.js";
-        import { getFirestore, collection, query, where, orderBy, onSnapshot, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
+        // Added doc and getDoc for verification checks
+        import { getFirestore, collection, query, where, orderBy, onSnapshot, addDoc, serverTimestamp, doc, getDoc } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
 
         // Firebase Config
         const firebaseConfig = {
@@ -305,34 +359,56 @@
         const authWarning = document.getElementById('auth-warning');
         const chatTitle = document.getElementById('chat-title');
         const termButtons = document.querySelectorAll('.toggle-option');
+        const verificationPanel = document.getElementById('verification-panel');
 
         // State variables
         let currentUser = null;
         let currentTerm = "1"; 
         let unsubscribe = null;
 
-        // 1. Monitor Auth State with Auto-Redirect
-        onAuthStateChanged(auth, (user) => {
+        // 1. Monitor Auth State & Verification
+        onAuthStateChanged(auth, async (user) => {
             if (user) {
                 console.log("Signed in user detected:", user.email);
                 currentUser = user;
                 authWarning.style.display = 'none';
-                messageInput.disabled = false;
-                sendBtn.disabled = false;
-                loadMessages(currentTerm);
+
+                try {
+                    // Check if the user is verified in the "users" collection
+                    const userDocRef = doc(db, "users", user.uid);
+                    const userDoc = await getDoc(userDocRef);
+
+                    if (userDoc.exists() && userDoc.data().status === 'verified') {
+                        // User is verified, show chat
+                        verificationPanel.style.display = 'none';
+                        messagesContainer.style.display = 'flex';
+                        chatForm.style.display = 'flex';
+                        messageInput.disabled = false;
+                        sendBtn.disabled = false;
+                        loadMessages(currentTerm);
+                    } else {
+                        // User is pending/unverified, show verification instructions
+                        verificationPanel.style.display = 'flex';
+                        messagesContainer.style.display = 'none';
+                        chatForm.style.display = 'none';
+                    }
+                } catch (error) {
+                    console.error("Error checking verification:", error);
+                    // Default to locking the room if there's an error reading the status
+                    verificationPanel.style.display = 'flex';
+                    messagesContainer.style.display = 'none';
+                    chatForm.style.display = 'none';
+                }
+
             } else {
                 console.log("No active session. Redirecting to sign in...");
                 
-                // Show visual feedback while redirecting
                 authWarning.innerHTML = "Secure session required. Redirecting to Sign In...";
                 authWarning.style.display = 'block';
                 messageInput.disabled = true;
                 sendBtn.disabled = true;
                 
-                // Save this chatroom's exact URL
                 sessionStorage.setItem('redirectURL', window.location.href);
-                
-                // Bounce them back up the directory tree to the sign-in page
                 window.location.href = '../../../../signin.html';
             }
         });
@@ -347,7 +423,10 @@
                 chatTitle.innerText = `📍 Currently viewing: Term ${currentTerm} Discussions`;
                 
                 if(currentUser) {
-                    loadMessages(currentTerm);
+                    // Only attempt to load if the messages container is visible (i.e. they are verified)
+                    if (messagesContainer.style.display === 'flex') {
+                        loadMessages(currentTerm);
+                    }
                 }
             });
         });
