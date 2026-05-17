@@ -53,6 +53,19 @@
             border-radius: 8px;
             box-sizing: border-box;
             font-size: 14px;
+            transition: border-color 0.3s;
+        }
+
+        input:focus, select:focus {
+            outline: none;
+            border-color: #0056ff;
+            box-shadow: 0 0 5px rgba(0, 86, 255, 0.2);
+        }
+
+        select:disabled, input:disabled {
+            background-color: #f5f5f5;
+            cursor: not-allowed;
+            color: #999;
         }
 
         .subject-group {
@@ -165,7 +178,14 @@
         <option value="North West">North West</option>
         <option value="Western Cape">Western Cape</option>
     </select>
-    
+
+    <select id="district" disabled>
+        <option value="" disabled selected>Select Province First</option>
+    </select>
+
+    <input type="text" id="school" list="school-list" placeholder="Start typing school name..." disabled autocomplete="off">
+    <datalist id="school-list">
+        </datalist>
     <input type="password" id="password" placeholder="Password (min. 6 characters)">
     <input type="password" id="confirmPassword" placeholder="Confirm Password">
     
@@ -199,8 +219,6 @@
         <div class="checkbox-item"><input type="checkbox" class="t-sub" value="Life Sciences"> Life Sciences</div>
     </div>
 
-    <input type="text" id="school" placeholder="School Name">
-
     <button id="emailSignup" class="btn btn-primary">Create Account</button>
     
     <div id="status-message"></div>
@@ -230,7 +248,6 @@
 
     const app = initializeApp(firebaseConfig);
 
-    // Allow App Check to work on local computer for testing
     if (window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1") {
         self.FIREBASE_APPCHECK_DEBUG_TOKEN = true;
     }
@@ -243,7 +260,101 @@
     const auth = getAuth(app);
     const db = getFirestore(app);
 
-    // UI elements
+    // --- SMART CASCADING SCHOOL DATABASE ---
+    const schoolDatabase = {
+        "KwaZulu-Natal": {
+            "iLembe": [
+                "Nonhlevu Secondary School",
+                "Stanger High School",
+                "Gledhow Primary School",
+                "Groutville",
+                "Ricardo"
+            ],
+            "King Cetshwayo": [
+                "Richards Bay High School",
+                "Empangeni High School",
+                "Birdswood Secondary School",
+                "Gwejobomvu Secondary School",
+                "Tholokuhle High School"
+            ],
+            "uMgungundlovu": [
+                "Edendale Technical High School",
+                "Mehlokazulu Technical High School",
+                "Nsikayethu",
+                "Smero Secondary School",
+                "Sukuma Comprehensive School",
+                "Zibukezulu Technical School"
+            ],
+            "Umlazi": [
+                "Umlazi Comtech",
+                "Menzi High School",
+                "Grosvenor Boys High School"
+            ]
+        },
+        "Gauteng": {
+            "Johannesburg East": [
+                "Parktown Boys High",
+                "Jeppe High School for Boys"
+            ]
+        }
+    };
+
+    // UI elements for Cascading logic
+    const provinceSelect = document.getElementById('province');
+    const districtSelect = document.getElementById('district');
+    const schoolInput = document.getElementById('school');
+    const schoolList = document.getElementById('school-list');
+
+    // 1. When Province Changes -> Load Districts
+    provinceSelect.addEventListener('change', () => {
+        const selectedProvince = provinceSelect.value;
+        districtSelect.innerHTML = '<option value="" disabled selected>Select Your District</option>';
+        schoolInput.value = '';
+        schoolInput.disabled = true;
+
+        if (schoolDatabase[selectedProvince]) {
+            districtSelect.disabled = false;
+            // Get districts alphabetically
+            const districts = Object.keys(schoolDatabase[selectedProvince]).sort();
+            
+            districts.forEach(district => {
+                const option = document.createElement('option');
+                option.value = district;
+                option.textContent = district;
+                districtSelect.appendChild(option);
+            });
+        } else {
+            // If we don't have data for this province yet, we can let them type manually as a fallback
+            districtSelect.disabled = true;
+            districtSelect.innerHTML = '<option value="" disabled selected>Data pending...</option>';
+            schoolInput.disabled = false;
+            schoolList.innerHTML = '';
+            schoolInput.placeholder = "Type your school name manually...";
+        }
+    });
+
+    // 2. When District Changes -> Load Schools into Datalist
+    districtSelect.addEventListener('change', () => {
+        const selectedProvince = provinceSelect.value;
+        const selectedDistrict = districtSelect.value;
+        
+        schoolInput.value = '';
+        schoolList.innerHTML = '';
+
+        if (schoolDatabase[selectedProvince] && schoolDatabase[selectedProvince][selectedDistrict]) {
+            schoolInput.disabled = false;
+            schoolInput.placeholder = "Start typing your school name...";
+            
+            const schools = schoolDatabase[selectedProvince][selectedDistrict].sort();
+            schools.forEach(schoolName => {
+                const option = document.createElement('option');
+                option.value = schoolName;
+                schoolList.appendChild(option);
+            });
+        }
+    });
+
+    // --- EXISTING AUTH UI ELEMENTS ---
     const roleSelect = document.getElementById('role');
     const gradeSelect = document.getElementById('grade');
     const learnerSection = document.getElementById('learnerSection');
@@ -311,10 +422,9 @@
         }
     };
 
-    function validateAndGetUserData(firstName, lastName, email, phone, province, role, school) {
-        // Phone is optional, so it is excluded from the required check
+    function validateAndGetUserData(firstName, lastName, email, phone, province, district, role, school) {
         if (!firstName || !lastName || !email || !province || !role || !school) {
-            showStatus("Please fill in all required fields (First Name, Surname, Email, Province, Role, School).");
+            showStatus("Please fill in all required fields.");
             return null;
         }
 
@@ -341,20 +451,17 @@
             }
         }
 
-        // Clean user object, NO global restriction fields added here!
         const userData = {
             fullName: `${firstName} ${lastName}`,
             email: email,
             province: province,
+            district: district || "Unknown",
             role: role,
             school: school,
             createdAt: new Date()
         };
 
-        // Only add the phone number field to the database if the user actually typed one
-        if (phone) {
-            userData.phone = phone;
-        }
+        if (phone) userData.phone = phone;
 
         if (role === 'learner') {
             userData.grade = gradeSelect.value;
@@ -376,6 +483,7 @@
         const email = document.getElementById('email').value.trim();
         const phone = document.getElementById('phone').value.trim();
         const province = document.getElementById('province').value;
+        const district = document.getElementById('district').value;
         const pass = document.getElementById('password').value;
         const confirmPass = document.getElementById('confirmPassword').value;
         const role = roleSelect.value;
@@ -391,28 +499,24 @@
             return;
         }
 
-        const userData = validateAndGetUserData(firstName, lastName, email, phone, province, role, school);
+        const userData = validateAndGetUserData(firstName, lastName, email, phone, province, district, role, school);
         if (!userData) return; 
 
         try {
             setLoading(true);
             isSigningUp = true; 
             
-            // Step 1: Create Auth User
             showStatus("Creating secure profile...", "#0056ff");
             const userCredential = await createUserWithEmailAndPassword(auth, email, pass);
             
-            // Combine names for Firebase Auth display name
             const fullDisplayName = `${firstName} ${lastName}`;
             await updateProfile(userCredential.user, { displayName: fullDisplayName });
 
             userData.uid = userCredential.user.uid;
             
-            // Step 2: Save to Firestore
             showStatus("Saving data to database...", "#0056ff");
             await setDoc(doc(db, "users", userCredential.user.uid), userData);
             
-            // Step 3: Success
             showStatus("Success! Redirecting...", "#00c853");
             
             setTimeout(() => {
