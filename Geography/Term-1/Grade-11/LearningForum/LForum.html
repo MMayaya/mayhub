@@ -67,7 +67,7 @@
         header {
             background: linear-gradient(135deg, #003366, #0056ff);
             color: #fff;
-            padding: 1.5rem 1rem; /* Reduced height */
+            padding: 1.5rem 1rem;
             margin-bottom: 2rem;
             display: flex;
             justify-content: center;
@@ -84,7 +84,7 @@
         }
 
         .school-logo-container {
-            width: 70px; /* perfectly sized to sit inside the text height */
+            width: 70px;
             height: 70px;
             background-color: #fff;
             border-radius: 50%;
@@ -94,7 +94,7 @@
             border: 3px solid #cce0ff;
             flex-shrink: 0;
             animation: floatAndPulse 3s ease-in-out infinite;
-            overflow: hidden; /* Ensures the image doesn't spill out of the circle */
+            overflow: hidden;
         }
         
         .school-logo-container img {
@@ -145,7 +145,7 @@
             font-weight: bold; color: #004080; text-align: center;
         }
 
-        /* --- DYNAMIC STATUS PANEL (Handles the 3 Groups) --- */
+        /* --- DYNAMIC STATUS PANEL --- */
         #status-panel {
             display: flex; flex-direction: column; align-items: center; justify-content: center;
             height: 100%; padding: 40px 20px; text-align: center; background-color: #fcfdff;
@@ -156,7 +156,7 @@
             max-width: 550px; box-shadow: 0 4px 20px rgba(0,86,255,0.08);
         }
         .status-box h2 { color: #004080; margin-bottom: 10px; font-size: 1.6rem; }
-        .status-box p { color: #4a5568; margin-bottom: 20px; font-size: 1.05rem; }
+        .status-box p { color: #4a5568; margin-bottom: 20px; font-size: 1.05rem; line-height: 1.5; }
         .status-box ol { margin: 0 auto 20px auto; padding-left: 20px; text-align: left; display: inline-block; color: #333;}
         .status-box li { margin-bottom: 8px; }
         
@@ -340,19 +340,30 @@
             });
         }
 
-        function renderPending() {
+        // --- MULTI-ROLE CONDITIONAL SCREEN (TEACHERS vs LEARNERS) ---
+        function renderPending(role) {
             hideForum();
-            statusPanel.innerHTML = `
-                <div class="status-box">
-                    <h2>Account Pending Verification</h2>
-                    <p>Almost there! Please send a WhatsApp message to <strong>068 44 0856</strong> containing:</p>
-                    <ol>
-                        <li>A picture of yourself wearing the Nonhlevu Secondary School uniform.</li>
-                        <li>In the picture, clearly hold a piece of paper with your <strong>account email address</strong> written on it.</li>
-                    </ol>
-                    <p style="font-size: 0.9em; color: #5d6c7c; margin-bottom: 0;">Leave this page open! It will unlock automatically once your teacher verifies your photo.</p>
-                </div>
-            `;
+            if (role === 'teacher') {
+                statusPanel.innerHTML = `
+                    <div class="status-box">
+                        <h2>Thank You for the Request</h2>
+                        <p>Please wait for <strong>Mr. Mayaya</strong> to approve your request.</p>
+                        <p style="font-size: 0.9em; color: #5d6c7c; margin-bottom: 0; margin-top: 15px;">Your dashboard panel will automatically sync and open the instant administrative authorization is granted.</p>
+                    </div>
+                `;
+            } else {
+                statusPanel.innerHTML = `
+                    <div class="status-box">
+                        <h2>Account Pending Verification</h2>
+                        <p>Almost there! Please send a WhatsApp message to <strong>068 44 0856</strong> containing:</p>
+                        <ol>
+                            <li>A picture of yourself wearing the Nonhlevu Secondary School uniform.</li>
+                            <li>In the picture, clearly hold a piece of paper with your <strong>account email address</strong> written on it.</li>
+                        </ol>
+                        <p style="font-size: 0.9em; color: #5d6c7c; margin-bottom: 0;">Leave this page open! It will unlock automatically once your teacher verifies your photo.</p>
+                    </div>
+                `;
+            }
         }
 
         function showForum() {
@@ -385,7 +396,7 @@
                         } else if (!data.chatStatus) {
                             renderRequestAccess();
                         } else if (data.chatStatus === 'pending') {
-                            renderPending();
+                            renderPending(data.role); // Role passed to trigger the message distinction
                         } else if (data.chatStatus === 'verified') {
                             showForum();
                         }
