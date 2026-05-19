@@ -206,14 +206,53 @@
         .message.received { background-color: #fff; align-self: flex-start; border-bottom-left-radius: 2px; border: 1px solid #e0e0e0; }
         .message-meta { font-size: 0.75rem; color: #5d6c7c; margin-bottom: 4px; font-weight: bold; display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
         .message-time { font-weight: normal; color: #7a8794; }
+        .message-text { white-space: pre-wrap; word-wrap: break-word; } /* Ensures multi-line texts format correctly */
         
-        .input-area { display: none; padding: 15px; background: #fff; border-top: 1px solid #dcecff; }
-        #message-input { flex: 1; padding: 12px 15px; border: 1px solid #b8d1f0; border-radius: 25px; outline: none; font-size: 1rem; background: #fbfdff; }
+        /* --- UPDATED INPUT AREA FOR TEXTAREA --- */
+        .input-area { 
+            display: none; 
+            padding: 15px; 
+            background: #fff; 
+            border-top: 1px solid #dcecff; 
+            align-items: flex-end; /* Keeps send button at the bottom as box grows */
+        }
+        
+        #message-input { 
+            flex: 1; 
+            padding: 12px 15px; 
+            border: 1px solid #b8d1f0; 
+            border-radius: 20px; 
+            outline: none; 
+            font-size: 1rem; 
+            background: #fbfdff; 
+            font-family: inherit;
+            resize: none; /* Stops user from dragging the corner */
+            overflow-y: hidden; /* Hidden until it maxes out height */
+            line-height: 1.5;
+            max-height: 120px; /* Max height before scrollbar appears */
+        }
         #message-input:focus { border-color: #0056ff; }
         
-        .btn-send { background-color: #0056ff; color: white; border: none; padding: 0 25px; margin-left: 10px; border-radius: 25px; cursor: pointer; font-weight: bold; transition: background 0.2s; }
-        .btn-send:hover { background-color: #004080; }
-        .btn-send:disabled { background-color: #ccc; cursor: not-allowed; }
+        /* Gradient Red Send Button */
+        .btn-send { 
+            background: linear-gradient(135deg, #d32f2f, #ff5252); 
+            color: white; 
+            border: none; 
+            height: 48px; /* Fixed height so it doesn't grow with the textarea */
+            padding: 0 25px; 
+            margin-left: 10px; 
+            border-radius: 25px; 
+            cursor: pointer; 
+            font-weight: bold; 
+            transition: all 0.3s ease; 
+            box-shadow: 0 4px 10px rgba(211, 47, 47, 0.3);
+        }
+        .btn-send:hover { 
+            background: linear-gradient(135deg, #b71c1c, #d32f2f);
+            box-shadow: 0 6px 15px rgba(211, 47, 47, 0.5);
+            transform: translateY(-1px);
+        }
+        .btn-send:disabled { background-color: #ffcccc; box-shadow: none; cursor: not-allowed; transform: none;}
 
         footer { background-color: #002b5e; color: #fff; text-align: center; padding: 1.5rem; }
     </style>
@@ -264,7 +303,8 @@
             <div class="messages-container" id="messages-container"></div>
 
             <form class="input-area" id="chat-form">
-                <textarea id="message-input" placeholder="Type your question or answer here..." rows="2" required autocomplete="off"></textarea>
+                <!-- Changed to textarea -->
+                <textarea id="message-input" placeholder="Type your question or answer here..." required rows="1"></textarea>
                 <button type="submit" class="btn-send" id="send-btn">Send</button>
             </form>
         </div>
@@ -312,9 +352,25 @@
         // Clean Keyboard Focus Logic
         messageInput.addEventListener('focus', () => {
             setTimeout(() => {
-                // Scroll the entire panel smoothly into view when the keyboard opens
                 document.querySelector('.forum-panel').scrollIntoView({ behavior: 'smooth', block: 'end' });
             }, 300);
+        });
+
+        // AUTO-RESIZE AND ENTER KEY HANDLING
+        messageInput.addEventListener('input', function() {
+            this.style.height = 'auto'; // Reset to calculate exact height needed
+            this.style.height = Math.min(this.scrollHeight, 120) + 'px'; // Max out at 120px
+            this.style.overflowY = this.scrollHeight > 120 ? 'auto' : 'hidden'; // Make scrollable if over 120px
+        });
+
+        messageInput.addEventListener('keydown', function(e) {
+            // If Enter is pressed without the Shift key
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault(); // Stop default newline behavior
+                if (this.value.trim() !== '') { // Only trigger send if not empty
+                    document.getElementById('send-btn').click();
+                }
+            }
         });
 
         let currentUser = null;
@@ -504,7 +560,7 @@
             timeSpan.textContent = `• ${formatMessageTime(data.createdAt)}`;
 
             const textDiv = document.createElement('div');
-            textDiv.className = 'message-text';
+            textDiv.className = 'message-text'; // Applies the white-space: pre-wrap style
             textDiv.textContent = data.text;
 
             metaDiv.appendChild(senderSpan);
@@ -531,7 +587,11 @@
                         uid: currentUser.uid, senderName: currentUser.displayName || currentUser.email?.split('@')[0] || "Student",
                         createdAt: serverTimestamp()
                     });
+                    
+                    // Clear the input and reset height after sending
                     messageInput.value = ''; 
+                    messageInput.style.height = 'auto';
+                    
                 } catch (error) {
                     console.error("Error writing document:", error);
                     alert("Failed to send message: " + error.message);
