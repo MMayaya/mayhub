@@ -147,7 +147,9 @@
         .forum-panel {
             background: #fff; border-radius: 12px; box-shadow: 0 8px 25px rgba(0,43,94,0.1);
             border-top: 5px solid #0056ff; display: flex; flex-direction: column;
-            height: 600px; margin-bottom: 3rem; overflow: hidden; position: relative;
+            /* THE FIX: Flexible height instead of rigid 600px */
+            height: 65dvh; min-height: 350px; max-height: 600px; 
+            margin-bottom: 3rem; overflow: hidden; position: relative;
         }
         .forum-header {
             background-color: #f0f7ff; padding: 15px 20px; border-bottom: 1px solid #cce0ff;
@@ -306,6 +308,14 @@
         const forumTitle = document.getElementById('forum-title');
         const termButtons = document.querySelectorAll('.toggle-option');
         const userDisplayBtn = document.getElementById('user-display-btn');
+
+        // --- THE FIX: Force the screen to scroll to the input when the keyboard opens ---
+        messageInput.addEventListener('focus', () => {
+            setTimeout(() => {
+                messageInput.scrollIntoView({ behavior: 'smooth', block: 'end' });
+            }, 300);
+        });
+        // --------------------------------------------------------------------------------
 
         let currentUser = null;
         let currentTerm = "1"; 
