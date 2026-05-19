@@ -55,13 +55,22 @@
             box-shadow: 0 2px 10px rgba(0,0,0,0.12);
         }
         .logo { color: #fff; font-size: 1.45rem; font-weight: bold; text-decoration: none; }
-        .nav-links { display: flex; gap: 1rem; }
-        .nav-links a {
+        .nav-links { display: flex; gap: 1rem; align-items: center; }
+        .nav-links a, .nav-links button {
             color: #cce0ff; text-decoration: none; font-weight: 500;
             padding: 0.45rem 0.7rem; border-radius: 6px;
             transition: color 0.3s, background-color 0.3s;
+            background: none; border: none; font-size: 1rem; cursor: pointer;
+            font-family: inherit;
         }
-        .nav-links a:hover { color: #fff; background-color: rgba(255,255,255,0.08); }
+        .nav-links a:hover, .nav-links button:hover { color: #fff; background-color: rgba(255,255,255,0.08); }
+        
+        .user-profile-btn {
+            background-color: rgba(255, 255, 255, 0.15) !important;
+            border: 1px solid rgba(255, 255, 255, 0.3) !important;
+            color: #fff !important;
+            display: none; /* Hidden until authenticated */
+        }
 
         /* HEADER & LOGO ALIGNMENT */
         header {
@@ -203,8 +212,7 @@
         <a href="../../../../index.html" class="logo">May Learning Hub</a>
         <div class="nav-links">
             <a href="../../../../index.html">Home</a>
-            <a href="../../../../about.html">About</a>
-            <a href="../../../../suppdown.html">App & Support</a>
+            <button id="user-display-btn" class="user-profile-btn">User Name</button>
         </div>
     </nav>
 
@@ -287,6 +295,7 @@
         const messageInput = document.getElementById('message-input');
         const forumTitle = document.getElementById('forum-title');
         const termButtons = document.querySelectorAll('.toggle-option');
+        const userDisplayBtn = document.getElementById('user-display-btn');
 
         let currentUser = null;
         let currentTerm = "1"; 
@@ -298,7 +307,7 @@
             hideForum();
             statusPanel.innerHTML = `
                 <div class="status-box">
-                    <h2>Welcome to May Learning Hub</h2>
+                    <h2>Welcome to The Learning Forum</h2>
                     <p>Sign in to access activities and learning forums. Please note that learning forums are strictly exclusive to learners of <strong>Nonhlevu Secondary School</strong>.</p>
                     <a href="../../../../signin.html" class="btn-action">Sign In or Register</a>
                 </div>
@@ -311,7 +320,7 @@
                 <div class="status-box">
                     <h2>Forum Access Restricted</h2>
                     <p>This community learning forum is exclusive to learners of <strong>Nonhlevu Secondary School</strong>. However, you still have full access to all Educational Presentations, Games and Activities!</p>
-                    <a href="../../../../index.html" class="btn-action">Buylekhaya'Fighter</a>
+                    <a href="../../../../index.html" class="btn-action">Buyelekhaya'Fighter</a>
                 </div>
             `;
         }
@@ -385,6 +394,12 @@
             if (user) {
                 currentUser = user;
                 
+                // Update navigation button to show user's name
+                if (userDisplayBtn) {
+                    userDisplayBtn.textContent = user.displayName || (user.email ? user.email.split('@')[0] : "Student");
+                    userDisplayBtn.style.display = "inline-block";
+                }
+
                 unsubscribeUser = onSnapshot(doc(db, "users", user.uid), (userDoc) => {
                     if (userDoc.exists()) {
                         const data = userDoc.data();
@@ -407,6 +422,11 @@
 
             } else {
                 currentUser = null;
+                if (userDisplayBtn) {
+                    userDisplayBtn.style.display = "none";
+                    userDisplayBtn.textContent = "";
+                }
+                
                 if(unsubscribeUser) unsubscribeUser();
                 renderLoggedOut();
                 sessionStorage.setItem('redirectURL', window.location.href);
