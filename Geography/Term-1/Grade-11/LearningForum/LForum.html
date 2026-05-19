@@ -264,7 +264,7 @@
             <div class="messages-container" id="messages-container"></div>
 
             <form class="input-area" id="chat-form">
-                <input type="text" id="message-input" placeholder="Type your question or answer here..." required autocomplete="off">
+                <textarea id="message-input" placeholder="Type your question or answer here..." rows="2" required autocomplete="off"></textarea>
                 <button type="submit" class="btn-send" id="send-btn">Send</button>
             </form>
         </div>
@@ -504,6 +504,7 @@
             timeSpan.textContent = `• ${formatMessageTime(data.createdAt)}`;
 
             const textDiv = document.createElement('div');
+            textDiv.className = 'message-text';
             textDiv.textContent = data.text;
 
             metaDiv.appendChild(senderSpan);

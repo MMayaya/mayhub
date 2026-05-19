@@ -10,7 +10,7 @@
     </script>
     
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, interactive-widget=resizes-content">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     
     <title>Grade 11 Geography Learning Forum | May Learning Hub</title>
     <style>
@@ -148,7 +148,7 @@
         .forum-panel {
             background: #fff; border-radius: 12px; box-shadow: 0 8px 25px rgba(0,43,94,0.1);
             border-top: 5px solid #0056ff; display: flex; flex-direction: column;
-            height: 65dvh; min-height: 350px; max-height: 600px; 
+            height: 65dvh; max-height: 600px; 
             margin-bottom: 3rem; overflow: hidden; position: relative;
         }
         .forum-header {
@@ -309,36 +309,13 @@
         const termButtons = document.querySelectorAll('.toggle-option');
         const userDisplayBtn = document.getElementById('user-display-btn');
 
-        // --- THE FIX 2: BULLETPROOF KEYBOARD RESIZE LOGIC ---
-        if (window.visualViewport) {
-            const forumPanel = document.querySelector('.forum-panel');
-            
-            window.visualViewport.addEventListener('resize', () => {
-                // Calculate the exact height available above the keyboard
-                const availableHeight = window.visualViewport.height;
-                
-                // Force the body to fit inside this exact height
-                document.body.style.height = availableHeight + 'px';
-                
-                // Force the forum panel to shrink dynamically so the input is always visible
-                // 0.8 ensures it takes up 80% of whatever screen space is left above the keyboard
-                forumPanel.style.height = (availableHeight * 0.8) + 'px'; 
-                forumPanel.style.maxHeight = 'none'; 
-                
-                // Force scroll to the input box so it is visible
-                setTimeout(() => {
-                    messageInput.scrollIntoView({ behavior: 'smooth', block: 'end' });
-                }, 100);
-            });
-        } else {
-            // Fallback for older devices
-            messageInput.addEventListener('focus', () => {
-                setTimeout(() => {
-                    messageInput.scrollIntoView({ behavior: 'smooth', block: 'end' });
-                }, 300);
-            });
-        }
-        // ----------------------------------------------------
+        // Clean Keyboard Focus Logic
+        messageInput.addEventListener('focus', () => {
+            setTimeout(() => {
+                // Scroll the entire panel smoothly into view when the keyboard opens
+                document.querySelector('.forum-panel').scrollIntoView({ behavior: 'smooth', block: 'end' });
+            }, 300);
+        });
 
         let currentUser = null;
         let currentTerm = "1"; 
