@@ -169,6 +169,7 @@
         .status-box ol { margin: 0 auto 20px auto; padding-left: 20px; text-align: left; display: inline-block; color: #333;}
         .status-box li { margin-bottom: 8px; }
         
+        /* Default Blue Action Button */
         .btn-action {
             display: inline-block; background: linear-gradient(135deg, #0056ff, #00d4ff);
             color: white; border: none; padding: 12px 30px; border-radius: 25px;
@@ -177,6 +178,15 @@
         }
         .btn-action:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0, 212, 255, 0.6); color: white;}
         .btn-action:disabled { background: #a1c4f4; box-shadow: none; cursor: not-allowed; transform: none; }
+
+        /* Custom Red Gradient Button (Specifically for the Fighter button) */
+        .btn-red {
+            background: linear-gradient(135deg, #d32f2f, #ff5252) !important;
+            box-shadow: 0 4px 15px rgba(211, 47, 47, 0.4) !important;
+        }
+        .btn-red:hover {
+            box-shadow: 0 6px 20px rgba(211, 47, 47, 0.6) !important;
+        }
 
         .spinner {
             border: 4px solid #f3f3f3; border-top: 4px solid #0056ff; border-radius: 50%;
@@ -320,7 +330,7 @@
                 <div class="status-box">
                     <h2>Forum Access Restricted</h2>
                     <p>This community learning forum is exclusive to learners of <strong>Nonhlevu Secondary School</strong>. However, you still have full access to all Educational Presentations, Games and Activities!</p>
-                    <a href="../../../../index.html" class="btn-action">Buyelekhaya'Fighter</a>
+                    <a href="../../../../index.html" class="btn-action btn-red">Buyelekhaya'Fighter</a>
                 </div>
             `;
         }
