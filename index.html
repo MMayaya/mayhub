@@ -148,6 +148,32 @@
             background-color: rgba(255,255,255,0.08);
             text-decoration: none;
         }
+        
+        /* --- DYNAMIC AUTH BUTTONS --- */
+        .nav-links button.user-profile-btn {
+            background-color: rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: #fff;
+            padding: 0.45rem 1rem;
+            border-radius: 6px;
+            font-weight: bold;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            font-family: inherit;
+        }
+        .nav-links button.user-profile-btn:hover {
+            background-color: rgba(255, 255, 255, 0.25);
+        }
+        .nav-links a.btn-signin {
+            background-color: #3385ff;
+            color: #fff !important;
+            font-weight: bold;
+        }
+        .nav-links a.btn-signin:hover {
+            background-color: #0056ff;
+        }
+
         header {
             background: linear-gradient(135deg, #004080, #0059b3);
             color: #fff;
@@ -427,7 +453,6 @@
             padding-bottom: 0.2rem;
         }
         
-        /* Added styles for the collapsible sections */
         .doe-heading {
             color: #555;
             font-size: 1.05rem;
@@ -839,9 +864,11 @@
         <div class="nav-links" id="navLinks">
             <a href="index.html" class="active">Home</a>
             <a href="about.html">About</a>
-            <a href="#feedback">Feedback</a>
             <a href="suppdown.html">App &amp; Support</a>
             <a href="privacy.html">Privacy Policy</a>
+            
+            <a href="signin.html" class="btn-signin" id="btn-signin">Sign In</a>
+            <button id="user-display-btn" class="user-profile-btn" style="display: none;">User Name</button>
         </div>
     </nav>
     <header>
@@ -1047,7 +1074,6 @@
                 <a href="index.html">Home</a>
                 <a href="exam-hub.html">Exam Hub</a>
                 <a href="about.html">About</a>
-                <a href="#feedback">Feedback</a>
                 <a href="suppdown.html">App &amp; Support</a>
                 <a href="privacy.html">Privacy Policy</a>
             </div>
@@ -1091,11 +1117,25 @@
         const auth = getAuth(app);
         
         let currentUser = null;
-        let isAuthReady = false; // Tracks if Firebase has finished loading the session
+        let isAuthReady = false; 
         
+        const btnSignin = document.getElementById('btn-signin');
+        const userDisplayBtn = document.getElementById('user-display-btn');
+
         onAuthStateChanged(auth, (user) => {
             currentUser = user;
             isAuthReady = true; 
+            
+            if (user) {
+                if (btnSignin) btnSignin.style.display = 'none';
+                if (userDisplayBtn) {
+                    userDisplayBtn.style.display = 'inline-block';
+                    userDisplayBtn.textContent = user.displayName || (user.email ? user.email.split('@')[0] : "Student");
+                }
+            } else {
+                if (btnSignin) btnSignin.style.display = 'inline-block';
+                if (userDisplayBtn) userDisplayBtn.style.display = 'none';
+            }
         });
         
         document.addEventListener('click', (e) => {
@@ -1105,8 +1145,6 @@
             if (link && (link.href.includes('/Activities/') || link.href.includes('/Chat/'))) {
                 
                 // Only block the user if Firebase has explicitly confirmed they are NOT logged in.
-                // If they click before Firebase loads, it passes them to the destination page, 
-                // and the destination page's auth state observer will catch them anyway!
                 if (isAuthReady && !currentUser) {
                     e.preventDefault(); 
                     sessionStorage.setItem('redirectURL', link.href);
@@ -1154,14 +1192,6 @@
             }
         ];
 
-        /*
-            Learning Guide structure:
-            - Add more subjects, grades, and terms here whenever you create new Learning Guides.
-            - Recommended folder path:
-              Subject/Term-X/Grade-Y/LearningGuides/Your-PDF-Name.pdf
-            - Example:
-              Geography/Term-2/Grade-10/LearningGuides/Plate-Tectonics.pdf
-        */
         const pdfGuidesData = {
             'Social Sciences': {
                 8: {
@@ -1332,13 +1362,11 @@
                 // --- GLOWY BLUE CHAT BUTTON LOGIC ---
                 let chatBtn = '';
                 if (subject.subjectName === 'Geography' && grade === 11) {
-                    // Updated href to match the nested folder structure: Geography/Term-1/Grade-11/LearningForum/LForum.html
                     chatBtn = `<a href="${subject.basePath}/Term-1/Grade-${grade}/LearningForum/LForum.html" class="btn-chat-glow" onclick="event.stopPropagation()">Learning Forum</a>`;
                 }
 
                 html += `<details><summary>Grade ${grade} ${chatBtn}</summary>`;
                 
-                // DOE Documents moved to the beginning and made collapsible
                 html += `
                     <details class="term-section">
                         <summary class="doe-heading">DOE Documents</summary>
