@@ -1326,6 +1326,8 @@
                 return '';
             }
 
+            const stateId = `details-${subjectName.replace(/\s+/g, '-')}-grade-${grade}-term-${term}-guides`;
+
             guides.forEach(guide => {
                 searchableLinks.push({
                     subject: subjectName,
@@ -1338,7 +1340,7 @@
             });
 
             return `
-                <details class="learning-guides-details">
+                <details class="learning-guides-details" data-state-id="${stateId}">
                     <summary>Learning Guides</summary>
                     <p class="learning-guide-note">Click a topic below to open its learning guide.</p>
                     <ul class="learning-guides-list">
@@ -1365,10 +1367,12 @@
                     chatBtn = `<a href="${subject.basePath}/Term-1/Grade-${grade}/LearningForum/LForum.html" class="btn-chat-glow" onclick="event.stopPropagation()">Learning Forum</a>`;
                 }
 
-                html += `<details><summary>Grade ${grade} ${chatBtn}</summary>`;
+                const gradeStateId = `details-${subject.id}-grade-${grade}`;
+                html += `<details data-state-id="${gradeStateId}"><summary>Grade ${grade} ${chatBtn}</summary>`;
                 
+                const doeStateId = `details-${subject.id}-grade-${grade}-doe`;
                 html += `
-                    <details class="term-section">
+                    <details class="term-section" data-state-id="${doeStateId}">
                         <summary class="doe-heading">DOE Documents</summary>
                         <ul class="content-links">
                             <li>
@@ -1391,8 +1395,9 @@
                 `;
 
                 for (let term = 1; term <= 4; term++) {
+                    const termStateId = `details-${subject.id}-grade-${grade}-term-${term}`;
                     html += `
-                        <details class="term-section">
+                        <details class="term-section" data-state-id="${termStateId}">
                             <summary class="term-heading">Term ${term}</summary>
                             <ul class="content-links">
                                 ${createTermLinks(subject.subjectName, subject.basePath, grade, term)}
@@ -1408,6 +1413,25 @@
         }
         
         subjectsData.forEach(buildSubjectContent);
+
+        // --- RESTORE & SAVE DETAILS STATE ---
+        function initDetailsState() {
+            const detailsElements = document.querySelectorAll('details[data-state-id]');
+            detailsElements.forEach(details => {
+                const id = details.getAttribute('data-state-id');
+                
+                // Restore state on load
+                if (sessionStorage.getItem(id) === 'true') {
+                    details.open = true;
+                }
+
+                // Save state when toggled
+                details.addEventListener('toggle', () => {
+                    sessionStorage.setItem(id, details.open);
+                });
+            });
+        }
+        initDetailsState();
         
         const siteSearch = document.getElementById('siteSearch');
         const searchResults = document.getElementById('searchResults');
