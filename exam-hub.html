@@ -201,7 +201,7 @@
                     <p>Grades 8 – 9</p>
                 </div>
                 
-                <details>
+                <details data-state-id="exam-ss-gr8">
                     <summary>Grade 8</summary>
                     <div class="exam-year-section">
                         <h4>2025 Final Exams</h4>
@@ -222,7 +222,7 @@
                     </div>
                 </details>
 
-                <details>
+                <details data-state-id="exam-ss-gr9">
                     <summary>Grade 9</summary>
                     <div class="exam-year-section">
                         <h4>2025 Final Exams</h4>
@@ -250,7 +250,7 @@
                     <p>Grades 10 – 12</p>
                 </div>
                 
-                <details>
+                <details data-state-id="exam-geo-gr10">
                     <summary>Grade 10</summary>
                     <div class="exam-year-section">
                         <h4>NW November 2023</h4>
@@ -271,7 +271,7 @@
                     </div>
                 </details>
 
-                <details>
+                <details data-state-id="exam-geo-gr11">
                     <summary>Grade 11</summary>
                     <div class="exam-year-section">
                         <h4>EC November 2023</h4>
@@ -292,7 +292,7 @@
                     </div>
                 </details>
 
-                <details>
+                <details data-state-id="exam-geo-gr12">
                     <summary>Grade 12 (NSC)</summary>
                     <div class="exam-year-section">
                         <h4>2025 Preparatory Exams</h4>
@@ -337,7 +337,7 @@
                     <p>Grades 10 – 12</p>
                 </div>
                 
-                <details>
+                <details data-state-id="exam-ls-gr10">
                     <summary>Grade 10</summary>
                     <div class="exam-year-section">
                         <h4>2025 Final Exams</h4>
@@ -358,7 +358,7 @@
                     </div>
                 </details>
 
-                <details>
+                <details data-state-id="exam-ls-gr11">
                     <summary>Grade 11</summary>
                     <div class="exam-year-section">
                         <h4>2025 Final Exams</h4>
@@ -379,7 +379,7 @@
                     </div>
                 </details>
 
-                <details>
+                <details data-state-id="exam-ls-gr12">
                     <summary>Grade 12 (NSC)</summary>
                     <div class="exam-year-section">
                         <h4>2025 Preparatory Exams</h4>
@@ -432,6 +432,25 @@
         navToggle.addEventListener('click', () => {
             navLinks.classList.toggle('show');
         });
+
+        // --- RESTORE & SAVE DETAILS STATE ---
+        function initDetailsState() {
+            const detailsElements = document.querySelectorAll('details[data-state-id]');
+            detailsElements.forEach(details => {
+                const id = details.getAttribute('data-state-id');
+                
+                // Restore state on load
+                if (sessionStorage.getItem(id) === 'true') {
+                    details.open = true;
+                }
+
+                // Save state when toggled
+                details.addEventListener('toggle', () => {
+                    sessionStorage.setItem(id, details.open);
+                });
+            });
+        }
+        initDetailsState();
     </script>
 </body>
 </html>
