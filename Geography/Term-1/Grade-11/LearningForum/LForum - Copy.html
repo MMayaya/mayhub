@@ -303,6 +303,7 @@
             <div class="messages-container" id="messages-container"></div>
 
             <form class="input-area" id="chat-form">
+                <!-- Changed to textarea -->
                 <textarea id="message-input" placeholder="Type your question or answer here..." required rows="1"></textarea>
                 <button type="submit" class="btn-send" id="send-btn">Send</button>
             </form>
@@ -431,7 +432,7 @@
                 statusPanel.innerHTML = `
                     <div class="status-box">
                         <h2>Thank You for the Request</h2>
-                        <p>To finalize your access, please kindly send a WhatsApp message to <strong>Mr. Mayaya at 068 448 0856</strong>, or feel free to <strong>see me at work</strong>.</p>
+                        <p>Please wait for <strong>Mr. Mayaya</strong> to approve your request.</p>
                         <p style="font-size: 0.9em; color: #5d6c7c; margin-bottom: 0; margin-top: 15px;">Your dashboard panel will automatically sync and open the instant administrative authorization is granted.</p>
                     </div>
                 `;
@@ -444,8 +445,7 @@
                             <li>A picture of yourself wearing the Nonhlevu Secondary School uniform.</li>
                             <li>In the picture, clearly hold a piece of paper with your <strong>account email address</strong> written on it.</li>
                         </ol>
-                        <p style="font-weight: bold; color: #004080; margin-bottom: 15px;">Or alternatively, you can come to see me at work!</p>
-                        <p style="font-size: 0.9em; color: #5d6c7c; margin-bottom: 0;">Leave this page open! It will unlock automatically once your account is verified.</p>
+                        <p style="font-size: 0.9em; color: #5d6c7c; margin-bottom: 0;">Leave this page open! It will unlock automatically once your teacher verifies your photo.</p>
                     </div>
                 `;
             }
