@@ -193,6 +193,7 @@
         <option value="" disabled selected>I am a...</option>
         <option value="learner">Learner</option>
         <option value="teacher">Teacher</option>
+        <option value="explorer">Other (Explorer)</option>
     </select>
 
     <div id="learnerSection" class="hidden">
@@ -207,6 +208,7 @@
 
         <div id="learnerSubjects" class="subject-group hidden">
             <label>Select Subjects:</label>
+            <div class="checkbox-item"><input type="checkbox" class="l-sub" value="Mathematics"> Mathematics</div>
             <div class="checkbox-item"><input type="checkbox" class="l-sub" value="Geography"> Geography</div>
             <div class="checkbox-item"><input type="checkbox" class="l-sub" value="Life Sciences"> Life Sciences</div>
         </div>
@@ -214,9 +216,15 @@
 
     <div id="teacherSection" class="subject-group hidden">
         <label>Subjects You Teach (Select all that apply):</label>
+        <div class="checkbox-item"><input type="checkbox" class="t-sub" value="Mathematics"> Mathematics</div>
         <div class="checkbox-item"><input type="checkbox" class="t-sub" value="Social Sciences"> Social Sciences</div>
         <div class="checkbox-item"><input type="checkbox" class="t-sub" value="Geography"> Geography</div>
         <div class="checkbox-item"><input type="checkbox" class="t-sub" value="Life Sciences"> Life Sciences</div>
+    </div>
+
+    <div id="explorerSection" class="subject-group hidden">
+        <label>Subject of Interest:</label>
+        <input type="text" id="explorerSubject" placeholder="e.g., Computer Science, History...">
     </div>
 
     <button id="emailSignup" class="btn btn-primary">Create Account</button>
@@ -359,6 +367,8 @@
     const gradeSelect = document.getElementById('grade');
     const learnerSection = document.getElementById('learnerSection');
     const teacherSection = document.getElementById('teacherSection');
+    const explorerSection = document.getElementById('explorerSection');
+    const explorerSubject = document.getElementById('explorerSubject');
     const learnerSubjects = document.getElementById('learnerSubjects');
     const emailSignupBtn = document.getElementById('emailSignup');
     const statusMessage = document.getElementById('status-message');
@@ -404,12 +414,18 @@
     });
 
     roleSelect.onchange = () => {
+        // Hide all sections first
+        learnerSection.classList.add('hidden');
+        teacherSection.classList.add('hidden');
+        explorerSection.classList.add('hidden');
+
+        // Show the relevant section
         if (roleSelect.value === 'learner') {
             learnerSection.classList.remove('hidden');
-            teacherSection.classList.add('hidden');
         } else if (roleSelect.value === 'teacher') {
             teacherSection.classList.remove('hidden');
-            learnerSection.classList.add('hidden');
+        } else if (roleSelect.value === 'explorer') {
+            explorerSection.classList.remove('hidden');
         }
     };
 
@@ -449,6 +465,13 @@
                     return null;
                 }
             }
+        } else if (role === 'explorer') {
+            const expSubject = explorerSubject.value.trim();
+            if (!expSubject) {
+                showStatus("Please type your subject of interest.");
+                return null;
+            }
+            selectedSubjects = [expSubject];
         }
 
         const userData = {

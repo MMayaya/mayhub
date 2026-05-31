@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learning Hub | Coming Soon</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f0f4f8; color: #333; line-height: 1.6; display: flex; flex-direction: column; min-height: 100vh; }
+        
+        /* Navigation (Re-styled for Blood Red Theme) */
+        nav { background-color: #660000; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; }
+        .logo { color: #fff; font-size: 1.5rem; font-weight: bold; text-decoration: none; }
+        /* Very light crimson for contrast against dark red */
+        .nav-links a { color: #FFCCCC; text-decoration: none; margin-left: 1.5rem; font-weight: 500; transition: color 0.3s; }
+        .nav-links a:hover, .nav-links a.active { color: #fff; text-decoration: underline; }
+        
+        /* Footer (Re-styled for Blood Red Theme) */
+        footer { text-align: center; padding: 1rem; background-color: #660000; color: #fff; margin-top: auto; }
+
+        /* --- Coming Soon Layout --- */
+        /* This centers the card perfectly in the middle of the screen */
+        .container { flex: 1; display: flex; justify-content: center; align-items: center; padding: 2rem; }
+        
+        .coming-soon-card {
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+            /* Top border now using Primary Crimson accent red */
+            border-top: 6px solid #DC143C; 
+            padding: 4rem 3rem;
+            max-width: 600px;
+            text-align: center;
+            opacity: 0;
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+
+        .icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            display: inline-block;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .coming-soon-card h1 {
+            /* Headline using Deep Red */
+            color: #800000; 
+            font-size: 2.2rem;
+            margin-bottom: 1rem;
+        }
+
+        .coming-soon-card p {
+            font-size: 1.1rem;
+            color: #555;
+            margin-bottom: 2rem;
+        }
+
+        /* Go Back Button (Re-styled for Blood Red Theme) */
+        .back-btn {
+            display: inline-block;
+            /* Default background using Deep Dark Red, matches nav-dark */
+            background-color: #660000; 
+            color: #fff;
+            text-decoration: none;
+            padding: 0.8rem 2rem;
+            border-radius: 30px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            /* Red shadow */
+            box-shadow: 0 4px 10px rgba(102,0,0,0.3); 
+        }
+
+        .back-btn:hover {
+            /* Hover background using Bright Crimson */
+            background-color: #DC143C; 
+            transform: translateY(-3px);
+            /* Stronger Crimson shadow for hover */
+            box-shadow: 0 6px 15px rgba(220,20,60,0.4); 
+        }
+
+        /* --- Animations (Unchanged) --- */
+        @keyframes fadeInUp {
+            0% { opacity: 0; transform: translateY(40px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* A gentle floating animation for the emoji (Unchanged) */
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="https://mmayaya.github.io/MayHub/" class="logo">May Learning Hub</a>
+        <div class="nav-links">
+            <a href="https://mmayaya.github.io/MayHub/">Home</a>
+            <a href="https://mmayaya.github.io/MayHub/about.html">About</a>
+        </div>
+    </nav>
+
+    <main class="container">
+        <div class="coming-soon-card">
+            <div class="icon">🛠️</div>
+            <h1>Content in Progress</h1>
+            <p>I am currently crafting these beautifully designed notes and interactive games to ensure they are perfectly CAPS-aligned and ready for your classroom.</p>
+            <p><strong>Check back soon!</strong></p>
+            <a href="https://mmayaya.github.io/MayHub/" class="back-btn">← Return to Home</a>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 May Learning Hub. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>
