@@ -46,26 +46,15 @@ gtag('config', 'G-8GCWSKNDL7');
 (function () {
     const ua = navigator.userAgent || "";
     const isAndroid = /Android/i.test(ua);
-    const isIOSWebView = /(iPhone|iPad|iPod)/i.test(ua) && /AppleWebKit/i.test(ua) && !/Safari/i.test(ua);
-
-    const isAndroidWebView = isAndroid && (
-        /;\s*wv\)?/i.test(ua) ||
-        /\bwv\b/i.test(ua) ||
-        /Version\/[\d.]+.*Chrome\/[\d.]+.*Mobile Safari\/[\d.]+/i.test(ua) ||
-        /MayLearningHubApp|MayLearningHub|May Learning Hub|com\.maylearninghub\.app/i.test(ua)
+    const isLikelyAndroidWebView = isAndroid && (
+        /;\s*wv\)/i.test(ua) ||
+        /wv/i.test(ua) ||
+        /Version\/\d+(?:\.\d+)?\s+Chrome\/\d+(?:\.\d+)?\s+Mobile Safari\/\d+/i.test(ua) ||
+        /MayLearningHub|May Learning Hub|com\.maylearninghub\.app/i.test(ua)
     );
 
-    const forcedAppView = /[?&](app|webview)=1\b/i.test(window.location.search) ||
-        sessionStorage.getItem('mayhubAppView') === 'true';
-
-    if (forcedAppView) {
-        sessionStorage.setItem('mayhubAppView', 'true');
-    }
-
-    if (isAndroidWebView || isIOSWebView || forcedAppView) {
-        document.documentElement.classList.add('mayhub-app-view');
-    } else {
-        document.documentElement.classList.add('mayhub-browser-view');
+    if (isLikelyAndroidWebView) {
+        document.documentElement.classList.add('mayhub-webview');
     }
 })();
 </script>
@@ -290,7 +279,7 @@ padding: 0.8rem 1rem;
 
 
 
-display: none;
+display: flex;
 
 
 
@@ -518,83 +507,31 @@ fill: currentColor;
 
 
 
-html.mayhub-browser-view .app-banner {
-
-display: flex;
-
-}
-
-html.mayhub-app-view .app-banner,
 html.mayhub-webview .app-banner {
 
 display: none !important;
 
 }
 
-/* --- WHAT'S NEW SECTION (GLOWY GLOSSY RED) --- */
+/* --- WHAT'S NEW SECTION --- */
 
 .whats-new-panel {
 
-background: linear-gradient(135deg, #ff1f1f 0%, #c40000 48%, #850000 100%);
+background: #fff;
 
-color: #ffffff;
+border-radius: 12px;
 
-border-radius: 14px;
-
-box-shadow: 0 0 22px rgba(230, 0, 0, 0.55), 0 10px 24px rgba(0,0,0,0.16), inset 0 1px 0 rgba(255,255,255,0.55), inset 0 -26px 42px rgba(0,0,0,0.12);
+box-shadow: 0 4px 10px rgba(0,0,0,0.08);
 
 padding: 1.4rem 1.6rem;
 
 margin-bottom: 1.2rem;
 
-border: 1px solid rgba(255,255,255,0.32);
-
-border-left: 5px solid #ffd6d6;
-
-position: relative;
-
-overflow: hidden;
+border-left: 4px solid #ffbf00;
 
 opacity: 0;
 
 animation: fadeInUp 0.8s ease-out 0.38s forwards;
-
-}
-
-.whats-new-panel::before {
-
-content: "";
-
-position: absolute;
-
-top: 0;
-
-left: 0;
-
-right: 0;
-
-height: 48%;
-
-background: linear-gradient(to bottom, rgba(255,255,255,0.36), rgba(255,255,255,0.08), rgba(255,255,255,0));
-
-pointer-events: none;
-
-}
-
-.whats-new-panel > * {
-
-position: relative;
-
-z-index: 1;
-
-}
-
-.whats-new-panel .section-title,
-.whats-new-panel .section-subtitle {
-
-color: #ffffff;
-
-text-shadow: 0 2px 8px rgba(0,0,0,0.22);
 
 }
 
@@ -614,21 +551,17 @@ margin-top: 1rem;
 
 padding: 0.9rem;
 
-border: 1px solid rgba(255,255,255,0.36);
+border: 1px solid #f0d27a;
 
-border-radius: 11px;
+border-radius: 10px;
 
-background: rgba(255,255,255,0.13);
-
-box-shadow: inset 0 1px 0 rgba(255,255,255,0.25), 0 8px 18px rgba(70,0,0,0.16);
-
-backdrop-filter: blur(4px);
+background: #fffaf0;
 
 }
 
 .whats-new-details[open] {
 
-background: rgba(255,255,255,0.18);
+background: #fff8e1;
 
 }
 
@@ -638,17 +571,15 @@ font-size: 1.08rem;
 
 font-weight: bold;
 
-color: #ffffff;
+color: #5d4300;
 
 padding: 0.35rem 0;
-
-text-shadow: 0 1px 5px rgba(0,0,0,0.25);
 
 }
 
 .whats-new-details summary::before {
 
-color: #ffffff;
+color: #d79b00;
 
 }
 
@@ -670,23 +601,19 @@ display: block;
 
 text-decoration: none;
 
-color: #7a0000;
+color: #004080;
 
-background: rgba(255,255,255,0.94);
+background: #ffffff;
 
-border: 1px solid rgba(255,205,205,0.95);
+border: 1px solid #f2dfa1;
 
-border-left: 4px solid #ff2b2b;
+border-left: 4px solid #ffbf00;
 
-border-radius: 8px;
+border-radius: 7px;
 
 padding: 0.65rem 0.85rem;
 
 font-size: 0.95rem;
-
-font-weight: 650;
-
-box-shadow: 0 4px 12px rgba(80,0,0,0.13), inset 0 1px 0 rgba(255,255,255,0.9);
 
 transition: all 0.2s ease;
 
@@ -694,11 +621,9 @@ transition: all 0.2s ease;
 
 .whats-new-list a:hover {
 
-background: #fff4f4;
+background: #fff1bd;
 
 padding-left: 1.05rem;
-
-box-shadow: 0 0 14px rgba(255,255,255,0.45), 0 4px 12px rgba(80,0,0,0.18);
 
 }
 
