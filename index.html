@@ -266,257 +266,156 @@ border-radius: 6px;
 
 
 
-/* --- APP BANNER STYLES (GLOWY GOLD) --- */
-
-
+/* --- DOWNLOAD INFO BANNER STYLES (COMPACT GLOWY GOLD) --- */
 
 .app-banner {
 
+background: linear-gradient(135deg, #ffe37a, #ffbd22 46%, #f59b00 100%);
 
-
-background: linear-gradient(135deg, #ffd700, #ffaa00);
-
-
-
-color: #4a3600;
-
-
+color: #3d2a00;
 
 text-align: center;
 
-
-
-padding: 0.8rem 1rem;
-
-
+padding: 0.5rem 0.75rem;
 
 display: none;
 
-
-
 align-items: center;
-
-
 
 justify-content: center;
 
-
-
-gap: 15px;
-
-
+gap: 0.55rem;
 
 flex-wrap: wrap;
 
+box-shadow: 0 3px 12px rgba(255, 190, 0, 0.45), inset 0 1px 0 rgba(255,255,255,0.55), inset 0 -12px 22px rgba(120,70,0,0.08);
 
-
-box-shadow: 0 4px 15px rgba(255, 215, 0, 0.6), inset 0 0 12px rgba(255, 255, 255, 0.4);
-
-
-
-border-bottom: 2px solid #e69500;
-
-
+border-bottom: 1px solid #d88900;
 
 position: relative;
 
-
-
 z-index: 99;
-
-
 
 animation: slideInDown 0.6s ease-out;
 
-
-
 }
 
+.download-mini-card {
 
+background: rgba(255, 255, 255, 0.42);
 
-.app-banner-text {
+border: 1px solid rgba(255, 255, 255, 0.55);
 
+border-radius: 999px;
 
-
-font-weight: 500;
-
-
-
-font-size: 0.95rem;
-
-
-
-}
-
-
-
-.app-banner-text strong {
-
-
-
-color: #2b1f00;
-
-
-
-font-weight: 800;
-
-
-
-}
-
-
-
-/* New CSS for banner links */
-
-
-
-.app-banner-text a {
-
-
-
-color: #2b1f00;
-
-
-
-text-decoration: underline;
-
-
-
-font-weight: 700;
-
-
-
-transition: color 0.2s;
-
-
-
-}
-
-
-
-.app-banner-text a:hover {
-
-
-
-color: #000;
-
-
-
-text-decoration: none;
-
-
-
-}
-
-
-
-
-
-
-.btn-playstore-small {
-
-
-
-background-color: #000;
-
-
-
-color: #fff;
-
-
-
-text-decoration: none;
-
-
-
-padding: 6px 16px;
-
-
-
-border-radius: 20px;
-
-
-
-font-weight: bold;
-
-
-
-font-size: 0.85rem;
-
-
+padding: 0.35rem 0.55rem;
 
 display: flex;
 
-
-
 align-items: center;
 
+justify-content: center;
 
+gap: 0.45rem;
 
-gap: 6px;
+flex-wrap: wrap;
 
-
-
-transition: transform 0.2s, box-shadow 0.2s, background-color 0.2s;
-
-
-
-box-shadow: 0 4px 6px rgba(0,0,0,0.2);
-
-
+box-shadow: inset 0 1px 0 rgba(255,255,255,0.55);
 
 }
 
+.app-banner-text {
 
+font-weight: 500;
 
-.btn-playstore-small:hover {
+font-size: 0.82rem;
 
+line-height: 1.25;
 
+}
 
-transform: translateY(-2px);
+.app-banner-text strong {
 
+color: #2b1f00;
 
+font-weight: 800;
 
-box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+}
 
+.app-banner-text a {
 
+color: #2b1f00;
 
-background-color: #222;
+text-decoration: underline;
 
+font-weight: 700;
 
+transition: color 0.2s;
+
+}
+
+.app-banner-text a:hover {
+
+color: #000;
+
+text-decoration: none;
+
+}
+
+.btn-download-small,
+.btn-playstore-small {
+
+background-color: #000;
 
 color: #fff;
 
+text-decoration: none;
 
+padding: 5px 11px;
+
+border-radius: 999px;
+
+font-weight: bold;
+
+font-size: 0.78rem;
+
+display: inline-flex;
+
+align-items: center;
+
+gap: 5px;
+
+transition: transform 0.2s, box-shadow 0.2s, background-color 0.2s;
+
+box-shadow: 0 3px 5px rgba(0,0,0,0.2);
+
+white-space: nowrap;
 
 }
 
+.btn-download-small:hover,
+.btn-playstore-small:hover {
 
+transform: translateY(-1px);
 
-.play-icon-small {
+box-shadow: 0 5px 10px rgba(0,0,0,0.28);
 
+background-color: #222;
 
+color: #fff;
 
-width: 14px;
+}
 
+.play-icon-small,
+.download-icon-small {
 
+width: 13px;
 
-height: 14px;
-
-
+height: 13px;
 
 fill: currentColor;
 
-
-
 }
-
-
-
-
-
-
-
 
 html.mayhub-browser-view .app-banner {
 
@@ -3726,19 +3625,19 @@ justify-content: center;
 
 .app-banner {
 
-
-
 flex-direction: column;
 
+gap: 0.45rem;
 
+padding: 0.55rem 0.65rem;
 
-gap: 10px;
+}
 
+.download-mini-card {
 
+width: 100%;
 
-padding: 1rem;
-
-
+border-radius: 14px;
 
 }
 
@@ -3975,37 +3874,43 @@ transition: none !important;
 
 
 
-<div class="app-banner">
+<div class="app-banner" id="downloadInfoBanner">
 
+<div class="download-mini-card android-download-info">
 
-
-<span class="app-banner-text">📱 <strong>New!</strong> The May Hub Android App is in closed testing. Send your email via our <a href="#feedback">Feedback form</a> or <a href="https://api.whatsapp.com/send/?phone=%2B27684480856&text&type=phone_number&app_absent=0" target="_blank" rel="noopener noreferrer">WhatsApp</a> to get access!</span>
-
-
+<span class="app-banner-text">📱 <strong>Android App:</strong> Closed testing. Send your email through the <a href="#feedback">Feedback form</a> or <a href="https://api.whatsapp.com/send/?phone=%2B27684480856&text&type=phone_number&app_absent=0" target="_blank" rel="noopener noreferrer">WhatsApp</a> to get access.</span>
 
 <a href="https://play.google.com/store/apps/details?id=com.maylearninghub.app" target="_blank" rel="noopener noreferrer" class="btn-playstore-small">
 
-
-
 <svg class="play-icon-small" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-
-
 
 <path d="M3.708 23.003c-.22.046-.462.008-.667-.107-.206-.115-.366-.296-.457-.52V1.624c.09-.224.25-.405.457-.52.205-.115.447-.153.667-.107l14.735 8.435c.247.142.398.4.398.685 0 .285-.15.543-.398.685L3.708 23.003z"/>
 
-
-
 </svg>
 
-
-
-Get it on Google Play
-
-
+Google Play
 
 </a>
 
+</div>
 
+<div class="download-mini-card windows-download-info">
+
+<span class="app-banner-text">💻 <strong>Windows PC App:</strong> Download the native PC version as a ZIP file from the main folder.</span>
+
+<a href="May%20LearningHub.zip" class="btn-download-small" download>
+
+<svg class="download-icon-small" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+
+<path d="M12 3c.55 0 1 .45 1 1v9.59l3.3-3.3a1 1 0 0 1 1.4 1.42l-5 5a1 1 0 0 1-1.4 0l-5-5a1 1 0 1 1 1.4-1.42l3.3 3.3V4c0-.55.45-1 1-1zM5 19c0-.55.45-1 1-1h12a1 1 0 1 1 0 2H6c-.55 0-1-.45-1-1z"/>
+
+</svg>
+
+Windows ZIP
+
+</a>
+
+</div>
 
 </div>
 
