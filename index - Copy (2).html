@@ -57,11 +57,6 @@
             0% { opacity: 0; }
             100% { opacity: 1; }
         }
-        @keyframes pulseGlowRed {
-            0% { box-shadow: 0 0 0 rgba(255, 59, 59, 0), 0 5px 14px rgba(0,0,0,0.08); }
-            50% { box-shadow: 0 0 18px rgba(255, 59, 59, 0.35), 0 8px 18px rgba(0,0,0,0.12); }
-            100% { box-shadow: 0 0 0 rgba(255, 59, 59, 0), 0 5px 14px rgba(0,0,0,0.08); }
-        }
 
         /* --- APP BANNER STYLES (GLOWY GOLD) --- */
         .app-banner {
@@ -370,71 +365,6 @@
             color: #555;
             margin-bottom: 1.1rem;
         }
-
-        /* --- WHATS NEW PANEL --- */
-        .whats-new-panel {
-            background: linear-gradient(135deg, #ff4d4d, #ff2a2a, #ff6b6b);
-            border: 2px solid #ff1a1a;
-            border-radius: 12px;
-            padding: 1.5rem;
-            margin-bottom: 2rem;
-            animation: pulseGlowRed 2.6s ease-in-out infinite, fadeInUp 0.8s ease-out 0.35s forwards;
-            color: #fff;
-            opacity: 0;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-        }
-        .whats-new-panel h2 {
-            font-size: 1.5rem;
-            margin-bottom: 15px;
-            color: #fff;
-            text-align: center;
-        }
-        .whats-new-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1.5rem;
-        }
-        .whats-new-panel details {
-            background: rgba(0, 0, 0, 0.15);
-            border: 1px solid rgba(255, 255, 255, 0.25);
-            border-radius: 10px;
-            padding: 0.8rem 1.2rem;
-            margin-bottom: 0;
-            transition: background 0.3s;
-        }
-        .whats-new-panel details[open] {
-            background: rgba(0, 0, 0, 0.25);
-        }
-        .whats-new-panel summary {
-            color: #fff;
-            font-size: 1.15rem;
-            font-weight: bold;
-            padding: 0.2rem 0;
-        }
-        .whats-new-panel summary::before {
-            color: #fff;
-        }
-        .whats-new-list { 
-            list-style: none; 
-            margin-top: 10px;
-        }
-        .whats-new-list li a {
-            display: block;
-            background: rgba(255,255,255,0.18);
-            color: #fff;
-            text-decoration: none;
-            padding: 0.8rem 1rem;
-            margin-bottom: 8px;
-            border-radius: 8px;
-            border-left: 4px solid white;
-            transition: background 0.3s, transform 0.2s;
-            font-weight: 500;
-        }
-        .whats-new-list li a:hover {
-            background: rgba(255,255,255,0.3);
-            transform: translateX(4px);
-        }
-
         .intro-panel {
             background: #fff;
             border-radius: 12px;
@@ -938,9 +868,6 @@
             .feedback-help {
                 font-size: 0.88rem;
             }
-            .whats-new-grid {
-                grid-template-columns: 1fr;
-            }
             .feedback-row {
                 grid-template-columns: 1fr;
             }
@@ -1013,7 +940,7 @@
         </div>
     </nav>
 
-    <div class="app-banner" id="appBanner">
+    <div class="app-banner">
         <span class="app-banner-text">📱 <strong>New!</strong> The May Hub Android App is in closed testing. Send your email via our <a href="#feedback">Feedback form</a> or <a href="https://api.whatsapp.com/send/?phone=%2B27684480856&text&type=phone_number&app_absent=0" target="_blank" rel="noopener noreferrer">WhatsApp</a> to get access!</span>
         <a href="https://play.google.com/store/apps/details?id=com.maylearninghub.app" target="_blank" rel="noopener noreferrer" class="btn-playstore-small">
             <svg class="play-icon-small" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -1055,54 +982,6 @@
             <p>
                 May Learning Hub provides a professional, CAPS-aligned educational experience specifically designed by educators to meet practical classroom needs. Our platform integrates high-quality curriculum presentations with interactive revision games and guided classroom activities, offering a centralized, scalable resource hub that evolves alongside modern teaching requirements.
             </p>
-        </section>
-
-        <section class="whats-new-panel">
-            <h2>✨ What's New on May Learning Hub</h2>
-            <div class="whats-new-grid">
-                
-                <div class="whats-new-column">
-                    <details open>
-                        <summary>New Presentations</summary>
-                        <ul class="whats-new-list">
-                            <li>
-                                <a href="Life-Sciences/Term-2/Grade-11/Notes/notes.html">
-                                    <strong>NEW:</strong> Grade 11 Life Sciences
-                                </a>
-                            </li>
-                            <li>
-                                <a href="Life-Sciences/Term-2/Grade-12/Notes/notes.html">
-                                    <strong>NEW:</strong> Grade 12 Life Sciences
-                                </a>
-                            </li>
-                        </ul>
-                    </details>
-                </div>
-                
-                <div class="whats-new-column">
-                    <details open>
-                        <summary>New Learning Guides</summary>
-                        <ul class="whats-new-list">
-                            <li>
-                                <a href="#social-sciences-content">
-                                    <strong>NEW:</strong> Grade 8 Learning Guides
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#geography-content">
-                                    <strong>NEW:</strong> Grade 10 Learning Guides
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#geography-content">
-                                    <strong>NEW:</strong> Grade 11 Learning Guides
-                                </a>
-                            </li>
-                        </ul>
-                    </details>
-                </div>
-                
-            </div>
         </section>
         
         <section class="search-panel" aria-labelledby="search-title">
@@ -1718,21 +1597,6 @@
             });
         });
       }
-    </script>
-
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            var userAgent = navigator.userAgent || navigator.vendor || window.opera;
-            var isAndroidWebView = userAgent.indexOf('wv') > -1;
-            var isIOSWebView = /(iPhone|iPod|iPad).*AppleWebKit(?!.*Safari)/i.test(userAgent);
-            
-            if (isAndroidWebView || isIOSWebView) {
-                var banner = document.getElementById('appBanner');
-                if (banner) {
-                    banner.style.display = 'none';
-                }
-            }
-        });
     </script>
 </body>
 </html>
