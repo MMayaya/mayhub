@@ -26,15 +26,14 @@
         .page-header { text-align: center; padding: 3rem 1rem; background: linear-gradient(135deg, #002b5e, #004080); color: #fff; animation: fadeIn 1.2s ease-out; }
         .page-title { font-size: 2.5rem; margin-bottom: 0.5rem; }
 
-        /* Container - Updated to fit 3 cards */
-        .container { max-width: 1100px; margin: 3rem auto 1rem auto; padding: 0 20px; display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; align-items: stretch; }
+        /* Container */
+        .container { max-width: 900px; margin: 3rem auto 1rem auto; padding: 0 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; align-items: stretch; }
 
         /* Card Styling */
         .card { background: #fff; padding: 2rem; border-radius: 12px; box-shadow: 0 8px 30px rgba(0,0,0,0.06); border-top: 6px solid #3385ff; text-align: center; display: flex; flex-direction: column; justify-content: space-between; transition: transform 0.4s ease; opacity: 0; animation: slideUpGlide 0.8s ease-out forwards; }
         
         #contactCard { animation-delay: 0.4s; }
         #downloadCard { animation-delay: 0.7s; }
-        #windowsCard { animation-delay: 1.0s; }
 
         .card:hover { transform: translateY(-8px); }
         .card h2 { color: #002b5e; margin-bottom: 0.8rem; font-size: 1.5rem; }
@@ -63,10 +62,6 @@
         .btn-playstore { background-color: #000; color: #fff; border: 2px solid #000; display: flex; align-items: center; justify-content: center; gap: 8px; }
         .btn-playstore:hover { background-color: #333; border-color: #333; color: #fff; transform: translateY(-3px); box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2); }
         .play-icon { width: 18px; height: 18px; fill: currentColor; }
-
-        /* Windows Button */
-        .btn-windows { background-color: #0078D7; color: #fff; border: 2px solid #0078D7; display: flex; align-items: center; justify-content: center; gap: 8px; }
-        .btn-windows:hover { background-color: #005A9E; border-color: #005A9E; color: #fff; transform: translateY(-3px); box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2); }
 
         .icon { font-size: 3rem; margin-bottom: 1rem; display: block; animation: rotateIn 1.5s ease-out; }
 
@@ -126,7 +121,7 @@
             <section class="card" id="downloadCard">
                 <div>
                     <span class="icon">📱</span>
-                    <h2>Get the Android App</h2>
+                    <h2>Get the App</h2>
                     <p>Download the official <strong>May Hub Android App</strong> to access your study resources instantly.</p>
                     <ul class="feature-list">
                         <li>⚡ Quick resource access</li>
@@ -149,24 +144,6 @@
                 </div>
             </section>
 
-            <section class="card" id="windowsCard">
-                <div>
-                    <span class="icon">💻</span>
-                    <h2>Get the Windows App</h2>
-                    <p>Download the native Windows EXE program to access May Learning Hub directly from your PC desktop.</p>
-                    <ul class="feature-list">
-                        <li>🖥️ Native desktop experience</li>
-                        <li>🚀 Fast and responsive</li>
-                        <li>📁 Easy ZIP installation</li>
-                    </ul>
-                </div>
-                <div class="btn-group">
-                    <a href="May LearningHub.zip" download class="btn btn-windows">
-                        ⬇️ Download for Windows
-                    </a>
-                </div>
-            </section>
-
         </div>
 
         <section class="faq-section">
@@ -174,12 +151,12 @@
             
             <div class="faq-box">
                 <h3>How do I install the app?</h3>
-                <p>Because the Android app is currently in its testing phase, you must first send us your email address. Once approved, click the Google Play button above to download and install the app safely from the official store. For the Windows version, simply click the download button and extract the ZIP file.</p>
+                <p>Because the app is currently in its testing phase, you must first send us your email address. Once approved, click the Google Play button above to download and install the app safely from the official store.</p>
             </div>
 
             <div class="faq-box">
                 <h3>Is the May Hub App available for iOS/iPhones?</h3>
-                <p>Currently, the app is optimized exclusively for Android and Windows devices. iOS users can continue to use the web version seamlessly.</p>
+                <p>Currently, the app is optimized exclusively for Android devices. iOS users can continue to use the web version seamlessly.</p>
             </div>
 
             <div class="faq-box">
