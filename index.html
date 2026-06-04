@@ -58,6 +58,69 @@
             100% { opacity: 1; }
         }
 
+        /* --- APP BANNER STYLES (GLOWY GOLD) --- */
+        .app-banner {
+            background: linear-gradient(135deg, #ffd700, #ffaa00);
+            color: #4a3600;
+            text-align: center;
+            padding: 0.8rem 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            box-shadow: 0 4px 15px rgba(255, 215, 0, 0.6), inset 0 0 12px rgba(255, 255, 255, 0.4);
+            border-bottom: 2px solid #e69500;
+            position: relative;
+            z-index: 99;
+            animation: slideInDown 0.6s ease-out;
+        }
+        .app-banner-text {
+            font-weight: 500;
+            font-size: 0.95rem;
+        }
+        .app-banner-text strong {
+            color: #2b1f00;
+            font-weight: 800;
+        }
+        /* New CSS for banner links */
+        .app-banner-text a {
+            color: #2b1f00;
+            text-decoration: underline;
+            font-weight: 700;
+            transition: color 0.2s;
+        }
+        .app-banner-text a:hover {
+            color: #000;
+            text-decoration: none;
+        }
+        
+        .btn-playstore-small {
+            background-color: #000;
+            color: #fff;
+            text-decoration: none;
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: transform 0.2s, box-shadow 0.2s, background-color 0.2s;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+        }
+        .btn-playstore-small:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+            background-color: #222;
+            color: #fff;
+        }
+        .play-icon-small {
+            width: 14px;
+            height: 14px;
+            fill: currentColor;
+        }
+
         /* --- HUB TOGGLE STYLES --- */
         .hub-toggle-container {
             display: flex;
@@ -509,14 +572,14 @@
         .learning-guides-details summary {
             font-size: 1.05rem;
             font-weight: bold;
-            color: #ffffff; /* White text */
-            background-color: #e60000; /* Red background */
+            color: #ffffff;
+            background-color: #e60000;
             padding: 0.6rem 0.8rem;
             border-radius: 6px;
             margin-bottom: 0.5rem;
         }
         .learning-guides-details summary::before {
-            color: #ffffff; /* White arrow */
+            color: #ffffff;
         }
         .learning-guide-note {
             font-size: 0.86rem;
@@ -814,6 +877,11 @@
             }
         }
         @media (max-width: 480px) {
+            .app-banner {
+                flex-direction: column;
+                gap: 10px;
+                padding: 1rem;
+            }
             .container {
                 padding: 0 14px;
             }
@@ -871,6 +939,17 @@
             <button id="user-display-btn" class="user-profile-btn" style="display: none;">User Name</button>
         </div>
     </nav>
+
+    <div class="app-banner">
+        <span class="app-banner-text">📱 <strong>New!</strong> The May Hub Android App is in closed testing. Send your email via our <a href="#feedback">Feedback form</a> or <a href="https://api.whatsapp.com/send/?phone=%2B27684480856&text&type=phone_number&app_absent=0" target="_blank" rel="noopener noreferrer">WhatsApp</a> to get access!</span>
+        <a href="https://play.google.com/store/apps/details?id=com.maylearninghub.app" target="_blank" rel="noopener noreferrer" class="btn-playstore-small">
+            <svg class="play-icon-small" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M3.708 23.003c-.22.046-.462.008-.667-.107-.206-.115-.366-.296-.457-.52V1.624c.09-.224.25-.405.457-.52.205-.115.447-.153.667-.107l14.735 8.435c.247.142.398.4.398.685 0 .285-.15.543-.398.685L3.708 23.003z"/>
+            </svg>
+            Get it on Google Play
+        </a>
+    </div>
+
     <header>
         <div class="header-content">
             <img src="May Learning Hub Logo.jpg" alt="May Learning Hub Logo" class="header-logo" id="siteLogo">

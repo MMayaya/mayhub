@@ -6,7 +6,6 @@
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
-
   gtag('config', 'G-8GCWSKNDL7');
 </script>
 
@@ -44,6 +43,14 @@
         .feature-list { text-align: left; margin: 0 auto 1.5rem auto; max-width: 250px; color: #555; font-size: 0.9rem; list-style: none; }
         .feature-list li { margin-bottom: 0.5rem; display: flex; align-items: center; gap: 8px; }
 
+        /* Testing Phase Note */
+        .testing-note { background-color: #fff9e6; border-left: 4px solid #ffc107; color: #856404; padding: 12px; font-size: 0.85rem; margin: 0 auto 1.5rem auto; border-radius: 4px; text-align: left; max-width: 320px; line-height: 1.5; }
+        .testing-note strong { color: #533f03; }
+        
+        /* New CSS to make the links inside the note look nice */
+        .testing-note a { color: #533f03; text-decoration: underline; font-weight: bold; transition: color 0.2s; }
+        .testing-note a:hover { color: #000; text-decoration: none; }
+
         /* Buttons Stack */
         .btn-group { display: flex; flex-direction: column; gap: 10px; margin-top: auto; }
         .btn { display: inline-block; padding: 0.8rem 1.5rem; border-radius: 30px; font-weight: bold; text-decoration: none; transition: all 0.3s ease; font-size: 0.95rem; }
@@ -51,8 +58,10 @@
         .btn-whatsapp { background-color: #25D366; color: #fff; border: 2px solid #25D366; animation: whatsappPulse 2s infinite; }
         .btn-whatsapp:hover { background-color: #fff; color: #128C7E; border-color: #128C7E; animation: none; }
 
-        .btn-download { background-color: #28a745; color: #fff; border: 2px solid #28a745; }
-        .btn-download:hover { background-color: #fff; color: #218838; border-color: #218838; }
+        /* Google Play Button */
+        .btn-playstore { background-color: #000; color: #fff; border: 2px solid #000; display: flex; align-items: center; justify-content: center; gap: 8px; }
+        .btn-playstore:hover { background-color: #333; border-color: #333; color: #fff; transform: translateY(-3px); box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2); }
+        .play-icon { width: 18px; height: 18px; fill: currentColor; }
 
         .icon { font-size: 3rem; margin-bottom: 1rem; display: block; animation: rotateIn 1.5s ease-out; }
 
@@ -119,9 +128,19 @@
                         <li>📱 Mobile-optimized layout</li>
                         <li>🎯 Clean, ad-free interface</li>
                     </ul>
+
+                    <div class="testing-note">
+                        <strong>🛠️ Testing Phase:</strong> The app is currently in closed testing. Please send us your Google Play email address via the <a href="index.html#feedback">Feedback form (Home page)</a> or <a href="https://api.whatsapp.com/send/?phone=%2B27684480856&text&type=phone_number&app_absent=0" target="_blank" rel="noopener noreferrer">WhatsApp</a>. Once we add you, come back here to install the app!
+                    </div>
+
                 </div>
                 <div class="btn-group">
-                    <a href="mayhub.apk" download class="btn btn-download">⬇️ Download APK</a>
+                    <a href="https://play.google.com/store/apps/details?id=com.maylearninghub.app" target="_blank" class="btn btn-playstore">
+                        <svg class="play-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M3.708 23.003c-.22.046-.462.008-.667-.107-.206-.115-.366-.296-.457-.52V1.624c.09-.224.25-.405.457-.52.205-.115.447-.153.667-.107l14.735 8.435c.247.142.398.4.398.685 0 .285-.15.543-.398.685L3.708 23.003z"/>
+                        </svg>
+                        Get it on Google Play
+                    </a>
                 </div>
             </section>
 
@@ -131,8 +150,8 @@
             <h2>Frequently Asked Questions</h2>
             
             <div class="faq-box">
-                <h3>How do I install the APK file?</h3>
-                <p>Once downloaded, tap the file. If prompted, allow your browser permission to "Install unknown apps" in your Android settings. It is completely safe!</p>
+                <h3>How do I install the app?</h3>
+                <p>Because the app is currently in its testing phase, you must first send us your email address. Once approved, click the Google Play button above to download and install the app safely from the official store.</p>
             </div>
 
             <div class="faq-box">
@@ -143,9 +162,9 @@
             <div class="faq-box">
                 <h3>When should I message via WhatsApp support?</h3>
                 <p>You may contact us via WhatsApp if you experience any issues while using the app or website, such as broken download links, pages not opening properly, login problems, or other technical difficulties.
-                                                                                                                                                       Educators and users are also welcome to reach out if they notice any information in our content that may be incorrect, outdated, unclear, or misleading. We appreciate helpful feedback, as it helps us improve the quality and accuracy of the learning materials.
-
-While we may try to guide learners where possible, schoolwork questions, homework help, and detailed subject tutoring may not always be answered through this channel..</p>
+                Educators and users are also welcome to reach out if they notice any information in our content that may be incorrect, outdated, unclear, or misleading. We appreciate helpful feedback, as it helps us improve the quality and accuracy of the learning materials.
+                <br><br>
+                While we may try to guide learners where possible, schoolwork questions, homework help, and detailed subject tutoring may not always be answered through this channel.</p>
             </div>
         </section>
     </main>
