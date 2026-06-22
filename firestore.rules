@@ -1,0 +1,94 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // Public access to games and notes collections
+    match /games/{document=**} {
+      allow read: if true;
+      allow write: if false; 
+    }
+    
+    match /notes/{document=**} {
+      allow read: if true;
+      allow write: if false; 
+    }
+
+    // Restrict activities to signed-in users only (Group 2 & 3)
+    match /activities/{document=**} {
+      allow read, write: if request.auth != null;
+    }
+
+
+    // Registered users can create feedback under their own authenticated identity.
+    match /feedback/{feedbackId} {
+      allow create: if request.auth != null
+                    && request.resource.data.keys().hasOnly([
+                      'userId', 'accountEmail', 'fullName', 'role',
+                      'requestType', 'subject', 'message', 'createdAt'
+                    ])
+                    && request.resource.data.userId == request.auth.uid
+                    && request.resource.data.accountEmail == request.auth.token.email
+                    && request.resource.data.fullName is string
+                    && request.resource.data.fullName.size() > 0
+                    && request.resource.data.fullName.size() <= 120
+                    && request.resource.data.role in ['Learner', 'Teacher', 'Parent', 'Other']
+                    && request.resource.data.requestType in [
+                      'General Feedback', 'Report Broken Link', 'Request Presentation',
+                      'Request Game', 'Request Activity', 'Request Learning Guide', 'Support Help'
+                    ]
+                    && request.resource.data.subject is string
+                    && request.resource.data.subject.size() > 0
+                    && request.resource.data.subject.size() <= 200
+                    && request.resource.data.message is string
+                    && request.resource.data.message.size() > 0
+                    && request.resource.data.message.size() <= 5000
+                    && request.resource.data.createdAt == request.time;
+
+      allow read: if request.auth != null
+                  && request.auth.uid == 'hVp1p5UP9WQ8JTvngErmjVkrXcj1';
+      allow update, delete: if false;
+    }
+
+    // --- UPDATED: Learning Forum (Messages) Rules ---
+    match /messages/{messageId} {
+      // Read access: Must be signed in AND have a chatStatus of 'verified'
+      allow read: if request.auth != null 
+                  && get(/databases/$(database)/documents/users/$(request.auth.uid)).data.chatStatus == 'verified';
+      
+      // Write access: Must be signed in, verified, and sending under their own UID
+      allow create: if request.auth != null 
+                    && request.resource.data.uid == request.auth.uid
+                    && get(/databases/$(database)/documents/users/$(request.auth.uid)).data.chatStatus == 'verified';
+      
+      // Prevent users from editing or deleting messages after they are sent
+      allow update, delete: if false; 
+    }
+
+    // --- UPDATED: Users Collection Rules ---
+    match /users/{userId} {
+      
+      // 1. MASTER ADMIN OVERRIDE (Your UID)
+      // This allows your Admin Dashboard to read the pending list and approve students
+      allow read, write: if request.auth != null && request.auth.uid == 'hVp1p5UP9WQ8JTvngErmjVkrXcj1';
+
+      // 2. Normal Learner Rules
+      // Allow learners to read and create their own profile when they sign up
+      allow read: if request.auth != null && request.auth.uid == userId;
+      allow create: if request.auth != null && request.auth.uid == userId;
+      
+      // Allow learners to update their profile to request access (pending), 
+      // but completely block them from hacking their status to 'verified'
+      allow update: if request.auth != null 
+                    && request.auth.uid == userId 
+                    && request.resource.data.chatStatus != 'verified';
+                    
+      allow delete: if false;
+    }
+
+    // Default: Deny all other collections (Must always stay at the very bottom)
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

@@ -4571,7 +4571,7 @@ method="POST"
 
 
 
-<button type="submit" class="btn btn-dark">Send Message</button>
+<button type="submit" class="btn btn-dark" id="feedbackSubmitButton" disabled>Send Message</button>
 
 
 
@@ -4877,6 +4877,8 @@ import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.11.0/firebas
 
 import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-auth.js";
 
+import { addDoc, collection, getFirestore, serverTimestamp } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
+
 
 
 
@@ -4955,6 +4957,8 @@ const analytics = getAnalytics(app);
 
 const auth = getAuth(app);
 
+const db = getFirestore(app);
+
 
 
 
@@ -4965,6 +4969,42 @@ let currentUser = null;
 
 
 let isAuthReady = false;
+
+const feedbackForm = document.getElementById('feedbackForm');
+const formStatus = document.getElementById('formStatus');
+const feedbackSubmitButton = document.getElementById('feedbackSubmitButton');
+const feedbackControls = feedbackForm
+    ? feedbackForm.querySelectorAll('input:not([type="hidden"]), select, textarea, button[type="submit"]')
+    : [];
+
+function setFeedbackAccess(user) {
+    feedbackControls.forEach((control) => {
+        control.disabled = !user;
+    });
+
+    if (!feedbackForm || !formStatus) return;
+
+    if (!user) {
+        formStatus.className = 'form-status error';
+        formStatus.textContent = 'Please sign in or register before sending feedback.';
+        return;
+    }
+
+    const emailInput = document.getElementById('emailAddress');
+    const nameInput = document.getElementById('fullName');
+
+    if (emailInput && user.email) {
+        emailInput.value = user.email;
+        emailInput.readOnly = true;
+    }
+
+    if (nameInput && !nameInput.value && user.displayName) {
+        nameInput.value = user.displayName;
+    }
+
+    formStatus.className = 'form-status';
+    formStatus.textContent = '';
+}
 
 
 
@@ -4992,6 +5032,8 @@ currentUser = user;
 
 
 isAuthReady = true;
+
+setFeedbackAccess(user);
 
 
 
@@ -6452,120 +6494,71 @@ renderSearchResults(filtered, query);
 
 
 
-const feedbackForm = document.getElementById('feedbackForm');
+const feedbackFormMarker = feedbackForm;
 
+feedbackFormMarker?.addEventListener('submit', async function (event) {
+    event.preventDefault();
 
+    formStatus.className = 'form-status';
+    formStatus.textContent = '';
 
-const formStatus = document.getElementById('formStatus');
+    if (!isAuthReady || !currentUser) {
+        formStatus.className = 'form-status error';
+        formStatus.textContent = 'Please sign in or register before sending feedback.';
+        sessionStorage.setItem('redirectURL', `${window.location.href.split('#')[0]}#feedback`);
+        window.location.href = 'signin.html';
+        return;
+    }
 
+    feedbackSubmitButton.disabled = true;
+    const formData = new FormData(feedbackForm);
+    const feedbackRecord = {
+        userId: currentUser.uid,
+        accountEmail: currentUser.email || '',
+        fullName: document.getElementById('fullName').value.trim(),
+        role: document.getElementById('userRole').value,
+        requestType: document.getElementById('requestType').value,
+        subject: document.getElementById('messageSubject').value.trim(),
+        message: document.getElementById('messageBody').value.trim(),
+        createdAt: serverTimestamp()
+    };
 
+    try {
+        await currentUser.getIdToken(true);
+        const feedbackDocument = await addDoc(collection(db, 'feedback'), feedbackRecord);
 
+        formData.append('Registered Account UID', currentUser.uid);
+        formData.append('Registered Account Email', currentUser.email || '');
+        formData.append('Feedback Record ID', feedbackDocument.id);
 
+        let emailNotificationSent = false;
 
+        try {
+            const response = await fetch(feedbackForm.action, {
+                method: feedbackForm.method,
+                body: formData,
+                headers: {
+                    'Accept': 'application/json'
+                }
+            });
+            emailNotificationSent = response.ok;
+        } catch (notificationError) {
+            console.warn('Feedback was saved, but the email notification failed.', notificationError);
+        }
 
-feedbackForm.addEventListener('submit', async function (event) {
-
-
-
-event.preventDefault();
-
-
-
-formStatus.className = 'form-status';
-
-
-
-formStatus.textContent = '';
-
-
-
-const formData = new FormData(feedbackForm);
-
-
-
-try {
-
-
-
-const response = await fetch(feedbackForm.action, {
-
-
-
-method: feedbackForm.method,
-
-
-
-body: formData,
-
-
-
-headers: {
-
-
-
-'Accept': 'application/json'
-
-
-
-}
-
-
-
+        feedbackForm.reset();
+        setFeedbackAccess(currentUser);
+        formStatus.className = 'form-status success';
+        formStatus.textContent = emailNotificationSent
+            ? 'Thank you. Your message has been sent successfully.'
+            : 'Thank you. Your feedback was received successfully.';
+    } catch (error) {
+        console.error('Feedback submission failed.', error);
+        feedbackSubmitButton.disabled = false;
+        formStatus.className = 'form-status error';
+        formStatus.textContent = 'Your feedback could not be sent. Please confirm that you are signed in and try again.';
+    }
 });
-
-
-
-if (response.ok) {
-
-
-
-feedbackForm.reset();
-
-
-
-formStatus.className = 'form-status success';
-
-
-
-formStatus.textContent = 'Thank you. Your message has been sent successfully.';
-
-
-
-} else {
-
-
-
-formStatus.className = 'form-status error';
-
-
-
-formStatus.textContent = 'Sorry, something went wrong while sending your message. Please try again.';
-
-
-
-}
-
-
-
-} catch (error) {
-
-
-
-formStatus.className = 'form-status error';
-
-
-
-formStatus.textContent = 'Connection problem. Please try again later or use the WhatsApp button.';
-
-
-
-}
-
-
-
-});
-
-
 
 </script>
 
