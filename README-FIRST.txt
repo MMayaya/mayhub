@@ -1,16 +1,8 @@
-MAY LEARNING HUB AUTHENTICATION UPDATE
+MAY LEARNING HUB SIGN-IN AND FEEDBACK UPDATE
 
-What this update does
-- Redirects signed-out visitors who paste any Activities page link to signin.html.
-- Returns users to the requested activity after a successful sign-in.
-- Locks the feedback form until Firebase confirms a registered, signed-in user.
-- Saves each feedback submission to Firestore under the authenticated account before sending the Formspree email notification.
-- Adds Firestore rules that permit feedback creation only when the submitted user ID and email match Firebase Authentication.
+This package contains three files for the root of the MayHub project:
+- activity-auth-guard.js: carries the exact requested activity into the sign-in page.
+- signin.html: supports direct sign-in redirects and uses the May Learning Hub design.
+- index.html: hides the feedback sign-in notice until a signed-out visitor selects Send Feedback or submits the form.
 
-Applying the update
-1. Merge the contents of this folder into the root of the MayHub project, preserving the folders.
-2. Publish the website changes.
-3. Deploy firestore.rules to the maylearninghub Firebase project.
-
-Important hosting limitation
-The activity-page redirect fixes the pasted-link behavior. The activity files are still static files on GitHub Pages, so Firestore rules cannot protect their raw PDF/image URLs. True file-level privacy requires moving those files to authenticated Firebase Storage or serving them through a backend that verifies Firebase ID tokens.
+Merge these files into the MayHub project root and publish the site.

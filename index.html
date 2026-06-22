@@ -4571,7 +4571,7 @@ method="POST"
 
 
 
-<button type="submit" class="btn btn-dark" id="feedbackSubmitButton" disabled>Send Message</button>
+<button type="submit" class="btn btn-dark" id="feedbackSubmitButton">Send Message</button>
 
 
 
@@ -4973,37 +4973,37 @@ let isAuthReady = false;
 const feedbackForm = document.getElementById('feedbackForm');
 const formStatus = document.getElementById('formStatus');
 const feedbackSubmitButton = document.getElementById('feedbackSubmitButton');
-const feedbackControls = feedbackForm
-    ? feedbackForm.querySelectorAll('input:not([type="hidden"]), select, textarea, button[type="submit"]')
-    : [];
-
 function setFeedbackAccess(user) {
-    feedbackControls.forEach((control) => {
-        control.disabled = !user;
-    });
-
     if (!feedbackForm || !formStatus) return;
-
-    if (!user) {
-        formStatus.className = 'form-status error';
-        formStatus.textContent = 'Please sign in or register before sending feedback.';
-        return;
-    }
 
     const emailInput = document.getElementById('emailAddress');
     const nameInput = document.getElementById('fullName');
 
-    if (emailInput && user.email) {
-        emailInput.value = user.email;
-        emailInput.readOnly = true;
-    }
+    if (user) {
+        if (emailInput && user.email) {
+            emailInput.value = user.email;
+            emailInput.readOnly = true;
+        }
 
-    if (nameInput && !nameInput.value && user.displayName) {
-        nameInput.value = user.displayName;
+        if (nameInput && !nameInput.value && user.displayName) {
+            nameInput.value = user.displayName;
+        }
+    } else if (emailInput) {
+        emailInput.readOnly = false;
     }
 
     formStatus.className = 'form-status';
     formStatus.textContent = '';
+}
+
+function redirectToSigninForFeedback() {
+    const returnUrl = `${window.location.pathname}#feedback`;
+    const signinUrl = new URL('signin.html', window.location.href);
+
+    sessionStorage.setItem('redirectURL', returnUrl);
+    signinUrl.searchParams.set('redirect', returnUrl);
+    signinUrl.searchParams.set('notice', 'feedback');
+    window.location.href = signinUrl.href;
 }
 
 
@@ -5087,11 +5087,23 @@ if (userDisplayBtn) userDisplayBtn.style.display = 'none';
 
 
 
-document.addEventListener('click', (e) => {
+document.addEventListener('click', async (e) => {
 
 
 
 const link = e.target.closest('a');
+
+if (link && link.getAttribute('href') === '#feedback') {
+    e.preventDefault();
+    await auth.authStateReady();
+
+    if (!auth.currentUser) {
+        redirectToSigninForFeedback();
+    } else {
+        document.getElementById('feedback')?.scrollIntoView({ behavior: 'smooth' });
+    }
+    return;
+}
 
 
 
@@ -6502,11 +6514,14 @@ feedbackFormMarker?.addEventListener('submit', async function (event) {
     formStatus.className = 'form-status';
     formStatus.textContent = '';
 
-    if (!isAuthReady || !currentUser) {
-        formStatus.className = 'form-status error';
-        formStatus.textContent = 'Please sign in or register before sending feedback.';
-        sessionStorage.setItem('redirectURL', `${window.location.href.split('#')[0]}#feedback`);
-        window.location.href = 'signin.html';
+    if (!isAuthReady) {
+        await auth.authStateReady();
+        currentUser = auth.currentUser;
+        isAuthReady = true;
+    }
+
+    if (!currentUser) {
+        redirectToSigninForFeedback();
         return;
     }
 

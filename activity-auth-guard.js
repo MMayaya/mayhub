@@ -15,17 +15,23 @@ const app = getApps().length ? getApp() : initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const signinUrl = new URL("signin.html", import.meta.url);
 
+function redirectToSignin() {
+    const returnUrl = `${window.location.pathname}${window.location.search}${window.location.hash}`;
+    sessionStorage.setItem("redirectURL", returnUrl);
+    signinUrl.searchParams.set("redirect", returnUrl);
+    signinUrl.searchParams.set("notice", "activity");
+    window.location.replace(signinUrl.href);
+}
+
 try {
     await auth.authStateReady();
 
     if (!auth.currentUser) {
-        sessionStorage.setItem("redirectURL", window.location.href);
-        window.location.replace(signinUrl.href);
+        redirectToSignin();
     } else {
         document.getElementById("activity-auth-guard-style")?.remove();
     }
 } catch (error) {
     console.error("Could not confirm activity access.", error);
-    sessionStorage.setItem("redirectURL", window.location.href);
-    window.location.replace(signinUrl.href);
+    redirectToSignin();
 }

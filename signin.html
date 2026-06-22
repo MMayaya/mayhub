@@ -1,224 +1,507 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-8GCWSKNDL7"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-8GCWSKNDL7');
-</script>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-8GCWSKNDL7"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-8GCWSKNDL7');
+    </script>
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Sign in to May Learning Hub to access registered-user learning activities and feedback.">
     <title>Sign In | May Learning Hub</title>
     <style>
-        body { font-family: 'Segoe UI', sans-serif; background-color: #f0f4f8; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
-        .auth-card { background: white; padding: 2.5rem; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); width: 100%; max-width: 400px; text-align: center; }
-        
-        /* Vibrant Blue Heading */
-        .auth-card h2 { 
-            color: #0056ff; 
-            text-shadow: 0 0 10px rgba(0, 86, 255, 0.2);
-            margin-bottom: 1.5rem; 
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --navy: #002b5e;
+            --blue: #0059b3;
+            --light-blue: #eaf3ff;
+            --red: #c40000;
+            --deep-red: #850000;
+            --text: #263445;
+            --muted: #627083;
+            --surface: #ffffff;
+            --page: #f0f4f8;
         }
-        
-        input { width: 100%; padding: 12px; margin: 8px 0; border: 1px solid #ddd; border-radius: 8px; box-sizing: border-box; }
-        .btn { width: 100%; padding: 12px; border: none; border-radius: 8px; cursor: pointer; font-weight: 600; margin-top: 10px; transition: all 0.3s ease; }
-        
-        /* Vibrant Glowy Blue Button */
-        .btn-primary { 
-            background: linear-gradient(135deg, #0056ff, #00d4ff); 
-            color: white; 
-            box-shadow: 0 4px 15px rgba(0, 212, 255, 0.4);
+
+        html { min-height: 100%; }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--page);
+            color: var(--text);
+            line-height: 1.5;
         }
-        .btn-primary:hover:not(:disabled) {
-            box-shadow: 0 6px 20px rgba(0, 212, 255, 0.6);
-            transform: translateY(-1px);
+
+        a:focus-visible,
+        button:focus-visible,
+        input:focus-visible {
+            outline: 3px solid #66a3ff;
+            outline-offset: 3px;
         }
-        .btn-primary:disabled { background: #a1c4f4; box-shadow: none; cursor: not-allowed; }
-        
-        .forgot-password-container { text-align: right; margin: 4px 0 12px 0; }
-        
-        /* Vibrant Links */
-        .link-text { color: #0072ff; font-size: 0.85rem; text-decoration: none; font-weight: 600; }
-        .link-text:hover { text-decoration: underline; text-shadow: 0 0 8px rgba(0, 114, 255, 0.3); }
-        
-        #status-message { margin-top: 12px; font-size: 0.9rem; color: #cc0000; font-weight: 600; }
+
+        nav {
+            min-height: 72px;
+            padding: 1rem clamp(1rem, 4vw, 3rem);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            background: var(--navy);
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.18);
+        }
+
+        .logo {
+            color: #ffffff;
+            font-size: 1.4rem;
+            font-weight: 750;
+            text-decoration: none;
+            letter-spacing: 0.01em;
+        }
+
+        .home-link {
+            color: #dbeaff;
+            padding: 0.55rem 0.85rem;
+            border-radius: 7px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: background-color 0.2s ease, color 0.2s ease;
+        }
+
+        .home-link:hover {
+            color: #ffffff;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        main {
+            flex: 1;
+            display: grid;
+            place-items: center;
+            padding: clamp(1.5rem, 5vw, 4rem) 1rem;
+            position: relative;
+            overflow: hidden;
+            background:
+                radial-gradient(circle at 12% 20%, rgba(0, 89, 179, 0.13), transparent 28%),
+                radial-gradient(circle at 88% 82%, rgba(196, 0, 0, 0.1), transparent 28%),
+                linear-gradient(135deg, #f8fbff 0%, #eef4fb 100%);
+        }
+
+        .auth-card {
+            width: min(920px, 100%);
+            display: grid;
+            grid-template-columns: minmax(280px, 0.85fr) minmax(330px, 1.15fr);
+            overflow: hidden;
+            background: var(--surface);
+            border: 1px solid rgba(0, 43, 94, 0.1);
+            border-radius: 18px;
+            box-shadow: 0 20px 55px rgba(0, 43, 94, 0.17);
+        }
+
+        .brand-panel {
+            padding: clamp(2rem, 5vw, 3.5rem);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            color: #ffffff;
+            background: linear-gradient(145deg, var(--navy) 0%, #004884 62%, var(--deep-red) 140%);
+            position: relative;
+            isolation: isolate;
+        }
+
+        .brand-panel::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            z-index: -1;
+            opacity: 0.36;
+            background: linear-gradient(155deg, rgba(255, 255, 255, 0.18), transparent 42%);
+        }
+
+        .brand-logo {
+            width: 116px;
+            height: 116px;
+            object-fit: cover;
+            margin-bottom: 1.6rem;
+            border: 4px solid rgba(255, 255, 255, 0.9);
+            border-radius: 18px;
+            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.24);
+        }
+
+        .brand-panel h1 {
+            max-width: 12ch;
+            margin-bottom: 0.9rem;
+            font-size: clamp(2rem, 4vw, 2.75rem);
+            line-height: 1.08;
+        }
+
+        .brand-panel p {
+            max-width: 34ch;
+            color: #dcecff;
+            font-size: 1.02rem;
+        }
+
+        .form-panel {
+            padding: clamp(2rem, 5vw, 3.5rem);
+        }
+
+        .eyebrow {
+            margin-bottom: 0.45rem;
+            color: var(--red);
+            font-size: 0.8rem;
+            font-weight: 800;
+            letter-spacing: 0.13em;
+            text-transform: uppercase;
+        }
+
+        .form-panel h2 {
+            margin-bottom: 0.45rem;
+            color: var(--navy);
+            font-size: clamp(1.75rem, 4vw, 2.25rem);
+        }
+
+        .intro {
+            margin-bottom: 1.35rem;
+            color: var(--muted);
+        }
+
+        .access-notice {
+            margin-bottom: 1.25rem;
+            padding: 0.9rem 1rem;
+            color: #6f0000;
+            background: #fff0f0;
+            border: 1px solid #f0b1b1;
+            border-left: 5px solid var(--red);
+            border-radius: 9px;
+            font-weight: 650;
+        }
+
+        .access-notice[hidden] { display: none; }
+
+        .field { margin-bottom: 1rem; }
+
+        label {
+            display: block;
+            margin-bottom: 0.4rem;
+            color: #24384f;
+            font-size: 0.9rem;
+            font-weight: 700;
+        }
+
+        input {
+            width: 100%;
+            min-height: 48px;
+            padding: 0.75rem 0.85rem;
+            color: var(--text);
+            background: #ffffff;
+            border: 1px solid #c8d4e2;
+            border-radius: 9px;
+            font: inherit;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        input:focus {
+            border-color: var(--blue);
+            box-shadow: 0 0 0 4px rgba(0, 89, 179, 0.12);
+            outline: none;
+        }
+
+        .form-row {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: -0.35rem;
+        }
+
+        .text-link {
+            color: var(--blue);
+            font-weight: 700;
+            text-decoration: none;
+        }
+
+        .text-link:hover { text-decoration: underline; }
+
+        .forgot-link { font-size: 0.88rem; }
+
+        .btn {
+            width: 100%;
+            min-height: 50px;
+            margin-top: 1.15rem;
+            padding: 0.78rem 1rem;
+            color: #ffffff;
+            background: linear-gradient(135deg, #004080, #0068c9);
+            border: 0;
+            border-radius: 9px;
+            box-shadow: 0 8px 20px rgba(0, 64, 128, 0.24);
+            cursor: pointer;
+            font: inherit;
+            font-weight: 750;
+            transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
+        }
+
+        .btn:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 11px 25px rgba(0, 64, 128, 0.31);
+        }
+
+        .btn:disabled {
+            opacity: 0.65;
+            cursor: wait;
+        }
+
+        .status-message {
+            min-height: 1.4rem;
+            margin-top: 0.9rem;
+            font-size: 0.9rem;
+            font-weight: 650;
+        }
+
+        .account-prompt {
+            margin-top: 1.2rem;
+            color: var(--muted);
+            font-size: 0.92rem;
+            text-align: center;
+        }
+
+        .back-home {
+            display: block;
+            margin-top: 1rem;
+            color: #405a75;
+            font-size: 0.9rem;
+            font-weight: 650;
+            text-align: center;
+            text-decoration: none;
+        }
+
+        .back-home:hover { color: var(--navy); text-decoration: underline; }
+
+        footer {
+            padding: 1rem;
+            color: #dbeaff;
+            background: var(--navy);
+            font-size: 0.86rem;
+            text-align: center;
+        }
+
+        @media (max-width: 760px) {
+            .auth-card { grid-template-columns: 1fr; }
+            .brand-panel { padding: 1.7rem; }
+            .brand-logo { width: 82px; height: 82px; margin-bottom: 1rem; }
+            .brand-panel h1 { max-width: none; font-size: 1.8rem; }
+            .brand-panel p { font-size: 0.94rem; }
+            .form-panel { padding: 1.7rem; }
+        }
+
+        @media (max-width: 440px) {
+            nav { padding: 0.85rem 1rem; }
+            .logo { font-size: 1.1rem; }
+            .home-link { padding: 0.45rem 0.55rem; font-size: 0.9rem; }
+            main { padding: 1rem 0.75rem; }
+            .auth-card { border-radius: 13px; }
+        }
     </style>
 </head>
 <body>
+    <nav aria-label="Main navigation">
+        <a href="index.html" class="logo">May Learning Hub</a>
+        <a href="index.html" class="home-link">Back to Home</a>
+    </nav>
 
-<div class="auth-card">
-    <h2>May Learning Hub</h2>
-    <p>Sign in to access activities and chatrooms</p>
+    <main>
+        <section class="auth-card" aria-labelledby="signin-title">
+            <div class="brand-panel">
+                <img src="May Learning Hub Logo.jpg" alt="May Learning Hub logo" class="brand-logo">
+                <h1>Learning that moves with you.</h1>
+                <p>Sign in to continue to registered-user activities, learning spaces, and feedback tools.</p>
+            </div>
 
-    <input type="email" id="email" placeholder="Email Address" autocomplete="email">
-    <input type="password" id="password" placeholder="Password" autocomplete="current-password">
-    
-    <div class="forgot-password-container">
-        <a href="#" id="forgotPassword" class="link-text">Forgot Password?</a>
-    </div>
+            <div class="form-panel">
+                <p class="eyebrow">Registered users</p>
+                <h2 id="signin-title">Welcome back</h2>
+                <p class="intro">Enter your May Learning Hub account details.</p>
 
-    <button id="emailLogin" class="btn btn-primary">Sign In</button>
+                <div id="accessNotice" class="access-notice" role="status" hidden></div>
 
-    <div id="status-message"></div>
+                <form id="signinForm" novalidate>
+                    <div class="field">
+                        <label for="email">Email address</label>
+                        <input type="email" id="email" placeholder="name@example.com" autocomplete="email" required>
+                    </div>
 
-    <p style="margin-top:20px; font-size: 0.9rem;">New here? <a href="signup.html" class="link-text" style="font-size: 0.9rem;">Create an account</a></p>
-</div>
+                    <div class="field">
+                        <label for="password">Password</label>
+                        <input type="password" id="password" placeholder="Enter your password" autocomplete="current-password" required>
+                    </div>
 
-<script type="module">
-    // Firebase imports
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-app.js";
-    import { initializeAppCheck, ReCaptchaV3Provider } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-app-check.js";
-    import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-analytics.js";
-    import { 
-        getAuth, 
-        signInWithEmailAndPassword, 
-        onAuthStateChanged,
-        sendPasswordResetEmail 
-    } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-auth.js";
+                    <div class="form-row">
+                        <a href="#" id="forgotPassword" class="text-link forgot-link">Forgot password?</a>
+                    </div>
 
-    // Firebase config
-    const firebaseConfig = {
-        apiKey: "AIzaSyApyOAfcEB8nGc-B3IO4X8wIl-nVi3nKeo",
-        authDomain: "maylearninghub.firebaseapp.com",
-        projectId: "maylearninghub",
-        storageBucket: "maylearninghub.firebasestorage.app",
-        messagingSenderId: "237875455146",
-        appId: "1:237875455146:web:21310d33b56664d669dcd3",
-        measurementId: "G-LJMFCM44TQ"
-    };
+                    <button id="emailLogin" class="btn" type="submit">Sign In</button>
+                    <div id="status-message" class="status-message" aria-live="polite"></div>
+                </form>
 
-    // Initialize Firebase services
-    const app = initializeApp(firebaseConfig);
+                <p class="account-prompt">New here? <a href="signup.html" id="signupLink" class="text-link">Create an account</a></p>
+                <a href="index.html" class="back-home">Return to the May Learning Hub home page</a>
+            </div>
+        </section>
+    </main>
 
-    // --- FIX 1: Allow App Check to work on local computer for testing ---
-    if (window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1") {
-        self.FIREBASE_APPCHECK_DEBUG_TOKEN = true;
-    }
+    <footer>
+        <p>&copy; 2026 May Learning Hub. All rights reserved.</p>
+    </footer>
 
-    const appCheck = initializeAppCheck(app, {
-        provider: new ReCaptchaV3Provider('6LfPNb0sAAAAAKWmsT-rqt2jQTfOuJWTN9Wlv4Vj'),
-        isTokenAutoRefreshEnabled: true
-    });
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-app.js";
+        import {
+            getAuth,
+            onAuthStateChanged,
+            sendPasswordResetEmail,
+            signInWithEmailAndPassword
+        } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-auth.js";
 
-    const analytics = getAnalytics(app);
-    const auth = getAuth(app);
+        const firebaseConfig = {
+            apiKey: "AIzaSyApyOAfcEB8nGc-B3IO4X8wIl-nVi3nKeo",
+            authDomain: "maylearninghub.firebaseapp.com",
+            projectId: "maylearninghub",
+            storageBucket: "maylearninghub.firebasestorage.app",
+            messagingSenderId: "237875455146",
+            appId: "1:237875455146:web:21310d33b56664d669dcd3",
+            measurementId: "G-LJMFCM44TQ"
+        };
 
-    // UI elements
-    const emailInput = document.getElementById('email');
-    const passwordInput = document.getElementById('password');
-    const emailLoginBtn = document.getElementById('emailLogin');
-    const forgotPasswordLink = document.getElementById('forgotPassword');
-    const statusMessage = document.getElementById('status-message');
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const pageUrl = new URL(window.location.href);
+        const homeUrl = new URL('index.html', pageUrl);
+        const requestedRedirect = pageUrl.searchParams.get('redirect') || sessionStorage.getItem('redirectURL');
 
-    function setLoading(isLoading, customText = null) {
-        emailLoginBtn.disabled = isLoading;
-        if (isLoading) {
-            emailLoginBtn.textContent = customText || "Signing in...";
-        } else {
-            emailLoginBtn.textContent = "Sign In";
-        }
-    }
+        const signinForm = document.getElementById('signinForm');
+        const emailInput = document.getElementById('email');
+        const passwordInput = document.getElementById('password');
+        const emailLoginBtn = document.getElementById('emailLogin');
+        const forgotPasswordLink = document.getElementById('forgotPassword');
+        const signupLink = document.getElementById('signupLink');
+        const statusMessage = document.getElementById('status-message');
+        const accessNotice = document.getElementById('accessNotice');
 
-    function showError(message) {
-        console.error(message);
-        statusMessage.textContent = message;
-        statusMessage.style.color = "#cc0000";
-    }
+        function getSafeDestination() {
+            if (!requestedRedirect) return homeUrl;
 
-    function showSuccess(message) {
-        statusMessage.textContent = message;
-        statusMessage.style.color = "#00c853"; // Vibrant green for success
-    }
+            try {
+                const destination = new URL(requestedRedirect, pageUrl);
+                const isSigninPage = destination.pathname.toLowerCase().endsWith('/signin.html');
 
-    // Redirection logic
-    const handleRedirect = () => {
-        const urlParams = new URLSearchParams(window.location.search);
-        const urlRedirect = urlParams.get('redirect');
-        const savedRedirect = sessionStorage.getItem('redirectURL');
+                if (destination.origin !== pageUrl.origin || isSigninPage) {
+                    return homeUrl;
+                }
 
-        let nextURL = urlRedirect || savedRedirect || 'index.html';
-
-        try {
-            const destination = new URL(nextURL, window.location.origin);
-            if (destination.origin !== window.location.origin) {
-                nextURL = 'index.html';
-            } else {
-                nextURL = destination.href;
+                return destination;
+            } catch (error) {
+                return homeUrl;
             }
-        } catch (error) {
-            nextURL = 'index.html';
         }
 
-        sessionStorage.removeItem('redirectURL');
-        window.location.href = nextURL;
-    };
+        const destination = getSafeDestination();
+        const returnPath = `${destination.pathname}${destination.search}${destination.hash}`;
+        const noticeType = pageUrl.searchParams.get('notice');
 
-    // Auto-redirect logic
-    onAuthStateChanged(auth, (user) => {
-        if (user) {
-            setLoading(true); 
-            handleRedirect();
-        }
-    });
-
-    // Email login
-    emailLoginBtn.onclick = async () => {
-        const email = emailInput.value.trim();
-        const pass = passwordInput.value;
-
-        statusMessage.textContent = '';
-
-        if (!email || !pass) {
-            showError("Please enter both your email address and password.");
-            return;
+        if (noticeType === 'activity') {
+            accessNotice.textContent = 'Please sign in to continue to the activity you requested.';
+            accessNotice.hidden = false;
+        } else if (noticeType === 'feedback') {
+            accessNotice.textContent = 'Please sign in or create an account before sending feedback.';
+            accessNotice.hidden = false;
         }
 
-        try {
-            setLoading(true);
-            await signInWithEmailAndPassword(auth, email, pass);
-        } catch (err) { 
-            showError("Error: " + err.message);
-            setLoading(false);
-        }
-    };
+        const signupUrl = new URL('signup.html', pageUrl);
+        signupUrl.searchParams.set('redirect', returnPath);
+        signupLink.href = signupUrl.href;
 
-    // Password reset functionality
-    forgotPasswordLink.onclick = async (e) => {
-        e.preventDefault();
-        const email = emailInput.value.trim();
-
-        statusMessage.textContent = '';
-
-        if (!email) {
-            showError("Please enter your email address first to reset your password.");
-            return;
+        function setLoading(isLoading, customText = 'Signing in...') {
+            emailLoginBtn.disabled = isLoading;
+            emailLoginBtn.textContent = isLoading ? customText : 'Sign In';
         }
 
-        try {
-            setLoading(true, "Sending Link...");
-            
-            // Network request to Firebase Auth
-            await sendPasswordResetEmail(auth, email);
-            
-            showSuccess("Password reset email sent! Please check your inbox.");
-            setLoading(false);
-        } catch (err) {
-            showError("Error: " + err.message);
-            setLoading(false);
+        function showStatus(message, type = 'error') {
+            statusMessage.textContent = message;
+            statusMessage.style.color = type === 'success' ? '#087b35' : '#b00020';
         }
-    };
 
-    // Allow Enter key to submit email/password login
-    passwordInput.addEventListener('keydown', (event) => {
-        if (event.key === 'Enter') {
-            emailLoginBtn.click();
+        function friendlyAuthError(error) {
+            if (error.code === 'auth/invalid-credential' || error.code === 'auth/wrong-password' || error.code === 'auth/user-not-found') {
+                return 'The email address or password is incorrect.';
+            }
+            if (error.code === 'auth/too-many-requests') {
+                return 'Too many sign-in attempts. Please wait a little and try again.';
+            }
+            if (error.code === 'auth/network-request-failed') {
+                return 'A network problem prevented sign-in. Please check your connection and try again.';
+            }
+            return 'Sign-in could not be completed. Please try again.';
         }
-    });
-</script>
+
+        function redirectAfterSignin() {
+            sessionStorage.removeItem('redirectURL');
+            window.location.replace(destination.href);
+        }
+
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                setLoading(true, 'Opening your page...');
+                redirectAfterSignin();
+            }
+        });
+
+        signinForm.addEventListener('submit', async (event) => {
+            event.preventDefault();
+            const email = emailInput.value.trim();
+            const password = passwordInput.value;
+            statusMessage.textContent = '';
+
+            if (!email || !password) {
+                showStatus('Please enter both your email address and password.');
+                return;
+            }
+
+            try {
+                setLoading(true);
+                await signInWithEmailAndPassword(auth, email, password);
+            } catch (error) {
+                console.error('Sign-in failed.', error);
+                showStatus(friendlyAuthError(error));
+                setLoading(false);
+            }
+        });
+
+        forgotPasswordLink.addEventListener('click', async (event) => {
+            event.preventDefault();
+            const email = emailInput.value.trim();
+            statusMessage.textContent = '';
+
+            if (!email) {
+                showStatus('Enter your email address first, then select Forgot password.');
+                emailInput.focus();
+                return;
+            }
+
+            try {
+                setLoading(true, 'Sending reset link...');
+                await sendPasswordResetEmail(auth, email);
+                showStatus('Password reset email sent. Please check your inbox.', 'success');
+            } catch (error) {
+                console.error('Password reset failed.', error);
+                showStatus('The reset email could not be sent. Please check the address and try again.');
+            } finally {
+                setLoading(false);
+            }
+        });
+    </script>
 </body>
 </html>
