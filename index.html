@@ -4645,7 +4645,7 @@ import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.11.0/firebas
 
 
 
-import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-auth.js";
+import { browserLocalPersistence, getAuth, onAuthStateChanged, setPersistence } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-auth.js";
 
 import { addDoc, collection, getFirestore, serverTimestamp } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
 
@@ -4726,6 +4726,10 @@ const analytics = getAnalytics(app);
 
 
 const auth = getAuth(app);
+
+const authPersistenceReady = setPersistence(auth, browserLocalPersistence).catch((error) => {
+    console.warn('Could not force saved sign-in persistence. Firebase will use the available fallback.', error);
+});
 
 const db = getFirestore(app);
 
@@ -4865,6 +4869,7 @@ const link = e.target.closest('a');
 
 if (link && link.getAttribute('href') === '#feedback') {
     e.preventDefault();
+    await authPersistenceReady;
     await auth.authStateReady();
 
     if (!auth.currentUser) {
@@ -4895,6 +4900,19 @@ if (link && (link.href.includes('/Activities/') || link.href.includes('/Chat/'))
 
 
 
+if (!isAuthReady) {
+    e.preventDefault();
+    await authPersistenceReady;
+    await auth.authStateReady();
+    currentUser = auth.currentUser;
+    isAuthReady = true;
+
+    if (currentUser) {
+        window.location.href = link.href;
+        return;
+    }
+}
+
 if (isAuthReady && !currentUser) {
 
 
@@ -4911,7 +4929,10 @@ alert("Please sign in to access this section!");
 
 
 
-window.location.href = 'signin.html';
+const signinUrl = new URL('signin.html', window.location.href);
+signinUrl.searchParams.set('redirect', link.href);
+signinUrl.searchParams.set('notice', 'activity');
+window.location.href = signinUrl.href;
 
 
 
