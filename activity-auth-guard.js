@@ -1,5 +1,12 @@
 import { getApp, getApps, initializeApp } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-app.js";
-import { browserLocalPersistence, getAuth, onAuthStateChanged, setPersistence } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-auth.js";
+import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-auth.js";
+import {
+    clearActivityRedirectMarker,
+    getSavedActivityAccess,
+    rememberActivityAccess,
+    setBestAvailablePersistence,
+    shouldWaitLongerForRecentSignin
+} from "./mayhub-auth-state.js";
 
 const firebaseConfig = {
     apiKey: "AIzaSyApyOAfcEB8nGc-B3IO4X8wIl-nVi3nKeo",
@@ -11,12 +18,12 @@ const firebaseConfig = {
     measurementId: "G-LJMFCM44TQ"
 };
 
+const NORMAL_AUTH_WAIT_MS = 2500;
+const RECENT_SIGNIN_AUTH_WAIT_MS = 10000;
+
 const app = getApps().length ? getApp() : initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const signinUrl = new URL("signin.html", import.meta.url);
-const NORMAL_AUTH_WAIT_MS = 2500;
-const RECENT_SIGNIN_AUTH_WAIT_MS = 10000;
-const RECENT_SIGNIN_WINDOW_MS = 60000;
 
 function revealActivity() {
     document.getElementById("activity-auth-guard-style")?.remove();
@@ -24,11 +31,6 @@ function revealActivity() {
 
 function getReturnUrl() {
     return `${window.location.pathname}${window.location.search}${window.location.hash}`;
-}
-
-function shouldWaitLongerForRecentSignin() {
-    const redirectAt = Number(sessionStorage.getItem("mayhubAuthRedirectAt") || 0);
-    return redirectAt > 0 && Date.now() - redirectAt < RECENT_SIGNIN_WINDOW_MS;
 }
 
 function waitForSignedInUser(timeoutMs) {
@@ -65,9 +67,7 @@ function redirectToSignin() {
 }
 
 try {
-    await setPersistence(auth, browserLocalPersistence).catch((error) => {
-        console.warn("Could not force saved sign-in persistence. Firebase will use the available fallback.", error);
-    });
+    await setBestAvailablePersistence(auth);
 
     if (typeof auth.authStateReady === "function") {
         await auth.authStateReady();
@@ -78,13 +78,21 @@ try {
         : NORMAL_AUTH_WAIT_MS;
     const user = auth.currentUser || await waitForSignedInUser(waitMs);
 
-    if (!user) {
-        redirectToSignin();
-    } else {
-        sessionStorage.removeItem("mayhubAuthRedirectAt");
+    if (user) {
+        rememberActivityAccess(user);
+        clearActivityRedirectMarker();
         revealActivity();
+    } else if (getSavedActivityAccess()) {
+        revealActivity();
+    } else {
+        redirectToSignin();
     }
 } catch (error) {
     console.error("Could not confirm activity access.", error);
-    redirectToSignin();
+
+    if (getSavedActivityAccess()) {
+        revealActivity();
+    } else {
+        redirectToSignin();
+    }
 }

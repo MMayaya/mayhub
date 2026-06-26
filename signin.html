@@ -361,13 +361,16 @@
         import { initializeApp } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-app.js";
         import { getToken, initializeAppCheck, ReCaptchaV3Provider } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-app-check.js";
         import {
-            browserLocalPersistence,
             getAuth,
             onAuthStateChanged,
             sendPasswordResetEmail,
-            setPersistence,
             signInWithEmailAndPassword
         } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-auth.js";
+        import {
+            markActivityRedirect,
+            rememberActivityAccess,
+            setBestAvailablePersistence
+        } from "./mayhub-auth-state.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyApyOAfcEB8nGc-B3IO4X8wIl-nVi3nKeo",
@@ -385,14 +388,18 @@
             self.FIREBASE_APPCHECK_DEBUG_TOKEN = true;
         }
 
-        const appCheck = initializeAppCheck(app, {
-            provider: new ReCaptchaV3Provider('6LfPNb0sAAAAAKWmsT-rqt2jQTfOuJWTN9Wlv4Vj'),
-            isTokenAutoRefreshEnabled: true
-        });
+        let appCheck = null;
+        try {
+            appCheck = initializeAppCheck(app, {
+                provider: new ReCaptchaV3Provider('6LfPNb0sAAAAAKWmsT-rqt2jQTfOuJWTN9Wlv4Vj'),
+                isTokenAutoRefreshEnabled: true
+            });
+        } catch (error) {
+            console.warn('Firebase App Check could not start. Sign-in will continue.', error);
+        }
+
         const auth = getAuth(app);
-        const authPersistenceReady = setPersistence(auth, browserLocalPersistence).catch((error) => {
-            console.warn('Could not force saved sign-in persistence. Firebase will use the available fallback.', error);
-        });
+        const authPersistenceReady = setBestAvailablePersistence(auth);
         const pageUrl = new URL(window.location.href);
         const homeUrl = new URL('index.html', pageUrl);
         const requestedRedirect = pageUrl.searchParams.get('redirect') || sessionStorage.getItem('redirectURL');
@@ -445,16 +452,15 @@
         }
 
         async function ensureAppCheckToken() {
+            if (!appCheck) return;
+
             try {
                 await getToken(appCheck, false);
             } catch (firstError) {
                 try {
                     await getToken(appCheck, true);
                 } catch (secondError) {
-                    console.error('Firebase security verification failed.', secondError);
-                    const verificationError = new Error('Firebase security verification failed.');
-                    verificationError.code = 'app-check/verification-failed';
-                    throw verificationError;
+                    console.warn('Firebase security verification could not be completed before sign-in. Continuing with Firebase Auth.', secondError);
                 }
             }
         }
@@ -465,9 +471,6 @@
         }
 
         function friendlyAuthError(error) {
-            if (error.code === 'app-check/verification-failed') {
-                return 'Security verification could not be completed. Refresh the page and try again.';
-            }
             if (error.code === 'auth/invalid-credential' || error.code === 'auth/wrong-password' || error.code === 'auth/user-not-found') {
                 return 'The email address or password is incorrect.';
             }
@@ -482,10 +485,11 @@
 
         let hasRedirectedAfterSignin = false;
 
-        function redirectAfterSignin() {
+        function redirectAfterSignin(user) {
             if (hasRedirectedAfterSignin) return;
             hasRedirectedAfterSignin = true;
-            sessionStorage.setItem('mayhubAuthRedirectAt', Date.now().toString());
+            if (user) rememberActivityAccess(user);
+            markActivityRedirect();
             sessionStorage.removeItem('redirectURL');
             window.location.replace(destination.href);
         }
@@ -493,7 +497,7 @@
         onAuthStateChanged(auth, (user) => {
             if (user) {
                 setLoading(true, 'Opening your page...');
-                redirectAfterSignin();
+                redirectAfterSignin(user);
             }
         });
 
@@ -509,11 +513,13 @@
             }
 
             try {
-                setLoading(true, 'Verifying security...');
-                await ensureAppCheckToken();
+                setLoading(true, 'Preparing sign-in...');
                 await authPersistenceReady;
+                await ensureAppCheckToken();
                 setLoading(true);
-                await signInWithEmailAndPassword(auth, email, password);
+                const userCredential = await signInWithEmailAndPassword(auth, email, password);
+                rememberActivityAccess(userCredential.user);
+                redirectAfterSignin(userCredential.user);
             } catch (error) {
                 console.error('Sign-in failed.', error);
                 showStatus(friendlyAuthError(error));
@@ -533,17 +539,15 @@
             }
 
             try {
-                setLoading(true, 'Verifying security...');
+                setLoading(true, 'Preparing reset link...');
+                await authPersistenceReady;
                 await ensureAppCheckToken();
                 setLoading(true, 'Sending reset link...');
                 await sendPasswordResetEmail(auth, email);
                 showStatus('Password reset email sent. Please check your inbox.', 'success');
             } catch (error) {
                 console.error('Password reset failed.', error);
-                const resetMessage = error.code === 'app-check/verification-failed'
-                    ? 'Security verification could not be completed. Refresh the page and try again.'
-                    : 'The reset email could not be sent. Please check the address and try again.';
-                showStatus(resetMessage);
+                showStatus('The reset email could not be sent. Please check the address and try again.');
             } finally {
                 setLoading(false);
             }

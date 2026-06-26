@@ -244,6 +244,11 @@
         onAuthStateChanged
     } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-auth.js";
     import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
+    import {
+        markActivityRedirect,
+        rememberActivityAccess,
+        setBestAvailablePersistence
+    } from "./mayhub-auth-state.js";
 
     const firebaseConfig = {
         apiKey: "AIzaSyApyOAfcEB8nGc-B3IO4X8wIl-nVi3nKeo",
@@ -260,12 +265,18 @@
         self.FIREBASE_APPCHECK_DEBUG_TOKEN = true;
     }
 
-    const appCheck = initializeAppCheck(app, {
+    let appCheck = null;
+try {
+    appCheck = initializeAppCheck(app, {
         provider: new ReCaptchaV3Provider("6LfPNb0sAAAAAKWmsT-rqt2jQTfOuJWTN9Wlv4Vj"),
         isTokenAutoRefreshEnabled: true
     });
+} catch (error) {
+    console.warn("Firebase App Check could not start. Sign-up will continue.", error);
+}
 
     const auth = getAuth(app);
+    const authPersistenceReady = setBestAvailablePersistence(auth);
     const db = getFirestore(app);
 
     // --- SMART CASCADING SCHOOL DATABASE ---
@@ -403,12 +414,14 @@
             nextURL = 'index.html';
         }
 
+        markActivityRedirect();
         sessionStorage.removeItem('redirectURL');
         window.location.href = nextURL;
     };
 
     onAuthStateChanged(auth, (user) => {
         if (user && !isSigningUp) {
+            rememberActivityAccess(user);
             handleRedirect();
         }
     });
@@ -527,7 +540,8 @@
 
         try {
             setLoading(true);
-            isSigningUp = true; 
+            isSigningUp = true;
+            await authPersistenceReady;
             
             showStatus("Creating secure profile...", "#0056ff");
             const userCredential = await createUserWithEmailAndPassword(auth, email, pass);
@@ -539,6 +553,7 @@
             
             showStatus("Saving data to database...", "#0056ff");
             await setDoc(doc(db, "users", userCredential.user.uid), userData);
+            rememberActivityAccess(userCredential.user);
             
             showStatus("Success! Redirecting...", "#00c853");
             

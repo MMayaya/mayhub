@@ -4645,7 +4645,13 @@ import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.11.0/firebas
 
 
 
-import { browserLocalPersistence, getAuth, onAuthStateChanged, setPersistence } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-auth.js";
+import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-auth.js";
+
+import {
+    getSavedActivityAccess,
+    rememberActivityAccess,
+    setBestAvailablePersistence
+} from "./mayhub-auth-state.js";
 
 import { addDoc, collection, getFirestore, serverTimestamp } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
 
@@ -4701,19 +4707,15 @@ const app = initializeApp(firebaseConfig);
 
 
 
-const appCheck = initializeAppCheck(app, {
-
-
-
-provider: new ReCaptchaV3Provider('6LfPNb0sAAAAAKWmsT-rqt2jQTfOuJWTN9Wlv4Vj'),
-
-
-
-isTokenAutoRefreshEnabled: true
-
-
-
-});
+let appCheck = null;
+try {
+    appCheck = initializeAppCheck(app, {
+        provider: new ReCaptchaV3Provider('6LfPNb0sAAAAAKWmsT-rqt2jQTfOuJWTN9Wlv4Vj'),
+        isTokenAutoRefreshEnabled: true
+    });
+} catch (error) {
+    console.warn('Firebase App Check could not start. Navigation will continue.', error);
+}
 
 
 
@@ -4727,9 +4729,7 @@ const analytics = getAnalytics(app);
 
 const auth = getAuth(app);
 
-const authPersistenceReady = setPersistence(auth, browserLocalPersistence).catch((error) => {
-    console.warn('Could not force saved sign-in persistence. Firebase will use the available fallback.', error);
-});
+const authPersistenceReady = setBestAvailablePersistence(auth);
 
 const db = getFirestore(app);
 
@@ -4818,6 +4818,8 @@ if (user) {
 
 
 
+
+rememberActivityAccess(user);
 if (btnSignin) btnSignin.style.display = 'none';
 
 
@@ -4890,56 +4892,46 @@ if (link && link.getAttribute('href') === '#feedback') {
 
 
 if (link && (link.href.includes('/Activities/') || link.href.includes('/Chat/'))) {
-
-
-
-
-
-
-// Only block the user if Firebase has explicitly confirmed they are NOT logged in.
-
-
-
-if (!isAuthReady) {
-    e.preventDefault();
-    await authPersistenceReady;
-    await auth.authStateReady();
-    currentUser = auth.currentUser;
-    isAuthReady = true;
-
-    if (currentUser) {
-        window.location.href = link.href;
+    if (getSavedActivityAccess()) {
         return;
     }
-}
 
-if (isAuthReady && !currentUser) {
+    if (!isAuthReady) {
+        e.preventDefault();
+        await authPersistenceReady;
 
+        if (typeof auth.authStateReady === 'function') {
+            await auth.authStateReady();
+        }
 
+        currentUser = auth.currentUser;
+        isAuthReady = true;
 
-e.preventDefault();
+        if (currentUser) {
+            rememberActivityAccess(currentUser);
+            window.location.href = link.href;
+            return;
+        }
 
+        if (getSavedActivityAccess()) {
+            window.location.href = link.href;
+            return;
+        }
+    }
 
+    if (currentUser) {
+        rememberActivityAccess(currentUser);
+        return;
+    }
 
-sessionStorage.setItem('redirectURL', link.href);
+    e.preventDefault();
+    sessionStorage.setItem('redirectURL', link.href);
+    alert("Please sign in to access this section!");
 
-
-
-alert("Please sign in to access this section!");
-
-
-
-const signinUrl = new URL('signin.html', window.location.href);
-signinUrl.searchParams.set('redirect', link.href);
-signinUrl.searchParams.set('notice', 'activity');
-window.location.href = signinUrl.href;
-
-
-
-}
-
-
-
+    const signinUrl = new URL('signin.html', window.location.href);
+    signinUrl.searchParams.set('redirect', link.href);
+    signinUrl.searchParams.set('notice', 'activity');
+    window.location.href = signinUrl.href;
 }
 
 
