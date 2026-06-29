@@ -1,10 +1,17 @@
-const CACHE_NAME = 'may-learning-v2-activity-auth-fix';
+const CACHE_NAME = 'may-learning-v3-favicon';
 
 const NETWORK_FIRST_PATHS = new Set([
   '/',
   '/index.html',
   '/signin.html',
   '/signup.html',
+  '/favicon.ico',
+  '/favicon-16x16.png',
+  '/favicon-32x32.png',
+  '/apple-touch-icon.png',
+  '/android-chrome-192x192.png',
+  '/android-chrome-512x512.png',
+  '/site.webmanifest',
   '/activity-auth-guard.js',
   '/mayhub-auth-state.js',
   '/sw.js'
