@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-8GCWSKNDL7"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-8GCWSKNDL7');
+</script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>May Learning Hub | Grade 12 Sequences &amp; Series Memory Match</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f0f4f8; color: #333; line-height: 1.6; display: flex; flex-direction: column; min-height: 100vh; }
+        
+        /* Navigation */
+        nav { background-color: #002b5e; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; }
+        .logo { color: #fff; font-size: 1.5rem; font-weight: bold; text-decoration: none; }
+        .nav-links a { color: #cce0ff; text-decoration: none; margin-left: 1.5rem; font-weight: 500; transition: color 0.3s; }
+        .nav-links a:hover, .nav-links a.active { color: #fff; text-decoration: underline; }
+        
+        /* Header */
+        .game-header { text-align: center; padding: 3rem 1rem 1rem; max-width: 900px; margin: 0 auto; }
+        .game-title { color: #004080; font-size: 2.5rem; margin-bottom: 0.5rem; }
+        .game-subtitle { color: #555; margin-bottom: 2rem; font-size: 1.1rem; }
+        
+        /* Categories */
+        .category-selection { margin-bottom: 2.5rem; }
+        .cat-buttons { display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem; }
+        .cat-btn { background-color: #f0f4f8; border: 2px solid #004080; color: #004080; padding: 0.8rem 1.5rem; font-size: 1rem; font-weight: bold; border-radius: 8px; cursor: pointer; transition: all 0.3s ease; }
+        .cat-btn:hover, .cat-btn.active { background-color: #004080; color: #fff; transform: translateY(-3px); box-shadow: 0 4px 10px rgba(0,64,128,0.2); }
+
+        .controls { display: none; justify-content: center; align-items: center; gap: 2rem; margin-bottom: 2rem; }
+        .move-counter { font-size: 1.2rem; font-weight: bold; color: #004080; background: #fff; padding: 0.6rem 1.8rem; border-radius: 50px; border: 2px solid #3385ff; }
+        .restart-btn { background-color: #3385ff; color: #fff; border: none; padding: 0.7rem 1.8rem; font-size: 1rem; font-weight: bold; border-radius: 50px; cursor: pointer; border-bottom: 3px solid #004080; }
+
+        /* Memory Grid */
+        .memory-game { display: none; width: 100%; max-width: 1200px; margin: 0 auto 4rem; grid-template-columns: repeat(5, 1fr); gap: 15px; padding: 0 20px; perspective: 1000px; }
+        
+        @media (max-width: 950px) { .memory-game { grid-template-columns: repeat(4, 1fr); } }
+        @media (max-width: 650px) { .memory-game { grid-template-columns: repeat(2, 1fr); } }
+
+        .memory-card { position: relative; width: 100%; aspect-ratio: 1 / 1.2; transform-style: preserve-3d; transition: transform 0.5s; cursor: pointer; }
+        .memory-card.flip { transform: rotateY(180deg); }
+        
+        .front-face, .back-face { 
+            position: absolute; 
+            width: 100%; 
+            height: 100%; 
+            backface-visibility: hidden; 
+            border-radius: 12px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            padding: 15px; 
+            text-align: center; 
+            font-size: 0.95rem; 
+            line-height: 1.4; 
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .front-face { background: #004080; color: #fff; font-size: 2.5rem; border: 3px solid #3385ff; font-weight: bold; }
+        .back-face { background: #fff; color: #002b5e; transform: rotateY(180deg); border: 3px solid #004080; font-weight: 700; }
+        .memory-card.matched .back-face { background: #d4edda; border-color: #28a745; color: #155724; }
+
+        footer { text-align: center; padding: 1.5rem; background-color: #002b5e; color: #fff; margin-top: auto; }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="../../../../index.html" class="logo">May Learning Hub</a>
+        <div class="nav-links">
+            <a href="../../../../Collab-Hub.html">Collaboration Hub</a>
+            <a href="SeqSeries.html">Presentation</a>
+            <a href="games.html">Games</a>
+        </div>
+    </nav>
+
+    <header class="game-header">
+        <h1 class="game-title">Grade 12 Sequences &amp; Series: Memory Match</h1>
+        <p class="game-subtitle">Match each November 2023 paper item to its correct answer.</p>
+        <p class="source-note" style="color:#6b7280;font-size:0.85rem;margin-top:-1rem;margin-bottom:1.5rem;"><small>Source: November 2023 question paper</small></p>
+        <section class="paper-source-section" style="margin:0 auto 1.8rem;max-width:820px;">
+            <h2 style="color:#004080;font-size:1.15rem;margin-bottom:0.5rem;">Question Source Image</h2>
+            <div style="background:#f8fbff;border:1px solid #b3d4ff;border-radius:8px;padding:1rem;margin:0.75rem auto;max-width:760px;text-align:left;">
+                <p style="margin-bottom:0.75rem;color:#002b5e;"><strong>2023 Question 3 source:</strong> place <code>2023Q3.jpg</code> in this folder.</p>
+                <img src="2023Q3.jpg" alt="2023 Question 3 source" style="display:block;max-width:100%;height:auto;border:1px solid #dbe7ff;border-radius:6px;background:#fff;" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                <p style="display:none;margin:0;color:#6b7280;font-size:0.9rem;">Source image placeholder: 2023Q3.jpg</p>
+            </div>
+        </section>
+        
+        <div class="category-selection">
+            <div class="cat-buttons">
+                <button class="cat-btn" onclick="selectCategory('paper2023', this)">November 2023 Paper</button>
+            </div>
+        </div>
+
+        <div class="controls" id="gameControls">
+            <div class="move-counter">Moves: <span id="moves">0</span></div>
+            <button class="restart-btn" onclick="initGame()">Restart Level</button>
+        </div>
+    </header>
+
+    <main class="memory-game" id="gameBoard"></main>
+
+    <footer>
+        <p>&copy; 2026 May Learning Hub. All rights reserved.</p>
+    </footer>
+
+    <script>
+        const gameData = {
+            "paper2023": [
+                        {
+                                    "id": 1,
+                                    "text": "Q2.1.1: T91"
+                        },
+                        {
+                                    "id": 1,
+                                    "text": "457"
+                        },
+                        {
+                                    "id": 2,
+                                    "text": "Q2.1.2: S91"
+                        },
+                        {
+                                    "id": 2,
+                                    "text": "21 112"
+                        },
+                        {
+                                    "id": 3,
+                                    "text": "Q2.1.3: value of n"
+                        },
+                        {
+                                    "id": 3,
+                                    "text": "n = 103"
+                        },
+                        {
+                                    "id": 4,
+                                    "text": "Q2.2.1: T5"
+                        },
+                        {
+                                    "id": 4,
+                                    "text": "111"
+                        },
+                        {
+                                    "id": 5,
+                                    "text": "Q2.2.2: general term"
+                        },
+                        {
+                                    "id": 5,
+                                    "text": "T_n = 6n^2 - 9n + 6"
+                        },
+                        {
+                                    "id": 6,
+                                    "text": "Q2.2.3: increasing pattern reason"
+                        },
+                        {
+                                    "id": 6,
+                                    "text": "T'_n = 12n - 9, positive for n in N"
+                        },
+                        {
+                                    "id": 7,
+                                    "text": "Q3.1.1: geometric term"
+                        },
+                        {
+                                    "id": 7,
+                                    "text": "T_n = 3(2)^(n - 1)"
+                        },
+                        {
+                                    "id": 8,
+                                    "text": "Q3.1.2: use 2023Q3.jpg, value of k"
+                        },
+                        {
+                                    "id": 8,
+                                    "text": "k = 15"
+                        },
+                        {
+                                    "id": 9,
+                                    "text": "Q3.2: value of a"
+                        },
+                        {
+                                    "id": 9,
+                                    "text": "a = 2"
+                        }
+            ]
+};
+        const gameBoard = document.getElementById('gameBoard');
+        const movesDisplay = document.getElementById('moves');
+        const gameControls = document.getElementById('gameControls');
+        
+        let currentCategory = null;
+        let hasFlippedCard = false;
+        let lockBoard = false;
+        let firstCard, secondCard;
+        let moves = 0;
+        let matchedPairs = 0;
+
+        function selectCategory(categoryKey, btnElement) {
+            currentCategory = categoryKey;
+            document.querySelectorAll('.cat-btn').forEach(btn => btn.classList.remove('active'));
+            btnElement.classList.add('active');
+            gameControls.style.display = 'flex';
+            gameBoard.style.display = 'grid';
+            initGame();
+        }
+
+        function initGame() {
+            gameBoard.innerHTML = '';
+            moves = 0;
+            matchedPairs = 0;
+            movesDisplay.innerText = moves;
+            hasFlippedCard = false;
+            lockBoard = false;
+
+            const categoryData = gameData[currentCategory];
+            const shuffledCards = [...categoryData].sort(() => 0.5 - Math.random());
+
+            shuffledCards.forEach(card => {
+                const cardElement = document.createElement('div');
+                cardElement.classList.add('memory-card');
+                cardElement.dataset.pairId = card.id;
+                
+                cardElement.innerHTML = `
+                    <div class="front-face">?</div>
+                    <div class="back-face">${card.text}</div>
+                `;
+                
+                cardElement.addEventListener('click', flipCard);
+                gameBoard.appendChild(cardElement);
+            });
+        }
+
+        function flipCard() {
+            if (lockBoard) return;
+            if (this === firstCard) return;
+
+            this.classList.add('flip');
+
+            if (!hasFlippedCard) {
+                hasFlippedCard = true;
+                firstCard = this;
+                return;
+            }
+
+            secondCard = this;
+            moves++;
+            movesDisplay.innerText = moves;
+            checkForMatch();
+        }
+
+        function checkForMatch() {
+            let isMatch = firstCard.dataset.pairId === secondCard.dataset.pairId;
+            isMatch ? disableCards() : unflipCards();
+        }
+
+        function disableCards() {
+            firstCard.classList.add('matched');
+            secondCard.classList.add('matched');
+            firstCard.removeEventListener('click', flipCard);
+            secondCard.removeEventListener('click', flipCard);
+            matchedPairs++;
+            if (matchedPairs === (gameData[currentCategory].length / 2)) {
+                setTimeout(() => alert(`Great job! Grade 12 Algebra: Expand and Simplify Revision Complete in ${moves} moves.`), 500);
+            }
+            resetBoard();
+        }
+
+        function unflipCards() {
+            lockBoard = true;
+            setTimeout(() => {
+                firstCard.classList.remove('flip');
+                secondCard.classList.remove('flip');
+                resetBoard();
+            }, 1200);
+        }
+
+        function resetBoard() {
+            [hasFlippedCard, lockBoard] = [false, false];
+            [firstCard, secondCard] = [null, null];
+        }
+    </script>
+</body>
+</html>
