@@ -11,42 +11,53 @@
   gtag('config', 'G-8GCWSKNDL7');
 </script>
 
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Grade 12 Mathematics Finance game zone with six interactive revision game styles.">
-  <meta name="theme-color" content="#002b5e">
-  <title>Grade 12 Finance Game Zone | May Learning Hub</title>
-  <link rel="stylesheet" href="game-styles.css">
-  <style>:root{--accent:#0f9f79;--accent-dark:#086047}</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>May Learning Hub | Finance Games Coming Soon</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #fff5f5; color: #2a1111; line-height: 1.6; display: flex; flex-direction: column; min-height: 100vh; }
+        nav { background-color: #4a0000; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; }
+        .logo { color: #fff; font-size: 1.5rem; font-weight: bold; text-decoration: none; }
+        .nav-links a { color: #ffd6d6; text-decoration: none; margin-left: 1.5rem; font-weight: 500; transition: color 0.3s; }
+        .nav-links a:hover, .nav-links a.active { color: #fff; text-decoration: underline; }
+        footer { text-align: center; padding: 1rem; background-color: #4a0000; color: #fff; margin-top: auto; }
+        .container { flex: 1; display: flex; justify-content: center; align-items: center; padding: 2rem; }
+        .coming-soon-card { background: #fff; border-radius: 8px; box-shadow: 0 10px 30px rgba(74,0,0,0.16); border-top: 6px solid #8b0000; padding: 4rem 3rem; max-width: 640px; text-align: center; opacity: 0; animation: fadeInUp 0.8s ease-out forwards; }
+        .icon { font-size: 4rem; margin-bottom: 1rem; display: inline-block; animation: float 3s ease-in-out infinite; }
+        .coming-soon-card h1 { color: #6f0000; font-size: 2.2rem; margin-bottom: 1rem; }
+        .coming-soon-card p { font-size: 1.1rem; color: #4d3535; margin-bottom: 1.2rem; }
+        .back-btn { display: inline-block; background-color: #650000; color: #fff; text-decoration: none; padding: 0.8rem 2rem; border-radius: 30px; font-weight: bold; font-size: 1.1rem; transition: all 0.3s ease; box-shadow: 0 4px 12px rgba(101,0,0,0.32); }
+        .back-btn:hover { background-color: #9b0000; transform: translateY(-3px); box-shadow: 0 7px 18px rgba(155,0,0,0.4); }
+        @keyframes fadeInUp { 0% { opacity: 0; transform: translateY(40px); } 100% { opacity: 1; transform: translateY(0); } }
+        @keyframes float { 0% { transform: translateY(0px); } 50% { transform: translateY(-10px); } 100% { transform: translateY(0px); } }
+        @media (max-width: 640px) { nav { flex-direction: column; gap: 0.75rem; } .nav-links a { margin: 0 0.7rem; } .coming-soon-card { padding: 3rem 1.5rem; } }
+    </style>
 </head>
 <body>
-  <nav>
-    <a href="../../../../index.html" class="logo">May Learning Hub</a>
-    <div class="nav-links">
-      <a href="../../../../Collab-Hub.html">Collaboration Hub</a>
-      <a href="finance.html">Presentation</a>
-      <a href="games.html" class="active" aria-current="page">Games</a>
-    </div>
-  </nav>
-  <header class="page-header">
-    <div class="grade-badge">Grade 12 Mathematics</div>
-    <h1 class="page-title">Finance Game Zone</h1>
-    <p class="page-subtitle">Select a game style to revise Finance through active, playful practice.</p>
-    <div class="header-actions">
-      <a href="finance.html" class="header-btn">📝 Open Presentation</a>
-      <a href="../../../../Collab-Hub.html" class="header-btn secondary">← Collaboration Hub</a>
-    </div>
-  </header>
-  <main class="games-container">
-    <div class="games-grid">
-      <article class="game-column"><div class="game-header-area"><span class="game-icon">🎡</span><h2 class="game-title">Spin the Wheel</h2><p class="game-desc">Let the wheel choose your next revision challenge.</p></div><div class="topic-list"><a href="spin1.html" class="topic-btn">Play Spin the Wheel</a></div></article>
-      <article class="game-column"><div class="game-header-area"><span class="game-icon">🧠</span><h2 class="game-title">Jeopardy</h2><p class="game-desc">Choose categories, reveal clues, and build your score.</p></div><div class="topic-list"><a href="jeopardy1.html" class="topic-btn">Play Jeopardy</a></div></article>
-      <article class="game-column"><div class="game-header-area"><span class="game-icon">🃏</span><h2 class="game-title">Memory Match</h2><p class="game-desc">Match each key term with its correct meaning.</p></div><div class="topic-list"><a href="match1.html" class="topic-btn">Play Memory Match</a></div></article>
-      <article class="game-column"><div class="game-header-area"><span class="game-icon">💰</span><h2 class="game-title">Millionaire</h2><p class="game-desc">Climb the money ladder through ten questions.</p></div><div class="topic-list"><a href="millionaire1.html" class="topic-btn">Play Millionaire</a></div></article>
-      <article class="game-column"><div class="game-header-area"><span class="game-icon">🐍</span><h2 class="game-title">Snake</h2><p class="game-desc">Guide the snake to eat the correct answer.</p></div><div class="topic-list"><a href="snake1.html" class="topic-btn">Play Snake</a></div></article>
-      <article class="game-column"><div class="game-header-area"><span class="game-icon">🪢</span><h2 class="game-title">Hangman</h2><p class="game-desc">Use the clue to uncover hidden vocabulary.</p></div><div class="topic-list"><a href="hangman1.html" class="topic-btn">Play Hangman</a></div></article>
-    </div>
-  </main>
-  <footer>&copy; 2026 May Learning Hub &middot; Grade 12 Mathematics Finance</footer>
+
+    <nav>
+        <a href="../../../../index.html" class="logo">May Learning Hub</a>
+        <div class="nav-links">
+            <a href="../../../../index.html">Home</a>
+            <a href="../../../../about.html">About</a>
+        </div>
+    </nav>
+
+    <main class="container">
+        <div class="coming-soon-card">
+            <div class="icon">&#128736;&#65039;</div>
+            <h1>Finance Games in Progress</h1>
+            <p>Finance games are being refreshed for the Maths Hub.</p>
+            <p>I am currently crafting these interactive games to ensure they are carefully aligned and ready for your classroom.</p>
+            <p><strong>Check back soon!</strong></p>
+            <a href="../../../../index.html" class="back-btn">&larr; Return to Home</a>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 May Learning Hub. All rights reserved.</p>
+    </footer>
+
 </body>
 </html>
