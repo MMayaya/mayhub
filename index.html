@@ -3832,55 +3832,21 @@ May Learning Hub provides a professional, CAPS-aligned educational experience sp
 
 <section class="whats-new-panel" id="whats-new" aria-labelledby="whats-new-title">
 
-<h2 class="section-title" id="whats-new-title">What’s New - Term 2</h2>
+<h2 class="section-title" id="whats-new-title">What&rsquo;s New - Term 3</h2>
 
-<p class="section-subtitle">Open the sections below to quickly access the newest Term 2 resources.</p>
+<p class="section-subtitle">Open the item below to quickly access the newest Term 3 resource.</p>
 
 <div class="whats-new-grid">
 
 <details class="whats-new-details" open>
 
-<summary>New Presentations</summary>
+<summary>New Presentation</summary>
 
 <ul class="whats-new-list">
 
 <li>
 
-<a href="Life-Sciences/Term-2/Grade-11/Notes/notes.html" class="icon-notes">Grade 11 Life Sciences Presentation</a>
-
-</li>
-
-<li>
-
-<a href="Life-Sciences/Term-2/Grade-12/Notes/notes.html" class="icon-notes">Grade 12 Life Sciences Presentation</a>
-
-</li>
-
-</ul>
-
-</details>
-
-<details class="whats-new-details" open>
-
-<summary>New Learning Guides</summary>
-
-<ul class="whats-new-list">
-
-<li>
-
-<a href="#details-Social-Sciences-grade-8-term-2-guides" class="icon-pdf jump-to-details" data-target-details="details-Social-Sciences-grade-8-term-2-guides">Social Sciences Grade 8 Learning Guides</a>
-
-</li>
-
-<li>
-
-<a href="#details-Geography-grade-10-term-2-guides" class="icon-pdf jump-to-details" data-target-details="details-Geography-grade-10-term-2-guides">Geography Grade 10 Learning Guides</a>
-
-</li>
-
-<li>
-
-<a href="#details-Geography-grade-11-term-2-guides" class="icon-pdf jump-to-details" data-target-details="details-Geography-grade-11-term-2-guides">Geography Grade 11 Learning Guides</a>
+<a href="Geography/Term-3/Grade-11/Notes/notes.html" class="icon-notes">Grade 11 Geography Term 3 Presentation</a>
 
 </li>
 
@@ -4631,116 +4597,104 @@ Content is organised by subject, grade, and term to support structured classroom
 
 // --- 1. FIREBASE SETUP ---
 
-
-
-import { initializeApp } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-app.js";
-
-
-
-// Added AppCheck import to match your signin page
-
-
-
-import { initializeAppCheck, ReCaptchaV3Provider } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-app-check.js";
-
-
-
-import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-analytics.js";
-
-
-
-import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-auth.js";
-
-import {
-    getSavedActivityAccess,
-    rememberActivityAccess,
-    setBestAvailablePersistence
-} from "./mayhub-auth-state.js";
-
-import { addDoc, collection, getFirestore, serverTimestamp } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
-
-
-
-
-
-
 const firebaseConfig = {
-
-
 
 apiKey: "AIzaSyApyOAfcEB8nGc-B3IO4X8wIl-nVi3nKeo",
 
-
-
 authDomain: "maylearninghub.firebaseapp.com",
-
-
 
 projectId: "maylearninghub",
 
-
-
 storageBucket: "maylearninghub.firebasestorage.app",
-
-
 
 messagingSenderId: "237875455146",
 
-
-
 appId: "1:237875455146:web:21310d33b56664d669dcd3",
-
-
 
 measurementId: "G-LJMFCM44TQ"
 
-
-
 };
 
-
-
-const app = initializeApp(firebaseConfig);
-
-
-
-
-
-
-// Initializing AppCheck to prevent token/verification issues
-
-
-
+let app = null;
 let appCheck = null;
-try {
-    appCheck = initializeAppCheck(app, {
-        provider: new ReCaptchaV3Provider('6LfPNb0sAAAAAKWmsT-rqt2jQTfOuJWTN9Wlv4Vj'),
-        isTokenAutoRefreshEnabled: true
-    });
-} catch (error) {
-    console.warn('Firebase App Check could not start. Navigation will continue.', error);
+let analytics = null;
+let db = null;
+let auth = {
+    currentUser: null,
+    authStateReady: () => Promise.resolve()
+};
+let authPersistenceReady = Promise.resolve();
+let getSavedActivityAccess = () => sessionStorage.getItem('mayhubActivityAccess') === 'true';
+let rememberActivityAccess = () => sessionStorage.setItem('mayhubActivityAccess', 'true');
+let addDoc = async () => {
+    throw new Error('Firebase is unavailable while viewing this page offline.');
+};
+let collection = () => {
+    throw new Error('Firebase is unavailable while viewing this page offline.');
+};
+let serverTimestamp = () => new Date();
+let onAuthStateChanged = (authInstance, callback) => {
+    callback(null);
+    return () => {};
+};
+
+async function importWithTimeout(modulePath, timeoutMs = 2500) {
+    return Promise.race([
+        import(modulePath),
+        new Promise((_, reject) => {
+            setTimeout(() => reject(new Error(`Timed out loading ${modulePath}`)), timeoutMs);
+        })
+    ]);
 }
 
+try {
+    const [
+        firebaseAppModule,
+        appCheckModule,
+        analyticsModule,
+        authModule,
+        firestoreModule,
+        authStateModule
+    ] = await Promise.all([
+        importWithTimeout("https://www.gstatic.com/firebasejs/12.11.0/firebase-app.js"),
+        importWithTimeout("https://www.gstatic.com/firebasejs/12.11.0/firebase-app-check.js"),
+        importWithTimeout("https://www.gstatic.com/firebasejs/12.11.0/firebase-analytics.js"),
+        importWithTimeout("https://www.gstatic.com/firebasejs/12.11.0/firebase-auth.js"),
+        importWithTimeout("https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js"),
+        importWithTimeout("./mayhub-auth-state.js")
+    ]);
 
+    app = firebaseAppModule.initializeApp(firebaseConfig);
 
+    try {
+        appCheck = appCheckModule.initializeAppCheck(app, {
+            provider: new appCheckModule.ReCaptchaV3Provider('6LfPNb0sAAAAAKWmsT-rqt2jQTfOuJWTN9Wlv4Vj'),
+            isTokenAutoRefreshEnabled: true
+        });
+    } catch (error) {
+        console.warn('Firebase App Check could not start. Navigation will continue.', error);
+    }
 
+    try {
+        analytics = analyticsModule.getAnalytics(app);
+    } catch (error) {
+        console.warn('Firebase Analytics could not start. Navigation will continue.', error);
+    }
 
-
-
-const analytics = getAnalytics(app);
-
-
-
-const auth = getAuth(app);
-
-const authPersistenceReady = setBestAvailablePersistence(auth);
-
-const db = getFirestore(app);
-
-
-
-
-
+    auth = authModule.getAuth(app);
+    db = firestoreModule.getFirestore(app);
+    onAuthStateChanged = authModule.onAuthStateChanged;
+    addDoc = firestoreModule.addDoc;
+    collection = firestoreModule.collection;
+    serverTimestamp = firestoreModule.serverTimestamp;
+    getSavedActivityAccess = authStateModule.getSavedActivityAccess || getSavedActivityAccess;
+    rememberActivityAccess = authStateModule.rememberActivityAccess || rememberActivityAccess;
+    authPersistenceReady = authStateModule.setBestAvailablePersistence
+        ? authStateModule.setBestAvailablePersistence(auth)
+        : Promise.resolve();
+} catch (error) {
+    console.warn('Firebase modules are unavailable. Local/offline page content will continue.', error);
+}
 
 let currentUser = null;
 
