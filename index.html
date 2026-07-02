@@ -270,6 +270,178 @@ border-radius: 6px;
 
 
 
+/* --- WHAT'S NEW SECTION (GLOWY GLOSSY RED) --- */
+
+.whats-new-panel {
+
+background: linear-gradient(135deg, #ff1f1f 0%, #c40000 48%, #850000 100%);
+
+color: #ffffff;
+
+border-radius: 14px;
+
+box-shadow: 0 0 22px rgba(230, 0, 0, 0.55), 0 10px 24px rgba(0,0,0,0.16), inset 0 1px 0 rgba(255,255,255,0.55), inset 0 -26px 42px rgba(0,0,0,0.12);
+
+padding: 1.4rem 1.6rem;
+
+margin-bottom: 1.2rem;
+
+border: 1px solid rgba(255,255,255,0.32);
+
+border-left: 5px solid #ffd6d6;
+
+position: relative;
+
+overflow: hidden;
+
+opacity: 0;
+
+animation: fadeInUp 0.8s ease-out 0.38s forwards;
+
+}
+
+.whats-new-panel::before {
+
+content: "";
+
+position: absolute;
+
+top: 0;
+
+left: 0;
+
+right: 0;
+
+height: 48%;
+
+background: linear-gradient(to bottom, rgba(255,255,255,0.36), rgba(255,255,255,0.08), rgba(255,255,255,0));
+
+pointer-events: none;
+
+}
+
+.whats-new-panel > * {
+
+position: relative;
+
+z-index: 1;
+
+}
+
+.whats-new-panel .section-title,
+.whats-new-panel .section-subtitle {
+
+color: #ffffff;
+
+text-shadow: 0 2px 8px rgba(0,0,0,0.22);
+
+}
+
+.whats-new-grid {
+
+display: grid;
+
+grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+
+gap: 1rem;
+
+margin-top: 1rem;
+
+}
+
+.whats-new-details {
+
+padding: 0.9rem;
+
+border: 1px solid rgba(255,255,255,0.36);
+
+border-radius: 11px;
+
+background: rgba(255,255,255,0.13);
+
+box-shadow: inset 0 1px 0 rgba(255,255,255,0.25), 0 8px 18px rgba(70,0,0,0.16);
+
+backdrop-filter: blur(4px);
+
+}
+
+.whats-new-details[open] {
+
+background: rgba(255,255,255,0.18);
+
+}
+
+.whats-new-details summary {
+
+font-size: 1.08rem;
+
+font-weight: bold;
+
+color: #ffffff;
+
+padding: 0.35rem 0;
+
+text-shadow: 0 1px 5px rgba(0,0,0,0.25);
+
+}
+
+.whats-new-details summary::before {
+
+color: #ffffff;
+
+}
+
+.whats-new-list {
+
+list-style: none;
+
+display: grid;
+
+gap: 0.55rem;
+
+margin-top: 0.75rem;
+
+}
+
+.whats-new-list a {
+
+display: block;
+
+text-decoration: none;
+
+color: #7a0000;
+
+background: rgba(255,255,255,0.94);
+
+border: 1px solid rgba(255,205,205,0.95);
+
+border-left: 4px solid #ff2b2b;
+
+border-radius: 8px;
+
+padding: 0.65rem 0.85rem;
+
+font-size: 0.95rem;
+
+font-weight: 650;
+
+box-shadow: 0 4px 12px rgba(80,0,0,0.13), inset 0 1px 0 rgba(255,255,255,0.9);
+
+transition: all 0.2s ease;
+
+}
+
+.whats-new-list a:hover {
+
+background: #fff4f4;
+
+padding-left: 1.05rem;
+
+box-shadow: 0 0 14px rgba(255,255,255,0.45), 0 4px 12px rgba(80,0,0,0.18);
+
+}
+
+
 /* --- HUB TOGGLE STYLES --- */
 
 
@@ -3703,7 +3875,45 @@ May Learning Hub provides a professional, CAPS-aligned educational experience sp
 
 
 
+<section class="whats-new-panel" id="whats-new" aria-labelledby="whats-new-title">
 
+<h2 class="section-title" id="whats-new-title">What&rsquo;s New - Term 3</h2>
+
+<p class="section-subtitle">Open the items below to quickly access the newest Term 3 resources.</p>
+
+<div class="whats-new-grid">
+
+<details class="whats-new-details" open>
+
+<summary>New Presentations</summary>
+
+<ul class="whats-new-list">
+
+<li>
+
+<a href="Geography/Term-3/Grade-10/Notes/notes.html" class="icon-notes">Grade 10 Geography Term 3 Presentation</a>
+
+</li>
+
+<li>
+
+<a href="Geography/Term-3/Grade-11/Notes/notes.html" class="icon-notes">Grade 11 Geography Term 3 Presentation</a>
+
+</li>
+
+<li>
+
+<a href="Geography/Term-3/Grade-12/Notes/notes.html" class="icon-notes">Grade 12 Geography Term 3 Presentation</a>
+
+</li>
+
+</ul>
+
+</details>
+
+</div>
+
+</section>
 
 
 <section class="search-panel" aria-labelledby="search-title">
