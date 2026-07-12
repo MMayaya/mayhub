@@ -963,15 +963,17 @@ background-color: #c42b2b;
 }
 
 
-.settings-menu-wrap {
+.profile-menu-wrap {
 
 position: relative;
 
 display: inline-block;
 
+align-self: flex-end;
+
 }
 
-.settings-menu {
+.profile-menu {
 
 position: absolute;
 
@@ -980,6 +982,8 @@ right: 0;
 top: calc(100% + 0.45rem);
 
 min-width: 180px;
+
+max-width: calc(100vw - 2rem);
 
 background: #ffffff;
 
@@ -995,19 +999,19 @@ z-index: 3200;
 
 }
 
-.settings-menu[hidden] {
+.profile-menu[hidden] {
 
 display: none;
 
 }
 
-.settings-menu button {
+.profile-menu button {
 
 width: 100%;
 
 display: block;
 
-text-align: left;
+text-align: right;
 
 background: transparent;
 
@@ -1027,13 +1031,13 @@ cursor: pointer;
 
 }
 
-.settings-menu button:hover {
+.profile-menu button:hover {
 
 background: #edf5ff;
 
 }
 
-.settings-menu button.user-signout-btn {
+.profile-menu button.user-signout-btn {
 
 background: transparent;
 
@@ -1043,7 +1047,7 @@ color: #9f1d1d;
 
 }
 
-.settings-menu button.user-signout-btn:hover {
+.profile-menu button.user-signout-btn:hover {
 
 background: #fff0f0;
 
@@ -4006,15 +4010,11 @@ transition: none !important;
 
 
 
-<button id="user-display-btn" class="user-profile-btn" style="display: none;" type="button">User Name</button>
+<div id="profile-menu-wrap" class="profile-menu-wrap" style="display: none;">
 
+<button id="user-display-btn" class="user-profile-btn" type="button" aria-haspopup="menu" aria-expanded="false" aria-controls="profile-menu">User Name</button>
 
-
-<div id="settings-menu-wrap" class="settings-menu-wrap" style="display: none;">
-
-<button id="settings-toggle-btn" class="user-profile-btn" type="button" aria-haspopup="menu" aria-expanded="false">Settings</button>
-
-<div id="settings-menu" class="settings-menu" role="menu" hidden>
+<div id="profile-menu" class="profile-menu" role="menu" hidden>
 
 <button id="edit-profile-btn" type="button" role="menuitem">Edit Profile</button>
 
@@ -5215,9 +5215,8 @@ function redirectToSigninForFeedback() {
 
 const btnSignin = document.getElementById('btn-signin');
 const userDisplayBtn = document.getElementById('user-display-btn');
-const settingsMenuWrap = document.getElementById('settings-menu-wrap');
-const settingsToggleBtn = document.getElementById('settings-toggle-btn');
-const settingsMenu = document.getElementById('settings-menu');
+const profileMenuWrap = document.getElementById('profile-menu-wrap');
+const profileMenu = document.getElementById('profile-menu');
 const editProfileBtn = document.getElementById('edit-profile-btn');
 const btnSignout = document.getElementById('btn-signout');
 const profileModal = document.getElementById('profile-modal');
@@ -5255,26 +5254,25 @@ async function loadCurrentUserProfile(force = false) {
     return currentUserProfile;
 }
 
-function closeSettingsMenu() {
-    if (settingsMenu) settingsMenu.hidden = true;
-    if (settingsToggleBtn) settingsToggleBtn.setAttribute('aria-expanded', 'false');
+function closeProfileMenu() {
+    if (profileMenu) profileMenu.hidden = true;
+    if (userDisplayBtn) userDisplayBtn.setAttribute('aria-expanded', 'false');
 }
 
-function toggleSettingsMenu() {
-    if (!settingsMenu || !settingsToggleBtn) return;
-    const willOpen = settingsMenu.hidden;
-    settingsMenu.hidden = !willOpen;
-    settingsToggleBtn.setAttribute('aria-expanded', willOpen ? 'true' : 'false');
+function toggleProfileMenu() {
+    if (!profileMenu || !userDisplayBtn) return;
+    const willOpen = profileMenu.hidden;
+    profileMenu.hidden = !willOpen;
+    userDisplayBtn.setAttribute('aria-expanded', willOpen ? 'true' : 'false');
 }
-
 function showSignedInControls(user) {
     if (btnSignin) btnSignin.style.display = user ? 'none' : 'inline-block';
     if (userDisplayBtn) {
         userDisplayBtn.style.display = user ? 'inline-block' : 'none';
         userDisplayBtn.textContent = user ? (user.displayName || (user.email ? user.email.split('@')[0] : 'Student')) : '';
     }
-    if (settingsMenuWrap) settingsMenuWrap.style.display = user ? 'inline-block' : 'none';
-    if (!user) closeSettingsMenu();
+    if (profileMenuWrap) profileMenuWrap.style.display = user ? 'inline-block' : 'none';
+    if (!user) closeProfileMenu();
 }
 
 function setProfileStatus(message, color = '#003a75') {
@@ -5323,7 +5321,7 @@ async function openProfileModal() {
     updateProfileSubjectVisibility();
     setProfileStatus(`${editState.remaining} profile edit${editState.remaining === 1 ? '' : 's'} remaining this year.`, editState.remaining > 0 ? '#003a75' : '#b00020');
     profileSaveBtn.disabled = editState.remaining <= 0;
-    closeSettingsMenu();
+    closeProfileMenu();
     profileModal.hidden = false;
     profileFullName.focus();
 }
@@ -5392,7 +5390,7 @@ async function saveProfileEdits() {
         rememberActivityAccess(currentUser, currentUserProfile);
         showSignedInControls(currentUser);
         setProfileStatus('Profile updated successfully.', '#087f23');
-        closeSettingsMenu();
+        closeProfileMenu();
         setTimeout(closeProfileModal, 700);
     } catch (error) {
         console.error('Could not update profile.', error);
@@ -5422,14 +5420,14 @@ onAuthStateChanged(auth, async (user) => {
     showSignedInControls(user);
 });
 
-if (settingsToggleBtn) settingsToggleBtn.addEventListener('click', (event) => {
+if (userDisplayBtn) userDisplayBtn.addEventListener('click', (event) => {
     event.stopPropagation();
-    toggleSettingsMenu();
+    toggleProfileMenu();
 });
-if (settingsMenu) settingsMenu.addEventListener('click', (event) => event.stopPropagation());
+if (profileMenu) profileMenu.addEventListener('click', (event) => event.stopPropagation());
 if (editProfileBtn) {
     editProfileBtn.addEventListener('click', () => {
-        closeSettingsMenu();
+        closeProfileMenu();
         openProfileModal();
     });
 }
@@ -5442,17 +5440,17 @@ if (profileModal) {
 if (profileGrade) profileGrade.addEventListener('change', updateProfileSubjectVisibility);
 if (profileSaveBtn) profileSaveBtn.addEventListener('click', saveProfileEdits);
 
-document.addEventListener('click', closeSettingsMenu);
+document.addEventListener('click', closeProfileMenu);
 document.addEventListener('keydown', (event) => {
     if (event.key === 'Escape') {
-        closeSettingsMenu();
+        closeProfileMenu();
         closeProfileModal();
     }
 });
 
 if (btnSignout) {
     btnSignout.addEventListener('click', async () => {
-        closeSettingsMenu();
+        closeProfileMenu();
         try {
             await authPersistenceReady;
             await signOutUser(auth);
