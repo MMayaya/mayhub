@@ -146,6 +146,20 @@
             color: #fff;
             background-color: rgba(255,255,255,0.08);
         }
+        .nav-toggle {
+            display: none;
+            background: transparent;
+            border: none;
+            color: #fff;
+            font-size: 1.8rem;
+            line-height: 1;
+            cursor: pointer;
+            padding: 0.35rem 0.5rem;
+            border-radius: 6px;
+        }
+        .nav-toggle:hover {
+            background-color: rgba(255,255,255,0.08);
+        }
 
         header {
             background: linear-gradient(135deg, #004080, #0059b3);
@@ -442,15 +456,25 @@ box-shadow: 0 0 14px rgba(255,255,255,0.45), 0 4px 12px rgba(80,0,0,0.18);
                 padding: 10px 2px;
             }
         }
-
         @media (max-width: 640px) {
             nav {
-                flex-direction: column;
-                align-items: stretch;
+                flex-wrap: wrap;
+                padding: 1rem;
+            }
+            .nav-toggle {
+                display: block;
+                margin-left: auto;
             }
             .nav-links {
-                justify-content: center;
+                width: 100%;
+                display: none;
+                flex-direction: column;
+                align-items: flex-start;
                 gap: 0.45rem;
+                padding-top: 0.65rem;
+            }
+            .nav-links.show {
+                display: flex;
             }
         }
     </style>
@@ -458,7 +482,8 @@ box-shadow: 0 0 14px rgba(255,255,255,0.45), 0 4px 12px rgba(80,0,0,0.18);
 <body>
     <nav>
         <a href="index.html" class="logo">May Learning Hub</a>
-        <div class="nav-links">
+        <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="navLinks" aria-label="Toggle navigation menu">☰</button>
+        <div class="nav-links" id="navLinks">
             <a href="index.html">Home</a>
             <a href="about.html">About</a>
             <a href="suppdown.html">App &amp; Support</a>
@@ -635,5 +660,16 @@ box-shadow: 0 0 14px rgba(255,255,255,0.45), 0 4px 12px rgba(80,0,0,0.18);
             <p style="color: #d4e3f7; font-size: 0.9rem;">&copy; 2026 Collaboration Hub. Teachers and learners on the same page.</p>
         </div>
     </footer>
+    <script>
+        const navToggle = document.getElementById('navToggle');
+        const navLinks = document.getElementById('navLinks');
+
+        if (navToggle && navLinks) {
+            navToggle.addEventListener('click', () => {
+                const isOpen = navLinks.classList.toggle('show');
+                navToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+            });
+        }
+    </script>
 </body>
 </html>
