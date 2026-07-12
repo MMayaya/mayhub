@@ -946,6 +946,202 @@ background-color: #0056ff;
 
 
 
+
+
+.nav-links button.user-signout-btn {
+
+background-color: #9f1d1d;
+
+border-color: rgba(255, 214, 214, 0.5);
+
+}
+
+.nav-links button.user-signout-btn:hover {
+
+background-color: #c42b2b;
+
+}
+
+.profile-modal {
+
+position: fixed;
+
+inset: 0;
+
+z-index: 3000;
+
+background: rgba(0, 22, 48, 0.72);
+
+display: grid;
+
+place-items: center;
+
+padding: 1rem;
+
+}
+
+.profile-modal[hidden] {
+
+display: none;
+
+}
+
+.profile-dialog {
+
+width: min(560px, 100%);
+
+max-height: 92vh;
+
+overflow-y: auto;
+
+background: #ffffff;
+
+border-radius: 12px;
+
+box-shadow: 0 18px 48px rgba(0,0,0,0.28);
+
+padding: 1.4rem;
+
+border-top: 5px solid #002b5e;
+
+}
+
+.profile-dialog h2 {
+
+color: #002b5e;
+
+margin-bottom: 0.35rem;
+
+}
+
+.profile-dialog p {
+
+color: #4f5f70;
+
+margin-bottom: 1rem;
+
+}
+
+.profile-field {
+
+display: grid;
+
+gap: 0.35rem;
+
+margin-bottom: 0.85rem;
+
+}
+
+.profile-field label,
+
+.profile-subjects legend {
+
+font-weight: 700;
+
+color: #003a75;
+
+}
+
+.profile-field input,
+
+.profile-field select {
+
+width: 100%;
+
+border: 1px solid #b8c7d9;
+
+border-radius: 8px;
+
+padding: 0.75rem;
+
+font: inherit;
+
+}
+
+.profile-subjects {
+
+border: 1px solid #d6e1ee;
+
+border-radius: 10px;
+
+padding: 0.85rem;
+
+margin-bottom: 0.85rem;
+
+}
+
+.profile-subject-options {
+
+display: grid;
+
+gap: 0.45rem;
+
+margin-top: 0.5rem;
+
+}
+
+.profile-subject-options label {
+
+display: flex;
+
+align-items: center;
+
+gap: 0.5rem;
+
+}
+
+.profile-actions {
+
+display: flex;
+
+justify-content: flex-end;
+
+gap: 0.75rem;
+
+flex-wrap: wrap;
+
+margin-top: 1rem;
+
+}
+
+.profile-actions button {
+
+border: none;
+
+border-radius: 8px;
+
+padding: 0.7rem 1rem;
+
+font-weight: 700;
+
+cursor: pointer;
+
+}
+
+.profile-actions .btn-cancel {
+
+background: #e5ecf5;
+
+color: #002b5e;
+
+}
+
+.profile-actions .btn-save {
+
+background: #002b5e;
+
+color: #fff;
+
+}
+
+.profile-status {
+
+min-height: 1.3rem;
+
+font-weight: 700;
+
+}
+
 header {
 
 
@@ -3727,11 +3923,95 @@ transition: none !important;
 
 
 
+<button id="edit-profile-btn" class="user-profile-btn" style="display: none;">Edit Profile</button>
+
+
+
+<button id="btn-signout" class="user-profile-btn user-signout-btn" style="display: none;">Sign Out</button>
+
+
+
 </div>
 
 
 
 </nav>
+
+<div id="profile-modal" class="profile-modal" hidden>
+
+<div class="profile-dialog" role="dialog" aria-modal="true" aria-labelledby="profile-modal-title">
+
+<h2 id="profile-modal-title">Edit Profile</h2>
+
+<p id="profile-edit-help">You can edit your profile two times per calendar year.</p>
+
+<div class="profile-field">
+
+<label for="profileFullName">Full Name</label>
+
+<input id="profileFullName" type="text" autocomplete="name">
+
+</div>
+
+<div class="profile-field">
+
+<label for="profilePhone">Contact Number</label>
+
+<input id="profilePhone" type="tel" autocomplete="tel">
+
+</div>
+
+<div class="profile-field">
+
+<label for="profileSchool">School</label>
+
+<input id="profileSchool" type="text" autocomplete="organization">
+
+</div>
+
+<div class="profile-field" id="profileGradeField">
+
+<label for="profileGrade">Grade</label>
+
+<select id="profileGrade">
+
+<option value="8">Grade 8</option>
+
+<option value="9">Grade 9</option>
+
+<option value="10">Grade 10</option>
+
+<option value="11">Grade 11</option>
+
+<option value="12">Grade 12</option>
+
+</select>
+
+</div>
+
+<fieldset class="profile-subjects" id="profileSubjectsField">
+
+<legend>Subjects</legend>
+
+<div class="profile-subject-options" id="profileSubjectOptions"></div>
+
+</fieldset>
+
+<div id="profileStatus" class="profile-status" aria-live="polite"></div>
+
+<div class="profile-actions">
+
+<button type="button" class="btn-cancel" id="profileCancelBtn">Cancel</button>
+
+<button type="button" class="btn-save" id="profileSaveBtn">Save Profile</button>
+
+</div>
+
+</div>
+
+</div>
+
+
 
 
 
@@ -4687,15 +4967,38 @@ let auth = {
     authStateReady: () => Promise.resolve()
 };
 let authPersistenceReady = Promise.resolve();
-let getSavedActivityAccess = () => sessionStorage.getItem('mayhubActivityAccess') === 'true';
-let rememberActivityAccess = () => sessionStorage.setItem('mayhubActivityAccess', 'true');
+let getSavedActivityAccess = () => null;
+let rememberActivityAccess = () => {};
+let clearActivityAccess = () => {
+    try { localStorage.removeItem('mayhubActivityAccess'); } catch {}
+    try { sessionStorage.removeItem('mayhubActivityAccess'); } catch {}
+};
+let getResourceAccessRequirement = (urlValue = window.location.href) => {
+    const pathname = String(urlValue || '');
+    const gradeMatch = pathname.match(/Grade-(\d+)/i);
+    return {
+        requiresProfile: /\/(Activities|Chat|LearningForum)\//i.test(pathname),
+        grade: gradeMatch ? gradeMatch[1] : '',
+        subject: pathname.includes('Social-Sciences') ? 'Social Sciences' : pathname.includes('Life-Sciences') ? 'Life Sciences' : pathname.includes('Geography') ? 'Geography' : pathname.includes('Maths') ? 'Mathematics' : ''
+    };
+};
+let canProfileAccessResource = (profile, resource) => !resource?.requiresProfile || Boolean(profile);
 let addDoc = async () => {
     throw new Error('Firebase is unavailable while viewing this page offline.');
 };
 let collection = () => {
     throw new Error('Firebase is unavailable while viewing this page offline.');
 };
+let docRef = () => {
+    throw new Error('Firebase is unavailable while viewing this page offline.');
+};
+let getDocRef = async () => ({ exists: () => false, data: () => null });
+let updateDocRef = async () => {
+    throw new Error('Firebase is unavailable while viewing this page offline.');
+};
 let serverTimestamp = () => new Date();
+let signOutUser = async () => {};
+let updateAuthProfile = async () => {};
 let onAuthStateChanged = (authInstance, callback) => {
     callback(null);
     return () => {};
@@ -4747,11 +5050,19 @@ try {
     auth = authModule.getAuth(app);
     db = firestoreModule.getFirestore(app);
     onAuthStateChanged = authModule.onAuthStateChanged;
+    signOutUser = authModule.signOut;
+    updateAuthProfile = authModule.updateProfile;
     addDoc = firestoreModule.addDoc;
     collection = firestoreModule.collection;
+    docRef = firestoreModule.doc;
+    getDocRef = firestoreModule.getDoc;
+    updateDocRef = firestoreModule.updateDoc;
     serverTimestamp = firestoreModule.serverTimestamp;
     getSavedActivityAccess = authStateModule.getSavedActivityAccess || getSavedActivityAccess;
     rememberActivityAccess = authStateModule.rememberActivityAccess || rememberActivityAccess;
+    clearActivityAccess = authStateModule.clearActivityAccess || clearActivityAccess;
+    getResourceAccessRequirement = authStateModule.getResourceAccessRequirement || getResourceAccessRequirement;
+    canProfileAccessResource = authStateModule.canProfileAccessResource || canProfileAccessResource;
     authPersistenceReady = authStateModule.setBestAvailablePersistence
         ? authStateModule.setBestAvailablePersistence(auth)
         : Promise.resolve();
@@ -4760,6 +5071,7 @@ try {
 }
 
 let currentUser = null;
+let currentUserProfile = null;
 
 
 
@@ -4807,160 +5119,280 @@ function redirectToSigninForFeedback() {
 
 
 const btnSignin = document.getElementById('btn-signin');
-
-
-
 const userDisplayBtn = document.getElementById('user-display-btn');
+const editProfileBtn = document.getElementById('edit-profile-btn');
+const btnSignout = document.getElementById('btn-signout');
+const profileModal = document.getElementById('profile-modal');
+const profileFullName = document.getElementById('profileFullName');
+const profilePhone = document.getElementById('profilePhone');
+const profileSchool = document.getElementById('profileSchool');
+const profileGrade = document.getElementById('profileGrade');
+const profileGradeField = document.getElementById('profileGradeField');
+const profileSubjectsField = document.getElementById('profileSubjectsField');
+const profileSubjectOptions = document.getElementById('profileSubjectOptions');
+const profileStatus = document.getElementById('profileStatus');
+const profileCancelBtn = document.getElementById('profileCancelBtn');
+const profileSaveBtn = document.getElementById('profileSaveBtn');
+const PROFILE_EDIT_LIMIT = 2;
+const PROFILE_SUBJECTS = ['Mathematics', 'Social Sciences', 'Geography', 'Life Sciences'];
 
-
-
-
-
-
-
-onAuthStateChanged(auth, (user) => {
-
-
-
-currentUser = user;
-
-
-
-isAuthReady = true;
-
-setFeedbackAccess(user);
-
-
-
-
-
-
-if (user) {
-
-
-
-
-rememberActivityAccess(user);
-if (btnSignin) btnSignin.style.display = 'none';
-
-
-
-if (userDisplayBtn) {
-
-
-
-userDisplayBtn.style.display = 'inline-block';
-
-
-
-userDisplayBtn.textContent = user.displayName || (user.email ? user.email.split('@')[0] : "Student");
-
-
-
+function getProfileEditState(profile) {
+    const year = new Date().getFullYear();
+    const used = Number(profile?.profileEditYear) === year ? Number(profile?.profileEditCount || 0) : 0;
+    return { year, used, remaining: Math.max(0, PROFILE_EDIT_LIMIT - used) };
 }
 
+async function loadCurrentUserProfile(force = false) {
+    if (!currentUser) return null;
+    if (currentUserProfile && !force) return currentUserProfile;
 
-
-} else {
-
-
-
-if (btnSignin) btnSignin.style.display = 'inline-block';
-
-
-
-if (userDisplayBtn) userDisplayBtn.style.display = 'none';
-
-
-
-}
-
-
-
-});
-
-
-
-
-
-
-document.addEventListener('click', async (e) => {
-
-
-
-const link = e.target.closest('a');
-
-if (link && link.getAttribute('href') === '#feedback') {
-    e.preventDefault();
-    await authPersistenceReady;
-    await auth.authStateReady();
-
-    if (!auth.currentUser) {
-        redirectToSigninForFeedback();
-    } else {
-        document.getElementById('feedback')?.scrollIntoView({ behavior: 'smooth' });
+    try {
+        const snapshot = await getDocRef(docRef(db, 'users', currentUser.uid));
+        currentUserProfile = snapshot.exists() ? snapshot.data() : null;
+    } catch (error) {
+        console.warn('Could not load user profile.', error);
+        currentUserProfile = null;
     }
-    return;
+
+    return currentUserProfile;
 }
 
+function showSignedInControls(user) {
+    if (btnSignin) btnSignin.style.display = user ? 'none' : 'inline-block';
+    if (userDisplayBtn) {
+        userDisplayBtn.style.display = user ? 'inline-block' : 'none';
+        userDisplayBtn.textContent = user ? (user.displayName || (user.email ? user.email.split('@')[0] : 'Student')) : '';
+    }
+    if (editProfileBtn) editProfileBtn.style.display = user ? 'inline-block' : 'none';
+    if (btnSignout) btnSignout.style.display = user ? 'inline-block' : 'none';
+}
 
+function setProfileStatus(message, color = '#003a75') {
+    if (!profileStatus) return;
+    profileStatus.textContent = message;
+    profileStatus.style.color = color;
+}
 
+function renderProfileSubjects(selectedSubjects = []) {
+    if (!profileSubjectOptions) return;
+    const selected = new Set(selectedSubjects);
+    profileSubjectOptions.innerHTML = PROFILE_SUBJECTS.map(subject => `
+        <label>
+            <input type="checkbox" value="${subject}" ${selected.has(subject) ? 'checked' : ''}>
+            ${subject}
+        </label>
+    `).join('');
+}
 
+function updateProfileSubjectVisibility() {
+    if (!profileSubjectsField || !profileGradeField) return;
+    const role = String(currentUserProfile?.role || '').toLowerCase();
+    const grade = Number(profileGrade?.value || currentUserProfile?.grade || 0);
+    const shouldShowGrade = role === 'learner';
+    const shouldShowSubjects = role === 'teacher' || (role === 'learner' && grade >= 10);
 
+    profileGradeField.style.display = shouldShowGrade ? 'grid' : 'none';
+    profileSubjectsField.style.display = shouldShowSubjects ? 'block' : 'none';
+}
 
-// Now checking for BOTH Activities and Chat routes
+async function openProfileModal() {
+    if (!currentUser || !profileModal) return;
+    const profile = await loadCurrentUserProfile(true);
 
-
-
-if (link && (link.href.includes('/Activities/') || link.href.includes('/Chat/'))) {
-    if (getSavedActivityAccess()) {
+    if (!profile) {
+        alert('Your profile could not be loaded right now. Please check your internet connection and try again.');
         return;
     }
 
-    if (!isAuthReady) {
+    const editState = getProfileEditState(profile);
+    profileFullName.value = profile.fullName || currentUser.displayName || '';
+    profilePhone.value = profile.phone || '';
+    profileSchool.value = profile.school || '';
+    profileGrade.value = profile.grade || '11';
+    renderProfileSubjects(Array.isArray(profile.subjects) ? profile.subjects : []);
+    updateProfileSubjectVisibility();
+    setProfileStatus(`${editState.remaining} profile edit${editState.remaining === 1 ? '' : 's'} remaining this year.`, editState.remaining > 0 ? '#003a75' : '#b00020');
+    profileSaveBtn.disabled = editState.remaining <= 0;
+    profileModal.hidden = false;
+    profileFullName.focus();
+}
+
+function closeProfileModal() {
+    if (profileModal) profileModal.hidden = true;
+}
+
+async function saveProfileEdits() {
+    if (!currentUser || !currentUserProfile) return;
+
+    const editState = getProfileEditState(currentUserProfile);
+    if (editState.remaining <= 0) {
+        setProfileStatus('You have used both profile edits for this year.', '#b00020');
+        return;
+    }
+
+    const fullName = profileFullName.value.trim();
+    const school = profileSchool.value.trim();
+    const role = String(currentUserProfile.role || '').toLowerCase();
+
+    if (!fullName || !school) {
+        setProfileStatus('Please enter your full name and school.', '#b00020');
+        return;
+    }
+
+    const updates = {
+        fullName,
+        phone: profilePhone.value.trim(),
+        school,
+        profileEditYear: editState.year,
+        profileEditCount: editState.used + 1,
+        profileEditedAt: serverTimestamp()
+    };
+
+    if (role === 'learner') {
+        updates.grade = profileGrade.value;
+        if (!updates.grade) {
+            setProfileStatus('Please choose your grade.', '#b00020');
+            return;
+        }
+
+        if (Number(updates.grade) >= 10) {
+            updates.subjects = Array.from(profileSubjectOptions.querySelectorAll('input:checked')).map(input => input.value);
+            if (updates.subjects.length === 0) {
+                setProfileStatus('Please choose at least one subject.', '#b00020');
+                return;
+            }
+        } else {
+            updates.subjects = [];
+        }
+    } else if (role === 'teacher') {
+        updates.subjects = Array.from(profileSubjectOptions.querySelectorAll('input:checked')).map(input => input.value);
+        if (updates.subjects.length === 0) {
+            setProfileStatus('Please choose at least one subject.', '#b00020');
+            return;
+        }
+    }
+
+    try {
+        profileSaveBtn.disabled = true;
+        setProfileStatus('Saving profile...', '#003a75');
+        await updateAuthProfile(currentUser, { displayName: fullName });
+        await updateDocRef(docRef(db, 'users', currentUser.uid), updates);
+        currentUserProfile = { ...currentUserProfile, ...updates };
+        rememberActivityAccess(currentUser, currentUserProfile);
+        showSignedInControls(currentUser);
+        setProfileStatus('Profile updated successfully.', '#087f23');
+        setTimeout(closeProfileModal, 700);
+    } catch (error) {
+        console.error('Could not update profile.', error);
+        setProfileStatus('Profile could not be saved. Please try again.', '#b00020');
+        profileSaveBtn.disabled = false;
+    }
+}
+
+function alertProfileMismatch(resource) {
+    const gradeText = resource.grade ? `Grade ${resource.grade}` : 'this grade';
+    const subjectText = resource.subject ? ` ${resource.subject}` : '';
+    alert(`This section is for ${gradeText}${subjectText}. Please use the activities that match the grade and subjects saved on your profile.`);
+}
+
+onAuthStateChanged(auth, async (user) => {
+    currentUser = user;
+    isAuthReady = true;
+    setFeedbackAccess(user);
+
+    if (user) {
+        const profile = await loadCurrentUserProfile(true);
+        rememberActivityAccess(user, profile);
+    } else {
+        currentUserProfile = null;
+    }
+
+    showSignedInControls(user);
+});
+
+if (editProfileBtn) editProfileBtn.addEventListener('click', openProfileModal);
+if (userDisplayBtn) userDisplayBtn.addEventListener('click', openProfileModal);
+if (profileCancelBtn) profileCancelBtn.addEventListener('click', closeProfileModal);
+if (profileModal) {
+    profileModal.addEventListener('click', (event) => {
+        if (event.target === profileModal) closeProfileModal();
+    });
+}
+if (profileGrade) profileGrade.addEventListener('change', updateProfileSubjectVisibility);
+if (profileSaveBtn) profileSaveBtn.addEventListener('click', saveProfileEdits);
+
+if (btnSignout) {
+    btnSignout.addEventListener('click', async () => {
+        try {
+            await authPersistenceReady;
+            await signOutUser(auth);
+        } catch (error) {
+            console.warn('Sign out did not complete cleanly.', error);
+        } finally {
+            clearActivityAccess();
+            currentUser = null;
+            currentUserProfile = null;
+            showSignedInControls(null);
+            closeProfileModal();
+        }
+    });
+}
+
+document.addEventListener('click', async (e) => {
+    const link = e.target.closest('a');
+
+    if (link && link.getAttribute('href') === '#feedback') {
         e.preventDefault();
         await authPersistenceReady;
+        await auth.authStateReady();
 
-        if (typeof auth.authStateReady === 'function') {
+        if (!auth.currentUser) {
+            redirectToSigninForFeedback();
+        } else {
+            document.getElementById('feedback')?.scrollIntoView({ behavior: 'smooth' });
+        }
+        return;
+    }
+
+    const resource = link ? getResourceAccessRequirement(link.href) : null;
+
+    if (link && resource?.requiresProfile) {
+        e.preventDefault();
+
+        await authPersistenceReady;
+        if (!isAuthReady && typeof auth.authStateReady === 'function') {
             await auth.authStateReady();
         }
 
-        currentUser = auth.currentUser;
+        currentUser = currentUser || auth.currentUser;
         isAuthReady = true;
 
         if (currentUser) {
-            rememberActivityAccess(currentUser);
+            const profile = await loadCurrentUserProfile();
+            if (canProfileAccessResource(profile, resource)) {
+                rememberActivityAccess(currentUser, profile);
+                window.location.href = link.href;
+            } else {
+                alertProfileMismatch(resource);
+            }
+            return;
+        }
+
+        const savedAccess = getSavedActivityAccess();
+        if (savedAccess && canProfileAccessResource(savedAccess.profile, resource)) {
             window.location.href = link.href;
             return;
         }
 
-        if (getSavedActivityAccess()) {
-            window.location.href = link.href;
-            return;
-        }
+        sessionStorage.setItem('redirectURL', link.href);
+        alert('Please sign in to access this section.');
+
+        const signinUrl = new URL('signin.html', window.location.href);
+        signinUrl.searchParams.set('redirect', link.href);
+        signinUrl.searchParams.set('notice', 'activity');
+        window.location.href = signinUrl.href;
     }
-
-    if (currentUser) {
-        rememberActivityAccess(currentUser);
-        return;
-    }
-
-    e.preventDefault();
-    sessionStorage.setItem('redirectURL', link.href);
-    alert("Please sign in to access this section!");
-
-    const signinUrl = new URL('signin.html', window.location.href);
-    signinUrl.searchParams.set('redirect', link.href);
-    signinUrl.searchParams.set('notice', 'activity');
-    window.location.href = signinUrl.href;
-}
-
-
-
 });
-
-
-
 
 
 

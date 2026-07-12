@@ -2,27 +2,114 @@ rules_version = '2';
 
 service cloud.firestore {
   match /databases/{database}/documents {
-    
+
+    function signedIn() {
+      return request.auth != null;
+    }
+
+    function isAdmin() {
+      return signedIn() && request.auth.uid == 'hVp1p5UP9WQ8JTvngErmjVkrXcj1';
+    }
+
+    function hasUserProfile() {
+      return signedIn() && exists(/databases/$(database)/documents/users/$(request.auth.uid));
+    }
+
+    function profile() {
+      return get(/databases/$(database)/documents/users/$(request.auth.uid)).data;
+    }
+
+    function profileHasSubjects() {
+      return profile().keys().hasAny(['subjects'])
+             && profile().subjects is list
+             && profile().subjects.size() > 0;
+    }
+
+    function profileSubjectAllows(subject) {
+      return !profileHasSubjects() || profile().subjects.hasAny([subject]);
+    }
+
+    function profileGradeAllows(grade) {
+      return profile().role != 'learner'
+             || !profile().keys().hasAny(['grade'])
+             || grade == profile().grade
+             || grade == ('Grade ' + profile().grade);
+    }
+
+    function canAccessRegisteredResource(data) {
+      return signedIn()
+             && hasUserProfile()
+             && data.keys().hasAll(['grade', 'subject'])
+             && profileGradeAllows(data.grade)
+             && profileSubjectAllows(data.subject);
+    }
+
+    function userChangedKeys() {
+      return request.resource.data.diff(resource.data).affectedKeys();
+    }
+
+    function isOwnChatAccessRequest() {
+      return userChangedKeys().hasOnly(['chatStatus'])
+             && request.resource.data.chatStatus == 'pending'
+             && resource.data.chatStatus != 'verified';
+    }
+
+    function isOwnLimitedProfileEdit() {
+      return userChangedKeys().hasOnly([
+               'fullName', 'phone', 'school', 'grade', 'subjects',
+               'profileEditYear', 'profileEditCount', 'profileEditedAt'
+             ])
+             && request.resource.data.fullName is string
+             && request.resource.data.fullName.size() > 0
+             && request.resource.data.fullName.size() <= 120
+             && request.resource.data.school is string
+             && request.resource.data.school.size() > 0
+             && request.resource.data.school.size() <= 160
+             && request.resource.data.profileEditYear is int
+             && request.resource.data.profileEditCount is int
+             && request.resource.data.profileEditCount >= 1
+             && request.resource.data.profileEditCount <= 2
+             && request.resource.data.profileEditedAt == request.time
+             && (
+               !resource.data.keys().hasAll(['profileEditYear', 'profileEditCount'])
+               || request.resource.data.profileEditYear > resource.data.profileEditYear
+               || (
+                 request.resource.data.profileEditYear == resource.data.profileEditYear
+                 && resource.data.profileEditCount < 2
+                 && request.resource.data.profileEditCount == resource.data.profileEditCount + 1
+               )
+             );
+    }
+
     // Public access to games and notes collections
     match /games/{document=**} {
       allow read: if true;
-      allow write: if false; 
+      allow write: if false;
     }
-    
+
     match /notes/{document=**} {
       allow read: if true;
-      allow write: if false; 
+      allow write: if false;
     }
 
-    // Restrict activities to signed-in users only (Group 2 & 3)
+    // Activities require a signed-in profile that matches the activity grade and subject.
     match /activities/{document=**} {
-      allow read, write: if request.auth != null;
+      allow read: if canAccessRegisteredResource(resource.data);
+      allow create, update: if canAccessRegisteredResource(request.resource.data)
+                            && (
+                              !request.resource.data.keys().hasAny(['uid'])
+                              || request.resource.data.uid == request.auth.uid
+                            )
+                            && (
+                              !request.resource.data.keys().hasAny(['userId'])
+                              || request.resource.data.userId == request.auth.uid
+                            );
+      allow delete: if false;
     }
-
 
     // Registered users can create feedback under their own authenticated identity.
     match /feedback/{feedbackId} {
-      allow create: if request.auth != null
+      allow create: if signedIn()
                     && request.resource.data.keys().hasOnly([
                       'userId', 'accountEmail', 'fullName', 'role',
                       'requestType', 'subject', 'message', 'createdAt'
@@ -45,48 +132,41 @@ service cloud.firestore {
                     && request.resource.data.message.size() <= 5000
                     && request.resource.data.createdAt == request.time;
 
-      allow read: if request.auth != null
-                  && request.auth.uid == 'hVp1p5UP9WQ8JTvngErmjVkrXcj1';
+      allow read: if isAdmin();
       allow update, delete: if false;
     }
 
-    // --- UPDATED: Learning Forum (Messages) Rules ---
+    // Learning Forum messages require a verified profile and must match the registered grade/subject.
     match /messages/{messageId} {
-      // Read access: Must be signed in AND have a chatStatus of 'verified'
-      allow read: if request.auth != null 
-                  && get(/databases/$(database)/documents/users/$(request.auth.uid)).data.chatStatus == 'verified';
-      
-      // Write access: Must be signed in, verified, and sending under their own UID
-      allow create: if request.auth != null 
+      allow read: if signedIn()
+                  && hasUserProfile()
+                  && profile().chatStatus == 'verified'
+                  && canAccessRegisteredResource(resource.data);
+
+      allow create: if signedIn()
+                    && hasUserProfile()
+                    && profile().chatStatus == 'verified'
                     && request.resource.data.uid == request.auth.uid
-                    && get(/databases/$(database)/documents/users/$(request.auth.uid)).data.chatStatus == 'verified';
-      
-      // Prevent users from editing or deleting messages after they are sent
-      allow update, delete: if false; 
+                    && canAccessRegisteredResource(request.resource.data);
+
+      allow update, delete: if false;
     }
 
-    // --- UPDATED: Users Collection Rules ---
+    // Users collection rules
     match /users/{userId} {
-      
-      // 1. MASTER ADMIN OVERRIDE (Your UID)
-      // This allows your Admin Dashboard to read the pending list and approve students
-      allow read, write: if request.auth != null && request.auth.uid == 'hVp1p5UP9WQ8JTvngErmjVkrXcj1';
+      allow read, write: if isAdmin();
 
-      // 2. Normal Learner Rules
-      // Allow learners to read and create their own profile when they sign up
-      allow read: if request.auth != null && request.auth.uid == userId;
-      allow create: if request.auth != null && request.auth.uid == userId;
-      
-      // Allow learners to update their profile to request access (pending), 
-      // but completely block them from hacking their status to 'verified'
-      allow update: if request.auth != null 
-                    && request.auth.uid == userId 
-                    && request.resource.data.chatStatus != 'verified';
-                    
+      allow read: if signedIn() && request.auth.uid == userId;
+      allow create: if signedIn() && request.auth.uid == userId;
+
+      allow update: if signedIn()
+                    && request.auth.uid == userId
+                    && (isOwnChatAccessRequest() || isOwnLimitedProfileEdit());
+
       allow delete: if false;
     }
 
-    // Default: Deny all other collections (Must always stay at the very bottom)
+    // Default: Deny all other collections.
     match /{document=**} {
       allow read, write: if false;
     }

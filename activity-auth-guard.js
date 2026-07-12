@@ -1,7 +1,10 @@
 import { getApp, getApps, initializeApp } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-app.js";
 import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-auth.js";
+import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
 import {
+    canProfileAccessResource,
     clearActivityRedirectMarker,
+    getResourceAccessRequirement,
     getSavedActivityAccess,
     rememberActivityAccess,
     setBestAvailablePersistence,
@@ -23,7 +26,10 @@ const RECENT_SIGNIN_AUTH_WAIT_MS = 10000;
 
 const app = getApps().length ? getApp() : initializeApp(firebaseConfig);
 const auth = getAuth(app);
+const db = getFirestore(app);
 const signinUrl = new URL("signin.html", import.meta.url);
+const homeUrl = new URL("index.html", import.meta.url);
+const resourceRequirement = getResourceAccessRequirement(window.location.href);
 
 function revealActivity() {
     document.getElementById("activity-auth-guard-style")?.remove();
@@ -66,6 +72,38 @@ function redirectToSignin() {
     window.location.replace(signinUrl.href);
 }
 
+function renderBlockedAccess(message) {
+    revealActivity();
+
+    const render = () => {
+        document.body.innerHTML = `
+            <main style="min-height:100vh;display:grid;place-items:center;background:#f0f4f8;color:#123;font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;padding:24px;">
+                <section style="max-width:620px;background:#fff;border-top:5px solid #002b5e;border-radius:12px;box-shadow:0 8px 22px rgba(0,0,0,.12);padding:28px;text-align:center;">
+                    <h1 style="color:#002b5e;margin-bottom:12px;">This section is not on your profile</h1>
+                    <p style="font-size:1rem;line-height:1.6;margin-bottom:18px;">${message}</p>
+                    <a href="${homeUrl.href}" style="display:inline-block;background:#002b5e;color:#fff;text-decoration:none;font-weight:700;border-radius:8px;padding:11px 18px;">Back to May Learning Hub</a>
+                </section>
+            </main>
+        `;
+    };
+
+    if (document.body) {
+        render();
+    } else {
+        window.addEventListener("DOMContentLoaded", render, { once: true });
+    }
+}
+
+async function loadUserProfile(user) {
+    const profileSnapshot = await getDoc(doc(db, "users", user.uid));
+    return profileSnapshot.exists() ? profileSnapshot.data() : null;
+}
+
+function cachedAccessAllowsResource() {
+    const savedAccess = getSavedActivityAccess();
+    return Boolean(savedAccess && canProfileAccessResource(savedAccess.profile, resourceRequirement));
+}
+
 try {
     await setBestAvailablePersistence(auth);
 
@@ -79,10 +117,25 @@ try {
     const user = auth.currentUser || await waitForSignedInUser(waitMs);
 
     if (user) {
-        rememberActivityAccess(user);
-        clearActivityRedirectMarker();
-        revealActivity();
-    } else if (getSavedActivityAccess()) {
+        let profile = null;
+
+        try {
+            profile = await loadUserProfile(user);
+        } catch (error) {
+            console.warn("Could not load activity profile; checking saved profile access.", error);
+        }
+
+        if (profile && canProfileAccessResource(profile, resourceRequirement)) {
+            rememberActivityAccess(user, profile);
+            clearActivityRedirectMarker();
+            revealActivity();
+        } else if (!profile && cachedAccessAllowsResource()) {
+            clearActivityRedirectMarker();
+            revealActivity();
+        } else {
+            renderBlockedAccess("Your saved profile does not match the grade or subject for this activity. Please use the resources linked to the grade and subjects you registered for.");
+        }
+    } else if (cachedAccessAllowsResource()) {
         revealActivity();
     } else {
         redirectToSignin();
@@ -90,7 +143,7 @@ try {
 } catch (error) {
     console.error("Could not confirm activity access.", error);
 
-    if (getSavedActivityAccess()) {
+    if (cachedAccessAllowsResource()) {
         revealActivity();
     } else {
         redirectToSignin();

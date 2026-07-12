@@ -24,6 +24,7 @@
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
         html { scroll-behavior: smooth; }
+        html, body { max-width: 100%; overflow-x: hidden; }
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: #f0f4f8;
@@ -182,6 +183,7 @@
         .header-text h1 { font-size: 2.4rem; margin-bottom: 0.3rem; }
 
         .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        .container, .hub-toggle-container, .hub-toggle, .whats-new-grid, .subjects-grid { min-width: 0; }
         .section-title { font-size: 1.8rem; color: #003a75; margin-bottom: 0.35rem; }
         .intro-panel {
             background: #fff;
@@ -438,6 +440,17 @@ box-shadow: 0 0 14px rgba(255,255,255,0.45), 0 4px 12px rgba(80,0,0,0.18);
             .toggle-option {
                 font-size: 0.85rem;
                 padding: 10px 2px;
+            }
+        }
+
+        @media (max-width: 640px) {
+            nav {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .nav-links {
+                justify-content: center;
+                gap: 0.45rem;
             }
         }
     </style>

@@ -1,4 +1,4 @@
-const CACHE_NAME = 'may-learning-v3-favicon';
+const CACHE_NAME = 'may-learning-v4-profile-access';
 
 const NETWORK_FIRST_PATHS = new Set([
   '/',
