@@ -965,11 +965,9 @@ background-color: #c42b2b;
 
 .profile-menu-wrap {
 
-position: relative;
+position: static;
 
 display: inline-block;
-
-align-self: flex-end;
 
 }
 
@@ -977,11 +975,13 @@ align-self: flex-end;
 
 position: absolute;
 
-right: 0;
+right: 1rem;
 
 top: calc(100% + 0.45rem);
 
-min-width: 180px;
+width: max-content;
+
+min-width: 0;
 
 max-width: calc(100vw - 2rem);
 
@@ -1007,11 +1007,15 @@ display: none;
 
 .profile-menu button {
 
-width: 100%;
+width: auto;
+
+min-width: max-content;
 
 display: block;
 
-text-align: right;
+text-align: left;
+
+white-space: nowrap;
 
 background: transparent;
 
@@ -1025,7 +1029,7 @@ font: inherit;
 
 font-weight: 700;
 
-padding: 0.7rem 0.85rem;
+padding: 0.65rem 0.85rem;
 
 cursor: pointer;
 
