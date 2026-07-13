@@ -5082,6 +5082,12 @@ let getResourceAccessRequirement = (urlValue = window.location.href) => {
     };
 };
 let canProfileAccessResource = (profile, resource) => !resource?.requiresProfile || Boolean(profile);
+const MAYHUB_ADMIN_UID = 'hVp1p5UP9WQ8JTvngErmjVkrXcj1';
+let isMayHubAdmin = (user = null, profile = null) => {
+    const uid = String(user?.uid || user?.userId || user?.id || profile?.uid || profile?.userId || '');
+    const role = String(profile?.role || user?.role || '').toLowerCase();
+    return uid === MAYHUB_ADMIN_UID || role === 'admin' || profile?.isAdmin === true || user?.isAdmin === true;
+};
 let addDoc = async () => {
     throw new Error('Firebase is unavailable while viewing this page offline.');
 };
@@ -5162,6 +5168,7 @@ try {
     clearActivityAccess = authStateModule.clearActivityAccess || clearActivityAccess;
     getResourceAccessRequirement = authStateModule.getResourceAccessRequirement || getResourceAccessRequirement;
     canProfileAccessResource = authStateModule.canProfileAccessResource || canProfileAccessResource;
+    isMayHubAdmin = authStateModule.isMayHubAdmin || isMayHubAdmin;
     authPersistenceReady = authStateModule.setBestAvailablePersistence
         ? authStateModule.setBestAvailablePersistence(auth)
         : Promise.resolve();
@@ -5240,7 +5247,8 @@ const PROFILE_SUBJECTS = ['Mathematics', 'Social Sciences', 'Geography', 'Life S
 function getProfileEditState(profile) {
     const year = new Date().getFullYear();
     const used = Number(profile?.profileEditYear) === year ? Number(profile?.profileEditCount || 0) : 0;
-    return { year, used, remaining: Math.max(0, PROFILE_EDIT_LIMIT - used) };
+    if (isMayHubAdmin(currentUser, profile)) return { year, used, remaining: Infinity, unlimited: true };
+    return { year, used, remaining: Math.max(0, PROFILE_EDIT_LIMIT - used), unlimited: false };
 }
 
 async function loadCurrentUserProfile(force = false) {
@@ -5323,8 +5331,12 @@ async function openProfileModal() {
     profileGrade.value = profile.grade || '11';
     renderProfileSubjects(Array.isArray(profile.subjects) ? profile.subjects : []);
     updateProfileSubjectVisibility();
-    setProfileStatus(`${editState.remaining} profile edit${editState.remaining === 1 ? '' : 's'} remaining this year.`, editState.remaining > 0 ? '#003a75' : '#b00020');
-    profileSaveBtn.disabled = editState.remaining <= 0;
+    if (editState.unlimited) {
+        setProfileStatus('Admin profile edits are unlimited.', '#003a75');
+    } else {
+        setProfileStatus(`${editState.remaining} profile edit${editState.remaining === 1 ? '' : 's'} remaining this year.`, editState.remaining > 0 ? '#003a75' : '#b00020');
+    }
+    profileSaveBtn.disabled = !editState.unlimited && editState.remaining <= 0;
     closeProfileMenu();
     profileModal.hidden = false;
     profileFullName.focus();
@@ -5338,7 +5350,7 @@ async function saveProfileEdits() {
     if (!currentUser || !currentUserProfile) return;
 
     const editState = getProfileEditState(currentUserProfile);
-    if (editState.remaining <= 0) {
+    if (!editState.unlimited && editState.remaining <= 0) {
         setProfileStatus('You have used both profile edits for this year.', '#b00020');
         return;
     }
@@ -5356,10 +5368,13 @@ async function saveProfileEdits() {
         fullName,
         phone: profilePhone.value.trim(),
         school,
-        profileEditYear: editState.year,
-        profileEditCount: editState.used + 1,
         profileEditedAt: serverTimestamp()
     };
+
+    if (!editState.unlimited) {
+        updates.profileEditYear = editState.year;
+        updates.profileEditCount = editState.used + 1;
+    }
 
     if (role === 'learner') {
         updates.grade = profileGrade.value;
@@ -5501,7 +5516,7 @@ document.addEventListener('click', async (e) => {
 
         if (currentUser) {
             const profile = await loadCurrentUserProfile();
-            if (canProfileAccessResource(profile, resource)) {
+            if (isMayHubAdmin(currentUser, profile) || canProfileAccessResource(profile, resource)) {
                 rememberActivityAccess(currentUser, profile);
                 window.location.href = link.href;
             } else {
@@ -5511,7 +5526,7 @@ document.addEventListener('click', async (e) => {
         }
 
         const savedAccess = getSavedActivityAccess();
-        if (savedAccess && canProfileAccessResource(savedAccess.profile, resource)) {
+        if (savedAccess && (savedAccess.isAdmin || canProfileAccessResource(savedAccess.profile, resource))) {
             window.location.href = link.href;
             return;
         }

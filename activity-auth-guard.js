@@ -6,6 +6,7 @@ import {
     clearActivityRedirectMarker,
     getResourceAccessRequirement,
     getSavedActivityAccess,
+    isMayHubAdmin,
     rememberActivityAccess,
     setBestAvailablePersistence,
     shouldWaitLongerForRecentSignin
@@ -101,7 +102,7 @@ async function loadUserProfile(user) {
 
 function cachedAccessAllowsResource() {
     const savedAccess = getSavedActivityAccess();
-    return Boolean(savedAccess && canProfileAccessResource(savedAccess.profile, resourceRequirement));
+    return Boolean(savedAccess && (savedAccess.isAdmin || canProfileAccessResource(savedAccess.profile, resourceRequirement)));
 }
 
 try {
@@ -125,7 +126,7 @@ try {
             console.warn("Could not load activity profile; checking saved profile access.", error);
         }
 
-        if (profile && canProfileAccessResource(profile, resourceRequirement)) {
+        if (isMayHubAdmin(user, profile) || (profile && canProfileAccessResource(profile, resourceRequirement))) {
             rememberActivityAccess(user, profile);
             clearActivityRedirectMarker();
             revealActivity();

@@ -9,6 +9,7 @@ const ACTIVITY_ACCESS_KEY = "mayhubActivityAccess";
 const ACTIVITY_ACCESS_DAYS = 30;
 const ACTIVITY_ACCESS_MS = ACTIVITY_ACCESS_DAYS * 24 * 60 * 60 * 1000;
 const RECENT_SIGNIN_WINDOW_MS = 60000;
+export const MAYHUB_ADMIN_UID = "hVp1p5UP9WQ8JTvngErmjVkrXcj1";
 
 function getStorage(storageName) {
     try {
@@ -59,7 +60,13 @@ function normalizeSubjectName(value) {
         .trim();
 }
 
-function compactProfile(profile) {
+
+export function isMayHubAdmin(user = null, profile = null) {
+    const uid = String(user?.uid || user?.userId || user?.id || profile?.uid || profile?.userId || "");
+    const role = String(profile?.role || user?.role || "").toLowerCase();
+    return uid === MAYHUB_ADMIN_UID || role === "admin" || profile?.isAdmin === true || user?.isAdmin === true;
+}
+function compactProfile(profile, user = null) {
     if (!profile) return null;
 
     return {
@@ -67,7 +74,8 @@ function compactProfile(profile) {
         grade: profile.grade || "",
         subjects: Array.isArray(profile.subjects) ? profile.subjects : [],
         fullName: profile.fullName || "",
-        school: profile.school || ""
+        school: profile.school || "",
+        isAdmin: isMayHubAdmin(user, profile)
     };
 }
 
@@ -104,6 +112,7 @@ export function getResourceAccessRequirement(urlValue = window.location.href) {
 
 export function canProfileAccessResource(profile, resource) {
     if (!resource || !resource.requiresProfile) return true;
+    if (isMayHubAdmin(null, profile)) return true;
     if (!profile) return false;
 
     const role = String(profile.role || "").toLowerCase();
@@ -143,9 +152,10 @@ export function rememberActivityAccess(user, profile = null) {
     const access = {
         uid: user?.uid || "firebase-user",
         email: user?.email || "",
-        profile: compactProfile(profile),
+        profile: compactProfile(profile, user),
         grantedAt: Date.now(),
-        expiresAt: Date.now() + ACTIVITY_ACCESS_MS
+        expiresAt: Date.now() + ACTIVITY_ACCESS_MS,
+        isAdmin: isMayHubAdmin(user, profile)
     };
 
     safeWrite("localStorage", access);

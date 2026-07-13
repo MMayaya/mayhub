@@ -37,11 +37,14 @@ service cloud.firestore {
     }
 
     function canAccessRegisteredResource(data) {
-      return signedIn()
-             && hasUserProfile()
-             && data.keys().hasAll(['grade', 'subject'])
-             && profileGradeAllows(data.grade)
-             && profileSubjectAllows(data.subject);
+      return isAdmin()
+             || (
+               signedIn()
+               && hasUserProfile()
+               && data.keys().hasAll(['grade', 'subject'])
+               && profileGradeAllows(data.grade)
+               && profileSubjectAllows(data.subject)
+             );
     }
 
     function userChangedKeys() {
@@ -166,9 +169,9 @@ service cloud.firestore {
       allow delete: if false;
     }
 
-    // Default: Deny all other collections.
+    // Admin fallback for any future collection; everyone else remains denied by default.
     match /{document=**} {
-      allow read, write: if false;
+      allow read, write: if isAdmin();
     }
   }
 }
