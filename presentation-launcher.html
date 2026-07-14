@@ -56,6 +56,10 @@
         if (!/\.html?$/i.test(presentationUrl.pathname)) {
           throw new Error("The presentation path must point to an HTML page.");
         }
+
+        // iSpring reads this parameter during startup. It disables restoration
+        // of an earlier viewing session and suppresses the resume prompt.
+        presentationUrl.searchParams.set("resume", "0");
       } catch (error) {
         presentationUrl = null;
         window.launcherError = error.message;
