@@ -60,6 +60,7 @@
         // iSpring reads this parameter during startup. It disables restoration
         // of an earlier viewing session and suppresses the resume prompt.
         presentationUrl.searchParams.set("resume", "0");
+        presentationUrl.searchParams.set("startslide", String(requestedSlide - 1));
       } catch (error) {
         presentationUrl = null;
         window.launcherError = error.message;
@@ -100,7 +101,7 @@
           return;
         }
 
-        document.getElementById("presentationFrame").src = presentationUrl.href;
+        window.location.replace(presentationUrl.href);
       });
     }());
   </script>
