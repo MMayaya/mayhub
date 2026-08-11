@@ -13,119 +13,419 @@
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Learning Hub | Coming Soon</title>
+    <meta name="description" content="May Learning Hub Grade 11 Geography Term 3 games for development concepts, indicators, inequality, and sustainability.">
+    <meta name="theme-color" content="#002b5e">
+    <meta property="og:title" content="Grade 11 Games | May Learning Hub">
+    <meta property="og:description" content="Interactive Geography games for Grade 11 learners on May Learning Hub.">
+    <meta property="og:type" content="website">
+    <title>Grade 11 Games | May Learning Hub</title>
     <style>
+        /* Base Styles from May Learning Hub */
         * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f0f4f8; color: #333; line-height: 1.6; display: flex; flex-direction: column; min-height: 100vh; }
-        
-        /* Navigation (Re-styled for Blood Red Theme) */
-        nav { background-color: #660000; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; }
-        .logo { color: #fff; font-size: 1.5rem; font-weight: bold; text-decoration: none; }
-        /* Very light crimson for contrast against dark red */
-        .nav-links a { color: #FFCCCC; text-decoration: none; margin-left: 1.5rem; font-weight: 500; transition: color 0.3s; }
-        .nav-links a:hover, .nav-links a.active { color: #fff; text-decoration: underline; }
-        
-        /* Footer (Re-styled for Blood Red Theme) */
-        footer { text-align: center; padding: 1rem; background-color: #660000; color: #fff; margin-top: auto; }
+        html { scroll-behavior: smooth; }
 
-        /* --- Coming Soon Layout --- */
-        /* This centers the card perfectly in the middle of the screen */
-        .container { flex: 1; display: flex; justify-content: center; align-items: center; padding: 2rem; }
-        
-        .coming-soon-card {
-            background: #fff;
-            border-radius: 8px;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
-            /* Top border now using Primary Crimson accent red */
-            border-top: 6px solid #DC143C; 
-            padding: 4rem 3rem;
-            max-width: 600px;
-            text-align: center;
-            opacity: 0;
-            animation: fadeInUp 0.8s ease-out forwards;
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f4f8;
+            color: #333;
+            line-height: 1.6;
         }
 
-        .icon {
-            font-size: 4rem;
-            margin-bottom: 1rem;
-            display: inline-block;
-            animation: float 3s ease-in-out infinite;
+        img { max-width: 100%; display: block; }
+
+        a:focus-visible, button:focus-visible {
+            outline: 3px solid #66a3ff;
+            outline-offset: 3px;
+            border-radius: 6px;
         }
 
-        .coming-soon-card h1 {
-            /* Headline using Deep Red */
-            color: #800000; 
-            font-size: 2.2rem;
-            margin-bottom: 1rem;
+        /* Animations */
+        @keyframes slideInDown {
+            0% { opacity: 0; transform: translateY(-30px); }
+            100% { opacity: 1; transform: translateY(0); }
         }
-
-        .coming-soon-card p {
-            font-size: 1.1rem;
-            color: #555;
-            margin-bottom: 2rem;
+        @keyframes slideInRight {
+            0% { opacity: 0; transform: translateX(50px); }
+            100% { opacity: 1; transform: translateX(0); }
         }
-
-        /* Go Back Button (Re-styled for Blood Red Theme) */
-        .back-btn {
-            display: inline-block;
-            /* Default background using Deep Dark Red, matches nav-dark */
-            background-color: #660000; 
-            color: #fff;
-            text-decoration: none;
-            padding: 0.8rem 2rem;
-            border-radius: 30px;
-            font-weight: bold;
-            font-size: 1.1rem;
-            transition: all 0.3s ease;
-            /* Red shadow */
-            box-shadow: 0 4px 10px rgba(102,0,0,0.3); 
-        }
-
-        .back-btn:hover {
-            /* Hover background using Bright Crimson */
-            background-color: #DC143C; 
-            transform: translateY(-3px);
-            /* Stronger Crimson shadow for hover */
-            box-shadow: 0 6px 15px rgba(220,20,60,0.4); 
-        }
-
-        /* --- Animations (Unchanged) --- */
         @keyframes fadeInUp {
             0% { opacity: 0; transform: translateY(40px); }
             100% { opacity: 1; transform: translateY(0); }
         }
-        
-        /* A gentle floating animation for the emoji (Unchanged) */
-        @keyframes float {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
-            100% { transform: translateY(0px); }
+        @keyframes fadeIn {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+
+        /* Navigation */
+        nav {
+            background-color: #002b5e;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.12);
+            opacity: 0;
+            animation: slideInDown 0.6s ease-out forwards;
+        }
+
+        .logo {
+            color: #fff;
+            font-size: 1.45rem;
+            font-weight: bold;
+            text-decoration: none;
+            white-space: nowrap;
+        }
+
+        .nav-toggle {
+            display: none;
+            background: transparent;
+            border: none;
+            color: #fff;
+            font-size: 1.6rem;
+            cursor: pointer;
+            padding: 0.3rem 0.5rem;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .nav-links a {
+            color: #cce0ff;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s, background-color 0.3s;
+            padding: 0.45rem 0.7rem;
+            border-radius: 6px;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            color: #fff;
+            background-color: rgba(255,255,255,0.08);
+            text-decoration: none;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, #004080, #0059b3);
+            color: #fff;
+            padding: 3rem 1rem 2.5rem;
+            overflow: hidden;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header-text {
+            max-width: 800px;
+            margin: 0 auto;
+            opacity: 0;
+            animation: slideInRight 0.8s ease-out 0.2s forwards;
+        }
+
+        .header-text h1 {
+            font-size: 2.4rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .motto {
+            font-size: 1.2rem;
+            font-style: italic;
+            color: #c7deff;
+            margin-bottom: 0.8rem;
+            font-weight: 500;
+        }
+
+        /* Container & Layout */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            color: #003a75;
+            margin-bottom: 0.35rem;
+            text-align: center;
+        }
+
+        .section-subtitle {
+            color: #555;
+            margin-bottom: 2rem;
+            text-align: center;
+            font-size: 1.1rem;
+        }
+
+        /* Games Grid System */
+        .games-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .game-card {
+            background: #fff;
+            border-radius: 12px;
+            padding: 1.8rem 1.5rem;
+            text-align: center;
+            text-decoration: none;
+            color: #333;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+            border-top: 5px solid #3385ff;
+            transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+            opacity: 0;
+            animation: fadeInUp 0.8s ease-out forwards;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+        }
+
+        /* Staggered Animations */
+        .game-card:nth-child(1) { animation-delay: 0.1s; border-top-color: #ff4d4d; }
+        .game-card:nth-child(2) { animation-delay: 0.2s; border-top-color: #ffa64d; }
+        .game-card:nth-child(3) { animation-delay: 0.3s; border-top-color: #ffcc00; }
+        .game-card:nth-child(4) { animation-delay: 0.4s; border-top-color: #33cc33; }
+        .game-card:nth-child(5) { animation-delay: 0.5s; border-top-color: #ff3399; }
+        .game-card:nth-child(6) { animation-delay: 0.6s; border-top-color: #8a63d2; }
+
+        .game-card.upcoming {
+            background: #f4f6f8;
+            border-top-color: #9aa9b8;
+            opacity: 0.82;
+        }
+
+        .game-card.upcoming .game-icon {
+            background: #e5e9ed;
+            filter: grayscale(1);
+        }
+
+        .availability-label {
+            display: inline-block;
+            background: #5b6875;
+            color: #fff;
+            padding: 0.45rem 0.9rem;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-top: auto;
+        }
+
+        /* Only apply hover effects if it's an anchor tag */
+        a.game-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+            background: #f4f9ff;
+        }
+
+        .game-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            background: #e6f0fa;
+            width: 80px;
+            height: 80px;
+            line-height: 80px;
+            border-radius: 50%;
+            display: inline-block;
+        }
+
+        .game-card h3 {
+            color: #004080;
+            font-size: 1.25rem;
+            margin-bottom: 0.8rem;
+            line-height: 1.3;
+        }
+
+        .play-btn {
+            display: inline-block;
+            background-color: #004080;
+            color: #fff;
+            padding: 0.5rem 1.2rem;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            margin-top: auto;
+            transition: background-color 0.2s, transform 0.2s;
+            text-decoration: none;
+        }
+
+        a.game-card:hover .play-btn {
+            background-color: #3385ff;
+        }
+
+        .game-card .play-btn:hover {
+            background-color: #3385ff !important;
+            transform: translateY(-2px);
+        }
+
+        /* Footer */
+        footer {
+            background-color: #002b5e;
+            color: #fff;
+            margin-top: 3rem;
+            opacity: 0;
+            animation: fadeIn 1s ease-out 1s forwards;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 20px 1.3rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .footer-brand h3, .footer-links h4, .footer-note h4 { margin-bottom: 0.6rem; }
+        .footer-brand p, .footer-note p { color: #d4e3f7; font-size: 0.94rem; }
+
+        .footer-links a {
+            display: block;
+            color: #d4e3f7;
+            text-decoration: none;
+            margin-bottom: 0.45rem;
+        }
+        .footer-links a:hover { color: #fff; }
+
+        .footer-bottom {
+            text-align: center;
+            padding: 1rem 20px;
+            border-top: 1px solid rgba(255,255,255,0.12);
+            color: #d4e3f7;
+            font-size: 0.92rem;
+        }
+
+        @media (max-width: 768px) {
+            nav { padding: 1rem; flex-wrap: wrap; }
+            .nav-toggle { display: block; margin-left: auto; }
+            .nav-links {
+                width: 100%;
+                display: none;
+                flex-direction: column;
+                align-items: flex-start;
+                padding-top: 0.5rem;
+            }
+            .nav-links.show { display: flex; }
+            .header-text h1 { font-size: 2rem; }
         }
     </style>
 </head>
 <body>
 
-    <nav>
-        <a href="https://mmayaya.github.io/MayHub/" class="logo">May Learning Hub</a>
-        <div class="nav-links">
-            <a href="https://mmayaya.github.io/MayHub/">Home</a>
-            <a href="https://mmayaya.github.io/MayHub/about.html">About</a>
+    <nav aria-label="Main navigation">
+        <a href="../../../../index.html" class="logo">May Learning Hub</a>
+        <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="navLinks" aria-label="Toggle navigation menu">
+            ☰
+        </button>
+        <div class="nav-links" id="navLinks">
+            <a href="../../../../index.html">Home</a>
+            <a href="../../../../about.html">About</a>
+            <a href="games.html" class="active">Games</a>
+            <a href="../../../../suppdown.html">App &amp; Support</a>
         </div>
     </nav>
 
-    <main class="container">
-        <div class="coming-soon-card">
-            <div class="icon">🛠️</div>
-            <h1>Content in Progress</h1>
-            <p>I am currently crafting these beautifully designed notes and interactive games to ensure they are perfectly CAPS-aligned and ready for your classroom.</p>
-            <p><strong>Check back soon!</strong></p>
-            <a href="https://mmayaya.github.io/MayHub/" class="back-btn">← Return to Home</a>
+    <header>
+        <div class="header-content">
+            <div class="header-text">
+                <h1>Grade 11 Geography Games</h1>
+                <p class="motto">Interactive Revision & Active Recall</p>
+                <p>Build your understanding of development concepts, indicators, sustainability, and spatial inequality through interactive gameplay.</p>
+            </div>
         </div>
-    </main>
+    </header>
+
+    <div class="container">
+        <h2 class="section-title">Select a Topic</h2>
+        <p class="section-subtitle">Begin with the available first topic, including Drag or Tap Match. More Development Geography topics will be added as their games are prepared.</p>
+
+        <main class="games-grid">
+
+            <a href="1. The Concept of Development/DevelopmentConcept.html" class="game-card">
+                <div class="game-icon" aria-hidden="true">&#128200;</div>
+                <h3>1. The Concept of Development</h3>
+                <span class="play-btn">Play Games &rarr;</span>
+            </a>
+
+            <div class="game-card upcoming">
+                <div class="game-icon" aria-hidden="true">&#9881;</div>
+                <h3>2. Factors Affecting Development</h3>
+                <span class="availability-label">Coming soon</span>
+            </div>
+
+            <div class="game-card upcoming">
+                <div class="game-icon" aria-hidden="true">&#8644;</div>
+                <h3>3. Trade and Development</h3>
+                <span class="availability-label">Coming soon</span>
+            </div>
+
+            <div class="game-card upcoming">
+                <div class="game-icon" aria-hidden="true">&#127760;</div>
+                <h3>4. Globalisation</h3>
+                <span class="availability-label">Coming soon</span>
+            </div>
+
+            <div class="game-card upcoming">
+                <div class="game-icon" aria-hidden="true">&#127793;</div>
+                <h3>5. Development Impacts on the Environment</h3>
+                <span class="availability-label">Coming soon</span>
+            </div>
+
+            <div class="game-card upcoming">
+                <div class="game-icon" aria-hidden="true">&#129309;</div>
+                <h3>6. Role of Development Aid</h3>
+                <span class="availability-label">Coming soon</span>
+            </div>
+
+        </main>
+    </div>
 
     <footer>
-        <p>&copy; 2026 May Learning Hub. All rights reserved.</p>
+        <div class="footer-content">
+            <div class="footer-brand">
+                <h3>May Learning Hub</h3>
+                <p>A growing learning platform for teachers and learners, designed to make notes, games, and activities easier to access and use.</p>
+            </div>
+            <div class="footer-links">
+                <h4>Quick Links</h4>
+                <a href="../../../../index.html">Home</a>
+                <a href="../../../../about.html">About</a>
+                <a href="../../../../index.html#feedback">Feedback</a>
+                <a href="../../../../suppdown.html">App &amp; Support</a>
+            </div>
+            <div class="footer-note">
+                <h4>Site Note</h4>
+                <p>Content is organised by subject, grade, and term to support structured classroom learning, revision, and app-based access.</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 May Learning Hub. All rights reserved.</p>
+        </div>
     </footer>
 
+    <script>
+        const navToggle = document.getElementById('navToggle');
+        const navLinks = document.getElementById('navLinks');
+
+        navToggle.addEventListener('click', () => {
+            const isOpen = navLinks.classList.toggle('show');
+            navToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+        });
+    </script>
 </body>
 </html>

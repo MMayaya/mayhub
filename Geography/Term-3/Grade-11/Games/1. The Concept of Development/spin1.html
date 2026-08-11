@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-8GCWSKNDL7"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-8GCWSKNDL7');
+</script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learning Hub | Grade 11 Geography: The Concept of Development</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f0f4f8; color: #333; line-height: 1.6; display: flex; flex-direction: column; min-height: 100vh; }
+        nav { background-color: #002b5e; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; }
+        .logo { color: #fff; font-size: 1.5rem; font-weight: bold; text-decoration: none; }
+        .nav-links a { color: #cce0ff; text-decoration: none; margin-left: 1.5rem; font-weight: 500; transition: color 0.3s; }
+        .nav-links a:hover, .nav-links a.active { color: #fff; text-decoration: underline; }
+        .game-container { max-width: 900px; margin: 3rem auto; padding: 2rem; background: #fff; border-radius: 12px; box-shadow: 0 8px 30px rgba(0,0,0,0.1); border-top: 6px solid #3385ff; text-align: center; }
+        .game-title { color: #004080; font-size: 2.5rem; margin-bottom: 0.5rem; text-shadow: 1px 1px 2px rgba(0,0,0,0.1); }
+        .game-subtitle { color: #555; margin-bottom: 2rem; font-size: 1.1rem; }
+        .category-selection { margin-bottom: 2rem; }
+        .category-selection h2 { color: #004080; margin-bottom: 1rem; font-size: 1.5rem; }
+        .cat-buttons { display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem; }
+        .cat-btn { background-color: #f0f4f8; border: 2px solid #004080; color: #004080; padding: 0.8rem 1.5rem; font-size: 1.1rem; font-weight: bold; border-radius: 8px; cursor: pointer; transition: all 0.3s ease; }
+        .cat-btn:hover, .cat-btn.active { background-color: #004080; color: #fff; transform: translateY(-3px); box-shadow: 0 4px 10px rgba(0,64,128,0.2); }
+        #wheelArea { display: none; margin-top: 2rem; padding-top: 2rem; border-top: 2px dashed #ccc; animation: fadeIn 0.5s ease; }
+        #activeCategoryTitle { color: #3385ff; margin-bottom: 1.5rem; font-size: 1.8rem; }
+        .wheel-wrapper { position: relative; width: 380px; height: 380px; margin: 0 auto 2rem; border-radius: 50%; box-shadow: 0 20px 40px rgba(0,0,0,0.3); }
+        .pointer { position: absolute; top: -25px; left: 50%; transform: translateX( -50%); width: 0; height: 0; border-left: 22px solid transparent; border-right: 22px solid transparent; border-top: 55px solid #e60000; z-index: 10; filter: drop-shadow(0 6px 6px rgba(0,0,0,0.5)); }
+        .wheel { width: 100%; height: 100%; border-radius: 50%; border: 15px solid #001a33; position: relative; overflow: hidden; transition: transform 4s cubic-bezier(0.17, 0.67, 0.12, 0.99); box-shadow: inset 0 0 30px rgba(0,0,0,0.7), inset 0 0 0 6px rgba(255,255,255,0.3); }
+        .wheel-center { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 45px; height: 45px; background: radial-gradient(circle, #e6f0fa, #80b3ff); border-radius: 50%; border: 5px solid #001a33; box-shadow: 0 4px 10px rgba(0,0,0,0.6); z-index: 6; }
+        .wheel-bg { width: 100%; height: 100%; position: absolute; top: 0; left: 0; }
+        .wheel-labels { position: absolute; width: 100%; height: 100%; top: 0; left: 0; }
+        .label { position: absolute; top: 50%; left: 50%; transform-origin: 0 0; font-weight: bold; color: #fff; font-size: 0.95rem; text-shadow: 1px 1px 4px rgba(0,0,0,0.9); }
+        .spin-btn { background-color: #3385ff; color: #fff; border: none; padding: 1rem 3rem; font-size: 1.5rem; font-weight: bold; border-radius: 50px; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 4px 10px rgba(51,133,255,0.4); margin-bottom: 1rem; border-bottom: 4px solid #004080; }
+        .question-card { display: none; margin-top: 2rem; padding: 2rem; background-color: #f0f7ff; border: 2px solid #b3d4ff; border-radius: 8px; text-align: center; animation: fadeIn 0.5s ease; box-shadow: 0 6px 15px rgba(0,0,0,0.05); }
+        .q-number-tag { display: inline-block; background: #004080; color: #fff; padding: 0.5rem 1.5rem; border-radius: 30px; font-size: 1.1rem; margin-bottom: 1rem; font-weight: bold; text-transform: uppercase; box-shadow: 0 3px 6px rgba(0,0,0,0.2); }
+        .question-text { font-size: 1.5rem; color: #333; margin-bottom: 1.5rem; font-weight: 500; }
+        .mc-options { display: flex; flex-direction: column; gap: 0.8rem; max-width: 450px; margin: 0 auto 1.5rem; }
+        .option-btn { background: #fff; border: 2px solid #b3d4ff; padding: 1rem; font-size: 1.1rem; border-radius: 6px; cursor: pointer; transition: all 0.2s; text-align: left; font-weight: 500; color: #004080; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+        .option-btn.correct { background-color: #d4edda !important; border-color: #28a745 !important; color: #155724 !important; }
+        .option-btn.incorrect { background-color: #f8d7da !important; border-color: #dc3545 !important; color: #721c24 !important; }
+        .reveal-btn { background-color: #3385ff; color: #fff; border: none; padding: 0.8rem 2rem; font-size: 1.1rem; font-weight: bold; border-radius: 8px; cursor: pointer; transition: background 0.3s; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .answer-text { display: none; font-size: 1.2rem; color: #333; margin-top: 1.5rem; padding-top: 1.5rem; border-top: 2px dashed #b3d4ff; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        footer { text-align: center; padding: 1rem; background-color: #002b5e; color: #fff; margin-top: auto; }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="../../../../../index.html" class="logo">May Learning Hub</a>
+        <div class="nav-links">
+            <a href="../../../../../index.html">Home</a>
+            <a href="../../../../../about.html">About</a>
+        </div>
+    </nav>
+
+    <main class="game-container">
+        <h1 class="game-title">Geography Quiz: The Concept of Development</h1>
+        <p class="game-subtitle">Test your Grade 11 Term 3 development knowledge. Select a category and spin the wheel.</p>
+        <p style="font-size: 0.78rem; color: #52606d; margin-top: 0.45rem;">Source: The Concept of Development - Grade 11 Geography Term 3 presentation.</p>
+
+        <div class="category-selection">
+            <h2>Step 1: Choose a Category</h2>
+            <div class="cat-buttons" id="catButtons">
+                <button class="cat-btn" onclick="selectCategory('definitions', this)">Definitions</button>
+                <button class="cat-btn" onclick="selectCategory('terms', this)">Name the Term</button>
+                <button class="cat-btn" onclick="selectCategory('multipleChoice', this)">Multiple Choice</button>
+                <button class="cat-btn" onclick="selectCategory('trueFalse', this)">True or False</button>
+            </div>
+        </div>
+
+        <div id="wheelArea">
+            <h2 id="activeCategoryTitle">Category: None</h2>
+            
+            <div class="wheel-wrapper">
+                <div class="pointer"></div>
+                <div class="wheel-center"></div>
+                <div class="wheel" id="wheel">
+                    <div class="wheel-bg" id="wheelBg"></div>
+                    <div class="wheel-labels" id="wheelLabels"></div>
+                </div>
+            </div>
+
+            <button class="spin-btn" id="spinBtn" onclick="spinWheel()">SPIN THE WHEEL</button>
+            <p id="remainingCount" style="color: #666; font-size: 0.9rem; margin-bottom: 1rem; font-weight: bold;">20 questions remaining</p>
+
+            <div class="question-card" id="questionCard">
+                <div class="q-number-tag" id="qNumberTag">Question #</div>
+                <div class="question-text" id="questionText">Loading question...</div>
+                
+                <div class="mc-options" id="mcOptions"></div>
+                
+                <button class="reveal-btn" id="revealBtn" onclick="revealAnswer()">Reveal Answer</button>
+                <div class="answer-text" id="answerText"></div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 May Learning Hub. All rights reserved.</p>
+    </footer>
+
+        <script src="../../../../../game-audio.js"></script>
+<script>
+        const gameData = {
+            'definitions': [
+                { q: "Development", a: "The process of improving people's quality of life and economic well-being." },
+                { q: "Economic Development", a: "Progress in an economy through improved living standards and economic health." },
+                { q: "Social Development", a: "Improvements in welfare, quality of life, social well-being, and equality." },
+                { q: "Environmental Development", a: "Progress that does not compromise or exploit the natural environment." },
+                { q: "Sustainable Development", a: "Development that meets present needs without limiting future generations." },
+                { q: "Developed Countries", a: "Countries with high income, industrialisation, and modernisation." },
+                { q: "Developing Countries", a: "Countries with lower income and industrialisation that are still developing." },
+                { q: "MEDCs", a: "More Economically Developed Countries with advanced infrastructure and high living standards." },
+                { q: "LEDCs", a: "Less Economically Developed Countries often facing poverty and inadequate infrastructure." },
+                { q: "Industrial Countries", a: "Nations where significant industrial activity contributes to economic development." },
+                { q: "Economic Aspects", a: "GDP growth, industrialisation, employment rates, and a robust economy." },
+                { q: "Social Aspects", a: "Human welfare, education, healthcare, social equality, and quality of life." },
+                { q: "Environmental Aspects", a: "Managing natural resources and ecosystems while reducing degradation." },
+                { q: "Sustainable Aspects", a: "Balancing economic growth with ecological preservation." },
+                { q: "Appropriate Scale", a: "Development initiatives suited to the local context and specific needs." },
+                { q: "Spatial Aspects", a: "The geographic distribution of benefits, including urban-rural and regional disparities." },
+                { q: "GDP", a: "The total value of goods and services produced within a country." },
+                { q: "GNP", a: "The total value produced by a country, including income from abroad." },
+                { q: "HDI", a: "An index combining health, education, and standard of living." },
+                { q: "Gini Coefficient", a: "A measure of income inequality ranging from 0 to 1." }
+            ],
+            'terms': [
+                { q: "Improving quality of life and economic well-being.", a: "Development" },
+                { q: "Progress that avoids exploiting the natural environment.", a: "Environmental Development" },
+                { q: "Meeting current needs without compromising future needs.", a: "Sustainable Development" },
+                { q: "Countries such as the USA and Germany with high income and modernisation.", a: "Developed Countries" },
+                { q: "Countries such as Brazil and India that are still in a process of development.", a: "Developing Countries" },
+                { q: "Countries with advanced infrastructure and high living standards.", a: "MEDCs" },
+                { q: "Countries often facing poverty and inadequate infrastructure.", a: "LEDCs" },
+                { q: "The country type represented by China in the presentation.", a: "Industrial Country" },
+                { q: "A development approach tailored to local needs.", a: "Appropriate Scale" },
+                { q: "The distribution of development benefits across places.", a: "Spatial Aspects" },
+                { q: "The indicator measuring value produced within a country.", a: "GDP" },
+                { q: "The indicator including a country's income from abroad.", a: "GNP" },
+                { q: "GDP divided by population to estimate an average per person.", a: "GDP Per Capita" },
+                { q: "The index based on health, education, and standard of living.", a: "HDI" },
+                { q: "The 0-to-1 measure of income inequality.", a: "Gini Coefficient" },
+                { q: "The average years a person can expect to live.", a: "Life Expectancy" },
+                { q: "Deaths under age one per 1,000 live births.", a: "Infant Mortality Rate" },
+                { q: "Sustainable use of water, minerals, and forests.", a: "Resource Management" },
+                { q: "Protecting plants, animals, and microorganisms.", a: "Biodiversity Conservation" },
+                { q: "Solar, wind, and hydroelectric power.", a: "Renewable Energy" }
+            ],
+            'multipleChoice': [
+                { q: "Which is NOT one of the three HDI dimensions?", options: ["A) Health", "B) Education", "C) Standard of living", "D) Pollution control"], a: "D) Pollution control" },
+                { q: "The Gini coefficient is measured from:", options: ["A) 0 to 1", "B) 0 to 10", "C) 1 to 100", "D) 100 to 1,000"], a: "A) 0 to 1" },
+                { q: "GDP per capita is calculated using GDP and:", options: ["A) Land area", "B) Population", "C) Rainfall", "D) Exports only"], a: "B) Population" },
+                { q: "Which pair is listed as developing-country examples?", options: ["A) USA and Germany", "B) Brazil and India", "C) Canada and Australia", "D) UK and Switzerland"], a: "B) Brazil and India" },
+                { q: "Which country is presented as an industrial-country example?", options: ["A) China", "B) Germany", "C) Brazil", "D) India"], a: "A) China" },
+                { q: "Employment rates belong mainly to which aspect?", options: ["A) Economic", "B) Social", "C) Spatial", "D) Environmental"], a: "A) Economic" },
+                { q: "Healthcare belongs mainly to which aspect?", options: ["A) Economic", "B) Social", "C) Industrial", "D) Spatial"], a: "B) Social" },
+                { q: "Managing ecosystems belongs mainly to which aspect?", options: ["A) Environmental", "B) GDP", "C) GNP", "D) Industrial"], a: "A) Environmental" },
+                { q: "Balancing economic growth with ecological preservation is:", options: ["A) A sustainable aspect", "B) GDP per capita", "C) A country category", "D) Infant mortality"], a: "A) A sustainable aspect" },
+                { q: "A solution designed around local needs demonstrates:", options: ["A) Appropriate scale", "B) High Gini", "C) GNP", "D) Industrialisation"], a: "A) Appropriate scale" },
+                { q: "An urban-rural divide is an example of:", options: ["A) Spatial disparity", "B) Renewable energy", "C) Life expectancy", "D) GDP output"], a: "A) Spatial disparity" },
+                { q: "Higher GDP and GNP usually indicate:", options: ["A) A more developed economy", "B) Greater biodiversity", "C) Lower population", "D) More regional disparities"], a: "A) A more developed economy" },
+                { q: "Which indicator measures deaths under age one?", options: ["A) Life expectancy", "B) Infant mortality rate", "C) HDI", "D) GNP"], a: "B) Infant mortality rate" },
+                { q: "Which action protects air, water, and soil quality?", options: ["A) Pollution control", "B) GDP growth", "C) Country classification", "D) Life expectancy"], a: "A) Pollution control" },
+                { q: "Protecting the variety of life is:", options: ["A) Biodiversity conservation", "B) GNP", "C) Appropriate scale", "D) Social equality"], a: "A) Biodiversity conservation" },
+                { q: "Reducing greenhouse gas emissions is part of:", options: ["A) Climate change mitigation", "B) GDP calculation", "C) Industrial classification", "D) Infant mortality"], a: "A) Climate change mitigation" },
+                { q: "Which group is renewable?", options: ["A) Solar, wind, hydroelectric", "B) Coal, oil, gas", "C) Water, minerals, forests", "D) GDP, GNP, HDI"], a: "A) Solar, wind, hydroelectric" },
+                { q: "Healthy ecosystems provide clean air, water, and:", options: ["A) Fertile soil", "B) GNP", "C) Factories", "D) Inequality"], a: "A) Fertile soil" },
+                { q: "Balanced development helps prevent:", options: ["A) Deforestation and soil erosion", "B) Education and healthcare", "C) Life expectancy", "D) Income from abroad"], a: "A) Deforestation and soil erosion" },
+                { q: "Environmental sustainability keeps resources available for:", options: ["A) Future generations", "B) Only MEDCs", "C) Only cities", "D) Only industries"], a: "A) Future generations" }
+            ],
+            'trueFalse': [
+                { q: "Development concerns quality of life as well as economic well-being.", options: ["True", "False"], a: "True", exp: "The presentation includes both human quality of life and economic well-being." },
+                { q: "Economic development is only about natural ecosystems.", options: ["True", "False"], a: "False", exp: "It concerns economic progress, living standards, and economic health." },
+                { q: "Social development includes welfare and equality.", options: ["True", "False"], a: "True", exp: "It also includes quality of life and social well-being." },
+                { q: "Sustainable development ignores the needs of future generations.", options: ["True", "False"], a: "False", exp: "It protects their ability to meet their own needs." },
+                { q: "Developed countries generally have high income and modernisation.", options: ["True", "False"], a: "True", exp: "High industrialisation is also listed." },
+                { q: "LEDCs always have advanced infrastructure.", options: ["True", "False"], a: "False", exp: "Inadequate infrastructure is one of the challenges described." },
+                { q: "China is used as an example of an industrial country.", options: ["True", "False"], a: "True", exp: "Its significant industrial activity supports economic development." },
+                { q: "Education and healthcare are social aspects of development.", options: ["True", "False"], a: "True", exp: "They contribute to welfare and quality of life." },
+                { q: "Appropriate-scale solutions should fit the local context.", options: ["True", "False"], a: "True", exp: "The presentation advises against one-size-fits-all solutions." },
+                { q: "Spatial aspects ignore urban-rural differences.", options: ["True", "False"], a: "False", exp: "They explicitly address urban-rural divides and regional disparities." },
+                { q: "GDP includes only income earned from abroad.", options: ["True", "False"], a: "False", exp: "GDP measures production within a country." },
+                { q: "GNP includes income from abroad.", options: ["True", "False"], a: "True", exp: "That is a key difference from GDP." },
+                { q: "HDI combines health, education, and standard of living.", options: ["True", "False"], a: "True", exp: "These are its three basic dimensions in the presentation." },
+                { q: "The Gini coefficient measures income inequality.", options: ["True", "False"], a: "True", exp: "It shows how evenly or unevenly income is distributed." },
+                { q: "Life expectancy counts infant deaths per 1,000 births.", options: ["True", "False"], a: "False", exp: "That is infant mortality; life expectancy estimates years of life." },
+                { q: "Resource management includes water, minerals, and forests.", options: ["True", "False"], a: "True", exp: "These resources should be used efficiently and sustainably." },
+                { q: "Pollution control protects air, water, and soil.", options: ["True", "False"], a: "True", exp: "Reducing pollution protects all three." },
+                { q: "Renewable energy increases dependence on fossil fuels.", options: ["True", "False"], a: "False", exp: "It reduces dependence on fossil fuels." },
+                { q: "Healthy ecosystems support human well-being and economic activity.", options: ["True", "False"], a: "True", exp: "They provide services such as clean air, water, and fertile soil." },
+                { q: "Economic development and environmental protection should be balanced.", options: ["True", "False"], a: "True", exp: "This balance helps prevent deforestation, erosion, and biodiversity loss." }
+            ]
+        };
+
+        const totalQuestions = 20; 
+        const sliceAngle = 360 / totalQuestions;
+        let currentCategoryKey = null;
+        let currentRotation = 0;
+        let currentQuestionData = null;
+        let targetQuestionIndex = null;
+
+        let availableQuestions = {
+            'definitions': Array.from({length: totalQuestions}, (_, i) => i),
+            'terms': Array.from({length: totalQuestions}, (_, i) => i),
+            'multipleChoice': Array.from({length: totalQuestions}, (_, i) => i),
+            'trueFalse': Array.from({length: totalQuestions}, (_, i) => i)
+        };
+
+        const sliceColors = ["#0055ff", "#0088ff", "#00bfff", "#0044cc"];
+
+        function buildWheel() {
+            const wheelBg = document.getElementById('wheelBg');
+            const wheelLabels = document.getElementById('wheelLabels');
+            let gradientParts = [];
+
+            for (let i = 0; i < totalQuestions; i++) {
+                let startAngle = i * sliceAngle;
+                let endAngle = (i + 1) * sliceAngle;
+                let color = sliceColors[i % sliceColors.length];
+                gradientParts.push(`${color} ${startAngle}deg ${endAngle}deg`);
+
+                let label = document.createElement('div');
+                label.className = 'label';
+                let textRotation = startAngle + (sliceAngle / 2) - 90;
+                label.style.transform = `rotate(${textRotation}deg) translate(145px, -50%)`;
+                label.innerText = i + 1;
+                wheelLabels.appendChild(label);
+            }
+            wheelBg.style.background = `conic-gradient(${gradientParts.join(', ')})`;
+        }
+
+        buildWheel();
+
+        function selectCategory(categoryKey, btnElement) {
+            currentCategoryKey = categoryKey;
+            const buttons = document.querySelectorAll('.cat-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            btnElement.classList.add('active');
+            document.getElementById('wheelArea').style.display = 'block';
+            document.getElementById('activeCategoryTitle').innerText = `Category: ${btnElement.innerText}`;
+            document.getElementById('questionCard').style.display = 'none';
+            document.getElementById('remainingCount').innerText = `${availableQuestions[categoryKey].length} questions remaining`;
+            currentRotation = 0;
+            document.getElementById('wheel').style.transform = `rotate(0deg)`;
+        }
+
+        function spinWheel() {
+            const spinBtn = document.getElementById('spinBtn');
+            const wheel = document.getElementById('wheel');
+            const questionCard = document.getElementById('questionCard');
+            let available = availableQuestions[currentCategoryKey];
+            
+            if (available.length === 0) {
+                alert(`Resetting ${currentCategoryKey}!`);
+                availableQuestions[currentCategoryKey] = Array.from({length: totalQuestions}, (_, i) => i);
+                available = availableQuestions[currentCategoryKey];
+            }
+
+            spinBtn.disabled = true;
+            spinBtn.innerText = "SPINNING...";
+            MayHubSounds.startWheel();
+            questionCard.style.display = 'none';
+
+            let randomArrIndex = Math.floor(Math.random() * available.length);
+            targetQuestionIndex = available[randomArrIndex];
+            available.splice(randomArrIndex, 1);
+            document.getElementById('remainingCount').innerText = `${available.length} questions remaining`;
+
+            let sliceCenterAngle = (targetQuestionIndex * sliceAngle) + (sliceAngle / 2);
+            let targetDegree = 360 - sliceCenterAngle;
+            let currentBase = Math.ceil(currentRotation / 360) * 360; 
+            currentRotation = currentBase + 1800 + targetDegree;
+            wheel.style.transform = `rotate(${currentRotation}deg)`;
+
+            setTimeout(() => {
+                MayHubSounds.stopWheel();
+                spinBtn.disabled = false;
+                spinBtn.innerText = "SPIN AGAIN";
+                currentQuestionData = gameData[currentCategoryKey][targetQuestionIndex];
+                displayQuestion(targetQuestionIndex + 1, currentQuestionData);
+            }, 4000);
+        }
+
+        function displayQuestion(questionNumber, data) {
+            document.getElementById('qNumberTag').innerText = `Question #${questionNumber}`;
+            document.getElementById('questionText').innerText = data.q;
+            const mcOptions = document.getElementById('mcOptions');
+            const revealBtn = document.getElementById('revealBtn');
+            const answerText = document.getElementById('answerText');
+            mcOptions.innerHTML = "";
+            answerText.style.display = "none";
+            
+            if (currentCategoryKey === 'multipleChoice' || currentCategoryKey === 'trueFalse') {
+                revealBtn.style.display = "none"; 
+                mcOptions.style.display = "flex";
+                data.options.forEach(opt => {
+                    let btn = document.createElement("button");
+                    btn.className = "option-btn";
+                    btn.innerText = opt;
+                    btn.onclick = () => checkInteractiveAnswer(btn, opt);
+                    mcOptions.appendChild(btn);
+                });
+            } else {
+                mcOptions.style.display = "none";
+                revealBtn.style.display = "inline-block";
+                answerText.innerHTML = `<strong>Answer:</strong> ${data.a}`;
+            }
+            document.getElementById('questionCard').style.display = "block";
+        }
+
+        function checkInteractiveAnswer(clickedBtn, selectedText) {
+            const allBtns = document.querySelectorAll('.option-btn');
+            allBtns.forEach(btn => btn.disabled = true);
+            const isCorrect = (selectedText === currentQuestionData.a || selectedText.startsWith(currentQuestionData.a.charAt(0)));
+            const answerTextDiv = document.getElementById('answerText');
+            if (isCorrect) {
+                MayHubSounds.playCorrect();
+                clickedBtn.classList.add('correct');
+                answerTextDiv.innerHTML = `<div style="color: green; font-weight: bold;">Correct!</div> ${currentQuestionData.exp || ''}`;
+            } else {
+                MayHubSounds.playWrong();
+                clickedBtn.classList.add('incorrect');
+                answerTextDiv.innerHTML = `<div style="color: red; font-weight: bold;">Incorrect!</div> The correct answer was: ${currentQuestionData.a}. ${currentQuestionData.exp || ''}`;
+            }
+            answerTextDiv.style.display = "block";
+        }
+
+        function revealAnswer() {
+            document.getElementById('revealBtn').style.display = "none";
+            document.getElementById('answerText').style.display = "block";
+        }
+    </script>
+</body>
+</html>
