@@ -13,7 +13,7 @@
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Drag or Tap Match | Grade 11 Geography: Factors Affecting Development</title>
+    <title>Drag or Tap Match | Grade 12 Geography: Structure of the Economy</title>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -372,17 +372,19 @@
     </nav>
 
     <main class="game-container">
-        <h1 class="game-title">Drag or Tap Match: Factors Affecting Development</h1>
-        <p class="game-subtitle">Match the economic, social, environmental, and community factors that shape development.</p>
-        <p style="font-size: 0.78rem; color: #52606d; margin-top: 0.45rem;">Source: Factors Affecting Development - Grade 11 Geography Term 3 presentation.</p>
+        <h1 class="game-title">Drag or Tap Match: Structure of the Economy</h1>
+        <p class="game-subtitle">Match economic sectors, activities, value addition, income, GDP, and employment.</p>
+        <p style="font-size: 0.78rem; color: #52606d; margin-top: 0.45rem;">Source: Structure of the Economy - Grade 12 Geography Term 3 presentation.</p>
 
         <div class="category-selection">
             <h2>Step 1: Choose a Topic</h2>
             <div class="cat-buttons" id="catButtons">
-                <button class="cat-btn" onclick="selectCategory('unit1', this)">1. Economic Factors</button>
-                <button class="cat-btn" onclick="selectCategory('unit2', this)">2. Social Factors</button>
-                <button class="cat-btn" onclick="selectCategory('unit3', this)">3. Environmental Factors</button>
-                <button class="cat-btn" onclick="selectCategory('unit4', this)">4. Community-Based Development</button>
+                <button class="cat-btn" onclick="selectCategory('unit1', this)">1. Sector Foundations</button>
+                <button class="cat-btn" onclick="selectCategory('unit2', this)">2. Primary Sector</button>
+                <button class="cat-btn" onclick="selectCategory('unit3', this)">3. Secondary Sector</button>
+                <button class="cat-btn" onclick="selectCategory('unit4', this)">4. Tertiary Sector</button>
+                <button class="cat-btn" onclick="selectCategory('unit5', this)">5. Quaternary and Income</button>
+                <button class="cat-btn" onclick="selectCategory('unit6', this)">6. South African Contributions</button>
             </div>
         </div>
 
@@ -393,7 +395,7 @@
             <div class="top-bar">
                 <div class="info-box" id="scoreBox">Score: 0</div>
                 <div class="info-box" id="remainingBox">Remaining: 0</div>
-                <div class="info-box" id="setBox">Topic: 0 / 4</div>
+                <div class="info-box" id="setBox">Topic: 0 / 6</div>
             </div>
 
             <div class="board">
@@ -428,60 +430,77 @@
 <script>
         const gameData = {
             unit1: [
-                { item: "Infrastructure", match: "The basic physical and organisational systems and facilities needed for a society and economy to function, such as transport, electricity, water, and communications." },
-                { item: "Investment", match: "The commitment of money, capital, or other resources to an activity or project in order to gain future benefits." },
-                { item: "Economic Policies", match: "Government decisions, laws, and actions used to influence how an economy operates." },
-                { item: "Technology", match: "The application of knowledge, tools, and techniques to solve problems and produce goods or services." },
-                { item: "Natural Resources", match: "Materials and environmental features that occur in nature and can be used by people, such as water, land, minerals, and forests." },
-                { item: "Trade", match: "The buying, selling, or exchange of goods and services between people, regions, or countries." },
-                { item: "Labor Market Conditions", match: "The circumstances affecting the supply of workers, demand for labour, employment, wages, and available skills." },
-                { item: "Financial Systems", match: "The institutions, markets, and rules that enable saving, borrowing, payments, and investment." },
-                { item: "Government Spending", match: "Money used by government to provide public services, infrastructure, and programmes." },
-                { item: "Entrepreneurship", match: "The process of identifying an opportunity, organising resources, and creating or managing an enterprise while accepting risk." }
+            { item: "Economy", match: "The system of activities through which a country produces, distributes, and uses goods and services." },
+            { item: "Economic Sector", match: "A category used to simplify and organise economic activities by the type of work performed." },
+            { item: "Primary Sector", match: "The sector that extracts and exploits raw materials from the natural environment." },
+            { item: "Secondary Sector", match: "The sector that processes primary materials into finished consumer products." },
+            { item: "Tertiary Sector", match: "The sector that distributes products and provides services." },
+            { item: "Quaternary Sector", match: "The sector concerned with scientific research and data collection and processing." },
+            { item: "Value Added", match: "The increase in usefulness and economic worth created by work performed on a material or task." },
+            { item: "Income", match: "Money earned from work, shown as increasing with higher and more complex economic sectors." }
             ],
             unit2: [
-                { item: "Education", match: "The organised process through which people acquire knowledge, skills, values, and understanding." },
-                { item: "Healthcare", match: "The services and systems used to prevent and treat illness and maintain people's health." },
-                { item: "Social Stability", match: "A condition in which society has order, security, and predictable social relationships." },
-                { item: "Cultural Attitudes", match: "Shared beliefs, values, and viewpoints that influence how people think and behave." },
-                { item: "Population Growth", match: "An increase in the number of people living in a place over a period of time." },
-                { item: "Gender Equality", match: "Equal rights, responsibilities, opportunities, and treatment for people of all genders." },
-                { item: "Social Services", match: "Public or community services that support people's welfare and basic needs, such as care, housing support, and social assistance." },
-                { item: "Crime Rates", match: "Measures of how frequently crimes occur in a population or area during a given period." },
-                { item: "Community Engagement", match: "The process of involving community members in decisions and actions that affect their lives." },
-                { item: "Migration", match: "The movement of people from one place to another to live or work, either temporarily or permanently." }
+            { item: "Extraction", match: "The removal of natural resources or raw materials from the environment." },
+            { item: "Raw Material", match: "A natural input that can be processed into another product." },
+            { item: "Farming", match: "A primary activity involving the production of crops or livestock." },
+            { item: "Fishing", match: "A primary activity involving the harvesting of aquatic resources." },
+            { item: "Forestry", match: "A primary activity involving the use and management of forest resources." },
+            { item: "Hunting", match: "A primary activity involving obtaining wild animals from the natural environment." },
+            { item: "Mining", match: "A primary activity involving the extraction of minerals from the earth." },
+            { item: "Quarrying", match: "A primary activity involving the extraction of stone or similar material from an open excavation." }
             ],
             unit3: [
-                { item: "Climate Change", match: "Long-term changes in average temperatures and other climate patterns." },
-                { item: "Natural Disasters", match: "Severe natural events that cause major damage, loss, or disruption to people and places." },
-                { item: "Environmental Policies", match: "Government laws, rules, and plans designed to manage human impacts and protect the environment." },
-                { item: "Biodiversity", match: "The variety of living organisms, including diversity within species, between species, and among ecosystems." },
-                { item: "Pollution", match: "The introduction of harmful substances or forms of energy into the environment." },
-                { item: "Resource Depletion", match: "The use of a natural resource faster than it can be replaced or renewed." },
-                { item: "Land Use", match: "The way land is managed and used for purposes such as farming, housing, industry, or conservation." },
-                { item: "Water Availability", match: "The amount of usable water that is accessible to people and economic activities." },
-                { item: "Air Quality", match: "The degree to which the air is clean and free from harmful pollutants." },
-                { item: "Waste Management", match: "The collection, transport, treatment, recycling, and disposal of waste." }
+            { item: "Processing", match: "Changing a primary material into a more useful product." },
+            { item: "Finished Product", match: "A completed good that is ready for the consumer." },
+            { item: "Manufacturing", match: "Making products by transforming raw or primary materials." },
+            { item: "Wheat Milling", match: "The secondary process that changes wheat into flour." },
+            { item: "Bread Baking", match: "The secondary process that changes flour into bread for consumers." },
+            { item: "Car Manufacturing", match: "A secondary activity shown in the industrial-sector flow diagram." },
+            { item: "Steel Works", match: "A secondary activity that processes materials to produce steel products." },
+            { item: "Construction", match: "A secondary activity represented by builders in the sector-flow diagram." }
             ],
             unit4: [
-                { item: "Community-Based Development", match: "An approach in which community members actively lead and participate in planning, implementing, and managing projects that affect their lives." },
-                { item: "Local Participation", match: "The involvement of community members in decisions so that projects reflect local priorities and needs." },
-                { item: "Empowerment", match: "The process of building people's ability and authority to make decisions and take control of their own development." },
-                { item: "Sustainability", match: "The ability to meet present needs while maintaining resources and opportunities for the future." },
-                { item: "Collaboration", match: "People or organisations working together and sharing resources or expertise to achieve a common goal." },
-                { item: "Holistic Approach", match: "A method that considers the whole situation and the connections among its economic, social, and environmental parts." },
-                { item: "Ownership", match: "The community's responsibility for, control over, and commitment to a project or its outcomes." }
+            { item: "Distribution", match: "Moving and supplying products so that they reach consumers." },
+            { item: "Service Provision", match: "Supplying useful work to meet needs rather than extracting or manufacturing a product." },
+            { item: "Transport", match: "A tertiary service that moves people or goods." },
+            { item: "Trade", match: "A tertiary activity involving the exchange and sale of products." },
+            { item: "Electrical Services", match: "A service example listed under tertiary economic activities." },
+            { item: "Financial Services", match: "A tertiary activity providing money-related and banking services." },
+            { item: "Medical Services", match: "A tertiary activity providing health care." },
+            { item: "Education", match: "A tertiary service that provides teaching and learning." }
+            ],
+            unit5: [
+            { item: "Scientific Research", match: "A quaternary activity that investigates questions and develops knowledge." },
+            { item: "Data Collection", match: "Gathering information as part of quaternary economic work." },
+            { item: "Data Processing", match: "Organising and transforming collected information into a useful form." },
+            { item: "Information Technology", match: "A quaternary activity involving computer-based information and data systems." },
+            { item: "Call Centre", match: "A quaternary example involving information and telephone-based customer contact." },
+            { item: "Task Complexity", match: "The difficulty of work, described as greater in tertiary and higher sectors." },
+            { item: "Low Primary Wages", match: "The income result associated with the least value being added by primary-sector workers." },
+            { item: "Highest Sector Salaries", match: "Pay associated with quaternary and quinary work where value input and complexity are greatest." }
+            ],
+            unit6: [
+            { item: "Primary GDP Share", match: "The 10% contribution shown for the primary sector in the 2016 table." },
+            { item: "Primary Employment Share", match: "The 9% workforce contribution shown for the primary sector in the 2016 table." },
+            { item: "Secondary GDP Share", match: "The 21% contribution shown for the secondary sector in the 2016 table." },
+            { item: "Secondary Employment Share", match: "The 26% workforce contribution shown for the secondary sector in the 2016 table." },
+            { item: "Tertiary GDP Share", match: "The 69% contribution shown for the tertiary sector in the 2016 table." },
+            { item: "Tertiary Employment Share", match: "The 65% workforce contribution shown for the tertiary sector in the 2016 table." },
+            { item: "Largest Detailed GDP Category", match: "Finance at 18.5% in Figure 5.1." },
+            { item: "Largest Detailed Employment Category", match: "Trade at 22.7% in Figure 5.2." }
             ]
         };
 
         const categoryTitles = {
-            unit1: "Economic Factors",
-            unit2: "Social Factors",
-            unit3: "Environmental Factors",
-            unit4: "Community-Based Development"
+            unit1: "Sector Foundations",
+            unit2: "Primary Sector",
+            unit3: "Secondary Sector",
+            unit4: "Tertiary Sector",
+            unit5: "Quaternary and Income",
+            unit6: "South African Contributions"
         };
 
-        const categoryOrder = ["unit1", "unit2", "unit3", "unit4"];
+        const categoryOrder = ["unit1", "unit2", "unit3", "unit4", "unit5", "unit6"];
 
         let currentCategoryKey = null;
         let score = 0;
@@ -684,7 +703,7 @@
             const feedbackTitle = document.getElementById('feedbackTitle');
             const feedbackMessage = document.getElementById('feedbackMessage');
 
-            feedbackTitle.innerText = "Factors Affecting Development Master!";
+            feedbackTitle.innerText = "Economic Sectors Master!";
             feedbackMessage.innerText = `You correctly identified all terms for the "${categoryTitles[currentCategoryKey]}" topic!`;
             feedbackBox.style.display = 'block';
         }

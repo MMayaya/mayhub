@@ -13,7 +13,7 @@
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Drag or Tap Match | Grade 11 Geography: Factors Affecting Development</title>
+    <title>Drag or Tap Match | Grade 12 Geography: Food Security</title>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -372,17 +372,19 @@
     </nav>
 
     <main class="game-container">
-        <h1 class="game-title">Drag or Tap Match: Factors Affecting Development</h1>
-        <p class="game-subtitle">Match the economic, social, environmental, and community factors that shape development.</p>
-        <p style="font-size: 0.78rem; color: #52606d; margin-top: 0.45rem;">Source: Factors Affecting Development - Grade 11 Geography Term 3 presentation.</p>
+        <h1 class="game-title">Drag or Tap Match: Food Security</h1>
+        <p class="game-subtitle">Match food-security concepts, pillars, causes, importance, and improvement strategies.</p>
+        <p style="font-size: 0.78rem; color: #52606d; margin-top: 0.45rem;">Source: Food Security - Grade 12 Geography Term 3 presentation.</p>
 
         <div class="category-selection">
             <h2>Step 1: Choose a Topic</h2>
             <div class="cat-buttons" id="catButtons">
-                <button class="cat-btn" onclick="selectCategory('unit1', this)">1. Economic Factors</button>
-                <button class="cat-btn" onclick="selectCategory('unit2', this)">2. Social Factors</button>
-                <button class="cat-btn" onclick="selectCategory('unit3', this)">3. Environmental Factors</button>
-                <button class="cat-btn" onclick="selectCategory('unit4', this)">4. Community-Based Development</button>
+                <button class="cat-btn" onclick="selectCategory('unit1', this)">1. Core Definition</button>
+                <button class="cat-btn" onclick="selectCategory('unit2', this)">2. Four Pillars</button>
+                <button class="cat-btn" onclick="selectCategory('unit3', this)">3. Food Insecurity</button>
+                <button class="cat-btn" onclick="selectCategory('unit4', this)">4. Importance</button>
+                <button class="cat-btn" onclick="selectCategory('unit5', this)">5. Influencing Factors</button>
+                <button class="cat-btn" onclick="selectCategory('unit6', this)">6. Improvement Strategies</button>
             </div>
         </div>
 
@@ -393,7 +395,7 @@
             <div class="top-bar">
                 <div class="info-box" id="scoreBox">Score: 0</div>
                 <div class="info-box" id="remainingBox">Remaining: 0</div>
-                <div class="info-box" id="setBox">Topic: 0 / 4</div>
+                <div class="info-box" id="setBox">Topic: 0 / 6</div>
             </div>
 
             <div class="board">
@@ -427,61 +429,222 @@
         <script src="../../../../../game-audio.js"></script>
 <script>
         const gameData = {
-            unit1: [
-                { item: "Infrastructure", match: "The basic physical and organisational systems and facilities needed for a society and economy to function, such as transport, electricity, water, and communications." },
-                { item: "Investment", match: "The commitment of money, capital, or other resources to an activity or project in order to gain future benefits." },
-                { item: "Economic Policies", match: "Government decisions, laws, and actions used to influence how an economy operates." },
-                { item: "Technology", match: "The application of knowledge, tools, and techniques to solve problems and produce goods or services." },
-                { item: "Natural Resources", match: "Materials and environmental features that occur in nature and can be used by people, such as water, land, minerals, and forests." },
-                { item: "Trade", match: "The buying, selling, or exchange of goods and services between people, regions, or countries." },
-                { item: "Labor Market Conditions", match: "The circumstances affecting the supply of workers, demand for labour, employment, wages, and available skills." },
-                { item: "Financial Systems", match: "The institutions, markets, and rules that enable saving, borrowing, payments, and investment." },
-                { item: "Government Spending", match: "Money used by government to provide public services, infrastructure, and programmes." },
-                { item: "Entrepreneurship", match: "The process of identifying an opportunity, organising resources, and creating or managing an enterprise while accepting risk." }
-            ],
-            unit2: [
-                { item: "Education", match: "The organised process through which people acquire knowledge, skills, values, and understanding." },
-                { item: "Healthcare", match: "The services and systems used to prevent and treat illness and maintain people's health." },
-                { item: "Social Stability", match: "A condition in which society has order, security, and predictable social relationships." },
-                { item: "Cultural Attitudes", match: "Shared beliefs, values, and viewpoints that influence how people think and behave." },
-                { item: "Population Growth", match: "An increase in the number of people living in a place over a period of time." },
-                { item: "Gender Equality", match: "Equal rights, responsibilities, opportunities, and treatment for people of all genders." },
-                { item: "Social Services", match: "Public or community services that support people's welfare and basic needs, such as care, housing support, and social assistance." },
-                { item: "Crime Rates", match: "Measures of how frequently crimes occur in a population or area during a given period." },
-                { item: "Community Engagement", match: "The process of involving community members in decisions and actions that affect their lives." },
-                { item: "Migration", match: "The movement of people from one place to another to live or work, either temporarily or permanently." }
-            ],
-            unit3: [
-                { item: "Climate Change", match: "Long-term changes in average temperatures and other climate patterns." },
-                { item: "Natural Disasters", match: "Severe natural events that cause major damage, loss, or disruption to people and places." },
-                { item: "Environmental Policies", match: "Government laws, rules, and plans designed to manage human impacts and protect the environment." },
-                { item: "Biodiversity", match: "The variety of living organisms, including diversity within species, between species, and among ecosystems." },
-                { item: "Pollution", match: "The introduction of harmful substances or forms of energy into the environment." },
-                { item: "Resource Depletion", match: "The use of a natural resource faster than it can be replaced or renewed." },
-                { item: "Land Use", match: "The way land is managed and used for purposes such as farming, housing, industry, or conservation." },
-                { item: "Water Availability", match: "The amount of usable water that is accessible to people and economic activities." },
-                { item: "Air Quality", match: "The degree to which the air is clean and free from harmful pollutants." },
-                { item: "Waste Management", match: "The collection, transport, treatment, recycling, and disposal of waste." }
-            ],
-            unit4: [
-                { item: "Community-Based Development", match: "An approach in which community members actively lead and participate in planning, implementing, and managing projects that affect their lives." },
-                { item: "Local Participation", match: "The involvement of community members in decisions so that projects reflect local priorities and needs." },
-                { item: "Empowerment", match: "The process of building people's ability and authority to make decisions and take control of their own development." },
-                { item: "Sustainability", match: "The ability to meet present needs while maintaining resources and opportunities for the future." },
-                { item: "Collaboration", match: "People or organisations working together and sharing resources or expertise to achieve a common goal." },
-                { item: "Holistic Approach", match: "A method that considers the whole situation and the connections among its economic, social, and environmental parts." },
-                { item: "Ownership", match: "The community's responsibility for, control over, and commitment to a project or its outcomes." }
-            ]
-        };
+    "unit1": [
+        {
+            "item": "Food Security",
+            "match": "All people, at all times, have physical and economic access to sufficient, safe, and nutritious food."
+        },
+        {
+            "item": "All People",
+            "match": "Food security must include everyone rather than only selected groups."
+        },
+        {
+            "item": "At All Times",
+            "match": "Food access must be reliable and not limited to isolated occasions."
+        },
+        {
+            "item": "Physical Access",
+            "match": "People can physically reach or obtain the food they need."
+        },
+        {
+            "item": "Economic Access",
+            "match": "People have enough financial means to obtain food."
+        },
+        {
+            "item": "Sufficient Food",
+            "match": "There is enough food to meet people's needs."
+        },
+        {
+            "item": "Safe Food",
+            "match": "Food is fit for consumption and does not threaten health."
+        },
+        {
+            "item": "Nutritious Food",
+            "match": "Food supports proper nutrition and health."
+        }
+    ],
+    "unit2": [
+        {
+            "item": "Availability",
+            "match": "There is an adequate supply of food."
+        },
+        {
+            "item": "Access",
+            "match": "People can obtain the food that is available."
+        },
+        {
+            "item": "Utilization",
+            "match": "Food supports proper nutrition and health."
+        },
+        {
+            "item": "Stability",
+            "match": "Access to food remains consistent over time."
+        },
+        {
+            "item": "Adequate Supply",
+            "match": "Enough food is present to satisfy needs."
+        },
+        {
+            "item": "Ability to Obtain Food",
+            "match": "The central concern of the access component."
+        },
+        {
+            "item": "Proper Nutrition",
+            "match": "The health-related concern of the utilization component."
+        },
+        {
+            "item": "Consistent Over Time",
+            "match": "The requirement at the centre of the stability component."
+        }
+    ],
+    "unit3": [
+        {
+            "item": "Food Insecurity",
+            "match": "People lack adequate physical, social, or economic access to food."
+        },
+        {
+            "item": "Physical Access to Food",
+            "match": "Food cannot be reached or physically obtained adequately."
+        },
+        {
+            "item": "Social Access to Food",
+            "match": "Social conditions prevent adequate access to food."
+        },
+        {
+            "item": "Economic Access to Food",
+            "match": "People cannot afford adequate food."
+        },
+        {
+            "item": "Chronic Food Insecurity",
+            "match": "A long-term or persistent lack of adequate food access."
+        },
+        {
+            "item": "Transitory Food Insecurity",
+            "match": "A short-term or temporary lack of adequate food access."
+        },
+        {
+            "item": "Limited or No Access",
+            "match": "A key characteristic of food insecurity."
+        },
+        {
+            "item": "Temporary or Chronic Hunger",
+            "match": "The insecurity outcome contrasted with long-term stability."
+        }
+    ],
+    "unit4": [
+        {
+            "item": "Healthy Population",
+            "match": "Food security supports the health of the population."
+        },
+        {
+            "item": "Productive Population",
+            "match": "Well-nourished people are better able to participate productively."
+        },
+        {
+            "item": "Reduced Poverty",
+            "match": "Food security helps lessen poverty."
+        },
+        {
+            "item": "Reduced Inequality",
+            "match": "More reliable access to food helps address unequal living conditions."
+        },
+        {
+            "item": "Sustainable Agriculture",
+            "match": "Food security promotes agricultural practices that can continue over time."
+        },
+        {
+            "item": "Educational Outcomes",
+            "match": "Children focus better in school when they are not hungry."
+        },
+        {
+            "item": "Economic Development",
+            "match": "Food security helps strengthen wider economic progress."
+        },
+        {
+            "item": "South African Development",
+            "match": "The presentation identifies food security as critical to national development."
+        }
+    ],
+    "unit5": [
+        {
+            "item": "Droughts and Floods",
+            "match": "Climate and weather events that affect crop production."
+        },
+        {
+            "item": "Poverty and Unemployment",
+            "match": "Conditions that leave many households unable to afford food."
+        },
+        {
+            "item": "Access to Land and Water",
+            "match": "A farming factor weakened by unequal land ownership."
+        },
+        {
+            "item": "Population Growth",
+            "match": "A demographic factor that increases demand for food."
+        },
+        {
+            "item": "Food Prices",
+            "match": "An affordability factor affected by inflation and transport costs."
+        },
+        {
+            "item": "Education and Awareness",
+            "match": "Knowledge about nutrition and agriculture."
+        },
+        {
+            "item": "Inflation",
+            "match": "A force that can raise food prices and reduce affordability."
+        },
+        {
+            "item": "Transport Costs",
+            "match": "A cost that can increase the final price of food."
+        }
+    ],
+    "unit6": [
+        {
+            "item": "Agricultural Support",
+            "match": "Government subsidies and training for farmers."
+        },
+        {
+            "item": "Land Reform",
+            "match": "Ensuring fair distribution of agricultural land."
+        },
+        {
+            "item": "Improved Infrastructure",
+            "match": "Better roads, storage, and transport systems."
+        },
+        {
+            "item": "Sustainable Farming",
+            "match": "Using technology, crop rotation, and water conservation."
+        },
+        {
+            "item": "Social Grants",
+            "match": "Financial support that can help households obtain food."
+        },
+        {
+            "item": "Feeding Schemes",
+            "match": "Food-support programmes such as school nutrition programmes."
+        },
+        {
+            "item": "Urban Agriculture",
+            "match": "Encouraging food production in towns and cities."
+        },
+        {
+            "item": "Home and Community Gardens",
+            "match": "Local gardens promoted through urban agriculture."
+        }
+    ]
+};
 
         const categoryTitles = {
-            unit1: "Economic Factors",
-            unit2: "Social Factors",
-            unit3: "Environmental Factors",
-            unit4: "Community-Based Development"
-        };
+    "unit1": "Core Definition",
+    "unit2": "Four Pillars",
+    "unit3": "Food Insecurity",
+    "unit4": "Importance",
+    "unit5": "Influencing Factors",
+    "unit6": "Improvement Strategies"
+};
 
-        const categoryOrder = ["unit1", "unit2", "unit3", "unit4"];
+        const categoryOrder = ["unit1", "unit2", "unit3", "unit4", "unit5", "unit6"];
 
         let currentCategoryKey = null;
         let score = 0;
@@ -684,7 +847,7 @@
             const feedbackTitle = document.getElementById('feedbackTitle');
             const feedbackMessage = document.getElementById('feedbackMessage');
 
-            feedbackTitle.innerText = "Factors Affecting Development Master!";
+            feedbackTitle.innerText = "Food Security Master!";
             feedbackMessage.innerText = `You correctly identified all terms for the "${categoryTitles[currentCategoryKey]}" topic!`;
             feedbackBox.style.display = 'block';
         }

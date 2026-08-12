@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-8GCWSKNDL7"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-8GCWSKNDL7');
+</script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learning Hub | Grade 12 Geography: Major Industrial Regions</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f0f4f8; color: #333; line-height: 1.6; display: flex; flex-direction: column; min-height: 100vh; }
+        nav { background-color: #002b5e; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; }
+        .logo { color: #fff; font-size: 1.5rem; font-weight: bold; text-decoration: none; }
+        .nav-links a { color: #cce0ff; text-decoration: none; margin-left: 1.5rem; font-weight: 500; transition: color 0.3s; }
+        .nav-links a:hover, .nav-links a.active { color: #fff; text-decoration: underline; }
+        .game-container { max-width: 900px; margin: 3rem auto; padding: 2rem; background: #fff; border-radius: 12px; box-shadow: 0 8px 30px rgba(0,0,0,0.1); border-top: 6px solid #3385ff; text-align: center; }
+        .game-title { color: #004080; font-size: 2.5rem; margin-bottom: 0.5rem; text-shadow: 1px 1px 2px rgba(0,0,0,0.1); }
+        .game-subtitle { color: #555; margin-bottom: 2rem; font-size: 1.1rem; }
+        .category-selection { margin-bottom: 2rem; }
+        .category-selection h2 { color: #004080; margin-bottom: 1rem; font-size: 1.5rem; }
+        .cat-buttons { display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem; }
+        .cat-btn { background-color: #f0f4f8; border: 2px solid #004080; color: #004080; padding: 0.8rem 1.5rem; font-size: 1.1rem; font-weight: bold; border-radius: 8px; cursor: pointer; transition: all 0.3s ease; }
+        .cat-btn:hover, .cat-btn.active { background-color: #004080; color: #fff; transform: translateY(-3px); box-shadow: 0 4px 10px rgba(0,64,128,0.2); }
+        #wheelArea { display: none; margin-top: 2rem; padding-top: 2rem; border-top: 2px dashed #ccc; animation: fadeIn 0.5s ease; }
+        #activeCategoryTitle { color: #3385ff; margin-bottom: 1.5rem; font-size: 1.8rem; }
+        .wheel-wrapper { position: relative; width: 380px; height: 380px; margin: 0 auto 2rem; border-radius: 50%; box-shadow: 0 20px 40px rgba(0,0,0,0.3); }
+        .pointer { position: absolute; top: -25px; left: 50%; transform: translateX( -50%); width: 0; height: 0; border-left: 22px solid transparent; border-right: 22px solid transparent; border-top: 55px solid #e60000; z-index: 10; filter: drop-shadow(0 6px 6px rgba(0,0,0,0.5)); }
+        .wheel { width: 100%; height: 100%; border-radius: 50%; border: 15px solid #001a33; position: relative; overflow: hidden; transition: transform 4s cubic-bezier(0.17, 0.67, 0.12, 0.99); box-shadow: inset 0 0 30px rgba(0,0,0,0.7), inset 0 0 0 6px rgba(255,255,255,0.3); }
+        .wheel-center { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 45px; height: 45px; background: radial-gradient(circle, #e6f0fa, #80b3ff); border-radius: 50%; border: 5px solid #001a33; box-shadow: 0 4px 10px rgba(0,0,0,0.6); z-index: 6; }
+        .wheel-bg { width: 100%; height: 100%; position: absolute; top: 0; left: 0; }
+        .wheel-labels { position: absolute; width: 100%; height: 100%; top: 0; left: 0; }
+        .label { position: absolute; top: 50%; left: 50%; transform-origin: 0 0; font-weight: bold; color: #fff; font-size: 0.95rem; text-shadow: 1px 1px 4px rgba(0,0,0,0.9); }
+        .spin-btn { background-color: #3385ff; color: #fff; border: none; padding: 1rem 3rem; font-size: 1.5rem; font-weight: bold; border-radius: 50px; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 4px 10px rgba(51,133,255,0.4); margin-bottom: 1rem; border-bottom: 4px solid #004080; }
+        .question-card { display: none; margin-top: 2rem; padding: 2rem; background-color: #f0f7ff; border: 2px solid #b3d4ff; border-radius: 8px; text-align: center; animation: fadeIn 0.5s ease; box-shadow: 0 6px 15px rgba(0,0,0,0.05); }
+        .q-number-tag { display: inline-block; background: #004080; color: #fff; padding: 0.5rem 1.5rem; border-radius: 30px; font-size: 1.1rem; margin-bottom: 1rem; font-weight: bold; text-transform: uppercase; box-shadow: 0 3px 6px rgba(0,0,0,0.2); }
+        .question-text { font-size: 1.5rem; color: #333; margin-bottom: 1.5rem; font-weight: 500; }
+        .mc-options { display: flex; flex-direction: column; gap: 0.8rem; max-width: 450px; margin: 0 auto 1.5rem; }
+        .option-btn { background: #fff; border: 2px solid #b3d4ff; padding: 1rem; font-size: 1.1rem; border-radius: 6px; cursor: pointer; transition: all 0.2s; text-align: left; font-weight: 500; color: #004080; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+        .option-btn.correct { background-color: #d4edda !important; border-color: #28a745 !important; color: #155724 !important; }
+        .option-btn.incorrect { background-color: #f8d7da !important; border-color: #dc3545 !important; color: #721c24 !important; }
+        .reveal-btn { background-color: #3385ff; color: #fff; border: none; padding: 0.8rem 2rem; font-size: 1.1rem; font-weight: bold; border-radius: 8px; cursor: pointer; transition: background 0.3s; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .answer-text { display: none; font-size: 1.2rem; color: #333; margin-top: 1.5rem; padding-top: 1.5rem; border-top: 2px dashed #b3d4ff; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        footer { text-align: center; padding: 1rem; background-color: #002b5e; color: #fff; margin-top: auto; }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="../../../../../index.html" class="logo">May Learning Hub</a>
+        <div class="nav-links">
+            <a href="../../../../../index.html">Home</a>
+            <a href="../../../../../about.html">About</a>
+        </div>
+    </nav>
+
+    <main class="game-container">
+        <h1 class="game-title">Geography Quiz: Major Industrial Regions</h1>
+        <p class="game-subtitle">Test your Grade 12 Term 3 Major Industrial Regions knowledge. Select a category and spin the wheel.</p>
+        <p style="font-size: 0.78rem; color: #52606d; margin-top: 0.45rem;">Source: South Africa's Major Industrial Regions - Grade 12 Geography Term 3 presentation.</p>
+
+        <div class="category-selection">
+            <h2>Step 1: Choose a Category</h2>
+            <div class="cat-buttons" id="catButtons">
+                <button class="cat-btn" onclick="selectCategory('definitions', this)">Definitions</button>
+                <button class="cat-btn" onclick="selectCategory('terms', this)">Name the Term</button>
+                <button class="cat-btn" onclick="selectCategory('multipleChoice', this)">Multiple Choice</button>
+                <button class="cat-btn" onclick="selectCategory('trueFalse', this)">True or False</button>
+            </div>
+        </div>
+
+        <div id="wheelArea">
+            <h2 id="activeCategoryTitle">Category: None</h2>
+
+            <div class="wheel-wrapper">
+                <div class="pointer"></div>
+                <div class="wheel-center"></div>
+                <div class="wheel" id="wheel">
+                    <div class="wheel-bg" id="wheelBg"></div>
+                    <div class="wheel-labels" id="wheelLabels"></div>
+                </div>
+            </div>
+
+            <button class="spin-btn" id="spinBtn" onclick="spinWheel()">SPIN THE WHEEL</button>
+            <p id="remainingCount" style="color: #666; font-size: 0.9rem; margin-bottom: 1rem; font-weight: bold;">20 questions remaining</p>
+
+            <div class="question-card" id="questionCard">
+                <div class="q-number-tag" id="qNumberTag">Question #</div>
+                <div class="question-text" id="questionText">Loading question...</div>
+
+                <div class="mc-options" id="mcOptions"></div>
+
+                <button class="reveal-btn" id="revealBtn" onclick="revealAnswer()">Reveal Answer</button>
+                <div class="answer-text" id="answerText"></div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 May Learning Hub. All rights reserved.</p>
+    </footer>
+
+        <script src="../../../../../game-audio.js"></script>
+<script>
+        const gameData = {
+            "definitions": [
+                {
+                    "q": "Industrial Region",
+                    "a": "A part of a country where industrial activities are concentrated."
+                },
+                {
+                    "q": "PWV-Gauteng",
+                    "a": "The Pretoria-Witwatersrand-Vereeniging region and South Africa?s most important industrial area."
+                },
+                {
+                    "q": "Durban-Pinetown",
+                    "a": "A KwaZulu-Natal industrial region supported by its port, water, labour, markets, coal, and agricultural raw materials."
+                },
+                {
+                    "q": "Port Elizabeth-Uitenhage",
+                    "a": "An Eastern Cape industrial region associated with vehicles, parts, textiles, leather, and the Ngqura IDZ."
+                },
+                {
+                    "q": "Southwestern Cape",
+                    "a": "The Cape Town-centred industrial region based strongly on agriculture, fishing, shipping, and processing."
+                },
+                {
+                    "q": "Labour Pool",
+                    "a": "A supply of skilled or unskilled workers available to industries."
+                },
+                {
+                    "q": "Domestic Market",
+                    "a": "Consumers within South Africa who purchase manufactured products."
+                },
+                {
+                    "q": "International Market",
+                    "a": "Foreign buyers reached through exports and shipping routes."
+                },
+                {
+                    "q": "Industrial Development Zone",
+                    "a": "A designated zone promoting industry, such as the IDZ linked to Ngqura."
+                },
+                {
+                    "q": "Catchment Dam",
+                    "a": "A reservoir storing water for use during dry periods."
+                },
+                {
+                    "q": "Mediterranean Climate",
+                    "a": "A climate with wet winters and dry summers found in the Southwestern Cape."
+                },
+                {
+                    "q": "Thermal Power",
+                    "a": "Electricity generated using heat from fuel, associated with Eskom and PWV supply."
+                },
+                {
+                    "q": "Nuclear Power",
+                    "a": "Electricity generated at Koeberg and linked to the Southwestern Cape."
+                },
+                {
+                    "q": "Agro-Industry",
+                    "a": "Industrial processing of agricultural products, such as fruit canning or wine-making."
+                },
+                {
+                    "q": "Acid Mine Drainage",
+                    "a": "Polluted water draining from mines and affecting ecosystems and health."
+                },
+                {
+                    "q": "Urban Congestion",
+                    "a": "Overcrowding and pressure on housing, roads, and services in densely populated urban areas."
+                },
+                {
+                    "q": "Seasonal Agriculture",
+                    "a": "Agricultural production that varies by season and may create inconsistent processing supplies."
+                },
+                {
+                    "q": "Urban Sprawl",
+                    "a": "Outward city expansion that may reduce land available for industrial growth."
+                },
+                {
+                    "q": "Social Inequality",
+                    "a": "A visible wealth gap in which some benefit from industry while others remain unemployed or in informal settlements."
+                },
+                {
+                    "q": "Economic Resilience",
+                    "a": "The ability to withstand shocks through a diversified economy combining activities such as agriculture, tourism, and industry."
+                }
+            ],
+            "terms": [
+                {
+                    "q": "A concentrated part of a country where industrial activity occurs.",
+                    "a": "Industrial Region"
+                },
+                {
+                    "q": "The five general location requirements: raw materials, labour, power and water, transport, and markets.",
+                    "a": "Industrial Location Factors"
+                },
+                {
+                    "q": "Pretoria-Witwatersrand-Vereeniging.",
+                    "a": "PWV"
+                },
+                {
+                    "q": "The region occupying about 1.1% of land but producing about 44% of industrial output.",
+                    "a": "PWV-Gauteng"
+                },
+                {
+                    "q": "The KwaZulu-Natal region using sugarcane, coal, subtropical fruit, rainfall, rivers, and port access.",
+                    "a": "Durban-Pinetown"
+                },
+                {
+                    "q": "The vehicle-producing Eastern Cape region supplied by Fish and Orange River schemes.",
+                    "a": "Port Elizabeth-Uitenhage"
+                },
+                {
+                    "q": "The Cape Town-dominated region responsible for about 11% of industrial output.",
+                    "a": "Southwestern Cape"
+                },
+                {
+                    "q": "The new port terminal supporting the Eastern Cape industrial region.",
+                    "a": "Ngqura"
+                },
+                {
+                    "q": "A zone at Port Elizabeth-Uitenhage designed to promote industrial development.",
+                    "a": "IDZ"
+                },
+                {
+                    "q": "The power station providing nuclear energy to the Southwestern Cape.",
+                    "a": "Koeberg"
+                },
+                {
+                    "q": "The offshore fishing ground south of the Cape.",
+                    "a": "Agulhas Bank"
+                },
+                {
+                    "q": "The Gauteng steel company associated with Vanderbijlpark.",
+                    "a": "ArcelorMittal"
+                },
+                {
+                    "q": "The Gauteng chemical company converting coal to liquid fuel.",
+                    "a": "SASOL"
+                },
+                {
+                    "q": "The Durban sugar companies named as examples.",
+                    "a": "Tongaat Hulett and Illovo"
+                },
+                {
+                    "q": "The Port Elizabeth vehicle company used as an example.",
+                    "a": "Volkswagen"
+                },
+                {
+                    "q": "The Southwestern Cape wine producer named in the overview.",
+                    "a": "KWV"
+                },
+                {
+                    "q": "The water-transfer sources supplying Gauteng from outside the region.",
+                    "a": "Tugela and Lesotho Water Schemes"
+                },
+                {
+                    "q": "Water pollution associated with mining waste.",
+                    "a": "Acid Mine Drainage"
+                },
+                {
+                    "q": "A declining electricity reliability problem that disrupts production.",
+                    "a": "Load-Shedding"
+                },
+                {
+                    "q": "Training created by industrial demand for technical and occupational skills.",
+                    "a": "Skills Development"
+                }
+            ],
+            "multipleChoice": [
+                {
+                    "q": "Which is NOT one of the five general industrial-region factors?",
+                    "options": [
+                        "A) Raw materials",
+                        "B) Labour supply",
+                        "C) Ocean depth",
+                        "D) Access to markets"
+                    ],
+                    "a": "C) Ocean depth"
+                },
+                {
+                    "q": "What does PWV stand for?",
+                    "options": [
+                        "A) Pretoria-Witwatersrand-Vereeniging",
+                        "B) Port-Water-Valley",
+                        "C) Pinetown-Wellington-Vaal",
+                        "D) Pretoria-Western-Vineyards"
+                    ],
+                    "a": "A) Pretoria-Witwatersrand-Vereeniging"
+                },
+                {
+                    "q": "Which region is South Africa?s most important industrial area?",
+                    "options": [
+                        "A) Durban-Pinetown",
+                        "B) PWV-Gauteng",
+                        "C) Port Elizabeth-Uitenhage",
+                        "D) Southwestern Cape"
+                    ],
+                    "a": "B) PWV-Gauteng"
+                },
+                {
+                    "q": "About what share of national industrial production comes from PWV?",
+                    "options": [
+                        "A) 11%",
+                        "B) 30%",
+                        "C) 44%",
+                        "D) 1.1%"
+                    ],
+                    "a": "C) 44%"
+                },
+                {
+                    "q": "Which PWV raw materials are listed?",
+                    "options": [
+                        "A) Iron, manganese, coal, platinum, gold",
+                        "B) Grapes, fish, wheat, fynbos",
+                        "C) Mohair, leather, pineapples",
+                        "D) Sugarcane, bananas, nuts"
+                    ],
+                    "a": "A) Iron, manganese, coal, platinum, gold"
+                },
+                {
+                    "q": "Which is a PWV industry example?",
+                    "options": [
+                        "A) Wine-making",
+                        "B) Sugar refining",
+                        "C) Automotive production such as BMW",
+                        "D) Frozen fish"
+                    ],
+                    "a": "C) Automotive production such as BMW"
+                },
+                {
+                    "q": "Which raw material supports Durban-Pinetown sugar refining?",
+                    "options": [
+                        "A) Mohair",
+                        "B) Sugarcane",
+                        "C) Grapes",
+                        "D) Iron ore"
+                    ],
+                    "a": "B) Sugarcane"
+                },
+                {
+                    "q": "Which company is linked to Durban aluminium?",
+                    "options": [
+                        "A) ArcelorMittal",
+                        "B) Volkswagen",
+                        "C) KWV",
+                        "D) BHP Billiton"
+                    ],
+                    "a": "D) BHP Billiton"
+                },
+                {
+                    "q": "Which water schemes support Port Elizabeth-Uitenhage?",
+                    "options": [
+                        "A) Fish River and Orange River",
+                        "B) Vaal and Tugela only",
+                        "C) Steenbras and Palmiet",
+                        "D) Wemmershoek and Voelvlei"
+                    ],
+                    "a": "A) Fish River and Orange River"
+                },
+                {
+                    "q": "Which port terminal supports Port Elizabeth-Uitenhage?",
+                    "options": [
+                        "A) Koeberg",
+                        "B) Ngqura",
+                        "C) Vaal",
+                        "D) Sasolburg"
+                    ],
+                    "a": "B) Ngqura"
+                },
+                {
+                    "q": "Which car companies are listed in Port Elizabeth-Uitenhage?",
+                    "options": [
+                        "A) BMW only",
+                        "B) Toyota only",
+                        "C) Volkswagen, Ford, and GM",
+                        "D) SASOL and Eskom"
+                    ],
+                    "a": "C) Volkswagen, Ford, and GM"
+                },
+                {
+                    "q": "Which climate supports the Southwestern Cape?",
+                    "options": [
+                        "A) Tropical year-round rain",
+                        "B) Desert climate",
+                        "C) Continental monsoon",
+                        "D) Mediterranean climate"
+                    ],
+                    "a": "D) Mediterranean climate"
+                },
+                {
+                    "q": "Which power source is linked to the Southwestern Cape?",
+                    "options": [
+                        "A) Nuclear power at Koeberg",
+                        "B) Coal only",
+                        "C) Hydroelectric only",
+                        "D) Solar only"
+                    ],
+                    "a": "A) Nuclear power at Koeberg"
+                },
+                {
+                    "q": "Which shipping destinations are listed for the Southwestern Cape?",
+                    "options": [
+                        "A) Europe only",
+                        "B) Asia, India, and Australia",
+                        "C) North America only",
+                        "D) Antarctica"
+                    ],
+                    "a": "B) Asia, India, and Australia"
+                },
+                {
+                    "q": "What percentage of industrial output is linked to the Southwestern Cape?",
+                    "options": [
+                        "A) 44%",
+                        "B) 30%",
+                        "C) About 11%",
+                        "D) 1.1%"
+                    ],
+                    "a": "C) About 11%"
+                },
+                {
+                    "q": "Which fishing ground supports the Southwestern Cape?",
+                    "options": [
+                        "A) Agulhas Bank",
+                        "B) Vaal River",
+                        "C) Ngqura",
+                        "D) Tugela Scheme"
+                    ],
+                    "a": "A) Agulhas Bank"
+                },
+                {
+                    "q": "Which factor hinders Gauteng industry?",
+                    "options": [
+                        "A) Large ready market",
+                        "B) Flat plateau",
+                        "C) Good transport",
+                        "D) Pollution and acid mine drainage"
+                    ],
+                    "a": "D) Pollution and acid mine drainage"
+                },
+                {
+                    "q": "Why can Southwestern Cape mountains hinder industry?",
+                    "options": [
+                        "A) They increase construction and transport costs",
+                        "B) They supply all minerals",
+                        "C) They end drought",
+                        "D) They create flat factory land"
+                    ],
+                    "a": "A) They increase construction and transport costs"
+                },
+                {
+                    "q": "What may seasonal agriculture cause?",
+                    "options": [
+                        "A) Unlimited supply",
+                        "B) Inconsistent inputs for processing",
+                        "C) Lower transport costs everywhere",
+                        "D) More mineral resources"
+                    ],
+                    "a": "B) Inconsistent inputs for processing"
+                },
+                {
+                    "q": "Which positive Gauteng impact builds worker capability?",
+                    "options": [
+                        "A) Urban congestion",
+                        "B) Crime",
+                        "C) Skills development",
+                        "D) Pollution"
+                    ],
+                    "a": "C) Skills development"
+                }
+            ],
+            "trueFalse": [
+                {
+                    "q": "Industrial regions develop partly because of access to raw materials and markets.",
+                    "options": [
+                        "True",
+                        "False"
+                    ],
+                    "a": "True",
+                    "exp": "Both are listed among the five general factors."
+                },
+                {
+                    "q": "PWV includes Pretoria, Witwatersrand, and Vereeniging.",
+                    "options": [
+                        "True",
+                        "False"
+                    ],
+                    "a": "True",
+                    "exp": "These names form the PWV abbreviation."
+                },
+                {
+                    "q": "PWV occupies about 30% of South Africa?s land.",
+                    "options": [
+                        "True",
+                        "False"
+                    ],
+                    "a": "False",
+                    "exp": "It occupies only about 1.1% but accommodates about 30% of the population."
+                },
+                {
+                    "q": "PWV produces about 44% of South Africa?s industrial output.",
+                    "options": [
+                        "True",
+                        "False"
+                    ],
+                    "a": "True",
+                    "exp": "This makes it the most important industrial area."
+                },
+                {
+                    "q": "Gauteng receives water from the Tugela, Vaal, and Lesotho schemes.",
+                    "options": [
+                        "True",
+                        "False"
+                    ],
+                    "a": "True",
+                    "exp": "These water sources are listed in the detailed Gauteng factors."
+                },
+                {
+                    "q": "Durban-Pinetown lacks access to local and international markets.",
+                    "options": [
+                        "True",
+                        "False"
+                    ],
+                    "a": "False",
+                    "exp": "Market access is one of its location advantages."
+                },
+                {
+                    "q": "Durban-Pinetown processes bananas, avocados, and pineapples.",
+                    "options": [
+                        "True",
+                        "False"
+                    ],
+                    "a": "True",
+                    "exp": "These are listed among its industries."
+                },
+                {
+                    "q": "Port Elizabeth-Uitenhage has an IDZ and the Ngqura terminal.",
+                    "options": [
+                        "True",
+                        "False"
+                    ],
+                    "a": "True",
+                    "exp": "Both are industrial-location advantages."
+                },
+                {
+                    "q": "Goodyear tyres are an automotive-parts example.",
+                    "options": [
+                        "True",
+                        "False"
+                    ],
+                    "a": "True",
+                    "exp": "They are listed under Port Elizabeth-Uitenhage industries."
+                },
+                {
+                    "q": "The Southwestern Cape has wet winters and dry summers.",
+                    "options": [
+                        "True",
+                        "False"
+                    ],
+                    "a": "True",
+                    "exp": "This is its Mediterranean climate pattern."
+                },
+                {
+                    "q": "Water is abundant throughout every Southwestern Cape summer.",
+                    "options": [
+                        "True",
+                        "False"
+                    ],
+                    "a": "False",
+                    "exp": "Water is scarce and must be stored in dams."
+                },
+                {
+                    "q": "Cape Town dominates Southwestern Cape industry.",
+                    "options": [
+                        "True",
+                        "False"
+                    ],
+                    "a": "True",
+                    "exp": "This is stated in the detailed regional section."
+                },
+                {
+                    "q": "The Agulhas Bank is a rich fishing area.",
+                    "options": [
+                        "True",
+                        "False"
+                    ],
+                    "a": "True",
+                    "exp": "It supports fish-processing activity."
+                },
+                {
+                    "q": "Gauteng?s flat plateau lowers factory and transport-construction costs.",
+                    "options": [
+                        "True",
+                        "False"
+                    ],
+                    "a": "True",
+                    "exp": "Flat land makes construction easier and relatively inexpensive."
+                },
+                {
+                    "q": "Gauteng demand always remains below available water supply.",
+                    "options": [
+                        "True",
+                        "False"
+                    ],
+                    "a": "False",
+                    "exp": "Demand often exceeds supply despite transfer schemes."
+                },
+                {
+                    "q": "Crime may discourage investment and raise security costs.",
+                    "options": [
+                        "True",
+                        "False"
+                    ],
+                    "a": "True",
+                    "exp": "This is listed among Gauteng constraints."
+                },
+                {
+                    "q": "The Southwestern Cape is rich in minerals for heavy mining-related industry.",
+                    "options": [
+                        "True",
+                        "False"
+                    ],
+                    "a": "False",
+                    "exp": "Limited mineral resources restrict that development."
+                },
+                {
+                    "q": "Gauteng industry supports job creation for skilled and unskilled workers.",
+                    "options": [
+                        "True",
+                        "False"
+                    ],
+                    "a": "True",
+                    "exp": "Job creation is a stated positive impact."
+                },
+                {
+                    "q": "Industrial pollution can affect community health.",
+                    "options": [
+                        "True",
+                        "False"
+                    ],
+                    "a": "True",
+                    "exp": "Air, water, and land pollution are negative impacts."
+                },
+                {
+                    "q": "Southwestern Cape exports can earn foreign revenue.",
+                    "options": [
+                        "True",
+                        "False"
+                    ],
+                    "a": "True",
+                    "exp": "Wine, textiles, canned fish, and agricultural exports earn foreign exchange."
+                }
+            ]
+        };
+        const totalQuestions = 20;
+        const sliceAngle = 360 / totalQuestions;
+        let currentCategoryKey = null;
+        let currentRotation = 0;
+        let currentQuestionData = null;
+        let targetQuestionIndex = null;
+
+        let availableQuestions = {
+            'definitions': Array.from({length: totalQuestions}, (_, i) => i),
+            'terms': Array.from({length: totalQuestions}, (_, i) => i),
+            'multipleChoice': Array.from({length: totalQuestions}, (_, i) => i),
+            'trueFalse': Array.from({length: totalQuestions}, (_, i) => i)
+        };
+
+        const sliceColors = ["#0055ff", "#0088ff", "#00bfff", "#0044cc"];
+
+        function buildWheel() {
+            const wheelBg = document.getElementById('wheelBg');
+            const wheelLabels = document.getElementById('wheelLabels');
+            let gradientParts = [];
+
+            for (let i = 0; i < totalQuestions; i++) {
+                let startAngle = i * sliceAngle;
+                let endAngle = (i + 1) * sliceAngle;
+                let color = sliceColors[i % sliceColors.length];
+                gradientParts.push(`${color} ${startAngle}deg ${endAngle}deg`);
+
+                let label = document.createElement('div');
+                label.className = 'label';
+                let textRotation = startAngle + (sliceAngle / 2) - 90;
+                label.style.transform = `rotate(${textRotation}deg) translate(145px, -50%)`;
+                label.innerText = i + 1;
+                wheelLabels.appendChild(label);
+            }
+            wheelBg.style.background = `conic-gradient(${gradientParts.join(', ')})`;
+        }
+
+        buildWheel();
+
+        function selectCategory(categoryKey, btnElement) {
+            currentCategoryKey = categoryKey;
+            const buttons = document.querySelectorAll('.cat-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            btnElement.classList.add('active');
+            document.getElementById('wheelArea').style.display = 'block';
+            document.getElementById('activeCategoryTitle').innerText = `Category: ${btnElement.innerText}`;
+            document.getElementById('questionCard').style.display = 'none';
+            document.getElementById('remainingCount').innerText = `${availableQuestions[categoryKey].length} questions remaining`;
+            currentRotation = 0;
+            document.getElementById('wheel').style.transform = `rotate(0deg)`;
+        }
+
+        function spinWheel() {
+            const spinBtn = document.getElementById('spinBtn');
+            const wheel = document.getElementById('wheel');
+            const questionCard = document.getElementById('questionCard');
+            let available = availableQuestions[currentCategoryKey];
+
+            if (available.length === 0) {
+                alert(`Resetting ${currentCategoryKey}!`);
+                availableQuestions[currentCategoryKey] = Array.from({length: totalQuestions}, (_, i) => i);
+                available = availableQuestions[currentCategoryKey];
+            }
+
+            spinBtn.disabled = true;
+            spinBtn.innerText = "SPINNING...";
+            MayHubSounds.startWheel();
+            questionCard.style.display = 'none';
+
+            let randomArrIndex = Math.floor(Math.random() * available.length);
+            targetQuestionIndex = available[randomArrIndex];
+            available.splice(randomArrIndex, 1);
+            document.getElementById('remainingCount').innerText = `${available.length} questions remaining`;
+
+            let sliceCenterAngle = (targetQuestionIndex * sliceAngle) + (sliceAngle / 2);
+            let targetDegree = 360 - sliceCenterAngle;
+            let currentBase = Math.ceil(currentRotation / 360) * 360;
+            currentRotation = currentBase + 1800 + targetDegree;
+            wheel.style.transform = `rotate(${currentRotation}deg)`;
+
+            setTimeout(() => {
+                MayHubSounds.stopWheel();
+                spinBtn.disabled = false;
+                spinBtn.innerText = "SPIN AGAIN";
+                currentQuestionData = gameData[currentCategoryKey][targetQuestionIndex];
+                displayQuestion(targetQuestionIndex + 1, currentQuestionData);
+            }, 4000);
+        }
+
+        function displayQuestion(questionNumber, data) {
+            document.getElementById('qNumberTag').innerText = `Question #${questionNumber}`;
+            document.getElementById('questionText').innerText = data.q;
+            const mcOptions = document.getElementById('mcOptions');
+            const revealBtn = document.getElementById('revealBtn');
+            const answerText = document.getElementById('answerText');
+            mcOptions.innerHTML = "";
+            answerText.style.display = "none";
+
+            if (currentCategoryKey === 'multipleChoice' || currentCategoryKey === 'trueFalse') {
+                revealBtn.style.display = "none";
+                mcOptions.style.display = "flex";
+                data.options.forEach(opt => {
+                    let btn = document.createElement("button");
+                    btn.className = "option-btn";
+                    btn.innerText = opt;
+                    btn.onclick = () => checkInteractiveAnswer(btn, opt);
+                    mcOptions.appendChild(btn);
+                });
+            } else {
+                mcOptions.style.display = "none";
+                revealBtn.style.display = "inline-block";
+                answerText.innerHTML = `<strong>Answer:</strong> ${data.a}`;
+            }
+            document.getElementById('questionCard').style.display = "block";
+        }
+
+        function checkInteractiveAnswer(clickedBtn, selectedText) {
+            const allBtns = document.querySelectorAll('.option-btn');
+            allBtns.forEach(btn => btn.disabled = true);
+            const isCorrect = (selectedText === currentQuestionData.a || selectedText.startsWith(currentQuestionData.a.charAt(0)));
+            const answerTextDiv = document.getElementById('answerText');
+            if (isCorrect) {
+                MayHubSounds.playCorrect();
+                clickedBtn.classList.add('correct');
+                answerTextDiv.innerHTML = `<div style="color: green; font-weight: bold;">Correct!</div> ${currentQuestionData.exp || ''}`;
+            } else {
+                MayHubSounds.playWrong();
+                clickedBtn.classList.add('incorrect');
+                answerTextDiv.innerHTML = `<div style="color: red; font-weight: bold;">Incorrect!</div> The correct answer was: ${currentQuestionData.a}. ${currentQuestionData.exp || ''}`;
+            }
+            answerTextDiv.style.display = "block";
+        }
+
+        function revealAnswer() {
+            document.getElementById('revealBtn').style.display = "none";
+            document.getElementById('answerText').style.display = "block";
+        }
+    </script>
+</body>
+</html>

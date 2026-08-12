@@ -13,7 +13,7 @@
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Drag or Tap Match | Grade 11 Geography: Factors Affecting Development</title>
+    <title>Drag or Tap Match | Grade 11 Geography: Role of Development Aid</title>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -372,17 +372,19 @@
     </nav>
 
     <main class="game-container">
-        <h1 class="game-title">Drag or Tap Match: Factors Affecting Development</h1>
-        <p class="game-subtitle">Match the economic, social, environmental, and community factors that shape development.</p>
-        <p style="font-size: 0.78rem; color: #52606d; margin-top: 0.45rem;">Source: Factors Affecting Development - Grade 11 Geography Term 3 presentation.</p>
+        <h1 class="game-title">Drag or Tap Match: Role of Development Aid</h1>
+        <p class="game-subtitle">Match aid concepts, aid types, examples, benefits, and challenges.</p>
+        <p style="font-size: 0.78rem; color: #52606d; margin-top: 0.45rem;">Source: Development Aid - Grade 11 Geography Term 3 presentation.</p>
 
         <div class="category-selection">
             <h2>Step 1: Choose a Topic</h2>
             <div class="cat-buttons" id="catButtons">
-                <button class="cat-btn" onclick="selectCategory('unit1', this)">1. Economic Factors</button>
-                <button class="cat-btn" onclick="selectCategory('unit2', this)">2. Social Factors</button>
-                <button class="cat-btn" onclick="selectCategory('unit3', this)">3. Environmental Factors</button>
-                <button class="cat-btn" onclick="selectCategory('unit4', this)">4. Community-Based Development</button>
+                <button class="cat-btn" onclick="selectCategory('unit1', this)">1. Aid Foundations</button>
+                <button class="cat-btn" onclick="selectCategory('unit2', this)">2. Official Aid</button>
+                <button class="cat-btn" onclick="selectCategory('unit3', this)">3. Voluntary Aid</button>
+                <button class="cat-btn" onclick="selectCategory('unit4', this)">4. Technical and Conditional Aid</button>
+                <button class="cat-btn" onclick="selectCategory('unit5', this)">5. Humanitarian Aid</button>
+                <button class="cat-btn" onclick="selectCategory('unit6', this)">6. Benefits and Challenges</button>
             </div>
         </div>
 
@@ -393,7 +395,7 @@
             <div class="top-bar">
                 <div class="info-box" id="scoreBox">Score: 0</div>
                 <div class="info-box" id="remainingBox">Remaining: 0</div>
-                <div class="info-box" id="setBox">Topic: 0 / 4</div>
+                <div class="info-box" id="setBox">Topic: 0 / 6</div>
             </div>
 
             <div class="board">
@@ -428,60 +430,77 @@
 <script>
         const gameData = {
             unit1: [
-                { item: "Infrastructure", match: "The basic physical and organisational systems and facilities needed for a society and economy to function, such as transport, electricity, water, and communications." },
-                { item: "Investment", match: "The commitment of money, capital, or other resources to an activity or project in order to gain future benefits." },
-                { item: "Economic Policies", match: "Government decisions, laws, and actions used to influence how an economy operates." },
-                { item: "Technology", match: "The application of knowledge, tools, and techniques to solve problems and produce goods or services." },
-                { item: "Natural Resources", match: "Materials and environmental features that occur in nature and can be used by people, such as water, land, minerals, and forests." },
-                { item: "Trade", match: "The buying, selling, or exchange of goods and services between people, regions, or countries." },
-                { item: "Labor Market Conditions", match: "The circumstances affecting the supply of workers, demand for labour, employment, wages, and available skills." },
-                { item: "Financial Systems", match: "The institutions, markets, and rules that enable saving, borrowing, payments, and investment." },
-                { item: "Government Spending", match: "Money used by government to provide public services, infrastructure, and programmes." },
-                { item: "Entrepreneurship", match: "The process of identifying an opportunity, organising resources, and creating or managing an enterprise while accepting risk." }
+            { item: "Development Aid", match: "Assistance from foreign countries or organisations that supports development and living standards in LEDCs." },
+            { item: "Donor", match: "A foreign country or organisation that provides development aid." },
+            { item: "Recipient", match: "A country that receives assistance from a donor." },
+            { item: "LEDC", match: "A less economically developed country that may receive assistance to support development." },
+            { item: "Standard of Living", match: "The level of material well-being and access to goods and services experienced by people." },
+            { item: "Appropriate Aid", match: "Assistance suited to local needs that empowers rather than undermines development." },
+            { item: "Empowerment", match: "Enabling people or countries to develop their own abilities and make effective decisions." },
+            { item: "Self-Sufficiency", match: "The ability of a country or community to meet needs without continued outside assistance." }
             ],
             unit2: [
-                { item: "Education", match: "The organised process through which people acquire knowledge, skills, values, and understanding." },
-                { item: "Healthcare", match: "The services and systems used to prevent and treat illness and maintain people's health." },
-                { item: "Social Stability", match: "A condition in which society has order, security, and predictable social relationships." },
-                { item: "Cultural Attitudes", match: "Shared beliefs, values, and viewpoints that influence how people think and behave." },
-                { item: "Population Growth", match: "An increase in the number of people living in a place over a period of time." },
-                { item: "Gender Equality", match: "Equal rights, responsibilities, opportunities, and treatment for people of all genders." },
-                { item: "Social Services", match: "Public or community services that support people's welfare and basic needs, such as care, housing support, and social assistance." },
-                { item: "Crime Rates", match: "Measures of how frequently crimes occur in a population or area during a given period." },
-                { item: "Community Engagement", match: "The process of involving community members in decisions and actions that affect their lives." },
-                { item: "Migration", match: "The movement of people from one place to another to live or work, either temporarily or permanently." }
+            { item: "Official Aid", match: "Authorised assistance given from one country to another or from an international organisation to a country." },
+            { item: "Bilateral Aid", match: "Assistance transferred directly from one country to another." },
+            { item: "Multilateral Aid", match: "Assistance channelled through an international organisation that distributes it among LEDCs." },
+            { item: "International Organisation", match: "An organisation involving several countries that can receive and distribute assistance." },
+            { item: "International Monetary Fund", match: "An international organisation named in the lesson as a distributor of multilateral aid." },
+            { item: "World Bank", match: "An international organisation that distributes aid and may fund technical assistance." },
+            { item: "Direct Country Transfer", match: "The route used when a donor country gives assistance straight to a recipient country." },
+            { item: "Aid Distribution", match: "The process of allocating and delivering assistance to recipient countries or communities." }
             ],
             unit3: [
-                { item: "Climate Change", match: "Long-term changes in average temperatures and other climate patterns." },
-                { item: "Natural Disasters", match: "Severe natural events that cause major damage, loss, or disruption to people and places." },
-                { item: "Environmental Policies", match: "Government laws, rules, and plans designed to manage human impacts and protect the environment." },
-                { item: "Biodiversity", match: "The variety of living organisms, including diversity within species, between species, and among ecosystems." },
-                { item: "Pollution", match: "The introduction of harmful substances or forms of energy into the environment." },
-                { item: "Resource Depletion", match: "The use of a natural resource faster than it can be replaced or renewed." },
-                { item: "Land Use", match: "The way land is managed and used for purposes such as farming, housing, industry, or conservation." },
-                { item: "Water Availability", match: "The amount of usable water that is accessible to people and economic activities." },
-                { item: "Air Quality", match: "The degree to which the air is clean and free from harmful pollutants." },
-                { item: "Waste Management", match: "The collection, transport, treatment, recycling, and disposal of waste." }
+            { item: "Voluntary Aid", match: "Assistance collected by aid agencies and donated willingly by individuals and corporations." },
+            { item: "Aid Agency", match: "An organisation that collects, organises, and delivers voluntary assistance." },
+            { item: "Individual Donation", match: "Money or resources willingly given by a person to support an aid agency." },
+            { item: "Corporate Donation", match: "Money or resources willingly given by a company to support assistance programmes." },
+            { item: "Short-Term Aid", match: "Immediate support supplied during an emergency, such as food parcels or medicine." },
+            { item: "Long-Term Aid", match: "Continued assistance for development projects such as schools and orphanages." },
+            { item: "Oxfam", match: "An aid organisation named as a provider of short-term emergency support." },
+            { item: "Red Cross", match: "An aid organisation named as supplying emergency assistance after disasters." }
             ],
             unit4: [
-                { item: "Community-Based Development", match: "An approach in which community members actively lead and participate in planning, implementing, and managing projects that affect their lives." },
-                { item: "Local Participation", match: "The involvement of community members in decisions so that projects reflect local priorities and needs." },
-                { item: "Empowerment", match: "The process of building people's ability and authority to make decisions and take control of their own development." },
-                { item: "Sustainability", match: "The ability to meet present needs while maintaining resources and opportunities for the future." },
-                { item: "Collaboration", match: "People or organisations working together and sharing resources or expertise to achieve a common goal." },
-                { item: "Holistic Approach", match: "A method that considers the whole situation and the connections among its economic, social, and environmental parts." },
-                { item: "Ownership", match: "The community's responsibility for, control over, and commitment to a project or its outcomes." }
+            { item: "Technical Aid", match: "Assistance supplied as skilled technological advice and practical expertise." },
+            { item: "Skilled Engineer", match: "A trained specialist who may provide technical knowledge and help build infrastructure." },
+            { item: "Technological Advice", match: "Expert guidance used to plan, build, or operate equipment and infrastructure." },
+            { item: "Infrastructure", match: "Basic facilities such as roads, bridges, power stations, and dams." },
+            { item: "Lesotho Highlands Water Scheme", match: "The project named in the lesson as an example of technical aid." },
+            { item: "Conditional Aid", match: "Assistance granted only when the recipient agrees to a specific requirement." },
+            { item: "Trade Agreement", match: "An arrangement that may require a recipient to trade raw materials with a donor." },
+            { item: "Strings Attached", match: "Conditions or obligations that a recipient must accept in order to receive assistance." }
+            ],
+            unit5: [
+            { item: "Humanitarian Aid", match: "Support that improves living conditions and assists people affected by hardship or disaster." },
+            { item: "Skills Training", match: "Teaching practical abilities that help people improve their lives and opportunities." },
+            { item: "Debt Reduction", match: "Financial support intended to lower the amount of money a recipient owes." },
+            { item: "Medical Help", match: "Health care, medicine, or other support supplied to people in need." },
+            { item: "Emergency Supplies", match: "Food, water, medicine, and essential items delivered after a disaster." },
+            { item: "Natural Disaster Relief", match: "Immediate assistance supplied after events such as floods or droughts." },
+            { item: "Disaster Recovery", match: "Support that helps a country restore services and livelihoods after an emergency." },
+            { item: "Rebuilding", match: "Repairing or replacing homes, infrastructure, and services damaged by a disaster." }
+            ],
+            unit6: [
+            { item: "Poverty Reduction", match: "Providing essential resources and services to help alleviate poverty." },
+            { item: "Capacity Building", match: "Strengthening local skills through training and knowledge transfer." },
+            { item: "Economic Growth", match: "Expansion supported by funded projects, investment, and job creation." },
+            { item: "Political Stability", match: "Greater stability that may result when causes of conflict are addressed." },
+            { item: "Aid Dependency", match: "Reliance on continued assistance that reduces self-sufficiency." },
+            { item: "Mismanagement", match: "The incorrect, wasteful, or corrupt use and allocation of assistance." },
+            { item: "Donor Influence", match: "Pressure that allows donors to shape a recipient's policies and priorities." },
+            { item: "Aid Fatigue", match: "Reduced donor willingness or contributions after aid has continued for a long time." }
             ]
         };
 
         const categoryTitles = {
-            unit1: "Economic Factors",
-            unit2: "Social Factors",
-            unit3: "Environmental Factors",
-            unit4: "Community-Based Development"
+            unit1: "Aid Foundations",
+            unit2: "Official Aid",
+            unit3: "Voluntary Aid",
+            unit4: "Technical and Conditional Aid",
+            unit5: "Humanitarian Aid",
+            unit6: "Benefits and Challenges"
         };
 
-        const categoryOrder = ["unit1", "unit2", "unit3", "unit4"];
+        const categoryOrder = ["unit1", "unit2", "unit3", "unit4", "unit5", "unit6"];
 
         let currentCategoryKey = null;
         let score = 0;
@@ -684,7 +703,7 @@
             const feedbackTitle = document.getElementById('feedbackTitle');
             const feedbackMessage = document.getElementById('feedbackMessage');
 
-            feedbackTitle.innerText = "Factors Affecting Development Master!";
+            feedbackTitle.innerText = "Development Aid Master!";
             feedbackMessage.innerText = `You correctly identified all terms for the "${categoryTitles[currentCategoryKey]}" topic!`;
             feedbackBox.style.display = 'block';
         }

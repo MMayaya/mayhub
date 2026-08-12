@@ -13,7 +13,7 @@
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>May Learning Hub | Grade 11 Geography: Factors Affecting Development</title>
+    <title>May Learning Hub | Grade 11 Geography: Development Impacts on the Environment</title>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f0f4f8; color: #333; line-height: 1.6; display: flex; flex-direction: column; min-height: 100vh; }
@@ -82,16 +82,18 @@
     </nav>
 
     <header class="game-header">
-        <h1 class="game-title">Grade 11 Geography: Factors Affecting Development</h1>
-        <p class="game-subtitle">Match the economic, social, environmental, and community factors that shape development!</p>
-        <p style="font-size: 0.78rem; color: #52606d; margin-top: 0.45rem;">Source: Factors Affecting Development - Grade 11 Geography Term 3 presentation.</p>
+        <h1 class="game-title">Grade 11 Geography: Development Impacts on the Environment</h1>
+        <p class="game-subtitle">Match environmental impacts, resource-use pressures, pollution, urban challenges, and sustainable solutions!</p>
+        <p style="font-size: 0.78rem; color: #52606d; margin-top: 0.45rem;">Source: Development Impacts on the Environment - Grade 11 Geography Term 3 presentation.</p>
         
         <div class="category-selection">
             <div class="cat-buttons">
-                <button class="cat-btn" onclick="selectCategory('topic1', this)">Economic Factors</button>
-                <button class="cat-btn" onclick="selectCategory('topic2', this)">Social Factors</button>
-                <button class="cat-btn" onclick="selectCategory('topic3', this)">Environmental Factors</button>
-                <button class="cat-btn" onclick="selectCategory('topic4', this)">Community-Based Development</button>
+                <button class="cat-btn" onclick="selectCategory('topic1', this)">Core Environmental Impacts</button>
+                <button class="cat-btn" onclick="selectCategory('topic2', this)">Pollution and Climate</button>
+                <button class="cat-btn" onclick="selectCategory('topic3', this)">Land and Resource Use</button>
+                <button class="cat-btn" onclick="selectCategory('topic4', this)">Energy, Industry and Tourism</button>
+                <button class="cat-btn" onclick="selectCategory('topic5', this)">Urban Growth, Water and Waste</button>
+                <button class="cat-btn" onclick="selectCategory('topic6', this)">Sustainable Solutions</button>
             </div>
         </div>
 
@@ -109,60 +111,77 @@
 
         <script src="../../../../../game-audio.js"></script>
 <script>
-        const economicFactors = [
-            { term: "Infrastructure", detail: "The basic physical and organisational systems and facilities needed for a society and economy to function, such as transport, electricity, water, and communications." },
-            { term: "Investment", detail: "The commitment of money, capital, or other resources to an activity or project in order to gain future benefits." },
-            { term: "Economic Policies", detail: "Government decisions, laws, and actions used to influence how an economy operates." },
-            { term: "Technology", detail: "The application of knowledge, tools, and techniques to solve problems and produce goods or services." },
-            { term: "Natural Resources", detail: "Materials and environmental features that occur in nature and can be used by people, such as water, land, minerals, and forests." },
-            { term: "Trade", detail: "The buying, selling, or exchange of goods and services between people, regions, or countries." },
-            { term: "Labor Market Conditions", detail: "The circumstances affecting the supply of workers, demand for labour, employment, wages, and available skills." },
-            { term: "Financial Systems", detail: "The institutions, markets, and rules that enable saving, borrowing, payments, and investment." },
-            { term: "Government Spending", detail: "Money used by government to provide public services, infrastructure, and programmes." },
-            { term: "Entrepreneurship", detail: "The process of identifying an opportunity, organising resources, and creating or managing an enterprise while accepting risk." }
-        ];
-        const socialFactors = [
-            { term: "Education", detail: "The organised process through which people acquire knowledge, skills, values, and understanding." },
-            { term: "Healthcare", detail: "The services and systems used to prevent and treat illness and maintain people's health." },
-            { term: "Social Stability", detail: "A condition in which society has order, security, and predictable social relationships." },
-            { term: "Cultural Attitudes", detail: "Shared beliefs, values, and viewpoints that influence how people think and behave." },
-            { term: "Population Growth", detail: "An increase in the number of people living in a place over a period of time." },
-            { term: "Gender Equality", detail: "Equal rights, responsibilities, opportunities, and treatment for people of all genders." },
-            { term: "Social Services", detail: "Public or community services that support people's welfare and basic needs, such as care, housing support, and social assistance." },
-            { term: "Crime Rates", detail: "Measures of how frequently crimes occur in a population or area during a given period." },
-            { term: "Community Engagement", detail: "The process of involving community members in decisions and actions that affect their lives." },
-            { term: "Migration", detail: "The movement of people from one place to another to live or work, either temporarily or permanently." }
-        ];
-        const environmentalFactors = [
-            { term: "Climate Change", detail: "Long-term changes in average temperatures and other climate patterns." },
-            { term: "Natural Disasters", detail: "Severe natural events that cause major damage, loss, or disruption to people and places." },
-            { term: "Environmental Policies", detail: "Government laws, rules, and plans designed to manage human impacts and protect the environment." },
-            { term: "Biodiversity", detail: "The variety of living organisms, including diversity within species, between species, and among ecosystems." },
-            { term: "Pollution", detail: "The introduction of harmful substances or forms of energy into the environment." },
+        const coreImpacts = [
+            { term: "Environmental Impact", detail: "A change to the natural environment caused by human activity or natural processes." },
+            { term: "Deforestation", detail: "The large-scale clearing or removal of forests." },
+            { term: "Habitat", detail: "The natural home or environment in which an organism lives." },
+            { term: "Biodiversity", detail: "The variety of living organisms in an area." },
+            { term: "Extinction", detail: "The complete disappearance of a species from Earth." },
             { term: "Resource Depletion", detail: "The use of a natural resource faster than it can be replaced or renewed." },
-            { term: "Land Use", detail: "The way land is managed and used for purposes such as farming, housing, industry, or conservation." },
-            { term: "Water Availability", detail: "The amount of usable water that is accessible to people and economic activities." },
-            { term: "Air Quality", detail: "The degree to which the air is clean and free from harmful pollutants." },
-            { term: "Waste Management", detail: "The collection, transport, treatment, recycling, and disposal of waste." }
+            { term: "Urbanisation", detail: "The growth of towns and cities as more people live and work in urban areas." },
+            { term: "Waste Generation", detail: "The production of unwanted materials as a result of human activities." }
         ];
-        const communityFactors = [
-            { term: "Community-Based Development", detail: "An approach in which community members actively lead and participate in planning, implementing, and managing projects that affect their lives." },
-            { term: "Local Participation", detail: "The involvement of community members in decisions so that projects reflect local priorities and needs." },
-            { term: "Empowerment", detail: "The process of building people's ability and authority to make decisions and take control of their own development." },
-            { term: "Sustainability", detail: "The ability to meet present needs while maintaining resources and opportunities for the future." },
-            { term: "Collaboration", detail: "People or organisations working together and sharing resources or expertise to achieve a common goal." },
-            { term: "Holistic Approach", detail: "A method that considers the whole situation and the connections among its economic, social, and environmental parts." },
-            { term: "Ownership", detail: "The community's responsibility for, control over, and commitment to a project or its outcomes." }
+        const pollutionClimate = [
+            { term: "Pollution", detail: "The introduction of harmful substances or energy into the environment." },
+            { term: "Air Pollution", detail: "Contamination of the atmosphere by harmful gases, smoke, or particles." },
+            { term: "Water Pollution", detail: "Contamination of rivers, dams, oceans, or groundwater by harmful substances." },
+            { term: "Soil Pollution", detail: "Contamination of soil by harmful chemicals, waste, or pollutants." },
+            { term: "Greenhouse Gases", detail: "Atmospheric gases that trap heat, including carbon dioxide and methane." },
+            { term: "Global Warming", detail: "The long-term rise in the average temperature of Earth." },
+            { term: "Climate Change", detail: "Long-term changes in average temperatures and other climate patterns." },
+            { term: "Sea-Level Rise", detail: "An increase in average ocean level caused partly by warming water and melting land ice." }
+        ];
+        const landResources = [
+            { term: "Overgrazing", detail: "Grazing land by too many animals for too long, preventing vegetation recovery." },
+            { term: "Soil Erosion", detail: "The removal of fertile topsoil by wind, water, or human activity." },
+            { term: "Crop Rotation", detail: "Growing different crops in a planned sequence to maintain soil health." },
+            { term: "Open-Cast Mining", detail: "Surface mining that removes soil and rock to reach shallow deposits." },
+            { term: "Mine Dump", detail: "A pile or area where waste rock and other mining material is stored." },
+            { term: "Acid Mine Drainage", detail: "Acidic polluted water produced when mining materials react with air and water." },
+            { term: "Overfishing", detail: "Catching fish faster than populations can reproduce and recover." },
+            { term: "Food Chain", detail: "A sequence showing how energy and nutrients pass from one organism to another." }
+        ];
+        const energyIndustryTourism = [
+            { term: "Renewable Energy", detail: "Energy from sources that naturally replenish, such as sunlight, wind, and flowing water." },
+            { term: "Fossil Fuel", detail: "A non-renewable fuel formed from ancient organic matter, such as coal, oil, or natural gas." },
+            { term: "Combustion", detail: "The process of burning a fuel to release energy." },
+            { term: "Industrial Waste", detail: "Unwanted material produced by factories and manufacturing." },
+            { term: "Chimney-Stack Filter", detail: "Equipment that removes some harmful gases or solid particles from factory emissions." },
+            { term: "Sustainable Tourism", detail: "Tourism managed to reduce environmental harm and protect places for the future." },
+            { term: "Sensitive Area", detail: "An environment that is easily damaged by human activity." },
+            { term: "Coral Reef", detail: "A diverse marine ecosystem formed mainly by colonies of coral organisms." }
+        ];
+        const urbanWaterWaste = [
+            { term: "Environmental Impact Assessment", detail: "A study used to predict environmental effects before a project begins." },
+            { term: "Landfill", detail: "A site where solid waste is buried or deposited." },
+            { term: "Eutrophication", detail: "Excess nutrients in water causing algal growth and reduced oxygen." },
+            { term: "Fertiliser Runoff", detail: "Fertiliser carried from land into rivers or dams by rainwater." },
+            { term: "Wetland", detail: "Land that is permanently or seasonally saturated with water and supports water-adapted life." },
+            { term: "Informal Settlement", detail: "A residential area where housing is often built without formal planning or full services." },
+            { term: "Sewage Spill", detail: "The accidental or uncontrolled release of wastewater into the environment." },
+            { term: "Urban Sprawl", detail: "The outward spread of low-density urban development over surrounding land." }
+        ];
+        const sustainableSolutions = [
+            { term: "Sustainable Development", detail: "Development that meets present needs without reducing the ability of future generations to meet theirs." },
+            { term: "Reforestation", detail: "The replanting of trees on land where forests were removed." },
+            { term: "Fishing Quota", detail: "A legal limit on the amount or number of fish that may be caught." },
+            { term: "Recycling", detail: "Processing waste materials so they can be used again." },
+            { term: "Biodegradable Material", detail: "Material that microorganisms can break down naturally." },
+            { term: "Conservation Area", detail: "Land or water protected to conserve species, habitats, and natural features." },
+            { term: "Wildlife Corridor", detail: "A protected route connecting habitats so wildlife can move between them." },
+            { term: "Environmental Awareness", detail: "Understanding environmental problems and how action can reduce them." }
         ];
         const toCards = factors => factors.flatMap((factor, index) => [
             { id: index + 1, text: factor.detail },
             { id: index + 1, text: factor.term }
         ]);
         const gameData = {
-            topic1: toCards(economicFactors),
-            topic2: toCards(socialFactors),
-            topic3: toCards(environmentalFactors),
-            topic4: toCards(communityFactors)
+            topic1: toCards(coreImpacts),
+            topic2: toCards(pollutionClimate),
+            topic3: toCards(landResources),
+            topic4: toCards(energyIndustryTourism),
+            topic5: toCards(urbanWaterWaste),
+            topic6: toCards(sustainableSolutions)
         };
 
         const gameBoard = document.getElementById('gameBoard');
@@ -247,7 +266,7 @@
             secondCard.removeEventListener('click', flipCard);
             matchedPairs++;
             if (matchedPairs === (gameData[currentCategory].length / 2)) {
-                setTimeout(() => alert(`Great job! Grade 11 Geography: Factors Affecting Development Revision Complete in ${moves} moves.`), 500);
+                setTimeout(() => alert(`Great job! Grade 11 Geography: Development Impacts on the Environment Revision Complete in ${moves} moves.`), 500);
             }
             resetBoard();
         }

@@ -13,7 +13,7 @@
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Drag or Tap Match | Grade 11 Geography: Factors Affecting Development</title>
+    <title>Drag or Tap Match | Grade 11 Geography: Trade and Development</title>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -372,17 +372,19 @@
     </nav>
 
     <main class="game-container">
-        <h1 class="game-title">Drag or Tap Match: Factors Affecting Development</h1>
-        <p class="game-subtitle">Match the economic, social, environmental, and community factors that shape development.</p>
-        <p style="font-size: 0.78rem; color: #52606d; margin-top: 0.45rem;">Source: Factors Affecting Development - Grade 11 Geography Term 3 presentation.</p>
+        <h1 class="game-title">Drag or Tap Match: Trade and Development</h1>
+        <p class="game-subtitle">Match the foundations, measures, policies, advantages, and challenges of international trade.</p>
+        <p style="font-size: 0.78rem; color: #52606d; margin-top: 0.45rem;">Source: Trade and Development - Grade 11 Geography Term 3 presentation.</p>
 
         <div class="category-selection">
             <h2>Step 1: Choose a Topic</h2>
             <div class="cat-buttons" id="catButtons">
-                <button class="cat-btn" onclick="selectCategory('unit1', this)">1. Economic Factors</button>
-                <button class="cat-btn" onclick="selectCategory('unit2', this)">2. Social Factors</button>
-                <button class="cat-btn" onclick="selectCategory('unit3', this)">3. Environmental Factors</button>
-                <button class="cat-btn" onclick="selectCategory('unit4', this)">4. Community-Based Development</button>
+                <button class="cat-btn" onclick="selectCategory('unit1', this)">1. Trade Foundations</button>
+                <button class="cat-btn" onclick="selectCategory('unit2', this)">2. Trade Measures</button>
+                <button class="cat-btn" onclick="selectCategory('unit3', this)">3. Trade Policy</button>
+                <button class="cat-btn" onclick="selectCategory('unit4', this)">4. Free Trade Advantages</button>
+                <button class="cat-btn" onclick="selectCategory('unit5', this)">5. Free Trade Disadvantages</button>
+                <button class="cat-btn" onclick="selectCategory('unit6', this)">6. Fair Trade</button>
             </div>
         </div>
 
@@ -393,7 +395,7 @@
             <div class="top-bar">
                 <div class="info-box" id="scoreBox">Score: 0</div>
                 <div class="info-box" id="remainingBox">Remaining: 0</div>
-                <div class="info-box" id="setBox">Topic: 0 / 4</div>
+                <div class="info-box" id="setBox">Topic: 0 / 6</div>
             </div>
 
             <div class="board">
@@ -428,60 +430,73 @@
 <script>
         const gameData = {
             unit1: [
-                { item: "Infrastructure", match: "The basic physical and organisational systems and facilities needed for a society and economy to function, such as transport, electricity, water, and communications." },
-                { item: "Investment", match: "The commitment of money, capital, or other resources to an activity or project in order to gain future benefits." },
-                { item: "Economic Policies", match: "Government decisions, laws, and actions used to influence how an economy operates." },
-                { item: "Technology", match: "The application of knowledge, tools, and techniques to solve problems and produce goods or services." },
-                { item: "Natural Resources", match: "Materials and environmental features that occur in nature and can be used by people, such as water, land, minerals, and forests." },
-                { item: "Trade", match: "The buying, selling, or exchange of goods and services between people, regions, or countries." },
-                { item: "Labor Market Conditions", match: "The circumstances affecting the supply of workers, demand for labour, employment, wages, and available skills." },
-                { item: "Financial Systems", match: "The institutions, markets, and rules that enable saving, borrowing, payments, and investment." },
-                { item: "Government Spending", match: "Money used by government to provide public services, infrastructure, and programmes." },
-                { item: "Entrepreneurship", match: "The process of identifying an opportunity, organising resources, and creating or managing an enterprise while accepting risk." }
+                { item: "Trade", match: "The business of exchanging, selling, and distributing goods and services." },
+                { item: "International Trade", match: "The exchange of raw materials, goods, and services between buyers and sellers across country or territory borders." },
+                { item: "Competitive Pricing", match: "A pricing approach in which sellers set prices by considering the prices charged by competitors for similar goods or services." },
+                { item: "Market", match: "An organisation, place, or mechanism that brings buyers and sellers together to exchange goods and services." },
+                { item: "Market Demand", match: "The total quantity of a good or service that consumers in a market are willing and able to buy." },
+                { item: "Commodities", match: "Raw materials, such as crude oil, coffee, natural gas, gold, and wheat, used to manufacture goods." },
+                { item: "Exports", match: "Goods and services sold to buyers in other countries." },
+                { item: "Imports", match: "Goods and services bought from sellers in other countries." }
             ],
             unit2: [
-                { item: "Education", match: "The organised process through which people acquire knowledge, skills, values, and understanding." },
-                { item: "Healthcare", match: "The services and systems used to prevent and treat illness and maintain people's health." },
-                { item: "Social Stability", match: "A condition in which society has order, security, and predictable social relationships." },
-                { item: "Cultural Attitudes", match: "Shared beliefs, values, and viewpoints that influence how people think and behave." },
-                { item: "Population Growth", match: "An increase in the number of people living in a place over a period of time." },
-                { item: "Gender Equality", match: "Equal rights, responsibilities, opportunities, and treatment for people of all genders." },
-                { item: "Social Services", match: "Public or community services that support people's welfare and basic needs, such as care, housing support, and social assistance." },
-                { item: "Crime Rates", match: "Measures of how frequently crimes occur in a population or area during a given period." },
-                { item: "Community Engagement", match: "The process of involving community members in decisions and actions that affect their lives." },
-                { item: "Migration", match: "The movement of people from one place to another to live or work, either temporarily or permanently." }
+                { item: "Terms of Trade", match: "The ratio between the prices of a country's exports and the prices of its imports." },
+                { item: "Balance of Trade", match: "The difference between the value of a country's exports and imports over a certain period." },
+                { item: "Balance of Trade Formula", match: "The calculation that subtracts the value of imports from the value of exports." },
+                { item: "Trade Surplus", match: "A favourable balance of trade in which the value of exports is higher than the value of imports." },
+                { item: "Trade Deficit", match: "An adverse balance of trade in which the value of imports is higher than the value of exports." },
+                { item: "Balance of Payments", match: "An accounting record of all transactions between a country and the rest of the world over a certain period." },
+                { item: "Capital", match: "Money and financial assets used for economic activity, including loans and investments." }
             ],
             unit3: [
-                { item: "Climate Change", match: "Long-term changes in average temperatures and other climate patterns." },
-                { item: "Natural Disasters", match: "Severe natural events that cause major damage, loss, or disruption to people and places." },
-                { item: "Environmental Policies", match: "Government laws, rules, and plans designed to manage human impacts and protect the environment." },
-                { item: "Biodiversity", match: "The variety of living organisms, including diversity within species, between species, and among ecosystems." },
-                { item: "Pollution", match: "The introduction of harmful substances or forms of energy into the environment." },
-                { item: "Resource Depletion", match: "The use of a natural resource faster than it can be replaced or renewed." },
-                { item: "Land Use", match: "The way land is managed and used for purposes such as farming, housing, industry, or conservation." },
-                { item: "Water Availability", match: "The amount of usable water that is accessible to people and economic activities." },
-                { item: "Air Quality", match: "The degree to which the air is clean and free from harmful pollutants." },
-                { item: "Waste Management", match: "The collection, transport, treatment, recycling, and disposal of waste." }
+                { item: "Trade Policy", match: "A set of rules and standards that governs a country's trade with other countries." },
+                { item: "Commercial Policy", match: "Government rules and measures that regulate trade with other countries; another name for trade policy." },
+                { item: "Protectionism", match: "A policy of restricting international trade to protect locally produced goods and services from foreign competition." },
+                { item: "Trade Barriers", match: "Government regulations or policies that restrict international trade." },
+                { item: "Tariffs", match: "Taxes imposed on imported goods and services." },
+                { item: "Quotas", match: "Restrictions that limit the quantity of goods that may be imported from a country." },
+                { item: "Subsidies", match: "Benefits or financial assistance that a government gives to businesses or sectors of the economy." }
             ],
             unit4: [
-                { item: "Community-Based Development", match: "An approach in which community members actively lead and participate in planning, implementing, and managing projects that affect their lives." },
-                { item: "Local Participation", match: "The involvement of community members in decisions so that projects reflect local priorities and needs." },
-                { item: "Empowerment", match: "The process of building people's ability and authority to make decisions and take control of their own development." },
-                { item: "Sustainability", match: "The ability to meet present needs while maintaining resources and opportunities for the future." },
-                { item: "Collaboration", match: "People or organisations working together and sharing resources or expertise to achieve a common goal." },
-                { item: "Holistic Approach", match: "A method that considers the whole situation and the connections among its economic, social, and environmental parts." },
-                { item: "Ownership", match: "The community's responsibility for, control over, and commitment to a project or its outcomes." }
+                { item: "Economic Growth", match: "An increase in the amount or value of goods and services produced by an economy over time." },
+                { item: "Consumer Benefits", match: "Advantages received by consumers, such as a wider variety of goods and lower prices." },
+                { item: "Innovation", match: "The development or introduction of new ideas, methods, products, or technologies." },
+                { item: "Efficient Resource Allocation", match: "The distribution of limited resources to the uses where they can produce the greatest value with the least waste." },
+                { item: "Foreign Direct Investment", match: "Investment by a person or business from one country in an enterprise located in another country." },
+                { item: "Political Relations", match: "The interactions and connections between governments or countries." },
+                { item: "Specialisation", match: "Concentrating production on goods or services in which a producer or country has an advantage." },
+                { item: "Economies of Scale", match: "Cost advantages gained when production increases and the average cost per unit falls." }
+            ],
+            unit5: [
+                { item: "Job Losses", match: "A reduction in employment when workers lose their jobs or fewer positions are available." },
+                { item: "Exploitation Risks", match: "The possibility that workers or producers will be treated unfairly, for example through low wages or poor working conditions." },
+                { item: "Economic Dependence", match: "Reliance on other countries for goods, investment, income, or markets, creating economic vulnerability." },
+                { item: "Environmental Impact", match: "The effect that an activity has on the natural environment." },
+                { item: "Market Volatility", match: "The degree to which market prices or conditions change rapidly and unpredictably." },
+                { item: "Loss of Sovereignty", match: "A reduction in a country's ability to control its own decisions and economic policies." },
+                { item: "Income Inequality", match: "The unequal distribution of income among people or groups." },
+                { item: "Cultural Erosion", match: "The gradual weakening or loss of local traditions, values, and identities." }
+            ],
+            unit6: [
+                { item: "Free Trade", match: "International trade without barriers or protective measures such as tariffs and quota restrictions." },
+                { item: "Economic Integration", match: "The process by which countries become more closely connected through trade and coordinated economic activity." },
+                { item: "Fair Trade", match: "A form of trade focused on sustainability, fair treatment of producers, and development in LEDCs." },
+                { item: "Higher Producer Wages", match: "Increased payment to the people who grow or manufacture goods." },
+                { item: "Ending Exploitation", match: "Stopping unfair practices that take advantage of workers or producers, including child labour." },
+                { item: "Entrepreneurship", match: "The process of identifying an opportunity, organising resources, and creating or managing an enterprise while accepting risk." }
             ]
         };
 
         const categoryTitles = {
-            unit1: "Economic Factors",
-            unit2: "Social Factors",
-            unit3: "Environmental Factors",
-            unit4: "Community-Based Development"
+            unit1: "Trade Foundations",
+            unit2: "Trade Measures",
+            unit3: "Trade Policy and Protectionism",
+            unit4: "Free Trade Advantages",
+            unit5: "Free Trade Disadvantages",
+            unit6: "Fair Trade"
         };
 
-        const categoryOrder = ["unit1", "unit2", "unit3", "unit4"];
+        const categoryOrder = ["unit1", "unit2", "unit3", "unit4", "unit5", "unit6"];
 
         let currentCategoryKey = null;
         let score = 0;
@@ -684,7 +699,7 @@
             const feedbackTitle = document.getElementById('feedbackTitle');
             const feedbackMessage = document.getElementById('feedbackMessage');
 
-            feedbackTitle.innerText = "Factors Affecting Development Master!";
+            feedbackTitle.innerText = "Trade and Development Master!";
             feedbackMessage.innerText = `You correctly identified all terms for the "${categoryTitles[currentCategoryKey]}" topic!`;
             feedbackBox.style.display = 'block';
         }

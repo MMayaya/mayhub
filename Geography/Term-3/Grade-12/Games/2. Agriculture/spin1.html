@@ -13,7 +13,7 @@
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Learning Hub | Grade 11 Geography: Factors Affecting Development</title>
+    <title>Learning Hub | Grade 12 Geography: Agriculture</title>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f0f4f8; color: #333; line-height: 1.6; display: flex; flex-direction: column; min-height: 100vh; }
@@ -63,9 +63,9 @@
     </nav>
 
     <main class="game-container">
-        <h1 class="game-title">Geography Quiz: Factors Affecting Development</h1>
-        <p class="game-subtitle">Test your Grade 11 Term 3 development knowledge. Select a category and spin the wheel.</p>
-        <p style="font-size: 0.78rem; color: #52606d; margin-top: 0.45rem;">Source: Factors Affecting Development - Grade 11 Geography Term 3 presentation.</p>
+        <h1 class="game-title">Geography Quiz: Agriculture</h1>
+        <p class="game-subtitle">Test your Grade 12 Term 3 Agriculture knowledge. Select a category and spin the wheel.</p>
+        <p style="font-size: 0.78rem; color: #52606d; margin-top: 0.45rem;">Source: Agriculture - Grade 12 Geography Term 3 presentation.</p>
 
         <div class="category-selection">
             <h2>Step 1: Choose a Category</h2>
@@ -79,7 +79,7 @@
 
         <div id="wheelArea">
             <h2 id="activeCategoryTitle">Category: None</h2>
-            
+
             <div class="wheel-wrapper">
                 <div class="pointer"></div>
                 <div class="wheel-center"></div>
@@ -95,9 +95,9 @@
             <div class="question-card" id="questionCard">
                 <div class="q-number-tag" id="qNumberTag">Question #</div>
                 <div class="question-text" id="questionText">Loading question...</div>
-                
+
                 <div class="mc-options" id="mcOptions"></div>
-                
+
                 <button class="reveal-btn" id="revealBtn" onclick="revealAnswer()">Reveal Answer</button>
                 <div class="answer-text" id="answerText"></div>
             </div>
@@ -112,96 +112,95 @@
 <script>
         const gameData = {
             'definitions': [
-                { q: "Infrastructure", a: "The basic physical and organisational systems and facilities needed for a society and economy to function, such as transport, electricity, water, and communications." },
-                { q: "Investment", a: "The commitment of money, capital, or other resources to an activity or project in order to gain future benefits." },
-                { q: "Economic Policies", a: "Government decisions, laws, and actions used to influence how an economy operates." },
-                { q: "Technology", a: "The application of knowledge, tools, and techniques to solve problems and produce goods or services." },
-                { q: "Natural Resources", a: "Materials and environmental features that occur in nature and can be used by people, such as water, land, minerals, and forests." },
-                { q: "Trade", a: "The buying, selling, or exchange of goods and services between people, regions, or countries." },
-                { q: "Labor Market Conditions", a: "The circumstances affecting the supply of workers, demand for labour, employment, wages, and available skills." },
-                { q: "Financial Systems", a: "The institutions, markets, and rules that enable saving, borrowing, payments, and investment." },
-                { q: "Government Spending", a: "Money used by government to provide public services, infrastructure, and programmes." },
-                { q: "Entrepreneurship", a: "The process of identifying an opportunity, organising resources, and creating or managing an enterprise while accepting risk." },
-                { q: "Education", a: "The organised process through which people acquire knowledge, skills, values, and understanding." },
-                { q: "Healthcare", a: "The services and systems used to prevent and treat illness and maintain people's health." },
-                { q: "Social Stability", a: "A condition in which society has order, security, and predictable social relationships." },
-                { q: "Cultural Attitudes", a: "Shared beliefs, values, and viewpoints that influence how people think and behave." },
-                { q: "Population Growth", a: "An increase in the number of people living in a place over a period of time." },
-                { q: "Gender Equality", a: "Equal rights, responsibilities, opportunities, and treatment for people of all genders." },
-                { q: "Social Services", a: "Public or community services that support people's welfare and basic needs, such as care, housing support, and social assistance." },
-                { q: "Crime Rates", a: "Measures of how frequently crimes occur in a population or area during a given period." },
-                { q: "Community Engagement", a: "The process of involving community members in decisions and actions that affect their lives." },
-                { q: "Migration", a: "The movement of people from one place to another to live or work, either temporarily or permanently." }
+                { q: "Direct Agricultural Contribution", a: "An immediate measurable contribution such as GDP, formal employment, exports, or informal labour." },
+                { q: "Indirect Agricultural Contribution", a: "A wider contribution through linked inputs, distribution, markets, sales, and food supply." },
+                { q: "Forward Integration", a: "Activities that move farm products toward consumers, including packaging, distribution, markets, and sales." },
+                { q: "Backward Integration", a: "Inputs and services supplied to farming, including seeds, fertilisers, machinery, irrigation, and fuel." },
+                { q: "Commercial Farming", a: "Farming that produces a surplus for sale in order to make a profit." },
+                { q: "Subsistence Farming", a: "Farming mainly undertaken to meet the needs of the farmer and household rather than to sell a large surplus." },
+                { q: "Large-Scale Farming", a: "Farming over a large area with high output, investment, value, and usually many employees." },
+                { q: "Small-Scale Farming", a: "Farming on a small area, generally with low output and limited financial turnover or access to credit." },
+                { q: "Arable Land", a: "Land that is suitable for growing crops." },
+                { q: "Intensive Farming", a: "Farming that uses concentrated inputs of capital or labour on a relatively small area." },
+                { q: "Surplus", a: "Production remaining after immediate needs have been met and available for sale." },
+                { q: "Domestic Market", a: "The market for products sold and consumed within the producing country." },
+                { q: "Export Market", a: "The market for products sold to buyers in other countries." },
+                { q: "Isohyet", a: "A line on a map joining places that receive the same amount of rainfall." },
+                { q: "Irrigation", a: "The artificial supply of water to crops or farmland." },
+                { q: "Mechanisation", a: "The use of machinery to perform agricultural work." },
+                { q: "Land Reform", a: "Policies intended to provide land to people who were previously denied access or ownership." },
+                { q: "Communal Land Tenure", a: "A system in which land is held by a community rather than owned by individual farmers." },
+                { q: "Trade Liberalism", a: "A policy that reduces restrictions and increases competition from imported products." },
+                { q: "Dumping", a: "Selling a surplus product in another country at a price lower than locally produced goods." }
             ],
             'terms': [
-                { q: "Long-term changes in average temperatures and other climate patterns.", a: "Climate Change" },
-                { q: "Severe natural events that cause major damage, loss, or disruption to people and places.", a: "Natural Disasters" },
-                { q: "Government laws, rules, and plans designed to manage human impacts and protect the environment.", a: "Environmental Policies" },
-                { q: "The variety of living organisms, including diversity within species, between species, and among ecosystems.", a: "Biodiversity" },
-                { q: "The introduction of harmful substances or forms of energy into the environment.", a: "Pollution" },
-                { q: "The use of a natural resource faster than it can be replaced or renewed.", a: "Resource Depletion" },
-                { q: "The way land is managed and used for purposes such as farming, housing, industry, or conservation.", a: "Land Use" },
-                { q: "The amount of usable water that is accessible to people and economic activities.", a: "Water Availability" },
-                { q: "The degree to which the air is clean and free from harmful pollutants.", a: "Air Quality" },
-                { q: "The collection, transport, treatment, recycling, and disposal of waste.", a: "Waste Management" },
-                { q: "An approach in which community members actively lead and participate in planning, implementing, and managing projects that affect their lives.", a: "Community-Based Development" },
-                { q: "The involvement of community members in decisions so that projects reflect local priorities and needs.", a: "Local Participation" },
-                { q: "The process of building people's ability and authority to make decisions and take control of their own development.", a: "Empowerment" },
-                { q: "The ability to meet present needs while maintaining resources and opportunities for the future.", a: "Sustainability" },
-                { q: "People or organisations working together and sharing resources or expertise to achieve a common goal.", a: "Collaboration" },
-                { q: "A method that considers the whole situation and the connections among its economic, social, and environmental parts.", a: "Holistic Approach" },
-                { q: "The community's responsibility for, control over, and commitment to a project or its outcomes.", a: "Ownership" },
-                { q: "The basic physical and organisational systems and facilities needed for a society and economy to function, such as transport, electricity, water, and communications.", a: "Infrastructure" },
-                { q: "The application of knowledge, tools, and techniques to solve problems and produce goods or services.", a: "Technology" },
-                { q: "The process of identifying an opportunity, organising resources, and creating or managing an enterprise while accepting risk.", a: "Entrepreneurship" }
+                { q: "GDP, formal employment, exports, and informal labour generated immediately by farming.", a: "Direct Contribution" },
+                { q: "Agriculture's wider support through linked industries, markets, inputs, and food supply.", a: "Indirect Contribution" },
+                { q: "Packaging, distribution, cooperatives, markets, and sales after farm production.", a: "Forward Integration" },
+                { q: "Seeds, pesticides, animal feed, fertilisers, machinery, and fuel supplied to farms.", a: "Backward Integration" },
+                { q: "Farming that produces goods for sale and profit.", a: "Commercial Farming" },
+                { q: "Farming mainly intended to support the farmer's household.", a: "Subsistence Farming" },
+                { q: "Land suitable for growing crops.", a: "Arable Land" },
+                { q: "A quantity produced beyond immediate needs and sold for profit.", a: "Surplus" },
+                { q: "The amount of money generated by a farm's business activities.", a: "Financial Turnover" },
+                { q: "Borrowed finance that is easier to obtain when a farm has high value.", a: "Credit" },
+                { q: "Products sold to consumers within South Africa.", a: "Domestic Market" },
+                { q: "Products sold to buyers outside South Africa.", a: "Export Market" },
+                { q: "A map line linking places with equal rainfall.", a: "Isohyet" },
+                { q: "Supplying water artificially to farmland.", a: "Irrigation" },
+                { q: "Using machines to carry out farm work.", a: "Mechanisation" },
+                { q: "Plant material that decomposes and adds humus to soil.", a: "Leaf Litter" },
+                { q: "Organic material in soil formed from decomposed plant and animal matter.", a: "Humus" },
+                { q: "Land held by a community instead of individual owners.", a: "Communal Land Tenure" },
+                { q: "A policy that opens the home market to greater international competition.", a: "Trade Liberalism" },
+                { q: "Selling foreign surplus goods more cheaply than locally produced goods.", a: "Dumping" }
             ],
             'multipleChoice': [
-                { q: "Which factor is necessary for economic activities and growth?", options: ["A) Infrastructure", "B) Crime rates", "C) Air quality", "D) Ownership"], a: "A) Infrastructure" },
-                { q: "Which factor funds development projects and creates jobs?", options: ["A) Investment", "B) Migration", "C) Pollution", "D) Biodiversity"], a: "A) Investment" },
-                { q: "What creates a conducive environment for growth?", options: ["A) Economic policies", "B) Resource depletion", "C) Natural disasters", "D) Crime rates"], a: "A) Economic policies" },
-                { q: "Which factor boosts productivity and innovation?", options: ["A) Technology", "B) Pollution", "C) Migration", "D) Land use"], a: "A) Technology" },
-                { q: "The effect of natural resources on development depends on:", options: ["A) Their management", "B) Migration only", "C) Crime rates only", "D) Gender roles only"], a: "A) Their management" },
-                { q: "Trade boosts economic growth through:", options: ["A) Market access", "B) Resource depletion", "C) Natural disasters", "D) Air pollution"], a: "A) Market access" },
-                { q: "Which factor affects employment and economic stability?", options: ["A) Labor market conditions", "B) Biodiversity", "C) Waste management", "D) Ownership"], a: "A) Labor market conditions" },
-                { q: "What facilitates investments and economic activities?", options: ["A) Financial systems", "B) Climate change", "C) Population growth", "D) Crime rates"], a: "A) Financial systems" },
-                { q: "Government spending supports:", options: ["A) Infrastructure and public services", "B) Pollution and depletion", "C) Crime and instability", "D) Disasters and migration"], a: "A) Infrastructure and public services" },
-                { q: "What drives economic diversification and innovation?", options: ["A) Entrepreneurship", "B) Resource depletion", "C) Natural disasters", "D) Pollution"], a: "A) Entrepreneurship" },
-                { q: "Which social factor provides skills and knowledge for economic growth?", options: ["A) Education", "B) Migration", "C) Crime rates", "D) Population growth"], a: "A) Education" },
-                { q: "Which factor affects well-being and productivity?", options: ["A) Healthcare", "B) Trade", "C) Land use", "D) Ownership"], a: "A) Healthcare" },
-                { q: "What ensures a safe environment for investment and growth?", options: ["A) Social stability", "B) Pollution", "C) Resource depletion", "D) Natural disasters"], a: "A) Social stability" },
-                { q: "What shapes work ethics, entrepreneurship, and gender roles?", options: ["A) Cultural attitudes", "B) Water availability", "C) Financial systems", "D) Waste management"], a: "A) Cultural attitudes" },
-                { q: "Population growth influences:", options: ["A) Resource allocation and workforce size", "B) Market access only", "C) Air quality only", "D) Project ownership only"], a: "A) Resource allocation and workforce size" },
-                { q: "Equal opportunities enhance productivity through:", options: ["A) Gender equality", "B) Pollution", "C) Migration", "D) Resource depletion"], a: "A) Gender equality" },
-                { q: "Which factor reduces poverty and inequality?", options: ["A) Social services", "B) Natural disasters", "C) Crime rates", "D) Pollution"], a: "A) Social services" },
-                { q: "Lower crime rates help create:", options: ["A) A safer environment for economic activities", "B) More resource depletion", "C) Less market access", "D) More pollution"], a: "A) A safer environment for economic activities" },
-                { q: "What drives local development initiatives?", options: ["A) Community engagement", "B) Climate change", "C) Pollution", "D) Resource depletion"], a: "A) Community engagement" },
-                { q: "Migration affects:", options: ["A) Labor markets and resource distribution", "B) Biodiversity only", "C) Air quality only", "D) Economic policies only"], a: "A) Labor markets and resource distribution" }
+                { q: "Which is a direct contribution of agriculture?", options: ["A) Percentage contribution to GDP", "B) Packaging after production", "C) Seeds supplied to farms", "D) Food security"], a: "A) Percentage contribution to GDP" },
+                { q: "Which is an example of forward integration?", options: ["A) Packaging and distribution", "B) Seeds and fertilisers", "C) Irrigation equipment", "D) Farm fuel"], a: "A) Packaging and distribution" },
+                { q: "Which is an example of backward integration?", options: ["A) Farm machinery and fuel", "B) Domestic product sales", "C) International markets", "D) Fruit stalls"], a: "A) Farm machinery and fuel" },
+                { q: "Approximately what share of arable land is devoted to large-scale commercial farms?", options: ["A) 70%", "B) 30%", "C) 13%", "D) 50%"], a: "A) 70%" },
+                { q: "Approximately what share of arable land is used by small-scale and subsistence farmers?", options: ["A) 30%", "B) 70%", "C) 13%", "D) 50%"], a: "A) 30%" },
+                { q: "What is the typical large-scale farm size in the comparison table?", options: ["A) 1,200 hectares", "B) 1-1.5 hectares", "C) 13 hectares", "D) 70 hectares"], a: "A) 1,200 hectares" },
+                { q: "What is the typical small-scale farm size in the table?", options: ["A) 1-1.5 hectares", "B) 1,200 hectares", "C) 500 hectares", "D) 70 hectares"], a: "A) 1-1.5 hectares" },
+                { q: "Which product is ranked first among the listed agricultural exports?", options: ["A) Wine", "B) Citrus", "C) Maize", "D) Wool"], a: "A) Wine" },
+                { q: "Which product is ranked second among the listed exports?", options: ["A) Citrus", "B) Grapes", "C) Sugarcane", "D) Wine"], a: "A) Citrus" },
+                { q: "What percentage of South African land is suitable for farming?", options: ["A) 13%", "B) 50%", "C) 70%", "D) 30%"], a: "A) 13%" },
+                { q: "What is identified as the greatest hindrance to agriculture?", options: ["A) Availability of water", "B) Too much arable land", "C) Excess farm credit", "D) Too many export markets"], a: "A) Availability of water" },
+                { q: "Nearly what share of South Africa's water is used for farming?", options: ["A) 50%", "B) 13%", "C) 30%", "D) 70%"], a: "A) 50%" },
+                { q: "What rainfall does the Highveld receive in the favourable summer pattern?", options: ["A) 500-700 mm", "B) 100-200 mm", "C) 600-800 mm in winter", "D) More than 1,500 mm"], a: "A) 500-700 mm" },
+                { q: "Which crops benefit from southwestern Cape winter rain?", options: ["A) Grapes, fruit, winter wheat, and olives", "B) Sugar only", "C) Maize only", "D) Cotton and rubber only"], a: "A) Grapes, fruit, winter wheat, and olives" },
+                { q: "What does rainfall above 1,000 mm on the east coast support?", options: ["A) Sugar and subtropical fruit", "B) Winter wheat only", "C) Wool only", "D) Quarrying"], a: "A) Sugar and subtropical fruit" },
+                { q: "Which farming occurs mainly west of the 500 mm isohyet?", options: ["A) Stock farming", "B) Intensive crop farming without irrigation", "C) Winter fruit farming everywhere", "D) Forestry only"], a: "A) Stock farming" },
+                { q: "Why are plateau and coastal plains favourable?", options: ["A) Their flat land supports mechanisation", "B) They are all frost-free", "C) They receive equal rainfall", "D) They have no soil erosion"], a: "A) Their flat land supports mechanisation" },
+                { q: "What makes agriculture difficult west of the 500 mm isohyet?", options: ["A) Rivers dry because of low rain, evaporation, and sandy soils", "B) Too many permanent rivers", "C) Excess winter rain", "D) Deep humus everywhere"], a: "A) Rivers dry because of low rain, evaporation, and sandy soils" },
+                { q: "Why can South Africa export fruit and flowers to Europe in its summer?", options: ["A) Europe experiences the opposite season", "B) Europe has no markets", "C) South Africa bans local sales", "D) All fruit is grown in winter"], a: "A) Europe experiences the opposite season" },
+                { q: "What foreign product is used as the dumping example?", options: ["A) Chickens from Brazil", "B) Wine from Europe", "C) Citrus from the USA", "D) Wool from Australia"], a: "A) Chickens from Brazil" }
             ],
             'trueFalse': [
-                { q: "Climate change affects agriculture and living conditions.", options: ["True", "False"], a: "True", exp: "It is listed as an environmental factor affecting both." },
-                { q: "Natural disasters support development by protecting infrastructure.", options: ["True", "False"], a: "False", exp: "They disrupt development by damaging infrastructure." },
-                { q: "Environmental policies promote sustainable development.", options: ["True", "False"], a: "True", exp: "This is their stated development role." },
-                { q: "Biodiversity supports agriculture and tourism.", options: ["True", "False"], a: "True", exp: "Both sectors are identified in the presentation." },
-                { q: "Pollution improves health and attracts investment.", options: ["True", "False"], a: "False", exp: "It harms health and deters investment." },
-                { q: "Resource depletion can create long-term economic challenges.", options: ["True", "False"], a: "True", exp: "The presentation identifies this long-term effect." },
-                { q: "Land use is irrelevant to agriculture and industry.", options: ["True", "False"], a: "False", exp: "It is crucial for sustainable agriculture and industry." },
-                { q: "Water availability is essential for health and industry.", options: ["True", "False"], a: "True", exp: "Both depend on adequate water." },
-                { q: "Better air quality supports health and quality of life.", options: ["True", "False"], a: "True", exp: "These are the benefits listed in the presentation." },
-                { q: "Waste management increases pollution.", options: ["True", "False"], a: "False", exp: "It reduces pollution and supports sustainability." },
-                { q: "Community-based development excludes communities from project planning.", options: ["True", "False"], a: "False", exp: "It emphasises active community participation and leadership." },
-                { q: "Local participation helps projects reflect community priorities and needs.", options: ["True", "False"], a: "True", exp: "Community members take part in decision-making." },
-                { q: "Empowerment builds people's capacity to control their own development.", options: ["True", "False"], a: "True", exp: "It also supports improvements in quality of life." },
-                { q: "CBD sustainability ignores local resources and knowledge.", options: ["True", "False"], a: "False", exp: "It encourages their use for long-lasting outcomes." },
-                { q: "Collaboration connects communities, local organisations, and external agencies.", options: ["True", "False"], a: "True", exp: "These partnerships help combine resources and expertise." },
-                { q: "A holistic approach treats economic, social, and environmental issues as unrelated.", options: ["True", "False"], a: "False", exp: "It recognises their interconnections." },
-                { q: "Community ownership can improve project maintenance and sustainability.", options: ["True", "False"], a: "True", exp: "Ownership supports lasting outcomes." },
-                { q: "Investment can create jobs.", options: ["True", "False"], a: "True", exp: "It also funds development projects." },
-                { q: "Social services increase poverty and inequality.", options: ["True", "False"], a: "False", exp: "They reduce poverty and inequality." },
-                { q: "Entrepreneurship supports diversification and innovation.", options: ["True", "False"], a: "True", exp: "These are its listed economic contributions." }
+                { q: "Agriculture contributes both directly and indirectly to South Africa's economy.", options: ["True", "False"], a: "True", exp: "The presentation separates immediate measures from linked economic contributions." },
+                { q: "Fruit stalls are an example of informal agricultural labour.", options: ["True", "False"], a: "True", exp: "They are listed under direct contributions." },
+                { q: "Large-scale farmers are generally commercial farmers.", options: ["True", "False"], a: "True", exp: "They usually produce high output for sale." },
+                { q: "Small-scale farmers can never be commercial farmers.", options: ["True", "False"], a: "False", exp: "They can be commercial when farming is intensive, capitalised, and produces a surplus for profit." },
+                { q: "Large-scale farms usually have easier access to credit because of their value.", options: ["True", "False"], a: "True", exp: "Their higher farm value supports access to finance." },
+                { q: "Small-scale farms generally have higher output than large-scale farms.", options: ["True", "False"], a: "False", exp: "The comparison gives small farms low output and large farms high output." },
+                { q: "Small-scale farms are mostly family-run.", options: ["True", "False"], a: "True", exp: "This is stated in the comparison table." },
+                { q: "Maize, wheat, potatoes, and meat are produced for the home market.", options: ["True", "False"], a: "True", exp: "All appear in the domestic-consumption list." },
+                { q: "Wool is ranked tenth in the export-product table.", options: ["True", "False"], a: "True", exp: "It is the final ranked product." },
+                { q: "Most of South Africa's land is suitable for farming.", options: ["True", "False"], a: "False", exp: "Only 13% is identified as suitable." },
+                { q: "Rainfall west of the 500 mm isohyet is generally inadequate and unreliable.", options: ["True", "False"], a: "True", exp: "This restricts crop farming in the west." },
+                { q: "Severe summer hailstorms can damage crops.", options: ["True", "False"], a: "True", exp: "Hail is listed as a climatic hindrance." },
+                { q: "South Africa's average temperature of 15 C supports a variety of crops.", options: ["True", "False"], a: "True", exp: "Its latitude range and average temperature favour diverse crops." },
+                { q: "Severe frost favours farming in exposed plateau areas.", options: ["True", "False"], a: "False", exp: "Frost in valleys and exposed high areas is a hindrance." },
+                { q: "Steep escarpment slopes and incised valleys make farming difficult.", options: ["True", "False"], a: "True", exp: "The terrain limits agricultural activity." },
+                { q: "Mixed grasses and shrubs can provide suitable grazing.", options: ["True", "False"], a: "True", exp: "They are listed as a favourable vegetation factor." },
+                { q: "Overuse and erosion have reduced soil fertility in many areas.", options: ["True", "False"], a: "True", exp: "Both damage productive soil." },
+                { q: "Land reform policies since 1994 aim to provide land to previously landless people.", options: ["True", "False"], a: "True", exp: "This is the stated purpose of post-1994 reform." },
+                { q: "Cheap imported products can adversely affect South African producers.", options: ["True", "False"], a: "True", exp: "The chicken-dumping example shows this impact." },
+                { q: "Improved transport networks can increase agricultural sales.", options: ["True", "False"], a: "True", exp: "Transport improvements are listed as a favourable human factor." }
             ]
         };
-
-        const totalQuestions = 20; 
+        const totalQuestions = 20;
         const sliceAngle = 360 / totalQuestions;
         let currentCategoryKey = null;
         let currentRotation = 0;
@@ -258,7 +257,7 @@
             const wheel = document.getElementById('wheel');
             const questionCard = document.getElementById('questionCard');
             let available = availableQuestions[currentCategoryKey];
-            
+
             if (available.length === 0) {
                 alert(`Resetting ${currentCategoryKey}!`);
                 availableQuestions[currentCategoryKey] = Array.from({length: totalQuestions}, (_, i) => i);
@@ -277,7 +276,7 @@
 
             let sliceCenterAngle = (targetQuestionIndex * sliceAngle) + (sliceAngle / 2);
             let targetDegree = 360 - sliceCenterAngle;
-            let currentBase = Math.ceil(currentRotation / 360) * 360; 
+            let currentBase = Math.ceil(currentRotation / 360) * 360;
             currentRotation = currentBase + 1800 + targetDegree;
             wheel.style.transform = `rotate(${currentRotation}deg)`;
 
@@ -298,9 +297,9 @@
             const answerText = document.getElementById('answerText');
             mcOptions.innerHTML = "";
             answerText.style.display = "none";
-            
+
             if (currentCategoryKey === 'multipleChoice' || currentCategoryKey === 'trueFalse') {
-                revealBtn.style.display = "none"; 
+                revealBtn.style.display = "none";
                 mcOptions.style.display = "flex";
                 data.options.forEach(opt => {
                     let btn = document.createElement("button");

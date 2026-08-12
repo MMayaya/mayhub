@@ -13,7 +13,7 @@
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Learning Hub | Grade 11 Geography: Factors Affecting Development</title>
+    <title>Learning Hub | Grade 11 Geography: Globalisation</title>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f0f4f8; color: #333; line-height: 1.6; display: flex; flex-direction: column; min-height: 100vh; }
@@ -63,9 +63,9 @@
     </nav>
 
     <main class="game-container">
-        <h1 class="game-title">Geography Quiz: Factors Affecting Development</h1>
-        <p class="game-subtitle">Test your Grade 11 Term 3 development knowledge. Select a category and spin the wheel.</p>
-        <p style="font-size: 0.78rem; color: #52606d; margin-top: 0.45rem;">Source: Factors Affecting Development - Grade 11 Geography Term 3 presentation.</p>
+        <h1 class="game-title">Geography Quiz: Globalisation</h1>
+        <p class="game-subtitle">Test your Grade 11 Term 3 globalisation knowledge. Select a category and spin the wheel.</p>
+        <p style="font-size: 0.78rem; color: #52606d; margin-top: 0.45rem;">Source: Globalisation - Grade 11 Geography Term 3 presentation.</p>
 
         <div class="category-selection">
             <h2>Step 1: Choose a Category</h2>
@@ -112,92 +112,92 @@
 <script>
         const gameData = {
             'definitions': [
-                { q: "Infrastructure", a: "The basic physical and organisational systems and facilities needed for a society and economy to function, such as transport, electricity, water, and communications." },
-                { q: "Investment", a: "The commitment of money, capital, or other resources to an activity or project in order to gain future benefits." },
-                { q: "Economic Policies", a: "Government decisions, laws, and actions used to influence how an economy operates." },
-                { q: "Technology", a: "The application of knowledge, tools, and techniques to solve problems and produce goods or services." },
-                { q: "Natural Resources", a: "Materials and environmental features that occur in nature and can be used by people, such as water, land, minerals, and forests." },
-                { q: "Trade", a: "The buying, selling, or exchange of goods and services between people, regions, or countries." },
-                { q: "Labor Market Conditions", a: "The circumstances affecting the supply of workers, demand for labour, employment, wages, and available skills." },
-                { q: "Financial Systems", a: "The institutions, markets, and rules that enable saving, borrowing, payments, and investment." },
-                { q: "Government Spending", a: "Money used by government to provide public services, infrastructure, and programmes." },
-                { q: "Entrepreneurship", a: "The process of identifying an opportunity, organising resources, and creating or managing an enterprise while accepting risk." },
-                { q: "Education", a: "The organised process through which people acquire knowledge, skills, values, and understanding." },
-                { q: "Healthcare", a: "The services and systems used to prevent and treat illness and maintain people's health." },
-                { q: "Social Stability", a: "A condition in which society has order, security, and predictable social relationships." },
-                { q: "Cultural Attitudes", a: "Shared beliefs, values, and viewpoints that influence how people think and behave." },
-                { q: "Population Growth", a: "An increase in the number of people living in a place over a period of time." },
-                { q: "Gender Equality", a: "Equal rights, responsibilities, opportunities, and treatment for people of all genders." },
-                { q: "Social Services", a: "Public or community services that support people's welfare and basic needs, such as care, housing support, and social assistance." },
-                { q: "Crime Rates", a: "Measures of how frequently crimes occur in a population or area during a given period." },
-                { q: "Community Engagement", a: "The process of involving community members in decisions and actions that affect their lives." },
-                { q: "Migration", a: "The movement of people from one place to another to live or work, either temporarily or permanently." }
+                { q: "Globalisation", a: "The process through which countries and people become increasingly socially, economically, culturally, and technologically interconnected." },
+                { q: "Global Connections", a: "Links between places and people that allow goods, services, information, ideas, and resources to move around the world." },
+                { q: "Transport Systems", a: "Networks and services used to move people and goods between places." },
+                { q: "Telecommunication Systems", a: "Technologies and networks that transmit information over distance, such as telephone and internet systems." },
+                { q: "Trade Barriers", a: "Government regulations or policies that restrict international trade." },
+                { q: "Global Village", a: "A metaphor describing the world as a smaller, closely connected community because communication and exchange occur rapidly across distance." },
+                { q: "Economic Integration", a: "The process by which national economies become more closely connected through freer movement of goods and services." },
+                { q: "Multinational Corporation", a: "A company that owns or controls business operations in more than one country." },
+                { q: "MEDCs", a: "More economically developed countries with relatively high income, industrialisation, and standards of living." },
+                { q: "LEDCs", a: "Less economically developed countries with relatively lower income, industrialisation, and standards of living." },
+                { q: "Economic Growth", a: "An increase in the amount or value of goods and services produced by an economy over time." },
+                { q: "Cultural Exchange", a: "The sharing of ideas, customs, beliefs, and practices between different cultures." },
+                { q: "Cultural Homogenisation", a: "The process through which cultures become increasingly similar, sometimes weakening local identity and traditions." },
+                { q: "Outsourcing", a: "The practice of moving work or contracting business activities to an external provider, often in another country." },
+                { q: "Foreign Direct Investment", a: "Investment by a person or company from one country in a business located in another country." },
+                { q: "Economic Interdependence", a: "A condition in which countries rely on one another for trade, investment, goods, services, or resources." },
+                { q: "Export-Led Development", a: "An economic approach that promotes development and higher living standards by supporting industries that produce goods or services for export." },
+                { q: "Infrastructure", a: "The basic systems and facilities needed for economic activity, such as transport, electricity, water, and communication networks." },
+                { q: "Technology Transfer", a: "The movement of technical knowledge, skills, methods, or equipment from one country or organisation to another." },
+                { q: "Transfer Pricing", a: "The pricing of transactions between related parts of a multinational corporation in different countries." }
             ],
             'terms': [
-                { q: "Long-term changes in average temperatures and other climate patterns.", a: "Climate Change" },
-                { q: "Severe natural events that cause major damage, loss, or disruption to people and places.", a: "Natural Disasters" },
-                { q: "Government laws, rules, and plans designed to manage human impacts and protect the environment.", a: "Environmental Policies" },
-                { q: "The variety of living organisms, including diversity within species, between species, and among ecosystems.", a: "Biodiversity" },
-                { q: "The introduction of harmful substances or forms of energy into the environment.", a: "Pollution" },
-                { q: "The use of a natural resource faster than it can be replaced or renewed.", a: "Resource Depletion" },
-                { q: "The way land is managed and used for purposes such as farming, housing, industry, or conservation.", a: "Land Use" },
-                { q: "The amount of usable water that is accessible to people and economic activities.", a: "Water Availability" },
-                { q: "The degree to which the air is clean and free from harmful pollutants.", a: "Air Quality" },
-                { q: "The collection, transport, treatment, recycling, and disposal of waste.", a: "Waste Management" },
-                { q: "An approach in which community members actively lead and participate in planning, implementing, and managing projects that affect their lives.", a: "Community-Based Development" },
-                { q: "The involvement of community members in decisions so that projects reflect local priorities and needs.", a: "Local Participation" },
-                { q: "The process of building people's ability and authority to make decisions and take control of their own development.", a: "Empowerment" },
-                { q: "The ability to meet present needs while maintaining resources and opportunities for the future.", a: "Sustainability" },
-                { q: "People or organisations working together and sharing resources or expertise to achieve a common goal.", a: "Collaboration" },
-                { q: "A method that considers the whole situation and the connections among its economic, social, and environmental parts.", a: "Holistic Approach" },
-                { q: "The community's responsibility for, control over, and commitment to a project or its outcomes.", a: "Ownership" },
-                { q: "The basic physical and organisational systems and facilities needed for a society and economy to function, such as transport, electricity, water, and communications.", a: "Infrastructure" },
-                { q: "The application of knowledge, tools, and techniques to solve problems and produce goods or services.", a: "Technology" },
-                { q: "The process of identifying an opportunity, organising resources, and creating or managing an enterprise while accepting risk.", a: "Entrepreneurship" }
+                { q: "The process through which countries become increasingly socially and economically interconnected.", a: "Globalisation" },
+                { q: "The metaphor that describes the world as shrinking because time and distance barriers are being reduced.", a: "Global Village" },
+                { q: "Networks and services used to move people and goods between places.", a: "Transport Systems" },
+                { q: "Technologies and networks used to send information across distance.", a: "Telecommunication Systems" },
+                { q: "The closer connection of national economies through freer movement of goods and services.", a: "Economic Integration" },
+                { q: "A company that owns or controls operations in more than one country.", a: "Multinational Corporation" },
+                { q: "Countries with relatively high income, industrialisation, and standards of living.", a: "MEDCs" },
+                { q: "Countries with relatively lower income, industrialisation, and standards of living.", a: "LEDCs" },
+                { q: "The sharing of ideas, customs, and practices between cultures.", a: "Cultural Exchange" },
+                { q: "The loss of cultural differences as cultures become increasingly similar.", a: "Cultural Homogenisation" },
+                { q: "Moving work or business activities to an external provider, often in a cheaper-labour country.", a: "Outsourcing" },
+                { q: "Unfair treatment of workers through practices such as low wages, long hours, or child labour.", a: "Labour Exploitation" },
+                { q: "Reliance on foreign economies or multinational corporations that creates vulnerability.", a: "Economic Dependency" },
+                { q: "A reduction in a government's control over its own national decisions and economic policies.", a: "Loss of Sovereignty" },
+                { q: "Rapid, unpredictable change in financial markets that can spread between countries.", a: "Financial Instability" },
+                { q: "An approach that promotes development by supporting industries that produce goods or services for export.", a: "Export-Led Development" },
+                { q: "Investment by a foreign person or company in an enterprise located in another country.", a: "Foreign Direct Investment" },
+                { q: "The movement of technical knowledge, skills, or equipment from one country to another.", a: "Technology Transfer" },
+                { q: "The value of trade compared with the total value of goods and services produced by an economy.", a: "Trade-to-GDP Ratio" },
+                { q: "The pricing of transactions between related branches of a multinational company in different countries.", a: "Transfer Pricing" }
             ],
             'multipleChoice': [
-                { q: "Which factor is necessary for economic activities and growth?", options: ["A) Infrastructure", "B) Crime rates", "C) Air quality", "D) Ownership"], a: "A) Infrastructure" },
-                { q: "Which factor funds development projects and creates jobs?", options: ["A) Investment", "B) Migration", "C) Pollution", "D) Biodiversity"], a: "A) Investment" },
-                { q: "What creates a conducive environment for growth?", options: ["A) Economic policies", "B) Resource depletion", "C) Natural disasters", "D) Crime rates"], a: "A) Economic policies" },
-                { q: "Which factor boosts productivity and innovation?", options: ["A) Technology", "B) Pollution", "C) Migration", "D) Land use"], a: "A) Technology" },
-                { q: "The effect of natural resources on development depends on:", options: ["A) Their management", "B) Migration only", "C) Crime rates only", "D) Gender roles only"], a: "A) Their management" },
-                { q: "Trade boosts economic growth through:", options: ["A) Market access", "B) Resource depletion", "C) Natural disasters", "D) Air pollution"], a: "A) Market access" },
-                { q: "Which factor affects employment and economic stability?", options: ["A) Labor market conditions", "B) Biodiversity", "C) Waste management", "D) Ownership"], a: "A) Labor market conditions" },
-                { q: "What facilitates investments and economic activities?", options: ["A) Financial systems", "B) Climate change", "C) Population growth", "D) Crime rates"], a: "A) Financial systems" },
-                { q: "Government spending supports:", options: ["A) Infrastructure and public services", "B) Pollution and depletion", "C) Crime and instability", "D) Disasters and migration"], a: "A) Infrastructure and public services" },
-                { q: "What drives economic diversification and innovation?", options: ["A) Entrepreneurship", "B) Resource depletion", "C) Natural disasters", "D) Pollution"], a: "A) Entrepreneurship" },
-                { q: "Which social factor provides skills and knowledge for economic growth?", options: ["A) Education", "B) Migration", "C) Crime rates", "D) Population growth"], a: "A) Education" },
-                { q: "Which factor affects well-being and productivity?", options: ["A) Healthcare", "B) Trade", "C) Land use", "D) Ownership"], a: "A) Healthcare" },
-                { q: "What ensures a safe environment for investment and growth?", options: ["A) Social stability", "B) Pollution", "C) Resource depletion", "D) Natural disasters"], a: "A) Social stability" },
-                { q: "What shapes work ethics, entrepreneurship, and gender roles?", options: ["A) Cultural attitudes", "B) Water availability", "C) Financial systems", "D) Waste management"], a: "A) Cultural attitudes" },
-                { q: "Population growth influences:", options: ["A) Resource allocation and workforce size", "B) Market access only", "C) Air quality only", "D) Project ownership only"], a: "A) Resource allocation and workforce size" },
-                { q: "Equal opportunities enhance productivity through:", options: ["A) Gender equality", "B) Pollution", "C) Migration", "D) Resource depletion"], a: "A) Gender equality" },
-                { q: "Which factor reduces poverty and inequality?", options: ["A) Social services", "B) Natural disasters", "C) Crime rates", "D) Pollution"], a: "A) Social services" },
-                { q: "Lower crime rates help create:", options: ["A) A safer environment for economic activities", "B) More resource depletion", "C) Less market access", "D) More pollution"], a: "A) A safer environment for economic activities" },
-                { q: "What drives local development initiatives?", options: ["A) Community engagement", "B) Climate change", "C) Pollution", "D) Resource depletion"], a: "A) Community engagement" },
-                { q: "Migration affects:", options: ["A) Labor markets and resource distribution", "B) Biodiversity only", "C) Air quality only", "D) Economic policies only"], a: "A) Labor markets and resource distribution" }
+                { q: "What has increased global connections?", options: ["A) Improved transport and telecommunications", "B) Higher time barriers", "C) Reduced communication", "D) Closed borders only"], a: "A) Improved transport and telecommunications" },
+                { q: "Globalisation has generally done what to international trade barriers?", options: ["A) Reduced them", "B) Made all of them permanent", "C) Replaced trade with aid", "D) Ended all transport"], a: "A) Reduced them" },
+                { q: "What does the global village metaphor suggest?", options: ["A) The world feels smaller and more connected", "B) Every person lives in a rural village", "C) Countries no longer trade", "D) Distance has physically disappeared"], a: "A) The world feels smaller and more connected" },
+                { q: "Economic integration allows freer movement of:", options: ["A) Goods and services", "B) Climate zones", "C) National borders", "D) Natural disasters"], a: "A) Goods and services" },
+                { q: "According to the presentation, economic integration particularly benefits:", options: ["A) MEDCs", "B) No countries", "C) Villages only", "D) Countries without trade"], a: "A) MEDCs" },
+                { q: "Where are most powerful MNCs predominantly based?", options: ["A) MEDCs", "B) LEDCs only", "C) Rural villages", "D) Countries without markets"], a: "A) MEDCs" },
+                { q: "What can MNCs influence?", options: ["A) Government trade decisions", "B) The length of a day", "C) Climate zones", "D) Plate movement"], a: "A) Government trade decisions" },
+                { q: "Which advantage gives producers access to more buyers?", options: ["A) Larger markets", "B) Cultural clashes", "C) Financial instability", "D) Loss of jobs"], a: "A) Larger markets" },
+                { q: "Which advantage spreads technology and innovation?", options: ["A) Access to technology", "B) Economic disparity", "C) Dependency", "D) Cultural erosion"], a: "A) Access to technology" },
+                { q: "Which advantage connects people around the world?", options: ["A) Improved communication", "B) Outsourcing", "C) Loss of sovereignty", "D) Labour exploitation"], a: "A) Improved communication" },
+                { q: "Why may economic interdependence support peace?", options: ["A) Connected economies have more to lose from conflict", "B) It ends every disagreement", "C) It removes all governments", "D) It prevents communication"], a: "A) Connected economies have more to lose from conflict" },
+                { q: "Which disadvantage can widen the gap between rich and poor nations?", options: ["A) Economic disparity", "B) Cultural exchange", "C) Access to goods", "D) Education opportunities"], a: "A) Economic disparity" },
+                { q: "Why may jobs be lost in one country?", options: ["A) Work may be outsourced to cheaper-labour countries", "B) Communication improves", "C) More goods become available", "D) Education expands"], a: "A) Work may be outsourced to cheaper-labour countries" },
+                { q: "What can increased industrial activity cause?", options: ["A) Environmental degradation", "B) Automatic conservation", "C) Fewer resources used", "D) No pollution"], a: "A) Environmental degradation" },
+                { q: "What may global financial crises cause?", options: ["A) Far-reaching financial instability", "B) Only local cultural exchange", "C) Permanent trade growth", "D) The end of MNCs"], a: "A) Far-reaching financial instability" },
+                { q: "What is the aim of export-led development?", options: ["A) Promote development and higher living standards", "B) Stop all exports", "C) Remove productive industries", "D) Increase trade barriers"], a: "A) Promote development and higher living standards" },
+                { q: "What does government support in export-led development?", options: ["A) Export industries and their infrastructure", "B) Imports only", "C) Cultural clashes", "D) Foreign taxes only"], a: "A) Export industries and their infrastructure" },
+                { q: "Which South African food export is linked to Outspan?", options: ["A) Citrus fruit", "B) Petroleum", "C) Ethanol", "D) Coal"], a: "A) Citrus fruit" },
+                { q: "Which company is given as a South African fuel-industry example?", options: ["A) Sasol", "B) Outspan", "C) European Commission", "D) A foreign bank"], a: "A) Sasol" },
+                { q: "Which fuel in the presentation is often made from sugar?", options: ["A) Ethanol", "B) Petroleum", "C) Natural gas", "D) Diesel"], a: "A) Ethanol" }
             ],
             'trueFalse': [
-                { q: "Climate change affects agriculture and living conditions.", options: ["True", "False"], a: "True", exp: "It is listed as an environmental factor affecting both." },
-                { q: "Natural disasters support development by protecting infrastructure.", options: ["True", "False"], a: "False", exp: "They disrupt development by damaging infrastructure." },
-                { q: "Environmental policies promote sustainable development.", options: ["True", "False"], a: "True", exp: "This is their stated development role." },
-                { q: "Biodiversity supports agriculture and tourism.", options: ["True", "False"], a: "True", exp: "Both sectors are identified in the presentation." },
-                { q: "Pollution improves health and attracts investment.", options: ["True", "False"], a: "False", exp: "It harms health and deters investment." },
-                { q: "Resource depletion can create long-term economic challenges.", options: ["True", "False"], a: "True", exp: "The presentation identifies this long-term effect." },
-                { q: "Land use is irrelevant to agriculture and industry.", options: ["True", "False"], a: "False", exp: "It is crucial for sustainable agriculture and industry." },
-                { q: "Water availability is essential for health and industry.", options: ["True", "False"], a: "True", exp: "Both depend on adequate water." },
-                { q: "Better air quality supports health and quality of life.", options: ["True", "False"], a: "True", exp: "These are the benefits listed in the presentation." },
-                { q: "Waste management increases pollution.", options: ["True", "False"], a: "False", exp: "It reduces pollution and supports sustainability." },
-                { q: "Community-based development excludes communities from project planning.", options: ["True", "False"], a: "False", exp: "It emphasises active community participation and leadership." },
-                { q: "Local participation helps projects reflect community priorities and needs.", options: ["True", "False"], a: "True", exp: "Community members take part in decision-making." },
-                { q: "Empowerment builds people's capacity to control their own development.", options: ["True", "False"], a: "True", exp: "It also supports improvements in quality of life." },
-                { q: "CBD sustainability ignores local resources and knowledge.", options: ["True", "False"], a: "False", exp: "It encourages their use for long-lasting outcomes." },
-                { q: "Collaboration connects communities, local organisations, and external agencies.", options: ["True", "False"], a: "True", exp: "These partnerships help combine resources and expertise." },
-                { q: "A holistic approach treats economic, social, and environmental issues as unrelated.", options: ["True", "False"], a: "False", exp: "It recognises their interconnections." },
-                { q: "Community ownership can improve project maintenance and sustainability.", options: ["True", "False"], a: "True", exp: "Ownership supports lasting outcomes." },
-                { q: "Investment can create jobs.", options: ["True", "False"], a: "True", exp: "It also funds development projects." },
-                { q: "Social services increase poverty and inequality.", options: ["True", "False"], a: "False", exp: "They reduce poverty and inequality." },
-                { q: "Entrepreneurship supports diversification and innovation.", options: ["True", "False"], a: "True", exp: "These are its listed economic contributions." }
+                { q: "Improved transport and telecommunications increase global connections.", options: ["True", "False"], a: "True", exp: "They make movement and communication across distance easier." },
+                { q: "The global village metaphor means the Earth has physically become smaller.", options: ["True", "False"], a: "False", exp: "It describes increased connection and reduced barriers of time and space." },
+                { q: "Ideas, cultures, and resources can be shared globally without people travelling.", options: ["True", "False"], a: "True", exp: "Telecommunications allow rapid exchange across distance." },
+                { q: "Economic integration depends on increasing every trade barrier.", options: ["True", "False"], a: "False", exp: "It involves eliminating or reducing trade barriers." },
+                { q: "MNCs are predominantly based in MEDCs.", options: ["True", "False"], a: "True", exp: "This is stated in the presentation." },
+                { q: "MEDCs control little global trade despite containing most of the world's population.", options: ["True", "False"], a: "False", exp: "The presentation says MEDCs control most global trade despite their smaller population share." },
+                { q: "Globalisation can give consumers access to a wider variety of goods and services.", options: ["True", "False"], a: "True", exp: "This is one of its listed advantages." },
+                { q: "Cultural homogenisation protects every local tradition from foreign influence.", options: ["True", "False"], a: "False", exp: "It may weaken cultural identity and traditions." },
+                { q: "Outsourcing may cause job losses in some countries.", options: ["True", "False"], a: "True", exp: "Jobs may move to countries with cheaper labour." },
+                { q: "Workers in developing countries may face low wages and poor conditions.", options: ["True", "False"], a: "True", exp: "This is the labour-exploitation risk identified in the chapter." },
+                { q: "The benefits of globalisation are always evenly distributed.", options: ["True", "False"], a: "False", exp: "The presentation identifies inequality as a disadvantage." },
+                { q: "Global interaction can create cultural misunderstandings and conflict.", options: ["True", "False"], a: "True", exp: "Cultural clashes are listed as a disadvantage." },
+                { q: "Global financial crises can affect countries far from where a crisis begins.", options: ["True", "False"], a: "True", exp: "Financial impacts can spread through interconnected economies." },
+                { q: "Export-led development discourages industries from producing for export.", options: ["True", "False"], a: "False", exp: "It encourages industries that produce and export goods or services." },
+                { q: "Government may invest in infrastructure needed to support exports.", options: ["True", "False"], a: "True", exp: "This is part of export-led development." },
+                { q: "Citrus fruit, maize, and wine are supported South African food-export examples.", options: ["True", "False"], a: "True", exp: "All three are listed in the presentation." },
+                { q: "Sasol petroleum and ethanol are fuel examples in the presentation.", options: ["True", "False"], a: "True", exp: "They are listed under supported fuel industries." },
+                { q: "Globalisation can expose LEDCs to external economic forces beyond their control.", options: ["True", "False"], a: "True", exp: "This concern appears in the chapter activity." },
+                { q: "Technology transfer can benefit developing economies.", options: ["True", "False"], a: "True", exp: "It is listed as one way developing economies may gain." },
+                { q: "Globalisation always increases a state's ability to tax corporations.", options: ["True", "False"], a: "False", exp: "The activity notes that this ability may decline when companies can relocate or use transfer pricing." }
             ]
         };
 

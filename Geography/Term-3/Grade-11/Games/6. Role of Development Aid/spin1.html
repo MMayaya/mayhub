@@ -13,7 +13,7 @@
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Learning Hub | Grade 11 Geography: Factors Affecting Development</title>
+    <title>Learning Hub | Grade 11 Geography: Role of Development Aid</title>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f0f4f8; color: #333; line-height: 1.6; display: flex; flex-direction: column; min-height: 100vh; }
@@ -63,9 +63,9 @@
     </nav>
 
     <main class="game-container">
-        <h1 class="game-title">Geography Quiz: Factors Affecting Development</h1>
-        <p class="game-subtitle">Test your Grade 11 Term 3 development knowledge. Select a category and spin the wheel.</p>
-        <p style="font-size: 0.78rem; color: #52606d; margin-top: 0.45rem;">Source: Factors Affecting Development - Grade 11 Geography Term 3 presentation.</p>
+        <h1 class="game-title">Geography Quiz: Role of Development Aid</h1>
+        <p class="game-subtitle">Test your Grade 11 Term 3 development aid knowledge. Select a category and spin the wheel.</p>
+        <p style="font-size: 0.78rem; color: #52606d; margin-top: 0.45rem;">Source: Development Aid - Grade 11 Geography Term 3 presentation.</p>
 
         <div class="category-selection">
             <h2>Step 1: Choose a Category</h2>
@@ -79,7 +79,7 @@
 
         <div id="wheelArea">
             <h2 id="activeCategoryTitle">Category: None</h2>
-            
+
             <div class="wheel-wrapper">
                 <div class="pointer"></div>
                 <div class="wheel-center"></div>
@@ -95,9 +95,9 @@
             <div class="question-card" id="questionCard">
                 <div class="q-number-tag" id="qNumberTag">Question #</div>
                 <div class="question-text" id="questionText">Loading question...</div>
-                
+
                 <div class="mc-options" id="mcOptions"></div>
-                
+
                 <button class="reveal-btn" id="revealBtn" onclick="revealAnswer()">Reveal Answer</button>
                 <div class="answer-text" id="answerText"></div>
             </div>
@@ -112,96 +112,95 @@
 <script>
         const gameData = {
             'definitions': [
-                { q: "Infrastructure", a: "The basic physical and organisational systems and facilities needed for a society and economy to function, such as transport, electricity, water, and communications." },
-                { q: "Investment", a: "The commitment of money, capital, or other resources to an activity or project in order to gain future benefits." },
-                { q: "Economic Policies", a: "Government decisions, laws, and actions used to influence how an economy operates." },
-                { q: "Technology", a: "The application of knowledge, tools, and techniques to solve problems and produce goods or services." },
-                { q: "Natural Resources", a: "Materials and environmental features that occur in nature and can be used by people, such as water, land, minerals, and forests." },
-                { q: "Trade", a: "The buying, selling, or exchange of goods and services between people, regions, or countries." },
-                { q: "Labor Market Conditions", a: "The circumstances affecting the supply of workers, demand for labour, employment, wages, and available skills." },
-                { q: "Financial Systems", a: "The institutions, markets, and rules that enable saving, borrowing, payments, and investment." },
-                { q: "Government Spending", a: "Money used by government to provide public services, infrastructure, and programmes." },
-                { q: "Entrepreneurship", a: "The process of identifying an opportunity, organising resources, and creating or managing an enterprise while accepting risk." },
-                { q: "Education", a: "The organised process through which people acquire knowledge, skills, values, and understanding." },
-                { q: "Healthcare", a: "The services and systems used to prevent and treat illness and maintain people's health." },
-                { q: "Social Stability", a: "A condition in which society has order, security, and predictable social relationships." },
-                { q: "Cultural Attitudes", a: "Shared beliefs, values, and viewpoints that influence how people think and behave." },
-                { q: "Population Growth", a: "An increase in the number of people living in a place over a period of time." },
-                { q: "Gender Equality", a: "Equal rights, responsibilities, opportunities, and treatment for people of all genders." },
-                { q: "Social Services", a: "Public or community services that support people's welfare and basic needs, such as care, housing support, and social assistance." },
-                { q: "Crime Rates", a: "Measures of how frequently crimes occur in a population or area during a given period." },
-                { q: "Community Engagement", a: "The process of involving community members in decisions and actions that affect their lives." },
-                { q: "Migration", a: "The movement of people from one place to another to live or work, either temporarily or permanently." }
+                { q: "Development Aid", a: "Assistance from foreign countries or organisations that supports economic, social, and environmental development and living standards in LEDCs." },
+                { q: "Donor", a: "A foreign country or organisation that gives development aid." },
+                { q: "Recipient", a: "A country that receives development aid from a donor." },
+                { q: "Official Aid", a: "Authorised aid given from one country to another or from an international organisation to a country." },
+                { q: "Bilateral Aid", a: "Aid given directly from one country to another." },
+                { q: "Multilateral Aid", a: "Aid given through an international organisation that distributes it among LEDCs." },
+                { q: "Voluntary Aid", a: "Aid collected by aid agencies and donated voluntarily by individuals and corporations." },
+                { q: "Short-Term Aid", a: "Immediate assistance supplied during an emergency or disaster." },
+                { q: "Long-Term Aid", a: "Continued assistance intended to support development over time." },
+                { q: "Technical Aid", a: "Aid provided as skilled technological advice and assistance." },
+                { q: "Infrastructure", a: "Basic facilities and systems such as roads, bridges, power stations, dams, schools, and hospitals." },
+                { q: "Conditional Aid", a: "Aid granted only when the recipient accepts a specific condition." },
+                { q: "Trade Agreement", a: "An arrangement between countries that sets terms for exchanging goods or resources." },
+                { q: "Humanitarian Aid", a: "Support provided to improve living conditions and assist people in emergencies." },
+                { q: "Poverty Reduction", a: "Reducing poverty by providing essential resources, services, and opportunities." },
+                { q: "Capacity Building", a: "Improving local skills and abilities through training and knowledge transfer." },
+                { q: "Aid Dependency", a: "Reliance on continued aid that reduces a recipient country's self-sufficiency." },
+                { q: "Mismanagement", a: "The poor, corrupt, or incorrect use and allocation of aid." },
+                { q: "Donor Influence", a: "Pressure from donors that can shape the recipient country's policies and priorities." },
+                { q: "Aid Fatigue", a: "A decline in donor willingness or contributions after providing aid continuously." }
             ],
             'terms': [
-                { q: "Long-term changes in average temperatures and other climate patterns.", a: "Climate Change" },
-                { q: "Severe natural events that cause major damage, loss, or disruption to people and places.", a: "Natural Disasters" },
-                { q: "Government laws, rules, and plans designed to manage human impacts and protect the environment.", a: "Environmental Policies" },
-                { q: "The variety of living organisms, including diversity within species, between species, and among ecosystems.", a: "Biodiversity" },
-                { q: "The introduction of harmful substances or forms of energy into the environment.", a: "Pollution" },
-                { q: "The use of a natural resource faster than it can be replaced or renewed.", a: "Resource Depletion" },
-                { q: "The way land is managed and used for purposes such as farming, housing, industry, or conservation.", a: "Land Use" },
-                { q: "The amount of usable water that is accessible to people and economic activities.", a: "Water Availability" },
-                { q: "The degree to which the air is clean and free from harmful pollutants.", a: "Air Quality" },
-                { q: "The collection, transport, treatment, recycling, and disposal of waste.", a: "Waste Management" },
-                { q: "An approach in which community members actively lead and participate in planning, implementing, and managing projects that affect their lives.", a: "Community-Based Development" },
-                { q: "The involvement of community members in decisions so that projects reflect local priorities and needs.", a: "Local Participation" },
-                { q: "The process of building people's ability and authority to make decisions and take control of their own development.", a: "Empowerment" },
-                { q: "The ability to meet present needs while maintaining resources and opportunities for the future.", a: "Sustainability" },
-                { q: "People or organisations working together and sharing resources or expertise to achieve a common goal.", a: "Collaboration" },
-                { q: "A method that considers the whole situation and the connections among its economic, social, and environmental parts.", a: "Holistic Approach" },
-                { q: "The community's responsibility for, control over, and commitment to a project or its outcomes.", a: "Ownership" },
-                { q: "The basic physical and organisational systems and facilities needed for a society and economy to function, such as transport, electricity, water, and communications.", a: "Infrastructure" },
-                { q: "The application of knowledge, tools, and techniques to solve problems and produce goods or services.", a: "Technology" },
-                { q: "The process of identifying an opportunity, organising resources, and creating or managing an enterprise while accepting risk.", a: "Entrepreneurship" }
+                { q: "Assistance given by foreign countries or organisations to support development in LEDCs.", a: "Development Aid" },
+                { q: "The country or organisation that gives aid.", a: "Donor" },
+                { q: "The country that receives aid.", a: "Recipient" },
+                { q: "Authorised aid from a country or international organisation.", a: "Official Aid" },
+                { q: "Aid transferred directly from one country to another.", a: "Bilateral Aid" },
+                { q: "Aid channelled through an organisation such as the IMF or World Bank.", a: "Multilateral Aid" },
+                { q: "Aid collected by agencies from willing individuals and companies.", a: "Voluntary Aid" },
+                { q: "Immediate emergency assistance such as food parcels and medicine.", a: "Short-Term Aid" },
+                { q: "Development assistance such as building schools and orphanages.", a: "Long-Term Aid" },
+                { q: "Aid supplied as skilled technological knowledge and assistance.", a: "Technical Aid" },
+                { q: "The roads, bridges, power stations, and dams needed for development.", a: "Infrastructure" },
+                { q: "Aid given only when a stated requirement is accepted.", a: "Conditional Aid" },
+                { q: "Aid that improves living conditions and assists people after disasters.", a: "Humanitarian Aid" },
+                { q: "Training and knowledge transfer that strengthen local skills.", a: "Capacity Building" },
+                { q: "Reliance on aid that weakens self-sufficiency.", a: "Aid Dependency" },
+                { q: "Aid used incorrectly or diverted by corrupt officials.", a: "Mismanagement" },
+                { q: "Harm to local businesses when markets are flooded with free goods.", a: "Undermining Local Economies" },
+                { q: "Control that donors may exercise over a recipient's policies and priorities.", a: "Donor Influence" },
+                { q: "Loans provided as aid that leave the recipient owing large amounts.", a: "Debt Burden" },
+                { q: "Choosing donor-funded projects ahead of a country's own development agenda.", a: "Distorted Priorities" }
             ],
             'multipleChoice': [
-                { q: "Which factor is necessary for economic activities and growth?", options: ["A) Infrastructure", "B) Crime rates", "C) Air quality", "D) Ownership"], a: "A) Infrastructure" },
-                { q: "Which factor funds development projects and creates jobs?", options: ["A) Investment", "B) Migration", "C) Pollution", "D) Biodiversity"], a: "A) Investment" },
-                { q: "What creates a conducive environment for growth?", options: ["A) Economic policies", "B) Resource depletion", "C) Natural disasters", "D) Crime rates"], a: "A) Economic policies" },
-                { q: "Which factor boosts productivity and innovation?", options: ["A) Technology", "B) Pollution", "C) Migration", "D) Land use"], a: "A) Technology" },
-                { q: "The effect of natural resources on development depends on:", options: ["A) Their management", "B) Migration only", "C) Crime rates only", "D) Gender roles only"], a: "A) Their management" },
-                { q: "Trade boosts economic growth through:", options: ["A) Market access", "B) Resource depletion", "C) Natural disasters", "D) Air pollution"], a: "A) Market access" },
-                { q: "Which factor affects employment and economic stability?", options: ["A) Labor market conditions", "B) Biodiversity", "C) Waste management", "D) Ownership"], a: "A) Labor market conditions" },
-                { q: "What facilitates investments and economic activities?", options: ["A) Financial systems", "B) Climate change", "C) Population growth", "D) Crime rates"], a: "A) Financial systems" },
-                { q: "Government spending supports:", options: ["A) Infrastructure and public services", "B) Pollution and depletion", "C) Crime and instability", "D) Disasters and migration"], a: "A) Infrastructure and public services" },
-                { q: "What drives economic diversification and innovation?", options: ["A) Entrepreneurship", "B) Resource depletion", "C) Natural disasters", "D) Pollution"], a: "A) Entrepreneurship" },
-                { q: "Which social factor provides skills and knowledge for economic growth?", options: ["A) Education", "B) Migration", "C) Crime rates", "D) Population growth"], a: "A) Education" },
-                { q: "Which factor affects well-being and productivity?", options: ["A) Healthcare", "B) Trade", "C) Land use", "D) Ownership"], a: "A) Healthcare" },
-                { q: "What ensures a safe environment for investment and growth?", options: ["A) Social stability", "B) Pollution", "C) Resource depletion", "D) Natural disasters"], a: "A) Social stability" },
-                { q: "What shapes work ethics, entrepreneurship, and gender roles?", options: ["A) Cultural attitudes", "B) Water availability", "C) Financial systems", "D) Waste management"], a: "A) Cultural attitudes" },
-                { q: "Population growth influences:", options: ["A) Resource allocation and workforce size", "B) Market access only", "C) Air quality only", "D) Project ownership only"], a: "A) Resource allocation and workforce size" },
-                { q: "Equal opportunities enhance productivity through:", options: ["A) Gender equality", "B) Pollution", "C) Migration", "D) Resource depletion"], a: "A) Gender equality" },
-                { q: "Which factor reduces poverty and inequality?", options: ["A) Social services", "B) Natural disasters", "C) Crime rates", "D) Pollution"], a: "A) Social services" },
-                { q: "Lower crime rates help create:", options: ["A) A safer environment for economic activities", "B) More resource depletion", "C) Less market access", "D) More pollution"], a: "A) A safer environment for economic activities" },
-                { q: "What drives local development initiatives?", options: ["A) Community engagement", "B) Climate change", "C) Pollution", "D) Resource depletion"], a: "A) Community engagement" },
-                { q: "Migration affects:", options: ["A) Labor markets and resource distribution", "B) Biodiversity only", "C) Air quality only", "D) Economic policies only"], a: "A) Labor markets and resource distribution" }
+                { q: "What is the main purpose of development aid?", options: ["A) To support development and living standards in LEDCs", "B) To stop all international cooperation", "C) To replace every local business", "D) To increase disaster damage"], a: "A) To support development and living standards in LEDCs" },
+                { q: "Who gives development aid?", options: ["A) A donor", "B) A recipient", "C) Only a local shop", "D) Only a household"], a: "A) A donor" },
+                { q: "Aid given directly from South Africa to another country would be:", options: ["A) Bilateral aid", "B) Multilateral aid", "C) Voluntary aid", "D) Conditional aid"], a: "A) Bilateral aid" },
+                { q: "Which organisations may distribute multilateral aid?", options: ["A) IMF and World Bank", "B) Local sports clubs only", "C) Private households only", "D) Weather stations"], a: "A) IMF and World Bank" },
+                { q: "Who may voluntarily donate charity aid?", options: ["A) Individuals and corporations", "B) Recipients only", "C) Engineers only", "D) Farmers only"], a: "A) Individuals and corporations" },
+                { q: "Which is an example of short-term voluntary aid?", options: ["A) Food parcels after an earthquake", "B) A ten-year school-building programme", "C) A trade tariff", "D) A loan repayment"], a: "A) Food parcels after an earthquake" },
+                { q: "Which is an example of long-term voluntary aid?", options: ["A) Building schools and orphanages", "B) One emergency food parcel", "C) Raising import taxes", "D) Closing hospitals"], a: "A) Building schools and orphanages" },
+                { q: "Technical aid is commonly provided by:", options: ["A) Skilled engineers", "B) Tourists", "C) Retail customers", "D) Weather observers only"], a: "A) Skilled engineers" },
+                { q: "Which project is named as technical aid?", options: ["A) Lesotho Highlands Water Scheme", "B) A trade quota", "C) A charity fun run", "D) A school lunch queue"], a: "A) Lesotho Highlands Water Scheme" },
+                { q: "What makes conditional aid different?", options: ["A) It has specific conditions attached", "B) It is always anonymous", "C) It cannot involve trade", "D) It is given only by individuals"], a: "A) It has specific conditions attached" },
+                { q: "A donor builds a road only if the recipient trades oil with it. This is:", options: ["A) Conditional aid", "B) Voluntary aid", "C) Unconditional charity", "D) Capacity building only"], a: "A) Conditional aid" },
+                { q: "Which support is humanitarian aid?", options: ["A) Food and water after a flood", "B) A tariff on imports", "C) A fishing quota", "D) A trade surplus"], a: "A) Food and water after a flood" },
+                { q: "Humanitarian aid may help care for:", options: ["A) HIV/AIDS orphans", "B) Imported machinery only", "C) Export companies only", "D) Tourist hotels only"], a: "A) HIV/AIDS orphans" },
+                { q: "Which is an advantage of development aid?", options: ["A) Better access to education", "B) Greater disaster damage", "C) More corruption", "D) Reduced literacy"], a: "A) Better access to education" },
+                { q: "How can aid support economic growth?", options: ["A) By funding projects and creating jobs", "B) By closing all infrastructure", "C) By stopping skills training", "D) By preventing investment"], a: "A) By funding projects and creating jobs" },
+                { q: "Which is a disadvantage of aid?", options: ["A) Dependency", "B) Improved health", "C) Poverty reduction", "D) Education access"], a: "A) Dependency" },
+                { q: "How can free donated goods hurt a recipient?", options: ["A) They can undermine local businesses", "B) They always increase local sales", "C) They remove donor influence", "D) They eliminate waste"], a: "A) They can undermine local businesses" },
+                { q: "What may slow the delivery and impact of aid?", options: ["A) Bureaucratic processes", "B) Skills training", "C) Emergency supplies", "D) Knowledge transfer"], a: "A) Bureaucratic processes" },
+                { q: "What can happen when aid is supplied as loans?", options: ["A) A debt burden", "B) Automatic self-sufficiency", "C) No repayment obligation", "D) An end to all poverty"], a: "A) A debt burden" },
+                { q: "Appropriate development aid should:", options: ["A) Empower rather than undermine LEDCs", "B) Create permanent dependence", "C) ignore local priorities", "D) benefit corrupt officials"], a: "A) Empower rather than undermine LEDCs" }
             ],
             'trueFalse': [
-                { q: "Climate change affects agriculture and living conditions.", options: ["True", "False"], a: "True", exp: "It is listed as an environmental factor affecting both." },
-                { q: "Natural disasters support development by protecting infrastructure.", options: ["True", "False"], a: "False", exp: "They disrupt development by damaging infrastructure." },
-                { q: "Environmental policies promote sustainable development.", options: ["True", "False"], a: "True", exp: "This is their stated development role." },
-                { q: "Biodiversity supports agriculture and tourism.", options: ["True", "False"], a: "True", exp: "Both sectors are identified in the presentation." },
-                { q: "Pollution improves health and attracts investment.", options: ["True", "False"], a: "False", exp: "It harms health and deters investment." },
-                { q: "Resource depletion can create long-term economic challenges.", options: ["True", "False"], a: "True", exp: "The presentation identifies this long-term effect." },
-                { q: "Land use is irrelevant to agriculture and industry.", options: ["True", "False"], a: "False", exp: "It is crucial for sustainable agriculture and industry." },
-                { q: "Water availability is essential for health and industry.", options: ["True", "False"], a: "True", exp: "Both depend on adequate water." },
-                { q: "Better air quality supports health and quality of life.", options: ["True", "False"], a: "True", exp: "These are the benefits listed in the presentation." },
-                { q: "Waste management increases pollution.", options: ["True", "False"], a: "False", exp: "It reduces pollution and supports sustainability." },
-                { q: "Community-based development excludes communities from project planning.", options: ["True", "False"], a: "False", exp: "It emphasises active community participation and leadership." },
-                { q: "Local participation helps projects reflect community priorities and needs.", options: ["True", "False"], a: "True", exp: "Community members take part in decision-making." },
-                { q: "Empowerment builds people's capacity to control their own development.", options: ["True", "False"], a: "True", exp: "It also supports improvements in quality of life." },
-                { q: "CBD sustainability ignores local resources and knowledge.", options: ["True", "False"], a: "False", exp: "It encourages their use for long-lasting outcomes." },
-                { q: "Collaboration connects communities, local organisations, and external agencies.", options: ["True", "False"], a: "True", exp: "These partnerships help combine resources and expertise." },
-                { q: "A holistic approach treats economic, social, and environmental issues as unrelated.", options: ["True", "False"], a: "False", exp: "It recognises their interconnections." },
-                { q: "Community ownership can improve project maintenance and sustainability.", options: ["True", "False"], a: "True", exp: "Ownership supports lasting outcomes." },
-                { q: "Investment can create jobs.", options: ["True", "False"], a: "True", exp: "It also funds development projects." },
-                { q: "Social services increase poverty and inequality.", options: ["True", "False"], a: "False", exp: "They reduce poverty and inequality." },
-                { q: "Entrepreneurship supports diversification and innovation.", options: ["True", "False"], a: "True", exp: "These are its listed economic contributions." }
+                { q: "Development aid is also called international aid or foreign aid.", options: ["True", "False"], a: "True", exp: "The presentation uses all three names for the same broad form of assistance." },
+                { q: "Development aid should undermine development in LEDCs.", options: ["True", "False"], a: "False", exp: "Appropriate aid should empower recipients and support development." },
+                { q: "Bilateral aid is given directly from one country to another.", options: ["True", "False"], a: "True", exp: "It is a direct country-to-country transfer." },
+                { q: "Multilateral aid bypasses all international organisations.", options: ["True", "False"], a: "False", exp: "It is channelled through organisations such as the IMF or World Bank." },
+                { q: "Voluntary aid may be donated by individuals and corporations.", options: ["True", "False"], a: "True", exp: "Aid agencies collect these voluntary contributions." },
+                { q: "Oxfam and the Red Cross may provide short-term emergency aid.", options: ["True", "False"], a: "True", exp: "The presentation gives both organisations as examples." },
+                { q: "Building schools is always short-term emergency aid.", options: ["True", "False"], a: "False", exp: "It is given as an example of long-term development aid." },
+                { q: "Technical aid can include skilled engineering advice.", options: ["True", "False"], a: "True", exp: "Technical aid supplies knowledge and assistance from skilled people." },
+                { q: "The Lesotho Highlands Water Scheme is an example of technical aid.", options: ["True", "False"], a: "True", exp: "It is the named project example in the presentation." },
+                { q: "Conditional aid has no requirements attached.", options: ["True", "False"], a: "False", exp: "It is granted subject to a specific condition." },
+                { q: "Conditional aid may involve a trade agreement.", options: ["True", "False"], a: "True", exp: "A recipient may be required to trade resources with the donor." },
+                { q: "Humanitarian aid can improve living conditions.", options: ["True", "False"], a: "True", exp: "That is its central purpose in the lesson." },
+                { q: "Humanitarian aid may support recovery and rebuilding after a disaster.", options: ["True", "False"], a: "True", exp: "Donors may help recipients recover after floods, droughts, and other disasters." },
+                { q: "Development aid can fund roads, schools, and hospitals.", options: ["True", "False"], a: "True", exp: "Infrastructure development is listed as an advantage." },
+                { q: "Capacity building reduces local skills.", options: ["True", "False"], a: "False", exp: "It strengthens skills through training and knowledge transfer." },
+                { q: "Aid can contribute to political stability by addressing causes of conflict.", options: ["True", "False"], a: "True", exp: "Political stability is listed as a possible advantage." },
+                { q: "Aid dependency always increases self-sufficiency.", options: ["True", "False"], a: "False", exp: "Dependency can reduce self-sufficiency." },
+                { q: "Corrupt officials may mismanage or misallocate aid.", options: ["True", "False"], a: "True", exp: "Mismanagement is one of the stated disadvantages." },
+                { q: "Donor-funded projects always match the recipient's own priorities.", options: ["True", "False"], a: "False", exp: "Aid may distort priorities toward the donor's agenda." },
+                { q: "The benefits of aid may fail to reach the people most in need.", options: ["True", "False"], a: "True", exp: "Inequitable distribution is a stated disadvantage." }
             ]
         };
-
-        const totalQuestions = 20; 
+        const totalQuestions = 20;
         const sliceAngle = 360 / totalQuestions;
         let currentCategoryKey = null;
         let currentRotation = 0;
@@ -258,7 +257,7 @@
             const wheel = document.getElementById('wheel');
             const questionCard = document.getElementById('questionCard');
             let available = availableQuestions[currentCategoryKey];
-            
+
             if (available.length === 0) {
                 alert(`Resetting ${currentCategoryKey}!`);
                 availableQuestions[currentCategoryKey] = Array.from({length: totalQuestions}, (_, i) => i);
@@ -277,7 +276,7 @@
 
             let sliceCenterAngle = (targetQuestionIndex * sliceAngle) + (sliceAngle / 2);
             let targetDegree = 360 - sliceCenterAngle;
-            let currentBase = Math.ceil(currentRotation / 360) * 360; 
+            let currentBase = Math.ceil(currentRotation / 360) * 360;
             currentRotation = currentBase + 1800 + targetDegree;
             wheel.style.transform = `rotate(${currentRotation}deg)`;
 
@@ -298,9 +297,9 @@
             const answerText = document.getElementById('answerText');
             mcOptions.innerHTML = "";
             answerText.style.display = "none";
-            
+
             if (currentCategoryKey === 'multipleChoice' || currentCategoryKey === 'trueFalse') {
-                revealBtn.style.display = "none"; 
+                revealBtn.style.display = "none";
                 mcOptions.style.display = "flex";
                 data.options.forEach(opt => {
                     let btn = document.createElement("button");

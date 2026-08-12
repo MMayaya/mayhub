@@ -13,7 +13,7 @@
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>May Learning Hub | Grade 11 Geography: Factors Affecting Development</title>
+    <title>May Learning Hub | Grade 11 Geography: Trade and Development</title>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f0f4f8; color: #333; line-height: 1.6; display: flex; flex-direction: column; min-height: 100vh; }
@@ -82,16 +82,18 @@
     </nav>
 
     <header class="game-header">
-        <h1 class="game-title">Grade 11 Geography: Factors Affecting Development</h1>
-        <p class="game-subtitle">Match the economic, social, environmental, and community factors that shape development!</p>
-        <p style="font-size: 0.78rem; color: #52606d; margin-top: 0.45rem;">Source: Factors Affecting Development - Grade 11 Geography Term 3 presentation.</p>
+        <h1 class="game-title">Grade 11 Geography: Trade and Development</h1>
+        <p class="game-subtitle">Match the foundations, measures, policies, benefits, and challenges of international trade!</p>
+        <p style="font-size: 0.78rem; color: #52606d; margin-top: 0.45rem;">Source: Trade and Development - Grade 11 Geography Term 3 presentation.</p>
         
         <div class="category-selection">
             <div class="cat-buttons">
-                <button class="cat-btn" onclick="selectCategory('topic1', this)">Economic Factors</button>
-                <button class="cat-btn" onclick="selectCategory('topic2', this)">Social Factors</button>
-                <button class="cat-btn" onclick="selectCategory('topic3', this)">Environmental Factors</button>
-                <button class="cat-btn" onclick="selectCategory('topic4', this)">Community-Based Development</button>
+                <button class="cat-btn" onclick="selectCategory('topic1', this)">Trade Foundations</button>
+                <button class="cat-btn" onclick="selectCategory('topic2', this)">Trade Measures</button>
+                <button class="cat-btn" onclick="selectCategory('topic3', this)">Trade Policy</button>
+                <button class="cat-btn" onclick="selectCategory('topic4', this)">Free Trade Advantages</button>
+                <button class="cat-btn" onclick="selectCategory('topic5', this)">Free Trade Disadvantages</button>
+                <button class="cat-btn" onclick="selectCategory('topic6', this)">Fair Trade</button>
             </div>
         </div>
 
@@ -109,60 +111,73 @@
 
         <script src="../../../../../game-audio.js"></script>
 <script>
-        const economicFactors = [
-            { term: "Infrastructure", detail: "The basic physical and organisational systems and facilities needed for a society and economy to function, such as transport, electricity, water, and communications." },
-            { term: "Investment", detail: "The commitment of money, capital, or other resources to an activity or project in order to gain future benefits." },
-            { term: "Economic Policies", detail: "Government decisions, laws, and actions used to influence how an economy operates." },
-            { term: "Technology", detail: "The application of knowledge, tools, and techniques to solve problems and produce goods or services." },
-            { term: "Natural Resources", detail: "Materials and environmental features that occur in nature and can be used by people, such as water, land, minerals, and forests." },
-            { term: "Trade", detail: "The buying, selling, or exchange of goods and services between people, regions, or countries." },
-            { term: "Labor Market Conditions", detail: "The circumstances affecting the supply of workers, demand for labour, employment, wages, and available skills." },
-            { term: "Financial Systems", detail: "The institutions, markets, and rules that enable saving, borrowing, payments, and investment." },
-            { term: "Government Spending", detail: "Money used by government to provide public services, infrastructure, and programmes." },
+        const tradeFoundations = [
+            { term: "Trade", detail: "The business of exchanging, selling, and distributing goods and services." },
+            { term: "International Trade", detail: "The exchange of raw materials, goods, and services between buyers and sellers across country or territory borders." },
+            { term: "Competitive Pricing", detail: "A pricing approach in which sellers set prices by considering the prices charged by competitors for similar goods or services." },
+            { term: "Market", detail: "An organisation, place, or mechanism that brings buyers and sellers together to exchange goods and services." },
+            { term: "Market Demand", detail: "The total quantity of a good or service that consumers in a market are willing and able to buy." },
+            { term: "Commodities", detail: "Raw materials, such as crude oil, coffee, natural gas, gold, and wheat, used to manufacture goods." },
+            { term: "Exports", detail: "Goods and services sold to buyers in other countries." },
+            { term: "Imports", detail: "Goods and services bought from sellers in other countries." }
+        ];
+        const tradeMeasures = [
+            { term: "Terms of Trade", detail: "The ratio between the prices of a country's exports and the prices of its imports." },
+            { term: "Balance of Trade", detail: "The difference between the value of a country's exports and imports over a certain period." },
+            { term: "Balance of Trade Formula", detail: "The calculation that subtracts the value of imports from the value of exports." },
+            { term: "Trade Surplus", detail: "A favourable balance of trade in which the value of exports is higher than the value of imports." },
+            { term: "Trade Deficit", detail: "An adverse balance of trade in which the value of imports is higher than the value of exports." },
+            { term: "Balance of Payments", detail: "An accounting record of all transactions between a country and the rest of the world over a certain period." },
+            { term: "Capital", detail: "Money and financial assets used for economic activity, including loans and investments." }
+        ];
+        const tradePolicy = [
+            { term: "Trade Policy", detail: "A set of rules and standards that governs a country's trade with other countries." },
+            { term: "Commercial Policy", detail: "Government rules and measures that regulate trade with other countries; another name for trade policy." },
+            { term: "Protectionism", detail: "A policy of restricting international trade to protect locally produced goods and services from foreign competition." },
+            { term: "Trade Barriers", detail: "Government regulations or policies that restrict international trade." },
+            { term: "Tariffs", detail: "Taxes imposed on imported goods and services." },
+            { term: "Quotas", detail: "Restrictions that limit the quantity of goods that may be imported from a country." },
+            { term: "Subsidies", detail: "Benefits or financial assistance that a government gives to businesses or sectors of the economy." }
+        ];
+        const freeTradeAdvantages = [
+            { term: "Economic Growth", detail: "An increase in the amount or value of goods and services produced by an economy over time." },
+            { term: "Consumer Benefits", detail: "Advantages received by consumers, such as a wider variety of goods and lower prices." },
+            { term: "Innovation", detail: "The development or introduction of new ideas, methods, products, or technologies." },
+            { term: "Efficient Resource Allocation", detail: "The distribution of limited resources to the uses where they can produce the greatest value with the least waste." },
+            { term: "Foreign Direct Investment", detail: "Investment by a person or business from one country in an enterprise located in another country." },
+            { term: "Political Relations", detail: "The interactions and connections between governments or countries." },
+            { term: "Specialisation", detail: "Concentrating production on goods or services in which a producer or country has an advantage." },
+            { term: "Economies of Scale", detail: "Cost advantages gained when production increases and the average cost per unit falls." }
+        ];
+        const freeTradeDisadvantages = [
+            { term: "Job Losses", detail: "A reduction in employment when workers lose their jobs or fewer positions are available." },
+            { term: "Exploitation Risks", detail: "The possibility that workers or producers will be treated unfairly, for example through low wages or poor working conditions." },
+            { term: "Economic Dependence", detail: "Reliance on other countries for goods, investment, income, or markets, creating economic vulnerability." },
+            { term: "Environmental Impact", detail: "The effect that an activity has on the natural environment." },
+            { term: "Market Volatility", detail: "The degree to which market prices or conditions change rapidly and unpredictably." },
+            { term: "Loss of Sovereignty", detail: "A reduction in a country's ability to control its own decisions and economic policies." },
+            { term: "Income Inequality", detail: "The unequal distribution of income among people or groups." },
+            { term: "Cultural Erosion", detail: "The gradual weakening or loss of local traditions, values, and identities." }
+        ];
+        const fairTrade = [
+            { term: "Free Trade", detail: "International trade without barriers or protective measures such as tariffs and quota restrictions." },
+            { term: "Economic Integration", detail: "The process by which countries become more closely connected through trade and coordinated economic activity." },
+            { term: "Fair Trade", detail: "A form of trade focused on sustainability, fair treatment of producers, and development in LEDCs." },
+            { term: "Higher Producer Wages", detail: "Increased payment to the people who grow or manufacture goods." },
+            { term: "Ending Exploitation", detail: "Stopping unfair practices that take advantage of workers or producers, including child labour." },
             { term: "Entrepreneurship", detail: "The process of identifying an opportunity, organising resources, and creating or managing an enterprise while accepting risk." }
-        ];
-        const socialFactors = [
-            { term: "Education", detail: "The organised process through which people acquire knowledge, skills, values, and understanding." },
-            { term: "Healthcare", detail: "The services and systems used to prevent and treat illness and maintain people's health." },
-            { term: "Social Stability", detail: "A condition in which society has order, security, and predictable social relationships." },
-            { term: "Cultural Attitudes", detail: "Shared beliefs, values, and viewpoints that influence how people think and behave." },
-            { term: "Population Growth", detail: "An increase in the number of people living in a place over a period of time." },
-            { term: "Gender Equality", detail: "Equal rights, responsibilities, opportunities, and treatment for people of all genders." },
-            { term: "Social Services", detail: "Public or community services that support people's welfare and basic needs, such as care, housing support, and social assistance." },
-            { term: "Crime Rates", detail: "Measures of how frequently crimes occur in a population or area during a given period." },
-            { term: "Community Engagement", detail: "The process of involving community members in decisions and actions that affect their lives." },
-            { term: "Migration", detail: "The movement of people from one place to another to live or work, either temporarily or permanently." }
-        ];
-        const environmentalFactors = [
-            { term: "Climate Change", detail: "Long-term changes in average temperatures and other climate patterns." },
-            { term: "Natural Disasters", detail: "Severe natural events that cause major damage, loss, or disruption to people and places." },
-            { term: "Environmental Policies", detail: "Government laws, rules, and plans designed to manage human impacts and protect the environment." },
-            { term: "Biodiversity", detail: "The variety of living organisms, including diversity within species, between species, and among ecosystems." },
-            { term: "Pollution", detail: "The introduction of harmful substances or forms of energy into the environment." },
-            { term: "Resource Depletion", detail: "The use of a natural resource faster than it can be replaced or renewed." },
-            { term: "Land Use", detail: "The way land is managed and used for purposes such as farming, housing, industry, or conservation." },
-            { term: "Water Availability", detail: "The amount of usable water that is accessible to people and economic activities." },
-            { term: "Air Quality", detail: "The degree to which the air is clean and free from harmful pollutants." },
-            { term: "Waste Management", detail: "The collection, transport, treatment, recycling, and disposal of waste." }
-        ];
-        const communityFactors = [
-            { term: "Community-Based Development", detail: "An approach in which community members actively lead and participate in planning, implementing, and managing projects that affect their lives." },
-            { term: "Local Participation", detail: "The involvement of community members in decisions so that projects reflect local priorities and needs." },
-            { term: "Empowerment", detail: "The process of building people's ability and authority to make decisions and take control of their own development." },
-            { term: "Sustainability", detail: "The ability to meet present needs while maintaining resources and opportunities for the future." },
-            { term: "Collaboration", detail: "People or organisations working together and sharing resources or expertise to achieve a common goal." },
-            { term: "Holistic Approach", detail: "A method that considers the whole situation and the connections among its economic, social, and environmental parts." },
-            { term: "Ownership", detail: "The community's responsibility for, control over, and commitment to a project or its outcomes." }
         ];
         const toCards = factors => factors.flatMap((factor, index) => [
             { id: index + 1, text: factor.detail },
             { id: index + 1, text: factor.term }
         ]);
         const gameData = {
-            topic1: toCards(economicFactors),
-            topic2: toCards(socialFactors),
-            topic3: toCards(environmentalFactors),
-            topic4: toCards(communityFactors)
+            topic1: toCards(tradeFoundations),
+            topic2: toCards(tradeMeasures),
+            topic3: toCards(tradePolicy),
+            topic4: toCards(freeTradeAdvantages),
+            topic5: toCards(freeTradeDisadvantages),
+            topic6: toCards(fairTrade)
         };
 
         const gameBoard = document.getElementById('gameBoard');
@@ -247,7 +262,7 @@
             secondCard.removeEventListener('click', flipCard);
             matchedPairs++;
             if (matchedPairs === (gameData[currentCategory].length / 2)) {
-                setTimeout(() => alert(`Great job! Grade 11 Geography: Factors Affecting Development Revision Complete in ${moves} moves.`), 500);
+                setTimeout(() => alert(`Great job! Grade 11 Geography: Trade and Development Revision Complete in ${moves} moves.`), 500);
             }
             resetBoard();
         }

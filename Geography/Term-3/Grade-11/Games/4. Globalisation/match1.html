@@ -13,7 +13,7 @@
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>May Learning Hub | Grade 11 Geography: Factors Affecting Development</title>
+    <title>May Learning Hub | Grade 11 Geography: Globalisation</title>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f0f4f8; color: #333; line-height: 1.6; display: flex; flex-direction: column; min-height: 100vh; }
@@ -82,16 +82,18 @@
     </nav>
 
     <header class="game-header">
-        <h1 class="game-title">Grade 11 Geography: Factors Affecting Development</h1>
-        <p class="game-subtitle">Match the economic, social, environmental, and community factors that shape development!</p>
-        <p style="font-size: 0.78rem; color: #52606d; margin-top: 0.45rem;">Source: Factors Affecting Development - Grade 11 Geography Term 3 presentation.</p>
+        <h1 class="game-title">Grade 11 Geography: Globalisation</h1>
+        <p class="game-subtitle">Match the foundations, integration, benefits, challenges, and export-led development concepts of globalisation!</p>
+        <p style="font-size: 0.78rem; color: #52606d; margin-top: 0.45rem;">Source: Globalisation - Grade 11 Geography Term 3 presentation.</p>
         
         <div class="category-selection">
             <div class="cat-buttons">
-                <button class="cat-btn" onclick="selectCategory('topic1', this)">Economic Factors</button>
-                <button class="cat-btn" onclick="selectCategory('topic2', this)">Social Factors</button>
-                <button class="cat-btn" onclick="selectCategory('topic3', this)">Environmental Factors</button>
-                <button class="cat-btn" onclick="selectCategory('topic4', this)">Community-Based Development</button>
+                <button class="cat-btn" onclick="selectCategory('topic1', this)">Global Foundations</button>
+                <button class="cat-btn" onclick="selectCategory('topic2', this)">Integration and MNCs</button>
+                <button class="cat-btn" onclick="selectCategory('topic3', this)">Advantages</button>
+                <button class="cat-btn" onclick="selectCategory('topic4', this)">Economic Challenges</button>
+                <button class="cat-btn" onclick="selectCategory('topic5', this)">Social and Environmental Challenges</button>
+                <button class="cat-btn" onclick="selectCategory('topic6', this)">Export-Led Development</button>
             </div>
         </div>
 
@@ -109,60 +111,73 @@
 
         <script src="../../../../../game-audio.js"></script>
 <script>
-        const economicFactors = [
-            { term: "Infrastructure", detail: "The basic physical and organisational systems and facilities needed for a society and economy to function, such as transport, electricity, water, and communications." },
-            { term: "Investment", detail: "The commitment of money, capital, or other resources to an activity or project in order to gain future benefits." },
-            { term: "Economic Policies", detail: "Government decisions, laws, and actions used to influence how an economy operates." },
-            { term: "Technology", detail: "The application of knowledge, tools, and techniques to solve problems and produce goods or services." },
-            { term: "Natural Resources", detail: "Materials and environmental features that occur in nature and can be used by people, such as water, land, minerals, and forests." },
-            { term: "Trade", detail: "The buying, selling, or exchange of goods and services between people, regions, or countries." },
-            { term: "Labor Market Conditions", detail: "The circumstances affecting the supply of workers, demand for labour, employment, wages, and available skills." },
-            { term: "Financial Systems", detail: "The institutions, markets, and rules that enable saving, borrowing, payments, and investment." },
-            { term: "Government Spending", detail: "Money used by government to provide public services, infrastructure, and programmes." },
-            { term: "Entrepreneurship", detail: "The process of identifying an opportunity, organising resources, and creating or managing an enterprise while accepting risk." }
+        const foundations = [
+            { term: "Globalisation", detail: "The process through which countries and people become increasingly socially, economically, culturally, and technologically interconnected." },
+            { term: "Global Connections", detail: "Links that allow goods, services, information, ideas, and resources to move around the world." },
+            { term: "Transport Systems", detail: "Networks and services used to move people and goods between places." },
+            { term: "Telecommunication Systems", detail: "Technologies and networks that transmit information over distance." },
+            { term: "Trade Barriers", detail: "Government regulations or policies that restrict international trade." },
+            { term: "Global Village", detail: "A metaphor describing the world as a smaller, closely connected community." },
+            { term: "Time-Space Barriers", detail: "Limits created by distance and delay that improved transport and communication reduce." },
+            { term: "Cultural Exchange", detail: "The sharing of ideas, customs, beliefs, and practices between cultures." }
         ];
-        const socialFactors = [
-            { term: "Education", detail: "The organised process through which people acquire knowledge, skills, values, and understanding." },
-            { term: "Healthcare", detail: "The services and systems used to prevent and treat illness and maintain people's health." },
-            { term: "Social Stability", detail: "A condition in which society has order, security, and predictable social relationships." },
-            { term: "Cultural Attitudes", detail: "Shared beliefs, values, and viewpoints that influence how people think and behave." },
-            { term: "Population Growth", detail: "An increase in the number of people living in a place over a period of time." },
-            { term: "Gender Equality", detail: "Equal rights, responsibilities, opportunities, and treatment for people of all genders." },
-            { term: "Social Services", detail: "Public or community services that support people's welfare and basic needs, such as care, housing support, and social assistance." },
-            { term: "Crime Rates", detail: "Measures of how frequently crimes occur in a population or area during a given period." },
-            { term: "Community Engagement", detail: "The process of involving community members in decisions and actions that affect their lives." },
-            { term: "Migration", detail: "The movement of people from one place to another to live or work, either temporarily or permanently." }
+        const integration = [
+            { term: "Economic Integration", detail: "The process by which national economies become more closely connected through freer movement of goods and services." },
+            { term: "Multinational Corporation", detail: "A company that owns or controls business operations in more than one country." },
+            { term: "MEDCs", detail: "More economically developed countries with relatively high income, industrialisation, and living standards." },
+            { term: "LEDCs", detail: "Less economically developed countries with relatively lower income, industrialisation, and living standards." },
+            { term: "Foreign Direct Investment", detail: "Investment by a person or company from one country in a business located in another country." },
+            { term: "Economic Interdependence", detail: "A condition in which countries rely on one another for trade, investment, goods, services, or resources." },
+            { term: "Global Trade Control", detail: "Influence over a large share of world trade, held mainly by MEDCs according to the presentation." }
         ];
-        const environmentalFactors = [
-            { term: "Climate Change", detail: "Long-term changes in average temperatures and other climate patterns." },
-            { term: "Natural Disasters", detail: "Severe natural events that cause major damage, loss, or disruption to people and places." },
-            { term: "Environmental Policies", detail: "Government laws, rules, and plans designed to manage human impacts and protect the environment." },
-            { term: "Biodiversity", detail: "The variety of living organisms, including diversity within species, between species, and among ecosystems." },
-            { term: "Pollution", detail: "The introduction of harmful substances or forms of energy into the environment." },
-            { term: "Resource Depletion", detail: "The use of a natural resource faster than it can be replaced or renewed." },
-            { term: "Land Use", detail: "The way land is managed and used for purposes such as farming, housing, industry, or conservation." },
-            { term: "Water Availability", detail: "The amount of usable water that is accessible to people and economic activities." },
-            { term: "Air Quality", detail: "The degree to which the air is clean and free from harmful pollutants." },
-            { term: "Waste Management", detail: "The collection, transport, treatment, recycling, and disposal of waste." }
+        const advantages = [
+            { term: "Economic Growth", detail: "An increase in the amount or value of goods and services produced by an economy over time." },
+            { term: "Access to Technology", detail: "The ability to obtain and use technologies and innovations from across the world." },
+            { term: "Improved Communication", detail: "Faster and easier worldwide exchange of information through communication technology." },
+            { term: "Education Opportunities", detail: "Access to learning through global institutions, programmes, and connections." },
+            { term: "Investment Opportunities", detail: "Chances to attract or make investments across national borders." },
+            { term: "Innovation", detail: "The development or introduction of new ideas, methods, products, or technologies." },
+            { term: "Improved Standards of Living", detail: "Better material well-being and quality of life." },
+            { term: "Access to Goods and Services", detail: "The ability of consumers to obtain a wider variety of products and services." }
         ];
-        const communityFactors = [
-            { term: "Community-Based Development", detail: "An approach in which community members actively lead and participate in planning, implementing, and managing projects that affect their lives." },
-            { term: "Local Participation", detail: "The involvement of community members in decisions so that projects reflect local priorities and needs." },
-            { term: "Empowerment", detail: "The process of building people's ability and authority to make decisions and take control of their own development." },
-            { term: "Sustainability", detail: "The ability to meet present needs while maintaining resources and opportunities for the future." },
-            { term: "Collaboration", detail: "People or organisations working together and sharing resources or expertise to achieve a common goal." },
-            { term: "Holistic Approach", detail: "A method that considers the whole situation and the connections among its economic, social, and environmental parts." },
-            { term: "Ownership", detail: "The community's responsibility for, control over, and commitment to a project or its outcomes." }
+        const economicChallenges = [
+            { term: "Economic Disparity", detail: "A difference in wealth and development between rich and poor countries or groups." },
+            { term: "Outsourcing", detail: "Moving work or contracting business activities to an external provider, often in another country." },
+            { term: "Labour Exploitation", detail: "Unfair treatment of workers through low wages, poor conditions, long hours, or child labour." },
+            { term: "Economic Dependency", detail: "Reliance on foreign economies or multinational corporations that creates vulnerability." },
+            { term: "Loss of Sovereignty", detail: "A reduction in national control over government decisions and economic policies." },
+            { term: "Inequality", detail: "An uneven distribution of wealth, opportunities, or benefits." },
+            { term: "Financial Instability", detail: "Economic disruption caused by rapid and unpredictable changes in financial markets." }
+        ];
+        const socialEnvironmental = [
+            { term: "Cultural Homogenisation", detail: "The process through which cultures become increasingly similar, sometimes weakening local identity and traditions." },
+            { term: "Loss of Jobs", detail: "A reduction in employment when work is outsourced or industries cannot compete." },
+            { term: "Environmental Degradation", detail: "Damage to the natural environment caused by activities such as increased industrial production." },
+            { term: "Cultural Clashes", detail: "Misunderstandings or conflicts caused by differences between interacting cultures." },
+            { term: "Resource Exploitation", detail: "The intensive or unfair use of natural resources for economic gain." },
+            { term: "Pollution", detail: "The introduction of harmful substances or energy into the environment." },
+            { term: "Cultural Identity", detail: "The traditions, values, beliefs, and practices through which a group recognises itself." }
+        ];
+        const exports = [
+            { term: "Export-Led Development", detail: "An approach that promotes development by supporting industries that produce goods or services for export." },
+            { term: "Export Industry", detail: "An industry that produces goods or services for sale in other countries." },
+            { term: "Infrastructure", detail: "The basic systems and facilities needed for economic activity and exports." },
+            { term: "Technology Transfer", detail: "The movement of technical knowledge, skills, methods, or equipment between countries or organisations." },
+            { term: "Trade-to-GDP Ratio", detail: "The value of international trade compared with the total value produced by an economy." },
+            { term: "Capital Flows", detail: "Movements of money for investment, lending, or other financial purposes between countries." },
+            { term: "Transfer Pricing", detail: "The pricing of transactions between related parts of a multinational corporation in different countries." }
         ];
         const toCards = factors => factors.flatMap((factor, index) => [
             { id: index + 1, text: factor.detail },
             { id: index + 1, text: factor.term }
         ]);
         const gameData = {
-            topic1: toCards(economicFactors),
-            topic2: toCards(socialFactors),
-            topic3: toCards(environmentalFactors),
-            topic4: toCards(communityFactors)
+            topic1: toCards(foundations),
+            topic2: toCards(integration),
+            topic3: toCards(advantages),
+            topic4: toCards(economicChallenges),
+            topic5: toCards(socialEnvironmental),
+            topic6: toCards(exports)
         };
 
         const gameBoard = document.getElementById('gameBoard');
@@ -247,7 +262,7 @@
             secondCard.removeEventListener('click', flipCard);
             matchedPairs++;
             if (matchedPairs === (gameData[currentCategory].length / 2)) {
-                setTimeout(() => alert(`Great job! Grade 11 Geography: Factors Affecting Development Revision Complete in ${moves} moves.`), 500);
+                setTimeout(() => alert(`Great job! Grade 11 Geography: Globalisation Revision Complete in ${moves} moves.`), 500);
             }
             resetBoard();
         }

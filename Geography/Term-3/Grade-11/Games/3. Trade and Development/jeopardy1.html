@@ -115,8 +115,8 @@
 
     <header class="game-header">
         <h1 class="game-title">Grade 11 Geography Jeopardy</h1>
-        <p class="game-subtitle">Topic: Factors Affecting Development</p>
-        <p style="font-size: 0.78rem; color: #52606d; margin-top: 0.45rem;">Source: Factors Affecting Development - Grade 11 Geography Term 3 presentation.</p>
+        <p class="game-subtitle">Topic: Trade and Development</p>
+        <p style="font-size: 0.78rem; color: #52606d; margin-top: 0.45rem;">Source: Trade and Development - Grade 11 Geography Term 3 presentation.</p>
     </header>
 
     <section class="name-setup" id="nameSetupSection">
@@ -191,71 +191,112 @@
 
         <script src="../../../../../game-audio.js"></script>
 <script>
-        const economicFactors = [
-            { term: "Infrastructure", detail: "The basic physical and organisational systems and facilities needed for a society and economy to function, such as transport, electricity, water, and communications." },
-            { term: "Investment", detail: "The commitment of money, capital, or other resources to an activity or project in order to gain future benefits." },
-            { term: "Economic Policies", detail: "Government decisions, laws, and actions used to influence how an economy operates." },
-            { term: "Technology", detail: "The application of knowledge, tools, and techniques to solve problems and produce goods or services." },
-            { term: "Natural Resources", detail: "Materials and environmental features that occur in nature and can be used by people, such as water, land, minerals, and forests." },
-            { term: "Trade", detail: "The buying, selling, or exchange of goods and services between people, regions, or countries." },
-            { term: "Labor Market Conditions", detail: "The circumstances affecting the supply of workers, demand for labour, employment, wages, and available skills." },
-            { term: "Financial Systems", detail: "The institutions, markets, and rules that enable saving, borrowing, payments, and investment." },
-            { term: "Government Spending", detail: "Money used by government to provide public services, infrastructure, and programmes." },
-            { term: "Entrepreneurship", detail: "The process of identifying an opportunity, organising resources, and creating or managing an enterprise while accepting risk." }
+        const tradeFoundations = [
+            { q: "Define trade.", a: "The business of exchanging, selling, and distributing goods and services." },
+            { q: "Define international trade.", a: "The exchange of raw materials, goods, and services across country or territory borders." },
+            { q: "What two groups does a market bring together?", a: "Buyers and sellers." },
+            { q: "What is a market?", a: "An organisation, place, or mechanism that brings buyers and sellers together to exchange goods and services." },
+            { q: "Define market demand.", a: "The total quantity of a good or service that consumers in a market are willing and able to buy." },
+            { q: "Define commodities.", a: "Raw materials used to manufacture goods that consumers buy." },
+            { q: "Name two commodities listed in the presentation.", a: "Any two of crude oil, coffee, natural gas, gold, and wheat." },
+            { q: "Why does international trade create competition?", a: "Companies compete to sell the same or similar goods and services in the world market." },
+            { q: "What effect can competition have on prices for consumers?", a: "It can drive consumer prices down." },
+            { q: "Define competitive pricing.", a: "Setting prices by considering what competitors charge for similar goods or services." },
+            { q: "Define exports.", a: "Goods and services sold to buyers in other countries." },
+            { q: "Define imports.", a: "Goods and services bought from sellers in other countries." },
+            { q: "Define terms of trade.", a: "The ratio between a country's export prices and import prices." },
+            { q: "What can a country's terms of trade indicate?", a: "The wealth of the country." },
+            { q: "What do LEDCs usually export according to the presentation?", a: "Raw materials that are often sold at low prices." },
+            { q: "What do LEDCs often import according to the presentation?", a: "Processed goods bought at higher prices." },
+            { q: "How can falling mineral and agricultural prices affect LEDCs?", a: "Their terms of trade can decrease." },
+            { q: "What happens to commodity prices over time?", a: "Prices of minerals and agricultural goods can increase and decrease." },
+            { q: "What kinds of things are exchanged through trade?", a: "Goods and services." },
+            { q: "What happens to raw materials before many consumer goods are sold?", a: "They are manufactured into products." }
         ];
-        const socialFactors = [
-            { term: "Education", detail: "The organised process through which people acquire knowledge, skills, values, and understanding." },
-            { term: "Healthcare", detail: "The services and systems used to prevent and treat illness and maintain people's health." },
-            { term: "Social Stability", detail: "A condition in which society has order, security, and predictable social relationships." },
-            { term: "Cultural Attitudes", detail: "Shared beliefs, values, and viewpoints that influence how people think and behave." },
-            { term: "Population Growth", detail: "An increase in the number of people living in a place over a period of time." },
-            { term: "Gender Equality", detail: "Equal rights, responsibilities, opportunities, and treatment for people of all genders." },
-            { term: "Social Services", detail: "Public or community services that support people's welfare and basic needs, such as care, housing support, and social assistance." },
-            { term: "Crime Rates", detail: "Measures of how frequently crimes occur in a population or area during a given period." },
-            { term: "Community Engagement", detail: "The process of involving community members in decisions and actions that affect their lives." },
-            { term: "Migration", detail: "The movement of people from one place to another to live or work, either temporarily or permanently." }
+        const tradeMeasures = [
+            { q: "Define the balance of trade.", a: "The difference between the value of exports and imports over a certain period." },
+            { q: "State the balance-of-trade formula.", a: "Value of exports minus value of imports." },
+            { q: "Exports are worth R20 000 and imports R7 000. Calculate the balance of trade.", a: "A R13 000 trade surplus." },
+            { q: "Exports are worth R7 000 and imports R20 000. Calculate the balance of trade.", a: "A R13 000 trade deficit, or -R13 000." },
+            { q: "When is a balance of trade favourable?", a: "When the value of exports is higher than the value of imports." },
+            { q: "When is a balance of trade adverse?", a: "When the value of imports is higher than the value of exports." },
+            { q: "Define a trade surplus.", a: "A favourable balance in which exports are worth more than imports." },
+            { q: "Define a trade deficit.", a: "An adverse balance in which imports are worth more than exports." },
+            { q: "Define the balance of payments.", a: "An accounting record of all transactions between a country and the rest of the world over a certain period." },
+            { q: "Besides goods, what does the balance of payments include?", a: "Services and capital." },
+            { q: "Name the two examples of capital given in the presentation.", a: "Loans and investments." },
+            { q: "How is the balance of payments broader than the balance of trade?", a: "It records all international transactions, including goods, services, loans, and investments." },
+            { q: "What word in the balance-of-trade definition shows that it is measured over time?", a: "Period." },
+            { q: "Is the balance of payments a single sale or an accounting summary?", a: "An accounting record or summary." },
+            { q: "Does the balance of trade compare the value or merely the number of exports and imports?", a: "It compares their value." },
+            { q: "What is the balance of trade when export and import values are equal?", a: "Zero, meaning neither a surplus nor a deficit." },
+            { q: "Which must be greater to create a trade surplus: exports or imports?", a: "Exports." },
+            { q: "Which must be greater to create a trade deficit: exports or imports?", a: "Imports." },
+            { q: "Which measure compares prices rather than total trade values?", a: "Terms of trade." },
+            { q: "Which measure records all transactions with the rest of the world?", a: "The balance of payments." }
         ];
-        const environmentalFactors = [
-            { term: "Climate Change", detail: "Long-term changes in average temperatures and other climate patterns." },
-            { term: "Natural Disasters", detail: "Severe natural events that cause major damage, loss, or disruption to people and places." },
-            { term: "Environmental Policies", detail: "Government laws, rules, and plans designed to manage human impacts and protect the environment." },
-            { term: "Biodiversity", detail: "The variety of living organisms, including diversity within species, between species, and among ecosystems." },
-            { term: "Pollution", detail: "The introduction of harmful substances or forms of energy into the environment." },
-            { term: "Resource Depletion", detail: "The use of a natural resource faster than it can be replaced or renewed." },
-            { term: "Land Use", detail: "The way land is managed and used for purposes such as farming, housing, industry, or conservation." },
-            { term: "Water Availability", detail: "The amount of usable water that is accessible to people and economic activities." },
-            { term: "Air Quality", detail: "The degree to which the air is clean and free from harmful pollutants." },
-            { term: "Waste Management", detail: "The collection, transport, treatment, recycling, and disposal of waste." }
+        const tradePolicy = [
+            { q: "Define trade policy.", a: "A set of rules and standards that governs a country's trade with other countries." },
+            { q: "What is another name for trade policy?", a: "Commercial policy." },
+            { q: "What two outcomes should trade policy promote?", a: "Trade should run smoothly and benefit the country." },
+            { q: "Why may groups of countries work together on trade policy?", a: "To set up mutually beneficial policies." },
+            { q: "Define protectionism.", a: "A policy of restricting international trade to protect local goods and services from foreign competition." },
+            { q: "What competition is protectionism intended to make fair?", a: "Competition between imported and locally produced goods and services." },
+            { q: "Define trade barriers.", a: "Government regulations or policies that restrict international trade." },
+            { q: "Name the three trade barriers in the presentation.", a: "Tariffs, quotas, and subsidies." },
+            { q: "Define tariffs.", a: "Taxes imposed on imported goods and services." },
+            { q: "How do tariffs restrict imports?", a: "They increase the prices of imported goods and services." },
+            { q: "Define quotas.", a: "Restrictions that limit the quantity of goods that may be imported from a country." },
+            { q: "Do quotas restrict the price or quantity of imports?", a: "The quantity." },
+            { q: "Define subsidies.", a: "Benefits or financial assistance that government gives to businesses or sectors." },
+            { q: "What economic problem may subsidies help prevent?", a: "A decline in industry." },
+            { q: "What costs did South Africa subsidise near the homelands during apartheid?", a: "Salaries, municipal rates, water, and electricity costs." },
+            { q: "Where did apartheid-era subsidies encourage industries to develop?", a: "In areas near the homelands." },
+            { q: "Why are Ethiopian coffee farmers subsidised in the example?", a: "To cover production expenses while selling coffee beans at a competitive reduced price." },
+            { q: "What imported product do subsidised Ethiopian farmers compete with?", a: "Imported coffee beans." },
+            { q: "Which trade barrier is an import tax?", a: "A tariff." },
+            { q: "Which policy uses trade barriers to restrict trade?", a: "Protectionism." }
         ];
-        const communityFactors = [
-            { term: "Community-Based Development", detail: "An approach in which community members actively lead and participate in planning, implementing, and managing projects that affect their lives." },
-            { term: "Local Participation", detail: "The involvement of community members in decisions so that projects reflect local priorities and needs." },
-            { term: "Empowerment", detail: "The process of building people's ability and authority to make decisions and take control of their own development." },
-            { term: "Sustainability", detail: "The ability to meet present needs while maintaining resources and opportunities for the future." },
-            { term: "Collaboration", detail: "People or organisations working together and sharing resources or expertise to achieve a common goal." },
-            { term: "Holistic Approach", detail: "A method that considers the whole situation and the connections among its economic, social, and environmental parts." },
-            { term: "Ownership", detail: "The community's responsibility for, control over, and commitment to a project or its outcomes." }
+        const freeAndFairTrade = [
+            { q: "Define free trade.", a: "International trade without barriers or protective measures such as tariffs and quota restrictions." },
+            { q: "How does lifting trade barriers assist globalisation?", a: "It allows greater economic integration between countries." },
+            { q: "How can free trade promote economic growth?", a: "Through increased market access and efficiency." },
+            { q: "What consumer benefit can free trade provide?", a: "A wider variety of goods at lower prices." },
+            { q: "How can free trade encourage innovation?", a: "Competitive pressure encourages technological advancement." },
+            { q: "How can free trade improve resource allocation?", a: "Resources can be allocated according to comparative advantage." },
+            { q: "What type of investment can free trade attract?", a: "Foreign direct investment." },
+            { q: "How can free trade affect relations between nations?", a: "It can strengthen their political and economic ties." },
+            { q: "What does specialisation allow countries to do?", a: "Produce goods in which they have an advantage." },
+            { q: "How do economies of scale benefit companies?", a: "Larger-scale production can lower average costs." },
+            { q: "What employment disadvantage can free trade create?", a: "Domestic industries may suffer, causing job losses in some sectors." },
+            { q: "What exploitation risk may workers in developing countries face?", a: "Poor working conditions and low wages." },
+            { q: "What vulnerability can over-reliance on foreign goods create?", a: "Economic dependence." },
+            { q: "How can increased production and transportation affect the environment?", a: "They can cause environmental degradation." },
+            { q: "How can global market fluctuations affect economies?", a: "They can cause market volatility and economic instability." },
+            { q: "How can free trade affect national sovereignty?", a: "Countries may lose some control over their own economic policies." },
+            { q: "How can free trade affect income inequality?", a: "It can worsen inequality within and between countries." },
+            { q: "What is cultural erosion in the context of free trade?", a: "The weakening of local traditions and identities through increased foreign influence." },
+            { q: "Define fair trade.", a: "A form of trade focused on sustainability, fair treatment of producers, and development in LEDCs." },
+            { q: "Name the three fair-trade aims stated in the presentation.", a: "Higher producer wages, ending exploitation such as child labour, and encouraging entrepreneurship." }
         ];
-
         function makeJeopardyQuestions(factors, offset) {
             return Array.from({ length: 5 }, (_, index) => {
 
-                const factor = factors[(offset * 5 + index) % factors.length];
-                const askForDefinition = (offset + index) % 2 === 1;
+                const question = factors[(offset * 5 + index) % factors.length];
                 return {
                     points: (index + 1) * 10,
-                    q: askForDefinition ? "Define " + factor.term + "." : "Which development factor matches this definition? " + factor.detail,
-                    a: askForDefinition ? factor.detail : "What is " + factor.term + "?"
+                    q: question.q,
+                    a: question.a
                 };
             });
         }
 
         function makePlayerBoard(offset) {
             return [
-                { name: "Economic Factors", questions: makeJeopardyQuestions(economicFactors, offset) },
-                { name: "Social Factors", questions: makeJeopardyQuestions(socialFactors, offset) },
-                { name: "Environmental Factors", questions: makeJeopardyQuestions(environmentalFactors, offset) },
-                { name: "Community Development", questions: makeJeopardyQuestions(communityFactors, offset) }
+                { name: "Trade Foundations", questions: makeJeopardyQuestions(tradeFoundations, offset) },
+                { name: "Trade Measures", questions: makeJeopardyQuestions(tradeMeasures, offset) },
+                { name: "Trade Policy", questions: makeJeopardyQuestions(tradePolicy, offset) },
+                { name: "Free and Fair Trade", questions: makeJeopardyQuestions(freeAndFairTrade, offset) }
             ];
         }
 

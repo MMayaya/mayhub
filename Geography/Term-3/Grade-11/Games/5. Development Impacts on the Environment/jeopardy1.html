@@ -115,8 +115,8 @@
 
     <header class="game-header">
         <h1 class="game-title">Grade 11 Geography Jeopardy</h1>
-        <p class="game-subtitle">Topic: Factors Affecting Development</p>
-        <p style="font-size: 0.78rem; color: #52606d; margin-top: 0.45rem;">Source: Factors Affecting Development - Grade 11 Geography Term 3 presentation.</p>
+        <p class="game-subtitle">Topic: Development Impacts on the Environment</p>
+        <p style="font-size: 0.78rem; color: #52606d; margin-top: 0.45rem;">Source: Development Impacts on the Environment - Grade 11 Geography Term 3 presentation.</p>
     </header>
 
     <section class="name-setup" id="nameSetupSection">
@@ -191,71 +191,113 @@
 
         <script src="../../../../../game-audio.js"></script>
 <script>
-        const economicFactors = [
-            { term: "Infrastructure", detail: "The basic physical and organisational systems and facilities needed for a society and economy to function, such as transport, electricity, water, and communications." },
-            { term: "Investment", detail: "The commitment of money, capital, or other resources to an activity or project in order to gain future benefits." },
-            { term: "Economic Policies", detail: "Government decisions, laws, and actions used to influence how an economy operates." },
-            { term: "Technology", detail: "The application of knowledge, tools, and techniques to solve problems and produce goods or services." },
-            { term: "Natural Resources", detail: "Materials and environmental features that occur in nature and can be used by people, such as water, land, minerals, and forests." },
-            { term: "Trade", detail: "The buying, selling, or exchange of goods and services between people, regions, or countries." },
-            { term: "Labor Market Conditions", detail: "The circumstances affecting the supply of workers, demand for labour, employment, wages, and available skills." },
-            { term: "Financial Systems", detail: "The institutions, markets, and rules that enable saving, borrowing, payments, and investment." },
-            { term: "Government Spending", detail: "Money used by government to provide public services, infrastructure, and programmes." },
-            { term: "Entrepreneurship", detail: "The process of identifying an opportunity, organising resources, and creating or managing an enterprise while accepting risk." }
+        const environmentalImpacts = [
+            { q: "Define environmental impact.", a: "A change to the natural environment caused by human activity or natural processes." },
+            { q: "Define deforestation.", a: "The large-scale clearing or removal of forests." },
+            { q: "Why are forests cleared during development?", a: "Mainly for agriculture, settlement, infrastructure, and urbanisation." },
+            { q: "Name three impacts of deforestation.", a: "Any three of habitat loss, reduced biodiversity, soil erosion, higher carbon dioxide, and loss of windbreaks." },
+            { q: "Define habitat.", a: "The natural home or environment in which an organism lives." },
+            { q: "Define biodiversity.", a: "The variety of living organisms in an area." },
+            { q: "How can habitat loss affect biodiversity?", a: "Populations decline and some species may become extinct." },
+            { q: "Define pollution.", a: "The introduction of harmful substances or energy into the environment." },
+            { q: "Which three parts of the environment can industrial activity contaminate?", a: "Air, water, and soil." },
+            { q: "Define climate change.", a: "Long-term changes in average temperatures and other climate patterns." },
+            { q: "How do greenhouse gases affect global temperature?", a: "They trap heat and increase global warming." },
+            { q: "Name two effects of climate change from the chapter.", a: "Melting ice caps and rising sea levels." },
+            { q: "Define resource depletion.", a: "Using a natural resource faster than it can be replaced or renewed." },
+            { q: "Name three resources that development may deplete.", a: "Water, minerals, and fossil fuels." },
+            { q: "What is the main long-term result of resource depletion?", a: "Scarcity of essential resources." },
+            { q: "Define urbanisation.", a: "The growth of towns and cities as more people live and work in urban areas." },
+            { q: "How does urbanisation affect land use?", a: "Natural or rural land is converted to buildings, roads, and other urban uses." },
+            { q: "Define waste generation.", a: "The production of unwanted materials as a result of human activities." },
+            { q: "What two waste types are highlighted in the chapter overview?", a: "Solid waste and plastics." },
+            { q: "Where can poorly managed waste cause pollution?", a: "On land, in rivers, and in oceans." }
         ];
-        const socialFactors = [
-            { term: "Education", detail: "The organised process through which people acquire knowledge, skills, values, and understanding." },
-            { term: "Healthcare", detail: "The services and systems used to prevent and treat illness and maintain people's health." },
-            { term: "Social Stability", detail: "A condition in which society has order, security, and predictable social relationships." },
-            { term: "Cultural Attitudes", detail: "Shared beliefs, values, and viewpoints that influence how people think and behave." },
-            { term: "Population Growth", detail: "An increase in the number of people living in a place over a period of time." },
-            { term: "Gender Equality", detail: "Equal rights, responsibilities, opportunities, and treatment for people of all genders." },
-            { term: "Social Services", detail: "Public or community services that support people's welfare and basic needs, such as care, housing support, and social assistance." },
-            { term: "Crime Rates", detail: "Measures of how frequently crimes occur in a population or area during a given period." },
-            { term: "Community Engagement", detail: "The process of involving community members in decisions and actions that affect their lives." },
-            { term: "Migration", detail: "The movement of people from one place to another to live or work, either temporarily or permanently." }
+        const resourceHarvesting = [
+            { q: "Name the four resource-harvesting activities in the chapter.", a: "Agriculture, mining, fishing, and forestry." },
+            { q: "Define overgrazing.", a: "Grazing land by too many animals for too long, preventing vegetation recovery." },
+            { q: "How can overgrazing affect soil?", a: "It removes vegetation cover and increases soil erosion and loss of fertility." },
+            { q: "Define soil erosion.", a: "The removal of fertile topsoil by wind, water, or human activity." },
+            { q: "What can poor farming methods do to soil fertility?", a: "They can make the soil infertile." },
+            { q: "How does crop rotation support sustainable farming?", a: "It helps maintain soil nutrients and can interrupt pest and disease cycles." },
+            { q: "Why is education important in sustainable farming?", a: "It helps farmers use methods that protect soil and resources." },
+            { q: "Define open-cast mining.", a: "Surface mining that removes soil and rock to reach shallow deposits." },
+            { q: "How can open-cast mining affect ecosystems?", a: "It removes vegetation, soil, and habitats and may create mine dumps." },
+            { q: "Define acid mine drainage.", a: "Acidic polluted water produced when mining materials react with air and water." },
+            { q: "Which water sources may be polluted by acid mine drainage?", a: "Groundwater, rivers, and other surface water." },
+            { q: "How can open-cast mining pollute the atmosphere?", a: "Fine solid particles and dust are released into the air." },
+            { q: "What should governments do to reduce mining damage?", a: "Strictly implement and monitor environmental mining laws." },
+            { q: "Define overfishing.", a: "Catching fish faster than populations can reproduce and recover." },
+            { q: "How does overfishing affect the food chain?", a: "It removes organisms and disturbs the natural balance of the ecosystem." },
+            { q: "What can severe overfishing cause?", a: "Fewer fish and possible extinction of species." },
+            { q: "Which two controls can protect fish stocks?", a: "Fishing laws and quotas." },
+            { q: "How does deforestation affect atmospheric gases?", a: "It results in less oxygen production and more carbon dioxide remaining in the atmosphere." },
+            { q: "How can deforestation increase soil erosion?", a: "Roots and vegetation no longer hold and protect the soil." },
+            { q: "What is the direct restoration response to deforestation?", a: "Replant trees through reforestation." }
         ];
-        const environmentalFactors = [
-            { term: "Climate Change", detail: "Long-term changes in average temperatures and other climate patterns." },
-            { term: "Natural Disasters", detail: "Severe natural events that cause major damage, loss, or disruption to people and places." },
-            { term: "Environmental Policies", detail: "Government laws, rules, and plans designed to manage human impacts and protect the environment." },
-            { term: "Biodiversity", detail: "The variety of living organisms, including diversity within species, between species, and among ecosystems." },
-            { term: "Pollution", detail: "The introduction of harmful substances or forms of energy into the environment." },
-            { term: "Resource Depletion", detail: "The use of a natural resource faster than it can be replaced or renewed." },
-            { term: "Land Use", detail: "The way land is managed and used for purposes such as farming, housing, industry, or conservation." },
-            { term: "Water Availability", detail: "The amount of usable water that is accessible to people and economic activities." },
-            { term: "Air Quality", detail: "The degree to which the air is clean and free from harmful pollutants." },
-            { term: "Waste Management", detail: "The collection, transport, treatment, recycling, and disposal of waste." }
+        const energyIndustryUrban = [
+            { q: "Which pollutants are linked to coal in the chapter?", a: "Carbon dioxide and sulphur pollution." },
+            { q: "Define fossil fuel.", a: "A non-renewable fuel formed from ancient organic matter, such as coal, oil, or gas." },
+            { q: "Name two renewable energy sources from the chapter.", a: "Hydroelectric power and solar energy." },
+            { q: "What possible wildlife impact can wind turbines have?", a: "Poorly located turbines may harm bats and birds." },
+            { q: "What does industrial combustion release?", a: "Carbon dioxide and other greenhouse gases." },
+            { q: "How can manufacturing affect rivers?", a: "Industrial waste may enter and contaminate them." },
+            { q: "What is the purpose of chimney-stack filters?", a: "To reduce harmful gases and prevent solid particles from entering the atmosphere." },
+            { q: "How should factory waste be controlled?", a: "Through strict regulations that are properly enforced." },
+            { q: "Name three tourism impacts from the chapter.", a: "Vegetation clearing, increased traffic, increased litter, and coral-reef damage." },
+            { q: "How can sensitive tourist areas be protected?", a: "Limit access and manage visitor numbers and activities." },
+            { q: "How can dam building affect aquatic life?", a: "It changes river habitats and may block fish migration." },
+            { q: "What should happen before a dam is built?", a: "An environmental impact assessment should be carried out." },
+            { q: "Define a landfill.", a: "A site where solid waste is buried or deposited." },
+            { q: "Why are landfills common around urban areas?", a: "Cities generate large amounts of solid waste that must be disposed of." },
+            { q: "How must nuclear waste be managed according to the chapter?", a: "It has to be buried and contained safely." },
+            { q: "Define eutrophication.", a: "Excess nutrients in water causing algal growth and reduced oxygen." },
+            { q: "Name the two causes of eutrophication given in the chapter.", a: "Sewage leaks and fertiliser runoff." },
+            { q: "How can old sewage-treatment plants affect water?", a: "Poor maintenance can cause sewage leaks that pollute rivers and dams." },
+            { q: "Why can wetland drainage increase flooding?", a: "Less water is stored and slowed before it reaches rivers and built-up areas." },
+            { q: "What environmental problems may accompany informal settlements?", a: "Litter, sewage spills, habitat pressure, and inadequate waste services." }
         ];
-        const communityFactors = [
-            { term: "Community-Based Development", detail: "An approach in which community members actively lead and participate in planning, implementing, and managing projects that affect their lives." },
-            { term: "Local Participation", detail: "The involvement of community members in decisions so that projects reflect local priorities and needs." },
-            { term: "Empowerment", detail: "The process of building people's ability and authority to make decisions and take control of their own development." },
-            { term: "Sustainability", detail: "The ability to meet present needs while maintaining resources and opportunities for the future." },
-            { term: "Collaboration", detail: "People or organisations working together and sharing resources or expertise to achieve a common goal." },
-            { term: "Holistic Approach", detail: "A method that considers the whole situation and the connections among its economic, social, and environmental parts." },
-            { term: "Ownership", detail: "The community's responsibility for, control over, and commitment to a project or its outcomes." }
+        const sustainableSolutions = [
+            { q: "Define sustainable development.", a: "Development that meets present needs without reducing the ability of future generations to meet theirs." },
+            { q: "What is an environmental impact assessment?", a: "A study used to predict environmental effects before a project begins." },
+            { q: "Why are environmental impact assessments useful?", a: "They identify likely harm and allow alternatives or controls to be planned." },
+            { q: "How can town planning protect wetlands?", a: "Preserve them and prevent unsuitable development or drainage." },
+            { q: "Why should municipalities control urban sprawl?", a: "To reduce habitat loss, resource pressure, and poorly serviced development." },
+            { q: "What are by-laws?", a: "Local government rules used to manage issues such as dumping and waste." },
+            { q: "How can stricter dumping by-laws help?", a: "They discourage illegal disposal and protect land and water." },
+            { q: "Define recycling.", a: "Processing waste materials so they can be used again." },
+            { q: "How does recycling reduce environmental pressure?", a: "It reduces landfill waste and demand for new raw materials." },
+            { q: "Define a conservation area.", a: "Land or water protected to conserve species, habitats, and natural features." },
+            { q: "Define a wildlife corridor.", a: "A protected route connecting habitats so wildlife can move between them." },
+            { q: "Why are wildlife corridors important?", a: "They reduce habitat isolation and allow movement, feeding, and breeding." },
+            { q: "What is overconsumption?", a: "Using or buying more goods and resources than are reasonably needed." },
+            { q: "How does overconsumption affect waste generation?", a: "It produces larger amounts of packaging, discarded goods, and other waste." },
+            { q: "Define non-biodegradable material.", a: "Material that does not break down naturally within a reasonable time." },
+            { q: "How can plastic litter harm marine animals?", a: "Animals may eat it or become tangled in it." },
+            { q: "Which animals are named as being harmed by plastic litter?", a: "Seagulls, turtles, and seals." },
+            { q: "How can soaps and detergents affect water and soil?", a: "They may alter pH and contaminate soil, rivers, and oceans." },
+            { q: "What two actions are vital for changing harmful consumption habits?", a: "Awareness and education." },
+            { q: "Name two simple household waste responses from the chapter.", a: "Do not litter and use biodegradable, environmentally friendly products." }
         ];
-
         function makeJeopardyQuestions(factors, offset) {
             return Array.from({ length: 5 }, (_, index) => {
 
-                const factor = factors[(offset * 5 + index) % factors.length];
-                const askForDefinition = (offset + index) % 2 === 1;
+
+                const question = factors[(offset * 5 + index) % factors.length];
                 return {
                     points: (index + 1) * 10,
-                    q: askForDefinition ? "Define " + factor.term + "." : "Which development factor matches this definition? " + factor.detail,
-                    a: askForDefinition ? factor.detail : "What is " + factor.term + "?"
+                    q: question.q,
+                    a: question.a
                 };
             });
         }
 
         function makePlayerBoard(offset) {
             return [
-                { name: "Economic Factors", questions: makeJeopardyQuestions(economicFactors, offset) },
-                { name: "Social Factors", questions: makeJeopardyQuestions(socialFactors, offset) },
-                { name: "Environmental Factors", questions: makeJeopardyQuestions(environmentalFactors, offset) },
-                { name: "Community Development", questions: makeJeopardyQuestions(communityFactors, offset) }
+                { name: "Environmental Impacts", questions: makeJeopardyQuestions(environmentalImpacts, offset) },
+                { name: "Resource Harvesting", questions: makeJeopardyQuestions(resourceHarvesting, offset) },
+                { name: "Energy and Urban Growth", questions: makeJeopardyQuestions(energyIndustryUrban, offset) },
+                { name: "Sustainable Solutions", questions: makeJeopardyQuestions(sustainableSolutions, offset) }
             ];
         }
 

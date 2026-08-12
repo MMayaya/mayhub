@@ -115,8 +115,8 @@
 
     <header class="game-header">
         <h1 class="game-title">Grade 11 Geography Jeopardy</h1>
-        <p class="game-subtitle">Topic: Factors Affecting Development</p>
-        <p style="font-size: 0.78rem; color: #52606d; margin-top: 0.45rem;">Source: Factors Affecting Development - Grade 11 Geography Term 3 presentation.</p>
+        <p class="game-subtitle">Topic: Role of Development Aid</p>
+        <p style="font-size: 0.78rem; color: #52606d; margin-top: 0.45rem;">Source: Development Aid - Grade 11 Geography Term 3 presentation.</p>
     </header>
 
     <section class="name-setup" id="nameSetupSection">
@@ -191,71 +191,113 @@
 
         <script src="../../../../../game-audio.js"></script>
 <script>
-        const economicFactors = [
-            { term: "Infrastructure", detail: "The basic physical and organisational systems and facilities needed for a society and economy to function, such as transport, electricity, water, and communications." },
-            { term: "Investment", detail: "The commitment of money, capital, or other resources to an activity or project in order to gain future benefits." },
-            { term: "Economic Policies", detail: "Government decisions, laws, and actions used to influence how an economy operates." },
-            { term: "Technology", detail: "The application of knowledge, tools, and techniques to solve problems and produce goods or services." },
-            { term: "Natural Resources", detail: "Materials and environmental features that occur in nature and can be used by people, such as water, land, minerals, and forests." },
-            { term: "Trade", detail: "The buying, selling, or exchange of goods and services between people, regions, or countries." },
-            { term: "Labor Market Conditions", detail: "The circumstances affecting the supply of workers, demand for labour, employment, wages, and available skills." },
-            { term: "Financial Systems", detail: "The institutions, markets, and rules that enable saving, borrowing, payments, and investment." },
-            { term: "Government Spending", detail: "Money used by government to provide public services, infrastructure, and programmes." },
-            { term: "Entrepreneurship", detail: "The process of identifying an opportunity, organising resources, and creating or managing an enterprise while accepting risk." }
+        const aidFoundations = [
+            { q: "Define development aid.", a: "Assistance from foreign countries or organisations that supports economic, social, and environmental development and living standards in LEDCs." },
+            { q: "Give the two alternative names for development aid.", a: "International aid and foreign aid." },
+            { q: "Who may give development aid?", a: "Foreign countries or organisations." },
+            { q: "What is a donor?", a: "A country or organisation that gives aid." },
+            { q: "What is a recipient?", a: "A country that receives aid." },
+            { q: "Which countries are the main recipients discussed in the lesson?", a: "LEDCs, or less economically developed countries." },
+            { q: "Name the three areas of development that aid may support.", a: "Economic, social, and environmental development." },
+            { q: "What aspect of people's lives should development aid improve?", a: "Their standard of living." },
+            { q: "What does it mean for aid to be appropriate?", a: "It should suit the recipient's needs and circumstances." },
+            { q: "Should aid empower or undermine LEDCs?", a: "It should empower them." },
+            { q: "What does empowerment mean in development aid?", a: "Strengthening recipients' ability to improve their own lives and development." },
+            { q: "What is self-sufficiency?", a: "The ability to meet needs without depending continuously on outside assistance." },
+            { q: "What broad distinction separates official aid from voluntary aid?", a: "Official aid is authorised by governments or international organisations; voluntary aid is willingly donated through aid agencies." },
+            { q: "Name the two routes of official aid.", a: "Bilateral and multilateral aid." },
+            { q: "Name the three specialised aid types in the lesson.", a: "Technical, conditional, and humanitarian aid." },
+            { q: "Why may emergency aid be necessary?", a: "To meet immediate needs after disasters such as floods, droughts, earthquakes, or volcanic eruptions." },
+            { q: "Why is long-term aid needed as well as emergency relief?", a: "It supports continued development and recovery after immediate needs have been met." },
+            { q: "What risk arises when aid weakens self-sufficiency?", a: "Aid dependency." },
+            { q: "What should donors consider when planning aid?", a: "The recipient's real needs and development priorities." },
+            { q: "State the central principle of good development aid.", a: "It should support and empower development rather than undermine it." }
         ];
-        const socialFactors = [
-            { term: "Education", detail: "The organised process through which people acquire knowledge, skills, values, and understanding." },
-            { term: "Healthcare", detail: "The services and systems used to prevent and treat illness and maintain people's health." },
-            { term: "Social Stability", detail: "A condition in which society has order, security, and predictable social relationships." },
-            { term: "Cultural Attitudes", detail: "Shared beliefs, values, and viewpoints that influence how people think and behave." },
-            { term: "Population Growth", detail: "An increase in the number of people living in a place over a period of time." },
-            { term: "Gender Equality", detail: "Equal rights, responsibilities, opportunities, and treatment for people of all genders." },
-            { term: "Social Services", detail: "Public or community services that support people's welfare and basic needs, such as care, housing support, and social assistance." },
-            { term: "Crime Rates", detail: "Measures of how frequently crimes occur in a population or area during a given period." },
-            { term: "Community Engagement", detail: "The process of involving community members in decisions and actions that affect their lives." },
-            { term: "Migration", detail: "The movement of people from one place to another to live or work, either temporarily or permanently." }
+        const officialAndVoluntaryAid = [
+            { q: "Define official aid.", a: "Authorised aid given from one country to another or from an international organisation to a country." },
+            { q: "Define bilateral aid.", a: "Aid given directly from one country to another." },
+            { q: "How many countries are directly involved in bilateral aid?", a: "Two: the donor and the recipient." },
+            { q: "Define multilateral aid.", a: "Aid given through an international organisation that distributes it among LEDCs." },
+            { q: "Name the two multilateral organisations in the lesson.", a: "The International Monetary Fund and the World Bank." },
+            { q: "What does IMF stand for?", a: "International Monetary Fund." },
+            { q: "What role does an international organisation play in multilateral aid?", a: "It receives aid from donors and distributes it among recipient countries." },
+            { q: "How does bilateral aid differ from multilateral aid?", a: "Bilateral aid goes directly between countries; multilateral aid passes through an international organisation." },
+            { q: "Define voluntary aid.", a: "Aid collected by aid agencies and given willingly by individuals and corporations." },
+            { q: "What alternative name is given for voluntary aid?", a: "Charity aid." },
+            { q: "Who collects voluntary aid?", a: "Aid agencies." },
+            { q: "Who may donate voluntary aid?", a: "Individuals and corporations." },
+            { q: "Name the two time scales of voluntary aid.", a: "Short-term and long-term aid." },
+            { q: "What is short-term voluntary aid?", a: "Immediate assistance supplied during emergencies." },
+            { q: "Name the two short-term aid organisations in the lesson.", a: "Oxfam and the Red Cross." },
+            { q: "Give two examples of short-term emergency supplies.", a: "Medicine and food parcels." },
+            { q: "Which disasters are used as examples for short-term voluntary aid?", a: "Earthquakes and volcanic eruptions." },
+            { q: "What is long-term voluntary aid?", a: "Continued assistance from NGOs that supports development over time." },
+            { q: "Give two examples of long-term voluntary aid projects.", a: "Building schools and orphanages." },
+            { q: "Which organisations commonly provide long-term voluntary development aid?", a: "Non-governmental organisations, or NGOs." }
         ];
-        const environmentalFactors = [
-            { term: "Climate Change", detail: "Long-term changes in average temperatures and other climate patterns." },
-            { term: "Natural Disasters", detail: "Severe natural events that cause major damage, loss, or disruption to people and places." },
-            { term: "Environmental Policies", detail: "Government laws, rules, and plans designed to manage human impacts and protect the environment." },
-            { term: "Biodiversity", detail: "The variety of living organisms, including diversity within species, between species, and among ecosystems." },
-            { term: "Pollution", detail: "The introduction of harmful substances or forms of energy into the environment." },
-            { term: "Resource Depletion", detail: "The use of a natural resource faster than it can be replaced or renewed." },
-            { term: "Land Use", detail: "The way land is managed and used for purposes such as farming, housing, industry, or conservation." },
-            { term: "Water Availability", detail: "The amount of usable water that is accessible to people and economic activities." },
-            { term: "Air Quality", detail: "The degree to which the air is clean and free from harmful pollutants." },
-            { term: "Waste Management", detail: "The collection, transport, treatment, recycling, and disposal of waste." }
+        const specialisedAid = [
+            { q: "Define technical aid.", a: "Aid supplied as skilled technological advice and assistance." },
+            { q: "Who usually provides technical aid?", a: "Skilled engineers." },
+            { q: "Which organisation may fund technical aid?", a: "The World Bank." },
+            { q: "Name four forms of infrastructure technical aid may build.", a: "Roads, bridges, power stations, and dams." },
+            { q: "Give the named example of technical aid.", a: "The Lesotho Highlands Water Scheme." },
+            { q: "Why is technical aid valuable?", a: "It transfers skills and expertise while supporting infrastructure development." },
+            { q: "Define conditional aid.", a: "Aid granted subject to a specific condition." },
+            { q: "What does the phrase strings attached mean?", a: "The recipient must accept obligations or conditions to receive the aid." },
+            { q: "What type of agreement often accompanies conditional aid?", a: "A trade agreement." },
+            { q: "In the road example, what must the recipient do?", a: "Trade specified raw materials with the donor." },
+            { q: "Name the three raw materials in the conditional-aid example.", a: "Rubber, oil, and cotton." },
+            { q: "Define humanitarian aid.", a: "Aid that supports people and improves their living conditions." },
+            { q: "Name three non-disaster forms of humanitarian aid.", a: "Skills training, debt-reduction money, and medical help." },
+            { q: "Which vulnerable group is specifically mentioned under humanitarian aid?", a: "HIV/AIDS orphans." },
+            { q: "Which two natural disasters are named under humanitarian aid?", a: "Flood and drought." },
+            { q: "What immediate goods may be provided after a disaster?", a: "Food, water, and emergency supplies." },
+            { q: "What longer-term disaster support may a donor provide?", a: "Recovery and rebuilding." },
+            { q: "How does humanitarian aid differ from conditional aid?", a: "Humanitarian aid addresses people's needs; conditional aid requires the recipient to meet stated conditions." },
+            { q: "How does technical aid differ from humanitarian aid?", a: "Technical aid provides expertise and infrastructure assistance; humanitarian aid directly improves living conditions and responds to need." },
+            { q: "Which aid type best describes airlifting food after a disaster?", a: "Humanitarian aid." }
         ];
-        const communityFactors = [
-            { term: "Community-Based Development", detail: "An approach in which community members actively lead and participate in planning, implementing, and managing projects that affect their lives." },
-            { term: "Local Participation", detail: "The involvement of community members in decisions so that projects reflect local priorities and needs." },
-            { term: "Empowerment", detail: "The process of building people's ability and authority to make decisions and take control of their own development." },
-            { term: "Sustainability", detail: "The ability to meet present needs while maintaining resources and opportunities for the future." },
-            { term: "Collaboration", detail: "People or organisations working together and sharing resources or expertise to achieve a common goal." },
-            { term: "Holistic Approach", detail: "A method that considers the whole situation and the connections among its economic, social, and environmental parts." },
-            { term: "Ownership", detail: "The community's responsibility for, control over, and commitment to a project or its outcomes." }
+        const benefitsAndChallenges = [
+            { q: "How can aid reduce poverty?", a: "By providing essential resources and services." },
+            { q: "How can aid support infrastructure development?", a: "By funding roads, schools, hospitals, and other facilities." },
+            { q: "How can aid improve health?", a: "By supporting health programmes that reduce disease and improve outcomes." },
+            { q: "How can aid improve education?", a: "By increasing access to education and literacy." },
+            { q: "What is the humanitarian-relief benefit of aid?", a: "It provides immediate help during disasters and conflicts." },
+            { q: "What is capacity building?", a: "Strengthening local skills through training and knowledge transfer." },
+            { q: "How can aid stimulate economic growth?", a: "By funding development projects and creating jobs." },
+            { q: "How can aid promote social development?", a: "By supporting goals such as gender equality and human rights." },
+            { q: "How can aid contribute to political stability?", a: "By addressing root causes of conflict." },
+            { q: "How can aid strengthen international relations?", a: "By improving diplomatic ties between donor and recipient countries." },
+            { q: "What is aid dependency?", a: "Reliance on aid that reduces self-sufficiency." },
+            { q: "What is aid mismanagement?", a: "Aid being misused, misallocated, or diverted by corrupt officials." },
+            { q: "How can free aid goods undermine local economies?", a: "Local businesses may be unable to compete with goods supplied free of charge." },
+            { q: "What is donor influence?", a: "Donors imposing their own policies and priorities on recipients." },
+            { q: "What is the short-term-focus disadvantage?", a: "Aid may address immediate relief while neglecting sustainable development." },
+            { q: "How can bureaucracy reduce aid effectiveness?", a: "Slow administrative processes delay delivery and impact." },
+            { q: "What is the debt-burden risk of aid?", a: "Loans given as aid may leave recipients with high debt." },
+            { q: "What is aid fatigue?", a: "Falling donor willingness and contributions after continuous aid." },
+            { q: "What is inequitable distribution?", a: "Aid benefits fail to reach the people most in need." },
+            { q: "What are distorted priorities?", a: "Recipient countries favour donor-funded projects over their own development agendas." }
         ];
-
         function makeJeopardyQuestions(factors, offset) {
             return Array.from({ length: 5 }, (_, index) => {
 
-                const factor = factors[(offset * 5 + index) % factors.length];
-                const askForDefinition = (offset + index) % 2 === 1;
+
+                const question = factors[(offset * 5 + index) % factors.length];
                 return {
                     points: (index + 1) * 10,
-                    q: askForDefinition ? "Define " + factor.term + "." : "Which development factor matches this definition? " + factor.detail,
-                    a: askForDefinition ? factor.detail : "What is " + factor.term + "?"
+                    q: question.q,
+                    a: question.a
                 };
             });
         }
 
         function makePlayerBoard(offset) {
             return [
-                { name: "Economic Factors", questions: makeJeopardyQuestions(economicFactors, offset) },
-                { name: "Social Factors", questions: makeJeopardyQuestions(socialFactors, offset) },
-                { name: "Environmental Factors", questions: makeJeopardyQuestions(environmentalFactors, offset) },
-                { name: "Community Development", questions: makeJeopardyQuestions(communityFactors, offset) }
+                { name: "Aid Foundations", questions: makeJeopardyQuestions(aidFoundations, offset) },
+                { name: "Official and Voluntary Aid", questions: makeJeopardyQuestions(officialAndVoluntaryAid, offset) },
+                { name: "Specialised Aid", questions: makeJeopardyQuestions(specialisedAid, offset) },
+                { name: "Benefits and Challenges", questions: makeJeopardyQuestions(benefitsAndChallenges, offset) }
             ];
         }
 
@@ -382,7 +424,7 @@
 
         function updateScore(i) { document.getElementById(`score-${i}`).innerText = scores[i]; }
         function closeModal() { activeTileButton.innerText = ""; activeTileButton.disabled = true; modal.style.display = 'none'; }
-        
+
         buildBoards();
 
         function resetPlayerNames() {

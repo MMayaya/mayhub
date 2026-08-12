@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-8GCWSKNDL7"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-8GCWSKNDL7');
+</script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>May Learning Hub | Grade 12 Geography: Food Security</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f0f4f8; color: #333; line-height: 1.6; display: flex; flex-direction: column; min-height: 100vh; }
+
+        /* Navigation */
+        nav { background-color: #002b5e; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; }
+        .logo { color: #fff; font-size: 1.5rem; font-weight: bold; text-decoration: none; }
+        .nav-links a { color: #cce0ff; text-decoration: none; margin-left: 1.5rem; font-weight: 500; transition: color 0.3s; }
+        .nav-links a:hover, .nav-links a.active { color: #fff; text-decoration: underline; }
+
+        /* Header */
+        .game-header { text-align: center; padding: 3rem 1rem 1rem; max-width: 900px; margin: 0 auto; }
+        .game-title { color: #004080; font-size: 2.5rem; margin-bottom: 0.5rem; }
+        .game-subtitle { color: #555; margin-bottom: 2rem; font-size: 1.1rem; }
+
+        /* Categories */
+        .category-selection { margin-bottom: 2.5rem; }
+        .cat-buttons { display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem; }
+        .cat-btn { background-color: #f0f4f8; border: 2px solid #004080; color: #004080; padding: 0.8rem 1.5rem; font-size: 1rem; font-weight: bold; border-radius: 8px; cursor: pointer; transition: all 0.3s ease; }
+        .cat-btn:hover, .cat-btn.active { background-color: #004080; color: #fff; transform: translateY(-3px); box-shadow: 0 4px 10px rgba(0,64,128,0.2); }
+
+        .controls { display: none; justify-content: center; align-items: center; gap: 2rem; margin-bottom: 2rem; }
+        .move-counter { font-size: 1.2rem; font-weight: bold; color: #004080; background: #fff; padding: 0.6rem 1.8rem; border-radius: 50px; border: 2px solid #3385ff; }
+        .restart-btn { background-color: #3385ff; color: #fff; border: none; padding: 0.7rem 1.8rem; font-size: 1rem; font-weight: bold; border-radius: 50px; cursor: pointer; border-bottom: 3px solid #004080; }
+
+        /* Memory Grid */
+        .memory-game { display: none; width: 100%; max-width: 1200px; margin: 0 auto 4rem; grid-template-columns: repeat(5, 1fr); gap: 15px; padding: 0 20px; perspective: 1000px; }
+
+        @media (max-width: 950px) { .memory-game { grid-template-columns: repeat(4, 1fr); } }
+        @media (max-width: 650px) { .memory-game { grid-template-columns: repeat(2, 1fr); } }
+
+        .memory-card { position: relative; width: 100%; aspect-ratio: 1 / 1.2; transform-style: preserve-3d; transition: transform 0.5s; cursor: pointer; }
+        .memory-card.flip { transform: rotateY(180deg); }
+
+        .front-face, .back-face {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 15px;
+            text-align: center;
+            font-size: 1rem;
+            line-height: 1.4;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .front-face { background: #004080; color: #fff; font-size: 2.5rem; border: 3px solid #3385ff; font-weight: bold; }
+        .back-face { background: #fff; color: #002b5e; transform: rotateY(180deg); border: 3px solid #004080; font-weight: 700; }
+        .memory-card.matched .back-face { background: #d4edda; border-color: #28a745; color: #155724; }
+
+        footer { text-align: center; padding: 1.5rem; background-color: #002b5e; color: #fff; margin-top: auto; }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="../../../../../index.html" class="logo">May Learning Hub</a>
+        <div class="nav-links">
+            <a href="../../../../../index.html">Home</a>
+            <a href="../../../../../about.html">About</a>
+        </div>
+    </nav>
+
+    <header class="game-header">
+        <h1 class="game-title">Grade 12 Geography: Food Security</h1>
+        <p class="game-subtitle">Match food-security concepts, pillars, causes, importance, and improvement strategies!</p>
+        <p style="font-size: 0.78rem; color: #52606d; margin-top: 0.45rem;">Source: Food Security - Grade 12 Geography Term 3 presentation.</p>
+
+        <div class="category-selection">
+            <div class="cat-buttons">
+                <button class="cat-btn" onclick="selectCategory('topic1', this)">Core Definition</button>
+                <button class="cat-btn" onclick="selectCategory('topic2', this)">Four Pillars</button>
+                <button class="cat-btn" onclick="selectCategory('topic3', this)">Food Insecurity</button>
+                <button class="cat-btn" onclick="selectCategory('topic4', this)">Importance</button>
+                <button class="cat-btn" onclick="selectCategory('topic5', this)">Influencing Factors</button>
+                <button class="cat-btn" onclick="selectCategory('topic6', this)">Improvement Strategies</button>
+            </div>
+        </div>
+
+        <div class="controls" id="gameControls">
+            <div class="move-counter">Moves: <span id="moves">0</span></div>
+            <button class="restart-btn" onclick="initGame()">Restart Level</button>
+        </div>
+    </header>
+
+    <main class="memory-game" id="gameBoard"></main>
+
+    <footer>
+        <p>&copy; 2026 May Learning Hub. All rights reserved.</p>
+    </footer>
+
+        <script src="../../../../../game-audio.js"></script>
+<script>
+        const coreDefinition = [
+    {
+        "term": "Food Security",
+        "detail": "All people, at all times, have physical and economic access to sufficient, safe, and nutritious food."
+    },
+    {
+        "term": "All People",
+        "detail": "Food security must include everyone rather than only selected groups."
+    },
+    {
+        "term": "At All Times",
+        "detail": "Food access must be reliable and not limited to isolated occasions."
+    },
+    {
+        "term": "Physical Access",
+        "detail": "People can physically reach or obtain the food they need."
+    },
+    {
+        "term": "Economic Access",
+        "detail": "People have enough financial means to obtain food."
+    },
+    {
+        "term": "Sufficient Food",
+        "detail": "There is enough food to meet people's needs."
+    },
+    {
+        "term": "Safe Food",
+        "detail": "Food is fit for consumption and does not threaten health."
+    },
+    {
+        "term": "Nutritious Food",
+        "detail": "Food supports proper nutrition and health."
+    }
+];
+        const fourPillars = [
+    {
+        "term": "Availability",
+        "detail": "There is an adequate supply of food."
+    },
+    {
+        "term": "Access",
+        "detail": "People can obtain the food that is available."
+    },
+    {
+        "term": "Utilization",
+        "detail": "Food supports proper nutrition and health."
+    },
+    {
+        "term": "Stability",
+        "detail": "Access to food remains consistent over time."
+    },
+    {
+        "term": "Adequate Supply",
+        "detail": "Enough food is present to satisfy needs."
+    },
+    {
+        "term": "Ability to Obtain Food",
+        "detail": "The central concern of the access component."
+    },
+    {
+        "term": "Proper Nutrition",
+        "detail": "The health-related concern of the utilization component."
+    },
+    {
+        "term": "Consistent Over Time",
+        "detail": "The requirement at the centre of the stability component."
+    }
+];
+        const foodInsecurity = [
+    {
+        "term": "Food Insecurity",
+        "detail": "People lack adequate physical, social, or economic access to food."
+    },
+    {
+        "term": "Physical Access to Food",
+        "detail": "Food cannot be reached or physically obtained adequately."
+    },
+    {
+        "term": "Social Access to Food",
+        "detail": "Social conditions prevent adequate access to food."
+    },
+    {
+        "term": "Economic Access to Food",
+        "detail": "People cannot afford adequate food."
+    },
+    {
+        "term": "Chronic Food Insecurity",
+        "detail": "A long-term or persistent lack of adequate food access."
+    },
+    {
+        "term": "Transitory Food Insecurity",
+        "detail": "A short-term or temporary lack of adequate food access."
+    },
+    {
+        "term": "Limited or No Access",
+        "detail": "A key characteristic of food insecurity."
+    },
+    {
+        "term": "Temporary or Chronic Hunger",
+        "detail": "The insecurity outcome contrasted with long-term stability."
+    }
+];
+        const importance = [
+    {
+        "term": "Healthy Population",
+        "detail": "Food security supports the health of the population."
+    },
+    {
+        "term": "Productive Population",
+        "detail": "Well-nourished people are better able to participate productively."
+    },
+    {
+        "term": "Reduced Poverty",
+        "detail": "Food security helps lessen poverty."
+    },
+    {
+        "term": "Reduced Inequality",
+        "detail": "More reliable access to food helps address unequal living conditions."
+    },
+    {
+        "term": "Sustainable Agriculture",
+        "detail": "Food security promotes agricultural practices that can continue over time."
+    },
+    {
+        "term": "Educational Outcomes",
+        "detail": "Children focus better in school when they are not hungry."
+    },
+    {
+        "term": "Economic Development",
+        "detail": "Food security helps strengthen wider economic progress."
+    },
+    {
+        "term": "South African Development",
+        "detail": "The presentation identifies food security as critical to national development."
+    }
+];
+        const influencingFactors = [
+    {
+        "term": "Droughts and Floods",
+        "detail": "Climate and weather events that affect crop production."
+    },
+    {
+        "term": "Poverty and Unemployment",
+        "detail": "Conditions that leave many households unable to afford food."
+    },
+    {
+        "term": "Access to Land and Water",
+        "detail": "A farming factor weakened by unequal land ownership."
+    },
+    {
+        "term": "Population Growth",
+        "detail": "A demographic factor that increases demand for food."
+    },
+    {
+        "term": "Food Prices",
+        "detail": "An affordability factor affected by inflation and transport costs."
+    },
+    {
+        "term": "Education and Awareness",
+        "detail": "Knowledge about nutrition and agriculture."
+    },
+    {
+        "term": "Inflation",
+        "detail": "A force that can raise food prices and reduce affordability."
+    },
+    {
+        "term": "Transport Costs",
+        "detail": "A cost that can increase the final price of food."
+    }
+];
+        const improvementStrategies = [
+    {
+        "term": "Agricultural Support",
+        "detail": "Government subsidies and training for farmers."
+    },
+    {
+        "term": "Land Reform",
+        "detail": "Ensuring fair distribution of agricultural land."
+    },
+    {
+        "term": "Improved Infrastructure",
+        "detail": "Better roads, storage, and transport systems."
+    },
+    {
+        "term": "Sustainable Farming",
+        "detail": "Using technology, crop rotation, and water conservation."
+    },
+    {
+        "term": "Social Grants",
+        "detail": "Financial support that can help households obtain food."
+    },
+    {
+        "term": "Feeding Schemes",
+        "detail": "Food-support programmes such as school nutrition programmes."
+    },
+    {
+        "term": "Urban Agriculture",
+        "detail": "Encouraging food production in towns and cities."
+    },
+    {
+        "term": "Home and Community Gardens",
+        "detail": "Local gardens promoted through urban agriculture."
+    }
+];
+        const toCards = factors => factors.flatMap((factor, index) => [
+            { id: index + 1, text: factor.detail },
+            { id: index + 1, text: factor.term }
+        ]);
+        const gameData = {
+            topic1: toCards(coreDefinition),
+            topic2: toCards(fourPillars),
+            topic3: toCards(foodInsecurity),
+            topic4: toCards(importance),
+            topic5: toCards(influencingFactors),
+            topic6: toCards(improvementStrategies)
+        };
+        const gameBoard = document.getElementById('gameBoard');
+        const movesDisplay = document.getElementById('moves');
+        const gameControls = document.getElementById('gameControls');
+
+        let currentCategory = null;
+        let hasFlippedCard = false;
+        let lockBoard = false;
+        let firstCard, secondCard;
+        let moves = 0;
+        let matchedPairs = 0;
+
+        function selectCategory(categoryKey, btnElement) {
+            currentCategory = categoryKey;
+            document.querySelectorAll('.cat-btn').forEach(btn => btn.classList.remove('active'));
+            btnElement.classList.add('active');
+            gameControls.style.display = 'flex';
+            gameBoard.style.display = 'grid';
+            initGame();
+        }
+
+        function initGame() {
+            gameBoard.innerHTML = '';
+            moves = 0;
+            matchedPairs = 0;
+            movesDisplay.innerText = moves;
+            hasFlippedCard = false;
+            lockBoard = false;
+
+            const categoryData = gameData[currentCategory];
+            const shuffledCards = [...categoryData].sort(() => 0.5 - Math.random());
+
+            shuffledCards.forEach(card => {
+                const cardElement = document.createElement('div');
+                cardElement.classList.add('memory-card');
+                cardElement.dataset.pairId = card.id;
+
+                cardElement.innerHTML = `
+                    <div class="front-face">?</div>
+                    <div class="back-face">${card.text}</div>
+                `;
+
+                cardElement.addEventListener('click', flipCard);
+                gameBoard.appendChild(cardElement);
+            });
+        }
+
+        function flipCard() {
+            if (lockBoard) return;
+            if (this === firstCard) return;
+
+            this.classList.add('flip');
+
+            if (!hasFlippedCard) {
+                hasFlippedCard = true;
+                firstCard = this;
+                return;
+            }
+
+            secondCard = this;
+            moves++;
+            movesDisplay.innerText = moves;
+            checkForMatch();
+        }
+
+        function checkForMatch() {
+            let isMatch = firstCard.dataset.pairId === secondCard.dataset.pairId;
+            if (isMatch) {
+                MayHubSounds.playCorrect();
+                disableCards();
+            } else {
+                MayHubSounds.playWrong();
+                unflipCards();
+            }
+        }
+
+        function disableCards() {
+            firstCard.classList.add('matched');
+            secondCard.classList.add('matched');
+            firstCard.removeEventListener('click', flipCard);
+            secondCard.removeEventListener('click', flipCard);
+            matchedPairs++;
+            if (matchedPairs === (gameData[currentCategory].length / 2)) {
+                setTimeout(() => alert(`Great job! Grade 12 Geography: Food Security Revision Complete in ${moves} moves.`), 500);
+            }
+            resetBoard();
+        }
+
+        function unflipCards() {
+            lockBoard = true;
+            setTimeout(() => {
+                firstCard.classList.remove('flip');
+                secondCard.classList.remove('flip');
+                resetBoard();
+            }, 1200);
+        }
+
+        function resetBoard() {
+            [hasFlippedCard, lockBoard] = [false, false];
+            [firstCard, secondCard] = [null, null];
+        }
+    </script>
+</body>
+</html>

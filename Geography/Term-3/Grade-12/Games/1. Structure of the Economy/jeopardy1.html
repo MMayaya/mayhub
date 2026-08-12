@@ -13,7 +13,7 @@
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>May Learning Hub | Grade 11 Geography Jeopardy</title>
+    <title>May Learning Hub | Grade 12 Geography Jeopardy</title>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f0f4f8; color: #333; line-height: 1.6; display: flex; flex-direction: column; min-height: 100vh; overflow-x: hidden; }
@@ -114,9 +114,9 @@
     </nav>
 
     <header class="game-header">
-        <h1 class="game-title">Grade 11 Geography Jeopardy</h1>
-        <p class="game-subtitle">Topic: Factors Affecting Development</p>
-        <p style="font-size: 0.78rem; color: #52606d; margin-top: 0.45rem;">Source: Factors Affecting Development - Grade 11 Geography Term 3 presentation.</p>
+        <h1 class="game-title">Grade 12 Geography Jeopardy</h1>
+        <p class="game-subtitle">Topic: Structure of the Economy</p>
+        <p style="font-size: 0.78rem; color: #52606d; margin-top: 0.45rem;">Source: Structure of the Economy - Grade 12 Geography Term 3 presentation.</p>
     </header>
 
     <section class="name-setup" id="nameSetupSection">
@@ -133,7 +133,7 @@
                 <button class="btn-edit" id="btnEditNames" onclick="showNameEditor()">Edit Names</button>
                 <button class="btn-reset" onclick="resetPlayerNames()">Reset</button>
             </div>
-            <p class="hint">80 unique clues drawn from the Grade 11 Term 3 Development presentation! </p>
+            <p class="hint">80 unique clues drawn from the Grade 12 Term 3 Development presentation! </p>
         </div>
     </section>
 
@@ -191,71 +191,113 @@
 
         <script src="../../../../../game-audio.js"></script>
 <script>
-        const economicFactors = [
-            { term: "Infrastructure", detail: "The basic physical and organisational systems and facilities needed for a society and economy to function, such as transport, electricity, water, and communications." },
-            { term: "Investment", detail: "The commitment of money, capital, or other resources to an activity or project in order to gain future benefits." },
-            { term: "Economic Policies", detail: "Government decisions, laws, and actions used to influence how an economy operates." },
-            { term: "Technology", detail: "The application of knowledge, tools, and techniques to solve problems and produce goods or services." },
-            { term: "Natural Resources", detail: "Materials and environmental features that occur in nature and can be used by people, such as water, land, minerals, and forests." },
-            { term: "Trade", detail: "The buying, selling, or exchange of goods and services between people, regions, or countries." },
-            { term: "Labor Market Conditions", detail: "The circumstances affecting the supply of workers, demand for labour, employment, wages, and available skills." },
-            { term: "Financial Systems", detail: "The institutions, markets, and rules that enable saving, borrowing, payments, and investment." },
-            { term: "Government Spending", detail: "Money used by government to provide public services, infrastructure, and programmes." },
-            { term: "Entrepreneurship", detail: "The process of identifying an opportunity, organising resources, and creating or managing an enterprise while accepting risk." }
+        const sectorFoundations = [
+            { q: "Why is a country's economy divided into sectors?", a: "To simplify, organise, and classify different economic activities." },
+            { q: "Name the four main economic sectors in the presentation.", a: "Primary, secondary, tertiary, and quaternary." },
+            { q: "Define an economic sector.", a: "A category used to organise economic activities according to the type of work performed." },
+            { q: "Define a primary economic activity.", a: "An activity that extracts and exploits raw materials from the natural environment." },
+            { q: "Define a secondary economic activity.", a: "An activity that processes primary materials into finished products required by consumers." },
+            { q: "Define a tertiary economic activity.", a: "An activity concerned with distributing products and providing services." },
+            { q: "Define a quaternary economic activity.", a: "An activity involving scientific research and the collection and processing of data." },
+            { q: "What is extraction?", a: "The removal of natural resources or raw materials from the environment." },
+            { q: "What is a raw material?", a: "A natural input used to make or manufacture another product." },
+            { q: "What is processing?", a: "Changing a raw or primary material into a more useful product." },
+            { q: "What is a finished product?", a: "A completed good ready for use or consumption." },
+            { q: "What is manufacturing?", a: "The process of transforming raw or primary materials into products." },
+            { q: "What does value added mean?", a: "The increased usefulness and economic worth created by work on a material or task." },
+            { q: "What is distribution?", a: "Moving and supplying products so they reach consumers." },
+            { q: "What is a service?", a: "Useful work supplied to meet needs rather than a physical good being produced." },
+            { q: "State the three functions in the sector-flow diagram.", a: "Extract; manufacture, construct, or refine; then serve or distribute." },
+            { q: "Which sector begins the production chain?", a: "The primary sector." },
+            { q: "Which sector transforms the outputs of the primary sector?", a: "The secondary sector." },
+            { q: "Which sector connects products and services to consumers?", a: "The tertiary sector." },
+            { q: "Which sector specialises in knowledge and information work?", a: "The quaternary sector." }
         ];
-        const socialFactors = [
-            { term: "Education", detail: "The organised process through which people acquire knowledge, skills, values, and understanding." },
-            { term: "Healthcare", detail: "The services and systems used to prevent and treat illness and maintain people's health." },
-            { term: "Social Stability", detail: "A condition in which society has order, security, and predictable social relationships." },
-            { term: "Cultural Attitudes", detail: "Shared beliefs, values, and viewpoints that influence how people think and behave." },
-            { term: "Population Growth", detail: "An increase in the number of people living in a place over a period of time." },
-            { term: "Gender Equality", detail: "Equal rights, responsibilities, opportunities, and treatment for people of all genders." },
-            { term: "Social Services", detail: "Public or community services that support people's welfare and basic needs, such as care, housing support, and social assistance." },
-            { term: "Crime Rates", detail: "Measures of how frequently crimes occur in a population or area during a given period." },
-            { term: "Community Engagement", detail: "The process of involving community members in decisions and actions that affect their lives." },
-            { term: "Migration", detail: "The movement of people from one place to another to live or work, either temporarily or permanently." }
+        const primaryAndSecondary = [
+            { q: "Name the six primary activities listed in the presentation.", a: "Farming, fishing, forestry, hunting, mining, and quarrying." },
+            { q: "Why is farming a primary activity?", a: "It obtains crops or livestock from the natural environment." },
+            { q: "Why is fishing a primary activity?", a: "It harvests natural aquatic resources." },
+            { q: "Why is forestry a primary activity?", a: "It uses and manages natural forest resources." },
+            { q: "Why is mining a primary activity?", a: "It extracts minerals from the earth." },
+            { q: "What does quarrying obtain?", a: "Stone and similar natural materials from an open excavation." },
+            { q: "What common feature links all primary activities?", a: "They obtain raw materials directly from the natural environment." },
+            { q: "What happens to primary materials in the secondary sector?", a: "They are processed into finished products." },
+            { q: "What broad process defines secondary activity?", a: "Manufacturing." },
+            { q: "What two things do secondary activities add to raw materials?", a: "Use and value." },
+            { q: "What raw material begins the bread example?", a: "Wheat." },
+            { q: "What does milling produce from wheat?", a: "Flour." },
+            { q: "What is baked from flour in the example?", a: "Bread." },
+            { q: "Explain why wheat milling is secondary activity.", a: "It processes a primary material into a more useful product." },
+            { q: "Explain why bread baking is secondary activity.", a: "It transforms flour into a finished consumer product." },
+            { q: "Name the two industrial examples shown beside car manufacturing.", a: "Steel works and dress makers." },
+            { q: "Which sector includes builders in the flow diagram?", a: "The secondary sector." },
+            { q: "What secondary function is represented by builders?", a: "Construction." },
+            { q: "Put the bread-production stages in order.", a: "Grow wheat, mill wheat into flour, then bake flour into bread." },
+            { q: "How does the secondary sector depend on the primary sector?", a: "It uses the raw materials supplied by primary activities." }
         ];
-        const environmentalFactors = [
-            { term: "Climate Change", detail: "Long-term changes in average temperatures and other climate patterns." },
-            { term: "Natural Disasters", detail: "Severe natural events that cause major damage, loss, or disruption to people and places." },
-            { term: "Environmental Policies", detail: "Government laws, rules, and plans designed to manage human impacts and protect the environment." },
-            { term: "Biodiversity", detail: "The variety of living organisms, including diversity within species, between species, and among ecosystems." },
-            { term: "Pollution", detail: "The introduction of harmful substances or forms of energy into the environment." },
-            { term: "Resource Depletion", detail: "The use of a natural resource faster than it can be replaced or renewed." },
-            { term: "Land Use", detail: "The way land is managed and used for purposes such as farming, housing, industry, or conservation." },
-            { term: "Water Availability", detail: "The amount of usable water that is accessible to people and economic activities." },
-            { term: "Air Quality", detail: "The degree to which the air is clean and free from harmful pollutants." },
-            { term: "Waste Management", detail: "The collection, transport, treatment, recycling, and disposal of waste." }
+        const tertiaryQuaternaryIncome = [
+            { q: "Name four tertiary activities from the written list.", a: "Any four of transport, trade, electrical, financial, medical, education, and tourism services." },
+            { q: "What are the two main functions of the tertiary sector?", a: "Distribution of products and provision of services." },
+            { q: "Why is transport a tertiary activity?", a: "It provides a service and helps distribute people or goods." },
+            { q: "Why is trade a tertiary activity?", a: "It distributes and sells products to consumers." },
+            { q: "Why are medical services tertiary activities?", a: "They provide health care rather than extract or manufacture goods." },
+            { q: "Why is education a tertiary activity?", a: "It provides a teaching and learning service." },
+            { q: "Name four tertiary examples shown in the sector-flow diagram.", a: "Legal services, distribution, customer service, and accounting." },
+            { q: "Which sector includes tourism?", a: "The tertiary sector." },
+            { q: "What are the two main functions of the quaternary sector?", a: "Scientific research and the collection and processing of data." },
+            { q: "Name the two quaternary examples in the presentation.", a: "Information technology and call centres." },
+            { q: "Why is information technology quaternary activity?", a: "It works with computer-based information and data." },
+            { q: "What kind of resource is central to quaternary work?", a: "Information or data." },
+            { q: "What relationship does the graph show between sector level and income?", a: "Income rises as the economic-sector level rises." },
+            { q: "Why are wages low in the primary sector according to the lesson?", a: "Primary workers add the least value." },
+            { q: "What happens to value input in tertiary and higher sectors?", a: "It becomes greater." },
+            { q: "What happens to task complexity in tertiary and higher sectors?", a: "It increases." },
+            { q: "Which two sectors are associated with the highest salaries?", a: "The quaternary and quinary sectors." },
+            { q: "How is income related to value added?", a: "Greater value added is associated with higher income." },
+            { q: "Which sector would a call-centre worker belong to in this lesson?", a: "The quaternary sector." },
+            { q: "Which sector would an accountant belong to in the flow diagram?", a: "The tertiary sector." }
         ];
-        const communityFactors = [
-            { term: "Community-Based Development", detail: "An approach in which community members actively lead and participate in planning, implementing, and managing projects that affect their lives." },
-            { term: "Local Participation", detail: "The involvement of community members in decisions so that projects reflect local priorities and needs." },
-            { term: "Empowerment", detail: "The process of building people's ability and authority to make decisions and take control of their own development." },
-            { term: "Sustainability", detail: "The ability to meet present needs while maintaining resources and opportunities for the future." },
-            { term: "Collaboration", detail: "People or organisations working together and sharing resources or expertise to achieve a common goal." },
-            { term: "Holistic Approach", detail: "A method that considers the whole situation and the connections among its economic, social, and environmental parts." },
-            { term: "Ownership", detail: "The community's responsibility for, control over, and commitment to a project or its outcomes." }
+        const southAfricanContributions = [
+            { q: "What GDP contribution is shown for agriculture, forestry, and fishing in Figure 5.1?", a: "4%." },
+            { q: "What GDP contribution is shown for mining in Figure 5.1?", a: "8.4%." },
+            { q: "What GDP contribution is shown for manufacturing in Figure 5.1?", a: "11.5%." },
+            { q: "What GDP contribution is shown for electricity in Figure 5.1?", a: "2.8%." },
+            { q: "What GDP contribution is shown for construction in Figure 5.1?", a: "4.8%." },
+            { q: "What GDP contribution is shown for wholesale in Figure 5.1?", a: "13.2%." },
+            { q: "What GDP contribution is shown for transport in Figure 5.1?", a: "7.4%." },
+            { q: "What GDP contribution is shown for finance in Figure 5.1?", a: "18.5%." },
+            { q: "What GDP contribution is shown for government services in Figure 5.1?", a: "14.5%." },
+            { q: "What GDP contribution is shown for personal services in Figure 5.1?", a: "6.4%." },
+            { q: "What GDP contribution is shown for other activities in Figure 5.1?", a: "8.5%." },
+            { q: "Give the employment shares of agriculture and mining in Figure 5.2.", a: "Agriculture 4.6% and mining 2.4%." },
+            { q: "What employment share is shown for manufacturing in Figure 5.2?", a: "13.8%." },
+            { q: "What employment share is shown for utilities in Figure 5.2?", a: "0.7%." },
+            { q: "What employment share is shown for construction in Figure 5.2?", a: "7.8%." },
+            { q: "What employment share is shown for trade in Figure 5.2?", a: "22.7%." },
+            { q: "What employment share is shown for private households in Figure 5.2?", a: "8.5%." },
+            { q: "What employment share is shown for community and social services in Figure 5.2?", a: "21.6%." },
+            { q: "What employment share is shown for finance and other business services in Figure 5.2?", a: "12.4%." },
+            { q: "What employment share is shown for transport in Figure 5.2?", a: "5.5%." }
         ];
-
         function makeJeopardyQuestions(factors, offset) {
             return Array.from({ length: 5 }, (_, index) => {
 
-                const factor = factors[(offset * 5 + index) % factors.length];
-                const askForDefinition = (offset + index) % 2 === 1;
+
+                const question = factors[(offset * 5 + index) % factors.length];
                 return {
                     points: (index + 1) * 10,
-                    q: askForDefinition ? "Define " + factor.term + "." : "Which development factor matches this definition? " + factor.detail,
-                    a: askForDefinition ? factor.detail : "What is " + factor.term + "?"
+                    q: question.q,
+                    a: question.a
                 };
             });
         }
 
         function makePlayerBoard(offset) {
             return [
-                { name: "Economic Factors", questions: makeJeopardyQuestions(economicFactors, offset) },
-                { name: "Social Factors", questions: makeJeopardyQuestions(socialFactors, offset) },
-                { name: "Environmental Factors", questions: makeJeopardyQuestions(environmentalFactors, offset) },
-                { name: "Community Development", questions: makeJeopardyQuestions(communityFactors, offset) }
+                { name: "Sector Foundations", questions: makeJeopardyQuestions(sectorFoundations, offset) },
+                { name: "Primary and Secondary", questions: makeJeopardyQuestions(primaryAndSecondary, offset) },
+                { name: "Tertiary, Quaternary and Income", questions: makeJeopardyQuestions(tertiaryQuaternaryIncome, offset) },
+                { name: "South African Contributions", questions: makeJeopardyQuestions(southAfricanContributions, offset) }
             ];
         }
 
@@ -382,7 +424,7 @@
 
         function updateScore(i) { document.getElementById(`score-${i}`).innerText = scores[i]; }
         function closeModal() { activeTileButton.innerText = ""; activeTileButton.disabled = true; modal.style.display = 'none'; }
-        
+
         buildBoards();
 
         function resetPlayerNames() {

@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-8GCWSKNDL7"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-8GCWSKNDL7');
+</script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>May Learning Hub | Smart Snake - Role of Development Aid</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f0f4f8; color: #333; line-height: 1.6; display: flex; flex-direction: column; min-height: 100vh; touch-action: manipulation; }
+
+        /* Navigation */
+        nav { background-color: #002b5e; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        .logo { color: #fff; font-size: 1.5rem; font-weight: bold; text-decoration: none; }
+        .nav-links a { color: #cce0ff; text-decoration: none; margin-left: 1.5rem; font-weight: 500; transition: color 0.3s; }
+        .nav-links a:hover, .nav-links a.active { color: #fff; text-decoration: underline; }
+
+        /* Game Header */
+        .game-header { text-align: center; padding: 2rem 1rem 1rem; }
+        .game-title { color: #004080; font-size: 2.2rem; margin-bottom: 0.5rem; }
+        .game-subtitle { color: #555; margin-bottom: 1.5rem; font-size: 1.1rem; }
+
+        /* --- Topic Selection UI --- */
+        .category-selection { margin-bottom: 2rem; text-align: center; }
+        .cat-buttons { display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem; max-width: 800px; margin: 0 auto; padding: 0 10px; }
+        .cat-btn { background-color: #fff; border: 2px solid #004080; color: #004080; padding: 0.8rem 1.5rem; font-size: 1.1rem; font-weight: bold; border-radius: 8px; cursor: pointer; transition: all 0.3s ease; flex: 1; min-width: 150px; }
+        .cat-btn:hover { background-color: #e6f0fa; transform: translateY(-3px); }
+
+        /* --- Game Area --- */
+        #gameArea { display: none; flex-direction: column; align-items: center; width: 100%; padding: 0 10px; }
+
+        .score-board { display: flex; justify-content: space-between; width: 100%; max-width: 600px; background: #002b5e; color: #fff; padding: 0.8rem 1.5rem; border-radius: 8px 8px 0 0; font-size: 1.2rem; font-weight: bold; }
+        .score-board span { color: #ffc107; }
+
+        .canvas-container { position: relative; max-width: 600px; width: 100%; }
+        canvas { background-color: #d1e0e0; box-shadow: 0 8px 20px rgba(0,0,0,0.2); border-radius: 0 0 8px 8px; border: 4px solid #002b5e; width: 100%; height: auto; display: block; }
+
+        #pauseOverlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 43, 94, 0.7); border-radius: 0 0 8px 8px; display: none; flex-direction: column; justify-content: center; align-items: center; color: #fff; font-size: 1.5rem; font-weight: bold; text-align: center; padding: 1rem; z-index: 10; animation: pulse 1.5s infinite; }
+        @keyframes pulse { 0% { opacity: 0.8; } 50% { opacity: 1; transform: scale(1.02); } 100% { opacity: 0.8; } }
+
+        .controls-container { display: grid; grid-template-columns: repeat(3, 60px); grid-template-rows: repeat(2, 60px); gap: 10px; margin-top: 2rem; justify-content: center; }
+        .control-btn { background: #3385ff; color: #fff; border: none; border-radius: 12px; font-size: 1.5rem; font-weight: bold; cursor: pointer; box-shadow: 0 4px 6px rgba(0,0,0,0.2); display: flex; align-items: center; justify-content: center; user-select: none; }
+        .control-btn:active { background: #004080; transform: translateY(2px); box-shadow: 0 2px 3px rgba(0,0,0,0.2); }
+
+        #btnUp { grid-column: 2; grid-row: 1; }
+        #btnLeft { grid-column: 1; grid-row: 2; }
+        #btnDown { grid-column: 2; grid-row: 2; }
+        #btnRight { grid-column: 3; grid-row: 2; }
+
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,26,51,0.9); align-items: center; justify-content: center; z-index: 100; padding: 1rem; }
+        .modal-content { background: #fff; padding: 2rem; border-radius: 12px; text-align: center; max-width: 500px; width: 100%; border-top: 6px solid #ffc107; box-shadow: 0 10px 40px rgba(0,0,0,0.5); }
+
+        .modal-points { color: #d32f2f; font-weight: bold; font-size: 1.2rem; margin-bottom: 0.5rem; }
+        .golden-text { color: #d39e00; }
+        .modal-question { font-size: 1.4rem; color: #002b5e; font-weight: bold; margin-bottom: 1.5rem; }
+
+        .mc-options { display: flex; flex-direction: column; gap: 0.8rem; }
+        .option-btn { background: #f0f7ff; border: 2px solid #b3d4ff; padding: 1rem; font-size: 1.1rem; border-radius: 6px; cursor: pointer; transition: all 0.2s; text-align: left; font-weight: bold; color: #004080; }
+        .option-btn:hover:not(:disabled) { background: #3385ff; color: #fff; border-color: #002b5e; }
+        .option-btn.correct { background-color: #28a745 !important; border-color: #1e7e34 !important; color: #fff !important; }
+        .option-btn.incorrect { background-color: #dc3545 !important; border-color: #bd2130 !important; color: #fff !important; }
+
+        .continue-btn { display: none; background: #004080; color: #fff; border: none; padding: 1rem 2rem; font-size: 1.1rem; font-weight: bold; border-radius: 8px; cursor: pointer; margin-top: 1.5rem; width: 100%; }
+
+        #endScreen { display: none; text-align: center; padding: 3rem 1rem; }
+        #endTitle { font-size: 2.5rem; margin-bottom: 1rem; }
+        #endMessage { font-size: 1.2rem; color: #555; }
+
+        footer { text-align: center; padding: 1rem; background-color: #002b5e; color: #fff; margin-top: auto; }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="../../../../../index.html" class="logo">May Learning Hub</a>
+        <div class="nav-links">
+            <a href="../../../../../index.html">Home</a>
+            <a href="../../../../../about.html">About</a>
+        </div>
+    </nav>
+
+    <header class="game-header">
+        <h1 class="game-title">Smart Snake: Role of Development Aid</h1>
+        <p class="game-subtitle">Grade 11 Geography - Term 3. Eat 10 apples while mastering development aid and its impacts!</p>
+        <p style="font-size: 0.78rem; color: #52606d; margin-top: 0.45rem;">Source: Development Aid - Grade 11 Geography Term 3 presentation.</p>
+    </header>
+
+    <div class="category-selection" id="categorySelection">
+        <div class="cat-buttons">
+            <button class="cat-btn" onclick="startGame('game1')">Aid Foundations</button>
+            <button class="cat-btn" onclick="startGame('game2')">Voluntary and Technical Aid</button>
+            <button class="cat-btn" onclick="startGame('game3')">Conditional and Humanitarian Aid</button>
+            <button class="cat-btn" onclick="startGame('game4')">Benefits and Challenges</button>
+        </div>
+    </div>
+
+    <main id="gameArea">
+        <div class="score-board">
+            <div>Apples: <span id="appleCount">0</span> / 10</div>
+            <div>Score: <span id="scoreText">0</span></div>
+        </div>
+
+        <div class="canvas-container">
+            <canvas id="gameCanvas" width="600" height="400"></canvas>
+
+            <div id="pauseOverlay">
+                Tap any direction below to resume slithering! 🐍
+            </div>
+        </div>
+
+        <div class="controls-container">
+            <button class="control-btn" id="btnUp" onclick="handleInput('UP')">▲</button>
+            <button class="control-btn" id="btnLeft" onclick="handleInput('LEFT')">◀</button>
+            <button class="control-btn" id="btnDown" onclick="handleInput('DOWN')">▼</button>
+            <button class="control-btn" id="btnRight" onclick="handleInput('RIGHT')">▶</button>
+        </div>
+    </main>
+
+    <div class="modal" id="questionModal">
+        <div class="modal-content">
+            <div class="modal-points" id="modalPoints">For 1 Point:</div>
+            <div class="modal-question" id="modalQuestion">Loading question...</div>
+            <div class="mc-options" id="mcOptions"></div>
+            <button class="continue-btn" id="btnContinue" onclick="closeModalAndPause()">Continue Game</button>
+        </div>
+    </div>
+
+    <div id="endScreen">
+        <h2 id="endTitle" style="color: #28a745;">Level Complete!</h2>
+        <p id="endMessage">You successfully ate 10 apples.</p>
+        <p style="font-size: 1.5rem; margin: 1rem 0; font-weight: bold;">Final Score: <span id="finalScoreText" style="color:#004080;">0</span> Points</p>
+        <button class="cat-btn" onclick="location.reload()" style="background:#3385ff; color:#fff;">Play Again</button>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 May Learning Hub. All rights reserved.</p>
+    </footer>
+
+        <script src="../../../../../game-audio.js"></script>
+<script>
+        const questionDB = {
+            'game1': [
+                { q: "What is development aid?", options: ["Assistance that supports development in LEDCs", "A tax on imported goods", "A ban on international travel", "A weather warning"], a: 0 },
+                { q: "Who supplies development aid?", options: ["A donor", "A recipient", "Only a tourist", "Only a shopkeeper"], a: 0 },
+                { q: "What is the country receiving aid called?", options: ["A recipient", "A donor", "A corporation", "A trade barrier"], a: 0 },
+                { q: "What should appropriate aid do?", options: ["Empower the recipient", "Create permanent dependence", "Ignore local needs", "Undermine development"], a: 0 },
+                { q: "What is official aid?", options: ["Authorised aid from a country or international organisation", "Only private household donations", "Unplanned tourism spending", "A local store discount"], a: 0 },
+                { q: "Which aid goes directly from one country to another?", options: ["Bilateral aid", "Multilateral aid", "Voluntary aid", "Humanitarian aid only"], a: 0 },
+                { q: "Which aid is distributed through an international organisation?", options: ["Multilateral aid", "Bilateral aid", "Short-term voluntary aid", "Conditional aid only"], a: 0 },
+                { q: "Which pair may distribute multilateral aid?", options: ["IMF and World Bank", "Oxfam and a local shop", "A school and orphanage", "A hospital and bridge"], a: 0 },
+                { q: "Which countries are the focus of development aid in the lesson?", options: ["LEDCs", "Donor countries only", "Countries with no people", "Countries that reject all development"], a: 0 },
+                { q: "What does empowerment help recipients develop?", options: ["Their own abilities and control", "Permanent reliance", "More donor conditions", "Less self-sufficiency"], a: 0 }
+            ],
+            'game2': [
+                { q: "Who may contribute voluntary aid?", options: ["Individuals and corporations", "Recipients only", "Engineers only", "International tourists only"], a: 0 },
+                { q: "Which organisations may provide short-term emergency aid?", options: ["Oxfam and the Red Cross", "IMF and a weather office", "Hotels and mines", "Banks and factories only"], a: 0 },
+                { q: "Which is short-term aid after an earthquake?", options: ["Medicine and food parcels", "A new tariff", "A long-term trade quota", "A tourism campaign"], a: 0 },
+                { q: "When is short-term aid most appropriate?", options: ["During an emergency", "Only after all recovery is complete", "When no one needs help", "To restrict trade"], a: 0 },
+                { q: "Which is long-term voluntary aid?", options: ["Building a school", "One emergency water delivery", "An import tax", "A donor condition"], a: 0 },
+                { q: "What may NGOs build as long-term aid?", options: ["Schools and orphanages", "Trade barriers", "Tariffs and quotas", "Only airports for donors"], a: 0 },
+                { q: "What form does technical aid take?", options: ["Skilled technological advice and assistance", "Only food parcels", "Only debt", "Trade restrictions"], a: 0 },
+                { q: "Who commonly provides technical expertise?", options: ["Skilled engineers", "Retail customers", "Disaster victims", "Importers only"], a: 0 },
+                { q: "Which can technical aid help build?", options: ["Roads, bridges, power stations, and dams", "Trade deficits", "Import quotas", "Aid dependency"], a: 0 },
+                { q: "Which named project is an example of technical aid?", options: ["Lesotho Highlands Water Scheme", "A fair-trade market", "A donor fatigue survey", "A food-parcel queue"], a: 0 }
+            ],
+            'game3': [
+                { q: "What is conditional aid?", options: ["Aid granted subject to a specific condition", "Aid with no requirements", "Only private charity", "Only medical support"], a: 0 },
+                { q: "What may conditional aid involve?", options: ["A trade agreement", "No relationship between countries", "Only individual donations", "A weather forecast"], a: 0 },
+                { q: "Which raw materials are named in the conditional-aid example?", options: ["Rubber, oil, and cotton", "Gold, silver, and diamonds", "Coal, iron, and copper", "Wheat, maize, and rice"], a: 0 },
+                { q: "What does humanitarian aid aim to improve?", options: ["Living conditions", "Import taxes", "Trade barriers", "Donor profits only"], a: 0 },
+                { q: "Which is a form of humanitarian aid?", options: ["Skills training", "A tariff", "A trade quota", "A subsidy to exporters"], a: 0 },
+                { q: "What financial help may humanitarian aid provide?", options: ["Money to reduce debt", "Higher import taxes", "More loan interest", "Trade penalties"], a: 0 },
+                { q: "Who may receive care through humanitarian aid?", options: ["HIV/AIDS orphans", "Donor officials only", "Exporters only", "Tourists only"], a: 0 },
+                { q: "Which disasters are named in the lesson?", options: ["Flood and drought", "Tornado and avalanche only", "Meteor and tsunami only", "Volcano and earthquake only"], a: 0 },
+                { q: "What may recipients receive after a disaster?", options: ["Food, water, and emergency supplies", "Only tariffs", "Only trade contracts", "Only tourism brochures"], a: 0 },
+                { q: "What can donors support after immediate relief?", options: ["Recovery and rebuilding", "Permanent displacement", "The removal of all services", "A reduction in medical care"], a: 0 }
+            ],
+            'game4': [
+                { q: "How can aid reduce poverty?", options: ["By providing essential resources and services", "By closing schools", "By reducing health care", "By stopping all projects"], a: 0 },
+                { q: "What can aid improve through health programmes?", options: ["Health outcomes", "Disease levels", "Corruption", "Import dependence only"], a: 0 },
+                { q: "How can aid affect education?", options: ["Improve access and literacy", "Close every school", "Reduce training", "Prevent knowledge transfer"], a: 0 },
+                { q: "What does capacity building strengthen?", options: ["Local skills", "Aid dependency", "Donor control", "Bureaucratic delays"], a: 0 },
+                { q: "How may aid stimulate economic growth?", options: ["By funding projects and creating jobs", "By ending all investment", "By removing infrastructure", "By increasing disaster losses"], a: 0 },
+                { q: "Which disadvantage reduces self-sufficiency?", options: ["Aid dependency", "Capacity building", "Education access", "Health improvement"], a: 0 },
+                { q: "What can corrupt officials cause?", options: ["Mismanagement of aid", "Fair distribution", "Better health outcomes", "More local skills"], a: 0 },
+                { q: "How can free imported aid goods affect local firms?", options: ["They may undermine local businesses", "They always increase local sales", "They remove competition", "They guarantee self-sufficiency"], a: 0 },
+                { q: "What may aid loans create?", options: ["A debt burden", "Automatic debt removal", "No repayment obligations", "More voluntary donations"], a: 0 },
+                { q: "What is inequitable distribution?", options: ["Aid benefits failing to reach those most in need", "Aid reaching all people fairly", "Skills being shared equally", "Emergency goods arriving quickly"], a: 0 }
+            ]
+        };
+        const canvas = document.getElementById("gameCanvas");
+        const ctx = canvas.getContext("2d");
+        const gridSize = 20;
+        const tileCountX = canvas.width / gridSize;
+        const tileCountY = canvas.height / gridSize;
+
+        let snake = [];
+        let dx = 0;
+        let dy = -1;
+        let foodX, foodY;
+        let bonusX = -1, bonusY = -1;
+        let score = 0;
+        let applesEaten = 0;
+        let gameLoop;
+        let currentTopic = [];
+        let isGoldenAppleActive = false;
+        let activeQuestionValue = 1;
+        let isPausedPendingInput = true;
+
+        function startGame(categoryKey) {
+            document.getElementById('categorySelection').style.display = 'none';
+            document.getElementById('gameArea').style.display = 'flex';
+            currentTopic = [...questionDB[categoryKey]];
+            snake = [{x: 15, y: 10}, {x: 15, y: 11}, {x: 15, y: 12}];
+            dx = 0; dy = -1; score = 0; applesEaten = 0;
+            updateScoreboard();
+            spawnFood();
+            document.addEventListener("keydown", handleKeyInput);
+            isPausedPendingInput = true;
+            document.getElementById('pauseOverlay').style.display = 'flex';
+            drawStaticBoard();
+        }
+
+        function drawStaticBoard() {
+            clearCanvas();
+            drawFood();
+            if (isGoldenAppleActive) drawBonusFood();
+            drawSnake();
+        }
+
+        function drawGame() {
+            moveSnake();
+            if (applesEaten >= 10) {
+                clearInterval(gameLoop);
+                endGame(true);
+                return;
+            }
+            clearCanvas();
+            drawFood();
+            if (isGoldenAppleActive) drawBonusFood();
+            drawSnake();
+        }
+
+        function clearCanvas() {
+            ctx.fillStyle = "#d1e0e0";
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+        }
+
+        function drawSnake() {
+            snake.forEach((part, index) => {
+                ctx.fillStyle = index === 0 ? "#002b5e" : "#3385ff";
+                ctx.fillRect(part.x * gridSize, part.y * gridSize, gridSize - 2, gridSize - 2);
+            });
+        }
+
+        function drawFood() {
+            ctx.fillStyle = "#d32f2f";
+            ctx.beginPath();
+            ctx.arc(foodX * gridSize + gridSize/2, foodY * gridSize + gridSize/2, gridSize/2 - 2, 0, 2 * Math.PI);
+            ctx.fill();
+        }
+
+        function drawBonusFood() {
+            ctx.fillStyle = "#ffc107";
+            ctx.shadowBlur = 10;
+            ctx.shadowColor = "#ffc107";
+            ctx.beginPath();
+            ctx.arc(bonusX * gridSize + gridSize/2, bonusY * gridSize + gridSize/2, gridSize/2 - 2, 0, 2 * Math.PI);
+            ctx.fill();
+            ctx.shadowBlur = 0;
+        }
+
+        function moveSnake() {
+            const head = { x: snake[0].x + dx, y: snake[0].y + dy };
+            if (head.x < 0) head.x = tileCountX - 1;
+            if (head.x >= tileCountX) head.x = 0;
+            if (head.y < 0) head.y = tileCountY - 1;
+            if (head.y >= tileCountY) head.y = 0;
+            for (let i = 0; i < snake.length; i++) {
+                if (head.x === snake[i].x && head.y === snake[i].y) {
+                    clearInterval(gameLoop);
+                    MayHubSounds.stopSnakeMovement();
+                    endGame(false);
+                    return;
+                }
+            }
+            snake.unshift(head);
+            if (head.x === foodX && head.y === foodY) {
+                clearInterval(gameLoop);
+                MayHubSounds.stopSnakeMovement();
+                MayHubSounds.playSnakeBite();
+                activeQuestionValue = 1;
+                applesEaten++;
+                spawnFood();
+                triggerQuestion(1);
+            } else if (isGoldenAppleActive && head.x === bonusX && head.y === bonusY) {
+                clearInterval(gameLoop);
+                MayHubSounds.stopSnakeMovement();
+                MayHubSounds.playSnakeBite();
+                activeQuestionValue = 3;
+                isGoldenAppleActive = false;
+                triggerQuestion(3);
+            } else {
+                snake.pop();
+            }
+            if (!isGoldenAppleActive && (applesEaten === 2 || applesEaten === 5 || applesEaten === 8)) {
+                spawnBonusFood();
+            }
+        }
+
+        function spawnFood() {
+            foodX = Math.floor(Math.random() * tileCountX);
+            foodY = Math.floor(Math.random() * tileCountY);
+            snake.forEach(part => { if (part.x === foodX && part.y === foodY) spawnFood(); });
+        }
+
+        function spawnBonusFood() {
+            isGoldenAppleActive = true;
+            bonusX = Math.floor(Math.random() * tileCountX);
+            bonusY = Math.floor(Math.random() * tileCountY);
+            if (bonusX === foodX && bonusY === foodY) spawnBonusFood();
+        }
+
+        function handleKeyInput(event) {
+            const key = event.keyCode;
+            if (key === 37) handleInput('LEFT');
+            if (key === 38) handleInput('UP');
+            if (key === 39) handleInput('RIGHT');
+            if (key === 40) handleInput('DOWN');
+        }
+
+        function handleInput(dir) {
+            if (isPausedPendingInput) {
+                isPausedPendingInput = false;
+                document.getElementById('pauseOverlay').style.display = 'none';
+                gameLoop = setInterval(drawGame, 150);
+                MayHubSounds.startSnakeMovement();
+            }
+            if (dir === 'LEFT' && dx !== 1) { dx = -1; dy = 0; }
+            if (dir === 'UP' && dy !== 1) { dx = 0; dy = -1; }
+            if (dir === 'RIGHT' && dx !== -1) { dx = 1; dy = 0; }
+            if (dir === 'DOWN' && dy !== -1) { dx = 0; dy = 1; }
+        }
+
+        let currentQuestionObj;
+        function triggerQuestion(pointsValue) {
+            if (currentTopic.length === 0) {
+                endGame(true);
+                return;
+            }
+            const qIndex = Math.floor(Math.random() * currentTopic.length);
+            currentQuestionObj = currentTopic.splice(qIndex, 1)[0];
+            document.getElementById('modalPoints').innerText = pointsValue === 3 ? "BONUS: 3 Points" : "Regular: 1 Point";
+            document.getElementById('modalPoints').className = pointsValue === 3 ? "modal-points golden-text" : "modal-points";
+            document.getElementById('modalQuestion').innerText = currentQuestionObj.q;
+            const mcOptions = document.getElementById('mcOptions');
+            mcOptions.innerHTML = "";
+            document.getElementById('btnContinue').style.display = 'none';
+            const shuffledOptions = currentQuestionObj.options
+                .map((text, index) => ({ text, isCorrect: index === currentQuestionObj.a }))
+                .sort(() => Math.random() - 0.5);
+            shuffledOptions.forEach(option => {
+                let btn = document.createElement("button");
+                btn.className = "option-btn";
+                btn.innerText = option.text;
+                btn.onclick = () => answerQuestion(btn, option.isCorrect);
+                mcOptions.appendChild(btn);
+            });
+            document.getElementById('questionModal').style.display = 'flex';
+        }
+
+        function answerQuestion(clickedBtn, isCorrect) {
+            const allBtns = document.querySelectorAll('.option-btn');
+            allBtns.forEach(btn => btn.disabled = true);
+            if (isCorrect) {
+                MayHubSounds.playCorrect();
+                clickedBtn.classList.add('correct');
+                score += activeQuestionValue;
+                updateScoreboard();
+                snake.push({ ...snake[snake.length - 1] });
+            } else {
+                MayHubSounds.playWrong();
+                clickedBtn.classList.add('incorrect');
+                allBtns[currentQuestionObj.a].classList.add('correct');
+            }
+            document.getElementById('btnContinue').style.display = 'block';
+        }
+
+        function closeModalAndPause() {
+            document.getElementById('questionModal').style.display = 'none';
+            updateScoreboard();
+            drawStaticBoard();
+            if (applesEaten < 10) {
+                isPausedPendingInput = true;
+                document.getElementById('pauseOverlay').style.display = 'flex';
+            } else {
+                endGame(true);
+            }
+        }
+
+        function updateScoreboard() {
+            document.getElementById('appleCount').innerText = applesEaten;
+            document.getElementById('scoreText').innerText = score;
+        }
+
+        function endGame(didWin) {
+            MayHubSounds.stopSnakeMovement();
+            document.getElementById('gameArea').style.display = 'none';
+            document.getElementById('endScreen').style.display = 'block';
+            document.getElementById('finalScoreText').innerText = score;
+            const title = document.getElementById('endTitle');
+            const msg = document.getElementById('endMessage');
+            if (didWin) {
+                title.innerText = "Level Complete!";
+                title.style.color = "#28a745";
+                msg.innerText = "Excellent! You've mastered Role of Development Aid!";
+            } else {
+                title.innerText = "Game Over!";
+                title.style.color = "#dc3545";
+                msg.innerText = "Development aid can empower recipients, but it can also create challenges. Try again and strengthen your understanding!";
+            }
+        }
+    </script>
+</body>
+</html>

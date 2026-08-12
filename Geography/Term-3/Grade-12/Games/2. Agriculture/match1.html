@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-8GCWSKNDL7"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-8GCWSKNDL7');
+</script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>May Learning Hub | Grade 12 Geography: Agriculture</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f0f4f8; color: #333; line-height: 1.6; display: flex; flex-direction: column; min-height: 100vh; }
+
+        /* Navigation */
+        nav { background-color: #002b5e; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; }
+        .logo { color: #fff; font-size: 1.5rem; font-weight: bold; text-decoration: none; }
+        .nav-links a { color: #cce0ff; text-decoration: none; margin-left: 1.5rem; font-weight: 500; transition: color 0.3s; }
+        .nav-links a:hover, .nav-links a.active { color: #fff; text-decoration: underline; }
+
+        /* Header */
+        .game-header { text-align: center; padding: 3rem 1rem 1rem; max-width: 900px; margin: 0 auto; }
+        .game-title { color: #004080; font-size: 2.5rem; margin-bottom: 0.5rem; }
+        .game-subtitle { color: #555; margin-bottom: 2rem; font-size: 1.1rem; }
+
+        /* Categories */
+        .category-selection { margin-bottom: 2.5rem; }
+        .cat-buttons { display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem; }
+        .cat-btn { background-color: #f0f4f8; border: 2px solid #004080; color: #004080; padding: 0.8rem 1.5rem; font-size: 1rem; font-weight: bold; border-radius: 8px; cursor: pointer; transition: all 0.3s ease; }
+        .cat-btn:hover, .cat-btn.active { background-color: #004080; color: #fff; transform: translateY(-3px); box-shadow: 0 4px 10px rgba(0,64,128,0.2); }
+
+        .controls { display: none; justify-content: center; align-items: center; gap: 2rem; margin-bottom: 2rem; }
+        .move-counter { font-size: 1.2rem; font-weight: bold; color: #004080; background: #fff; padding: 0.6rem 1.8rem; border-radius: 50px; border: 2px solid #3385ff; }
+        .restart-btn { background-color: #3385ff; color: #fff; border: none; padding: 0.7rem 1.8rem; font-size: 1rem; font-weight: bold; border-radius: 50px; cursor: pointer; border-bottom: 3px solid #004080; }
+
+        /* Memory Grid */
+        .memory-game { display: none; width: 100%; max-width: 1200px; margin: 0 auto 4rem; grid-template-columns: repeat(5, 1fr); gap: 15px; padding: 0 20px; perspective: 1000px; }
+
+        @media (max-width: 950px) { .memory-game { grid-template-columns: repeat(4, 1fr); } }
+        @media (max-width: 650px) { .memory-game { grid-template-columns: repeat(2, 1fr); } }
+
+        .memory-card { position: relative; width: 100%; aspect-ratio: 1 / 1.2; transform-style: preserve-3d; transition: transform 0.5s; cursor: pointer; }
+        .memory-card.flip { transform: rotateY(180deg); }
+
+        .front-face, .back-face {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 15px;
+            text-align: center;
+            font-size: 1rem;
+            line-height: 1.4;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .front-face { background: #004080; color: #fff; font-size: 2.5rem; border: 3px solid #3385ff; font-weight: bold; }
+        .back-face { background: #fff; color: #002b5e; transform: rotateY(180deg); border: 3px solid #004080; font-weight: 700; }
+        .memory-card.matched .back-face { background: #d4edda; border-color: #28a745; color: #155724; }
+
+        footer { text-align: center; padding: 1.5rem; background-color: #002b5e; color: #fff; margin-top: auto; }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="../../../../../index.html" class="logo">May Learning Hub</a>
+        <div class="nav-links">
+            <a href="../../../../../index.html">Home</a>
+            <a href="../../../../../about.html">About</a>
+        </div>
+    </nav>
+
+    <header class="game-header">
+        <h1 class="game-title">Grade 12 Geography: Agriculture</h1>
+        <p class="game-subtitle">Match agricultural contributions, farm types, products, physical factors, land ownership, and trade!</p>
+        <p style="font-size: 0.78rem; color: #52606d; margin-top: 0.45rem;">Source: Agriculture - Grade 12 Geography Term 3 presentation.</p>
+
+        <div class="category-selection">
+            <div class="cat-buttons">
+                <button class="cat-btn" onclick="selectCategory('topic1', this)">Agricultural Contribution</button>
+                <button class="cat-btn" onclick="selectCategory('topic2', this)">Farm Scale</button>
+                <button class="cat-btn" onclick="selectCategory('topic3', this)">Products and Markets</button>
+                <button class="cat-btn" onclick="selectCategory('topic4', this)">Climate Factors</button>
+                <button class="cat-btn" onclick="selectCategory('topic5', this)">Land, Water and Soil</button>
+                <button class="cat-btn" onclick="selectCategory('topic6', this)">Ownership, Trade and People</button>
+            </div>
+        </div>
+
+        <div class="controls" id="gameControls">
+            <div class="move-counter">Moves: <span id="moves">0</span></div>
+            <button class="restart-btn" onclick="initGame()">Restart Level</button>
+        </div>
+    </header>
+
+    <main class="memory-game" id="gameBoard"></main>
+
+    <footer>
+        <p>&copy; 2026 May Learning Hub. All rights reserved.</p>
+    </footer>
+
+        <script src="../../../../../game-audio.js"></script>
+<script>
+        const agriculturalContribution = [
+            { term: "Direct Contribution", detail: "An immediate measurable contribution such as GDP, formal employment, exports, or informal labour." },
+            { term: "Indirect Contribution", detail: "A wider contribution through linked inputs, distribution, markets, sales, and food supply." },
+            { term: "Forward Integration", detail: "Packaging, distribution, cooperatives, markets, and sales that move products toward consumers." },
+            { term: "Backward Integration", detail: "Inputs supplied to farms, including seeds, chemicals, feed, machinery, irrigation, and fuel." },
+            { term: "GDP Contribution", detail: "The percentage of national economic value generated directly by agriculture." },
+            { term: "Formal Employment", detail: "The percentage of the officially recorded workforce employed in agriculture." },
+            { term: "Export Contribution", detail: "Agricultural products sold abroad that contribute to national income." },
+            { term: "Informal Labour", detail: "Agricultural work outside formal employment structures, such as selling fruit at stalls." }
+        ];
+        const farmScale = [
+            { term: "Commercial Farming", detail: "Farming that produces a surplus for sale in order to make a profit." },
+            { term: "Subsistence Farming", detail: "Farming mainly intended to support the farmer and household." },
+            { term: "Large-Scale Farming", detail: "Generally commercial farming with high output, investment, value, and many employees." },
+            { term: "Small-Scale Farming", detail: "Farming on a small area, generally with low output and limited financial turnover." },
+            { term: "Arable Land", detail: "Land suitable for growing crops." },
+            { term: "Intensive Farming", detail: "Concentrated farming that applies high capital or labour inputs to a small area." },
+            { term: "Surplus", detail: "Production beyond immediate needs that can be sold for profit." },
+            { term: "Agricultural Credit", detail: "Borrowed finance that large farms access more easily because of their higher value." }
+        ];
+        const productsMarkets = [
+            { term: "Domestic Market", detail: "The home market where agricultural products are sold within South Africa." },
+            { term: "Export Market", detail: "The international market where South African products are sold abroad." },
+            { term: "Maize", detail: "A home-market staple that is also ranked fifth in the export table." },
+            { term: "Wheat", detail: "A domestic cereal also included among cereals exported with oats." },
+            { term: "Sugarcane", detail: "A domestic agricultural product ranked fourth in the export table." },
+            { term: "Wine", detail: "The highest-ranked agricultural export in the presentation." },
+            { term: "Citrus", detail: "The second-ranked agricultural export in the presentation." },
+            { term: "Wool", detail: "The tenth-ranked agricultural export in the presentation." }
+        ];
+        const climateFactors = [
+            { term: "Isohyet", detail: "A line on a map connecting places that receive equal rainfall." },
+            { term: "Highveld Summer Rain", detail: "The favourable 500-700 mm rainfall supporting agriculture on the Highveld." },
+            { term: "Southwestern Cape Winter Rain", detail: "The 600-800 mm rainfall supporting grapes, fruit, winter wheat, and olives." },
+            { term: "East Coast Rainfall", detail: "More than 1,000 mm per year, supporting sugar and subtropical fruit." },
+            { term: "Marginal Farming Area", detail: "Land close to the 500 mm isohyet where crop farming requires irrigation." },
+            { term: "Irrigation", detail: "The artificial supply of water needed for crops in drier or marginal areas." },
+            { term: "Hailstorm", detail: "A severe summer weather event that can physically damage crops." },
+            { term: "Frost", detail: "A temperature hazard affecting valleys and high, exposed plateau areas." }
+        ];
+        const landWaterSoil = [
+            { term: "Mechanisation", detail: "The use of machinery, favoured by flat plateau and coastal plains." },
+            { term: "Escarpment", detail: "A steep relief region where slopes make agriculture difficult." },
+            { term: "Incised River Valley", detail: "A deep, steep-sided valley that restricts agricultural activity." },
+            { term: "Permanent River", detail: "A reliable water source found mainly in the east and along the south coast." },
+            { term: "Periodic River", detail: "A river in the dry west that may stop flowing during part of the year." },
+            { term: "Episodic River", detail: "A river that flows only after occasional rainfall events." },
+            { term: "Humus", detail: "Organic matter added to soil by decomposed leaf litter." },
+            { term: "Soil Erosion", detail: "The removal of soil that has reduced fertility in many parts of South Africa." }
+        ];
+        const ownershipTradePeople = [
+            { term: "Apartheid Land Policy", detail: "Historical policy that prevented many disadvantaged people from owning farmland." },
+            { term: "Land Reform", detail: "Post-1994 policies intended to provide farmland to previously landless people." },
+            { term: "Communal Land Tenure", detail: "Land held by a community rather than owned by individual farmers." },
+            { term: "Emerging Farmer", detail: "A developing commercial farmer who may need further knowledge, finance, and support." },
+            { term: "Opposite Seasons", detail: "South Africa's seasonal advantage that allows summer fruit and flowers to be exported to wintertime Europe." },
+            { term: "Trade Agreement", detail: "An arrangement that has increased access to markets such as the USA and sub-Saharan Africa." },
+            { term: "Trade Liberalism", detail: "A policy that exposes the home market to greater competition from imports." },
+            { term: "Dumping", detail: "Selling surplus foreign goods in South Africa below the price of locally produced goods." }
+        ];
+        const toCards = factors => factors.flatMap((factor, index) => [
+            { id: index + 1, text: factor.detail },
+            { id: index + 1, text: factor.term }
+        ]);
+        const gameData = {
+            topic1: toCards(agriculturalContribution),
+            topic2: toCards(farmScale),
+            topic3: toCards(productsMarkets),
+            topic4: toCards(climateFactors),
+            topic5: toCards(landWaterSoil),
+            topic6: toCards(ownershipTradePeople)
+        };
+        const gameBoard = document.getElementById('gameBoard');
+        const movesDisplay = document.getElementById('moves');
+        const gameControls = document.getElementById('gameControls');
+
+        let currentCategory = null;
+        let hasFlippedCard = false;
+        let lockBoard = false;
+        let firstCard, secondCard;
+        let moves = 0;
+        let matchedPairs = 0;
+
+        function selectCategory(categoryKey, btnElement) {
+            currentCategory = categoryKey;
+            document.querySelectorAll('.cat-btn').forEach(btn => btn.classList.remove('active'));
+            btnElement.classList.add('active');
+            gameControls.style.display = 'flex';
+            gameBoard.style.display = 'grid';
+            initGame();
+        }
+
+        function initGame() {
+            gameBoard.innerHTML = '';
+            moves = 0;
+            matchedPairs = 0;
+            movesDisplay.innerText = moves;
+            hasFlippedCard = false;
+            lockBoard = false;
+
+            const categoryData = gameData[currentCategory];
+            const shuffledCards = [...categoryData].sort(() => 0.5 - Math.random());
+
+            shuffledCards.forEach(card => {
+                const cardElement = document.createElement('div');
+                cardElement.classList.add('memory-card');
+                cardElement.dataset.pairId = card.id;
+
+                cardElement.innerHTML = `
+                    <div class="front-face">?</div>
+                    <div class="back-face">${card.text}</div>
+                `;
+
+                cardElement.addEventListener('click', flipCard);
+                gameBoard.appendChild(cardElement);
+            });
+        }
+
+        function flipCard() {
+            if (lockBoard) return;
+            if (this === firstCard) return;
+
+            this.classList.add('flip');
+
+            if (!hasFlippedCard) {
+                hasFlippedCard = true;
+                firstCard = this;
+                return;
+            }
+
+            secondCard = this;
+            moves++;
+            movesDisplay.innerText = moves;
+            checkForMatch();
+        }
+
+        function checkForMatch() {
+            let isMatch = firstCard.dataset.pairId === secondCard.dataset.pairId;
+            if (isMatch) {
+                MayHubSounds.playCorrect();
+                disableCards();
+            } else {
+                MayHubSounds.playWrong();
+                unflipCards();
+            }
+        }
+
+        function disableCards() {
+            firstCard.classList.add('matched');
+            secondCard.classList.add('matched');
+            firstCard.removeEventListener('click', flipCard);
+            secondCard.removeEventListener('click', flipCard);
+            matchedPairs++;
+            if (matchedPairs === (gameData[currentCategory].length / 2)) {
+                setTimeout(() => alert(`Great job! Grade 12 Geography: Agriculture Revision Complete in ${moves} moves.`), 500);
+            }
+            resetBoard();
+        }
+
+        function unflipCards() {
+            lockBoard = true;
+            setTimeout(() => {
+                firstCard.classList.remove('flip');
+                secondCard.classList.remove('flip');
+                resetBoard();
+            }, 1200);
+        }
+
+        function resetBoard() {
+            [hasFlippedCard, lockBoard] = [false, false];
+            [firstCard, secondCard] = [null, null];
+        }
+    </script>
+</body>
+</html>

@@ -13,7 +13,7 @@
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Learning Hub | Grade 11 Geography: Factors Affecting Development</title>
+    <title>Learning Hub | Grade 11 Geography: Development Impacts on the Environment</title>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f0f4f8; color: #333; line-height: 1.6; display: flex; flex-direction: column; min-height: 100vh; }
@@ -63,9 +63,9 @@
     </nav>
 
     <main class="game-container">
-        <h1 class="game-title">Geography Quiz: Factors Affecting Development</h1>
-        <p class="game-subtitle">Test your Grade 11 Term 3 development knowledge. Select a category and spin the wheel.</p>
-        <p style="font-size: 0.78rem; color: #52606d; margin-top: 0.45rem;">Source: Factors Affecting Development - Grade 11 Geography Term 3 presentation.</p>
+        <h1 class="game-title">Geography Quiz: Development Impacts on the Environment</h1>
+        <p class="game-subtitle">Test your Grade 11 Term 3 environmental development knowledge. Select a category and spin the wheel.</p>
+        <p style="font-size: 0.78rem; color: #52606d; margin-top: 0.45rem;">Source: Development Impacts on the Environment - Grade 11 Geography Term 3 presentation.</p>
 
         <div class="category-selection">
             <h2>Step 1: Choose a Category</h2>
@@ -112,92 +112,92 @@
 <script>
         const gameData = {
             'definitions': [
-                { q: "Infrastructure", a: "The basic physical and organisational systems and facilities needed for a society and economy to function, such as transport, electricity, water, and communications." },
-                { q: "Investment", a: "The commitment of money, capital, or other resources to an activity or project in order to gain future benefits." },
-                { q: "Economic Policies", a: "Government decisions, laws, and actions used to influence how an economy operates." },
-                { q: "Technology", a: "The application of knowledge, tools, and techniques to solve problems and produce goods or services." },
-                { q: "Natural Resources", a: "Materials and environmental features that occur in nature and can be used by people, such as water, land, minerals, and forests." },
-                { q: "Trade", a: "The buying, selling, or exchange of goods and services between people, regions, or countries." },
-                { q: "Labor Market Conditions", a: "The circumstances affecting the supply of workers, demand for labour, employment, wages, and available skills." },
-                { q: "Financial Systems", a: "The institutions, markets, and rules that enable saving, borrowing, payments, and investment." },
-                { q: "Government Spending", a: "Money used by government to provide public services, infrastructure, and programmes." },
-                { q: "Entrepreneurship", a: "The process of identifying an opportunity, organising resources, and creating or managing an enterprise while accepting risk." },
-                { q: "Education", a: "The organised process through which people acquire knowledge, skills, values, and understanding." },
-                { q: "Healthcare", a: "The services and systems used to prevent and treat illness and maintain people's health." },
-                { q: "Social Stability", a: "A condition in which society has order, security, and predictable social relationships." },
-                { q: "Cultural Attitudes", a: "Shared beliefs, values, and viewpoints that influence how people think and behave." },
-                { q: "Population Growth", a: "An increase in the number of people living in a place over a period of time." },
-                { q: "Gender Equality", a: "Equal rights, responsibilities, opportunities, and treatment for people of all genders." },
-                { q: "Social Services", a: "Public or community services that support people's welfare and basic needs, such as care, housing support, and social assistance." },
-                { q: "Crime Rates", a: "Measures of how frequently crimes occur in a population or area during a given period." },
-                { q: "Community Engagement", a: "The process of involving community members in decisions and actions that affect their lives." },
-                { q: "Migration", a: "The movement of people from one place to another to live or work, either temporarily or permanently." }
+                { q: "Environmental Impact", a: "A change to the natural environment caused by human activity or natural processes." },
+                { q: "Deforestation", a: "The large-scale clearing or removal of forests." },
+                { q: "Habitat", a: "The natural home or environment in which an organism lives." },
+                { q: "Biodiversity", a: "The variety of living organisms, including plants, animals, and microorganisms, in an area." },
+                { q: "Pollution", a: "The introduction of harmful substances or energy into the environment." },
+                { q: "Air Pollution", a: "Contamination of the atmosphere by harmful gases, smoke, or particles." },
+                { q: "Water Pollution", a: "Contamination of rivers, dams, oceans, or groundwater by harmful substances." },
+                { q: "Soil Pollution", a: "Contamination of soil by harmful chemicals, waste, or other pollutants." },
+                { q: "Climate Change", a: "Long-term changes in average temperatures and other climate patterns." },
+                { q: "Greenhouse Gases", a: "Gases in the atmosphere that trap heat, including carbon dioxide and methane." },
+                { q: "Global Warming", a: "The long-term rise in Earth's average temperature." },
+                { q: "Resource Depletion", a: "The use of a natural resource faster than it can be replaced or renewed." },
+                { q: "Urbanisation", a: "The growth of towns and cities as more people live and work in urban areas." },
+                { q: "Waste Generation", a: "The production of unwanted materials as a result of human activities." },
+                { q: "Soil Erosion", a: "The removal of the fertile upper layer of soil by water, wind, or human activity." },
+                { q: "Overgrazing", a: "Grazing land by too many animals for too long, preventing vegetation from recovering." },
+                { q: "Open-Cast Mining", a: "A surface-mining method that removes soil and rock to reach deposits near the ground surface." },
+                { q: "Overfishing", a: "Catching fish faster than populations can reproduce and recover." },
+                { q: "Eutrophication", a: "The enrichment of water with excess nutrients, causing excessive plant or algal growth and reduced oxygen." },
+                { q: "Sustainable Development", a: "Development that meets present needs without reducing the ability of future generations to meet their needs." }
             ],
             'terms': [
-                { q: "Long-term changes in average temperatures and other climate patterns.", a: "Climate Change" },
-                { q: "Severe natural events that cause major damage, loss, or disruption to people and places.", a: "Natural Disasters" },
-                { q: "Government laws, rules, and plans designed to manage human impacts and protect the environment.", a: "Environmental Policies" },
-                { q: "The variety of living organisms, including diversity within species, between species, and among ecosystems.", a: "Biodiversity" },
-                { q: "The introduction of harmful substances or forms of energy into the environment.", a: "Pollution" },
-                { q: "The use of a natural resource faster than it can be replaced or renewed.", a: "Resource Depletion" },
-                { q: "The way land is managed and used for purposes such as farming, housing, industry, or conservation.", a: "Land Use" },
-                { q: "The amount of usable water that is accessible to people and economic activities.", a: "Water Availability" },
-                { q: "The degree to which the air is clean and free from harmful pollutants.", a: "Air Quality" },
-                { q: "The collection, transport, treatment, recycling, and disposal of waste.", a: "Waste Management" },
-                { q: "An approach in which community members actively lead and participate in planning, implementing, and managing projects that affect their lives.", a: "Community-Based Development" },
-                { q: "The involvement of community members in decisions so that projects reflect local priorities and needs.", a: "Local Participation" },
-                { q: "The process of building people's ability and authority to make decisions and take control of their own development.", a: "Empowerment" },
-                { q: "The ability to meet present needs while maintaining resources and opportunities for the future.", a: "Sustainability" },
-                { q: "People or organisations working together and sharing resources or expertise to achieve a common goal.", a: "Collaboration" },
-                { q: "A method that considers the whole situation and the connections among its economic, social, and environmental parts.", a: "Holistic Approach" },
-                { q: "The community's responsibility for, control over, and commitment to a project or its outcomes.", a: "Ownership" },
-                { q: "The basic physical and organisational systems and facilities needed for a society and economy to function, such as transport, electricity, water, and communications.", a: "Infrastructure" },
-                { q: "The application of knowledge, tools, and techniques to solve problems and produce goods or services.", a: "Technology" },
-                { q: "The process of identifying an opportunity, organising resources, and creating or managing an enterprise while accepting risk.", a: "Entrepreneurship" }
+                { q: "The large-scale clearing or removal of forests.", a: "Deforestation" },
+                { q: "The natural home in which a plant or animal lives.", a: "Habitat" },
+                { q: "The variety of living organisms in an area.", a: "Biodiversity" },
+                { q: "The complete disappearance of a species from Earth.", a: "Extinction" },
+                { q: "The release of carbon dioxide and other gases into the atmosphere.", a: "Carbon Emissions" },
+                { q: "The contamination of the atmosphere by smoke, gases, or particles.", a: "Air Pollution" },
+                { q: "The long-term rise in Earth's average temperature.", a: "Global Warming" },
+                { q: "The rise in ocean level caused partly by warming water and melting land ice.", a: "Sea-Level Rise" },
+                { q: "Using a natural resource faster than it can recover.", a: "Resource Depletion" },
+                { q: "The expansion of towns and cities and growth of their populations.", a: "Urbanisation" },
+                { q: "The removal of fertile topsoil by wind, water, or human activity.", a: "Soil Erosion" },
+                { q: "A surface-mining method that removes overlying soil and rock.", a: "Open-Cast Mining" },
+                { q: "Acidic water produced when mining materials react with air and water.", a: "Acid Mine Drainage" },
+                { q: "Catching fish faster than fish populations can replace themselves.", a: "Overfishing" },
+                { q: "Energy from sources that naturally replenish, such as sunlight, wind, and flowing water.", a: "Renewable Energy" },
+                { q: "Excess nutrients in water causing algal growth and lower oxygen levels.", a: "Eutrophication" },
+                { q: "A study used to predict environmental effects before a project begins.", a: "Environmental Impact Assessment" },
+                { q: "The processing of waste materials so they can be used again.", a: "Recycling" },
+                { q: "Material that microorganisms can break down naturally.", a: "Biodegradable Material" },
+                { q: "A protected route that connects habitats and allows wildlife to move between them.", a: "Wildlife Corridor" }
             ],
             'multipleChoice': [
-                { q: "Which factor is necessary for economic activities and growth?", options: ["A) Infrastructure", "B) Crime rates", "C) Air quality", "D) Ownership"], a: "A) Infrastructure" },
-                { q: "Which factor funds development projects and creates jobs?", options: ["A) Investment", "B) Migration", "C) Pollution", "D) Biodiversity"], a: "A) Investment" },
-                { q: "What creates a conducive environment for growth?", options: ["A) Economic policies", "B) Resource depletion", "C) Natural disasters", "D) Crime rates"], a: "A) Economic policies" },
-                { q: "Which factor boosts productivity and innovation?", options: ["A) Technology", "B) Pollution", "C) Migration", "D) Land use"], a: "A) Technology" },
-                { q: "The effect of natural resources on development depends on:", options: ["A) Their management", "B) Migration only", "C) Crime rates only", "D) Gender roles only"], a: "A) Their management" },
-                { q: "Trade boosts economic growth through:", options: ["A) Market access", "B) Resource depletion", "C) Natural disasters", "D) Air pollution"], a: "A) Market access" },
-                { q: "Which factor affects employment and economic stability?", options: ["A) Labor market conditions", "B) Biodiversity", "C) Waste management", "D) Ownership"], a: "A) Labor market conditions" },
-                { q: "What facilitates investments and economic activities?", options: ["A) Financial systems", "B) Climate change", "C) Population growth", "D) Crime rates"], a: "A) Financial systems" },
-                { q: "Government spending supports:", options: ["A) Infrastructure and public services", "B) Pollution and depletion", "C) Crime and instability", "D) Disasters and migration"], a: "A) Infrastructure and public services" },
-                { q: "What drives economic diversification and innovation?", options: ["A) Entrepreneurship", "B) Resource depletion", "C) Natural disasters", "D) Pollution"], a: "A) Entrepreneurship" },
-                { q: "Which social factor provides skills and knowledge for economic growth?", options: ["A) Education", "B) Migration", "C) Crime rates", "D) Population growth"], a: "A) Education" },
-                { q: "Which factor affects well-being and productivity?", options: ["A) Healthcare", "B) Trade", "C) Land use", "D) Ownership"], a: "A) Healthcare" },
-                { q: "What ensures a safe environment for investment and growth?", options: ["A) Social stability", "B) Pollution", "C) Resource depletion", "D) Natural disasters"], a: "A) Social stability" },
-                { q: "What shapes work ethics, entrepreneurship, and gender roles?", options: ["A) Cultural attitudes", "B) Water availability", "C) Financial systems", "D) Waste management"], a: "A) Cultural attitudes" },
-                { q: "Population growth influences:", options: ["A) Resource allocation and workforce size", "B) Market access only", "C) Air quality only", "D) Project ownership only"], a: "A) Resource allocation and workforce size" },
-                { q: "Equal opportunities enhance productivity through:", options: ["A) Gender equality", "B) Pollution", "C) Migration", "D) Resource depletion"], a: "A) Gender equality" },
-                { q: "Which factor reduces poverty and inequality?", options: ["A) Social services", "B) Natural disasters", "C) Crime rates", "D) Pollution"], a: "A) Social services" },
-                { q: "Lower crime rates help create:", options: ["A) A safer environment for economic activities", "B) More resource depletion", "C) Less market access", "D) More pollution"], a: "A) A safer environment for economic activities" },
-                { q: "What drives local development initiatives?", options: ["A) Community engagement", "B) Climate change", "C) Pollution", "D) Resource depletion"], a: "A) Community engagement" },
-                { q: "Migration affects:", options: ["A) Labor markets and resource distribution", "B) Biodiversity only", "C) Air quality only", "D) Economic policies only"], a: "A) Labor markets and resource distribution" }
+                { q: "Why are forests often cleared during development?", options: ["A) For agriculture and urbanisation", "B) To increase habitats", "C) To reduce carbon emissions", "D) To create windbreaks"], a: "A) For agriculture and urbanisation" },
+                { q: "Which is a direct result of deforestation?", options: ["A) Habitat loss", "B) More biodiversity", "C) Less soil erosion", "D) More oxygen production"], a: "A) Habitat loss" },
+                { q: "Industrial activities can contaminate:", options: ["A) Air, water, and soil", "B) Latitude only", "C) Time zones only", "D) Ocean currents only"], a: "A) Air, water, and soil" },
+                { q: "What increases global temperatures?", options: ["A) Greenhouse gas emissions", "B) Crop rotation", "C) Recycling", "D) Wildlife corridors"], a: "A) Greenhouse gas emissions" },
+                { q: "Which is linked to climate change?", options: ["A) Melting ice and rising sea levels", "B) More fertile soil everywhere", "C) Less extreme weather", "D) Lower global temperatures"], a: "A) Melting ice and rising sea levels" },
+                { q: "Which resources can be depleted?", options: ["A) Water, minerals, and fossil fuels", "B) Longitude and latitude", "C) Seasons and time zones", "D) Clouds only"], a: "A) Water, minerals, and fossil fuels" },
+                { q: "Habitat destruction can lead to:", options: ["A) Species extinction", "B) More habitats", "C) Less pressure on wildlife", "D) Instant ecosystem recovery"], a: "A) Species extinction" },
+                { q: "Urbanisation changes:", options: ["A) Land use", "B) Earth's orbit", "C) Ocean salinity only", "D) Plate boundaries"], a: "A) Land use" },
+                { q: "What increases with consumption and development?", options: ["A) Solid waste and plastics", "B) Natural habitats", "C) Renewable resources automatically", "D) Soil fertility everywhere"], a: "A) Solid waste and plastics" },
+                { q: "Poor farming methods may cause:", options: ["A) Overgrazing and soil erosion", "B) More biodiversity", "C) Cleaner rivers", "D) Less land degradation"], a: "A) Overgrazing and soil erosion" },
+                { q: "Which mining method can destroy surface ecosystems?", options: ["A) Open-cast mining", "B) Crop rotation", "C) Solar farming", "D) Recycling"], a: "A) Open-cast mining" },
+                { q: "What can mining chemicals cause in water sources?", options: ["A) Acid mine drainage", "B) Desalination", "C) Cleaner groundwater", "D) More oxygen"], a: "A) Acid mine drainage" },
+                { q: "What can overfishing disturb?", options: ["A) Food chains and ecosystem balance", "B) Earth's rotation", "C) Urban land use", "D) Air pressure only"], a: "A) Food chains and ecosystem balance" },
+                { q: "Which response supports sustainable farming?", options: ["A) Crop rotation", "B) Continuous overgrazing", "C) Removing all topsoil", "D) Increasing erosion"], a: "A) Crop rotation" },
+                { q: "Which are renewable energy sources?", options: ["A) Solar and hydroelectric power", "B) Coal and oil", "C) Coal and gas", "D) Petroleum and diesel"], a: "A) Solar and hydroelectric power" },
+                { q: "What should factories fit to chimney stacks?", options: ["A) Filters", "B) Fishing quotas", "C) Wildlife corridors", "D) Fertilisers"], a: "A) Filters" },
+                { q: "How can tourism protect sensitive areas?", options: ["A) Limit access", "B) Clear more vegetation", "C) Increase litter", "D) Damage coral reefs"], a: "A) Limit access" },
+                { q: "What should happen before a dam is built?", options: ["A) An environmental impact assessment", "B) Uncontrolled dumping", "C) Wetland drainage", "D) Open-cast mining"], a: "A) An environmental impact assessment" },
+                { q: "Why should wetlands be preserved?", options: ["A) They help reduce flooding and support habitats", "B) They increase sewage leaks", "C) They prevent recycling", "D) They create mine dumps"], a: "A) They help reduce flooding and support habitats" },
+                { q: "Which choice reduces harm from household products?", options: ["A) Use biodegradable products", "B) Litter plastic packets", "C) Pour detergents into rivers", "D) Increase non-biodegradable waste"], a: "A) Use biodegradable products" }
             ],
             'trueFalse': [
-                { q: "Climate change affects agriculture and living conditions.", options: ["True", "False"], a: "True", exp: "It is listed as an environmental factor affecting both." },
-                { q: "Natural disasters support development by protecting infrastructure.", options: ["True", "False"], a: "False", exp: "They disrupt development by damaging infrastructure." },
-                { q: "Environmental policies promote sustainable development.", options: ["True", "False"], a: "True", exp: "This is their stated development role." },
-                { q: "Biodiversity supports agriculture and tourism.", options: ["True", "False"], a: "True", exp: "Both sectors are identified in the presentation." },
-                { q: "Pollution improves health and attracts investment.", options: ["True", "False"], a: "False", exp: "It harms health and deters investment." },
-                { q: "Resource depletion can create long-term economic challenges.", options: ["True", "False"], a: "True", exp: "The presentation identifies this long-term effect." },
-                { q: "Land use is irrelevant to agriculture and industry.", options: ["True", "False"], a: "False", exp: "It is crucial for sustainable agriculture and industry." },
-                { q: "Water availability is essential for health and industry.", options: ["True", "False"], a: "True", exp: "Both depend on adequate water." },
-                { q: "Better air quality supports health and quality of life.", options: ["True", "False"], a: "True", exp: "These are the benefits listed in the presentation." },
-                { q: "Waste management increases pollution.", options: ["True", "False"], a: "False", exp: "It reduces pollution and supports sustainability." },
-                { q: "Community-based development excludes communities from project planning.", options: ["True", "False"], a: "False", exp: "It emphasises active community participation and leadership." },
-                { q: "Local participation helps projects reflect community priorities and needs.", options: ["True", "False"], a: "True", exp: "Community members take part in decision-making." },
-                { q: "Empowerment builds people's capacity to control their own development.", options: ["True", "False"], a: "True", exp: "It also supports improvements in quality of life." },
-                { q: "CBD sustainability ignores local resources and knowledge.", options: ["True", "False"], a: "False", exp: "It encourages their use for long-lasting outcomes." },
-                { q: "Collaboration connects communities, local organisations, and external agencies.", options: ["True", "False"], a: "True", exp: "These partnerships help combine resources and expertise." },
-                { q: "A holistic approach treats economic, social, and environmental issues as unrelated.", options: ["True", "False"], a: "False", exp: "It recognises their interconnections." },
-                { q: "Community ownership can improve project maintenance and sustainability.", options: ["True", "False"], a: "True", exp: "Ownership supports lasting outcomes." },
-                { q: "Investment can create jobs.", options: ["True", "False"], a: "True", exp: "It also funds development projects." },
-                { q: "Social services increase poverty and inequality.", options: ["True", "False"], a: "False", exp: "They reduce poverty and inequality." },
-                { q: "Entrepreneurship supports diversification and innovation.", options: ["True", "False"], a: "True", exp: "These are its listed economic contributions." }
+                { q: "Deforestation can reduce biodiversity.", options: ["True", "False"], a: "True", exp: "Removing forests destroys or fragments habitats." },
+                { q: "Deforestation usually reduces carbon dioxide in the atmosphere.", options: ["True", "False"], a: "False", exp: "Fewer trees absorb carbon dioxide and clearing may release stored carbon." },
+                { q: "Industrial activity can pollute air, water, and soil.", options: ["True", "False"], a: "True", exp: "Industrial emissions and waste can affect all three." },
+                { q: "Greenhouse gases help trap heat in the atmosphere.", options: ["True", "False"], a: "True", exp: "Higher concentrations strengthen the greenhouse effect." },
+                { q: "Resource depletion increases the long-term supply of essential resources.", options: ["True", "False"], a: "False", exp: "It creates scarcity by using resources too quickly." },
+                { q: "Urban growth can place pressure on natural resources.", options: ["True", "False"], a: "True", exp: "Growing cities need land, water, energy, and materials." },
+                { q: "Plastic waste can pollute both land and oceans.", options: ["True", "False"], a: "True", exp: "Plastic may persist and spread through waterways." },
+                { q: "Overgrazing protects vegetation from damage.", options: ["True", "False"], a: "False", exp: "Too much grazing prevents vegetation from recovering." },
+                { q: "Open-cast mining can create mine dumps and atmospheric dust.", options: ["True", "False"], a: "True", exp: "Surface excavation disturbs land and releases fine particles." },
+                { q: "Overfishing can reduce fish populations and cause extinctions.", options: ["True", "False"], a: "True", exp: "Fish are removed faster than populations can recover." },
+                { q: "Replanting trees is a response to deforestation.", options: ["True", "False"], a: "True", exp: "Reforestation restores vegetation and habitats over time." },
+                { q: "Coal combustion releases carbon dioxide and sulphur pollution.", options: ["True", "False"], a: "True", exp: "These emissions contribute to air pollution and climate change." },
+                { q: "Wind turbines have no possible environmental impact.", options: ["True", "False"], a: "False", exp: "Poorly located turbines may harm bats and birds." },
+                { q: "Factory filters can reduce harmful gases and solid particles.", options: ["True", "False"], a: "True", exp: "Filters limit pollutants reaching the atmosphere." },
+                { q: "Tourism can damage coral reefs and increase litter.", options: ["True", "False"], a: "True", exp: "High visitor numbers can pressure sensitive environments." },
+                { q: "Dam building can alter aquatic life and fish migration.", options: ["True", "False"], a: "True", exp: "Dams change river flow and block migration routes." },
+                { q: "Fertiliser runoff can contribute to eutrophication.", options: ["True", "False"], a: "True", exp: "It adds excess nutrients to rivers and dams." },
+                { q: "Draining wetlands can increase flooding.", options: ["True", "False"], a: "True", exp: "Wetlands store and slow water." },
+                { q: "Non-biodegradable plastics can harm animals that eat or become tangled in them.", options: ["True", "False"], a: "True", exp: "The presentation names seabirds, turtles, and seals as examples." },
+                { q: "Sustainable development ignores future generations.", options: ["True", "False"], a: "False", exp: "It protects their ability to meet their needs." }
             ]
         };
 

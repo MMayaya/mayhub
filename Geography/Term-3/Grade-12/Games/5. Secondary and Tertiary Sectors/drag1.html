@@ -13,7 +13,7 @@
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Drag or Tap Match | Grade 11 Geography: Factors Affecting Development</title>
+    <title>Drag or Tap Match | Grade 12 Geography: Secondary and Tertiary Sectors</title>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -372,17 +372,19 @@
     </nav>
 
     <main class="game-container">
-        <h1 class="game-title">Drag or Tap Match: Factors Affecting Development</h1>
-        <p class="game-subtitle">Match the economic, social, environmental, and community factors that shape development.</p>
-        <p style="font-size: 0.78rem; color: #52606d; margin-top: 0.45rem;">Source: Factors Affecting Development - Grade 11 Geography Term 3 presentation.</p>
+        <h1 class="game-title">Drag or Tap Match: Secondary and Tertiary Sectors</h1>
+        <p class="game-subtitle">Match sector contributions, industry types, location patterns, and industrial-development factors.</p>
+        <p style="font-size: 0.78rem; color: #52606d; margin-top: 0.45rem;">Source: Secondary and Tertiary Sectors - Grade 12 Geography Term 3 presentation.</p>
 
         <div class="category-selection">
             <h2>Step 1: Choose a Topic</h2>
             <div class="cat-buttons" id="catButtons">
-                <button class="cat-btn" onclick="selectCategory('unit1', this)">1. Economic Factors</button>
-                <button class="cat-btn" onclick="selectCategory('unit2', this)">2. Social Factors</button>
-                <button class="cat-btn" onclick="selectCategory('unit3', this)">3. Environmental Factors</button>
-                <button class="cat-btn" onclick="selectCategory('unit4', this)">4. Community-Based Development</button>
+                <button class="cat-btn" onclick="selectCategory('unit1', this)">1. Sector Contributions</button>
+                <button class="cat-btn" onclick="selectCategory('unit2', this)">2. Heavy and Light Industries</button>
+                <button class="cat-btn" onclick="selectCategory('unit3', this)">3. Location-Based Industries</button>
+                <button class="cat-btn" onclick="selectCategory('unit4', this)">4. Footloose, Ubiquitous and Bridge</button>
+                <button class="cat-btn" onclick="selectCategory('unit5', this)">5. Raw Materials, Water and Labour</button>
+                <button class="cat-btn" onclick="selectCategory('unit6', this)">6. Policy, Transport and Trade</button>
             </div>
         </div>
 
@@ -393,7 +395,7 @@
             <div class="top-bar">
                 <div class="info-box" id="scoreBox">Score: 0</div>
                 <div class="info-box" id="remainingBox">Remaining: 0</div>
-                <div class="info-box" id="setBox">Topic: 0 / 4</div>
+                <div class="info-box" id="setBox">Topic: 0 / 6</div>
             </div>
 
             <div class="board">
@@ -427,61 +429,222 @@
         <script src="../../../../../game-audio.js"></script>
 <script>
         const gameData = {
-            unit1: [
-                { item: "Infrastructure", match: "The basic physical and organisational systems and facilities needed for a society and economy to function, such as transport, electricity, water, and communications." },
-                { item: "Investment", match: "The commitment of money, capital, or other resources to an activity or project in order to gain future benefits." },
-                { item: "Economic Policies", match: "Government decisions, laws, and actions used to influence how an economy operates." },
-                { item: "Technology", match: "The application of knowledge, tools, and techniques to solve problems and produce goods or services." },
-                { item: "Natural Resources", match: "Materials and environmental features that occur in nature and can be used by people, such as water, land, minerals, and forests." },
-                { item: "Trade", match: "The buying, selling, or exchange of goods and services between people, regions, or countries." },
-                { item: "Labor Market Conditions", match: "The circumstances affecting the supply of workers, demand for labour, employment, wages, and available skills." },
-                { item: "Financial Systems", match: "The institutions, markets, and rules that enable saving, borrowing, payments, and investment." },
-                { item: "Government Spending", match: "Money used by government to provide public services, infrastructure, and programmes." },
-                { item: "Entrepreneurship", match: "The process of identifying an opportunity, organising resources, and creating or managing an enterprise while accepting risk." }
-            ],
-            unit2: [
-                { item: "Education", match: "The organised process through which people acquire knowledge, skills, values, and understanding." },
-                { item: "Healthcare", match: "The services and systems used to prevent and treat illness and maintain people's health." },
-                { item: "Social Stability", match: "A condition in which society has order, security, and predictable social relationships." },
-                { item: "Cultural Attitudes", match: "Shared beliefs, values, and viewpoints that influence how people think and behave." },
-                { item: "Population Growth", match: "An increase in the number of people living in a place over a period of time." },
-                { item: "Gender Equality", match: "Equal rights, responsibilities, opportunities, and treatment for people of all genders." },
-                { item: "Social Services", match: "Public or community services that support people's welfare and basic needs, such as care, housing support, and social assistance." },
-                { item: "Crime Rates", match: "Measures of how frequently crimes occur in a population or area during a given period." },
-                { item: "Community Engagement", match: "The process of involving community members in decisions and actions that affect their lives." },
-                { item: "Migration", match: "The movement of people from one place to another to live or work, either temporarily or permanently." }
-            ],
-            unit3: [
-                { item: "Climate Change", match: "Long-term changes in average temperatures and other climate patterns." },
-                { item: "Natural Disasters", match: "Severe natural events that cause major damage, loss, or disruption to people and places." },
-                { item: "Environmental Policies", match: "Government laws, rules, and plans designed to manage human impacts and protect the environment." },
-                { item: "Biodiversity", match: "The variety of living organisms, including diversity within species, between species, and among ecosystems." },
-                { item: "Pollution", match: "The introduction of harmful substances or forms of energy into the environment." },
-                { item: "Resource Depletion", match: "The use of a natural resource faster than it can be replaced or renewed." },
-                { item: "Land Use", match: "The way land is managed and used for purposes such as farming, housing, industry, or conservation." },
-                { item: "Water Availability", match: "The amount of usable water that is accessible to people and economic activities." },
-                { item: "Air Quality", match: "The degree to which the air is clean and free from harmful pollutants." },
-                { item: "Waste Management", match: "The collection, transport, treatment, recycling, and disposal of waste." }
-            ],
-            unit4: [
-                { item: "Community-Based Development", match: "An approach in which community members actively lead and participate in planning, implementing, and managing projects that affect their lives." },
-                { item: "Local Participation", match: "The involvement of community members in decisions so that projects reflect local priorities and needs." },
-                { item: "Empowerment", match: "The process of building people's ability and authority to make decisions and take control of their own development." },
-                { item: "Sustainability", match: "The ability to meet present needs while maintaining resources and opportunities for the future." },
-                { item: "Collaboration", match: "People or organisations working together and sharing resources or expertise to achieve a common goal." },
-                { item: "Holistic Approach", match: "A method that considers the whole situation and the connections among its economic, social, and environmental parts." },
-                { item: "Ownership", match: "The community's responsibility for, control over, and commitment to a project or its outcomes." }
-            ]
-        };
+    "unit1": [
+        {
+            "item": "Dual Stream",
+            "match": "A vibrant formal economy exists alongside an important informal sector."
+        },
+        {
+            "item": "Formal Sector",
+            "match": "Regulated activity included in official GDP and growth figures and contributing tax."
+        },
+        {
+            "item": "Informal Sector",
+            "match": "Unregulated activity whose growth and employment can only be estimated and which does not contribute tax."
+        },
+        {
+            "item": "Development Relationship",
+            "match": "Larger secondary and tertiary sectors generally indicate a higher national development level."
+        },
+        {
+            "item": "Tertiary Written Share",
+            "match": "The written slide gives the tertiary sector 65.9% of GDP."
+        },
+        {
+            "item": "Secondary Written Share",
+            "match": "The written slide gives the secondary sector 31.6% of GDP."
+        },
+        {
+            "item": "Bar-Graph Tertiary",
+            "match": "The separate graph labels the tertiary sector 69."
+        },
+        {
+            "item": "Bar-Graph Secondary",
+            "match": "The separate graph labels the secondary sector 21, with primary at 10."
+        }
+    ],
+    "unit2": [
+        {
+            "item": "Secondary Activity",
+            "match": "Manufacturing changes the form of materials and adds value."
+        },
+        {
+            "item": "Light Industry",
+            "match": "Requires less capital and land, makes smaller products near markets, and has lower environmental impact."
+        },
+        {
+            "item": "Heavy Industry",
+            "match": "Is capital intensive, uses more land, makes large products, and has high environmental impact."
+        },
+        {
+            "item": "Clothing Industry",
+            "match": "A light-industry example."
+        },
+        {
+            "item": "Electronic Goods",
+            "match": "A light-industry example."
+        },
+        {
+            "item": "Car Manufacturing",
+            "match": "A heavy-industry example."
+        },
+        {
+            "item": "Iron and Steel",
+            "match": "A heavy-industry example."
+        },
+        {
+            "item": "Thermal Power Plant",
+            "match": "A heavy-industry example with high environmental impact."
+        }
+    ],
+    "unit3": [
+        {
+            "item": "Raw-Material Orientated",
+            "match": "Located close to the source of raw materials."
+        },
+        {
+            "item": "Supply Orientated",
+            "match": "Another name for a raw-material-orientated industry."
+        },
+        {
+            "item": "Paper Mill",
+            "match": "Located near trees because logs are bulky and difficult to transport."
+        },
+        {
+            "item": "Market Orientated",
+            "match": "Located close to consumers because finished products may be perishable or bulky."
+        },
+        {
+            "item": "Bakery",
+            "match": "A market-orientated example because baked food is perishable."
+        },
+        {
+            "item": "Large Machinery",
+            "match": "A market-orientated example because the finished product is bulky and difficult to move."
+        },
+        {
+            "item": "Location Classification",
+            "match": "Groups industries as raw-material, market, footloose, or ubiquitous."
+        },
+        {
+            "item": "Volume Classification",
+            "match": "Groups secondary industries as light or heavy."
+        }
+    ],
+    "unit4": [
+        {
+            "item": "Footloose Industry",
+            "match": "Not tied to a specific location and able to locate almost anywhere."
+        },
+        {
+            "item": "Footloose Examples",
+            "match": "Software companies, call centres, and diamond cutting."
+        },
+        {
+            "item": "Ubiquitous Industry",
+            "match": "Widely distributed wherever people or markets are found."
+        },
+        {
+            "item": "Ubiquitous Examples",
+            "match": "Bakeries, newspapers, and soft-drink bottling."
+        },
+        {
+            "item": "Bridge Industry",
+            "match": "Located between a raw-material source and the market."
+        },
+        {
+            "item": "Oil Refinery at a Harbour",
+            "match": "A bridge-industry example between imported crude oil and inland markets."
+        },
+        {
+            "item": "Break-of-Bulk Industry",
+            "match": "Another name for a bridge industry."
+        },
+        {
+            "item": "Break-of-Bulk Point",
+            "match": "A place where goods transfer from one transport mode to another."
+        }
+    ],
+    "unit5": [
+        {
+            "item": "Industrial Raw Materials",
+            "match": "South African minerals, crops, trees, and fish processed in factories."
+        },
+        {
+            "item": "Iron and Steel Location",
+            "match": "Placed close to where most required raw materials are accessible."
+        },
+        {
+            "item": "Water Scarcity",
+            "match": "A concern because industries need water for most forms of processing."
+        },
+        {
+            "item": "Inter-Basin Transfer",
+            "match": "A scheme moving water to ensure major industrial areas have sufficient supply."
+        },
+        {
+            "item": "Skilled Labour",
+            "match": "Workers with specialised training required by industry."
+        },
+        {
+            "item": "Unskilled Labour",
+            "match": "Workers without specialist training who are also required by industry."
+        },
+        {
+            "item": "Semi-Skilled Labour",
+            "match": "Workers with some training needed alongside skilled labour."
+        },
+        {
+            "item": "Urban Labour Access",
+            "match": "A reason factories often locate near large urban areas."
+        }
+    ],
+    "unit6": [
+        {
+            "item": "Decentralisation",
+            "match": "Apartheid policy encouraging factories away from the four main core areas."
+        },
+        {
+            "item": "Border Industries",
+            "match": "Factories offered incentives to locate near homeland borders."
+        },
+        {
+            "item": "IDZs",
+            "match": "Industrial development zones established by the present government."
+        },
+        {
+            "item": "SDIs",
+            "match": "Spatial development initiatives that influence industrial location."
+        },
+        {
+            "item": "Road and Rail",
+            "match": "Established transport moving both raw materials and finished products."
+        },
+        {
+            "item": "Manufactured Exports",
+            "match": "South Africa processes and exports more manufactured products than raw materials."
+        },
+        {
+            "item": "Machinery and Equipment",
+            "match": "Manufactured goods exported by South Africa."
+        },
+        {
+            "item": "Industrial Supply Challenges",
+            "match": "Drought and water scarcity plus load-shedding and power instability."
+        }
+    ]
+};
 
         const categoryTitles = {
-            unit1: "Economic Factors",
-            unit2: "Social Factors",
-            unit3: "Environmental Factors",
-            unit4: "Community-Based Development"
-        };
+    "unit1": "Sector Contributions",
+    "unit2": "Heavy and Light Industries",
+    "unit3": "Location-Based Industries",
+    "unit4": "Footloose, Ubiquitous and Bridge",
+    "unit5": "Raw Materials, Water and Labour",
+    "unit6": "Policy, Transport and Trade"
+};
 
-        const categoryOrder = ["unit1", "unit2", "unit3", "unit4"];
+        const categoryOrder = ["unit1", "unit2", "unit3", "unit4", "unit5", "unit6"];
 
         let currentCategoryKey = null;
         let score = 0;
@@ -684,7 +847,7 @@
             const feedbackTitle = document.getElementById('feedbackTitle');
             const feedbackMessage = document.getElementById('feedbackMessage');
 
-            feedbackTitle.innerText = "Factors Affecting Development Master!";
+            feedbackTitle.innerText = "Secondary and Tertiary Sectors Master!";
             feedbackMessage.innerText = `You correctly identified all terms for the "${categoryTitles[currentCategoryKey]}" topic!`;
             feedbackBox.style.display = 'block';
         }

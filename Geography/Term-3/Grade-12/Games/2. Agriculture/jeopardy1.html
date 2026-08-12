@@ -13,7 +13,7 @@
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>May Learning Hub | Grade 11 Geography Jeopardy</title>
+    <title>May Learning Hub | Grade 12 Geography Jeopardy</title>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f0f4f8; color: #333; line-height: 1.6; display: flex; flex-direction: column; min-height: 100vh; overflow-x: hidden; }
@@ -114,9 +114,9 @@
     </nav>
 
     <header class="game-header">
-        <h1 class="game-title">Grade 11 Geography Jeopardy</h1>
-        <p class="game-subtitle">Topic: Factors Affecting Development</p>
-        <p style="font-size: 0.78rem; color: #52606d; margin-top: 0.45rem;">Source: Factors Affecting Development - Grade 11 Geography Term 3 presentation.</p>
+        <h1 class="game-title">Grade 12 Geography Jeopardy</h1>
+        <p class="game-subtitle">Topic: Agriculture</p>
+        <p style="font-size: 0.78rem; color: #52606d; margin-top: 0.45rem;">Source: Agriculture - Grade 12 Geography Term 3 presentation.</p>
     </header>
 
     <section class="name-setup" id="nameSetupSection">
@@ -133,7 +133,7 @@
                 <button class="btn-edit" id="btnEditNames" onclick="showNameEditor()">Edit Names</button>
                 <button class="btn-reset" onclick="resetPlayerNames()">Reset</button>
             </div>
-            <p class="hint">80 unique clues drawn from the Grade 11 Term 3 Development presentation! </p>
+            <p class="hint">80 unique clues drawn from the Grade 12 Term 3 Development presentation! </p>
         </div>
     </section>
 
@@ -191,71 +191,113 @@
 
         <script src="../../../../../game-audio.js"></script>
 <script>
-        const economicFactors = [
-            { term: "Infrastructure", detail: "The basic physical and organisational systems and facilities needed for a society and economy to function, such as transport, electricity, water, and communications." },
-            { term: "Investment", detail: "The commitment of money, capital, or other resources to an activity or project in order to gain future benefits." },
-            { term: "Economic Policies", detail: "Government decisions, laws, and actions used to influence how an economy operates." },
-            { term: "Technology", detail: "The application of knowledge, tools, and techniques to solve problems and produce goods or services." },
-            { term: "Natural Resources", detail: "Materials and environmental features that occur in nature and can be used by people, such as water, land, minerals, and forests." },
-            { term: "Trade", detail: "The buying, selling, or exchange of goods and services between people, regions, or countries." },
-            { term: "Labor Market Conditions", detail: "The circumstances affecting the supply of workers, demand for labour, employment, wages, and available skills." },
-            { term: "Financial Systems", detail: "The institutions, markets, and rules that enable saving, borrowing, payments, and investment." },
-            { term: "Government Spending", detail: "Money used by government to provide public services, infrastructure, and programmes." },
-            { term: "Entrepreneurship", detail: "The process of identifying an opportunity, organising resources, and creating or managing an enterprise while accepting risk." }
+        const contributionAndFarmScale = [
+            { q: "Name the four direct contributions of agriculture in the lesson.", a: "GDP, formal employment, exports to GNP, and informal labour." },
+            { q: "Name the three broad indirect contributions of agriculture.", a: "Forward integration, backward integration, and food security." },
+            { q: "Define forward integration.", a: "Activities that move agricultural products toward markets and consumers." },
+            { q: "Give four examples of forward integration.", a: "Any four of distribution, packaging, cooperatives, domestic markets, international markets, and sales." },
+            { q: "Define backward integration.", a: "Inputs and services supplied to farms for production." },
+            { q: "Give four examples of backward integration.", a: "Any four of seeds, pesticides, dips, animal feed, fertilisers, irrigation, machinery, and fuel." },
+            { q: "What direct informal-labour example is given?", a: "Fruit stalls." },
+            { q: "What type of farmers are large-scale farmers generally?", a: "Commercial farmers." },
+            { q: "What proportion of arable land is used by large-scale commercial farms?", a: "Approximately 70%." },
+            { q: "What proportion is used by small-scale and subsistence farmers?", a: "Approximately 30%." },
+            { q: "What is the typical large-scale farm size in the table?", a: "About 1,200 hectares." },
+            { q: "What is the typical small-scale farm size in the table?", a: "About 1 to 1.5 hectares." },
+            { q: "Compare turnover and credit access on large and small farms.", a: "Large farms have high turnover and easier credit; small farms have low or no turnover and difficult credit access." },
+            { q: "Compare output and farm value on large and small farms.", a: "Large farms have high output and value; small farms have low output and value." },
+            { q: "Compare investment on large and small farms.", a: "Large farms invest heavily in money, equipment, technology, and agrochemicals; small-farm investment is lower in money and materials." },
+            { q: "Compare labour organisation on large and small farms.", a: "Large farms employ many workers; small farms are mostly family-run." },
+            { q: "How does the presentation describe large-scale farm ownership?", a: "Farms may be owned by a family or organisation and are historically and currently associated with white ownership." },
+            { q: "Which farmers does the presentation associate with subsistence farming?", a: "Black farmers." },
+            { q: "Who often runs small farms according to the table?", a: "Women; communal farms are also common in rural areas." },
+            { q: "Under what conditions can a small farm be commercial?", a: "When it is intensive, has substantial capital input, and produces surplus for profit." }
         ];
-        const socialFactors = [
-            { term: "Education", detail: "The organised process through which people acquire knowledge, skills, values, and understanding." },
-            { term: "Healthcare", detail: "The services and systems used to prevent and treat illness and maintain people's health." },
-            { term: "Social Stability", detail: "A condition in which society has order, security, and predictable social relationships." },
-            { term: "Cultural Attitudes", detail: "Shared beliefs, values, and viewpoints that influence how people think and behave." },
-            { term: "Population Growth", detail: "An increase in the number of people living in a place over a period of time." },
-            { term: "Gender Equality", detail: "Equal rights, responsibilities, opportunities, and treatment for people of all genders." },
-            { term: "Social Services", detail: "Public or community services that support people's welfare and basic needs, such as care, housing support, and social assistance." },
-            { term: "Crime Rates", detail: "Measures of how frequently crimes occur in a population or area during a given period." },
-            { term: "Community Engagement", detail: "The process of involving community members in decisions and actions that affect their lives." },
-            { term: "Migration", detail: "The movement of people from one place to another to live or work, either temporarily or permanently." }
+        const productsAndMarkets = [
+            { q: "What does domestic consumption mean?", a: "Products are consumed in the South African home market." },
+            { q: "Name the three cereals listed for domestic consumption.", a: "Maize, wheat, and other cereals such as sorghum and barley." },
+            { q: "Name four beans or seeds in the domestic-products list.", a: "Peanuts, sunflower seeds, beans, and soya beans." },
+            { q: "Name the three fruit groups listed for domestic consumption.", a: "Deciduous, citrus, and subtropical fruits." },
+            { q: "Name three other domestic crop products in the list.", a: "Potatoes, sugarcane, and maize or wheat." },
+            { q: "Name the four domestic meat products.", a: "Poultry, pork, beef, and lamb." },
+            { q: "Which product is ranked first among agricultural exports?", a: "Wine." },
+            { q: "Which product is ranked second among agricultural exports?", a: "Citrus." },
+            { q: "Which product is ranked third among agricultural exports?", a: "Grapes." },
+            { q: "Which product is ranked fourth among agricultural exports?", a: "Sugarcane." },
+            { q: "Which product is ranked fifth among agricultural exports?", a: "Maize." },
+            { q: "Which fruit group is ranked sixth?", a: "Apples, pears, and quinces." },
+            { q: "Which product group is ranked seventh?", a: "Fruits and nuts." },
+            { q: "Which product is ranked eighth?", a: "Fruit juices." },
+            { q: "Which cereals are given at rank nine?", a: "Wheat and oats." },
+            { q: "Which product is ranked tenth?", a: "Wool." },
+            { q: "Where does the product map show winter wheat?", a: "The southwestern Cape." },
+            { q: "Where does the map show sugar planted throughout the year?", a: "Along the KwaZulu-Natal coast." },
+            { q: "Which products does the map associate with Limpopo and the northeast?", a: "Citrus and subtropical fruit." },
+            { q: "Where does the map show irrigation-assisted agriculture?", a: "Along the Orange River in the Northern Cape." }
         ];
-        const environmentalFactors = [
-            { term: "Climate Change", detail: "Long-term changes in average temperatures and other climate patterns." },
-            { term: "Natural Disasters", detail: "Severe natural events that cause major damage, loss, or disruption to people and places." },
-            { term: "Environmental Policies", detail: "Government laws, rules, and plans designed to manage human impacts and protect the environment." },
-            { term: "Biodiversity", detail: "The variety of living organisms, including diversity within species, between species, and among ecosystems." },
-            { term: "Pollution", detail: "The introduction of harmful substances or forms of energy into the environment." },
-            { term: "Resource Depletion", detail: "The use of a natural resource faster than it can be replaced or renewed." },
-            { term: "Land Use", detail: "The way land is managed and used for purposes such as farming, housing, industry, or conservation." },
-            { term: "Water Availability", detail: "The amount of usable water that is accessible to people and economic activities." },
-            { term: "Air Quality", detail: "The degree to which the air is clean and free from harmful pollutants." },
-            { term: "Waste Management", detail: "The collection, transport, treatment, recycling, and disposal of waste." }
+        const physicalFactors = [
+            { q: "What percentage of South African land is suitable for farming?", a: "Only 13%." },
+            { q: "What is the greatest factor hindering agriculture?", a: "The availability of water." },
+            { q: "Approximately how much South African water is used for farming?", a: "Nearly 50%." },
+            { q: "Name four chief factors that may favour or hinder agriculture.", a: "Climate, soil, land ownership, and access to trade." },
+            { q: "What favourable summer rainfall occurs on the Highveld?", a: "About 500-700 mm." },
+            { q: "What favourable winter rainfall occurs in the southwestern Cape?", a: "About 600-800 mm." },
+            { q: "Which crops are supported by southwestern Cape winter rainfall?", a: "Grapes, fruit, winter wheat, and olives." },
+            { q: "What does rainfall above 1,000 mm on the east coast support?", a: "Sugar and subtropical fruit cultivation." },
+            { q: "What is an isohyet?", a: "A line joining places receiving equal rainfall." },
+            { q: "Where is crop farming concentrated relative to the 500 mm isohyet?", a: "In wetter areas to the east." },
+            { q: "Where is stock farming concentrated relative to the 500 mm isohyet?", a: "In drier areas to the west." },
+            { q: "What do crops in marginal areas near the 500 mm isohyet require?", a: "Irrigation." },
+            { q: "Which summer weather event can damage crops?", a: "Severe hailstorms." },
+            { q: "How does the average temperature of 15 C favour farming?", a: "It allows a large variety of crops to be grown." },
+            { q: "How long is the frost-free growing season in arable areas?", a: "At least 200 days." },
+            { q: "Where is severe frost an agricultural hindrance?", a: "In valleys and high, exposed plateau areas." },
+            { q: "Which relief areas favour mechanisation?", a: "Flat plateau and coastal plains." },
+            { q: "Which relief features make agriculture difficult?", a: "Steep escarpment slopes and deep, incised river valleys." },
+            { q: "Why do western periodic and episodic rivers dry up?", a: "Low rainfall, excessive evaporation, and sandy soils." },
+            { q: "Why are irrigation schemes needed in marginal areas?", a: "To supply crop farmers with water when natural rainfall and rivers are unreliable." }
         ];
-        const communityFactors = [
-            { term: "Community-Based Development", detail: "An approach in which community members actively lead and participate in planning, implementing, and managing projects that affect their lives." },
-            { term: "Local Participation", detail: "The involvement of community members in decisions so that projects reflect local priorities and needs." },
-            { term: "Empowerment", detail: "The process of building people's ability and authority to make decisions and take control of their own development." },
-            { term: "Sustainability", detail: "The ability to meet present needs while maintaining resources and opportunities for the future." },
-            { term: "Collaboration", detail: "People or organisations working together and sharing resources or expertise to achieve a common goal." },
-            { term: "Holistic Approach", detail: "A method that considers the whole situation and the connections among its economic, social, and environmental parts." },
-            { term: "Ownership", detail: "The community's responsibility for, control over, and commitment to a project or its outcomes." }
+        const soilOwnershipTradePeople = [
+            { q: "How do mixed grasses and shrubs favour agriculture?", a: "They provide suitable grazing." },
+            { q: "How does leaf litter improve soil?", a: "It decomposes and adds humus." },
+            { q: "Why are mixed grasses useful for crop farming?", a: "They are easily cleared for growing crops." },
+            { q: "How do east-coast subtropical forests hinder agriculture?", a: "They are difficult to clear and regrow quickly." },
+            { q: "Describe common soil problems in western South Africa.", a: "Soils are shallow, sandy, and prone to erosion." },
+            { q: "How have overuse and erosion affected soil?", a: "They have damaged and reduced fertility." },
+            { q: "Why are overgrazed areas unsuitable for agriculture?", a: "Vegetation and soil condition are too degraded for productive use." },
+            { q: "How did apartheid land policy affect disadvantaged people?", a: "It prevented many from owning farmland." },
+            { q: "What is the aim of land reform since 1994?", a: "To provide farmland to previously landless people." },
+            { q: "Why has productivity declined on some emerging farms?", a: "Some farmers lack sufficient commercial farming knowledge." },
+            { q: "How can communal land tenure limit productivity?", a: "Land is not individually owned and subsistence farming often continues." },
+            { q: "How do opposite seasons favour South African exports?", a: "Fruit and flowers can be sold to Europe during its winter." },
+            { q: "Which markets have trade agreements opened further?", a: "The USA and sub-Saharan Africa." },
+            { q: "How can disease affect livestock trade?", a: "An outbreak can restrict or stop exports." },
+            { q: "How has trade liberalism harmed some local producers?", a: "Cheap imports may be less expensive than South African food." },
+            { q: "Explain the Brazilian chicken dumping example.", a: "Brazil sold surplus chickens in South Africa below the price of locally produced chickens." },
+            { q: "How have new farming techniques affected yields?", a: "They have improved yields." },
+            { q: "How have improved transport networks affected agriculture?", a: "They have increased sales." },
+            { q: "How can consolidation of small farms affect yields?", a: "It can increase yields." },
+            { q: "Name two human factors that hinder commercial farming.", a: "Rising machinery, seed, and fertiliser costs or price fluctuations, and HIV/AIDS-related productivity loss." }
         ];
-
         function makeJeopardyQuestions(factors, offset) {
             return Array.from({ length: 5 }, (_, index) => {
 
-                const factor = factors[(offset * 5 + index) % factors.length];
-                const askForDefinition = (offset + index) % 2 === 1;
+
+                const question = factors[(offset * 5 + index) % factors.length];
                 return {
                     points: (index + 1) * 10,
-                    q: askForDefinition ? "Define " + factor.term + "." : "Which development factor matches this definition? " + factor.detail,
-                    a: askForDefinition ? factor.detail : "What is " + factor.term + "?"
+                    q: question.q,
+                    a: question.a
                 };
             });
         }
 
         function makePlayerBoard(offset) {
             return [
-                { name: "Economic Factors", questions: makeJeopardyQuestions(economicFactors, offset) },
-                { name: "Social Factors", questions: makeJeopardyQuestions(socialFactors, offset) },
-                { name: "Environmental Factors", questions: makeJeopardyQuestions(environmentalFactors, offset) },
-                { name: "Community Development", questions: makeJeopardyQuestions(communityFactors, offset) }
+                { name: "Contribution and Farm Scale", questions: makeJeopardyQuestions(contributionAndFarmScale, offset) },
+                { name: "Products and Markets", questions: makeJeopardyQuestions(productsAndMarkets, offset) },
+                { name: "Physical Factors", questions: makeJeopardyQuestions(physicalFactors, offset) },
+                { name: "Soil, Ownership, Trade and People", questions: makeJeopardyQuestions(soilOwnershipTradePeople, offset) }
             ];
         }
 
@@ -382,7 +424,7 @@
 
         function updateScore(i) { document.getElementById(`score-${i}`).innerText = scores[i]; }
         function closeModal() { activeTileButton.innerText = ""; activeTileButton.disabled = true; modal.style.display = 'none'; }
-        
+
         buildBoards();
 
         function resetPlayerNames() {

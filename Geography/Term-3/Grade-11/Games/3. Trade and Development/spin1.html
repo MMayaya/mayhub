@@ -13,7 +13,7 @@
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Learning Hub | Grade 11 Geography: Factors Affecting Development</title>
+    <title>Learning Hub | Grade 11 Geography: Trade and Development</title>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f0f4f8; color: #333; line-height: 1.6; display: flex; flex-direction: column; min-height: 100vh; }
@@ -63,9 +63,9 @@
     </nav>
 
     <main class="game-container">
-        <h1 class="game-title">Geography Quiz: Factors Affecting Development</h1>
-        <p class="game-subtitle">Test your Grade 11 Term 3 development knowledge. Select a category and spin the wheel.</p>
-        <p style="font-size: 0.78rem; color: #52606d; margin-top: 0.45rem;">Source: Factors Affecting Development - Grade 11 Geography Term 3 presentation.</p>
+        <h1 class="game-title">Geography Quiz: Trade and Development</h1>
+        <p class="game-subtitle">Test your Grade 11 Term 3 trade knowledge. Select a category and spin the wheel.</p>
+        <p style="font-size: 0.78rem; color: #52606d; margin-top: 0.45rem;">Source: Trade and Development - Grade 11 Geography Term 3 presentation.</p>
 
         <div class="category-selection">
             <h2>Step 1: Choose a Category</h2>
@@ -112,92 +112,92 @@
 <script>
         const gameData = {
             'definitions': [
-                { q: "Infrastructure", a: "The basic physical and organisational systems and facilities needed for a society and economy to function, such as transport, electricity, water, and communications." },
-                { q: "Investment", a: "The commitment of money, capital, or other resources to an activity or project in order to gain future benefits." },
-                { q: "Economic Policies", a: "Government decisions, laws, and actions used to influence how an economy operates." },
-                { q: "Technology", a: "The application of knowledge, tools, and techniques to solve problems and produce goods or services." },
-                { q: "Natural Resources", a: "Materials and environmental features that occur in nature and can be used by people, such as water, land, minerals, and forests." },
-                { q: "Trade", a: "The buying, selling, or exchange of goods and services between people, regions, or countries." },
-                { q: "Labor Market Conditions", a: "The circumstances affecting the supply of workers, demand for labour, employment, wages, and available skills." },
-                { q: "Financial Systems", a: "The institutions, markets, and rules that enable saving, borrowing, payments, and investment." },
-                { q: "Government Spending", a: "Money used by government to provide public services, infrastructure, and programmes." },
-                { q: "Entrepreneurship", a: "The process of identifying an opportunity, organising resources, and creating or managing an enterprise while accepting risk." },
-                { q: "Education", a: "The organised process through which people acquire knowledge, skills, values, and understanding." },
-                { q: "Healthcare", a: "The services and systems used to prevent and treat illness and maintain people's health." },
-                { q: "Social Stability", a: "A condition in which society has order, security, and predictable social relationships." },
-                { q: "Cultural Attitudes", a: "Shared beliefs, values, and viewpoints that influence how people think and behave." },
-                { q: "Population Growth", a: "An increase in the number of people living in a place over a period of time." },
-                { q: "Gender Equality", a: "Equal rights, responsibilities, opportunities, and treatment for people of all genders." },
-                { q: "Social Services", a: "Public or community services that support people's welfare and basic needs, such as care, housing support, and social assistance." },
-                { q: "Crime Rates", a: "Measures of how frequently crimes occur in a population or area during a given period." },
-                { q: "Community Engagement", a: "The process of involving community members in decisions and actions that affect their lives." },
-                { q: "Migration", a: "The movement of people from one place to another to live or work, either temporarily or permanently." }
+                { q: "Trade", a: "The business of exchanging, selling, and distributing goods and services." },
+                { q: "International Trade", a: "The exchange of raw materials, goods, and services between buyers and sellers across country or territory borders." },
+                { q: "Market", a: "An organisation, place, or mechanism that brings buyers and sellers together to exchange goods and services." },
+                { q: "Commodities", a: "Raw materials, such as crude oil, coffee, natural gas, gold, and wheat, used to manufacture goods." },
+                { q: "Terms of Trade", a: "The ratio between the prices of a country's exports and the prices of its imports." },
+                { q: "Balance of Trade", a: "The difference between the value of a country's exports and imports over a certain period." },
+                { q: "Trade Surplus", a: "A favourable balance of trade in which the value of exports is higher than the value of imports." },
+                { q: "Trade Deficit", a: "An adverse balance of trade in which the value of imports is higher than the value of exports." },
+                { q: "Balance of Payments", a: "An accounting record of all transactions between a country and the rest of the world over a certain period." },
+                { q: "Trade Policy", a: "A set of rules and standards that governs a country's trade with other countries." },
+                { q: "Protectionism", a: "A policy of restricting international trade to protect locally produced goods and services from foreign competition." },
+                { q: "Trade Barriers", a: "Government regulations or policies that restrict international trade." },
+                { q: "Tariffs", a: "Taxes imposed on imported goods and services." },
+                { q: "Quotas", a: "Restrictions that limit the quantity of goods that may be imported from a country." },
+                { q: "Subsidies", a: "Benefits or financial assistance that a government gives to businesses or sectors of the economy." },
+                { q: "Free Trade", a: "International trade without barriers or protective measures such as tariffs and quota restrictions." },
+                { q: "Economic Integration", a: "The process by which countries become more closely connected through trade and coordinated economic activity." },
+                { q: "Fair Trade", a: "A form of trade focused on sustainability, fair treatment of producers, and development in LEDCs." },
+                { q: "Comparative Advantage", a: "The ability to produce a good or service at a lower opportunity cost than another producer or country." },
+                { q: "Economies of Scale", a: "Cost advantages gained when production increases and the average cost per unit falls." }
             ],
             'terms': [
-                { q: "Long-term changes in average temperatures and other climate patterns.", a: "Climate Change" },
-                { q: "Severe natural events that cause major damage, loss, or disruption to people and places.", a: "Natural Disasters" },
-                { q: "Government laws, rules, and plans designed to manage human impacts and protect the environment.", a: "Environmental Policies" },
-                { q: "The variety of living organisms, including diversity within species, between species, and among ecosystems.", a: "Biodiversity" },
-                { q: "The introduction of harmful substances or forms of energy into the environment.", a: "Pollution" },
-                { q: "The use of a natural resource faster than it can be replaced or renewed.", a: "Resource Depletion" },
-                { q: "The way land is managed and used for purposes such as farming, housing, industry, or conservation.", a: "Land Use" },
-                { q: "The amount of usable water that is accessible to people and economic activities.", a: "Water Availability" },
-                { q: "The degree to which the air is clean and free from harmful pollutants.", a: "Air Quality" },
-                { q: "The collection, transport, treatment, recycling, and disposal of waste.", a: "Waste Management" },
-                { q: "An approach in which community members actively lead and participate in planning, implementing, and managing projects that affect their lives.", a: "Community-Based Development" },
-                { q: "The involvement of community members in decisions so that projects reflect local priorities and needs.", a: "Local Participation" },
-                { q: "The process of building people's ability and authority to make decisions and take control of their own development.", a: "Empowerment" },
-                { q: "The ability to meet present needs while maintaining resources and opportunities for the future.", a: "Sustainability" },
-                { q: "People or organisations working together and sharing resources or expertise to achieve a common goal.", a: "Collaboration" },
-                { q: "A method that considers the whole situation and the connections among its economic, social, and environmental parts.", a: "Holistic Approach" },
-                { q: "The community's responsibility for, control over, and commitment to a project or its outcomes.", a: "Ownership" },
-                { q: "The basic physical and organisational systems and facilities needed for a society and economy to function, such as transport, electricity, water, and communications.", a: "Infrastructure" },
-                { q: "The application of knowledge, tools, and techniques to solve problems and produce goods or services.", a: "Technology" },
-                { q: "The process of identifying an opportunity, organising resources, and creating or managing an enterprise while accepting risk.", a: "Entrepreneurship" }
+                { q: "A pricing approach in which sellers set prices by considering the prices charged by competitors for similar goods or services.", a: "Competitive Pricing" },
+                { q: "Raw materials, such as crude oil, coffee, natural gas, gold, and wheat, used to manufacture goods.", a: "Commodities" },
+                { q: "Goods and services sold to buyers in other countries.", a: "Exports" },
+                { q: "Goods and services bought from sellers in other countries.", a: "Imports" },
+                { q: "The calculation that subtracts the value of imports from the value of exports.", a: "Balance of Trade Formula" },
+                { q: "A favourable balance of trade in which the value of exports is higher than the value of imports.", a: "Trade Surplus" },
+                { q: "An adverse balance of trade in which the value of imports is higher than the value of exports.", a: "Trade Deficit" },
+                { q: "Money and financial assets used for economic activity, including loans and investments.", a: "Capital" },
+                { q: "Government rules and measures that regulate trade with other countries; another name for trade policy.", a: "Commercial Policy" },
+                { q: "Taxes imposed on imported goods and services.", a: "Tariffs" },
+                { q: "Restrictions that limit the quantity of goods that may be imported from a country.", a: "Quotas" },
+                { q: "Benefits or financial assistance that a government gives to businesses or sectors of the economy.", a: "Subsidies" },
+                { q: "Advantages received by consumers, such as a wider variety of goods and lower prices.", a: "Consumer Benefits" },
+                { q: "The development or introduction of new ideas, methods, products, or technologies.", a: "Innovation" },
+                { q: "Investment by a person or business from one country in an enterprise located in another country.", a: "Foreign Direct Investment" },
+                { q: "Concentrating production on goods or services in which a producer or country has an advantage.", a: "Specialisation" },
+                { q: "Reliance on other countries for goods, investment, income, or markets, creating economic vulnerability.", a: "Economic Dependence" },
+                { q: "The degree to which market prices or conditions change rapidly and unpredictably.", a: "Market Volatility" },
+                { q: "The gradual weakening or loss of local traditions, values, and identities.", a: "Cultural Erosion" },
+                { q: "Stopping unfair practices that take advantage of workers or producers, including child labour.", a: "Ending Exploitation" }
             ],
             'multipleChoice': [
-                { q: "Which factor is necessary for economic activities and growth?", options: ["A) Infrastructure", "B) Crime rates", "C) Air quality", "D) Ownership"], a: "A) Infrastructure" },
-                { q: "Which factor funds development projects and creates jobs?", options: ["A) Investment", "B) Migration", "C) Pollution", "D) Biodiversity"], a: "A) Investment" },
-                { q: "What creates a conducive environment for growth?", options: ["A) Economic policies", "B) Resource depletion", "C) Natural disasters", "D) Crime rates"], a: "A) Economic policies" },
-                { q: "Which factor boosts productivity and innovation?", options: ["A) Technology", "B) Pollution", "C) Migration", "D) Land use"], a: "A) Technology" },
-                { q: "The effect of natural resources on development depends on:", options: ["A) Their management", "B) Migration only", "C) Crime rates only", "D) Gender roles only"], a: "A) Their management" },
-                { q: "Trade boosts economic growth through:", options: ["A) Market access", "B) Resource depletion", "C) Natural disasters", "D) Air pollution"], a: "A) Market access" },
-                { q: "Which factor affects employment and economic stability?", options: ["A) Labor market conditions", "B) Biodiversity", "C) Waste management", "D) Ownership"], a: "A) Labor market conditions" },
-                { q: "What facilitates investments and economic activities?", options: ["A) Financial systems", "B) Climate change", "C) Population growth", "D) Crime rates"], a: "A) Financial systems" },
-                { q: "Government spending supports:", options: ["A) Infrastructure and public services", "B) Pollution and depletion", "C) Crime and instability", "D) Disasters and migration"], a: "A) Infrastructure and public services" },
-                { q: "What drives economic diversification and innovation?", options: ["A) Entrepreneurship", "B) Resource depletion", "C) Natural disasters", "D) Pollution"], a: "A) Entrepreneurship" },
-                { q: "Which social factor provides skills and knowledge for economic growth?", options: ["A) Education", "B) Migration", "C) Crime rates", "D) Population growth"], a: "A) Education" },
-                { q: "Which factor affects well-being and productivity?", options: ["A) Healthcare", "B) Trade", "C) Land use", "D) Ownership"], a: "A) Healthcare" },
-                { q: "What ensures a safe environment for investment and growth?", options: ["A) Social stability", "B) Pollution", "C) Resource depletion", "D) Natural disasters"], a: "A) Social stability" },
-                { q: "What shapes work ethics, entrepreneurship, and gender roles?", options: ["A) Cultural attitudes", "B) Water availability", "C) Financial systems", "D) Waste management"], a: "A) Cultural attitudes" },
-                { q: "Population growth influences:", options: ["A) Resource allocation and workforce size", "B) Market access only", "C) Air quality only", "D) Project ownership only"], a: "A) Resource allocation and workforce size" },
-                { q: "Equal opportunities enhance productivity through:", options: ["A) Gender equality", "B) Pollution", "C) Migration", "D) Resource depletion"], a: "A) Gender equality" },
-                { q: "Which factor reduces poverty and inequality?", options: ["A) Social services", "B) Natural disasters", "C) Crime rates", "D) Pollution"], a: "A) Social services" },
-                { q: "Lower crime rates help create:", options: ["A) A safer environment for economic activities", "B) More resource depletion", "C) Less market access", "D) More pollution"], a: "A) A safer environment for economic activities" },
-                { q: "What drives local development initiatives?", options: ["A) Community engagement", "B) Climate change", "C) Pollution", "D) Resource depletion"], a: "A) Community engagement" },
-                { q: "Migration affects:", options: ["A) Labor markets and resource distribution", "B) Biodiversity only", "C) Air quality only", "D) Economic policies only"], a: "A) Labor markets and resource distribution" }
+                { q: "International trade takes place:", options: ["A) Across country borders", "B) Within one household", "C) Only at local markets", "D) Without buyers"], a: "A) Across country borders" },
+                { q: "Competition in the world market tends to:", options: ["A) Drive consumer prices down", "B) Eliminate all goods", "C) Stop market access", "D) Raise every wage"], a: "A) Drive consumer prices down" },
+                { q: "Which is a commodity named in the presentation?", options: ["A) Crude oil", "B) A finished smartphone", "C) A bank loan", "D) A tariff"], a: "A) Crude oil" },
+                { q: "Terms of trade compares:", options: ["A) Export and import prices", "B) Population and land", "C) Wages and taxes", "D) Loans and investments"], a: "A) Export and import prices" },
+                { q: "LEDCs commonly export:", options: ["A) Low-priced raw materials", "B) Only high-priced processed goods", "C) Only services", "D) No commodities"], a: "A) Low-priced raw materials" },
+                { q: "Balance of trade is calculated as:", options: ["A) Exports minus imports", "B) Imports minus exports only", "C) Exports plus population", "D) Imports divided by capital"], a: "A) Exports minus imports" },
+                { q: "Exports greater than imports creates:", options: ["A) A trade surplus", "B) A trade deficit", "C) A quota", "D) A subsidy"], a: "A) A trade surplus" },
+                { q: "Imports greater than exports creates:", options: ["A) A trade deficit", "B) A trade surplus", "C) Economic integration", "D) Fair trade"], a: "A) A trade deficit" },
+                { q: "Balance of payments also includes:", options: ["A) Loans and investments", "B) Rainfall and soil", "C) Population only", "D) Tariffs only"], a: "A) Loans and investments" },
+                { q: "Which is another name for trade policy?", options: ["A) Commercial policy", "B) Cultural erosion", "C) Market volatility", "D) Balance of trade"], a: "A) Commercial policy" },
+                { q: "Protectionism aims to protect:", options: ["A) Fair competition with local goods", "B) Only foreign producers", "C) Child labour", "D) Global volatility"], a: "A) Fair competition with local goods" },
+                { q: "Which group contains only trade barriers?", options: ["A) Tariffs, quotas, subsidies", "B) Exports, imports, markets", "C) Loans, wages, capital", "D) Growth, innovation, variety"], a: "A) Tariffs, quotas, subsidies" },
+                { q: "Tariffs restrict imports by:", options: ["A) Increasing their prices", "B) Increasing their quantity", "C) Removing taxes", "D) Paying producers more"], a: "A) Increasing their prices" },
+                { q: "Quotas control imports by:", options: ["A) Limiting quantity", "B) Lowering all wages", "C) Removing borders", "D) Increasing investment"], a: "A) Limiting quantity" },
+                { q: "Subsidies are provided by:", options: ["A) Government", "B) Consumers only", "C) Foreign workers only", "D) Markets themselves"], a: "A) Government" },
+                { q: "Free trade removes protective measures such as:", options: ["A) Tariffs and quotas", "B) Exports and imports", "C) Goods and services", "D) Loans and investments"], a: "A) Tariffs and quotas" },
+                { q: "Lifting trade barriers assists:", options: ["A) Globalisation", "B) Protectionism", "C) Import quotas", "D) Trade deficits"], a: "A) Globalisation" },
+                { q: "Which is a free-trade advantage?", options: ["A) Wider variety at lower prices", "B) Job losses", "C) Cultural erosion", "D) Market volatility"], a: "A) Wider variety at lower prices" },
+                { q: "Which is a free-trade disadvantage?", options: ["A) Economic dependence", "B) Specialisation", "C) Innovation", "D) Foreign investment"], a: "A) Economic dependence" },
+                { q: "Fair trade supports producers by favouring:", options: ["A) Higher wages", "B) Child labour", "C) Lower sustainability", "D) Greater exploitation"], a: "A) Higher wages" }
             ],
             'trueFalse': [
-                { q: "Climate change affects agriculture and living conditions.", options: ["True", "False"], a: "True", exp: "It is listed as an environmental factor affecting both." },
-                { q: "Natural disasters support development by protecting infrastructure.", options: ["True", "False"], a: "False", exp: "They disrupt development by damaging infrastructure." },
-                { q: "Environmental policies promote sustainable development.", options: ["True", "False"], a: "True", exp: "This is their stated development role." },
-                { q: "Biodiversity supports agriculture and tourism.", options: ["True", "False"], a: "True", exp: "Both sectors are identified in the presentation." },
-                { q: "Pollution improves health and attracts investment.", options: ["True", "False"], a: "False", exp: "It harms health and deters investment." },
-                { q: "Resource depletion can create long-term economic challenges.", options: ["True", "False"], a: "True", exp: "The presentation identifies this long-term effect." },
-                { q: "Land use is irrelevant to agriculture and industry.", options: ["True", "False"], a: "False", exp: "It is crucial for sustainable agriculture and industry." },
-                { q: "Water availability is essential for health and industry.", options: ["True", "False"], a: "True", exp: "Both depend on adequate water." },
-                { q: "Better air quality supports health and quality of life.", options: ["True", "False"], a: "True", exp: "These are the benefits listed in the presentation." },
-                { q: "Waste management increases pollution.", options: ["True", "False"], a: "False", exp: "It reduces pollution and supports sustainability." },
-                { q: "Community-based development excludes communities from project planning.", options: ["True", "False"], a: "False", exp: "It emphasises active community participation and leadership." },
-                { q: "Local participation helps projects reflect community priorities and needs.", options: ["True", "False"], a: "True", exp: "Community members take part in decision-making." },
-                { q: "Empowerment builds people's capacity to control their own development.", options: ["True", "False"], a: "True", exp: "It also supports improvements in quality of life." },
-                { q: "CBD sustainability ignores local resources and knowledge.", options: ["True", "False"], a: "False", exp: "It encourages their use for long-lasting outcomes." },
-                { q: "Collaboration connects communities, local organisations, and external agencies.", options: ["True", "False"], a: "True", exp: "These partnerships help combine resources and expertise." },
-                { q: "A holistic approach treats economic, social, and environmental issues as unrelated.", options: ["True", "False"], a: "False", exp: "It recognises their interconnections." },
-                { q: "Community ownership can improve project maintenance and sustainability.", options: ["True", "False"], a: "True", exp: "Ownership supports lasting outcomes." },
-                { q: "Investment can create jobs.", options: ["True", "False"], a: "True", exp: "It also funds development projects." },
-                { q: "Social services increase poverty and inequality.", options: ["True", "False"], a: "False", exp: "They reduce poverty and inequality." },
-                { q: "Entrepreneurship supports diversification and innovation.", options: ["True", "False"], a: "True", exp: "These are its listed economic contributions." }
+                { q: "Trade includes exchanging, selling, and distributing goods and services.", options: ["True", "False"], a: "True", exp: "These are the activities used to define trade." },
+                { q: "A market can bring buyers and sellers together.", options: ["True", "False"], a: "True", exp: "It may be an organisation or mechanism for trade." },
+                { q: "Commodities are always finished consumer products.", options: ["True", "False"], a: "False", exp: "They are raw materials used to manufacture consumer goods." },
+                { q: "Terms of trade can indicate a country's wealth.", options: ["True", "False"], a: "True", exp: "The presentation identifies it as a wealth indicator." },
+                { q: "LEDCs usually buy processed goods at lower prices than their raw-material exports.", options: ["True", "False"], a: "False", exp: "They often export cheaply and import processed goods at higher prices." },
+                { q: "Mineral and agricultural prices can fluctuate.", options: ["True", "False"], a: "True", exp: "Price decreases can weaken LEDC terms of trade." },
+                { q: "A trade surplus is an adverse balance of trade.", options: ["True", "False"], a: "False", exp: "A surplus is favourable; a deficit is adverse." },
+                { q: "Balance of payments covers only goods.", options: ["True", "False"], a: "False", exp: "It includes services and capital such as loans and investments." },
+                { q: "Countries may cooperate on mutually beneficial trade policies.", options: ["True", "False"], a: "True", exp: "Groups of countries often work together on policy." },
+                { q: "Protectionism removes every trade barrier.", options: ["True", "False"], a: "False", exp: "It restricts trade by setting up barriers." },
+                { q: "Tariffs are taxes on imports.", options: ["True", "False"], a: "True", exp: "They raise the price of imported goods and services." },
+                { q: "Quotas limit how many goods may be imported.", options: ["True", "False"], a: "True", exp: "They are quantity restrictions." },
+                { q: "Subsidies can help prevent a decline in industry.", options: ["True", "False"], a: "True", exp: "They are benefits given to businesses or sectors." },
+                { q: "Free trade depends on tariffs and quota restrictions.", options: ["True", "False"], a: "False", exp: "It occurs without those barriers and protective measures." },
+                { q: "Free trade can encourage innovation through competition.", options: ["True", "False"], a: "True", exp: "Competitive pressure encourages technological advancement." },
+                { q: "Free trade can lead to job losses in some domestic industries.", options: ["True", "False"], a: "True", exp: "Domestic sectors may suffer from competition." },
+                { q: "Free trade always eliminates income inequality.", options: ["True", "False"], a: "False", exp: "It can worsen inequality within and between countries." },
+                { q: "Fair trade focuses on sustainability and LEDC development.", options: ["True", "False"], a: "True", exp: "These are its central goals." },
+                { q: "Fair trade proponents favour lower producer wages.", options: ["True", "False"], a: "False", exp: "They favour higher wages for producers." },
+                { q: "Fair trade aims to discourage child labour and encourage entrepreneurship.", options: ["True", "False"], a: "True", exp: "It seeks to end exploitation and promote enterprise." }
             ]
         };
 

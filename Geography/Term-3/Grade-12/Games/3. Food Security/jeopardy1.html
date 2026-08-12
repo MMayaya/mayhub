@@ -13,7 +13,7 @@
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>May Learning Hub | Grade 11 Geography Jeopardy</title>
+    <title>May Learning Hub | Grade 12 Geography Jeopardy</title>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f0f4f8; color: #333; line-height: 1.6; display: flex; flex-direction: column; min-height: 100vh; overflow-x: hidden; }
@@ -114,9 +114,9 @@
     </nav>
 
     <header class="game-header">
-        <h1 class="game-title">Grade 11 Geography Jeopardy</h1>
-        <p class="game-subtitle">Topic: Factors Affecting Development</p>
-        <p style="font-size: 0.78rem; color: #52606d; margin-top: 0.45rem;">Source: Factors Affecting Development - Grade 11 Geography Term 3 presentation.</p>
+        <h1 class="game-title">Grade 12 Geography Jeopardy</h1>
+        <p class="game-subtitle">Topic: Food Security</p>
+        <p style="font-size: 0.78rem; color: #52606d; margin-top: 0.45rem;">Source: Food Security - Grade 12 Geography Term 3 presentation.</p>
     </header>
 
     <section class="name-setup" id="nameSetupSection">
@@ -133,7 +133,7 @@
                 <button class="btn-edit" id="btnEditNames" onclick="showNameEditor()">Edit Names</button>
                 <button class="btn-reset" onclick="resetPlayerNames()">Reset</button>
             </div>
-            <p class="hint">80 unique clues drawn from the Grade 11 Term 3 Development presentation! </p>
+            <p class="hint">80 unique clues drawn from the Grade 12 Term 3 Food Security presentation!</p>
         </div>
     </section>
 
@@ -191,71 +191,353 @@
 
         <script src="../../../../../game-audio.js"></script>
 <script>
-        const economicFactors = [
-            { term: "Infrastructure", detail: "The basic physical and organisational systems and facilities needed for a society and economy to function, such as transport, electricity, water, and communications." },
-            { term: "Investment", detail: "The commitment of money, capital, or other resources to an activity or project in order to gain future benefits." },
-            { term: "Economic Policies", detail: "Government decisions, laws, and actions used to influence how an economy operates." },
-            { term: "Technology", detail: "The application of knowledge, tools, and techniques to solve problems and produce goods or services." },
-            { term: "Natural Resources", detail: "Materials and environmental features that occur in nature and can be used by people, such as water, land, minerals, and forests." },
-            { term: "Trade", detail: "The buying, selling, or exchange of goods and services between people, regions, or countries." },
-            { term: "Labor Market Conditions", detail: "The circumstances affecting the supply of workers, demand for labour, employment, wages, and available skills." },
-            { term: "Financial Systems", detail: "The institutions, markets, and rules that enable saving, borrowing, payments, and investment." },
-            { term: "Government Spending", detail: "Money used by government to provide public services, infrastructure, and programmes." },
-            { term: "Entrepreneurship", detail: "The process of identifying an opportunity, organising resources, and creating or managing an enterprise while accepting risk." }
-        ];
-        const socialFactors = [
-            { term: "Education", detail: "The organised process through which people acquire knowledge, skills, values, and understanding." },
-            { term: "Healthcare", detail: "The services and systems used to prevent and treat illness and maintain people's health." },
-            { term: "Social Stability", detail: "A condition in which society has order, security, and predictable social relationships." },
-            { term: "Cultural Attitudes", detail: "Shared beliefs, values, and viewpoints that influence how people think and behave." },
-            { term: "Population Growth", detail: "An increase in the number of people living in a place over a period of time." },
-            { term: "Gender Equality", detail: "Equal rights, responsibilities, opportunities, and treatment for people of all genders." },
-            { term: "Social Services", detail: "Public or community services that support people's welfare and basic needs, such as care, housing support, and social assistance." },
-            { term: "Crime Rates", detail: "Measures of how frequently crimes occur in a population or area during a given period." },
-            { term: "Community Engagement", detail: "The process of involving community members in decisions and actions that affect their lives." },
-            { term: "Migration", detail: "The movement of people from one place to another to live or work, either temporarily or permanently." }
-        ];
-        const environmentalFactors = [
-            { term: "Climate Change", detail: "Long-term changes in average temperatures and other climate patterns." },
-            { term: "Natural Disasters", detail: "Severe natural events that cause major damage, loss, or disruption to people and places." },
-            { term: "Environmental Policies", detail: "Government laws, rules, and plans designed to manage human impacts and protect the environment." },
-            { term: "Biodiversity", detail: "The variety of living organisms, including diversity within species, between species, and among ecosystems." },
-            { term: "Pollution", detail: "The introduction of harmful substances or forms of energy into the environment." },
-            { term: "Resource Depletion", detail: "The use of a natural resource faster than it can be replaced or renewed." },
-            { term: "Land Use", detail: "The way land is managed and used for purposes such as farming, housing, industry, or conservation." },
-            { term: "Water Availability", detail: "The amount of usable water that is accessible to people and economic activities." },
-            { term: "Air Quality", detail: "The degree to which the air is clean and free from harmful pollutants." },
-            { term: "Waste Management", detail: "The collection, transport, treatment, recycling, and disposal of waste." }
-        ];
-        const communityFactors = [
-            { term: "Community-Based Development", detail: "An approach in which community members actively lead and participate in planning, implementing, and managing projects that affect their lives." },
-            { term: "Local Participation", detail: "The involvement of community members in decisions so that projects reflect local priorities and needs." },
-            { term: "Empowerment", detail: "The process of building people's ability and authority to make decisions and take control of their own development." },
-            { term: "Sustainability", detail: "The ability to meet present needs while maintaining resources and opportunities for the future." },
-            { term: "Collaboration", detail: "People or organisations working together and sharing resources or expertise to achieve a common goal." },
-            { term: "Holistic Approach", detail: "A method that considers the whole situation and the connections among its economic, social, and environmental parts." },
-            { term: "Ownership", detail: "The community's responsibility for, control over, and commitment to a project or its outcomes." }
-        ];
-
+        const coreAndPillars = [
+    {
+        "q": "State the full definition of food security.",
+        "a": "All people, at all times, have physical and economic access to sufficient, safe, and nutritious food."
+    },
+    {
+        "q": "Who must have access for food security to exist?",
+        "a": "All people."
+    },
+    {
+        "q": "When must access to food exist?",
+        "a": "At all times."
+    },
+    {
+        "q": "Name the two forms of access in the food-security definition.",
+        "a": "Physical and economic access."
+    },
+    {
+        "q": "How much food must be accessible?",
+        "a": "Sufficient food."
+    },
+    {
+        "q": "Name the two quality requirements in the definition.",
+        "a": "Food must be safe and nutritious."
+    },
+    {
+        "q": "Name the four key components of food security.",
+        "a": "Availability, access, utilization, and stability."
+    },
+    {
+        "q": "Define availability.",
+        "a": "There is enough food supply."
+    },
+    {
+        "q": "Define access as a food-security component.",
+        "a": "People can obtain food."
+    },
+    {
+        "q": "Define utilization.",
+        "a": "Food supports proper nutrition and health."
+    },
+    {
+        "q": "Define stability.",
+        "a": "Access to food remains consistent over time."
+    },
+    {
+        "q": "A country has enough food but poor households cannot buy it. Which component is weak?",
+        "a": "Access."
+    },
+    {
+        "q": "Food is available today but supply repeatedly disappears. Which component is weak?",
+        "a": "Stability."
+    },
+    {
+        "q": "People can eat enough calories but the diet does not support health. Which component is weak?",
+        "a": "Utilization."
+    },
+    {
+        "q": "Stores have too little food for the population. Which component is weak?",
+        "a": "Availability."
+    },
+    {
+        "q": "Which component focuses on the supply side of food security?",
+        "a": "Availability."
+    },
+    {
+        "q": "Which component focuses on people being able to obtain food?",
+        "a": "Access."
+    },
+    {
+        "q": "Which component links food with nutrition and health?",
+        "a": "Utilization."
+    },
+    {
+        "q": "Which component adds a time dimension to access?",
+        "a": "Stability."
+    },
+    {
+        "q": "Why is food quantity alone insufficient for food security?",
+        "a": "Food must also be accessible, safe, nutritious, and consistently available."
+    }
+];
+        const insecurityAndDifferences = [
+    {
+        "q": "Define food insecurity.",
+        "a": "People do not have adequate physical, social, or economic access to food."
+    },
+    {
+        "q": "Name the three forms of access in the food-insecurity definition.",
+        "a": "Physical, social, and economic access."
+    },
+    {
+        "q": "Define chronic food insecurity.",
+        "a": "Long-term or persistent food insecurity."
+    },
+    {
+        "q": "Define transitory food insecurity.",
+        "a": "Short-term or temporary food insecurity."
+    },
+    {
+        "q": "Which type continues over a long period?",
+        "a": "Chronic food insecurity."
+    },
+    {
+        "q": "Which type lasts for a short, temporary period?",
+        "a": "Transitory food insecurity."
+    },
+    {
+        "q": "What access condition characterises food security in the comparison table?",
+        "a": "Access to adequate food."
+    },
+    {
+        "q": "What access condition characterises food insecurity?",
+        "a": "Limited or no access to food."
+    },
+    {
+        "q": "How is food described under food security?",
+        "a": "Nutritional and safe."
+    },
+    {
+        "q": "How is food described under food insecurity?",
+        "a": "Unsafe or insufficient."
+    },
+    {
+        "q": "What time pattern is linked to food security?",
+        "a": "Long-term stability."
+    },
+    {
+        "q": "What hunger pattern is linked to food insecurity?",
+        "a": "Temporary or chronic hunger."
+    },
+    {
+        "q": "A household lacks food for many years. Which type of insecurity applies?",
+        "a": "Chronic food insecurity."
+    },
+    {
+        "q": "A short disruption leaves a household without food temporarily. Which type applies?",
+        "a": "Transitory food insecurity."
+    },
+    {
+        "q": "A family cannot afford food despite nearby shops. Which form of access is inadequate?",
+        "a": "Economic access."
+    },
+    {
+        "q": "A community cannot physically reach food supplies. Which form of access is inadequate?",
+        "a": "Physical access."
+    },
+    {
+        "q": "Which condition is the opposite of long-term stability?",
+        "a": "Temporary or chronic hunger associated with food insecurity."
+    },
+    {
+        "q": "Does safe but insufficient food meet food-security requirements?",
+        "a": "No. Food must be both sufficient and safe, as well as nutritious and accessible."
+    },
+    {
+        "q": "Can limited food access be described as food security?",
+        "a": "No. Limited or no access characterises food insecurity."
+    },
+    {
+        "q": "What key distinction separates chronic from transitory insecurity?",
+        "a": "Duration: chronic is long-term, while transitory is short-term."
+    }
+];
+        const importanceAndFactors = [
+    {
+        "q": "How does food security affect population health and productivity?",
+        "a": "It ensures a healthy and productive population."
+    },
+    {
+        "q": "Which two social challenges can food security reduce?",
+        "a": "Poverty and inequality."
+    },
+    {
+        "q": "What kind of agricultural practices does food security promote?",
+        "a": "Sustainable agricultural practices."
+    },
+    {
+        "q": "How does food security improve educational outcomes?",
+        "a": "Children focus better when they are not hungry."
+    },
+    {
+        "q": "Which broad economic outcome can food security boost?",
+        "a": "Economic development."
+    },
+    {
+        "q": "Why is food security critical for South Africa?",
+        "a": "It supports the country's development."
+    },
+    {
+        "q": "How do droughts affect food security?",
+        "a": "They can reduce crop production."
+    },
+    {
+        "q": "How do floods affect food security?",
+        "a": "They can disrupt or reduce crop production."
+    },
+    {
+        "q": "Why do poverty and unemployment influence food security?",
+        "a": "Many households cannot afford food."
+    },
+    {
+        "q": "How does unequal land ownership influence food security?",
+        "a": "It affects access to land and farming opportunities."
+    },
+    {
+        "q": "Why is access to water important to food security?",
+        "a": "Water access affects the ability to farm and produce food."
+    },
+    {
+        "q": "How does population growth affect food security?",
+        "a": "It increases demand for food."
+    },
+    {
+        "q": "How does inflation affect food security?",
+        "a": "It raises food prices and reduces affordability."
+    },
+    {
+        "q": "How do transport costs influence food security?",
+        "a": "They can raise food prices and reduce affordability."
+    },
+    {
+        "q": "What does education and awareness contribute?",
+        "a": "Knowledge about nutrition and agriculture."
+    },
+    {
+        "q": "Name the two climate and weather events listed as influencing crop production.",
+        "a": "Droughts and floods."
+    },
+    {
+        "q": "Name the two economic conditions that leave households unable to afford food.",
+        "a": "Poverty and unemployment."
+    },
+    {
+        "q": "Name the two costs linked to food affordability.",
+        "a": "Inflation and transport costs."
+    },
+    {
+        "q": "Which factor increases food demand rather than directly reducing supply?",
+        "a": "Population growth."
+    },
+    {
+        "q": "Which factor helps people make informed nutrition and farming choices?",
+        "a": "Education and awareness."
+    }
+];
+        const strategiesAndAction = [
+    {
+        "q": "What two forms of agricultural support are listed?",
+        "a": "Government subsidies and training for farmers."
+    },
+    {
+        "q": "How can land reform improve food security?",
+        "a": "By ensuring fair distribution of agricultural land."
+    },
+    {
+        "q": "Name the three systems improved under infrastructure.",
+        "a": "Roads, storage, and transport systems."
+    },
+    {
+        "q": "Name the three sustainable-farming approaches listed.",
+        "a": "Technology, crop rotation, and water conservation."
+    },
+    {
+        "q": "Which school-based example is given under feeding schemes?",
+        "a": "School nutrition programmes."
+    },
+    {
+        "q": "What does urban agriculture encourage?",
+        "a": "Home and community gardens."
+    },
+    {
+        "q": "At which three levels is action required?",
+        "a": "Household, community, and government levels."
+    },
+    {
+        "q": "Who does the conclusion say has a role to play?",
+        "a": "Everyone, from farmers to consumers."
+    },
+    {
+        "q": "Which strategy combines financial help with farmer skills?",
+        "a": "Agricultural support through subsidies and training."
+    },
+    {
+        "q": "Which strategy addresses unequal agricultural-land ownership?",
+        "a": "Land reform."
+    },
+    {
+        "q": "Which strategy helps food move efficiently to markets?",
+        "a": "Improved roads and transport infrastructure."
+    },
+    {
+        "q": "Which strategy helps prevent food losses after production?",
+        "a": "Improved storage infrastructure."
+    },
+    {
+        "q": "Which strategy uses crop rotation?",
+        "a": "Sustainable farming."
+    },
+    {
+        "q": "Which strategy uses water conservation?",
+        "a": "Sustainable farming."
+    },
+    {
+        "q": "Which strategy uses technology to support production?",
+        "a": "Sustainable farming."
+    },
+    {
+        "q": "Which strategy directly supports learners with food?",
+        "a": "School nutrition programmes under feeding schemes."
+    },
+    {
+        "q": "Which strategy brings food production into residential communities?",
+        "a": "Urban agriculture through home and community gardens."
+    },
+    {
+        "q": "Why must action extend beyond government?",
+        "a": "Food security requires household, community, and government action, and everyone has a role."
+    },
+    {
+        "q": "How can a community garden support food security?",
+        "a": "It applies urban agriculture by producing food locally."
+    },
+    {
+        "q": "How can better roads support food security?",
+        "a": "They improve the transport and distribution of food."
+    }
+];
         function makeJeopardyQuestions(factors, offset) {
             return Array.from({ length: 5 }, (_, index) => {
 
-                const factor = factors[(offset * 5 + index) % factors.length];
-                const askForDefinition = (offset + index) % 2 === 1;
+
+                const question = factors[(offset * 5 + index) % factors.length];
                 return {
                     points: (index + 1) * 10,
-                    q: askForDefinition ? "Define " + factor.term + "." : "Which development factor matches this definition? " + factor.detail,
-                    a: askForDefinition ? factor.detail : "What is " + factor.term + "?"
+                    q: question.q,
+                    a: question.a
                 };
             });
         }
 
         function makePlayerBoard(offset) {
             return [
-                { name: "Economic Factors", questions: makeJeopardyQuestions(economicFactors, offset) },
-                { name: "Social Factors", questions: makeJeopardyQuestions(socialFactors, offset) },
-                { name: "Environmental Factors", questions: makeJeopardyQuestions(environmentalFactors, offset) },
-                { name: "Community Development", questions: makeJeopardyQuestions(communityFactors, offset) }
+                { name: "Core Concepts and Pillars", questions: makeJeopardyQuestions(coreAndPillars, offset) },
+                { name: "Food Insecurity", questions: makeJeopardyQuestions(insecurityAndDifferences, offset) },
+                { name: "Importance and Influences", questions: makeJeopardyQuestions(importanceAndFactors, offset) },
+                { name: "Strategies and Shared Action", questions: makeJeopardyQuestions(strategiesAndAction, offset) }
             ];
         }
 
@@ -382,7 +664,7 @@
 
         function updateScore(i) { document.getElementById(`score-${i}`).innerText = scores[i]; }
         function closeModal() { activeTileButton.innerText = ""; activeTileButton.disabled = true; modal.style.display = 'none'; }
-        
+
         buildBoards();
 
         function resetPlayerNames() {

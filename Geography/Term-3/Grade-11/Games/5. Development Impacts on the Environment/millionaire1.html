@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-8GCWSKNDL7"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-8GCWSKNDL7');
+</script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>May Learning Hub | Grade 11 Geography: Development Impacts on the Environment Quiz</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f0f4f8; color: #333; line-height: 1.6; display: flex; flex-direction: column; min-height: 100vh; }
+        
+        nav { background-color: #002b5e; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; }
+        .logo { color: #fff; font-size: 1.5rem; font-weight: bold; text-decoration: none; }
+        .nav-links a { color: #cce0ff; text-decoration: none; margin-left: 1.5rem; font-weight: 500; transition: color 0.3s; }
+        .nav-links a:hover, .nav-links a.active { color: #fff; text-decoration: underline; }
+        
+        .game-header { text-align: center; padding: 2rem 1rem 1rem; }
+        .game-title { color: #004080; font-size: 2.2rem; margin-bottom: 0.5rem; }
+        .game-subtitle { color: #555; margin-bottom: 1.5rem; font-size: 1.1rem; }
+
+        .game-wrapper { display: flex; max-width: 1100px; margin: 0 auto 3rem; gap: 2rem; padding: 0 20px; width: 100%; align-items: flex-start; }
+        
+        .game-board { flex: 1; background: #fff; border-radius: 12px; box-shadow: 0 8px 30px rgba(0,0,0,0.1); border-top: 6px solid #3385ff; padding: 2rem; display: flex; flex-direction: column; }
+        
+        .lifelines { display: flex; justify-content: center; gap: 1rem; margin-bottom: 2rem; }
+        .lifeline-btn { background: #002b5e; color: #fff; border: 2px solid #b3d4ff; padding: 0.8rem 1.5rem; border-radius: 30px; font-weight: bold; cursor: pointer; transition: all 0.3s; font-size: 1rem; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .lifeline-btn:hover:not(:disabled) { background: #3385ff; transform: translateY(-2px); }
+        .lifeline-btn:disabled { background: #ccc; border-color: #aaa; color: #666; cursor: not-allowed; transform: none; box-shadow: none; text-decoration: line-through; }
+
+        .question-box { background: #004080; color: #fff; padding: 2rem; border-radius: 8px; font-size: 1.2rem; font-weight: bold; text-align: center; margin-bottom: 2rem; box-shadow: inset 0 0 10px rgba(0,0,0,0.3); min-height: 120px; display: flex; flex-direction: column; justify-content: center; align-items: center; }
+        
+        .answers-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+        .answer-btn { background: #f0f7ff; border: 2px solid #3385ff; color: #002b5e; padding: 1.2rem; font-size: 1rem; font-weight: bold; border-radius: 8px; cursor: pointer; transition: all 0.2s; text-align: left; position: relative; overflow: hidden; }
+        .answer-btn::before { content: attr(data-letter) ": "; color: #3385ff; margin-right: 0.5rem; }
+        .answer-btn:hover:not(:disabled) { background: #e6f0fa; border-color: #004080; transform: scale(1.02); }
+        
+        .answer-btn.selected { background: #ffc107; border-color: #d39e00; color: #000; }
+        .answer-btn.correct { background: #28a745 !important; border-color: #1e7e34 !important; color: #fff !important; }
+        .answer-btn.incorrect { background: #dc3545 !important; border-color: #bd2130 !important; color: #fff !important; }
+        .answer-btn.hidden { visibility: hidden; }
+
+        .prize-ladder { width: 280px; background: #001a33; border-radius: 12px; padding: 1rem; display: flex; flex-direction: column-reverse; gap: 0.1rem; box-shadow: 0 8px 30px rgba(0,0,0,0.2); max-height: 600px; overflow-y: auto; }
+        .ladder-step { display: flex; justify-content: space-between; padding: 0.2rem 0.6rem; color: #66a3ff; font-weight: bold; border-radius: 4px; transition: all 0.3s; font-size: 0.85rem; }
+        .ladder-step.active { background: #ffc107; color: #000; transform: scale(1.05); }
+        .ladder-step.passed { color: #28a745; }
+        .ladder-step.milestone { color: #fff; border-bottom: 1px solid rgba(255,255,255,0.2); } 
+
+        #endScreen { display: none; text-align: center; padding: 3rem 1rem; }
+        #endMessage { font-size: 1.8rem; color: #004080; margin-bottom: 1rem; }
+        #endPrize { font-size: 2.5rem; color: #28a745; font-weight: bold; margin-bottom: 2rem; }
+
+        @media (max-width: 850px) {
+            .game-wrapper { flex-direction: column; }
+            .prize-ladder { width: 100%; flex-direction: row; flex-wrap: wrap; height: auto; } 
+            .answers-grid { grid-template-columns: 1fr; }
+        }
+        
+        footer { text-align: center; padding: 1rem; background-color: #002b5e; color: #fff; margin-top: auto; }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="../../../../../index.html" class="logo">May Learning Hub</a>
+        <div class="nav-links">
+            <a href="../../../../../index.html">Home</a>
+            <a href="../../../../../about.html">About</a>
+        </div>
+    </nav>
+
+    <header class="game-header">
+        <h1 class="game-title">R1,000,000 Geography Challenge</h1>
+        <p class="game-subtitle">Development Impacts on the Environment (Grade 11 Term 3)</p>
+        <p style="font-size: 0.78rem; color: #52606d; margin-top: 0.45rem;">Source: Development Impacts on the Environment - Grade 11 Geography Term 3 presentation.</p>
+    </header>
+
+    <main class="game-wrapper">
+        <div class="game-board" id="gameBoard">
+            <div class="lifelines">
+                <button class="lifeline-btn" id="btn5050" onclick="use5050()">50 / 50</button>
+                <button class="lifeline-btn" id="btnHint" onclick="useHint()">Get a Hint</button>
+            </div>
+
+            <div class="question-box">
+                <span id="questionText">Loading question...</span>
+            </div>
+
+            <div class="answers-grid">
+                <button class="answer-btn" data-letter="A" id="btn0" onclick="selectAnswer(0)"></button>
+                <button class="answer-btn" data-letter="B" id="btn1" onclick="selectAnswer(1)"></button>
+                <button class="answer-btn" data-letter="C" id="btn2" onclick="selectAnswer(2)"></button>
+                <button class="answer-btn" data-letter="D" id="btn3" onclick="selectAnswer(3)"></button>
+            </div>
+        </div>
+
+        <div class="game-board" id="endScreen">
+            <h2 id="endMessage">Game Over!</h2>
+            <p style="font-size: 1.2rem; margin-bottom: 0.5rem;">Your final winnings:</p>
+            <div id="endPrize">R0</div>
+            <button class="lifeline-btn" onclick="location.reload()">New Game</button>
+        </div>
+
+        <div class="prize-ladder" id="prizeLadder"></div>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 May Learning Hub. All rights reserved.</p>
+    </footer>
+
+        <script src="../../../../../game-audio.js"></script>
+<script>
+        const questions = [
+            { q: "What is deforestation?", options: ["Planting trees", "Large-scale forest clearing", "Protecting wetlands", "Recycling paper"], a: 1, hint: "It removes forest cover." },
+            { q: "Which development activities commonly cause deforestation?", options: ["Recycling and conservation", "Solar and wind power", "Agriculture and urbanisation", "Fishing quotas"], a: 2, hint: "Both require land." },
+            { q: "Which is an environmental effect of deforestation?", options: ["More habitats", "Higher biodiversity", "Less erosion", "Habitat loss"], a: 3, hint: "Forest organisms lose their homes." },
+            { q: "Why can deforestation increase carbon dioxide?", options: ["Fewer trees absorb it", "Trees produce all fossil fuels", "Forests stop rainfall", "Soil creates oxygen"], a: 0, hint: "Trees remove carbon dioxide during photosynthesis." },
+            { q: "What is pollution?", options: ["The protection of ecosystems", "The introduction of harmful substances or energy", "The natural movement of water", "The planting of forests"], a: 1, hint: "It contaminates environmental systems." },
+            { q: "Which three environmental components can industry contaminate?", options: ["Latitude, longitude, and altitude", "Sunlight, seasons, and time", "Air, water, and soil", "Roads, houses, and shops"], a: 2, hint: "Think of the atmosphere, hydrosphere, and land." },
+            { q: "What is global warming?", options: ["A short cold spell", "Daily temperature change", "Local air pollution only", "The long-term rise in average global temperature"], a: 3, hint: "It is a long-term global trend." },
+            { q: "Which gas is released by burning coal?", options: ["Carbon dioxide", "Only oxygen", "Helium", "Hydrogen only"], a: 0, hint: "It is a major greenhouse gas." },
+            { q: "What can melting land ice contribute to?", options: ["Lower sea levels", "Sea-level rise", "Less coastal flooding", "More fossil fuels"], a: 1, hint: "Meltwater enters the oceans." },
+            { q: "What is resource depletion?", options: ["Resource conservation", "Making new minerals", "Using resources faster than they recover", "Reducing consumption"], a: 2, hint: "Use exceeds replacement." },
+            { q: "Which resources are named as being overused?", options: ["Clouds and sunlight", "Latitude and longitude", "Seasons and weather", "Water, minerals, and fossil fuels"], a: 3, hint: "They are essential natural resources." },
+            { q: "What may habitat destruction cause?", options: ["Species extinction", "More biodiversity", "Automatic recovery", "More habitats"], a: 0, hint: "Species may lose the conditions needed to survive." },
+            { q: "What is urbanisation?", options: ["Declining city populations", "Growth of towns and cities", "Forest replanting", "Fish population recovery"], a: 1, hint: "More people and development concentrate in urban areas." },
+            { q: "Which is a common result of urbanisation?", options: ["No change in land use", "Less demand for water", "Pressure on land and natural resources", "Automatic wetland protection"], a: 2, hint: "Cities require space and services." },
+            { q: "What is overgrazing?", options: ["Rotating crops", "Replanting forests", "Protecting grasslands", "Too many animals grazing before vegetation recovers"], a: 3, hint: "Livestock pressure exceeds the land capacity." },
+            { q: "Which practice helps reduce soil degradation?", options: ["Crop rotation", "Continuous overgrazing", "Removing topsoil", "Uncontrolled deforestation"], a: 0, hint: "Different crops are grown in sequence." },
+            { q: "What is open-cast mining?", options: ["Mining only deep underground", "Surface mining that removes soil and rock", "Fishing in open water", "Generating solar power"], a: 1, hint: "It exposes deposits from the surface." },
+            { q: "What can mining chemicals cause?", options: ["Wetland restoration", "Cleaner groundwater", "Acid mine drainage", "More biodiversity"], a: 2, hint: "Acidic polluted water may reach rivers and groundwater." },
+            { q: "Why is overfishing harmful?", options: ["It increases every fish population", "It creates more coral reefs", "It removes pollution", "It disrupts food chains and reduces fish stocks"], a: 3, hint: "Fish are removed faster than they reproduce." },
+            { q: "What should governments use to control fishing?", options: ["Laws and quotas", "Factory chimneys", "Mine dumps", "Wetland drainage"], a: 0, hint: "Limits protect fish populations." },
+            { q: "Which pair contains renewable energy sources?", options: ["Coal and oil", "Solar and hydroelectric power", "Petroleum and diesel", "Coal and gas"], a: 1, hint: "They replenish naturally." },
+            { q: "What can filters on factory chimneys reduce?", options: ["Biodiversity", "Solar energy", "Harmful gases and particles", "Fish migration"], a: 2, hint: "They clean emissions before release." },
+            { q: "How can tourism harm sensitive areas?", options: ["By reducing all traffic", "By ending litter", "By restoring every coral reef", "By clearing vegetation and increasing traffic and litter"], a: 3, hint: "More visitors and facilities increase pressure." },
+            { q: "What is an environmental impact assessment?", options: ["A study of likely impacts before a project", "A method of catching fish", "A type of landfill", "A mining chemical"], a: 0, hint: "It supports informed decisions before construction." },
+            { q: "What can dam construction alter?", options: ["Earth's orbit", "Aquatic life and fish migration", "Latitude", "Global time zones"], a: 1, hint: "Dams change river flow and block routes." },
+            { q: "What is eutrophication?", options: ["Forest clearing", "Air pollution only", "Excess nutrients causing algal growth and oxygen loss", "Urban expansion"], a: 2, hint: "Fertiliser and sewage can add nutrients to water." },
+            { q: "What may happen when wetlands are drained?", options: ["Flood risk always falls", "Water storage increases", "Habitats expand", "Flooding may increase"], a: 3, hint: "Wetlands store and slow water." },
+            { q: "Which solution reduces the amount of waste sent to landfills?", options: ["Recycling", "Overconsumption", "Littering", "Using more single-use plastic"], a: 0, hint: "Materials are processed for use again." },
+            { q: "What does biodegradable mean?", options: ["Unable to break down", "Able to decompose naturally", "Made only from metal", "Always toxic"], a: 1, hint: "Microorganisms can break it down." },
+            { q: "What is sustainable development?", options: ["Development that ignores the environment", "Development that uses every resource now", "Meeting present needs while protecting future needs", "Stopping all economic activity"], a: 2, hint: "It balances current development and future well-being." }
+        ];
+
+        const prizes = [
+            "R100", "R200", "R300", "R500", "R1,000",
+            "R2,000", "R3,000", "R4,000", "R5,000", "R10,000",
+            "R15,000", "R20,000", "R25,000", "R30,000", "R40,000",
+            "R50,000", "R60,000", "R70,000", "R80,000", "R100,000",
+            "R150,000", "R200,000", "R250,000", "R300,000", "R400,000",
+            "R500,000", "R600,000", "R750,000", "R850,000", "R1,000,000"
+        ];
+
+        let currentLevel = 0;
+        let isWaiting = false;
+
+        const ladderContainer = document.getElementById('prizeLadder');
+        for (let i = 0; i < 30; i++) {
+            let step = document.createElement('div');
+            step.className = 'ladder-step';
+            step.id = `ladder-${i}`;
+            if ((i + 1) % 5 === 0) step.classList.add('milestone');
+            step.innerHTML = `<span>${i + 1}</span> <span>${prizes[i]}</span>`;
+            ladderContainer.appendChild(step);
+        }
+
+        function loadQuestion() {
+            isWaiting = false;
+            document.querySelectorAll('.ladder-step').forEach((el, index) => {
+                el.classList.remove('active');
+                if (index < currentLevel) el.classList.add('passed');
+            });
+            document.getElementById(`ladder-${currentLevel}`).classList.add('active');
+
+            const qData = questions[currentLevel];
+            document.getElementById('questionText').innerText = `Q${currentLevel + 1}: ${qData.q}`;
+
+            let options = [...qData.options];
+            let correctText = options[qData.a];
+            options.sort(() => Math.random() - 0.5);
+            let correctIdx = options.indexOf(correctText);
+
+            for (let i = 0; i < 4; i++) {
+                let btn = document.getElementById(`btn${i}`);
+                btn.innerText = options[i];
+                btn.className = 'answer-btn'; 
+                btn.disabled = false;
+                btn.classList.remove('hidden', 'selected', 'correct', 'incorrect');
+                btn.setAttribute('data-correct', i === correctIdx);
+            }
+        }
+
+        function selectAnswer(selectedIndex) {
+            if (isWaiting) return;
+            isWaiting = true;
+
+            const selectedBtn = document.getElementById(`btn${selectedIndex}`);
+            const isCorrect = selectedBtn.getAttribute('data-correct') === 'true';
+            if (isCorrect) MayHubSounds.playCorrect();
+            else MayHubSounds.playWrong();
+            
+            for (let i = 0; i < 4; i++) {
+                document.getElementById(`btn${i}`).disabled = true;
+            }
+
+            selectedBtn.classList.add('selected');
+
+            setTimeout(() => {
+                selectedBtn.classList.remove('selected');
+
+                if (isCorrect) {
+                    selectedBtn.classList.add('correct');
+                    setTimeout(() => {
+                        currentLevel++;
+                        if (currentLevel >= 30) endGame(true);
+                        else loadQuestion();
+                    }, 1000); 
+                } else {
+                    selectedBtn.classList.add('incorrect');
+                    for (let i = 0; i < 4; i++) {
+                        if (document.getElementById(`btn${i}`).getAttribute('data-correct') === 'true') {
+                            document.getElementById(`btn${i}`).classList.add('correct');
+                        }
+                    }
+                    setTimeout(() => endGame(false), 2000);
+                }
+            }, 1000);
+        }
+
+        function use5050() {
+            if (isWaiting) return;
+            document.getElementById('btn5050').disabled = true;
+            let hiddenCount = 0;
+            for(let i=0; i<4; i++){
+                let btn = document.getElementById(`btn${i}`);
+                if(btn.getAttribute('data-correct') === 'false' && hiddenCount < 2) {
+                    btn.classList.add('hidden');
+                    hiddenCount++;
+                }
+            }
+        }
+
+        function useHint() {
+            if (isWaiting) return;
+            document.getElementById('btnHint').disabled = true;
+            alert("Geography Teacher Hint: " + questions[currentLevel].hint);
+        }
+
+        function endGame(won) {
+            document.getElementById('gameBoard').style.display = 'none';
+            document.getElementById('endScreen').style.display = 'block';
+            if (won) {
+                document.getElementById('endMessage').innerText = "Geography Legend!";
+                document.getElementById('endPrize').innerText = "R1,000,000";
+            } else {
+                document.getElementById('endMessage').innerText = "Final Winnings:";
+                document.getElementById('endPrize').innerText = currentLevel > 0 ? prizes[currentLevel - 1] : "R0";
+            }
+        }
+        loadQuestion();
+    </script>
+</body>
+</html>

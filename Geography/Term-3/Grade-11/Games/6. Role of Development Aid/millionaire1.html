@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-8GCWSKNDL7"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-8GCWSKNDL7');
+</script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>May Learning Hub | Grade 11 Geography: Role of Development Aid Quiz</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f0f4f8; color: #333; line-height: 1.6; display: flex; flex-direction: column; min-height: 100vh; }
+
+        nav { background-color: #002b5e; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; }
+        .logo { color: #fff; font-size: 1.5rem; font-weight: bold; text-decoration: none; }
+        .nav-links a { color: #cce0ff; text-decoration: none; margin-left: 1.5rem; font-weight: 500; transition: color 0.3s; }
+        .nav-links a:hover, .nav-links a.active { color: #fff; text-decoration: underline; }
+
+        .game-header { text-align: center; padding: 2rem 1rem 1rem; }
+        .game-title { color: #004080; font-size: 2.2rem; margin-bottom: 0.5rem; }
+        .game-subtitle { color: #555; margin-bottom: 1.5rem; font-size: 1.1rem; }
+
+        .game-wrapper { display: flex; max-width: 1100px; margin: 0 auto 3rem; gap: 2rem; padding: 0 20px; width: 100%; align-items: flex-start; }
+
+        .game-board { flex: 1; background: #fff; border-radius: 12px; box-shadow: 0 8px 30px rgba(0,0,0,0.1); border-top: 6px solid #3385ff; padding: 2rem; display: flex; flex-direction: column; }
+
+        .lifelines { display: flex; justify-content: center; gap: 1rem; margin-bottom: 2rem; }
+        .lifeline-btn { background: #002b5e; color: #fff; border: 2px solid #b3d4ff; padding: 0.8rem 1.5rem; border-radius: 30px; font-weight: bold; cursor: pointer; transition: all 0.3s; font-size: 1rem; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .lifeline-btn:hover:not(:disabled) { background: #3385ff; transform: translateY(-2px); }
+        .lifeline-btn:disabled { background: #ccc; border-color: #aaa; color: #666; cursor: not-allowed; transform: none; box-shadow: none; text-decoration: line-through; }
+
+        .question-box { background: #004080; color: #fff; padding: 2rem; border-radius: 8px; font-size: 1.2rem; font-weight: bold; text-align: center; margin-bottom: 2rem; box-shadow: inset 0 0 10px rgba(0,0,0,0.3); min-height: 120px; display: flex; flex-direction: column; justify-content: center; align-items: center; }
+
+        .answers-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+        .answer-btn { background: #f0f7ff; border: 2px solid #3385ff; color: #002b5e; padding: 1.2rem; font-size: 1rem; font-weight: bold; border-radius: 8px; cursor: pointer; transition: all 0.2s; text-align: left; position: relative; overflow: hidden; }
+        .answer-btn::before { content: attr(data-letter) ": "; color: #3385ff; margin-right: 0.5rem; }
+        .answer-btn:hover:not(:disabled) { background: #e6f0fa; border-color: #004080; transform: scale(1.02); }
+
+        .answer-btn.selected { background: #ffc107; border-color: #d39e00; color: #000; }
+        .answer-btn.correct { background: #28a745 !important; border-color: #1e7e34 !important; color: #fff !important; }
+        .answer-btn.incorrect { background: #dc3545 !important; border-color: #bd2130 !important; color: #fff !important; }
+        .answer-btn.hidden { visibility: hidden; }
+
+        .prize-ladder { width: 280px; background: #001a33; border-radius: 12px; padding: 1rem; display: flex; flex-direction: column-reverse; gap: 0.1rem; box-shadow: 0 8px 30px rgba(0,0,0,0.2); max-height: 600px; overflow-y: auto; }
+        .ladder-step { display: flex; justify-content: space-between; padding: 0.2rem 0.6rem; color: #66a3ff; font-weight: bold; border-radius: 4px; transition: all 0.3s; font-size: 0.85rem; }
+        .ladder-step.active { background: #ffc107; color: #000; transform: scale(1.05); }
+        .ladder-step.passed { color: #28a745; }
+        .ladder-step.milestone { color: #fff; border-bottom: 1px solid rgba(255,255,255,0.2); }
+
+        #endScreen { display: none; text-align: center; padding: 3rem 1rem; }
+        #endMessage { font-size: 1.8rem; color: #004080; margin-bottom: 1rem; }
+        #endPrize { font-size: 2.5rem; color: #28a745; font-weight: bold; margin-bottom: 2rem; }
+
+        @media (max-width: 850px) {
+            .game-wrapper { flex-direction: column; }
+            .prize-ladder { width: 100%; flex-direction: row; flex-wrap: wrap; height: auto; }
+            .answers-grid { grid-template-columns: 1fr; }
+        }
+
+        footer { text-align: center; padding: 1rem; background-color: #002b5e; color: #fff; margin-top: auto; }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="../../../../../index.html" class="logo">May Learning Hub</a>
+        <div class="nav-links">
+            <a href="../../../../../index.html">Home</a>
+            <a href="../../../../../about.html">About</a>
+        </div>
+    </nav>
+
+    <header class="game-header">
+        <h1 class="game-title">R1,000,000 Geography Challenge</h1>
+        <p class="game-subtitle">Role of Development Aid (Grade 11 Term 3)</p>
+        <p style="font-size: 0.78rem; color: #52606d; margin-top: 0.45rem;">Source: Development Aid - Grade 11 Geography Term 3 presentation.</p>
+    </header>
+
+    <main class="game-wrapper">
+        <div class="game-board" id="gameBoard">
+            <div class="lifelines">
+                <button class="lifeline-btn" id="btn5050" onclick="use5050()">50 / 50</button>
+                <button class="lifeline-btn" id="btnHint" onclick="useHint()">Get a Hint</button>
+            </div>
+
+            <div class="question-box">
+                <span id="questionText">Loading question...</span>
+            </div>
+
+            <div class="answers-grid">
+                <button class="answer-btn" data-letter="A" id="btn0" onclick="selectAnswer(0)"></button>
+                <button class="answer-btn" data-letter="B" id="btn1" onclick="selectAnswer(1)"></button>
+                <button class="answer-btn" data-letter="C" id="btn2" onclick="selectAnswer(2)"></button>
+                <button class="answer-btn" data-letter="D" id="btn3" onclick="selectAnswer(3)"></button>
+            </div>
+        </div>
+
+        <div class="game-board" id="endScreen">
+            <h2 id="endMessage">Game Over!</h2>
+            <p style="font-size: 1.2rem; margin-bottom: 0.5rem;">Your final winnings:</p>
+            <div id="endPrize">R0</div>
+            <button class="lifeline-btn" onclick="location.reload()">New Game</button>
+        </div>
+
+        <div class="prize-ladder" id="prizeLadder"></div>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 May Learning Hub. All rights reserved.</p>
+    </footer>
+
+        <script src="../../../../../game-audio.js"></script>
+<script>
+        const questions = [
+            { q: "What is development aid?", options: ["A tax on exports", "A ban on trade", "Assistance that supports development and living standards in LEDCs", "A weather forecast"], a: 2, hint: "It is also called international or foreign aid." },
+            { q: "What is a donor?", options: ["A country or organisation that gives aid", "A country that receives aid", "A local market", "A disaster victim only"], a: 0, hint: "Think of the giver." },
+            { q: "What should appropriate development aid do?", options: ["Increase dependency", "Ignore local needs", "Undermine local development", "Empower the recipient"], a: 3, hint: "Good aid strengthens recipients." },
+            { q: "What is official aid?", options: ["Only private donations", "Authorised aid from a country or international organisation", "Only emergency food", "An informal trade arrangement"], a: 1, hint: "It is authorised by governments or international bodies." },
+            { q: "Aid given directly from one country to another is:", options: ["Voluntary aid", "Multilateral aid", "Bilateral aid", "Humanitarian aid"], a: 2, hint: "Bi means two parties." },
+            { q: "What is multilateral aid?", options: ["Aid channelled through an international organisation", "Aid from one person", "Aid with no distributor", "Only a direct country transfer"], a: 0, hint: "It passes through a body involving several countries." },
+            { q: "Which organisations are named as distributors of multilateral aid?", options: ["Oxfam and the Red Cross", "Schools and hospitals", "Local businesses", "IMF and World Bank"], a: 3, hint: "Both are international financial institutions." },
+            { q: "What is voluntary aid?", options: ["Aid required by law", "Aid willingly donated through aid agencies", "Only government loans", "Aid subject to a trade condition"], a: 1, hint: "Individuals and corporations choose to give it." },
+            { q: "Who may contribute voluntary aid?", options: ["Recipients only", "Engineers only", "Individuals and corporations", "International organisations only"], a: 2, hint: "Both people and companies may donate." },
+            { q: "Which is an example of short-term aid?", options: ["Medicine and food after an earthquake", "Building a school over several years", "A permanent trade agreement", "A long-term power project"], a: 0, hint: "It meets immediate emergency needs." },
+            { q: "Which is an example of long-term voluntary aid?", options: ["One emergency meal", "One bottle of water after a flood", "An evacuation warning", "Building schools and orphanages"], a: 3, hint: "It supports development over time." },
+            { q: "Which organisations are linked to short-term emergency aid?", options: ["IMF and World Bank", "Oxfam and Red Cross", "Banks and mines", "Factories and hotels"], a: 1, hint: "They are well-known aid agencies." },
+            { q: "What is technical aid?", options: ["Only donated food", "Only cash loans", "Skilled technological advice and assistance", "A trade restriction"], a: 2, hint: "It transfers expertise." },
+            { q: "Who commonly provides technical aid?", options: ["Skilled engineers", "Tourists", "Retail customers", "Disaster victims"], a: 0, hint: "They help plan and build infrastructure." },
+            { q: "Which project is named as technical aid?", options: ["A food-parcel programme", "A fair-trade shop", "A school charity sale", "Lesotho Highlands Water Scheme"], a: 3, hint: "It is a major water infrastructure project." },
+            { q: "What is conditional aid?", options: ["Aid without requirements", "Aid granted subject to a specific condition", "Only individual charity", "Only emergency medicine"], a: 1, hint: "It has strings attached." },
+            { q: "Which example shows conditional aid?", options: ["A person gives anonymously", "A charity supplies food after a flood", "A road is built if the recipient trades raw materials with the donor", "A school receives books without requirements"], a: 2, hint: "Look for an obligation linked to the aid." },
+            { q: "What is the main purpose of humanitarian aid?", options: ["To improve living conditions", "To impose trade tariffs", "To reduce all local production", "To increase donor control"], a: 0, hint: "It focuses directly on human well-being." },
+            { q: "Which group contains only forms of humanitarian aid from the lesson?", options: ["Tariffs, quotas, and subsidies", "Exports, imports, and markets", "Roads, bridges, and dams only", "Skills training, debt reduction, and medical help"], a: 3, hint: "It combines social, financial, and health support." },
+            { q: "What may be delivered after a flood or drought?", options: ["Only loan contracts", "Food, water, and emergency supplies", "Only import taxes", "Only tourist information"], a: 1, hint: "These meet immediate survival needs." },
+            { q: "How can aid reduce poverty?", options: ["By removing essential services", "By closing hospitals", "By providing essential resources and services", "By stopping education"], a: 2, hint: "The first listed advantage is poverty reduction." },
+            { q: "Which facilities may infrastructure aid fund?", options: ["Roads, schools, and hospitals", "Trade barriers only", "Tariffs and quotas", "Donor offices only"], a: 0, hint: "Think transport, education, and health." },
+            { q: "How can development aid improve health?", options: ["By increasing disease", "By closing clinics", "By reducing medicine supplies", "By supporting health programmes"], a: 3, hint: "These programmes reduce disease and improve outcomes." },
+            { q: "What is capacity building?", options: ["Increasing donor conditions", "Strengthening local skills through training and knowledge transfer", "Creating permanent reliance", "Reducing education access"], a: 1, hint: "It develops people and institutions." },
+            { q: "Which disadvantage can reduce self-sufficiency?", options: ["Education access", "Health improvement", "Aid dependency", "Poverty reduction"], a: 2, hint: "The recipient becomes reliant on continued assistance." },
+            { q: "What is aid mismanagement?", options: ["Aid being used incorrectly or diverted by corrupt officials", "Aid reaching those most in need", "Skills being transferred", "Hospitals being built"], a: 0, hint: "It concerns poor or corrupt use of resources." },
+            { q: "How can free donated goods harm a recipient economy?", options: ["They always create local jobs", "They guarantee self-sufficiency", "They remove all donor influence", "They may undermine local businesses"], a: 3, hint: "Local sellers may be unable to compete with free goods." },
+            { q: "What is donor influence?", options: ["Recipients controlling donor budgets", "Donors imposing their policies and priorities", "Local firms choosing every project", "Aid agencies avoiding all conditions"], a: 1, hint: "Power over decisions shifts toward the giver." },
+            { q: "What risk is linked to loans provided as aid?", options: ["Automatic debt cancellation", "No repayment requirement", "A high debt burden", "Guaranteed economic independence"], a: 2, hint: "Loans must usually be repaid." },
+            { q: "What are distorted priorities?", options: ["Recipient countries favouring donor-funded projects over their own agendas", "Aid reaching the neediest people first", "Emergency supplies arriving quickly", "Local skills improving through training"], a: 0, hint: "The donor's agenda may displace local plans." }
+        ];
+        const prizes = [
+            "R100", "R200", "R300", "R500", "R1,000",
+            "R2,000", "R3,000", "R4,000", "R5,000", "R10,000",
+            "R15,000", "R20,000", "R25,000", "R30,000", "R40,000",
+            "R50,000", "R60,000", "R70,000", "R80,000", "R100,000",
+            "R150,000", "R200,000", "R250,000", "R300,000", "R400,000",
+            "R500,000", "R600,000", "R750,000", "R850,000", "R1,000,000"
+        ];
+
+        let currentLevel = 0;
+        let isWaiting = false;
+
+        const ladderContainer = document.getElementById('prizeLadder');
+        for (let i = 0; i < 30; i++) {
+            let step = document.createElement('div');
+            step.className = 'ladder-step';
+            step.id = `ladder-${i}`;
+            if ((i + 1) % 5 === 0) step.classList.add('milestone');
+            step.innerHTML = `<span>${i + 1}</span> <span>${prizes[i]}</span>`;
+            ladderContainer.appendChild(step);
+        }
+
+        function loadQuestion() {
+            isWaiting = false;
+            document.querySelectorAll('.ladder-step').forEach((el, index) => {
+                el.classList.remove('active');
+                if (index < currentLevel) el.classList.add('passed');
+            });
+            document.getElementById(`ladder-${currentLevel}`).classList.add('active');
+
+            const qData = questions[currentLevel];
+            document.getElementById('questionText').innerText = `Q${currentLevel + 1}: ${qData.q}`;
+
+            let options = [...qData.options];
+            let correctText = options[qData.a];
+            options.sort(() => Math.random() - 0.5);
+            let correctIdx = options.indexOf(correctText);
+
+            for (let i = 0; i < 4; i++) {
+                let btn = document.getElementById(`btn${i}`);
+                btn.innerText = options[i];
+                btn.className = 'answer-btn';
+                btn.disabled = false;
+                btn.classList.remove('hidden', 'selected', 'correct', 'incorrect');
+                btn.setAttribute('data-correct', i === correctIdx);
+            }
+        }
+
+        function selectAnswer(selectedIndex) {
+            if (isWaiting) return;
+            isWaiting = true;
+
+            const selectedBtn = document.getElementById(`btn${selectedIndex}`);
+            const isCorrect = selectedBtn.getAttribute('data-correct') === 'true';
+            if (isCorrect) MayHubSounds.playCorrect();
+            else MayHubSounds.playWrong();
+
+            for (let i = 0; i < 4; i++) {
+                document.getElementById(`btn${i}`).disabled = true;
+            }
+
+            selectedBtn.classList.add('selected');
+
+            setTimeout(() => {
+                selectedBtn.classList.remove('selected');
+
+                if (isCorrect) {
+                    selectedBtn.classList.add('correct');
+                    setTimeout(() => {
+                        currentLevel++;
+                        if (currentLevel >= 30) endGame(true);
+                        else loadQuestion();
+                    }, 1000);
+                } else {
+                    selectedBtn.classList.add('incorrect');
+                    for (let i = 0; i < 4; i++) {
+                        if (document.getElementById(`btn${i}`).getAttribute('data-correct') === 'true') {
+                            document.getElementById(`btn${i}`).classList.add('correct');
+                        }
+                    }
+                    setTimeout(() => endGame(false), 2000);
+                }
+            }, 1000);
+        }
+
+        function use5050() {
+            if (isWaiting) return;
+            document.getElementById('btn5050').disabled = true;
+            let hiddenCount = 0;
+            for(let i=0; i<4; i++){
+                let btn = document.getElementById(`btn${i}`);
+                if(btn.getAttribute('data-correct') === 'false' && hiddenCount < 2) {
+                    btn.classList.add('hidden');
+                    hiddenCount++;
+                }
+            }
+        }
+
+        function useHint() {
+            if (isWaiting) return;
+            document.getElementById('btnHint').disabled = true;
+            alert("Geography Teacher Hint: " + questions[currentLevel].hint);
+        }
+
+        function endGame(won) {
+            document.getElementById('gameBoard').style.display = 'none';
+            document.getElementById('endScreen').style.display = 'block';
+            if (won) {
+                document.getElementById('endMessage').innerText = "Geography Legend!";
+                document.getElementById('endPrize').innerText = "R1,000,000";
+            } else {
+                document.getElementById('endMessage').innerText = "Final Winnings:";
+                document.getElementById('endPrize').innerText = currentLevel > 0 ? prizes[currentLevel - 1] : "R0";
+            }
+        }
+        loadQuestion();
+    </script>
+</body>
+</html>

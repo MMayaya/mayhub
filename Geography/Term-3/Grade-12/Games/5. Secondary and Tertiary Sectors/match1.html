@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-8GCWSKNDL7"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-8GCWSKNDL7');
+</script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>May Learning Hub | Grade 12 Geography: Secondary and Tertiary Sectors</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f0f4f8; color: #333; line-height: 1.6; display: flex; flex-direction: column; min-height: 100vh; }
+
+        /* Navigation */
+        nav { background-color: #002b5e; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; }
+        .logo { color: #fff; font-size: 1.5rem; font-weight: bold; text-decoration: none; }
+        .nav-links a { color: #cce0ff; text-decoration: none; margin-left: 1.5rem; font-weight: 500; transition: color 0.3s; }
+        .nav-links a:hover, .nav-links a.active { color: #fff; text-decoration: underline; }
+
+        /* Header */
+        .game-header { text-align: center; padding: 3rem 1rem 1rem; max-width: 900px; margin: 0 auto; }
+        .game-title { color: #004080; font-size: 2.5rem; margin-bottom: 0.5rem; }
+        .game-subtitle { color: #555; margin-bottom: 2rem; font-size: 1.1rem; }
+
+        /* Categories */
+        .category-selection { margin-bottom: 2.5rem; }
+        .cat-buttons { display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem; }
+        .cat-btn { background-color: #f0f4f8; border: 2px solid #004080; color: #004080; padding: 0.8rem 1.5rem; font-size: 1rem; font-weight: bold; border-radius: 8px; cursor: pointer; transition: all 0.3s ease; }
+        .cat-btn:hover, .cat-btn.active { background-color: #004080; color: #fff; transform: translateY(-3px); box-shadow: 0 4px 10px rgba(0,64,128,0.2); }
+
+        .controls { display: none; justify-content: center; align-items: center; gap: 2rem; margin-bottom: 2rem; }
+        .move-counter { font-size: 1.2rem; font-weight: bold; color: #004080; background: #fff; padding: 0.6rem 1.8rem; border-radius: 50px; border: 2px solid #3385ff; }
+        .restart-btn { background-color: #3385ff; color: #fff; border: none; padding: 0.7rem 1.8rem; font-size: 1rem; font-weight: bold; border-radius: 50px; cursor: pointer; border-bottom: 3px solid #004080; }
+
+        /* Memory Grid */
+        .memory-game { display: none; width: 100%; max-width: 1200px; margin: 0 auto 4rem; grid-template-columns: repeat(5, 1fr); gap: 15px; padding: 0 20px; perspective: 1000px; }
+
+        @media (max-width: 950px) { .memory-game { grid-template-columns: repeat(4, 1fr); } }
+        @media (max-width: 650px) { .memory-game { grid-template-columns: repeat(2, 1fr); } }
+
+        .memory-card { position: relative; width: 100%; aspect-ratio: 1 / 1.2; transform-style: preserve-3d; transition: transform 0.5s; cursor: pointer; }
+        .memory-card.flip { transform: rotateY(180deg); }
+
+        .front-face, .back-face {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 15px;
+            text-align: center;
+            font-size: 1rem;
+            line-height: 1.4;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .front-face { background: #004080; color: #fff; font-size: 2.5rem; border: 3px solid #3385ff; font-weight: bold; }
+        .back-face { background: #fff; color: #002b5e; transform: rotateY(180deg); border: 3px solid #004080; font-weight: 700; }
+        .memory-card.matched .back-face { background: #d4edda; border-color: #28a745; color: #155724; }
+
+        footer { text-align: center; padding: 1.5rem; background-color: #002b5e; color: #fff; margin-top: auto; }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="../../../../../index.html" class="logo">May Learning Hub</a>
+        <div class="nav-links">
+            <a href="../../../../../index.html">Home</a>
+            <a href="../../../../../about.html">About</a>
+        </div>
+    </nav>
+
+    <header class="game-header">
+        <h1 class="game-title">Grade 12 Geography: Secondary and Tertiary Sectors</h1>
+        <p class="game-subtitle">Match sector contributions, industry types, location patterns, and industrial-development factors!</p>
+        <p style="font-size: 0.78rem; color: #52606d; margin-top: 0.45rem;">Source: Secondary and Tertiary Sectors - Grade 12 Geography Term 3 presentation.</p>
+
+        <div class="category-selection">
+            <div class="cat-buttons">
+                <button class="cat-btn" onclick="selectCategory('topic1', this)">Sector Contributions</button>
+                <button class="cat-btn" onclick="selectCategory('topic2', this)">Heavy and Light Industries</button>
+                <button class="cat-btn" onclick="selectCategory('topic3', this)">Location-Based Industries</button>
+                <button class="cat-btn" onclick="selectCategory('topic4', this)">Footloose, Ubiquitous and Bridge</button>
+                <button class="cat-btn" onclick="selectCategory('topic5', this)">Raw Materials, Water and Labour</button>
+                <button class="cat-btn" onclick="selectCategory('topic6', this)">Policy, Transport and Trade</button>
+            </div>
+        </div>
+
+        <div class="controls" id="gameControls">
+            <div class="move-counter">Moves: <span id="moves">0</span></div>
+            <button class="restart-btn" onclick="initGame()">Restart Level</button>
+        </div>
+    </header>
+
+    <main class="memory-game" id="gameBoard"></main>
+
+    <footer>
+        <p>&copy; 2026 May Learning Hub. All rights reserved.</p>
+    </footer>
+
+        <script src="../../../../../game-audio.js"></script>
+<script>
+        const sectorContributions = [
+    {
+        "term": "Dual Stream",
+        "detail": "A vibrant formal economy exists alongside an important informal sector."
+    },
+    {
+        "term": "Formal Sector",
+        "detail": "Regulated activity included in official GDP and growth figures and contributing tax."
+    },
+    {
+        "term": "Informal Sector",
+        "detail": "Unregulated activity whose growth and employment can only be estimated and which does not contribute tax."
+    },
+    {
+        "term": "Development Relationship",
+        "detail": "Larger secondary and tertiary sectors generally indicate a higher national development level."
+    },
+    {
+        "term": "Tertiary Written Share",
+        "detail": "The written slide gives the tertiary sector 65.9% of GDP."
+    },
+    {
+        "term": "Secondary Written Share",
+        "detail": "The written slide gives the secondary sector 31.6% of GDP."
+    },
+    {
+        "term": "Bar-Graph Tertiary",
+        "detail": "The separate graph labels the tertiary sector 69."
+    },
+    {
+        "term": "Bar-Graph Secondary",
+        "detail": "The separate graph labels the secondary sector 21, with primary at 10."
+    }
+];
+        const heavyLight = [
+    {
+        "term": "Secondary Activity",
+        "detail": "Manufacturing changes the form of materials and adds value."
+    },
+    {
+        "term": "Light Industry",
+        "detail": "Requires less capital and land, makes smaller products near markets, and has lower environmental impact."
+    },
+    {
+        "term": "Heavy Industry",
+        "detail": "Is capital intensive, uses more land, makes large products, and has high environmental impact."
+    },
+    {
+        "term": "Clothing Industry",
+        "detail": "A light-industry example."
+    },
+    {
+        "term": "Electronic Goods",
+        "detail": "A light-industry example."
+    },
+    {
+        "term": "Car Manufacturing",
+        "detail": "A heavy-industry example."
+    },
+    {
+        "term": "Iron and Steel",
+        "detail": "A heavy-industry example."
+    },
+    {
+        "term": "Thermal Power Plant",
+        "detail": "A heavy-industry example with high environmental impact."
+    }
+];
+        const locationBased = [
+    {
+        "term": "Raw-Material Orientated",
+        "detail": "Located close to the source of raw materials."
+    },
+    {
+        "term": "Supply Orientated",
+        "detail": "Another name for a raw-material-orientated industry."
+    },
+    {
+        "term": "Paper Mill",
+        "detail": "Located near trees because logs are bulky and difficult to transport."
+    },
+    {
+        "term": "Market Orientated",
+        "detail": "Located close to consumers because finished products may be perishable or bulky."
+    },
+    {
+        "term": "Bakery",
+        "detail": "A market-orientated example because baked food is perishable."
+    },
+    {
+        "term": "Large Machinery",
+        "detail": "A market-orientated example because the finished product is bulky and difficult to move."
+    },
+    {
+        "term": "Location Classification",
+        "detail": "Groups industries as raw-material, market, footloose, or ubiquitous."
+    },
+    {
+        "term": "Volume Classification",
+        "detail": "Groups secondary industries as light or heavy."
+    }
+];
+        const footlooseUbiquitousBridge = [
+    {
+        "term": "Footloose Industry",
+        "detail": "Not tied to a specific location and able to locate almost anywhere."
+    },
+    {
+        "term": "Footloose Examples",
+        "detail": "Software companies, call centres, and diamond cutting."
+    },
+    {
+        "term": "Ubiquitous Industry",
+        "detail": "Widely distributed wherever people or markets are found."
+    },
+    {
+        "term": "Ubiquitous Examples",
+        "detail": "Bakeries, newspapers, and soft-drink bottling."
+    },
+    {
+        "term": "Bridge Industry",
+        "detail": "Located between a raw-material source and the market."
+    },
+    {
+        "term": "Oil Refinery at a Harbour",
+        "detail": "A bridge-industry example between imported crude oil and inland markets."
+    },
+    {
+        "term": "Break-of-Bulk Industry",
+        "detail": "Another name for a bridge industry."
+    },
+    {
+        "term": "Break-of-Bulk Point",
+        "detail": "A place where goods transfer from one transport mode to another."
+    }
+];
+        const rawWaterLabour = [
+    {
+        "term": "Industrial Raw Materials",
+        "detail": "South African minerals, crops, trees, and fish processed in factories."
+    },
+    {
+        "term": "Iron and Steel Location",
+        "detail": "Placed close to where most required raw materials are accessible."
+    },
+    {
+        "term": "Water Scarcity",
+        "detail": "A concern because industries need water for most forms of processing."
+    },
+    {
+        "term": "Inter-Basin Transfer",
+        "detail": "A scheme moving water to ensure major industrial areas have sufficient supply."
+    },
+    {
+        "term": "Skilled Labour",
+        "detail": "Workers with specialised training required by industry."
+    },
+    {
+        "term": "Unskilled Labour",
+        "detail": "Workers without specialist training who are also required by industry."
+    },
+    {
+        "term": "Semi-Skilled Labour",
+        "detail": "Workers with some training needed alongside skilled labour."
+    },
+    {
+        "term": "Urban Labour Access",
+        "detail": "A reason factories often locate near large urban areas."
+    }
+];
+        const policyTransportTrade = [
+    {
+        "term": "Decentralisation",
+        "detail": "Apartheid policy encouraging factories away from the four main core areas."
+    },
+    {
+        "term": "Border Industries",
+        "detail": "Factories offered incentives to locate near homeland borders."
+    },
+    {
+        "term": "IDZs",
+        "detail": "Industrial development zones established by the present government."
+    },
+    {
+        "term": "SDIs",
+        "detail": "Spatial development initiatives that influence industrial location."
+    },
+    {
+        "term": "Road and Rail",
+        "detail": "Established transport moving both raw materials and finished products."
+    },
+    {
+        "term": "Manufactured Exports",
+        "detail": "South Africa processes and exports more manufactured products than raw materials."
+    },
+    {
+        "term": "Machinery and Equipment",
+        "detail": "Manufactured goods exported by South Africa."
+    },
+    {
+        "term": "Industrial Supply Challenges",
+        "detail": "Drought and water scarcity plus load-shedding and power instability."
+    }
+];
+        const toCards = factors => factors.flatMap((factor, index) => [
+            { id: index + 1, text: factor.detail },
+            { id: index + 1, text: factor.term }
+        ]);
+        const gameData = {
+            topic1: toCards(sectorContributions),
+            topic2: toCards(heavyLight),
+            topic3: toCards(locationBased),
+            topic4: toCards(footlooseUbiquitousBridge),
+            topic5: toCards(rawWaterLabour),
+            topic6: toCards(policyTransportTrade)
+        };
+        const gameBoard = document.getElementById('gameBoard');
+        const movesDisplay = document.getElementById('moves');
+        const gameControls = document.getElementById('gameControls');
+
+        let currentCategory = null;
+        let hasFlippedCard = false;
+        let lockBoard = false;
+        let firstCard, secondCard;
+        let moves = 0;
+        let matchedPairs = 0;
+
+        function selectCategory(categoryKey, btnElement) {
+            currentCategory = categoryKey;
+            document.querySelectorAll('.cat-btn').forEach(btn => btn.classList.remove('active'));
+            btnElement.classList.add('active');
+            gameControls.style.display = 'flex';
+            gameBoard.style.display = 'grid';
+            initGame();
+        }
+
+        function initGame() {
+            gameBoard.innerHTML = '';
+            moves = 0;
+            matchedPairs = 0;
+            movesDisplay.innerText = moves;
+            hasFlippedCard = false;
+            lockBoard = false;
+
+            const categoryData = gameData[currentCategory];
+            const shuffledCards = [...categoryData].sort(() => 0.5 - Math.random());
+
+            shuffledCards.forEach(card => {
+                const cardElement = document.createElement('div');
+                cardElement.classList.add('memory-card');
+                cardElement.dataset.pairId = card.id;
+
+                cardElement.innerHTML = `
+                    <div class="front-face">?</div>
+                    <div class="back-face">${card.text}</div>
+                `;
+
+                cardElement.addEventListener('click', flipCard);
+                gameBoard.appendChild(cardElement);
+            });
+        }
+
+        function flipCard() {
+            if (lockBoard) return;
+            if (this === firstCard) return;
+
+            this.classList.add('flip');
+
+            if (!hasFlippedCard) {
+                hasFlippedCard = true;
+                firstCard = this;
+                return;
+            }
+
+            secondCard = this;
+            moves++;
+            movesDisplay.innerText = moves;
+            checkForMatch();
+        }
+
+        function checkForMatch() {
+            let isMatch = firstCard.dataset.pairId === secondCard.dataset.pairId;
+            if (isMatch) {
+                MayHubSounds.playCorrect();
+                disableCards();
+            } else {
+                MayHubSounds.playWrong();
+                unflipCards();
+            }
+        }
+
+        function disableCards() {
+            firstCard.classList.add('matched');
+            secondCard.classList.add('matched');
+            firstCard.removeEventListener('click', flipCard);
+            secondCard.removeEventListener('click', flipCard);
+            matchedPairs++;
+            if (matchedPairs === (gameData[currentCategory].length / 2)) {
+                setTimeout(() => alert(`Great job! Grade 12 Geography: Secondary and Tertiary Sectors Revision Complete in ${moves} moves.`), 500);
+            }
+            resetBoard();
+        }
+
+        function unflipCards() {
+            lockBoard = true;
+            setTimeout(() => {
+                firstCard.classList.remove('flip');
+                secondCard.classList.remove('flip');
+                resetBoard();
+            }, 1200);
+        }
+
+        function resetBoard() {
+            [hasFlippedCard, lockBoard] = [false, false];
+            [firstCard, secondCard] = [null, null];
+        }
+    </script>
+</body>
+</html>

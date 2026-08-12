@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-8GCWSKNDL7"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-8GCWSKNDL7');
+</script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>May Learning Hub | Grade 12 Geography: Mining</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f0f4f8; color: #333; line-height: 1.6; display: flex; flex-direction: column; min-height: 100vh; }
+
+        /* Navigation */
+        nav { background-color: #002b5e; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; }
+        .logo { color: #fff; font-size: 1.5rem; font-weight: bold; text-decoration: none; }
+        .nav-links a { color: #cce0ff; text-decoration: none; margin-left: 1.5rem; font-weight: 500; transition: color 0.3s; }
+        .nav-links a:hover, .nav-links a.active { color: #fff; text-decoration: underline; }
+
+        /* Header */
+        .game-header { text-align: center; padding: 3rem 1rem 1rem; max-width: 900px; margin: 0 auto; }
+        .game-title { color: #004080; font-size: 2.5rem; margin-bottom: 0.5rem; }
+        .game-subtitle { color: #555; margin-bottom: 2rem; font-size: 1.1rem; }
+
+        /* Categories */
+        .category-selection { margin-bottom: 2.5rem; }
+        .cat-buttons { display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem; }
+        .cat-btn { background-color: #f0f4f8; border: 2px solid #004080; color: #004080; padding: 0.8rem 1.5rem; font-size: 1rem; font-weight: bold; border-radius: 8px; cursor: pointer; transition: all 0.3s ease; }
+        .cat-btn:hover, .cat-btn.active { background-color: #004080; color: #fff; transform: translateY(-3px); box-shadow: 0 4px 10px rgba(0,64,128,0.2); }
+
+        .controls { display: none; justify-content: center; align-items: center; gap: 2rem; margin-bottom: 2rem; }
+        .move-counter { font-size: 1.2rem; font-weight: bold; color: #004080; background: #fff; padding: 0.6rem 1.8rem; border-radius: 50px; border: 2px solid #3385ff; }
+        .restart-btn { background-color: #3385ff; color: #fff; border: none; padding: 0.7rem 1.8rem; font-size: 1rem; font-weight: bold; border-radius: 50px; cursor: pointer; border-bottom: 3px solid #004080; }
+
+        /* Memory Grid */
+        .memory-game { display: none; width: 100%; max-width: 1200px; margin: 0 auto 4rem; grid-template-columns: repeat(5, 1fr); gap: 15px; padding: 0 20px; perspective: 1000px; }
+
+        @media (max-width: 950px) { .memory-game { grid-template-columns: repeat(4, 1fr); } }
+        @media (max-width: 650px) { .memory-game { grid-template-columns: repeat(2, 1fr); } }
+
+        .memory-card { position: relative; width: 100%; aspect-ratio: 1 / 1.2; transform-style: preserve-3d; transition: transform 0.5s; cursor: pointer; }
+        .memory-card.flip { transform: rotateY(180deg); }
+
+        .front-face, .back-face {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 15px;
+            text-align: center;
+            font-size: 1rem;
+            line-height: 1.4;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .front-face { background: #004080; color: #fff; font-size: 2.5rem; border: 3px solid #3385ff; font-weight: bold; }
+        .back-face { background: #fff; color: #002b5e; transform: rotateY(180deg); border: 3px solid #004080; font-weight: 700; }
+        .memory-card.matched .back-face { background: #d4edda; border-color: #28a745; color: #155724; }
+
+        footer { text-align: center; padding: 1.5rem; background-color: #002b5e; color: #fff; margin-top: auto; }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="../../../../../index.html" class="logo">May Learning Hub</a>
+        <div class="nav-links">
+            <a href="../../../../../index.html">Home</a>
+            <a href="../../../../../about.html">About</a>
+        </div>
+    </nav>
+
+    <header class="game-header">
+        <h1 class="game-title">Grade 12 Geography: Mining</h1>
+        <p class="game-subtitle">Match mining contributions, development effects, favourable factors, and challenges!</p>
+        <p style="font-size: 0.78rem; color: #52606d; margin-top: 0.45rem;">Source: Mining - Grade 12 Geography Term 3 presentation.</p>
+
+        <div class="category-selection">
+            <div class="cat-buttons">
+                <button class="cat-btn" onclick="selectCategory('topic1', this)">Direct Contributions</button>
+                <button class="cat-btn" onclick="selectCategory('topic2', this)">Indirect Contributions</button>
+                <button class="cat-btn" onclick="selectCategory('topic3', this)">Development Significance</button>
+                <button class="cat-btn" onclick="selectCategory('topic4', this)">Favourable Factors</button>
+                <button class="cat-btn" onclick="selectCategory('topic5', this)">Health and Economic Challenges</button>
+                <button class="cat-btn" onclick="selectCategory('topic6', this)">Resources, Closure and Rehabilitation</button>
+            </div>
+        </div>
+
+        <div class="controls" id="gameControls">
+            <div class="move-counter">Moves: <span id="moves">0</span></div>
+            <button class="restart-btn" onclick="initGame()">Restart Level</button>
+        </div>
+    </header>
+
+    <main class="memory-game" id="gameBoard"></main>
+
+    <footer>
+        <p>&copy; 2026 May Learning Hub. All rights reserved.</p>
+    </footer>
+
+        <script src="../../../../../game-audio.js"></script>
+<script>
+        const directContributions = [
+    {
+        "term": "GDP Contribution",
+        "detail": "Mining adds directly to the value of production within South Africa."
+    },
+    {
+        "term": "GNP from Exports",
+        "detail": "Mineral exports contribute to national income."
+    },
+    {
+        "term": "Foreign Exchange",
+        "detail": "Mining earns international currency through exports."
+    },
+    {
+        "term": "Business Tax",
+        "detail": "Mining contributes 19% of South African business tax in the presentation."
+    },
+    {
+        "term": "Foreign Investment",
+        "detail": "Mining attracts capital from other countries into South Africa."
+    },
+    {
+        "term": "Mineral Exports",
+        "detail": "Minerals sold abroad support national income and foreign-exchange earnings."
+    },
+    {
+        "term": "Direct Contribution",
+        "detail": "An immediate economic benefit produced by mining activity."
+    },
+    {
+        "term": "National Revenue",
+        "detail": "Government and national income supported through mining taxes and exports."
+    }
+];
+        const indirectContributions = [
+    {
+        "term": "Electricity Industry",
+        "detail": "A linked industry stimulated by mining and represented by Eskom."
+    },
+    {
+        "term": "Eskom",
+        "detail": "The electricity supplier named as an indirect beneficiary of mining."
+    },
+    {
+        "term": "Iron and Steel Industry",
+        "detail": "A heavy industry stimulated by mining."
+    },
+    {
+        "term": "Engineering Services",
+        "detail": "Technical services including seismic and geological work."
+    },
+    {
+        "term": "Seismic Services",
+        "detail": "Engineering services that investigate vibrations and underground conditions."
+    },
+    {
+        "term": "Geological Services",
+        "detail": "Specialist services involving rocks, minerals, and Earth structure."
+    },
+    {
+        "term": "Financial Services",
+        "detail": "Banks, insurance companies, and the JSE stimulated by mining."
+    },
+    {
+        "term": "Communication Infrastructure",
+        "detail": "Communication systems whose growth was stimulated by mining."
+    }
+];
+        const developmentSignificance = [
+    {
+        "term": "Diamond and Gold Discoveries",
+        "detail": "Mineral discoveries that triggered major South African development."
+    },
+    {
+        "term": "Immigrant Influx",
+        "detail": "The arrival of people with varied skills and cultures."
+    },
+    {
+        "term": "Service Demand",
+        "detail": "Greater need for housing, water, sanitation, electricity, transport, and schooling."
+    },
+    {
+        "term": "Heavy-Industry Demand",
+        "detail": "Greater need for iron and steel and power."
+    },
+    {
+        "term": "Migrant Labour",
+        "detail": "Unskilled workers recruited from surrounding countries."
+    },
+    {
+        "term": "Transport Development",
+        "detail": "Growth of roads, railways, and harbours linked to mining."
+    },
+    {
+        "term": "Town Growth",
+        "detail": "Expansion of settlements around mining activity."
+    },
+    {
+        "term": "Coal Energy",
+        "detail": "Coal supplied energy needed for electricity generation."
+    }
+];
+        const favourableFactors = [
+    {
+        "term": "Accessible Minerals",
+        "detail": "South Africa has rich mineral deposits that can be reached and extracted."
+    },
+    {
+        "term": "Large Labour Force",
+        "detail": "A sizeable workforce is available for mining."
+    },
+    {
+        "term": "Roads",
+        "detail": "Transport infrastructure available to support mines."
+    },
+    {
+        "term": "Railways",
+        "detail": "Bulk-transport infrastructure available for minerals."
+    },
+    {
+        "term": "Electricity Supply",
+        "detail": "Power infrastructure available to mining operations."
+    },
+    {
+        "term": "Water Supply",
+        "detail": "Water availability supports mining processes."
+    },
+    {
+        "term": "Advanced Technology",
+        "detail": "South African mining is technologically highly advanced."
+    },
+    {
+        "term": "Deepest Gold Mine",
+        "detail": "A world record mentioned as evidence of South African mining capability."
+    }
+];
+        const healthEconomicChallenges = [
+    {
+        "term": "Mine-Harbour Distance",
+        "detail": "Great distances increase the difficulty and cost of mineral transport."
+    },
+    {
+        "term": "Mining Accidents",
+        "detail": "Workplace events that can cause injury and death."
+    },
+    {
+        "term": "Silicosis",
+        "detail": "A serious lung disease caused by silica dust exposure."
+    },
+    {
+        "term": "Compensation",
+        "detail": "Payments required for affected miners and their families."
+    },
+    {
+        "term": "Mineral Price Fluctuation",
+        "detail": "Changing prices may make mines unprofitable and cause closure."
+    },
+    {
+        "term": "Mining Strikes",
+        "detail": "Work stoppages that disrupt the economy."
+    },
+    {
+        "term": "Job Losses",
+        "detail": "Employment losses that follow mine closure."
+    },
+    {
+        "term": "Economic Disruption",
+        "detail": "Damage to wider economic activity caused by strikes or closures."
+    }
+];
+        const resourcesClosureRehab = [
+    {
+        "term": "Excessive Water Use",
+        "detail": "Heavy mining demand that may cause water shortages."
+    },
+    {
+        "term": "Water Shortage",
+        "detail": "Reduced water availability caused by excessive use for mining."
+    },
+    {
+        "term": "Mineral Reserves",
+        "detail": "The known amount of a mineral available for extraction."
+    },
+    {
+        "term": "Reserve Depletion",
+        "detail": "The exhaustion of minerals that causes mine output to decline."
+    },
+    {
+        "term": "Declining Output",
+        "detail": "Reduced production as a mine's reserves are used up."
+    },
+    {
+        "term": "Mine Closure",
+        "detail": "The stopping of operations after depletion or unfavourable prices."
+    },
+    {
+        "term": "Ghost Town",
+        "detail": "A mining settlement that loses people and activity after closure."
+    },
+    {
+        "term": "Rehabilitation Cost",
+        "detail": "The great expense of restoring mining areas after disturbance."
+    }
+];
+        const toCards = factors => factors.flatMap((factor, index) => [
+            { id: index + 1, text: factor.detail },
+            { id: index + 1, text: factor.term }
+        ]);
+        const gameData = {
+            topic1: toCards(directContributions),
+            topic2: toCards(indirectContributions),
+            topic3: toCards(developmentSignificance),
+            topic4: toCards(favourableFactors),
+            topic5: toCards(healthEconomicChallenges),
+            topic6: toCards(resourcesClosureRehab)
+        };
+        const gameBoard = document.getElementById('gameBoard');
+        const movesDisplay = document.getElementById('moves');
+        const gameControls = document.getElementById('gameControls');
+
+        let currentCategory = null;
+        let hasFlippedCard = false;
+        let lockBoard = false;
+        let firstCard, secondCard;
+        let moves = 0;
+        let matchedPairs = 0;
+
+        function selectCategory(categoryKey, btnElement) {
+            currentCategory = categoryKey;
+            document.querySelectorAll('.cat-btn').forEach(btn => btn.classList.remove('active'));
+            btnElement.classList.add('active');
+            gameControls.style.display = 'flex';
+            gameBoard.style.display = 'grid';
+            initGame();
+        }
+
+        function initGame() {
+            gameBoard.innerHTML = '';
+            moves = 0;
+            matchedPairs = 0;
+            movesDisplay.innerText = moves;
+            hasFlippedCard = false;
+            lockBoard = false;
+
+            const categoryData = gameData[currentCategory];
+            const shuffledCards = [...categoryData].sort(() => 0.5 - Math.random());
+
+            shuffledCards.forEach(card => {
+                const cardElement = document.createElement('div');
+                cardElement.classList.add('memory-card');
+                cardElement.dataset.pairId = card.id;
+
+                cardElement.innerHTML = `
+                    <div class="front-face">?</div>
+                    <div class="back-face">${card.text}</div>
+                `;
+
+                cardElement.addEventListener('click', flipCard);
+                gameBoard.appendChild(cardElement);
+            });
+        }
+
+        function flipCard() {
+            if (lockBoard) return;
+            if (this === firstCard) return;
+
+            this.classList.add('flip');
+
+            if (!hasFlippedCard) {
+                hasFlippedCard = true;
+                firstCard = this;
+                return;
+            }
+
+            secondCard = this;
+            moves++;
+            movesDisplay.innerText = moves;
+            checkForMatch();
+        }
+
+        function checkForMatch() {
+            let isMatch = firstCard.dataset.pairId === secondCard.dataset.pairId;
+            if (isMatch) {
+                MayHubSounds.playCorrect();
+                disableCards();
+            } else {
+                MayHubSounds.playWrong();
+                unflipCards();
+            }
+        }
+
+        function disableCards() {
+            firstCard.classList.add('matched');
+            secondCard.classList.add('matched');
+            firstCard.removeEventListener('click', flipCard);
+            secondCard.removeEventListener('click', flipCard);
+            matchedPairs++;
+            if (matchedPairs === (gameData[currentCategory].length / 2)) {
+                setTimeout(() => alert(`Great job! Grade 12 Geography: Mining Revision Complete in ${moves} moves.`), 500);
+            }
+            resetBoard();
+        }
+
+        function unflipCards() {
+            lockBoard = true;
+            setTimeout(() => {
+                firstCard.classList.remove('flip');
+                secondCard.classList.remove('flip');
+                resetBoard();
+            }, 1200);
+        }
+
+        function resetBoard() {
+            [hasFlippedCard, lockBoard] = [false, false];
+            [firstCard, secondCard] = [null, null];
+        }
+    </script>
+</body>
+</html>

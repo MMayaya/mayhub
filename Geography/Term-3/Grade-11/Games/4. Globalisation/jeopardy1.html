@@ -115,8 +115,8 @@
 
     <header class="game-header">
         <h1 class="game-title">Grade 11 Geography Jeopardy</h1>
-        <p class="game-subtitle">Topic: Factors Affecting Development</p>
-        <p style="font-size: 0.78rem; color: #52606d; margin-top: 0.45rem;">Source: Factors Affecting Development - Grade 11 Geography Term 3 presentation.</p>
+        <p class="game-subtitle">Topic: Globalisation</p>
+        <p style="font-size: 0.78rem; color: #52606d; margin-top: 0.45rem;">Source: Globalisation - Grade 11 Geography Term 3 presentation.</p>
     </header>
 
     <section class="name-setup" id="nameSetupSection">
@@ -191,71 +191,113 @@
 
         <script src="../../../../../game-audio.js"></script>
 <script>
-        const economicFactors = [
-            { term: "Infrastructure", detail: "The basic physical and organisational systems and facilities needed for a society and economy to function, such as transport, electricity, water, and communications." },
-            { term: "Investment", detail: "The commitment of money, capital, or other resources to an activity or project in order to gain future benefits." },
-            { term: "Economic Policies", detail: "Government decisions, laws, and actions used to influence how an economy operates." },
-            { term: "Technology", detail: "The application of knowledge, tools, and techniques to solve problems and produce goods or services." },
-            { term: "Natural Resources", detail: "Materials and environmental features that occur in nature and can be used by people, such as water, land, minerals, and forests." },
-            { term: "Trade", detail: "The buying, selling, or exchange of goods and services between people, regions, or countries." },
-            { term: "Labor Market Conditions", detail: "The circumstances affecting the supply of workers, demand for labour, employment, wages, and available skills." },
-            { term: "Financial Systems", detail: "The institutions, markets, and rules that enable saving, borrowing, payments, and investment." },
-            { term: "Government Spending", detail: "Money used by government to provide public services, infrastructure, and programmes." },
-            { term: "Entrepreneurship", detail: "The process of identifying an opportunity, organising resources, and creating or managing an enterprise while accepting risk." }
+        const globalConnections = [
+            { q: "Define globalisation.", a: "The process through which countries and people become increasingly socially, economically, culturally, and technologically interconnected." },
+            { q: "Which two improved systems have increased global connections?", a: "Transport and telecommunication systems." },
+            { q: "What has happened to barriers to international trade under globalisation?", a: "They have generally been reduced." },
+            { q: "Define global connections.", a: "Links that allow goods, services, information, ideas, and resources to move around the world." },
+            { q: "Define transport systems.", a: "Networks and services used to move people and goods between places." },
+            { q: "Define telecommunication systems.", a: "Technologies and networks that transmit information over distance." },
+            { q: "Define the global village.", a: "A metaphor describing the world as a smaller, closely connected community." },
+            { q: "Why does the world appear to be shrinking?", a: "Improved transport and communication reduce the importance of distance." },
+            { q: "What can be shared globally without people travelling?", a: "Ideas, cultures, and resources." },
+            { q: "Which two barriers are being reduced by globalisation?", a: "Barriers of time and space." },
+            { q: "Define cultural exchange.", a: "The sharing of ideas, customs, beliefs, and practices between cultures." },
+            { q: "How does improved communication connect people?", a: "It allows information to be exchanged rapidly across the world." },
+            { q: "How does improved transport support globalisation?", a: "It speeds up and expands the movement of people and goods." },
+            { q: "What type of interconnection appears in the activity definition of globalisation?", a: "Social and economic interconnection between countries." },
+            { q: "What is meant by reduced time-space barriers?", a: "Distance and delay become less restrictive because movement and communication are faster." },
+            { q: "What is a trade barrier?", a: "A government regulation or policy that restricts international trade." },
+            { q: "How can global communication spread culture?", a: "Ideas and practices can be shared internationally without physical travel." },
+            { q: "Why are telecommunications central to the global village?", a: "They connect distant people almost instantly." },
+            { q: "What kinds of resources can move through global connections?", a: "Goods, services, information, ideas, money, technology, and other resources." },
+            { q: "What is one central result of globalisation?", a: "Countries and people become more interconnected." }
         ];
-        const socialFactors = [
-            { term: "Education", detail: "The organised process through which people acquire knowledge, skills, values, and understanding." },
-            { term: "Healthcare", detail: "The services and systems used to prevent and treat illness and maintain people's health." },
-            { term: "Social Stability", detail: "A condition in which society has order, security, and predictable social relationships." },
-            { term: "Cultural Attitudes", detail: "Shared beliefs, values, and viewpoints that influence how people think and behave." },
-            { term: "Population Growth", detail: "An increase in the number of people living in a place over a period of time." },
-            { term: "Gender Equality", detail: "Equal rights, responsibilities, opportunities, and treatment for people of all genders." },
-            { term: "Social Services", detail: "Public or community services that support people's welfare and basic needs, such as care, housing support, and social assistance." },
-            { term: "Crime Rates", detail: "Measures of how frequently crimes occur in a population or area during a given period." },
-            { term: "Community Engagement", detail: "The process of involving community members in decisions and actions that affect their lives." },
-            { term: "Migration", detail: "The movement of people from one place to another to live or work, either temporarily or permanently." }
+        const integrationAndMncs = [
+            { q: "Define economic integration.", a: "The process by which national economies become more closely connected through freer movement of goods and services." },
+            { q: "What can move freely under economic integration?", a: "Goods and services." },
+            { q: "What must be reduced or eliminated for economic integration?", a: "Trade barriers." },
+            { q: "Which group of countries particularly benefits from economic integration according to the presentation?", a: "MEDCs." },
+            { q: "How does economic integration affect the influence of MEDCs?", a: "It makes them more influential." },
+            { q: "Define a multinational corporation.", a: "A company that owns or controls business operations in more than one country." },
+            { q: "How are MNCs described economically?", a: "They are very powerful." },
+            { q: "What government decisions can MNCs influence?", a: "Government trade decisions." },
+            { q: "Where are MNCs predominantly based?", a: "In MEDCs." },
+            { q: "Who controls most global trade despite a smaller population share?", a: "MEDCs." },
+            { q: "Define MEDCs.", a: "More economically developed countries with relatively high income, industrialisation, and living standards." },
+            { q: "Define LEDCs.", a: "Less economically developed countries with relatively lower income, industrialisation, and living standards." },
+            { q: "Define foreign direct investment.", a: "Investment by a person or company from one country in a business located in another country." },
+            { q: "Define economic interdependence.", a: "A condition in which countries rely on one another for trade, investment, goods, services, or resources." },
+            { q: "How can MNC mobility weaken national tax collection?", a: "Companies may relocate if taxed highly." },
+            { q: "Define transfer pricing.", a: "The pricing of transactions between related parts of a multinational corporation in different countries." },
+            { q: "How may transfer pricing affect domestic taxes?", a: "It may be used to shift profits and reduce taxes paid in a country." },
+            { q: "What external forces may LEDCs be exposed to?", a: "External economic forces over which they have little control." },
+            { q: "How can globalisation reduce national independence?", a: "External economic forces and powerful companies can limit domestic policy choices." },
+            { q: "Which country does the activity identify as playing a major role in globalisation?", a: "The United States of America." }
         ];
-        const environmentalFactors = [
-            { term: "Climate Change", detail: "Long-term changes in average temperatures and other climate patterns." },
-            { term: "Natural Disasters", detail: "Severe natural events that cause major damage, loss, or disruption to people and places." },
-            { term: "Environmental Policies", detail: "Government laws, rules, and plans designed to manage human impacts and protect the environment." },
-            { term: "Biodiversity", detail: "The variety of living organisms, including diversity within species, between species, and among ecosystems." },
-            { term: "Pollution", detail: "The introduction of harmful substances or forms of energy into the environment." },
-            { term: "Resource Depletion", detail: "The use of a natural resource faster than it can be replaced or renewed." },
-            { term: "Land Use", detail: "The way land is managed and used for purposes such as farming, housing, industry, or conservation." },
-            { term: "Water Availability", detail: "The amount of usable water that is accessible to people and economic activities." },
-            { term: "Air Quality", detail: "The degree to which the air is clean and free from harmful pollutants." },
-            { term: "Waste Management", detail: "The collection, transport, treatment, recycling, and disposal of waste." }
+        const benefitsAndOpportunities = [
+            { q: "How can larger markets promote economic growth?", a: "They increase trade and improve access to buyers." },
+            { q: "What does cultural exchange promote?", a: "The exchange of cultural ideas and practices." },
+            { q: "How does access to technology benefit countries?", a: "It spreads technology and innovation." },
+            { q: "How does communication technology support globalisation?", a: "It connects people globally." },
+            { q: "How can globalisation improve education opportunities?", a: "Through access to global institutions and programmes." },
+            { q: "How can foreign investment affect local economies?", a: "It can boost them." },
+            { q: "What two forces encourage innovation under globalisation?", a: "Competition and collaboration." },
+            { q: "How can globalisation improve standards of living?", a: "Economic development can increase material well-being and quality of life." },
+            { q: "How may economic interdependence reduce conflict?", a: "Countries with shared economic interests have more to lose from conflict." },
+            { q: "What consumer benefit comes from global markets?", a: "Access to a wider variety of goods and services." },
+            { q: "How can developing economies gain through FDI?", a: "Foreign capital can support investment, production, and jobs." },
+            { q: "How can developing economies gain through trade?", a: "They can access larger markets and earn income from exports." },
+            { q: "Define technology transfer.", a: "The movement of technical knowledge, skills, methods, or equipment between countries or organisations." },
+            { q: "How can technology transfer benefit LEDCs?", a: "It can improve skills, productivity, production methods, and innovation." },
+            { q: "What can an increase in capital flows bring to countries?", a: "More money for investment, lending, and economic activity." },
+            { q: "What can an increase in trade in goods and services create?", a: "Greater market activity, income, and economic growth." },
+            { q: "How can globalisation create jobs in LEDCs?", a: "Investment, trade, and expanding industries can increase employment." },
+            { q: "What may happen to the trade-to-GDP ratio of many LEDCs?", a: "It may increase." },
+            { q: "Define innovation.", a: "The development or introduction of new ideas, methods, products, or technologies." },
+            { q: "What is an improved standard of living?", a: "Better material well-being and quality of life." }
         ];
-        const communityFactors = [
-            { term: "Community-Based Development", detail: "An approach in which community members actively lead and participate in planning, implementing, and managing projects that affect their lives." },
-            { term: "Local Participation", detail: "The involvement of community members in decisions so that projects reflect local priorities and needs." },
-            { term: "Empowerment", detail: "The process of building people's ability and authority to make decisions and take control of their own development." },
-            { term: "Sustainability", detail: "The ability to meet present needs while maintaining resources and opportunities for the future." },
-            { term: "Collaboration", detail: "People or organisations working together and sharing resources or expertise to achieve a common goal." },
-            { term: "Holistic Approach", detail: "A method that considers the whole situation and the connections among its economic, social, and environmental parts." },
-            { term: "Ownership", detail: "The community's responsibility for, control over, and commitment to a project or its outcomes." }
+        const challengesAndExports = [
+            { q: "Define economic disparity.", a: "A difference in wealth and development between rich and poor nations or groups." },
+            { q: "Define cultural homogenisation.", a: "Cultures becoming increasingly similar, sometimes weakening local identity and traditions." },
+            { q: "How can outsourcing cause job losses?", a: "Work may move to countries with cheaper labour." },
+            { q: "How can increased industrial activity affect the environment?", a: "It can cause environmental degradation." },
+            { q: "Give three examples of labour exploitation from the activity.", a: "Long hours, low wages, and child labour." },
+            { q: "Define economic dependency.", a: "Reliance on foreign economies or MNCs that creates vulnerability." },
+            { q: "How can globalisation reduce sovereignty?", a: "Governments may lose control over their economic policies." },
+            { q: "How are globalisation's benefits distributed?", a: "They are not evenly distributed." },
+            { q: "What can cultural clashes cause?", a: "Misunderstandings and conflict." },
+            { q: "Why can financial crises have far-reaching effects?", a: "Interconnected financial systems spread shocks between countries." },
+            { q: "How may globalisation strengthen developed economies?", a: "They may be better able to take advantage of free trade." },
+            { q: "What resource-related concern affects LEDCs?", a: "Exploitation of their natural resources." },
+            { q: "Why may LEDCs receive low profits from MNC production?", a: "Finished goods may be exported from the MNC's home country, where much of the profit returns." },
+            { q: "Define export-led development.", a: "An approach that promotes development by supporting industries that produce goods or services for export." },
+            { q: "What two goals does export-led development seek?", a: "Economic development and higher standards of living." },
+            { q: "What does government invest in under export-led development?", a: "Export industries and the infrastructure needed to support them." },
+            { q: "Name the South African food-export examples.", a: "Citrus fruit, maize, and wine." },
+            { q: "Which brand is linked to citrus exports?", a: "Outspan." },
+            { q: "Name the South African fuel-export examples.", a: "Sasol petroleum and ethanol." },
+            { q: "From what crop is ethanol often made according to the presentation?", a: "Sugar." }
         ];
-
         function makeJeopardyQuestions(factors, offset) {
             return Array.from({ length: 5 }, (_, index) => {
 
-                const factor = factors[(offset * 5 + index) % factors.length];
-                const askForDefinition = (offset + index) % 2 === 1;
+
+                const question = factors[(offset * 5 + index) % factors.length];
                 return {
                     points: (index + 1) * 10,
-                    q: askForDefinition ? "Define " + factor.term + "." : "Which development factor matches this definition? " + factor.detail,
-                    a: askForDefinition ? factor.detail : "What is " + factor.term + "?"
+                    q: question.q,
+                    a: question.a
                 };
             });
         }
 
         function makePlayerBoard(offset) {
             return [
-                { name: "Economic Factors", questions: makeJeopardyQuestions(economicFactors, offset) },
-                { name: "Social Factors", questions: makeJeopardyQuestions(socialFactors, offset) },
-                { name: "Environmental Factors", questions: makeJeopardyQuestions(environmentalFactors, offset) },
-                { name: "Community Development", questions: makeJeopardyQuestions(communityFactors, offset) }
+                { name: "Global Connections", questions: makeJeopardyQuestions(globalConnections, offset) },
+                { name: "Integration and MNCs", questions: makeJeopardyQuestions(integrationAndMncs, offset) },
+                { name: "Benefits", questions: makeJeopardyQuestions(benefitsAndOpportunities, offset) },
+                { name: "Challenges and Exports", questions: makeJeopardyQuestions(challengesAndExports, offset) }
             ];
         }
 

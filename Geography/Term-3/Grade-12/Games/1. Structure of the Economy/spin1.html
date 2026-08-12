@@ -13,7 +13,7 @@
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Learning Hub | Grade 11 Geography: Factors Affecting Development</title>
+    <title>Learning Hub | Grade 12 Geography: Structure of the Economy</title>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f0f4f8; color: #333; line-height: 1.6; display: flex; flex-direction: column; min-height: 100vh; }
@@ -63,9 +63,9 @@
     </nav>
 
     <main class="game-container">
-        <h1 class="game-title">Geography Quiz: Factors Affecting Development</h1>
-        <p class="game-subtitle">Test your Grade 11 Term 3 development knowledge. Select a category and spin the wheel.</p>
-        <p style="font-size: 0.78rem; color: #52606d; margin-top: 0.45rem;">Source: Factors Affecting Development - Grade 11 Geography Term 3 presentation.</p>
+        <h1 class="game-title">Geography Quiz: Structure of the Economy</h1>
+        <p class="game-subtitle">Test your Grade 12 Term 3 economic-sectors knowledge. Select a category and spin the wheel.</p>
+        <p style="font-size: 0.78rem; color: #52606d; margin-top: 0.45rem;">Source: Structure of the Economy - Grade 12 Geography Term 3 presentation.</p>
 
         <div class="category-selection">
             <h2>Step 1: Choose a Category</h2>
@@ -79,7 +79,7 @@
 
         <div id="wheelArea">
             <h2 id="activeCategoryTitle">Category: None</h2>
-            
+
             <div class="wheel-wrapper">
                 <div class="pointer"></div>
                 <div class="wheel-center"></div>
@@ -95,9 +95,9 @@
             <div class="question-card" id="questionCard">
                 <div class="q-number-tag" id="qNumberTag">Question #</div>
                 <div class="question-text" id="questionText">Loading question...</div>
-                
+
                 <div class="mc-options" id="mcOptions"></div>
-                
+
                 <button class="reveal-btn" id="revealBtn" onclick="revealAnswer()">Reveal Answer</button>
                 <div class="answer-text" id="answerText"></div>
             </div>
@@ -112,96 +112,95 @@
 <script>
         const gameData = {
             'definitions': [
-                { q: "Infrastructure", a: "The basic physical and organisational systems and facilities needed for a society and economy to function, such as transport, electricity, water, and communications." },
-                { q: "Investment", a: "The commitment of money, capital, or other resources to an activity or project in order to gain future benefits." },
-                { q: "Economic Policies", a: "Government decisions, laws, and actions used to influence how an economy operates." },
-                { q: "Technology", a: "The application of knowledge, tools, and techniques to solve problems and produce goods or services." },
-                { q: "Natural Resources", a: "Materials and environmental features that occur in nature and can be used by people, such as water, land, minerals, and forests." },
-                { q: "Trade", a: "The buying, selling, or exchange of goods and services between people, regions, or countries." },
-                { q: "Labor Market Conditions", a: "The circumstances affecting the supply of workers, demand for labour, employment, wages, and available skills." },
-                { q: "Financial Systems", a: "The institutions, markets, and rules that enable saving, borrowing, payments, and investment." },
-                { q: "Government Spending", a: "Money used by government to provide public services, infrastructure, and programmes." },
-                { q: "Entrepreneurship", a: "The process of identifying an opportunity, organising resources, and creating or managing an enterprise while accepting risk." },
-                { q: "Education", a: "The organised process through which people acquire knowledge, skills, values, and understanding." },
-                { q: "Healthcare", a: "The services and systems used to prevent and treat illness and maintain people's health." },
-                { q: "Social Stability", a: "A condition in which society has order, security, and predictable social relationships." },
-                { q: "Cultural Attitudes", a: "Shared beliefs, values, and viewpoints that influence how people think and behave." },
-                { q: "Population Growth", a: "An increase in the number of people living in a place over a period of time." },
-                { q: "Gender Equality", a: "Equal rights, responsibilities, opportunities, and treatment for people of all genders." },
-                { q: "Social Services", a: "Public or community services that support people's welfare and basic needs, such as care, housing support, and social assistance." },
-                { q: "Crime Rates", a: "Measures of how frequently crimes occur in a population or area during a given period." },
-                { q: "Community Engagement", a: "The process of involving community members in decisions and actions that affect their lives." },
-                { q: "Migration", a: "The movement of people from one place to another to live or work, either temporarily or permanently." }
+                { q: "Economic Sector", a: "A category used to organise economic activities according to the type of work performed." },
+                { q: "Primary Economic Activity", a: "Work involving the extraction and exploitation of raw materials from the natural environment." },
+                { q: "Extraction", a: "The removal of natural resources or raw materials from the environment." },
+                { q: "Raw Material", a: "A natural material used as an input to make another product." },
+                { q: "Farming", a: "A primary activity involving the production of crops or livestock." },
+                { q: "Fishing", a: "A primary activity involving the harvesting of fish and other aquatic resources." },
+                { q: "Forestry", a: "A primary activity involving the use and management of forest resources." },
+                { q: "Mining", a: "A primary activity involving the extraction of minerals from the earth." },
+                { q: "Quarrying", a: "A primary activity involving the extraction of stone and other materials from an open excavation." },
+                { q: "Secondary Economic Activity", a: "Work involving the processing of primary materials into finished products required by consumers." },
+                { q: "Processing", a: "Changing a raw or primary material into a more useful product." },
+                { q: "Finished Product", a: "A completed good that is ready for use or consumption." },
+                { q: "Manufacturing", a: "The process of making products by transforming raw or primary materials." },
+                { q: "Value Added", a: "The increase in usefulness and economic value created by work performed on a material or task." },
+                { q: "Tertiary Economic Activity", a: "Work concerned with distributing products and providing services." },
+                { q: "Distribution", a: "Moving and supplying products so that they reach consumers." },
+                { q: "Service", a: "Useful work provided to meet people's or organisations' needs rather than producing a physical good." },
+                { q: "Quaternary Economic Activity", a: "Work involving scientific research and the collection and processing of data." },
+                { q: "Information Technology", a: "A quaternary activity involving computer-based information systems and data." },
+                { q: "Gross Domestic Product", a: "The monetary value used to measure economic contribution, commonly abbreviated as GDP." }
             ],
             'terms': [
-                { q: "Long-term changes in average temperatures and other climate patterns.", a: "Climate Change" },
-                { q: "Severe natural events that cause major damage, loss, or disruption to people and places.", a: "Natural Disasters" },
-                { q: "Government laws, rules, and plans designed to manage human impacts and protect the environment.", a: "Environmental Policies" },
-                { q: "The variety of living organisms, including diversity within species, between species, and among ecosystems.", a: "Biodiversity" },
-                { q: "The introduction of harmful substances or forms of energy into the environment.", a: "Pollution" },
-                { q: "The use of a natural resource faster than it can be replaced or renewed.", a: "Resource Depletion" },
-                { q: "The way land is managed and used for purposes such as farming, housing, industry, or conservation.", a: "Land Use" },
-                { q: "The amount of usable water that is accessible to people and economic activities.", a: "Water Availability" },
-                { q: "The degree to which the air is clean and free from harmful pollutants.", a: "Air Quality" },
-                { q: "The collection, transport, treatment, recycling, and disposal of waste.", a: "Waste Management" },
-                { q: "An approach in which community members actively lead and participate in planning, implementing, and managing projects that affect their lives.", a: "Community-Based Development" },
-                { q: "The involvement of community members in decisions so that projects reflect local priorities and needs.", a: "Local Participation" },
-                { q: "The process of building people's ability and authority to make decisions and take control of their own development.", a: "Empowerment" },
-                { q: "The ability to meet present needs while maintaining resources and opportunities for the future.", a: "Sustainability" },
-                { q: "People or organisations working together and sharing resources or expertise to achieve a common goal.", a: "Collaboration" },
-                { q: "A method that considers the whole situation and the connections among its economic, social, and environmental parts.", a: "Holistic Approach" },
-                { q: "The community's responsibility for, control over, and commitment to a project or its outcomes.", a: "Ownership" },
-                { q: "The basic physical and organisational systems and facilities needed for a society and economy to function, such as transport, electricity, water, and communications.", a: "Infrastructure" },
-                { q: "The application of knowledge, tools, and techniques to solve problems and produce goods or services.", a: "Technology" },
-                { q: "The process of identifying an opportunity, organising resources, and creating or managing an enterprise while accepting risk.", a: "Entrepreneurship" }
+                { q: "A category used to divide and organise activities in an economy.", a: "Economic Sector" },
+                { q: "Removing and exploiting raw materials from the natural environment.", a: "Primary Economic Activity" },
+                { q: "Removing natural resources from the environment.", a: "Extraction" },
+                { q: "Natural input used to manufacture another product.", a: "Raw Material" },
+                { q: "Growing crops or raising livestock as an economic activity.", a: "Farming" },
+                { q: "Harvesting aquatic resources as an economic activity.", a: "Fishing" },
+                { q: "Using and managing forest resources as an economic activity.", a: "Forestry" },
+                { q: "Extracting minerals from the earth.", a: "Mining" },
+                { q: "Processing primary materials into consumer products.", a: "Secondary Economic Activity" },
+                { q: "Transforming raw materials in order to make products.", a: "Manufacturing" },
+                { q: "A completed good ready for the consumer.", a: "Finished Product" },
+                { q: "The increase in usefulness or economic worth created by work.", a: "Value Added" },
+                { q: "Distributing products and providing services.", a: "Tertiary Economic Activity" },
+                { q: "Moving goods so that they reach the consumer.", a: "Distribution" },
+                { q: "Useful work supplied to meet a need instead of producing a physical good.", a: "Service" },
+                { q: "Scientific research and the collection and processing of data.", a: "Quaternary Economic Activity" },
+                { q: "A quaternary field involving computers and information systems.", a: "Information Technology" },
+                { q: "A workplace that handles large numbers of telephone-based customer contacts.", a: "Call Centre" },
+                { q: "The proportion of all workers employed in a sector.", a: "Employment Share" },
+                { q: "The monetary measure used to express a sector's contribution to the economy.", a: "GDP" }
             ],
             'multipleChoice': [
-                { q: "Which factor is necessary for economic activities and growth?", options: ["A) Infrastructure", "B) Crime rates", "C) Air quality", "D) Ownership"], a: "A) Infrastructure" },
-                { q: "Which factor funds development projects and creates jobs?", options: ["A) Investment", "B) Migration", "C) Pollution", "D) Biodiversity"], a: "A) Investment" },
-                { q: "What creates a conducive environment for growth?", options: ["A) Economic policies", "B) Resource depletion", "C) Natural disasters", "D) Crime rates"], a: "A) Economic policies" },
-                { q: "Which factor boosts productivity and innovation?", options: ["A) Technology", "B) Pollution", "C) Migration", "D) Land use"], a: "A) Technology" },
-                { q: "The effect of natural resources on development depends on:", options: ["A) Their management", "B) Migration only", "C) Crime rates only", "D) Gender roles only"], a: "A) Their management" },
-                { q: "Trade boosts economic growth through:", options: ["A) Market access", "B) Resource depletion", "C) Natural disasters", "D) Air pollution"], a: "A) Market access" },
-                { q: "Which factor affects employment and economic stability?", options: ["A) Labor market conditions", "B) Biodiversity", "C) Waste management", "D) Ownership"], a: "A) Labor market conditions" },
-                { q: "What facilitates investments and economic activities?", options: ["A) Financial systems", "B) Climate change", "C) Population growth", "D) Crime rates"], a: "A) Financial systems" },
-                { q: "Government spending supports:", options: ["A) Infrastructure and public services", "B) Pollution and depletion", "C) Crime and instability", "D) Disasters and migration"], a: "A) Infrastructure and public services" },
-                { q: "What drives economic diversification and innovation?", options: ["A) Entrepreneurship", "B) Resource depletion", "C) Natural disasters", "D) Pollution"], a: "A) Entrepreneurship" },
-                { q: "Which social factor provides skills and knowledge for economic growth?", options: ["A) Education", "B) Migration", "C) Crime rates", "D) Population growth"], a: "A) Education" },
-                { q: "Which factor affects well-being and productivity?", options: ["A) Healthcare", "B) Trade", "C) Land use", "D) Ownership"], a: "A) Healthcare" },
-                { q: "What ensures a safe environment for investment and growth?", options: ["A) Social stability", "B) Pollution", "C) Resource depletion", "D) Natural disasters"], a: "A) Social stability" },
-                { q: "What shapes work ethics, entrepreneurship, and gender roles?", options: ["A) Cultural attitudes", "B) Water availability", "C) Financial systems", "D) Waste management"], a: "A) Cultural attitudes" },
-                { q: "Population growth influences:", options: ["A) Resource allocation and workforce size", "B) Market access only", "C) Air quality only", "D) Project ownership only"], a: "A) Resource allocation and workforce size" },
-                { q: "Equal opportunities enhance productivity through:", options: ["A) Gender equality", "B) Pollution", "C) Migration", "D) Resource depletion"], a: "A) Gender equality" },
-                { q: "Which factor reduces poverty and inequality?", options: ["A) Social services", "B) Natural disasters", "C) Crime rates", "D) Pollution"], a: "A) Social services" },
-                { q: "Lower crime rates help create:", options: ["A) A safer environment for economic activities", "B) More resource depletion", "C) Less market access", "D) More pollution"], a: "A) A safer environment for economic activities" },
-                { q: "What drives local development initiatives?", options: ["A) Community engagement", "B) Climate change", "C) Pollution", "D) Resource depletion"], a: "A) Community engagement" },
-                { q: "Migration affects:", options: ["A) Labor markets and resource distribution", "B) Biodiversity only", "C) Air quality only", "D) Economic policies only"], a: "A) Labor markets and resource distribution" }
+                { q: "How many main economic sectors are listed in the presentation?", options: ["A) Four", "B) Two", "C) Three", "D) Six"], a: "A) Four" },
+                { q: "Which group contains only primary activities?", options: ["A) Farming, fishing, and mining", "B) Banking, education, and tourism", "C) Manufacturing, building, and refining", "D) Research, IT, and call centres"], a: "A) Farming, fishing, and mining" },
+                { q: "Which group contains only secondary activities from the sector-flow diagram?", options: ["A) Car manufacturing, steel works, and building", "B) Forestry, fishing, and mining", "C) Legal services, accounting, and distribution", "D) Research, data processing, and IT"], a: "A) Car manufacturing, steel works, and building" },
+                { q: "Which process changes wheat into flour?", options: ["A) Milling", "B) Mining", "C) Distribution", "D) Quarrying"], a: "A) Milling" },
+                { q: "Baking bread from flour is an example of:", options: ["A) Secondary activity", "B) Primary activity", "C) Quaternary activity", "D) Raw-material extraction"], a: "A) Secondary activity" },
+                { q: "Which is a tertiary activity?", options: ["A) Transport", "B) Mining", "C) Forestry", "D) Quarrying"], a: "A) Transport" },
+                { q: "Which set contains only tertiary services?", options: ["A) Medical services, education, and tourism", "B) Hunting, mining, and fishing", "C) Steel works, baking, and manufacturing", "D) Research, data processing, and IT"], a: "A) Medical services, education, and tourism" },
+                { q: "Which activity belongs to the quaternary sector?", options: ["A) Scientific research", "B) Farming", "C) Bread baking", "D) Product distribution"], a: "A) Scientific research" },
+                { q: "According to the income graph, what happens as the economic-sector level rises?", options: ["A) Income rises", "B) Income falls to zero", "C) Income remains unchanged", "D) Employment always doubles"], a: "A) Income rises" },
+                { q: "Why are primary-sector wages described as low?", options: ["A) Workers add the least value", "B) The sector uses the most complex data", "C) Every worker owns a factory", "D) It has the highest salaries"], a: "A) Workers add the least value" },
+                { q: "Where are the highest salaries associated?", options: ["A) Quaternary and quinary sectors", "B) Primary sector only", "C) Farming only", "D) Mining and quarrying only"], a: "A) Quaternary and quinary sectors" },
+                { q: "What was the primary sector's contribution to South African GDP in the 2016 table?", options: ["A) 10%", "B) 9%", "C) 21%", "D) 69%"], a: "A) 10%" },
+                { q: "What was the primary sector's employment share in the 2016 table?", options: ["A) 9%", "B) 10%", "C) 26%", "D) 65%"], a: "A) 9%" },
+                { q: "What was the secondary sector's GDP share in the 2016 table?", options: ["A) 21%", "B) 26%", "C) 10%", "D) 69%"], a: "A) 21%" },
+                { q: "What was the secondary sector's employment share in the 2016 table?", options: ["A) 26%", "B) 21%", "C) 9%", "D) 65%"], a: "A) 26%" },
+                { q: "Which sector made the largest GDP contribution in the 2016 table?", options: ["A) Tertiary sector", "B) Primary sector", "C) Secondary sector", "D) All were equal"], a: "A) Tertiary sector" },
+                { q: "What was the tertiary sector's GDP share in the 2016 table?", options: ["A) 69%", "B) 65%", "C) 26%", "D) 21%"], a: "A) 69%" },
+                { q: "What was the tertiary sector's employment share in the 2016 table?", options: ["A) 65%", "B) 69%", "C) 21%", "D) 10%"], a: "A) 65%" },
+                { q: "Which detailed GDP category contributed 18.5% in Figure 5.1?", options: ["A) Finance", "B) Mining", "C) Construction", "D) Personal services"], a: "A) Finance" },
+                { q: "Which detailed employment category had the largest share in Figure 5.2?", options: ["A) Trade at 22.7%", "B) Mining at 2.4%", "C) Utilities at 0.7%", "D) Agriculture at 4.6%"], a: "A) Trade at 22.7%" }
             ],
             'trueFalse': [
-                { q: "Climate change affects agriculture and living conditions.", options: ["True", "False"], a: "True", exp: "It is listed as an environmental factor affecting both." },
-                { q: "Natural disasters support development by protecting infrastructure.", options: ["True", "False"], a: "False", exp: "They disrupt development by damaging infrastructure." },
-                { q: "Environmental policies promote sustainable development.", options: ["True", "False"], a: "True", exp: "This is their stated development role." },
-                { q: "Biodiversity supports agriculture and tourism.", options: ["True", "False"], a: "True", exp: "Both sectors are identified in the presentation." },
-                { q: "Pollution improves health and attracts investment.", options: ["True", "False"], a: "False", exp: "It harms health and deters investment." },
-                { q: "Resource depletion can create long-term economic challenges.", options: ["True", "False"], a: "True", exp: "The presentation identifies this long-term effect." },
-                { q: "Land use is irrelevant to agriculture and industry.", options: ["True", "False"], a: "False", exp: "It is crucial for sustainable agriculture and industry." },
-                { q: "Water availability is essential for health and industry.", options: ["True", "False"], a: "True", exp: "Both depend on adequate water." },
-                { q: "Better air quality supports health and quality of life.", options: ["True", "False"], a: "True", exp: "These are the benefits listed in the presentation." },
-                { q: "Waste management increases pollution.", options: ["True", "False"], a: "False", exp: "It reduces pollution and supports sustainability." },
-                { q: "Community-based development excludes communities from project planning.", options: ["True", "False"], a: "False", exp: "It emphasises active community participation and leadership." },
-                { q: "Local participation helps projects reflect community priorities and needs.", options: ["True", "False"], a: "True", exp: "Community members take part in decision-making." },
-                { q: "Empowerment builds people's capacity to control their own development.", options: ["True", "False"], a: "True", exp: "It also supports improvements in quality of life." },
-                { q: "CBD sustainability ignores local resources and knowledge.", options: ["True", "False"], a: "False", exp: "It encourages their use for long-lasting outcomes." },
-                { q: "Collaboration connects communities, local organisations, and external agencies.", options: ["True", "False"], a: "True", exp: "These partnerships help combine resources and expertise." },
-                { q: "A holistic approach treats economic, social, and environmental issues as unrelated.", options: ["True", "False"], a: "False", exp: "It recognises their interconnections." },
-                { q: "Community ownership can improve project maintenance and sustainability.", options: ["True", "False"], a: "True", exp: "Ownership supports lasting outcomes." },
-                { q: "Investment can create jobs.", options: ["True", "False"], a: "True", exp: "It also funds development projects." },
-                { q: "Social services increase poverty and inequality.", options: ["True", "False"], a: "False", exp: "They reduce poverty and inequality." },
-                { q: "Entrepreneurship supports diversification and innovation.", options: ["True", "False"], a: "True", exp: "These are its listed economic contributions." }
+                { q: "The economy can be divided into economic sectors.", options: ["True", "False"], a: "True", exp: "The presentation uses sectors to simplify and organise the economy." },
+                { q: "Primary activities extract raw materials from the natural environment.", options: ["True", "False"], a: "True", exp: "Extraction and exploitation of raw materials define the primary sector." },
+                { q: "Financial services are primary economic activities.", options: ["True", "False"], a: "False", exp: "Financial services belong to the tertiary sector." },
+                { q: "Mining and quarrying are examples of primary activities.", options: ["True", "False"], a: "True", exp: "Both extract materials from the natural environment." },
+                { q: "Secondary activities process primary materials into finished products.", options: ["True", "False"], a: "True", exp: "This transformation is the manufacturing process." },
+                { q: "Manufacturing reduces all use and value of raw materials.", options: ["True", "False"], a: "False", exp: "Secondary activities add use and value to raw materials." },
+                { q: "Milling wheat into flour is a secondary activity.", options: ["True", "False"], a: "True", exp: "It processes a primary material into a more useful product." },
+                { q: "Tertiary activities include distribution and service provision.", options: ["True", "False"], a: "True", exp: "Both functions define the tertiary sector." },
+                { q: "Education and tourism are tertiary activities.", options: ["True", "False"], a: "True", exp: "Both are service examples in the presentation." },
+                { q: "Quaternary activities focus on scientific research and data.", options: ["True", "False"], a: "True", exp: "They involve research plus data collection and processing." },
+                { q: "Call centres are listed as primary activities.", options: ["True", "False"], a: "False", exp: "They are listed under quaternary activities." },
+                { q: "The presentation shows a positive relationship between sector level and income.", options: ["True", "False"], a: "True", exp: "The line rises as economic sectors and income increase." },
+                { q: "Primary-sector workers add the greatest value and receive the highest salaries.", options: ["True", "False"], a: "False", exp: "The presentation says they add the least value and wages are low." },
+                { q: "Higher-sector tasks are described as more complex.", options: ["True", "False"], a: "True", exp: "Greater complexity and value input are associated with higher sectors." },
+                { q: "The tertiary sector contributed 69% of GDP in the 2016 table.", options: ["True", "False"], a: "True", exp: "It was the largest GDP share shown." },
+                { q: "The secondary sector employed 21% of the workforce in the 2016 table.", options: ["True", "False"], a: "False", exp: "Its employment share was 26%; 21% was its GDP share." },
+                { q: "The primary sector's GDP share was one percentage point higher than its employment share.", options: ["True", "False"], a: "True", exp: "The table shows 10% GDP and 9% employment." },
+                { q: "Finance was the largest detailed GDP category in Figure 5.1.", options: ["True", "False"], a: "True", exp: "Finance contributed 18.5%, the largest value displayed." },
+                { q: "Utilities had the smallest employment share in Figure 5.2.", options: ["True", "False"], a: "True", exp: "Utilities accounted for 0.7% of employment." },
+                { q: "Trade accounted for 22.7% of employment in Figure 5.2.", options: ["True", "False"], a: "True", exp: "It was the largest employment category shown." }
             ]
         };
-
-        const totalQuestions = 20; 
+        const totalQuestions = 20;
         const sliceAngle = 360 / totalQuestions;
         let currentCategoryKey = null;
         let currentRotation = 0;
@@ -258,7 +257,7 @@
             const wheel = document.getElementById('wheel');
             const questionCard = document.getElementById('questionCard');
             let available = availableQuestions[currentCategoryKey];
-            
+
             if (available.length === 0) {
                 alert(`Resetting ${currentCategoryKey}!`);
                 availableQuestions[currentCategoryKey] = Array.from({length: totalQuestions}, (_, i) => i);
@@ -277,7 +276,7 @@
 
             let sliceCenterAngle = (targetQuestionIndex * sliceAngle) + (sliceAngle / 2);
             let targetDegree = 360 - sliceCenterAngle;
-            let currentBase = Math.ceil(currentRotation / 360) * 360; 
+            let currentBase = Math.ceil(currentRotation / 360) * 360;
             currentRotation = currentBase + 1800 + targetDegree;
             wheel.style.transform = `rotate(${currentRotation}deg)`;
 
@@ -298,9 +297,9 @@
             const answerText = document.getElementById('answerText');
             mcOptions.innerHTML = "";
             answerText.style.display = "none";
-            
+
             if (currentCategoryKey === 'multipleChoice' || currentCategoryKey === 'trueFalse') {
-                revealBtn.style.display = "none"; 
+                revealBtn.style.display = "none";
                 mcOptions.style.display = "flex";
                 data.options.forEach(opt => {
                     let btn = document.createElement("button");

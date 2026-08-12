@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-8GCWSKNDL7"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-8GCWSKNDL7');
+</script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>May Learning Hub | Smart Snake - Globalisation</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f0f4f8; color: #333; line-height: 1.6; display: flex; flex-direction: column; min-height: 100vh; touch-action: manipulation; }
+        
+        /* Navigation */
+        nav { background-color: #002b5e; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        .logo { color: #fff; font-size: 1.5rem; font-weight: bold; text-decoration: none; }
+        .nav-links a { color: #cce0ff; text-decoration: none; margin-left: 1.5rem; font-weight: 500; transition: color 0.3s; }
+        .nav-links a:hover, .nav-links a.active { color: #fff; text-decoration: underline; }
+        
+        /* Game Header */
+        .game-header { text-align: center; padding: 2rem 1rem 1rem; }
+        .game-title { color: #004080; font-size: 2.2rem; margin-bottom: 0.5rem; }
+        .game-subtitle { color: #555; margin-bottom: 1.5rem; font-size: 1.1rem; }
+
+        /* --- Topic Selection UI --- */
+        .category-selection { margin-bottom: 2rem; text-align: center; }
+        .cat-buttons { display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem; max-width: 800px; margin: 0 auto; padding: 0 10px; }
+        .cat-btn { background-color: #fff; border: 2px solid #004080; color: #004080; padding: 0.8rem 1.5rem; font-size: 1.1rem; font-weight: bold; border-radius: 8px; cursor: pointer; transition: all 0.3s ease; flex: 1; min-width: 150px; }
+        .cat-btn:hover { background-color: #e6f0fa; transform: translateY(-3px); }
+
+        /* --- Game Area --- */
+        #gameArea { display: none; flex-direction: column; align-items: center; width: 100%; padding: 0 10px; }
+        
+        .score-board { display: flex; justify-content: space-between; width: 100%; max-width: 600px; background: #002b5e; color: #fff; padding: 0.8rem 1.5rem; border-radius: 8px 8px 0 0; font-size: 1.2rem; font-weight: bold; }
+        .score-board span { color: #ffc107; }
+
+        .canvas-container { position: relative; max-width: 600px; width: 100%; }
+        canvas { background-color: #d1e0e0; box-shadow: 0 8px 20px rgba(0,0,0,0.2); border-radius: 0 0 8px 8px; border: 4px solid #002b5e; width: 100%; height: auto; display: block; }
+
+        #pauseOverlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 43, 94, 0.7); border-radius: 0 0 8px 8px; display: none; flex-direction: column; justify-content: center; align-items: center; color: #fff; font-size: 1.5rem; font-weight: bold; text-align: center; padding: 1rem; z-index: 10; animation: pulse 1.5s infinite; }
+        @keyframes pulse { 0% { opacity: 0.8; } 50% { opacity: 1; transform: scale(1.02); } 100% { opacity: 0.8; } }
+
+        .controls-container { display: grid; grid-template-columns: repeat(3, 60px); grid-template-rows: repeat(2, 60px); gap: 10px; margin-top: 2rem; justify-content: center; }
+        .control-btn { background: #3385ff; color: #fff; border: none; border-radius: 12px; font-size: 1.5rem; font-weight: bold; cursor: pointer; box-shadow: 0 4px 6px rgba(0,0,0,0.2); display: flex; align-items: center; justify-content: center; user-select: none; }
+        .control-btn:active { background: #004080; transform: translateY(2px); box-shadow: 0 2px 3px rgba(0,0,0,0.2); }
+        
+        #btnUp { grid-column: 2; grid-row: 1; }
+        #btnLeft { grid-column: 1; grid-row: 2; }
+        #btnDown { grid-column: 2; grid-row: 2; }
+        #btnRight { grid-column: 3; grid-row: 2; }
+
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,26,51,0.9); align-items: center; justify-content: center; z-index: 100; padding: 1rem; }
+        .modal-content { background: #fff; padding: 2rem; border-radius: 12px; text-align: center; max-width: 500px; width: 100%; border-top: 6px solid #ffc107; box-shadow: 0 10px 40px rgba(0,0,0,0.5); }
+        
+        .modal-points { color: #d32f2f; font-weight: bold; font-size: 1.2rem; margin-bottom: 0.5rem; }
+        .golden-text { color: #d39e00; }
+        .modal-question { font-size: 1.4rem; color: #002b5e; font-weight: bold; margin-bottom: 1.5rem; }
+        
+        .mc-options { display: flex; flex-direction: column; gap: 0.8rem; }
+        .option-btn { background: #f0f7ff; border: 2px solid #b3d4ff; padding: 1rem; font-size: 1.1rem; border-radius: 6px; cursor: pointer; transition: all 0.2s; text-align: left; font-weight: bold; color: #004080; }
+        .option-btn:hover:not(:disabled) { background: #3385ff; color: #fff; border-color: #002b5e; }
+        .option-btn.correct { background-color: #28a745 !important; border-color: #1e7e34 !important; color: #fff !important; }
+        .option-btn.incorrect { background-color: #dc3545 !important; border-color: #bd2130 !important; color: #fff !important; }
+
+        .continue-btn { display: none; background: #004080; color: #fff; border: none; padding: 1rem 2rem; font-size: 1.1rem; font-weight: bold; border-radius: 8px; cursor: pointer; margin-top: 1.5rem; width: 100%; }
+
+        #endScreen { display: none; text-align: center; padding: 3rem 1rem; }
+        #endTitle { font-size: 2.5rem; margin-bottom: 1rem; }
+        #endMessage { font-size: 1.2rem; color: #555; }
+        
+        footer { text-align: center; padding: 1rem; background-color: #002b5e; color: #fff; margin-top: auto; }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="../../../../../index.html" class="logo">May Learning Hub</a>
+        <div class="nav-links">
+            <a href="../../../../../index.html">Home</a>
+            <a href="../../../../../about.html">About</a>
+        </div>
+    </nav>
+
+    <header class="game-header">
+        <h1 class="game-title">Smart Snake: Globalisation</h1>
+        <p class="game-subtitle">Grade 11 Geography - Term 3. Eat 10 apples while mastering global connections, integration, impacts, and export-led development!</p>
+        <p style="font-size: 0.78rem; color: #52606d; margin-top: 0.45rem;">Source: Globalisation - Grade 11 Geography Term 3 presentation.</p>
+    </header>
+
+    <div class="category-selection" id="categorySelection">
+        <div class="cat-buttons">
+            <button class="cat-btn" onclick="startGame('game1')">Global Connections</button>
+            <button class="cat-btn" onclick="startGame('game2')">Integration &amp; MNCs</button>
+            <button class="cat-btn" onclick="startGame('game3')">Advantages</button>
+            <button class="cat-btn" onclick="startGame('game4')">Challenges &amp; Exports</button>
+        </div>
+    </div>
+
+    <main id="gameArea">
+        <div class="score-board">
+            <div>Apples: <span id="appleCount">0</span> / 10</div>
+            <div>Score: <span id="scoreText">0</span></div>
+        </div>
+        
+        <div class="canvas-container">
+            <canvas id="gameCanvas" width="600" height="400"></canvas>
+            
+            <div id="pauseOverlay">
+                Tap any direction below to resume slithering! 🐍
+            </div>
+        </div>
+        
+        <div class="controls-container">
+            <button class="control-btn" id="btnUp" onclick="handleInput('UP')">▲</button>
+            <button class="control-btn" id="btnLeft" onclick="handleInput('LEFT')">◀</button>
+            <button class="control-btn" id="btnDown" onclick="handleInput('DOWN')">▼</button>
+            <button class="control-btn" id="btnRight" onclick="handleInput('RIGHT')">▶</button>
+        </div>
+    </main>
+
+    <div class="modal" id="questionModal">
+        <div class="modal-content">
+            <div class="modal-points" id="modalPoints">For 1 Point:</div>
+            <div class="modal-question" id="modalQuestion">Loading question...</div>
+            <div class="mc-options" id="mcOptions"></div>
+            <button class="continue-btn" id="btnContinue" onclick="closeModalAndPause()">Continue Game</button>
+        </div>
+    </div>
+
+    <div id="endScreen">
+        <h2 id="endTitle" style="color: #28a745;">Level Complete!</h2>
+        <p id="endMessage">You successfully ate 10 apples.</p>
+        <p style="font-size: 1.5rem; margin: 1rem 0; font-weight: bold;">Final Score: <span id="finalScoreText" style="color:#004080;">0</span> Points</p>
+        <button class="cat-btn" onclick="location.reload()" style="background:#3385ff; color:#fff;">Play Again</button>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 May Learning Hub. All rights reserved.</p>
+    </footer>
+
+        <script src="../../../../../game-audio.js"></script>
+<script>
+        const questionDB = {
+            'game1': [
+                { q: "What is globalisation?", options: ["Growing worldwide interconnection", "A ban on trade", "Only local communication", "A type of natural disaster"], a: 0 },
+                { q: "What has increased global connections?", options: ["Improved transport and telecommunications", "Longer travel times", "Higher time barriers", "Reduced communication"], a: 0 },
+                { q: "What has happened to barriers to international trade?", options: ["They have generally been reduced", "They have all doubled", "They have replaced transport", "They no longer affect goods"], a: 0 },
+                { q: "What does the global village metaphor describe?", options: ["A closely connected world", "A single rural settlement", "A world without cultures", "A country without trade"], a: 0 },
+                { q: "What can be shared globally without travel?", options: ["Ideas, cultures, and resources", "Only physical buildings", "National borders", "Climate zones"], a: 0 },
+                { q: "Which barriers are being reduced by globalisation?", options: ["Time and space", "Rainfall and temperature", "Latitude and longitude", "Relief and drainage"], a: 0 },
+                { q: "What moves people and goods between places?", options: ["Transport systems", "Transfer pricing", "Cultural clashes", "Corporation tax"], a: 0 },
+                { q: "What sends information rapidly across distance?", options: ["Telecommunication systems", "Outsourcing", "Export industries", "Trade barriers"], a: 0 },
+                { q: "Which phrase best defines global connections?", options: ["Links allowing worldwide flows", "Taxes on imported products", "Loss of all national identity", "The price of related-company sales"], a: 0 },
+                { q: "Which process promotes the exchange of cultural ideas and practices?", options: ["Cultural exchange", "Economic disparity", "Job outsourcing", "Resource exploitation"], a: 0 }
+            ],
+            'game2': [
+                { q: "What is economic integration?", options: ["Closer connection between national economies", "Complete economic isolation", "A cultural misunderstanding", "A natural hazard"], a: 0 },
+                { q: "Economic integration allows freer movement of:", options: ["Goods and services", "Climate zones", "Languages only", "Political borders"], a: 0 },
+                { q: "What must be reduced for economic integration?", options: ["Trade barriers", "Communication technology", "Market access", "Education programmes"], a: 0 },
+                { q: "According to the presentation, economic integration especially benefits:", options: ["MEDCs", "No countries", "Villages only", "Countries without markets"], a: 0 },
+                { q: "What is a multinational corporation?", options: ["A company operating in several countries", "A local household business only", "A government department", "A trade barrier"], a: 0 },
+                { q: "Where are most powerful MNCs predominantly based?", options: ["MEDCs", "LEDCs only", "Countries without trade", "Rural settlements only"], a: 0 },
+                { q: "What can powerful MNCs influence?", options: ["Government trade decisions", "Earth's rotation", "Natural rainfall", "Ocean currents"], a: 0 },
+                { q: "Who controls most global trade according to the presentation?", options: ["MEDCs", "LEDCs alone", "Local villages", "No identifiable group"], a: 0 },
+                { q: "What is foreign direct investment?", options: ["Foreign investment in a business in another country", "A tax on imported goods", "A limit on import quantities", "A cultural exchange programme"], a: 0 },
+                { q: "What is economic interdependence?", options: ["Countries relying on one another economically", "Countries ending every connection", "One company setting a tariff", "The loss of all transport"], a: 0 }
+            ],
+            'game3': [
+                { q: "How can access to a larger market affect an economy?", options: ["Increase trade and economic growth", "End all production", "Reduce every investment", "Stop cultural exchange"], a: 0 },
+                { q: "What does cultural exchange promote?", options: ["Sharing cultural ideas and practices", "Loss of every job", "Higher trade barriers", "Financial instability only"], a: 0 },
+                { q: "Which benefit spreads technology and innovation?", options: ["Access to technology", "Economic disparity", "Cultural clashes", "Resource exploitation"], a: 0 },
+                { q: "What connects people globally?", options: ["Improved communication technology", "Loss of sovereignty", "Outsourcing", "Corporation tax"], a: 0 },
+                { q: "How can global institutions benefit learners?", options: ["Expand education opportunities", "End all programmes", "Reduce communication", "Increase isolation"], a: 0 },
+                { q: "What can foreign investment do for local economies?", options: ["Boost them", "Remove every industry", "End infrastructure", "Stop market access"], a: 0 },
+                { q: "What encourages innovation under globalisation?", options: ["Competition and collaboration", "Isolation and secrecy", "Only trade barriers", "Cultural erosion"], a: 0 },
+                { q: "What can economic development improve?", options: ["Standards of living", "Trade barriers only", "Financial crises", "Environmental damage"], a: 0 },
+                { q: "Why may economic interdependence reduce conflict?", options: ["Countries have shared economic interests", "It removes all governments", "It ends cultural contact", "It prevents trade"], a: 0 },
+                { q: "What consumer benefit does globalisation provide?", options: ["A wider variety of goods and services", "Only one local product", "Higher time barriers", "No access to imports"], a: 0 }
+            ],
+            'game4': [
+                { q: "Which problem can widen the gap between rich and poor nations?", options: ["Economic disparity", "Cultural exchange", "Technology transfer", "Education opportunities"], a: 0 },
+                { q: "What may happen when work moves to cheaper-labour countries?", options: ["Job losses", "All wages rise", "Trade ends", "Transport disappears"], a: 0 },
+                { q: "What can increased industrial activity cause?", options: ["Environmental degradation", "Automatic conservation", "No pollution", "Lower production"], a: 0 },
+                { q: "What may workers in developing countries face?", options: ["Poor conditions and low wages", "Guaranteed high wages", "No employment risks", "Only cultural exchange"], a: 0 },
+                { q: "What can over-reliance on foreign economies create?", options: ["Dependency", "Full independence", "No vulnerability", "Cultural diversity only"], a: 0 },
+                { q: "What is export-led development?", options: ["Development through industries producing for export", "A policy stopping exports", "A ban on infrastructure", "A cultural programme"], a: 0 },
+                { q: "What does government invest in to support export-led development?", options: ["Industries and export infrastructure", "Trade barriers only", "Cultural clashes", "Foreign taxes"], a: 0 },
+                { q: "Which food exports are listed for South Africa?", options: ["Citrus fruit, maize, and wine", "Petroleum, coal, and gold", "Cars, phones, and clothing", "Coffee, tea, and cocoa"], a: 0 },
+                { q: "Which fuel-industry company is listed?", options: ["Sasol", "Outspan", "European Commission", "World Bank"], a: 0 },
+                { q: "What can technology transfer provide to developing economies?", options: ["Knowledge, skills, methods, or equipment", "Higher time barriers", "Cultural isolation", "A complete loss of sovereignty"], a: 0 }
+            ]
+        };
+
+        const canvas = document.getElementById("gameCanvas");
+        const ctx = canvas.getContext("2d");
+        const gridSize = 20;
+        const tileCountX = canvas.width / gridSize;
+        const tileCountY = canvas.height / gridSize;
+
+        let snake = [];
+        let dx = 0;
+        let dy = -1;
+        let foodX, foodY;
+        let bonusX = -1, bonusY = -1;
+        let score = 0;
+        let applesEaten = 0;
+        let gameLoop;
+        let currentTopic = [];
+        let isGoldenAppleActive = false;
+        let activeQuestionValue = 1; 
+        let isPausedPendingInput = true;
+
+        function startGame(categoryKey) {
+            document.getElementById('categorySelection').style.display = 'none';
+            document.getElementById('gameArea').style.display = 'flex';
+            currentTopic = [...questionDB[categoryKey]];
+            snake = [{x: 15, y: 10}, {x: 15, y: 11}, {x: 15, y: 12}];
+            dx = 0; dy = -1; score = 0; applesEaten = 0;
+            updateScoreboard();
+            spawnFood();
+            document.addEventListener("keydown", handleKeyInput);
+            isPausedPendingInput = true;
+            document.getElementById('pauseOverlay').style.display = 'flex';
+            drawStaticBoard();
+        }
+
+        function drawStaticBoard() {
+            clearCanvas();
+            drawFood();
+            if (isGoldenAppleActive) drawBonusFood();
+            drawSnake();
+        }
+
+        function drawGame() {
+            moveSnake();
+            if (applesEaten >= 10) {
+                clearInterval(gameLoop);
+                endGame(true);
+                return;
+            }
+            clearCanvas();
+            drawFood();
+            if (isGoldenAppleActive) drawBonusFood();
+            drawSnake();
+        }
+
+        function clearCanvas() {
+            ctx.fillStyle = "#d1e0e0";
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+        }
+
+        function drawSnake() {
+            snake.forEach((part, index) => {
+                ctx.fillStyle = index === 0 ? "#002b5e" : "#3385ff"; 
+                ctx.fillRect(part.x * gridSize, part.y * gridSize, gridSize - 2, gridSize - 2);
+            });
+        }
+
+        function drawFood() {
+            ctx.fillStyle = "#d32f2f"; 
+            ctx.beginPath();
+            ctx.arc(foodX * gridSize + gridSize/2, foodY * gridSize + gridSize/2, gridSize/2 - 2, 0, 2 * Math.PI);
+            ctx.fill();
+        }
+
+        function drawBonusFood() {
+            ctx.fillStyle = "#ffc107"; 
+            ctx.shadowBlur = 10;
+            ctx.shadowColor = "#ffc107";
+            ctx.beginPath();
+            ctx.arc(bonusX * gridSize + gridSize/2, bonusY * gridSize + gridSize/2, gridSize/2 - 2, 0, 2 * Math.PI);
+            ctx.fill();
+            ctx.shadowBlur = 0; 
+        }
+
+        function moveSnake() {
+            const head = { x: snake[0].x + dx, y: snake[0].y + dy };
+            if (head.x < 0) head.x = tileCountX - 1;
+            if (head.x >= tileCountX) head.x = 0;
+            if (head.y < 0) head.y = tileCountY - 1;
+            if (head.y >= tileCountY) head.y = 0;
+            for (let i = 0; i < snake.length; i++) {
+                if (head.x === snake[i].x && head.y === snake[i].y) {
+                    clearInterval(gameLoop);
+                    MayHubSounds.stopSnakeMovement();
+                    endGame(false);
+                    return;
+                }
+            }
+            snake.unshift(head);
+            if (head.x === foodX && head.y === foodY) {
+                clearInterval(gameLoop);
+                MayHubSounds.stopSnakeMovement();
+                MayHubSounds.playSnakeBite();
+                activeQuestionValue = 1;
+                applesEaten++;
+                spawnFood();
+                triggerQuestion(1);
+            } else if (isGoldenAppleActive && head.x === bonusX && head.y === bonusY) {
+                clearInterval(gameLoop);
+                MayHubSounds.stopSnakeMovement();
+                MayHubSounds.playSnakeBite();
+                activeQuestionValue = 3;
+                isGoldenAppleActive = false; 
+                triggerQuestion(3);
+            } else {
+                snake.pop();
+            }
+            if (!isGoldenAppleActive && (applesEaten === 2 || applesEaten === 5 || applesEaten === 8)) {
+                spawnBonusFood();
+            }
+        }
+
+        function spawnFood() {
+            foodX = Math.floor(Math.random() * tileCountX);
+            foodY = Math.floor(Math.random() * tileCountY);
+            snake.forEach(part => { if (part.x === foodX && part.y === foodY) spawnFood(); });
+        }
+
+        function spawnBonusFood() {
+            isGoldenAppleActive = true;
+            bonusX = Math.floor(Math.random() * tileCountX);
+            bonusY = Math.floor(Math.random() * tileCountY);
+            if (bonusX === foodX && bonusY === foodY) spawnBonusFood();
+        }
+
+        function handleKeyInput(event) {
+            const key = event.keyCode;
+            if (key === 37) handleInput('LEFT');
+            if (key === 38) handleInput('UP');
+            if (key === 39) handleInput('RIGHT');
+            if (key === 40) handleInput('DOWN');
+        }
+
+        function handleInput(dir) {
+            if (isPausedPendingInput) {
+                isPausedPendingInput = false;
+                document.getElementById('pauseOverlay').style.display = 'none';
+                gameLoop = setInterval(drawGame, 150);
+                MayHubSounds.startSnakeMovement();
+            }
+            if (dir === 'LEFT' && dx !== 1) { dx = -1; dy = 0; }
+            if (dir === 'UP' && dy !== 1) { dx = 0; dy = -1; }
+            if (dir === 'RIGHT' && dx !== -1) { dx = 1; dy = 0; }
+            if (dir === 'DOWN' && dy !== -1) { dx = 0; dy = 1; }
+        }
+
+        let currentQuestionObj;
+        function triggerQuestion(pointsValue) {
+            if (currentTopic.length === 0) {
+                endGame(true);
+                return;
+            }
+            const qIndex = Math.floor(Math.random() * currentTopic.length);
+            currentQuestionObj = currentTopic.splice(qIndex, 1)[0]; 
+            document.getElementById('modalPoints').innerText = pointsValue === 3 ? "⭐ BONUS: 3 Points" : "🍎 Regular: 1 Point";
+            document.getElementById('modalPoints').className = pointsValue === 3 ? "modal-points golden-text" : "modal-points";
+            document.getElementById('modalQuestion').innerText = currentQuestionObj.q;
+            const mcOptions = document.getElementById('mcOptions');
+            mcOptions.innerHTML = "";
+            document.getElementById('btnContinue').style.display = 'none';
+            currentQuestionObj.options.forEach((opt, index) => {
+                let btn = document.createElement("button");
+                btn.className = "option-btn";
+                btn.innerText = opt;
+                btn.onclick = () => answerQuestion(btn, index);
+                mcOptions.appendChild(btn);
+            });
+            document.getElementById('questionModal').style.display = 'flex';
+        }
+
+        function answerQuestion(clickedBtn, selectedIndex) {
+            const allBtns = document.querySelectorAll('.option-btn');
+            allBtns.forEach(btn => btn.disabled = true); 
+            if (selectedIndex === currentQuestionObj.a) {
+                MayHubSounds.playCorrect();
+                clickedBtn.classList.add('correct');
+                score += activeQuestionValue;
+                updateScoreboard();
+                snake.push({ ...snake[snake.length - 1] }); 
+            } else {
+                MayHubSounds.playWrong();
+                clickedBtn.classList.add('incorrect');
+                allBtns[currentQuestionObj.a].classList.add('correct');
+            }
+            document.getElementById('btnContinue').style.display = 'block';
+        }
+
+        function closeModalAndPause() {
+            document.getElementById('questionModal').style.display = 'none';
+            updateScoreboard();
+            drawStaticBoard();
+            if (applesEaten < 10) {
+                isPausedPendingInput = true;
+                document.getElementById('pauseOverlay').style.display = 'flex';
+            } else {
+                endGame(true);
+            }
+        }
+
+        function updateScoreboard() {
+            document.getElementById('appleCount').innerText = applesEaten;
+            document.getElementById('scoreText').innerText = score;
+        }
+
+        function endGame(didWin) {
+            MayHubSounds.stopSnakeMovement();
+            document.getElementById('gameArea').style.display = 'none';
+            document.getElementById('endScreen').style.display = 'block';
+            document.getElementById('finalScoreText').innerText = score;
+            const title = document.getElementById('endTitle');
+            const msg = document.getElementById('endMessage');
+            if (didWin) {
+                title.innerText = "Level Complete!";
+                title.style.color = "#28a745";
+                msg.innerText = "Excellent! You've mastered Globalisation!";
+            } else {
+                title.innerText = "Game Over!";
+                title.style.color = "#dc3545";
+                msg.innerText = "Globalisation connects many systems. Try again and strengthen your understanding!";
+            }
+        }
+    </script>
+</body>
+</html>

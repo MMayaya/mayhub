@@ -13,7 +13,7 @@
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>May Learning Hub | Grade 11 Geography Jeopardy</title>
+    <title>May Learning Hub | Grade 12 Geography Jeopardy</title>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f0f4f8; color: #333; line-height: 1.6; display: flex; flex-direction: column; min-height: 100vh; overflow-x: hidden; }
@@ -114,9 +114,9 @@
     </nav>
 
     <header class="game-header">
-        <h1 class="game-title">Grade 11 Geography Jeopardy</h1>
-        <p class="game-subtitle">Topic: Factors Affecting Development</p>
-        <p style="font-size: 0.78rem; color: #52606d; margin-top: 0.45rem;">Source: Factors Affecting Development - Grade 11 Geography Term 3 presentation.</p>
+        <h1 class="game-title">Grade 12 Geography Jeopardy</h1>
+        <p class="game-subtitle">Topic: Major Industrial Regions</p>
+        <p style="font-size: 0.78rem; color: #52606d; margin-top: 0.45rem;">Source: South Africa's Major Industrial Regions - Grade 12 Geography Term 3 presentation.</p>
     </header>
 
     <section class="name-setup" id="nameSetupSection">
@@ -133,7 +133,7 @@
                 <button class="btn-edit" id="btnEditNames" onclick="showNameEditor()">Edit Names</button>
                 <button class="btn-reset" onclick="resetPlayerNames()">Reset</button>
             </div>
-            <p class="hint">80 unique clues drawn from the Grade 11 Term 3 Development presentation! </p>
+            <p class="hint">80 unique clues drawn from the Grade 12 Term 3 Major Industrial Regions presentation!</p>
         </div>
     </section>
 
@@ -191,71 +191,353 @@
 
         <script src="../../../../../game-audio.js"></script>
 <script>
-        const economicFactors = [
-            { term: "Infrastructure", detail: "The basic physical and organisational systems and facilities needed for a society and economy to function, such as transport, electricity, water, and communications." },
-            { term: "Investment", detail: "The commitment of money, capital, or other resources to an activity or project in order to gain future benefits." },
-            { term: "Economic Policies", detail: "Government decisions, laws, and actions used to influence how an economy operates." },
-            { term: "Technology", detail: "The application of knowledge, tools, and techniques to solve problems and produce goods or services." },
-            { term: "Natural Resources", detail: "Materials and environmental features that occur in nature and can be used by people, such as water, land, minerals, and forests." },
-            { term: "Trade", detail: "The buying, selling, or exchange of goods and services between people, regions, or countries." },
-            { term: "Labor Market Conditions", detail: "The circumstances affecting the supply of workers, demand for labour, employment, wages, and available skills." },
-            { term: "Financial Systems", detail: "The institutions, markets, and rules that enable saving, borrowing, payments, and investment." },
-            { term: "Government Spending", detail: "Money used by government to provide public services, infrastructure, and programmes." },
-            { term: "Entrepreneurship", detail: "The process of identifying an opportunity, organising resources, and creating or managing an enterprise while accepting risk." }
-        ];
-        const socialFactors = [
-            { term: "Education", detail: "The organised process through which people acquire knowledge, skills, values, and understanding." },
-            { term: "Healthcare", detail: "The services and systems used to prevent and treat illness and maintain people's health." },
-            { term: "Social Stability", detail: "A condition in which society has order, security, and predictable social relationships." },
-            { term: "Cultural Attitudes", detail: "Shared beliefs, values, and viewpoints that influence how people think and behave." },
-            { term: "Population Growth", detail: "An increase in the number of people living in a place over a period of time." },
-            { term: "Gender Equality", detail: "Equal rights, responsibilities, opportunities, and treatment for people of all genders." },
-            { term: "Social Services", detail: "Public or community services that support people's welfare and basic needs, such as care, housing support, and social assistance." },
-            { term: "Crime Rates", detail: "Measures of how frequently crimes occur in a population or area during a given period." },
-            { term: "Community Engagement", detail: "The process of involving community members in decisions and actions that affect their lives." },
-            { term: "Migration", detail: "The movement of people from one place to another to live or work, either temporarily or permanently." }
-        ];
-        const environmentalFactors = [
-            { term: "Climate Change", detail: "Long-term changes in average temperatures and other climate patterns." },
-            { term: "Natural Disasters", detail: "Severe natural events that cause major damage, loss, or disruption to people and places." },
-            { term: "Environmental Policies", detail: "Government laws, rules, and plans designed to manage human impacts and protect the environment." },
-            { term: "Biodiversity", detail: "The variety of living organisms, including diversity within species, between species, and among ecosystems." },
-            { term: "Pollution", detail: "The introduction of harmful substances or forms of energy into the environment." },
-            { term: "Resource Depletion", detail: "The use of a natural resource faster than it can be replaced or renewed." },
-            { term: "Land Use", detail: "The way land is managed and used for purposes such as farming, housing, industry, or conservation." },
-            { term: "Water Availability", detail: "The amount of usable water that is accessible to people and economic activities." },
-            { term: "Air Quality", detail: "The degree to which the air is clean and free from harmful pollutants." },
-            { term: "Waste Management", detail: "The collection, transport, treatment, recycling, and disposal of waste." }
-        ];
-        const communityFactors = [
-            { term: "Community-Based Development", detail: "An approach in which community members actively lead and participate in planning, implementing, and managing projects that affect their lives." },
-            { term: "Local Participation", detail: "The involvement of community members in decisions so that projects reflect local priorities and needs." },
-            { term: "Empowerment", detail: "The process of building people's ability and authority to make decisions and take control of their own development." },
-            { term: "Sustainability", detail: "The ability to meet present needs while maintaining resources and opportunities for the future." },
-            { term: "Collaboration", detail: "People or organisations working together and sharing resources or expertise to achieve a common goal." },
-            { term: "Holistic Approach", detail: "A method that considers the whole situation and the connections among its economic, social, and environmental parts." },
-            { term: "Ownership", detail: "The community's responsibility for, control over, and commitment to a project or its outcomes." }
-        ];
-
+        const regionOverview = [
+    {
+        "q": "Define an industrial region.",
+        "a": "A part of a country where industrial activities are concentrated."
+    },
+    {
+        "q": "Name the five general reasons industrial regions develop.",
+        "a": "Raw materials, labour, power and water, transport infrastructure, and markets."
+    },
+    {
+        "q": "Name South Africa?s four major industrial regions in the overview.",
+        "a": "PWV-Gauteng, Durban-Pinetown, Port Elizabeth-Uitenhage, and Southwestern Cape."
+    },
+    {
+        "q": "Expand the abbreviation PWV.",
+        "a": "Pretoria-Witwatersrand-Vereeniging."
+    },
+    {
+        "q": "Which region has gold and coal, thermal power, and steel, BMW, and SASOL?",
+        "a": "PWV-Gauteng."
+    },
+    {
+        "q": "Which region has sugarcane and coal, river or rainfall power, and sugar, fruit, and aluminium?",
+        "a": "Durban-Pinetown."
+    },
+    {
+        "q": "Which region has mohair and leather, Orange River water, and car and textile industries?",
+        "a": "Port Elizabeth-Uitenhage."
+    },
+    {
+        "q": "Which region has grapes and fish, nuclear power and dams, and wine, juice, and oil refining?",
+        "a": "Southwestern Cape."
+    },
+    {
+        "q": "Why is raw-material availability important?",
+        "a": "Industries need inputs to manufacture products."
+    },
+    {
+        "q": "Why is labour supply important?",
+        "a": "Industries need skilled and unskilled workers."
+    },
+    {
+        "q": "Why are power and water important?",
+        "a": "They support industrial operations and processing."
+    },
+    {
+        "q": "Why is transport infrastructure important?",
+        "a": "It moves inputs and finished products."
+    },
+    {
+        "q": "Why is access to markets important?",
+        "a": "Industries need buyers for manufactured goods."
+    },
+    {
+        "q": "Which overview region includes an Industrial Development Zone?",
+        "a": "Port Elizabeth-Uitenhage."
+    },
+    {
+        "q": "Which overview region uses nuclear power?",
+        "a": "Southwestern Cape."
+    },
+    {
+        "q": "Which overview region uses abundant rainfall and river water?",
+        "a": "Durban-Pinetown."
+    },
+    {
+        "q": "Which overview region receives inland transfer-scheme water?",
+        "a": "PWV-Gauteng."
+    },
+    {
+        "q": "Which two overview regions are strongly linked to automotive manufacturing?",
+        "a": "PWV-Gauteng and Port Elizabeth-Uitenhage."
+    },
+    {
+        "q": "Which two overview regions strongly process agricultural fruit products?",
+        "a": "Durban-Pinetown and Southwestern Cape."
+    },
+    {
+        "q": "Which two regions have major port advantages?",
+        "a": "Durban-Pinetown and Port Elizabeth-Uitenhage, while Cape Town also has an important harbour."
+    }
+];
+        const pwvGauteng = [
+    {
+        "q": "Why is PWV described as South Africa?s most important industrial area?",
+        "a": "It produces about 44% of national industrial output."
+    },
+    {
+        "q": "What percentage of South Africa?s land does PWV occupy?",
+        "a": "About 1.1%."
+    },
+    {
+        "q": "What percentage of the population does PWV accommodate?",
+        "a": "About 30%."
+    },
+    {
+        "q": "What percentage of industrial production is PWV responsible for?",
+        "a": "About 44%."
+    },
+    {
+        "q": "Name five mineral resources listed for PWV.",
+        "a": "Iron, manganese, coal, platinum, and gold."
+    },
+    {
+        "q": "Name the overview water sources for PWV.",
+        "a": "Vaal River, Lesotho Highlands, and Tugela-Vaal projects."
+    },
+    {
+        "q": "Where does PWV receive power from?",
+        "a": "Mpumalanga and Limpopo."
+    },
+    {
+        "q": "Which labour advantage supports PWV?",
+        "a": "A large labour pool with skilled and unskilled workers."
+    },
+    {
+        "q": "Which market advantages support PWV?",
+        "a": "Access to domestic and international markets and a large ready local market."
+    },
+    {
+        "q": "Name three PWV overview industries.",
+        "a": "Any three of iron and steel, thermal power, automotive, chemicals, metal, and IT."
+    },
+    {
+        "q": "Which company exemplifies PWV steel production?",
+        "a": "ArcelorMittal."
+    },
+    {
+        "q": "Which company exemplifies PWV automotive production?",
+        "a": "BMW."
+    },
+    {
+        "q": "Which company exemplifies PWV chemicals?",
+        "a": "SASOL."
+    },
+    {
+        "q": "What does SASOL produce from coal at Sasolburg?",
+        "a": "Liquid fuel."
+    },
+    {
+        "q": "How did mining help build Gauteng?s labour supply?",
+        "a": "Mines originally attracted unskilled workers."
+    },
+    {
+        "q": "How did Gauteng agriculture support industrial growth?",
+        "a": "It fed miners and the growing population and supplied industrial raw materials."
+    },
+    {
+        "q": "How does Gauteng?s flat plateau favour development?",
+        "a": "It makes factory and transport construction easier and relatively inexpensive."
+    },
+    {
+        "q": "Name three Gauteng environmental or resource constraints.",
+        "a": "Pollution, acid mine drainage, and water shortages."
+    },
+    {
+        "q": "Name three Gauteng urban or operating constraints.",
+        "a": "Congestion, crime, ageing infrastructure or load-shedding, and labour disputes or skills mismatch."
+    },
+    {
+        "q": "Give the Gauteng socio-economic balance.",
+        "a": "Benefits include jobs, growth, markets, infrastructure, and skills; costs include overcrowding, pollution, inequality, crime, and load-shedding."
+    }
+];
+        const durbanAndEasternCape = [
+    {
+        "q": "Name four Durban-Pinetown raw materials.",
+        "a": "Coal, sugarcane, subtropical fruits, and nuts."
+    },
+    {
+        "q": "What climate favours Durban-Pinetown agriculture?",
+        "a": "A moist climate."
+    },
+    {
+        "q": "Where does Durban-Pinetown obtain abundant water?",
+        "a": "From rainfall and rivers."
+    },
+    {
+        "q": "What labour is available in Durban-Pinetown?",
+        "a": "Skilled and unskilled labour."
+    },
+    {
+        "q": "What market access supports Durban-Pinetown?",
+        "a": "Local and international market access."
+    },
+    {
+        "q": "Name the two Durban sugar-refining companies.",
+        "a": "Tongaat Hulett and Illovo."
+    },
+    {
+        "q": "Which three fruits are processed in Durban-Pinetown?",
+        "a": "Bananas, avocados, and pineapples."
+    },
+    {
+        "q": "Which mineral is exported through the Durban region?",
+        "a": "Coal."
+    },
+    {
+        "q": "Which nut product is listed for Durban-Pinetown?",
+        "a": "Cashew nuts."
+    },
+    {
+        "q": "Which company exemplifies Durban aluminium?",
+        "a": "BHP Billiton."
+    },
+    {
+        "q": "Name the Port Elizabeth-Uitenhage raw materials.",
+        "a": "Mohair wool, pineapples, and leather."
+    },
+    {
+        "q": "Which two schemes supply Port Elizabeth-Uitenhage water?",
+        "a": "Fish River Scheme and Orange River Project."
+    },
+    {
+        "q": "What labour advantage supports Port Elizabeth-Uitenhage?",
+        "a": "A large unskilled labour base."
+    },
+    {
+        "q": "What new port terminal supports the region?",
+        "a": "Ngqura."
+    },
+    {
+        "q": "Which development designation supports Port Elizabeth-Uitenhage?",
+        "a": "An Industrial Development Zone (IDZ)."
+    },
+    {
+        "q": "Name the three listed car manufacturers.",
+        "a": "Volkswagen, Ford, and GM."
+    },
+    {
+        "q": "Which automotive-parts example is given?",
+        "a": "Goodyear tyres."
+    },
+    {
+        "q": "Which material-processing industries are listed?",
+        "a": "Textiles and leather."
+    },
+    {
+        "q": "Which salt company is listed?",
+        "a": "Cerebos."
+    },
+    {
+        "q": "What common advantage links Durban-Pinetown and Port Elizabeth-Uitenhage?",
+        "a": "Good transport and market connections, including port access."
+    }
+];
+        const southwesternCapeAndImpacts = [
+    {
+        "q": "Name five Southwestern Cape raw materials.",
+        "a": "Grapes, fruit, wheat, fish, and fynbos."
+    },
+    {
+        "q": "Describe the Southwestern Cape climate.",
+        "a": "Mediterranean, with wet winters and dry summers."
+    },
+    {
+        "q": "Name two overview dams storing scarce Cape water.",
+        "a": "Wemmershoek and Voelvlei."
+    },
+    {
+        "q": "Which nuclear station supplies the region?",
+        "a": "Koeberg."
+    },
+    {
+        "q": "Which overseas shipping destinations are listed?",
+        "a": "Asia, India, and Australia."
+    },
+    {
+        "q": "Which city dominates regional industry?",
+        "a": "Cape Town."
+    },
+    {
+        "q": "What national industrial-output share does the region produce?",
+        "a": "About 11%."
+    },
+    {
+        "q": "Why is Cape Town?s legislative-capital role favourable?",
+        "a": "It strengthens the city?s importance and service concentration."
+    },
+    {
+        "q": "Which offshore bank supports fishing?",
+        "a": "Agulhas Bank."
+    },
+    {
+        "q": "Name three detailed water sources for dry summers.",
+        "a": "Steenbras, Theewaterskloof, and the Palmiet scheme."
+    },
+    {
+        "q": "How does the Mediterranean climate support industry?",
+        "a": "It provides good working conditions, while dry summers aid dried-fruit production."
+    },
+    {
+        "q": "Name the fruit-canning and wine-making centres.",
+        "a": "Stellenbosch, Paarl, and Wellington."
+    },
+    {
+        "q": "Between which places does frozen and canned fish processing occur?",
+        "a": "From Lamberts Bay to Gansbaai."
+    },
+    {
+        "q": "Name two other major regional activities.",
+        "a": "Flour milling and wheat products; textiles, clothing, and footwear."
+    },
+    {
+        "q": "How does mountainous terrain hinder the region?",
+        "a": "It raises construction and transport costs."
+    },
+    {
+        "q": "How can prolonged drought affect industry?",
+        "a": "It threatens water security, agriculture, and food processing."
+    },
+    {
+        "q": "How does distance from Gauteng affect the region?",
+        "a": "It raises transport costs to inland markets."
+    },
+    {
+        "q": "How do seasonal agricultural outputs affect processors?",
+        "a": "They can create inconsistent raw-material supply."
+    },
+    {
+        "q": "How do limited minerals and urban sprawl constrain development?",
+        "a": "Limited minerals restrict heavy industry, while sprawl reduces expansion space."
+    },
+    {
+        "q": "Summarise the Southwestern Cape socio-economic benefits.",
+        "a": "Agro-industry jobs, exports and foreign exchange, urban infrastructure, economic diversity, and improved living standards."
+    }
+];
         function makeJeopardyQuestions(factors, offset) {
             return Array.from({ length: 5 }, (_, index) => {
 
-                const factor = factors[(offset * 5 + index) % factors.length];
-                const askForDefinition = (offset + index) % 2 === 1;
+
+                const question = factors[(offset * 5 + index) % factors.length];
                 return {
                     points: (index + 1) * 10,
-                    q: askForDefinition ? "Define " + factor.term + "." : "Which development factor matches this definition? " + factor.detail,
-                    a: askForDefinition ? factor.detail : "What is " + factor.term + "?"
+                    q: question.q,
+                    a: question.a
                 };
             });
         }
 
         function makePlayerBoard(offset) {
             return [
-                { name: "Economic Factors", questions: makeJeopardyQuestions(economicFactors, offset) },
-                { name: "Social Factors", questions: makeJeopardyQuestions(socialFactors, offset) },
-                { name: "Environmental Factors", questions: makeJeopardyQuestions(environmentalFactors, offset) },
-                { name: "Community Development", questions: makeJeopardyQuestions(communityFactors, offset) }
+                { name: "Regional Overview", questions: makeJeopardyQuestions(regionOverview, offset) },
+                { name: "PWV-Gauteng", questions: makeJeopardyQuestions(pwvGauteng, offset) },
+                { name: "Durban and Eastern Cape", questions: makeJeopardyQuestions(durbanAndEasternCape, offset) },
+                { name: "Southwestern Cape and Impacts", questions: makeJeopardyQuestions(southwesternCapeAndImpacts, offset) }
             ];
         }
 
@@ -382,7 +664,7 @@
 
         function updateScore(i) { document.getElementById(`score-${i}`).innerText = scores[i]; }
         function closeModal() { activeTileButton.innerText = ""; activeTileButton.disabled = true; modal.style.display = 'none'; }
-        
+
         buildBoards();
 
         function resetPlayerNames() {

@@ -13,7 +13,7 @@
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>May Learning Hub | Grade 11 Geography Jeopardy</title>
+    <title>May Learning Hub | Grade 12 Geography Jeopardy</title>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f0f4f8; color: #333; line-height: 1.6; display: flex; flex-direction: column; min-height: 100vh; overflow-x: hidden; }
@@ -114,9 +114,9 @@
     </nav>
 
     <header class="game-header">
-        <h1 class="game-title">Grade 11 Geography Jeopardy</h1>
-        <p class="game-subtitle">Topic: Factors Affecting Development</p>
-        <p style="font-size: 0.78rem; color: #52606d; margin-top: 0.45rem;">Source: Factors Affecting Development - Grade 11 Geography Term 3 presentation.</p>
+        <h1 class="game-title">Grade 12 Geography Jeopardy</h1>
+        <p class="game-subtitle">Topic: Secondary and Tertiary Sectors</p>
+        <p style="font-size: 0.78rem; color: #52606d; margin-top: 0.45rem;">Source: Secondary and Tertiary Sectors - Grade 12 Geography Term 3 presentation.</p>
     </header>
 
     <section class="name-setup" id="nameSetupSection">
@@ -133,7 +133,7 @@
                 <button class="btn-edit" id="btnEditNames" onclick="showNameEditor()">Edit Names</button>
                 <button class="btn-reset" onclick="resetPlayerNames()">Reset</button>
             </div>
-            <p class="hint">80 unique clues drawn from the Grade 11 Term 3 Development presentation! </p>
+            <p class="hint">80 unique clues drawn from the Grade 12 Term 3 Secondary and Tertiary Sectors presentation!</p>
         </div>
     </section>
 
@@ -191,71 +191,353 @@
 
         <script src="../../../../../game-audio.js"></script>
 <script>
-        const economicFactors = [
-            { term: "Infrastructure", detail: "The basic physical and organisational systems and facilities needed for a society and economy to function, such as transport, electricity, water, and communications." },
-            { term: "Investment", detail: "The commitment of money, capital, or other resources to an activity or project in order to gain future benefits." },
-            { term: "Economic Policies", detail: "Government decisions, laws, and actions used to influence how an economy operates." },
-            { term: "Technology", detail: "The application of knowledge, tools, and techniques to solve problems and produce goods or services." },
-            { term: "Natural Resources", detail: "Materials and environmental features that occur in nature and can be used by people, such as water, land, minerals, and forests." },
-            { term: "Trade", detail: "The buying, selling, or exchange of goods and services between people, regions, or countries." },
-            { term: "Labor Market Conditions", detail: "The circumstances affecting the supply of workers, demand for labour, employment, wages, and available skills." },
-            { term: "Financial Systems", detail: "The institutions, markets, and rules that enable saving, borrowing, payments, and investment." },
-            { term: "Government Spending", detail: "Money used by government to provide public services, infrastructure, and programmes." },
-            { term: "Entrepreneurship", detail: "The process of identifying an opportunity, organising resources, and creating or managing an enterprise while accepting risk." }
-        ];
-        const socialFactors = [
-            { term: "Education", detail: "The organised process through which people acquire knowledge, skills, values, and understanding." },
-            { term: "Healthcare", detail: "The services and systems used to prevent and treat illness and maintain people's health." },
-            { term: "Social Stability", detail: "A condition in which society has order, security, and predictable social relationships." },
-            { term: "Cultural Attitudes", detail: "Shared beliefs, values, and viewpoints that influence how people think and behave." },
-            { term: "Population Growth", detail: "An increase in the number of people living in a place over a period of time." },
-            { term: "Gender Equality", detail: "Equal rights, responsibilities, opportunities, and treatment for people of all genders." },
-            { term: "Social Services", detail: "Public or community services that support people's welfare and basic needs, such as care, housing support, and social assistance." },
-            { term: "Crime Rates", detail: "Measures of how frequently crimes occur in a population or area during a given period." },
-            { term: "Community Engagement", detail: "The process of involving community members in decisions and actions that affect their lives." },
-            { term: "Migration", detail: "The movement of people from one place to another to live or work, either temporarily or permanently." }
-        ];
-        const environmentalFactors = [
-            { term: "Climate Change", detail: "Long-term changes in average temperatures and other climate patterns." },
-            { term: "Natural Disasters", detail: "Severe natural events that cause major damage, loss, or disruption to people and places." },
-            { term: "Environmental Policies", detail: "Government laws, rules, and plans designed to manage human impacts and protect the environment." },
-            { term: "Biodiversity", detail: "The variety of living organisms, including diversity within species, between species, and among ecosystems." },
-            { term: "Pollution", detail: "The introduction of harmful substances or forms of energy into the environment." },
-            { term: "Resource Depletion", detail: "The use of a natural resource faster than it can be replaced or renewed." },
-            { term: "Land Use", detail: "The way land is managed and used for purposes such as farming, housing, industry, or conservation." },
-            { term: "Water Availability", detail: "The amount of usable water that is accessible to people and economic activities." },
-            { term: "Air Quality", detail: "The degree to which the air is clean and free from harmful pollutants." },
-            { term: "Waste Management", detail: "The collection, transport, treatment, recycling, and disposal of waste." }
-        ];
-        const communityFactors = [
-            { term: "Community-Based Development", detail: "An approach in which community members actively lead and participate in planning, implementing, and managing projects that affect their lives." },
-            { term: "Local Participation", detail: "The involvement of community members in decisions so that projects reflect local priorities and needs." },
-            { term: "Empowerment", detail: "The process of building people's ability and authority to make decisions and take control of their own development." },
-            { term: "Sustainability", detail: "The ability to meet present needs while maintaining resources and opportunities for the future." },
-            { term: "Collaboration", detail: "People or organisations working together and sharing resources or expertise to achieve a common goal." },
-            { term: "Holistic Approach", detail: "A method that considers the whole situation and the connections among its economic, social, and environmental parts." },
-            { term: "Ownership", detail: "The community's responsibility for, control over, and commitment to a project or its outcomes." }
-        ];
-
+        const sectorContributions = [
+    {
+        "q": "What two streams characterise South Africa's secondary and tertiary economy?",
+        "a": "A vibrant formal stream and an important informal stream."
+    },
+    {
+        "q": "Which stream contributes to official GDP figures?",
+        "a": "The formal sector."
+    },
+    {
+        "q": "Which stream contributes to official growth figures?",
+        "a": "The formal sector."
+    },
+    {
+        "q": "Why can informal growth only be estimated?",
+        "a": "The informal sector is unregulated."
+    },
+    {
+        "q": "Why can informal employment only be estimated?",
+        "a": "It is not fully recorded because the sector is unregulated."
+    },
+    {
+        "q": "What tax contribution does the informal sector make according to the slide?",
+        "a": "It does not contribute tax."
+    },
+    {
+        "q": "How does sector size relate to development?",
+        "a": "Larger secondary and tertiary sectors indicate a higher level of development."
+    },
+    {
+        "q": "Which sector makes the largest written contribution to GDP?",
+        "a": "The tertiary sector."
+    },
+    {
+        "q": "What written GDP share is given for tertiary activity?",
+        "a": "65.9%."
+    },
+    {
+        "q": "What written GDP share is given for secondary activity?",
+        "a": "31.6%."
+    },
+    {
+        "q": "What value does the graph show for primary?",
+        "a": "10."
+    },
+    {
+        "q": "What value does the graph show for secondary?",
+        "a": "21."
+    },
+    {
+        "q": "What value does the graph show for tertiary?",
+        "a": "69."
+    },
+    {
+        "q": "Which graph sector is smallest?",
+        "a": "Primary."
+    },
+    {
+        "q": "Which graph sector is second largest?",
+        "a": "Secondary."
+    },
+    {
+        "q": "Which graph sector is largest?",
+        "a": "Tertiary."
+    },
+    {
+        "q": "Why must written-slide and graph values be identified separately?",
+        "a": "They show different figures: 65.9% and 31.6% in text versus 69 and 21 in the graph."
+    },
+    {
+        "q": "What does the strong tertiary contribution suggest about South Africa?",
+        "a": "It indicates a high level of development."
+    },
+    {
+        "q": "Which sector shadows the vibrant formal economy?",
+        "a": "The important informal sector."
+    },
+    {
+        "q": "Summarise the measurement difference between formal and informal activity.",
+        "a": "Formal activity is recorded in GDP and growth; informal activity is estimated."
+    }
+];
+        const industryTypes = [
+    {
+        "q": "What change defines secondary economic activity?",
+        "a": "A change in the form of a material."
+    },
+    {
+        "q": "What economic result accompanies manufacturing?",
+        "a": "Value is added."
+    },
+    {
+        "q": "Name the three bases used to categorise industries.",
+        "a": "Volume, location, and function."
+    },
+    {
+        "q": "Which two categories are based on volume?",
+        "a": "Light and heavy industries."
+    },
+    {
+        "q": "How much capital does light industry require?",
+        "a": "Less capital."
+    },
+    {
+        "q": "How much land does light industry generally use?",
+        "a": "A small surface area."
+    },
+    {
+        "q": "What product size is typical of light industry?",
+        "a": "Smaller products."
+    },
+    {
+        "q": "Where is light industry usually located?",
+        "a": "Closer to urban areas and markets."
+    },
+    {
+        "q": "What environmental impact is typical of light industry?",
+        "a": "Low environmental impact."
+    },
+    {
+        "q": "Name three light-industry examples.",
+        "a": "Clothing, electronic goods, and toys."
+    },
+    {
+        "q": "How is heavy industry described financially?",
+        "a": "Capital intensive."
+    },
+    {
+        "q": "How much land does heavy industry use?",
+        "a": "A large surface area."
+    },
+    {
+        "q": "What product size is typical of heavy industry?",
+        "a": "Large products."
+    },
+    {
+        "q": "Where is heavy industry usually located?",
+        "a": "Further from urban areas."
+    },
+    {
+        "q": "What environmental impact is typical of heavy industry?",
+        "a": "High environmental impact."
+    },
+    {
+        "q": "Name three heavy-industry examples.",
+        "a": "Any three of cars, chemical plants, iron and steel, and thermal power plants."
+    },
+    {
+        "q": "Classify a clothing factory by volume.",
+        "a": "Light industry."
+    },
+    {
+        "q": "Classify a thermal power plant by volume.",
+        "a": "Heavy industry."
+    },
+    {
+        "q": "Which functional category is named on the classification slide?",
+        "a": "Bridge or break-of-bulk industry."
+    },
+    {
+        "q": "How do light and heavy industries differ in capital and environmental impact?",
+        "a": "Light needs less capital and has lower impact; heavy is capital intensive with higher impact."
+    }
+];
+        const locationIndustries = [
+    {
+        "q": "Where is a raw-material-orientated industry located?",
+        "a": "Close to the raw-material source."
+    },
+    {
+        "q": "What is another name for raw-material orientation?",
+        "a": "Supply orientation."
+    },
+    {
+        "q": "Why is a paper mill placed near trees?",
+        "a": "Logs are bulky and difficult to transport."
+    },
+    {
+        "q": "Why is it easier to transport paper than logs?",
+        "a": "Paper is the processed finished product and is easier to move."
+    },
+    {
+        "q": "Where is a market-orientated industry located?",
+        "a": "Close to its market."
+    },
+    {
+        "q": "Why are baked foods market orientated?",
+        "a": "They are perishable."
+    },
+    {
+        "q": "Why may large machinery production be market orientated?",
+        "a": "The finished product is bulky and difficult to move."
+    },
+    {
+        "q": "Define a footloose industry.",
+        "a": "An industry that can be located almost anywhere."
+    },
+    {
+        "q": "Name three footloose examples.",
+        "a": "Software companies, call centres, and diamond cutting."
+    },
+    {
+        "q": "How flexible is a footloose industry?",
+        "a": "Highly flexible and able to relocate easily."
+    },
+    {
+        "q": "Define a ubiquitous industry.",
+        "a": "An industry widely distributed wherever people or markets are found."
+    },
+    {
+        "q": "Name three ubiquitous examples.",
+        "a": "Bakeries, newspapers, and soft-drink bottling."
+    },
+    {
+        "q": "Why do ubiquitous industries locate near markets?",
+        "a": "To reduce finished-product transport costs and serve local demand."
+    },
+    {
+        "q": "What product types are common in footloose industries?",
+        "a": "Light, high-value products."
+    },
+    {
+        "q": "What product types are common in ubiquitous industries?",
+        "a": "Perishable or daily-use products."
+    },
+    {
+        "q": "Define a bridge industry.",
+        "a": "An industry located between the raw-material source and market."
+    },
+    {
+        "q": "What bridge-industry example is given?",
+        "a": "An oil refinery at a harbour."
+    },
+    {
+        "q": "How does crude oil reach the bridge location?",
+        "a": "By oil tanker to the harbour."
+    },
+    {
+        "q": "How does refined product travel inland?",
+        "a": "By pipeline."
+    },
+    {
+        "q": "Define a break-of-bulk point.",
+        "a": "A place where goods transfer from one transport mode to another."
+    }
+];
+        const industrialFactors = [
+    {
+        "q": "Name four broad raw-material groups available in South Africa.",
+        "a": "Minerals, crops, trees, and fish."
+    },
+    {
+        "q": "Give two mineral raw-material examples.",
+        "a": "Coal and iron ore."
+    },
+    {
+        "q": "Give two crop raw-material examples.",
+        "a": "Maize and sugar."
+    },
+    {
+        "q": "Why are iron and steel factories near accessible inputs?",
+        "a": "They require many different raw materials."
+    },
+    {
+        "q": "Why is water scarcity an industrial concern?",
+        "a": "Most forms of processing require water."
+    },
+    {
+        "q": "What schemes supply main industrial areas with water?",
+        "a": "Large inter-basin water-transfer schemes."
+    },
+    {
+        "q": "What labour groups do industries usually require?",
+        "a": "Skilled and unskilled or semi-skilled labour."
+    },
+    {
+        "q": "Why are factories often close to large urban areas?",
+        "a": "To access large labour supplies."
+    },
+    {
+        "q": "What labour advantage does South Africa have?",
+        "a": "A large supply of skilled and unskilled workers."
+    },
+    {
+        "q": "How can government policy affect industry?",
+        "a": "It can influence where industries locate."
+    },
+    {
+        "q": "What was apartheid industrial decentralisation?",
+        "a": "A policy encouraging factories away from the four main core areas."
+    },
+    {
+        "q": "What incentives were offered under decentralisation?",
+        "a": "Incentives to locate factories near homeland borders."
+    },
+    {
+        "q": "What were factories near homeland borders called?",
+        "a": "Border industries."
+    },
+    {
+        "q": "Which present-government zones influence industrial location?",
+        "a": "Industrial development zones (IDZs)."
+    },
+    {
+        "q": "Which present-government initiatives influence development?",
+        "a": "Spatial development initiatives (SDIs)."
+    },
+    {
+        "q": "What does road and rail infrastructure transport?",
+        "a": "Raw materials and finished products."
+    },
+    {
+        "q": "Does South Africa export more manufactured products or raw materials?",
+        "a": "More manufactured products."
+    },
+    {
+        "q": "Which manufactured goods does South Africa export?",
+        "a": "Machinery and equipment."
+    },
+    {
+        "q": "Which goods does South Africa import?",
+        "a": "Scientific and electronic goods."
+    },
+    {
+        "q": "Name the water and energy supply challenges.",
+        "a": "Drought and water scarcity; load-shedding and power instability."
+    }
+];
         function makeJeopardyQuestions(factors, offset) {
             return Array.from({ length: 5 }, (_, index) => {
 
-                const factor = factors[(offset * 5 + index) % factors.length];
-                const askForDefinition = (offset + index) % 2 === 1;
+
+                const question = factors[(offset * 5 + index) % factors.length];
                 return {
                     points: (index + 1) * 10,
-                    q: askForDefinition ? "Define " + factor.term + "." : "Which development factor matches this definition? " + factor.detail,
-                    a: askForDefinition ? factor.detail : "What is " + factor.term + "?"
+                    q: question.q,
+                    a: question.a
                 };
             });
         }
 
         function makePlayerBoard(offset) {
             return [
-                { name: "Economic Factors", questions: makeJeopardyQuestions(economicFactors, offset) },
-                { name: "Social Factors", questions: makeJeopardyQuestions(socialFactors, offset) },
-                { name: "Environmental Factors", questions: makeJeopardyQuestions(environmentalFactors, offset) },
-                { name: "Community Development", questions: makeJeopardyQuestions(communityFactors, offset) }
+                { name: "Sector Contributions", questions: makeJeopardyQuestions(sectorContributions, offset) },
+                { name: "Industry Types", questions: makeJeopardyQuestions(industryTypes, offset) },
+                { name: "Location-Based Industries", questions: makeJeopardyQuestions(locationIndustries, offset) },
+                { name: "Industrial Development Factors", questions: makeJeopardyQuestions(industrialFactors, offset) }
             ];
         }
 
@@ -382,7 +664,7 @@
 
         function updateScore(i) { document.getElementById(`score-${i}`).innerText = scores[i]; }
         function closeModal() { activeTileButton.innerText = ""; activeTileButton.disabled = true; modal.style.display = 'none'; }
-        
+
         buildBoards();
 
         function resetPlayerNames() {

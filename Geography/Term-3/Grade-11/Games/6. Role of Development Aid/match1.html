@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-8GCWSKNDL7"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-8GCWSKNDL7');
+</script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>May Learning Hub | Grade 11 Geography: Role of Development Aid</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f0f4f8; color: #333; line-height: 1.6; display: flex; flex-direction: column; min-height: 100vh; }
+
+        /* Navigation */
+        nav { background-color: #002b5e; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; }
+        .logo { color: #fff; font-size: 1.5rem; font-weight: bold; text-decoration: none; }
+        .nav-links a { color: #cce0ff; text-decoration: none; margin-left: 1.5rem; font-weight: 500; transition: color 0.3s; }
+        .nav-links a:hover, .nav-links a.active { color: #fff; text-decoration: underline; }
+
+        /* Header */
+        .game-header { text-align: center; padding: 3rem 1rem 1rem; max-width: 900px; margin: 0 auto; }
+        .game-title { color: #004080; font-size: 2.5rem; margin-bottom: 0.5rem; }
+        .game-subtitle { color: #555; margin-bottom: 2rem; font-size: 1.1rem; }
+
+        /* Categories */
+        .category-selection { margin-bottom: 2.5rem; }
+        .cat-buttons { display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem; }
+        .cat-btn { background-color: #f0f4f8; border: 2px solid #004080; color: #004080; padding: 0.8rem 1.5rem; font-size: 1rem; font-weight: bold; border-radius: 8px; cursor: pointer; transition: all 0.3s ease; }
+        .cat-btn:hover, .cat-btn.active { background-color: #004080; color: #fff; transform: translateY(-3px); box-shadow: 0 4px 10px rgba(0,64,128,0.2); }
+
+        .controls { display: none; justify-content: center; align-items: center; gap: 2rem; margin-bottom: 2rem; }
+        .move-counter { font-size: 1.2rem; font-weight: bold; color: #004080; background: #fff; padding: 0.6rem 1.8rem; border-radius: 50px; border: 2px solid #3385ff; }
+        .restart-btn { background-color: #3385ff; color: #fff; border: none; padding: 0.7rem 1.8rem; font-size: 1rem; font-weight: bold; border-radius: 50px; cursor: pointer; border-bottom: 3px solid #004080; }
+
+        /* Memory Grid */
+        .memory-game { display: none; width: 100%; max-width: 1200px; margin: 0 auto 4rem; grid-template-columns: repeat(5, 1fr); gap: 15px; padding: 0 20px; perspective: 1000px; }
+
+        @media (max-width: 950px) { .memory-game { grid-template-columns: repeat(4, 1fr); } }
+        @media (max-width: 650px) { .memory-game { grid-template-columns: repeat(2, 1fr); } }
+
+        .memory-card { position: relative; width: 100%; aspect-ratio: 1 / 1.2; transform-style: preserve-3d; transition: transform 0.5s; cursor: pointer; }
+        .memory-card.flip { transform: rotateY(180deg); }
+
+        .front-face, .back-face {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 15px;
+            text-align: center;
+            font-size: 1rem;
+            line-height: 1.4;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .front-face { background: #004080; color: #fff; font-size: 2.5rem; border: 3px solid #3385ff; font-weight: bold; }
+        .back-face { background: #fff; color: #002b5e; transform: rotateY(180deg); border: 3px solid #004080; font-weight: 700; }
+        .memory-card.matched .back-face { background: #d4edda; border-color: #28a745; color: #155724; }
+
+        footer { text-align: center; padding: 1.5rem; background-color: #002b5e; color: #fff; margin-top: auto; }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="../../../../../index.html" class="logo">May Learning Hub</a>
+        <div class="nav-links">
+            <a href="../../../../../index.html">Home</a>
+            <a href="../../../../../about.html">About</a>
+        </div>
+    </nav>
+
+    <header class="game-header">
+        <h1 class="game-title">Grade 11 Geography: Role of Development Aid</h1>
+        <p class="game-subtitle">Match aid concepts, official and voluntary aid, technical and humanitarian support, benefits, and challenges!</p>
+        <p style="font-size: 0.78rem; color: #52606d; margin-top: 0.45rem;">Source: Development Aid - Grade 11 Geography Term 3 presentation.</p>
+
+        <div class="category-selection">
+            <div class="cat-buttons">
+                <button class="cat-btn" onclick="selectCategory('topic1', this)">Aid Foundations</button>
+                <button class="cat-btn" onclick="selectCategory('topic2', this)">Official Aid</button>
+                <button class="cat-btn" onclick="selectCategory('topic3', this)">Voluntary Aid</button>
+                <button class="cat-btn" onclick="selectCategory('topic4', this)">Technical and Conditional Aid</button>
+                <button class="cat-btn" onclick="selectCategory('topic5', this)">Humanitarian Aid</button>
+                <button class="cat-btn" onclick="selectCategory('topic6', this)">Benefits and Challenges</button>
+            </div>
+        </div>
+
+        <div class="controls" id="gameControls">
+            <div class="move-counter">Moves: <span id="moves">0</span></div>
+            <button class="restart-btn" onclick="initGame()">Restart Level</button>
+        </div>
+    </header>
+
+    <main class="memory-game" id="gameBoard"></main>
+
+    <footer>
+        <p>&copy; 2026 May Learning Hub. All rights reserved.</p>
+    </footer>
+
+        <script src="../../../../../game-audio.js"></script>
+<script>
+        const aidFoundations = [
+            { term: "Development Aid", detail: "Assistance from foreign countries or organisations that supports development and living standards in LEDCs." },
+            { term: "Donor", detail: "A foreign country or organisation that provides development aid." },
+            { term: "Recipient", detail: "A country that receives assistance from a donor." },
+            { term: "LEDC", detail: "A less economically developed country that may receive assistance to support development." },
+            { term: "Standard of Living", detail: "The level of material well-being and access to goods and services experienced by people." },
+            { term: "Appropriate Aid", detail: "Assistance suited to local needs that empowers rather than undermines development." },
+            { term: "Empowerment", detail: "Enabling people or countries to develop their own abilities and make effective decisions." },
+            { term: "Self-Sufficiency", detail: "The ability of a country or community to meet needs without continued outside assistance." }
+        ];
+        const officialAid = [
+            { term: "Official Aid", detail: "Authorised assistance given from one country to another or from an international organisation to a country." },
+            { term: "Bilateral Aid", detail: "Assistance transferred directly from one country to another." },
+            { term: "Multilateral Aid", detail: "Assistance channelled through an international organisation that distributes it among LEDCs." },
+            { term: "International Organisation", detail: "An organisation involving several countries that can receive and distribute assistance." },
+            { term: "International Monetary Fund", detail: "An international organisation named in the lesson as a distributor of multilateral aid." },
+            { term: "World Bank", detail: "An international organisation that distributes aid and may fund technical assistance." },
+            { term: "Direct Country Transfer", detail: "The route used when a donor country gives assistance straight to a recipient country." },
+            { term: "Aid Distribution", detail: "The process of allocating and delivering assistance to recipient countries or communities." }
+        ];
+        const voluntaryAid = [
+            { term: "Voluntary Aid", detail: "Assistance collected by aid agencies and donated willingly by individuals and corporations." },
+            { term: "Aid Agency", detail: "An organisation that collects, organises, and delivers voluntary assistance." },
+            { term: "Individual Donation", detail: "Money or resources willingly given by a person to support an aid agency." },
+            { term: "Corporate Donation", detail: "Money or resources willingly given by a company to support assistance programmes." },
+            { term: "Short-Term Aid", detail: "Immediate support supplied during an emergency, such as food parcels or medicine." },
+            { term: "Long-Term Aid", detail: "Continued assistance for development projects such as schools and orphanages." },
+            { term: "Oxfam", detail: "An aid organisation named as a provider of short-term emergency support." },
+            { term: "Red Cross", detail: "An aid organisation named as supplying emergency assistance after disasters." }
+        ];
+        const technicalConditional = [
+            { term: "Technical Aid", detail: "Assistance supplied as skilled technological advice and practical expertise." },
+            { term: "Skilled Engineer", detail: "A trained specialist who may provide technical knowledge and help build infrastructure." },
+            { term: "Technological Advice", detail: "Expert guidance used to plan, build, or operate equipment and infrastructure." },
+            { term: "Infrastructure", detail: "Basic facilities such as roads, bridges, power stations, and dams." },
+            { term: "Lesotho Highlands Water Scheme", detail: "The project named in the lesson as an example of technical aid." },
+            { term: "Conditional Aid", detail: "Assistance granted only when the recipient agrees to a specific requirement." },
+            { term: "Trade Agreement", detail: "An arrangement that may require a recipient to trade raw materials with a donor." },
+            { term: "Strings Attached", detail: "Conditions or obligations that a recipient must accept in order to receive assistance." }
+        ];
+        const humanitarianAid = [
+            { term: "Humanitarian Aid", detail: "Support that improves living conditions and assists people affected by hardship or disaster." },
+            { term: "Skills Training", detail: "Teaching practical abilities that help people improve their lives and opportunities." },
+            { term: "Debt Reduction", detail: "Financial support intended to lower the amount of money a recipient owes." },
+            { term: "Medical Help", detail: "Health care, medicine, or other support supplied to people in need." },
+            { term: "Emergency Supplies", detail: "Food, water, medicine, and essential items delivered after a disaster." },
+            { term: "Natural Disaster Relief", detail: "Immediate assistance supplied after events such as floods or droughts." },
+            { term: "Disaster Recovery", detail: "Support that helps a country restore services and livelihoods after an emergency." },
+            { term: "Rebuilding", detail: "Repairing or replacing homes, infrastructure, and services damaged by a disaster." }
+        ];
+        const benefitsChallenges = [
+            { term: "Poverty Reduction", detail: "Providing essential resources and services to help alleviate poverty." },
+            { term: "Capacity Building", detail: "Strengthening local skills through training and knowledge transfer." },
+            { term: "Economic Growth", detail: "Expansion supported by funded projects, investment, and job creation." },
+            { term: "Political Stability", detail: "Greater stability that may result when causes of conflict are addressed." },
+            { term: "Aid Dependency", detail: "Reliance on continued assistance that reduces self-sufficiency." },
+            { term: "Mismanagement", detail: "The incorrect, wasteful, or corrupt use and allocation of assistance." },
+            { term: "Donor Influence", detail: "Pressure that allows donors to shape a recipient's policies and priorities." },
+            { term: "Aid Fatigue", detail: "Reduced donor willingness or contributions after aid has continued for a long time." }
+        ];
+        const toCards = factors => factors.flatMap((factor, index) => [
+            { id: index + 1, text: factor.detail },
+            { id: index + 1, text: factor.term }
+        ]);
+        const gameData = {
+            topic1: toCards(aidFoundations),
+            topic2: toCards(officialAid),
+            topic3: toCards(voluntaryAid),
+            topic4: toCards(technicalConditional),
+            topic5: toCards(humanitarianAid),
+            topic6: toCards(benefitsChallenges)
+        };
+
+        const gameBoard = document.getElementById('gameBoard');
+        const movesDisplay = document.getElementById('moves');
+        const gameControls = document.getElementById('gameControls');
+
+        let currentCategory = null;
+        let hasFlippedCard = false;
+        let lockBoard = false;
+        let firstCard, secondCard;
+        let moves = 0;
+        let matchedPairs = 0;
+
+        function selectCategory(categoryKey, btnElement) {
+            currentCategory = categoryKey;
+            document.querySelectorAll('.cat-btn').forEach(btn => btn.classList.remove('active'));
+            btnElement.classList.add('active');
+            gameControls.style.display = 'flex';
+            gameBoard.style.display = 'grid';
+            initGame();
+        }
+
+        function initGame() {
+            gameBoard.innerHTML = '';
+            moves = 0;
+            matchedPairs = 0;
+            movesDisplay.innerText = moves;
+            hasFlippedCard = false;
+            lockBoard = false;
+
+            const categoryData = gameData[currentCategory];
+            const shuffledCards = [...categoryData].sort(() => 0.5 - Math.random());
+
+            shuffledCards.forEach(card => {
+                const cardElement = document.createElement('div');
+                cardElement.classList.add('memory-card');
+                cardElement.dataset.pairId = card.id;
+
+                cardElement.innerHTML = `
+                    <div class="front-face">?</div>
+                    <div class="back-face">${card.text}</div>
+                `;
+
+                cardElement.addEventListener('click', flipCard);
+                gameBoard.appendChild(cardElement);
+            });
+        }
+
+        function flipCard() {
+            if (lockBoard) return;
+            if (this === firstCard) return;
+
+            this.classList.add('flip');
+
+            if (!hasFlippedCard) {
+                hasFlippedCard = true;
+                firstCard = this;
+                return;
+            }
+
+            secondCard = this;
+            moves++;
+            movesDisplay.innerText = moves;
+            checkForMatch();
+        }
+
+        function checkForMatch() {
+            let isMatch = firstCard.dataset.pairId === secondCard.dataset.pairId;
+            if (isMatch) {
+                MayHubSounds.playCorrect();
+                disableCards();
+            } else {
+                MayHubSounds.playWrong();
+                unflipCards();
+            }
+        }
+
+        function disableCards() {
+            firstCard.classList.add('matched');
+            secondCard.classList.add('matched');
+            firstCard.removeEventListener('click', flipCard);
+            secondCard.removeEventListener('click', flipCard);
+            matchedPairs++;
+            if (matchedPairs === (gameData[currentCategory].length / 2)) {
+                setTimeout(() => alert(`Great job! Grade 11 Geography: Role of Development Aid Revision Complete in ${moves} moves.`), 500);
+            }
+            resetBoard();
+        }
+
+        function unflipCards() {
+            lockBoard = true;
+            setTimeout(() => {
+                firstCard.classList.remove('flip');
+                secondCard.classList.remove('flip');
+                resetBoard();
+            }, 1200);
+        }
+
+        function resetBoard() {
+            [hasFlippedCard, lockBoard] = [false, false];
+            [firstCard, secondCard] = [null, null];
+        }
+    </script>
+</body>
+</html>

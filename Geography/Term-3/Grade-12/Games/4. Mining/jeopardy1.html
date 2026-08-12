@@ -13,7 +13,7 @@
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>May Learning Hub | Grade 11 Geography Jeopardy</title>
+    <title>May Learning Hub | Grade 12 Geography Jeopardy</title>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f0f4f8; color: #333; line-height: 1.6; display: flex; flex-direction: column; min-height: 100vh; overflow-x: hidden; }
@@ -114,9 +114,9 @@
     </nav>
 
     <header class="game-header">
-        <h1 class="game-title">Grade 11 Geography Jeopardy</h1>
-        <p class="game-subtitle">Topic: Factors Affecting Development</p>
-        <p style="font-size: 0.78rem; color: #52606d; margin-top: 0.45rem;">Source: Factors Affecting Development - Grade 11 Geography Term 3 presentation.</p>
+        <h1 class="game-title">Grade 12 Geography Jeopardy</h1>
+        <p class="game-subtitle">Topic: Mining</p>
+        <p style="font-size: 0.78rem; color: #52606d; margin-top: 0.45rem;">Source: Mining - Grade 12 Geography Term 3 presentation.</p>
     </header>
 
     <section class="name-setup" id="nameSetupSection">
@@ -133,7 +133,7 @@
                 <button class="btn-edit" id="btnEditNames" onclick="showNameEditor()">Edit Names</button>
                 <button class="btn-reset" onclick="resetPlayerNames()">Reset</button>
             </div>
-            <p class="hint">80 unique clues drawn from the Grade 11 Term 3 Development presentation! </p>
+            <p class="hint">80 unique clues drawn from the Grade 12 Term 3 Mining presentation!</p>
         </div>
     </section>
 
@@ -191,71 +191,353 @@
 
         <script src="../../../../../game-audio.js"></script>
 <script>
-        const economicFactors = [
-            { term: "Infrastructure", detail: "The basic physical and organisational systems and facilities needed for a society and economy to function, such as transport, electricity, water, and communications." },
-            { term: "Investment", detail: "The commitment of money, capital, or other resources to an activity or project in order to gain future benefits." },
-            { term: "Economic Policies", detail: "Government decisions, laws, and actions used to influence how an economy operates." },
-            { term: "Technology", detail: "The application of knowledge, tools, and techniques to solve problems and produce goods or services." },
-            { term: "Natural Resources", detail: "Materials and environmental features that occur in nature and can be used by people, such as water, land, minerals, and forests." },
-            { term: "Trade", detail: "The buying, selling, or exchange of goods and services between people, regions, or countries." },
-            { term: "Labor Market Conditions", detail: "The circumstances affecting the supply of workers, demand for labour, employment, wages, and available skills." },
-            { term: "Financial Systems", detail: "The institutions, markets, and rules that enable saving, borrowing, payments, and investment." },
-            { term: "Government Spending", detail: "Money used by government to provide public services, infrastructure, and programmes." },
-            { term: "Entrepreneurship", detail: "The process of identifying an opportunity, organising resources, and creating or managing an enterprise while accepting risk." }
-        ];
-        const socialFactors = [
-            { term: "Education", detail: "The organised process through which people acquire knowledge, skills, values, and understanding." },
-            { term: "Healthcare", detail: "The services and systems used to prevent and treat illness and maintain people's health." },
-            { term: "Social Stability", detail: "A condition in which society has order, security, and predictable social relationships." },
-            { term: "Cultural Attitudes", detail: "Shared beliefs, values, and viewpoints that influence how people think and behave." },
-            { term: "Population Growth", detail: "An increase in the number of people living in a place over a period of time." },
-            { term: "Gender Equality", detail: "Equal rights, responsibilities, opportunities, and treatment for people of all genders." },
-            { term: "Social Services", detail: "Public or community services that support people's welfare and basic needs, such as care, housing support, and social assistance." },
-            { term: "Crime Rates", detail: "Measures of how frequently crimes occur in a population or area during a given period." },
-            { term: "Community Engagement", detail: "The process of involving community members in decisions and actions that affect their lives." },
-            { term: "Migration", detail: "The movement of people from one place to another to live or work, either temporarily or permanently." }
-        ];
-        const environmentalFactors = [
-            { term: "Climate Change", detail: "Long-term changes in average temperatures and other climate patterns." },
-            { term: "Natural Disasters", detail: "Severe natural events that cause major damage, loss, or disruption to people and places." },
-            { term: "Environmental Policies", detail: "Government laws, rules, and plans designed to manage human impacts and protect the environment." },
-            { term: "Biodiversity", detail: "The variety of living organisms, including diversity within species, between species, and among ecosystems." },
-            { term: "Pollution", detail: "The introduction of harmful substances or forms of energy into the environment." },
-            { term: "Resource Depletion", detail: "The use of a natural resource faster than it can be replaced or renewed." },
-            { term: "Land Use", detail: "The way land is managed and used for purposes such as farming, housing, industry, or conservation." },
-            { term: "Water Availability", detail: "The amount of usable water that is accessible to people and economic activities." },
-            { term: "Air Quality", detail: "The degree to which the air is clean and free from harmful pollutants." },
-            { term: "Waste Management", detail: "The collection, transport, treatment, recycling, and disposal of waste." }
-        ];
-        const communityFactors = [
-            { term: "Community-Based Development", detail: "An approach in which community members actively lead and participate in planning, implementing, and managing projects that affect their lives." },
-            { term: "Local Participation", detail: "The involvement of community members in decisions so that projects reflect local priorities and needs." },
-            { term: "Empowerment", detail: "The process of building people's ability and authority to make decisions and take control of their own development." },
-            { term: "Sustainability", detail: "The ability to meet present needs while maintaining resources and opportunities for the future." },
-            { term: "Collaboration", detail: "People or organisations working together and sharing resources or expertise to achieve a common goal." },
-            { term: "Holistic Approach", detail: "A method that considers the whole situation and the connections among its economic, social, and environmental parts." },
-            { term: "Ownership", detail: "The community's responsibility for, control over, and commitment to a project or its outcomes." }
-        ];
-
+        const economicContributions = [
+    {
+        "q": "What two broad forms of economic contribution does mining make?",
+        "a": "Direct and indirect contributions."
+    },
+    {
+        "q": "Name one direct production measure supported by mining.",
+        "a": "GDP."
+    },
+    {
+        "q": "How do mineral exports contribute to GNP?",
+        "a": "Export income adds to national product."
+    },
+    {
+        "q": "What international earnings does mining generate?",
+        "a": "Foreign exchange."
+    },
+    {
+        "q": "What percentage of South African business tax does mining contribute in the presentation?",
+        "a": "19%."
+    },
+    {
+        "q": "What kind of international capital does mining attract?",
+        "a": "Foreign investment."
+    },
+    {
+        "q": "Which power industry does mining stimulate indirectly?",
+        "a": "The electricity industry, including Eskom."
+    },
+    {
+        "q": "Which metal-processing industry is stimulated by mining?",
+        "a": "The iron and steel industry."
+    },
+    {
+        "q": "Name the two engineering-service examples.",
+        "a": "Seismic and geological services."
+    },
+    {
+        "q": "Which engineering service studies vibrations and underground conditions?",
+        "a": "Seismic services."
+    },
+    {
+        "q": "Which engineering service studies rocks and mineral structures?",
+        "a": "Geological services."
+    },
+    {
+        "q": "Name the three financial-service examples.",
+        "a": "Banks, insurance companies, and the JSE."
+    },
+    {
+        "q": "Which stock exchange is named as a mining-stimulated financial service?",
+        "a": "The Johannesburg Stock Exchange (JSE)."
+    },
+    {
+        "q": "Which risk-management businesses are listed under financial services?",
+        "a": "Insurance companies."
+    },
+    {
+        "q": "Which lending institutions are stimulated by mining?",
+        "a": "Banks."
+    },
+    {
+        "q": "What information-related infrastructure is stimulated by mining?",
+        "a": "Communication infrastructure."
+    },
+    {
+        "q": "Classify foreign exchange as direct or indirect.",
+        "a": "Direct."
+    },
+    {
+        "q": "Classify iron-and-steel growth as direct or indirect.",
+        "a": "Indirect."
+    },
+    {
+        "q": "Why are banks an indirect contribution rather than a direct output?",
+        "a": "Mining stimulates demand for their financial services."
+    },
+    {
+        "q": "How does mining connect exports and foreign investment?",
+        "a": "It earns export income and attracts capital into South Africa."
+    }
+];
+        const developmentSignificance = [
+    {
+        "q": "Which two mineral discoveries are highlighted?",
+        "a": "Diamonds and then gold."
+    },
+    {
+        "q": "In what order are the discoveries presented?",
+        "a": "Diamonds first, followed by gold."
+    },
+    {
+        "q": "What population movement followed mineral discovery?",
+        "a": "An influx of immigrants."
+    },
+    {
+        "q": "What did immigrants contribute?",
+        "a": "A variety of skills and cultures."
+    },
+    {
+        "q": "Name three basic services whose demand increased.",
+        "a": "Any three of housing, water, sanitation, electricity, transport, and schooling."
+    },
+    {
+        "q": "Why did housing demand increase?",
+        "a": "Mining drew workers and immigrants into growing settlements."
+    },
+    {
+        "q": "Why did water and sanitation demand increase?",
+        "a": "Growing mining settlements required basic services."
+    },
+    {
+        "q": "What education-related service saw increased demand?",
+        "a": "Schooling."
+    },
+    {
+        "q": "Name the heavy industries demanded by mining.",
+        "a": "Iron and steel, and power."
+    },
+    {
+        "q": "What kind of labour was needed?",
+        "a": "Unskilled labour."
+    },
+    {
+        "q": "Where did many migrant labourers come from?",
+        "a": "Surrounding countries."
+    },
+    {
+        "q": "What broad infrastructure developed to move people and minerals?",
+        "a": "Transport infrastructure."
+    },
+    {
+        "q": "What did mineral exports earn South Africa?",
+        "a": "Foreign exchange."
+    },
+    {
+        "q": "Which settlements grew because of mining?",
+        "a": "Towns."
+    },
+    {
+        "q": "Which road-based infrastructure expanded?",
+        "a": "Roads."
+    },
+    {
+        "q": "Which bulk land-transport infrastructure expanded?",
+        "a": "Railways."
+    },
+    {
+        "q": "Which coastal export facilities expanded?",
+        "a": "Harbours."
+    },
+    {
+        "q": "Which mined fuel supported power generation?",
+        "a": "Coal."
+    },
+    {
+        "q": "What was coal used to generate?",
+        "a": "Electricity."
+    },
+    {
+        "q": "Summarise the settlement-and-transport effect of mining.",
+        "a": "Mining stimulated towns, roads, railways, and harbours."
+    }
+];
+        const favourableFactors = [
+    {
+        "q": "How are South Africa's mineral resources described?",
+        "a": "Rich and accessible."
+    },
+    {
+        "q": "Why does mineral accessibility favour mining?",
+        "a": "Deposits can be reached and extracted."
+    },
+    {
+        "q": "What labour advantage favours mining?",
+        "a": "A large labour force."
+    },
+    {
+        "q": "Which road infrastructure supports mining?",
+        "a": "Available roads."
+    },
+    {
+        "q": "Which bulk transport mode supports mining?",
+        "a": "Railways."
+    },
+    {
+        "q": "Which energy utility supports mine operation?",
+        "a": "Electricity."
+    },
+    {
+        "q": "Which natural utility is available to mining?",
+        "a": "Water."
+    },
+    {
+        "q": "Name the four infrastructure services listed as favourable.",
+        "a": "Roads, rail, electricity, and water."
+    },
+    {
+        "q": "What investment does mining attract?",
+        "a": "Foreign investment in South Africa."
+    },
+    {
+        "q": "How is mining technology described?",
+        "a": "Technologically highly advanced."
+    },
+    {
+        "q": "What world record is stated?",
+        "a": "South Africa has the deepest gold mine in the world."
+    },
+    {
+        "q": "Which favourable factor supplies workers?",
+        "a": "The large labour force."
+    },
+    {
+        "q": "Which favourable factor supplies capital from abroad?",
+        "a": "Foreign investment."
+    },
+    {
+        "q": "Which favourable factor supports efficient extraction methods?",
+        "a": "Highly advanced technology."
+    },
+    {
+        "q": "Which favourable factor makes deposits practical to exploit?",
+        "a": "Accessible minerals."
+    },
+    {
+        "q": "How do roads support mines?",
+        "a": "They move workers, equipment, and products."
+    },
+    {
+        "q": "How do railways support mines?",
+        "a": "They transport heavy bulk minerals."
+    },
+    {
+        "q": "Why is electricity important to mines?",
+        "a": "It powers mining operations and equipment."
+    },
+    {
+        "q": "Why is water important to mines?",
+        "a": "It supports mining processes."
+    },
+    {
+        "q": "Name all six broad favourable points.",
+        "a": "Accessible minerals, large labour force, infrastructure, foreign investment, advanced technology, and the deepest gold mine."
+    }
+];
+        const hinderingFactors = [
+    {
+        "q": "What distance problem hinders mineral exports?",
+        "a": "Great distances between mines and harbours."
+    },
+    {
+        "q": "Name the two causes of mining injury and death listed.",
+        "a": "Accidents and silicosis."
+    },
+    {
+        "q": "What is silicosis?",
+        "a": "A serious lung disease caused by inhaling silica dust."
+    },
+    {
+        "q": "Who may have to be compensated?",
+        "a": "Affected miners and their families."
+    },
+    {
+        "q": "What market condition can cause mine closure?",
+        "a": "Fluctuation in mineral prices."
+    },
+    {
+        "q": "How do mining strikes affect South Africa?",
+        "a": "They disrupt the economy."
+    },
+    {
+        "q": "What resource shortage may result from mining?",
+        "a": "Water shortages."
+    },
+    {
+        "q": "What mining behaviour can cause water shortages?",
+        "a": "Excessive use of water."
+    },
+    {
+        "q": "Why does output decline over the life of a mine?",
+        "a": "Mineral reserves are depleted."
+    },
+    {
+        "q": "What may happen when reserves run out?",
+        "a": "The mine may close."
+    },
+    {
+        "q": "What employment effect follows mine closure?",
+        "a": "People lose jobs."
+    },
+    {
+        "q": "What may a declining mining town become?",
+        "a": "A ghost town."
+    },
+    {
+        "q": "What is costly after mining disturbance?",
+        "a": "Rehabilitating mining areas."
+    },
+    {
+        "q": "Why are long mine-harbour distances a disadvantage?",
+        "a": "They increase transport difficulty and cost."
+    },
+    {
+        "q": "How do accidents create both human and financial costs?",
+        "a": "They cause injury or death and may require compensation."
+    },
+    {
+        "q": "How does silicosis create both human and financial costs?",
+        "a": "It harms miners and can require compensation to them or their families."
+    },
+    {
+        "q": "Why can falling mineral prices close a mine?",
+        "a": "Mining may become financially unviable."
+    },
+    {
+        "q": "Give the sequence from reserve depletion to settlement decline.",
+        "a": "Output declines, the mine closes, jobs are lost, and a ghost town may form."
+    },
+    {
+        "q": "Why is rehabilitation necessary?",
+        "a": "Mining areas must be restored after disturbance or closure."
+    },
+    {
+        "q": "Name four different hindering factors.",
+        "a": "Any four of distance, accidents, silicosis, compensation, price fluctuation, strikes, water use, depletion, closure, job losses, ghost towns, and rehabilitation cost."
+    }
+];
         function makeJeopardyQuestions(factors, offset) {
             return Array.from({ length: 5 }, (_, index) => {
 
-                const factor = factors[(offset * 5 + index) % factors.length];
-                const askForDefinition = (offset + index) % 2 === 1;
+
+                const question = factors[(offset * 5 + index) % factors.length];
                 return {
                     points: (index + 1) * 10,
-                    q: askForDefinition ? "Define " + factor.term + "." : "Which development factor matches this definition? " + factor.detail,
-                    a: askForDefinition ? factor.detail : "What is " + factor.term + "?"
+                    q: question.q,
+                    a: question.a
                 };
             });
         }
 
         function makePlayerBoard(offset) {
             return [
-                { name: "Economic Factors", questions: makeJeopardyQuestions(economicFactors, offset) },
-                { name: "Social Factors", questions: makeJeopardyQuestions(socialFactors, offset) },
-                { name: "Environmental Factors", questions: makeJeopardyQuestions(environmentalFactors, offset) },
-                { name: "Community Development", questions: makeJeopardyQuestions(communityFactors, offset) }
+                { name: "Economic Contributions", questions: makeJeopardyQuestions(economicContributions, offset) },
+                { name: "Development Significance", questions: makeJeopardyQuestions(developmentSignificance, offset) },
+                { name: "Favourable Factors", questions: makeJeopardyQuestions(favourableFactors, offset) },
+                { name: "Hindering Factors", questions: makeJeopardyQuestions(hinderingFactors, offset) }
             ];
         }
 
@@ -382,7 +664,7 @@
 
         function updateScore(i) { document.getElementById(`score-${i}`).innerText = scores[i]; }
         function closeModal() { activeTileButton.innerText = ""; activeTileButton.disabled = true; modal.style.display = 'none'; }
-        
+
         buildBoards();
 
         function resetPlayerNames() {
