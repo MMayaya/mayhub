@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-8GCWSKNDL7"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-8GCWSKNDL7');
+</script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>May Learning Hub | Smart Snake - Evolution</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f0f4f8; color: #333; line-height: 1.6; display: flex; flex-direction: column; min-height: 100vh; touch-action: manipulation; }
+
+        /* Navigation */
+        nav { background-color: #002b5e; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        .logo { color: #fff; font-size: 1.5rem; font-weight: bold; text-decoration: none; }
+        .nav-links a { color: #cce0ff; text-decoration: none; margin-left: 1.5rem; font-weight: 500; transition: color 0.3s; }
+        .nav-links a:hover, .nav-links a.active { color: #fff; text-decoration: underline; }
+
+        /* Game Header */
+        .game-header { text-align: center; padding: 2rem 1rem 1rem; }
+        .game-title { color: #004080; font-size: 2.2rem; margin-bottom: 0.5rem; }
+        .game-subtitle { color: #555; margin-bottom: 1.5rem; font-size: 1.1rem; }
+
+        /* --- Topic Selection UI --- */
+        .category-selection { margin-bottom: 2rem; text-align: center; }
+        .cat-buttons { display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem; max-width: 800px; margin: 0 auto; padding: 0 10px; }
+        .cat-btn { background-color: #fff; border: 2px solid #004080; color: #004080; padding: 0.8rem 1.5rem; font-size: 1.1rem; font-weight: bold; border-radius: 8px; cursor: pointer; transition: all 0.3s ease; flex: 1; min-width: 150px; }
+        .cat-btn:hover { background-color: #e6f0fa; transform: translateY(-3px); }
+
+        /* --- Game Area --- */
+        #gameArea { display: none; flex-direction: column; align-items: center; width: 100%; padding: 0 10px; }
+
+        .score-board { display: flex; justify-content: space-between; width: 100%; max-width: 600px; background: #002b5e; color: #fff; padding: 0.8rem 1.5rem; border-radius: 8px 8px 0 0; font-size: 1.2rem; font-weight: bold; }
+        .score-board span { color: #ffc107; }
+
+        .canvas-container { position: relative; max-width: 600px; width: 100%; }
+        canvas { background-color: #d1e0e0; box-shadow: 0 8px 20px rgba(0,0,0,0.2); border-radius: 0 0 8px 8px; border: 4px solid #002b5e; width: 100%; height: auto; display: block; }
+
+        #pauseOverlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 43, 94, 0.7); border-radius: 0 0 8px 8px; display: none; flex-direction: column; justify-content: center; align-items: center; color: #fff; font-size: 1.5rem; font-weight: bold; text-align: center; padding: 1rem; z-index: 10; animation: pulse 1.5s infinite; }
+        @keyframes pulse { 0% { opacity: 0.8; } 50% { opacity: 1; transform: scale(1.02); } 100% { opacity: 0.8; } }
+
+        .controls-container { display: grid; grid-template-columns: repeat(3, 60px); grid-template-rows: repeat(2, 60px); gap: 10px; margin-top: 2rem; justify-content: center; }
+        .control-btn { background: #3385ff; color: #fff; border: none; border-radius: 12px; font-size: 1.5rem; font-weight: bold; cursor: pointer; box-shadow: 0 4px 6px rgba(0,0,0,0.2); display: flex; align-items: center; justify-content: center; user-select: none; }
+        .control-btn:active { background: #004080; transform: translateY(2px); box-shadow: 0 2px 3px rgba(0,0,0,0.2); }
+
+        #btnUp { grid-column: 2; grid-row: 1; }
+        #btnLeft { grid-column: 1; grid-row: 2; }
+        #btnDown { grid-column: 2; grid-row: 2; }
+        #btnRight { grid-column: 3; grid-row: 2; }
+
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,26,51,0.9); align-items: center; justify-content: center; z-index: 100; padding: 1rem; }
+        .modal-content { background: #fff; padding: 2rem; border-radius: 12px; text-align: center; max-width: 500px; width: 100%; border-top: 6px solid #ffc107; box-shadow: 0 10px 40px rgba(0,0,0,0.5); }
+
+        .modal-points { color: #d32f2f; font-weight: bold; font-size: 1.2rem; margin-bottom: 0.5rem; }
+        .golden-text { color: #d39e00; }
+        .modal-question { font-size: 1.4rem; color: #002b5e; font-weight: bold; margin-bottom: 1.5rem; }
+
+        .mc-options { display: flex; flex-direction: column; gap: 0.8rem; }
+        .option-btn { background: #f0f7ff; border: 2px solid #b3d4ff; padding: 1rem; font-size: 1.1rem; border-radius: 6px; cursor: pointer; transition: all 0.2s; text-align: left; font-weight: bold; color: #004080; }
+        .option-btn:hover:not(:disabled) { background: #3385ff; color: #fff; border-color: #002b5e; }
+        .option-btn.correct { background-color: #28a745 !important; border-color: #1e7e34 !important; color: #fff !important; }
+        .option-btn.incorrect { background-color: #dc3545 !important; border-color: #bd2130 !important; color: #fff !important; }
+
+        .continue-btn { display: none; background: #004080; color: #fff; border: none; padding: 1rem 2rem; font-size: 1.1rem; font-weight: bold; border-radius: 8px; cursor: pointer; margin-top: 1.5rem; width: 100%; }
+
+        #endScreen { display: none; text-align: center; padding: 3rem 1rem; }
+        #endTitle { font-size: 2.5rem; margin-bottom: 1rem; }
+        #endMessage { font-size: 1.2rem; color: #555; }
+
+        footer { text-align: center; padding: 1rem; background-color: #002b5e; color: #fff; margin-top: auto; }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="../../../../../index.html" class="logo">May Learning Hub</a>
+        <div class="nav-links">
+            <a href="../../../../../index.html">Home</a>
+            <a href="../../../../../about.html">About</a>
+        </div>
+    </nav>
+
+    <header class="game-header">
+        <h1 class="game-title">Smart Snake: Evolution</h1>
+        <p class="game-subtitle">Grade 12 Life Sciences - Term 3. Eat 10 apples while mastering evidence for evolution, relationships, and variation!</p>
+        <p style="font-size: 0.78rem; color: #52606d; margin-top: 0.45rem;">Source: Evolution - Grade 12 Life Sciences Term 3 presentation.</p>
+    </header>
+
+    <div class="category-selection" id="categorySelection">
+        <div class="cat-buttons">
+            <button class="cat-btn" onclick="startGame('game1')">Evolution Foundations</button>
+            <button class="cat-btn" onclick="startGame('game2')">Fossils and Anatomy</button>
+            <button class="cat-btn" onclick="startGame('game3')">Biogeography and Relationships</button>
+            <button class="cat-btn" onclick="startGame('game4')">Variation</button>
+        </div>
+    </div>
+
+    <main id="gameArea">
+        <div class="score-board">
+            <div>Apples: <span id="appleCount">0</span> / 10</div>
+            <div>Score: <span id="scoreText">0</span></div>
+        </div>
+
+        <div class="canvas-container">
+            <canvas id="gameCanvas" width="600" height="400"></canvas>
+
+            <div id="pauseOverlay">
+                Tap any direction below to resume slithering! 🐍
+            </div>
+        </div>
+
+        <div class="controls-container">
+            <button class="control-btn" id="btnUp" onclick="handleInput('UP')">▲</button>
+            <button class="control-btn" id="btnLeft" onclick="handleInput('LEFT')">◀</button>
+            <button class="control-btn" id="btnDown" onclick="handleInput('DOWN')">▼</button>
+            <button class="control-btn" id="btnRight" onclick="handleInput('RIGHT')">▶</button>
+        </div>
+    </main>
+
+    <div class="modal" id="questionModal">
+        <div class="modal-content">
+            <div class="modal-points" id="modalPoints">For 1 Point:</div>
+            <div class="modal-question" id="modalQuestion">Loading question...</div>
+            <div class="mc-options" id="mcOptions"></div>
+            <button class="continue-btn" id="btnContinue" onclick="closeModalAndPause()">Continue Game</button>
+        </div>
+    </div>
+
+    <div id="endScreen">
+        <h2 id="endTitle" style="color: #28a745;">Level Complete!</h2>
+        <p id="endMessage">You successfully ate 10 apples.</p>
+        <p style="font-size: 1.5rem; margin: 1rem 0; font-weight: bold;">Final Score: <span id="finalScoreText" style="color:#004080;">0</span> Points</p>
+        <button class="cat-btn" onclick="location.reload()" style="background:#3385ff; color:#fff;">Play Again</button>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 May Learning Hub. All rights reserved.</p>
+    </footer>
+
+        <script src="../../../../../game-audio.js"></script>
+<script>
+        const questionDB = {
+            'game1': [
+                { q: "What is evolution?", options: ["A change in a population's characteristics over generations", "A change within one organism's lifetime", "The sudden creation of a new habitat", "The growth of an individual"], a: 0 },
+                { q: "What is a population?", options: ["Organisms of the same species breeding in the same habitat at the same time", "All organisms living anywhere on Earth", "One organism and its offspring", "Different species sharing a continent"], a: 0 },
+                { q: "At what level does evolution occur?", options: ["Population level", "Individual level", "Organ level", "Cell level only"], a: 0 },
+                { q: "What makes a scientific theory reliable?", options: ["It is supported by observations, experiments, evidence, and repeated testing", "It is accepted without evidence", "It cannot be questioned", "It is based only on personal opinion"], a: 0 },
+                { q: "What is a belief?", options: ["An idea often based on religion or culture and not usually scientifically testable", "A repeatedly tested scientific explanation", "A fossil in a rock layer", "A diagram of evolutionary relationships"], a: 0 },
+                { q: "What is a hypothesis?", options: ["A possible explanation that can be tested", "A final explanation that can never change", "A type of fossil", "A permanent inherited mutation"], a: 0 },
+                { q: "Which list gives evidence for evolution?", options: ["Fossils, comparative anatomy, biogeography, genetics, and variation", "Weather, seasons, tides, and eclipses", "Roots, stems, leaves, and flowers", "Digestion, breathing, circulation, and excretion"], a: 0 },
+                { q: "Why can the flu virus evolve rapidly?", options: ["It mutates and reproduces rapidly", "It has a pentadactyl limb", "It forms fossils quickly", "It has no genetic material"], a: 0 },
+                { q: "What do crocodiles illustrate about evolution?", options: ["Some organisms change very slowly over long periods", "All evolution occurs within one lifetime", "Fossils cannot show change", "Only artificial selection causes evolution"], a: 0 },
+                { q: "How were many domestic dog breeds produced?", options: ["Artificial selection by humans", "Continental drift", "Fossilisation", "Random fertilisation alone"], a: 0 }
+            ],
+            'game2': [
+                { q: "What is paleontology?", options: ["The scientific study of fossils", "The study of weather", "The study of cells", "The classification of minerals"], a: 0 },
+                { q: "What is a fossil?", options: ["Preserved remains or traces of an organism from the past", "A living organism with no ancestors", "A modern artificial breed", "A type of DNA molecule"], a: 0 },
+                { q: "Where are older fossils usually found in undisturbed rock?", options: ["In deeper geological strata", "Only on the surface", "Inside younger organisms", "Only in ocean water"], a: 0 },
+                { q: "What can the fossil record reveal?", options: ["Change, extinction, and the order in which organisms appeared", "The exact thoughts of extinct organisms", "Only the colour of every extinct animal", "No information about past life"], a: 0 },
+                { q: "Which appeared earlier in the fossil record?", options: ["Dinosaurs", "Modern mammals", "Domestic dogs", "Humans"], a: 0 },
+                { q: "Why is Archaeopteryx important?", options: ["It has features that link major groups", "It proves fossils form in one day", "It is a living mammal", "It has no anatomical features"], a: 0 },
+                { q: "What is modification by descent?", options: ["Descendants retain a basic ancestral plan but become modified", "Individuals change because they need to", "All species remain permanently identical", "Fossils move between rock layers"], a: 0 },
+                { q: "What is a pentadactyl limb?", options: ["A limb with a basic five-digit arrangement", "A wing with feathers only", "A limb with no bones", "A structure found only in reptiles"], a: 0 },
+                { q: "What are homologous structures?", options: ["Structures with a similar basic plan but different functions", "Structures with the same function but different origins", "Identical structures with no common ancestry", "Structures found only in fossils"], a: 0 },
+                { q: "What are analogous structures?", options: ["Structures with similar functions but different basic structures or origins", "Structures inherited from a common ancestor with different functions", "Five-digit mammal limbs", "Rock layers containing fossils"], a: 0 }
+            ],
+            'game3': [
+                { q: "What is biogeography?", options: ["The study of the distribution of organisms", "The study of fossils only", "The study of chemical reactions", "The study of cell division"], a: 0 },
+                { q: "Which two large landmasses formed when Pangaea split?", options: ["Laurasia and Gondwana", "Africa and Antarctica", "Europe and Asia", "North America and South America"], a: 0 },
+                { q: "Where have Mesosaurus fossils been found?", options: ["South America and Africa", "Asia and Europe only", "Australia and India only", "North America only"], a: 0 },
+                { q: "Why are related flightless birds found on separate southern continents?", options: ["Their ancestors were separated as landmasses moved apart", "Every group evolved from modern birds independently", "They crossed all oceans recently", "Their fossils were planted by humans"], a: 0 },
+                { q: "What does a high similarity in DNA sequences usually indicate?", options: ["A close evolutionary relationship", "No common ancestry", "A very distant relationship", "Identical habitats only"], a: 0 },
+                { q: "What does a branch point on a phylogenetic tree represent?", options: ["A common ancestor where lineages split", "The age of an individual", "A geological rock layer", "A type of mutation"], a: 0 },
+                { q: "Which organisms are usually most closely related on a phylogenetic tree?", options: ["Those sharing the most recent branch point", "Those whose names are nearest alphabetically", "Those at opposite ends of the page", "Those living on different continents"], a: 0 },
+                { q: "What is a cladogram?", options: ["A branching diagram showing relationships using shared characteristics", "A graph of continuous variation", "A map of rock strata", "A list of beliefs"], a: 0 },
+                { q: "What do branches near the base of a phylogenetic tree represent?", options: ["Older ancestral lineages", "The youngest individual organisms", "Unrelated modern habitats", "Only extinct mammals"], a: 0 },
+                { q: "Why can organism names alone not determine evolutionary closeness?", options: ["Relationships depend on common ancestry and evidence such as genetics", "Names always show exact DNA similarity", "Names are fossils", "All named organisms are equally related"], a: 0 }
+            ],
+            'game4': [
+                { q: "What is biological variation?", options: ["Genotypic and phenotypic differences among individuals", "A population with no differences", "A change in one organism caused only by exercise", "The movement of continents"], a: 0 },
+                { q: "When does crossing over occur?", options: ["During prophase I of meiosis", "During mitosis only", "After fertilisation", "During translation"], a: 0 },
+                { q: "When do chromosome pairs arrange randomly at the equator?", options: ["During metaphase I of meiosis", "During prophase of mitosis", "During fertilisation", "During DNA replication only"], a: 0 },
+                { q: "How does random fertilisation create variation?", options: ["Any sperm may fuse with any ovum", "Only identical gametes can fuse", "It prevents gene combinations", "It removes mutations"], a: 0 },
+                { q: "What is a mutation?", options: ["A change in a gene or chromosome structure", "A normal rock layer", "The movement of an organism", "A type of homologous structure"], a: 0 },
+                { q: "How does random mating increase variation?", options: ["Different mating pairs produce different gene combinations", "It makes every offspring genetically identical", "It stops meiosis", "It prevents fertilisation"], a: 0 },
+                { q: "What is discontinuous variation?", options: ["Variation placed into distinct categories", "Variation showing a full range of values", "Variation caused only by climate", "Variation with no genetic basis"], a: 0 },
+                { q: "What is continuous variation?", options: ["Variation showing a range between two extremes", "Variation divided into separate categories only", "Variation present only in fossils", "Variation caused by one allele in every case"], a: 0 },
+                { q: "Which graph usually represents discontinuous variation?", options: ["A bar graph with separate categories", "A smooth bell-shaped curve", "A phylogenetic tree", "A geological column"], a: 0 },
+                { q: "Why may continuous variation evolve more slowly?", options: ["It is often controlled by many genes", "It is never inherited", "It has only two categories", "It cannot be affected by the environment"], a: 0 }
+            ]
+        };
+        const canvas = document.getElementById("gameCanvas");
+        const ctx = canvas.getContext("2d");
+        const gridSize = 20;
+        const tileCountX = canvas.width / gridSize;
+        const tileCountY = canvas.height / gridSize;
+
+        let snake = [];
+        let dx = 0;
+        let dy = -1;
+        let foodX, foodY;
+        let bonusX = -1, bonusY = -1;
+        let score = 0;
+        let applesEaten = 0;
+        let gameLoop;
+        let currentTopic = [];
+        let isGoldenAppleActive = false;
+        let activeQuestionValue = 1;
+        let isPausedPendingInput = true;
+
+        function startGame(categoryKey) {
+            document.getElementById('categorySelection').style.display = 'none';
+            document.getElementById('gameArea').style.display = 'flex';
+            currentTopic = [...questionDB[categoryKey]];
+            snake = [{x: 15, y: 10}, {x: 15, y: 11}, {x: 15, y: 12}];
+            dx = 0; dy = -1; score = 0; applesEaten = 0;
+            updateScoreboard();
+            spawnFood();
+            document.addEventListener("keydown", handleKeyInput);
+            isPausedPendingInput = true;
+            document.getElementById('pauseOverlay').style.display = 'flex';
+            drawStaticBoard();
+        }
+
+        function drawStaticBoard() {
+            clearCanvas();
+            drawFood();
+            if (isGoldenAppleActive) drawBonusFood();
+            drawSnake();
+        }
+
+        function drawGame() {
+            moveSnake();
+            if (applesEaten >= 10) {
+                clearInterval(gameLoop);
+                endGame(true);
+                return;
+            }
+            clearCanvas();
+            drawFood();
+            if (isGoldenAppleActive) drawBonusFood();
+            drawSnake();
+        }
+
+        function clearCanvas() {
+            ctx.fillStyle = "#d1e0e0";
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+        }
+
+        function drawSnake() {
+            snake.forEach((part, index) => {
+                ctx.fillStyle = index === 0 ? "#002b5e" : "#3385ff";
+                ctx.fillRect(part.x * gridSize, part.y * gridSize, gridSize - 2, gridSize - 2);
+            });
+        }
+
+        function drawFood() {
+            ctx.fillStyle = "#d32f2f";
+            ctx.beginPath();
+            ctx.arc(foodX * gridSize + gridSize/2, foodY * gridSize + gridSize/2, gridSize/2 - 2, 0, 2 * Math.PI);
+            ctx.fill();
+        }
+
+        function drawBonusFood() {
+            ctx.fillStyle = "#ffc107";
+            ctx.shadowBlur = 10;
+            ctx.shadowColor = "#ffc107";
+            ctx.beginPath();
+            ctx.arc(bonusX * gridSize + gridSize/2, bonusY * gridSize + gridSize/2, gridSize/2 - 2, 0, 2 * Math.PI);
+            ctx.fill();
+            ctx.shadowBlur = 0;
+        }
+
+        function moveSnake() {
+            const head = { x: snake[0].x + dx, y: snake[0].y + dy };
+            if (head.x < 0) head.x = tileCountX - 1;
+            if (head.x >= tileCountX) head.x = 0;
+            if (head.y < 0) head.y = tileCountY - 1;
+            if (head.y >= tileCountY) head.y = 0;
+            for (let i = 0; i < snake.length; i++) {
+                if (head.x === snake[i].x && head.y === snake[i].y) {
+                    clearInterval(gameLoop);
+                    MayHubSounds.stopSnakeMovement();
+                    endGame(false);
+                    return;
+                }
+            }
+            snake.unshift(head);
+            if (head.x === foodX && head.y === foodY) {
+                clearInterval(gameLoop);
+                MayHubSounds.stopSnakeMovement();
+                MayHubSounds.playSnakeBite();
+                activeQuestionValue = 1;
+                applesEaten++;
+                spawnFood();
+                triggerQuestion(1);
+            } else if (isGoldenAppleActive && head.x === bonusX && head.y === bonusY) {
+                clearInterval(gameLoop);
+                MayHubSounds.stopSnakeMovement();
+                MayHubSounds.playSnakeBite();
+                activeQuestionValue = 3;
+                isGoldenAppleActive = false;
+                triggerQuestion(3);
+            } else {
+                snake.pop();
+            }
+            if (!isGoldenAppleActive && (applesEaten === 2 || applesEaten === 5 || applesEaten === 8)) {
+                spawnBonusFood();
+            }
+        }
+
+        function spawnFood() {
+            foodX = Math.floor(Math.random() * tileCountX);
+            foodY = Math.floor(Math.random() * tileCountY);
+            snake.forEach(part => { if (part.x === foodX && part.y === foodY) spawnFood(); });
+        }
+
+        function spawnBonusFood() {
+            isGoldenAppleActive = true;
+            bonusX = Math.floor(Math.random() * tileCountX);
+            bonusY = Math.floor(Math.random() * tileCountY);
+            if (bonusX === foodX && bonusY === foodY) spawnBonusFood();
+        }
+
+        function handleKeyInput(event) {
+            const key = event.keyCode;
+            if (key === 37) handleInput('LEFT');
+            if (key === 38) handleInput('UP');
+            if (key === 39) handleInput('RIGHT');
+            if (key === 40) handleInput('DOWN');
+        }
+
+        function handleInput(dir) {
+            if (isPausedPendingInput) {
+                isPausedPendingInput = false;
+                document.getElementById('pauseOverlay').style.display = 'none';
+                gameLoop = setInterval(drawGame, 150);
+                MayHubSounds.startSnakeMovement();
+            }
+            if (dir === 'LEFT' && dx !== 1) { dx = -1; dy = 0; }
+            if (dir === 'UP' && dy !== 1) { dx = 0; dy = -1; }
+            if (dir === 'RIGHT' && dx !== -1) { dx = 1; dy = 0; }
+            if (dir === 'DOWN' && dy !== -1) { dx = 0; dy = 1; }
+        }
+
+        let currentQuestionObj;
+        function triggerQuestion(pointsValue) {
+            if (currentTopic.length === 0) {
+                endGame(true);
+                return;
+            }
+            const qIndex = Math.floor(Math.random() * currentTopic.length);
+            currentQuestionObj = currentTopic.splice(qIndex, 1)[0];
+            document.getElementById('modalPoints').innerText = pointsValue === 3 ? "BONUS: 3 Points" : "Regular: 1 Point";
+            document.getElementById('modalPoints').className = pointsValue === 3 ? "modal-points golden-text" : "modal-points";
+            document.getElementById('modalQuestion').innerText = currentQuestionObj.q;
+            const mcOptions = document.getElementById('mcOptions');
+            mcOptions.innerHTML = "";
+            document.getElementById('btnContinue').style.display = 'none';
+            const shuffledOptions = currentQuestionObj.options
+                .map((text, index) => ({ text, isCorrect: index === currentQuestionObj.a }))
+                .sort(() => Math.random() - 0.5);
+            shuffledOptions.forEach(option => {
+                let btn = document.createElement("button");
+                btn.className = "option-btn";
+                btn.innerText = option.text;
+                btn.onclick = () => answerQuestion(btn, option.isCorrect);
+                mcOptions.appendChild(btn);
+            });
+            document.getElementById('questionModal').style.display = 'flex';
+        }
+
+        function answerQuestion(clickedBtn, isCorrect) {
+            const allBtns = document.querySelectorAll('.option-btn');
+            allBtns.forEach(btn => btn.disabled = true);
+            if (isCorrect) {
+                MayHubSounds.playCorrect();
+                clickedBtn.classList.add('correct');
+                score += activeQuestionValue;
+                updateScoreboard();
+                snake.push({ ...snake[snake.length - 1] });
+            } else {
+                MayHubSounds.playWrong();
+                clickedBtn.classList.add('incorrect');
+                allBtns.forEach(btn => {
+                    if (btn.innerText === currentQuestionObj.options[currentQuestionObj.a]) btn.classList.add('correct');
+                });
+            }
+            document.getElementById('btnContinue').style.display = 'block';
+        }
+
+        function closeModalAndPause() {
+            document.getElementById('questionModal').style.display = 'none';
+            updateScoreboard();
+            drawStaticBoard();
+            if (applesEaten < 10) {
+                isPausedPendingInput = true;
+                document.getElementById('pauseOverlay').style.display = 'flex';
+            } else {
+                endGame(true);
+            }
+        }
+
+        function updateScoreboard() {
+            document.getElementById('appleCount').innerText = applesEaten;
+            document.getElementById('scoreText').innerText = score;
+        }
+
+        function endGame(didWin) {
+            MayHubSounds.stopSnakeMovement();
+            document.getElementById('gameArea').style.display = 'none';
+            document.getElementById('endScreen').style.display = 'block';
+            document.getElementById('finalScoreText').innerText = score;
+            const title = document.getElementById('endTitle');
+            const msg = document.getElementById('endMessage');
+            if (didWin) {
+                title.innerText = "Level Complete!";
+                title.style.color = "#28a745";
+                msg.innerText = "Excellent! You've mastered Evolution!";
+            } else {
+                title.innerText = "Game Over!";
+                title.style.color = "#dc3545";
+                msg.innerText = "Evolution is supported by fossils, anatomy, distribution, genetics, and variation. Try again and strengthen your understanding!";
+            }
+        }
+    </script>
+</body>
+</html>

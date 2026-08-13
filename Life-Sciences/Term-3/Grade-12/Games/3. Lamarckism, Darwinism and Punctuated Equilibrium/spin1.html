@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-8GCWSKNDL7"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-8GCWSKNDL7');
+</script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learning Hub | Grade 12 Life Sciences: Lamarckism, Darwinism and Punctuated Equilibrium</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f0f4f8; color: #333; line-height: 1.6; display: flex; flex-direction: column; min-height: 100vh; }
+        nav { background-color: #002b5e; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; }
+        .logo { color: #fff; font-size: 1.5rem; font-weight: bold; text-decoration: none; }
+        .nav-links a { color: #cce0ff; text-decoration: none; margin-left: 1.5rem; font-weight: 500; transition: color 0.3s; }
+        .nav-links a:hover, .nav-links a.active { color: #fff; text-decoration: underline; }
+        .game-container { max-width: 900px; margin: 3rem auto; padding: 2rem; background: #fff; border-radius: 12px; box-shadow: 0 8px 30px rgba(0,0,0,0.1); border-top: 6px solid #3385ff; text-align: center; }
+        .game-title { color: #004080; font-size: 2.5rem; margin-bottom: 0.5rem; text-shadow: 1px 1px 2px rgba(0,0,0,0.1); }
+        .game-subtitle { color: #555; margin-bottom: 2rem; font-size: 1.1rem; }
+        .category-selection { margin-bottom: 2rem; }
+        .category-selection h2 { color: #004080; margin-bottom: 1rem; font-size: 1.5rem; }
+        .cat-buttons { display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem; }
+        .cat-btn { background-color: #f0f4f8; border: 2px solid #004080; color: #004080; padding: 0.8rem 1.5rem; font-size: 1.1rem; font-weight: bold; border-radius: 8px; cursor: pointer; transition: all 0.3s ease; }
+        .cat-btn:hover, .cat-btn.active { background-color: #004080; color: #fff; transform: translateY(-3px); box-shadow: 0 4px 10px rgba(0,64,128,0.2); }
+        #wheelArea { display: none; margin-top: 2rem; padding-top: 2rem; border-top: 2px dashed #ccc; animation: fadeIn 0.5s ease; }
+        #activeCategoryTitle { color: #3385ff; margin-bottom: 1.5rem; font-size: 1.8rem; }
+        .wheel-wrapper { position: relative; width: min(380px, 100%); aspect-ratio: 1; margin: 0 auto 2rem; border-radius: 50%; box-shadow: 0 20px 40px rgba(0,0,0,0.3); }
+        .pointer { position: absolute; top: -25px; left: 50%; transform: translateX( -50%); width: 0; height: 0; border-left: 22px solid transparent; border-right: 22px solid transparent; border-top: 55px solid #e60000; z-index: 10; filter: drop-shadow(0 6px 6px rgba(0,0,0,0.5)); }
+        .wheel { width: 100%; height: 100%; border-radius: 50%; border: 15px solid #001a33; position: relative; overflow: hidden; transition: transform 4s cubic-bezier(0.17, 0.67, 0.12, 0.99); box-shadow: inset 0 0 30px rgba(0,0,0,0.7), inset 0 0 0 6px rgba(255,255,255,0.3); }
+        .wheel-center { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 45px; height: 45px; background: radial-gradient(circle, #e6f0fa, #80b3ff); border-radius: 50%; border: 5px solid #001a33; box-shadow: 0 4px 10px rgba(0,0,0,0.6); z-index: 6; }
+        .wheel-bg { width: 100%; height: 100%; position: absolute; top: 0; left: 0; }
+        .wheel-labels { position: absolute; width: 100%; height: 100%; top: 0; left: 0; }
+        .label { position: absolute; top: 50%; left: 50%; transform-origin: 0 0; font-weight: bold; color: #fff; font-size: 0.95rem; text-shadow: 1px 1px 4px rgba(0,0,0,0.9); }
+        .spin-btn { background-color: #3385ff; color: #fff; border: none; padding: 1rem 3rem; font-size: 1.5rem; font-weight: bold; border-radius: 50px; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 4px 10px rgba(51,133,255,0.4); margin-bottom: 1rem; border-bottom: 4px solid #004080; }
+        .question-card { display: none; margin-top: 2rem; padding: 2rem; background-color: #f0f7ff; border: 2px solid #b3d4ff; border-radius: 8px; text-align: center; animation: fadeIn 0.5s ease; box-shadow: 0 6px 15px rgba(0,0,0,0.05); }
+        .q-number-tag { display: inline-block; background: #004080; color: #fff; padding: 0.5rem 1.5rem; border-radius: 30px; font-size: 1.1rem; margin-bottom: 1rem; font-weight: bold; text-transform: uppercase; box-shadow: 0 3px 6px rgba(0,0,0,0.2); }
+        .question-text { font-size: 1.5rem; color: #333; margin-bottom: 1.5rem; font-weight: 500; }
+        .mc-options { display: flex; flex-direction: column; gap: 0.8rem; max-width: 450px; margin: 0 auto 1.5rem; }
+        .option-btn { background: #fff; border: 2px solid #b3d4ff; padding: 1rem; font-size: 1.1rem; border-radius: 6px; cursor: pointer; transition: all 0.2s; text-align: left; font-weight: 500; color: #004080; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+        .option-btn.correct { background-color: #d4edda !important; border-color: #28a745 !important; color: #155724 !important; }
+        .option-btn.incorrect { background-color: #f8d7da !important; border-color: #dc3545 !important; color: #721c24 !important; }
+        .reveal-btn { background-color: #3385ff; color: #fff; border: none; padding: 0.8rem 2rem; font-size: 1.1rem; font-weight: bold; border-radius: 8px; cursor: pointer; transition: background 0.3s; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .answer-text { display: none; font-size: 1.2rem; color: #333; margin-top: 1.5rem; padding-top: 1.5rem; border-top: 2px dashed #b3d4ff; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        footer { text-align: center; padding: 1rem; background-color: #002b5e; color: #fff; margin-top: auto; }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="../../../../../index.html" class="logo">May Learning Hub</a>
+        <div class="nav-links">
+            <a href="../../../../../index.html">Home</a>
+            <a href="../../../../../about.html">About</a>
+        </div>
+    </nav>
+
+    <main class="game-container">
+        <h1 class="game-title">Life Sciences Quiz: Lamarckism, Darwinism and Punctuated Equilibrium</h1>
+        <p class="game-subtitle">Test your knowledge of evolutionary theories, selection, and speciation.</p>
+        <p style="font-size: 0.78rem; color: #52606d; margin-top: 0.45rem;">Source: Lamarckism, Darwinism and Punctuated Equilibrium - Grade 12 Life Sciences Term 3 presentation.</p>
+
+        <div class="category-selection">
+            <h2>Step 1: Choose a Category</h2>
+            <div class="cat-buttons" id="catButtons">
+                <button class="cat-btn" onclick="selectCategory('definitions', this)">Definitions</button>
+                <button class="cat-btn" onclick="selectCategory('terms', this)">Name the Term</button>
+                <button class="cat-btn" onclick="selectCategory('multipleChoice', this)">Multiple Choice</button>
+                <button class="cat-btn" onclick="selectCategory('trueFalse', this)">True or False</button>
+            </div>
+        </div>
+
+        <div id="wheelArea">
+            <h2 id="activeCategoryTitle">Category: None</h2>
+
+            <div class="wheel-wrapper">
+                <div class="pointer"></div>
+                <div class="wheel-center"></div>
+                <div class="wheel" id="wheel">
+                    <div class="wheel-bg" id="wheelBg"></div>
+                    <div class="wheel-labels" id="wheelLabels"></div>
+                </div>
+            </div>
+
+            <button class="spin-btn" id="spinBtn" onclick="spinWheel()">SPIN THE WHEEL</button>
+            <p id="remainingCount" style="color: #666; font-size: 0.9rem; margin-bottom: 1rem; font-weight: bold;">20 questions remaining</p>
+
+            <div class="question-card" id="questionCard">
+                <div class="q-number-tag" id="qNumberTag">Question #</div>
+                <div class="question-text" id="questionText">Loading question...</div>
+
+                <div class="mc-options" id="mcOptions"></div>
+
+                <button class="reveal-btn" id="revealBtn" onclick="revealAnswer()">Reveal Answer</button>
+                <div class="answer-text" id="answerText"></div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 May Learning Hub. All rights reserved.</p>
+    </footer>
+
+        <script src="../../../../../game-audio.js"></script>
+<script>
+        const gameData = {
+            'definitions': [
+                { q: "Lamarckism", a: "An early evolutionary explanation based on use and disuse and the inheritance of acquired characteristics." },
+                { q: "Law of Use and Disuse", a: "Lamarck's proposal that frequently used structures become better developed while unused structures weaken." },
+                { q: "Inheritance of Acquired Characteristics", a: "Lamarck's proposal that changes acquired during an organism's lifetime are passed to offspring." },
+                { q: "Darwinism", a: "The explanation that evolution occurs through natural selection acting on inherited variation." },
+                { q: "Natural Selection", a: "The process in which organisms with favourable inherited characteristics survive and reproduce more successfully." },
+                { q: "Selecting Agent", a: "An environmental factor that determines which characteristics are favourable." },
+                { q: "Gene Pool", a: "All the alleles present in a population." },
+                { q: "Gradualism", a: "The view that evolutionary change usually occurs slowly over many generations." },
+                { q: "Punctuated Equilibrium", a: "The hypothesis that long stable periods are interrupted by short periods of rapid evolutionary change." },
+                { q: "Equilibrium", a: "A long period during which a population undergoes little or no evolutionary change." },
+                { q: "Selection Pressure", a: "An environmental condition that affects survival and reproductive success." },
+                { q: "Survival of the Fittest", a: "The survival and reproduction of organisms best adapted to current conditions." },
+                { q: "Artificial Selection", a: "Human-directed breeding of organisms with chosen desirable characteristics." },
+                { q: "Species", a: "A group of similar organisms able to interbreed and produce fertile offspring." },
+                { q: "Viable Offspring", a: "Offspring able to survive and reproduce at sexual maturity." },
+                { q: "Speciation", a: "The process by which a new species evolves." },
+                { q: "Geographic Isolation", a: "Physical separation of a population by a barrier." },
+                { q: "Gene Flow", a: "The movement of alleles between interbreeding populations." },
+                { q: "Allopatric Speciation", a: "Formation of new species after geographic isolation prevents gene flow." },
+                { q: "Ecological Niche", a: "The role of an organism and the resources and conditions it uses in its environment." }
+            ],
+            'terms': [
+                { q: "An early theory based on use, disuse, and acquired characteristics.", a: "Lamarckism" },
+                { q: "The idea that regularly used body parts become better developed.", a: "Law of Use and Disuse" },
+                { q: "The rejected idea that lifetime changes pass to offspring.", a: "Inheritance of Acquired Characteristics" },
+                { q: "Evolution through natural selection acting on inherited variation.", a: "Darwinism" },
+                { q: "Differential survival and reproduction caused by favourable inherited traits.", a: "Natural Selection" },
+                { q: "The environment or factor that determines which traits are favoured.", a: "Selecting Agent" },
+                { q: "All alleles present in a population.", a: "Gene Pool" },
+                { q: "Slow evolutionary change over many generations.", a: "Gradualism" },
+                { q: "Long stability interrupted by brief rapid evolutionary change.", a: "Punctuated Equilibrium" },
+                { q: "A long period of little or no evolutionary change.", a: "Equilibrium" },
+                { q: "An environmental condition affecting survival and reproduction.", a: "Selection Pressure" },
+                { q: "Survival and reproduction of organisms best adapted to their environment.", a: "Survival of the Fittest" },
+                { q: "Human selection and breeding for desirable traits.", a: "Artificial Selection" },
+                { q: "Organisms that interbreed and produce fertile offspring.", a: "Species" },
+                { q: "Offspring capable of surviving and reproducing.", a: "Viable Offspring" },
+                { q: "The formation of a new species.", a: "Speciation" },
+                { q: "Population separation caused by a physical barrier.", a: "Geographic Isolation" },
+                { q: "Movement of alleles between populations through interbreeding.", a: "Gene Flow" },
+                { q: "New-species formation following geographic separation.", a: "Allopatric Speciation" },
+                { q: "The role and environmental resources used by an organism.", a: "Ecological Niche" }
+            ],
+            'multipleChoice': [
+                { q: "Which two laws did Lamarck propose?", options: ["A) Use and disuse; inheritance of acquired characteristics", "B) Segregation and independent assortment", "C) Natural and artificial selection", "D) Equilibrium and punctuated change"], a: "A) Use and disuse; inheritance of acquired characteristics" },
+                { q: "Why was Lamarckism rejected?", options: ["A) Acquired characteristics are not inherited", "B) No organisms show variation", "C) Fossils do not exist", "D) Natural selection cannot change populations"], a: "A) Acquired characteristics are not inherited" },
+                { q: "Who proposed evolution by natural selection?", options: ["A) Charles Darwin", "B) Jean-Baptiste Lamarck", "C) Stephen Gould only", "D) Jan Bosma"], a: "A) Charles Darwin" },
+                { q: "How long did Darwin travel on the HMS Beagle?", options: ["A) Five years", "B) Five months", "C) Ten years", "D) One year"], a: "A) Five years" },
+                { q: "Who proposed punctuated equilibrium in 1972?", options: ["A) Stephen Gould and Niles Eldredge", "B) Darwin and Lamarck", "C) Bosma and Wallace", "D) Mendel and Watson"], a: "A) Stephen Gould and Niles Eldredge" },
+                { q: "What may trigger rapid evolution under punctuated equilibrium?", options: ["A) Sudden environmental change", "B) Complete absence of variation", "C) Constant conditions only", "D) Organisms deciding to change"], a: "A) Sudden environmental change" },
+                { q: "What did the isolated cichlid population produce in about 4 000 years?", options: ["A) Five new species exploiting five habitats", "B) One unchanged species", "C) Five domestic breeds", "D) Two infertile hybrids"], a: "A) Five new species exploiting five habitats" },
+                { q: "Which finch beak is suited to insects?", options: ["A) Probing beak", "B) Crushing beak", "C) Hoof-shaped beak", "D) Broad flipper"], a: "A) Probing beak" },
+                { q: "What changed the selection pressure on peppered moths?", options: ["A) Soot darkened tree bark", "B) Tree bark became paler naturally", "C) Birds disappeared", "D) Moths lost all variation"], a: "A) Soot darkened tree bark" },
+                { q: "Why did dark peppered moths increase during the Industrial Revolution?", options: ["A) Better camouflage improved survival and reproduction", "B) They consciously darkened themselves", "C) Pale moths became infertile immediately", "D) Soot changed each moth's genes directly"], a: "A) Better camouflage improved survival and reproduction" },
+                { q: "Which sequence is required for natural selection?", options: ["A) Variation, overproduction, competition, environmental change, differential survival", "B) Need, use, acquired change, inheritance", "C) Isolation without variation", "D) Human choice only"], a: "A) Variation, overproduction, competition, environmental change, differential survival" },
+                { q: "Who chooses desirable traits in artificial selection?", options: ["A) Humans", "B) The environment alone", "C) Predators only", "D) Fossils"], a: "A) Humans" },
+                { q: "Which cattle contributed heat and disease resistance to Bonsmara?", options: ["A) Indigenous Nguni cattle", "B) Imported British cattle", "C) European dairy cattle only", "D) Wild wolves"], a: "A) Indigenous Nguni cattle" },
+                { q: "Which cattle contributed high-quality beef and early maturity to Bonsmara?", options: ["A) Imported British beef cattle", "B) Nguni cattle only", "C) Teosinte", "D) Cichlid fish"], a: "A) Imported British beef cattle" },
+                { q: "From which wild grass was maize domesticated?", options: ["A) Teosinte", "B) Wheat", "C) Rice", "D) Sorghum"], a: "A) Teosinte" },
+                { q: "Why should wild teosinte be conserved?", options: ["A) It contains ancestral genes useful for future breeding", "B) It has no genetic value", "C) It prevents maize growth", "D) It is a cattle breed"], a: "A) It contains ancestral genes useful for future breeding" },
+                { q: "Why are horses and donkeys different species despite producing mules?", options: ["A) Mules are infertile", "B) Mules are always identical to horses", "C) They have the same gene pool", "D) They naturally produce fertile offspring"], a: "A) Mules are infertile" },
+                { q: "What immediately prevents gene flow in allopatric speciation?", options: ["A) A geographic barrier", "B) Artificial selection", "C) Use and disuse", "D) A larger gene pool"], a: "A) A geographic barrier" },
+                { q: "How many baobab species occur in Madagascar?", options: ["A) Six", "B) Two", "C) One", "D) Nine"], a: "A) Six" },
+                { q: "Which barriers separated African baobab populations?", options: ["A) Temperature and altitude", "B) Ocean currents only", "C) Herbicides and pests", "D) Beak size and diet"], a: "A) Temperature and altitude" }
+            ],
+            'trueFalse': [
+                { q: "Lamarck believed individuals could change during their lifetimes and pass those changes to offspring.", options: ["True", "False"], a: "True", exp: "This is inheritance of acquired characteristics." },
+                { q: "Lamarckism was accepted because acquired characteristics are proven to be inherited.", options: ["True", "False"], a: "False", exp: "No evidence supports inheritance of acquired characteristics." },
+                { q: "Darwinism requires inherited variation within a population.", options: ["True", "False"], a: "True", exp: "Natural selection acts on inherited differences." },
+                { q: "Natural selection means organisms change because they want to survive.", options: ["True", "False"], a: "False", exp: "The environment selects among existing inherited variations." },
+                { q: "Favourable alleles may become more common over generations.", options: ["True", "False"], a: "True", exp: "Successful organisms reproduce and pass these alleles on." },
+                { q: "Gradualism describes rapid change after long stable periods.", options: ["True", "False"], a: "False", exp: "That pattern describes punctuated equilibrium." },
+                { q: "Punctuated equilibrium includes long periods called equilibrium.", options: ["True", "False"], a: "True", exp: "These stable periods are punctuated by rapid change." },
+                { q: "Missing transitional fossils may support punctuated equilibrium.", options: ["True", "False"], a: "True", exp: "Rapid change can leave fewer transitional forms." },
+                { q: "Galapagos finch beaks were adapted to different food sources.", options: ["True", "False"], a: "True", exp: "Different diets created different selection pressures." },
+                { q: "Crushing finch beaks were mainly adapted for probing insects.", options: ["True", "False"], a: "False", exp: "Crushing beaks suit fruits, buds, and seeds." },
+                { q: "Industrial pollution made pale peppered moths easier for birds to see.", options: ["True", "False"], a: "True", exp: "Soot darkened the bark and reduced pale-moth camouflage." },
+                { q: "Natural selection changes the frequency of favourable characteristics in a population.", options: ["True", "False"], a: "True", exp: "Better-adapted organisms leave more offspring." },
+                { q: "Populations with little genetic variation may be vulnerable to extinction.", options: ["True", "False"], a: "True", exp: "They may lack traits suited to changed conditions." },
+                { q: "Artificial selection is controlled by environmental conditions alone.", options: ["True", "False"], a: "False", exp: "Humans choose the traits and breeding organisms." },
+                { q: "Bonsmara cattle combine useful Nguni and British beef-cattle traits.", options: ["True", "False"], a: "True", exp: "The programme combined adaptation with beef production." },
+                { q: "Modern maize arose through long-term selection from teosinte.", options: ["True", "False"], a: "True", exp: "Farmers selected desirable plants over generations." },
+                { q: "A mule is evidence that horses and donkeys are one species.", options: ["True", "False"], a: "False", exp: "Mules are infertile, so the parents are separate species." },
+                { q: "Geographic isolation prevents gene flow between separated populations.", options: ["True", "False"], a: "True", exp: "The physical barrier stops interbreeding." },
+                { q: "Allopatric populations experience identical selection pressures in every case.", options: ["True", "False"], a: "False", exp: "Different environments can select different characteristics." },
+                { q: "The Indian Ocean acted as a barrier for the Australian baobab population.", options: ["True", "False"], a: "True", exp: "It prevented seed movement and gene flow back to Africa." }
+            ]
+        };
+                const totalQuestions = 20;
+        const sliceAngle = 360 / totalQuestions;
+        let currentCategoryKey = null;
+        let currentRotation = 0;
+        let currentQuestionData = null;
+        let targetQuestionIndex = null;
+
+        let availableQuestions = {
+            'definitions': Array.from({length: totalQuestions}, (_, i) => i),
+            'terms': Array.from({length: totalQuestions}, (_, i) => i),
+            'multipleChoice': Array.from({length: totalQuestions}, (_, i) => i),
+            'trueFalse': Array.from({length: totalQuestions}, (_, i) => i)
+        };
+
+        const sliceColors = ["#0055ff", "#0088ff", "#00bfff", "#0044cc"];
+
+        function buildWheel() {
+            const wheelBg = document.getElementById('wheelBg');
+            const wheelLabels = document.getElementById('wheelLabels');
+            let gradientParts = [];
+
+            for (let i = 0; i < totalQuestions; i++) {
+                let startAngle = i * sliceAngle;
+                let endAngle = (i + 1) * sliceAngle;
+                let color = sliceColors[i % sliceColors.length];
+                gradientParts.push(`${color} ${startAngle}deg ${endAngle}deg`);
+
+                let label = document.createElement('div');
+                label.className = 'label';
+                let textRotation = startAngle + (sliceAngle / 2) - 90;
+                label.style.transform = `rotate(${textRotation}deg) translate(145px, -50%)`;
+                label.innerText = i + 1;
+                wheelLabels.appendChild(label);
+            }
+            wheelBg.style.background = `conic-gradient(${gradientParts.join(', ')})`;
+        }
+
+        buildWheel();
+
+        function selectCategory(categoryKey, btnElement) {
+            currentCategoryKey = categoryKey;
+            const buttons = document.querySelectorAll('.cat-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            btnElement.classList.add('active');
+            document.getElementById('wheelArea').style.display = 'block';
+            document.getElementById('activeCategoryTitle').innerText = `Category: ${btnElement.innerText}`;
+            document.getElementById('questionCard').style.display = 'none';
+            document.getElementById('remainingCount').innerText = `${availableQuestions[categoryKey].length} questions remaining`;
+            currentRotation = 0;
+            document.getElementById('wheel').style.transform = `rotate(0deg)`;
+        }
+
+        function spinWheel() {
+            const spinBtn = document.getElementById('spinBtn');
+            const wheel = document.getElementById('wheel');
+            const questionCard = document.getElementById('questionCard');
+            let available = availableQuestions[currentCategoryKey];
+
+            if (available.length === 0) {
+                alert(`Resetting ${currentCategoryKey}!`);
+                availableQuestions[currentCategoryKey] = Array.from({length: totalQuestions}, (_, i) => i);
+                available = availableQuestions[currentCategoryKey];
+            }
+
+            spinBtn.disabled = true;
+            spinBtn.innerText = "SPINNING...";
+            MayHubSounds.startWheel();
+            questionCard.style.display = 'none';
+
+            let randomArrIndex = Math.floor(Math.random() * available.length);
+            targetQuestionIndex = available[randomArrIndex];
+            available.splice(randomArrIndex, 1);
+            document.getElementById('remainingCount').innerText = `${available.length} questions remaining`;
+
+            let sliceCenterAngle = (targetQuestionIndex * sliceAngle) + (sliceAngle / 2);
+            let targetDegree = 360 - sliceCenterAngle;
+            let currentBase = Math.ceil(currentRotation / 360) * 360;
+            currentRotation = currentBase + 1800 + targetDegree;
+            wheel.style.transform = `rotate(${currentRotation}deg)`;
+
+            setTimeout(() => {
+                MayHubSounds.stopWheel();
+                spinBtn.disabled = false;
+                spinBtn.innerText = "SPIN AGAIN";
+                currentQuestionData = gameData[currentCategoryKey][targetQuestionIndex];
+                displayQuestion(targetQuestionIndex + 1, currentQuestionData);
+            }, 4000);
+        }
+
+        function displayQuestion(questionNumber, data) {
+            document.getElementById('qNumberTag').innerText = `Question #${questionNumber}`;
+            document.getElementById('questionText').innerText = data.q;
+            const mcOptions = document.getElementById('mcOptions');
+            const revealBtn = document.getElementById('revealBtn');
+            const answerText = document.getElementById('answerText');
+            mcOptions.innerHTML = "";
+            answerText.style.display = "none";
+
+            if (currentCategoryKey === 'multipleChoice' || currentCategoryKey === 'trueFalse') {
+                revealBtn.style.display = "none";
+                mcOptions.style.display = "flex";
+                data.options.forEach(opt => {
+                    let btn = document.createElement("button");
+                    btn.className = "option-btn";
+                    btn.innerText = opt;
+                    btn.onclick = () => checkInteractiveAnswer(btn, opt);
+                    mcOptions.appendChild(btn);
+                });
+            } else {
+                mcOptions.style.display = "none";
+                revealBtn.style.display = "inline-block";
+                answerText.innerHTML = `<strong>Answer:</strong> ${data.a}`;
+            }
+            document.getElementById('questionCard').style.display = "block";
+        }
+
+        function checkInteractiveAnswer(clickedBtn, selectedText) {
+            const allBtns = document.querySelectorAll('.option-btn');
+            allBtns.forEach(btn => btn.disabled = true);
+            const isCorrect = (selectedText === currentQuestionData.a || selectedText.startsWith(currentQuestionData.a.charAt(0)));
+            const answerTextDiv = document.getElementById('answerText');
+            if (isCorrect) {
+                MayHubSounds.playCorrect();
+                clickedBtn.classList.add('correct');
+                answerTextDiv.innerHTML = `<div style="color: green; font-weight: bold;">Correct!</div> ${currentQuestionData.exp || ''}`;
+            } else {
+                MayHubSounds.playWrong();
+                clickedBtn.classList.add('incorrect');
+                answerTextDiv.innerHTML = `<div style="color: red; font-weight: bold;">Incorrect!</div> The correct answer was: ${currentQuestionData.a}. ${currentQuestionData.exp || ''}`;
+            }
+            answerTextDiv.style.display = "block";
+        }
+
+        function revealAnswer() {
+            document.getElementById('revealBtn').style.display = "none";
+            document.getElementById('answerText').style.display = "block";
+        }
+    </script>
+</body>
+</html>

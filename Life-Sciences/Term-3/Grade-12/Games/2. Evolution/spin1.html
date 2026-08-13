@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-8GCWSKNDL7"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-8GCWSKNDL7');
+</script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learning Hub | Grade 12 Life Sciences: Evolution</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f0f4f8; color: #333; line-height: 1.6; display: flex; flex-direction: column; min-height: 100vh; }
+        nav { background-color: #002b5e; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; }
+        .logo { color: #fff; font-size: 1.5rem; font-weight: bold; text-decoration: none; }
+        .nav-links a { color: #cce0ff; text-decoration: none; margin-left: 1.5rem; font-weight: 500; transition: color 0.3s; }
+        .nav-links a:hover, .nav-links a.active { color: #fff; text-decoration: underline; }
+        .game-container { max-width: 900px; margin: 3rem auto; padding: 2rem; background: #fff; border-radius: 12px; box-shadow: 0 8px 30px rgba(0,0,0,0.1); border-top: 6px solid #3385ff; text-align: center; }
+        .game-title { color: #004080; font-size: 2.5rem; margin-bottom: 0.5rem; text-shadow: 1px 1px 2px rgba(0,0,0,0.1); }
+        .game-subtitle { color: #555; margin-bottom: 2rem; font-size: 1.1rem; }
+        .category-selection { margin-bottom: 2rem; }
+        .category-selection h2 { color: #004080; margin-bottom: 1rem; font-size: 1.5rem; }
+        .cat-buttons { display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem; }
+        .cat-btn { background-color: #f0f4f8; border: 2px solid #004080; color: #004080; padding: 0.8rem 1.5rem; font-size: 1.1rem; font-weight: bold; border-radius: 8px; cursor: pointer; transition: all 0.3s ease; }
+        .cat-btn:hover, .cat-btn.active { background-color: #004080; color: #fff; transform: translateY(-3px); box-shadow: 0 4px 10px rgba(0,64,128,0.2); }
+        #wheelArea { display: none; margin-top: 2rem; padding-top: 2rem; border-top: 2px dashed #ccc; animation: fadeIn 0.5s ease; }
+        #activeCategoryTitle { color: #3385ff; margin-bottom: 1.5rem; font-size: 1.8rem; }
+        .wheel-wrapper { position: relative; width: min(380px, 100%); aspect-ratio: 1; margin: 0 auto 2rem; border-radius: 50%; box-shadow: 0 20px 40px rgba(0,0,0,0.3); }
+        .pointer { position: absolute; top: -25px; left: 50%; transform: translateX( -50%); width: 0; height: 0; border-left: 22px solid transparent; border-right: 22px solid transparent; border-top: 55px solid #e60000; z-index: 10; filter: drop-shadow(0 6px 6px rgba(0,0,0,0.5)); }
+        .wheel { width: 100%; height: 100%; border-radius: 50%; border: 15px solid #001a33; position: relative; overflow: hidden; transition: transform 4s cubic-bezier(0.17, 0.67, 0.12, 0.99); box-shadow: inset 0 0 30px rgba(0,0,0,0.7), inset 0 0 0 6px rgba(255,255,255,0.3); }
+        .wheel-center { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 45px; height: 45px; background: radial-gradient(circle, #e6f0fa, #80b3ff); border-radius: 50%; border: 5px solid #001a33; box-shadow: 0 4px 10px rgba(0,0,0,0.6); z-index: 6; }
+        .wheel-bg { width: 100%; height: 100%; position: absolute; top: 0; left: 0; }
+        .wheel-labels { position: absolute; width: 100%; height: 100%; top: 0; left: 0; }
+        .label { position: absolute; top: 50%; left: 50%; transform-origin: 0 0; font-weight: bold; color: #fff; font-size: 0.95rem; text-shadow: 1px 1px 4px rgba(0,0,0,0.9); }
+        .spin-btn { background-color: #3385ff; color: #fff; border: none; padding: 1rem 3rem; font-size: 1.5rem; font-weight: bold; border-radius: 50px; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 4px 10px rgba(51,133,255,0.4); margin-bottom: 1rem; border-bottom: 4px solid #004080; }
+        .question-card { display: none; margin-top: 2rem; padding: 2rem; background-color: #f0f7ff; border: 2px solid #b3d4ff; border-radius: 8px; text-align: center; animation: fadeIn 0.5s ease; box-shadow: 0 6px 15px rgba(0,0,0,0.05); }
+        .q-number-tag { display: inline-block; background: #004080; color: #fff; padding: 0.5rem 1.5rem; border-radius: 30px; font-size: 1.1rem; margin-bottom: 1rem; font-weight: bold; text-transform: uppercase; box-shadow: 0 3px 6px rgba(0,0,0,0.2); }
+        .question-text { font-size: 1.5rem; color: #333; margin-bottom: 1.5rem; font-weight: 500; }
+        .mc-options { display: flex; flex-direction: column; gap: 0.8rem; max-width: 450px; margin: 0 auto 1.5rem; }
+        .option-btn { background: #fff; border: 2px solid #b3d4ff; padding: 1rem; font-size: 1.1rem; border-radius: 6px; cursor: pointer; transition: all 0.2s; text-align: left; font-weight: 500; color: #004080; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+        .option-btn.correct { background-color: #d4edda !important; border-color: #28a745 !important; color: #155724 !important; }
+        .option-btn.incorrect { background-color: #f8d7da !important; border-color: #dc3545 !important; color: #721c24 !important; }
+        .reveal-btn { background-color: #3385ff; color: #fff; border: none; padding: 0.8rem 2rem; font-size: 1.1rem; font-weight: bold; border-radius: 8px; cursor: pointer; transition: background 0.3s; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .answer-text { display: none; font-size: 1.2rem; color: #333; margin-top: 1.5rem; padding-top: 1.5rem; border-top: 2px dashed #b3d4ff; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        footer { text-align: center; padding: 1rem; background-color: #002b5e; color: #fff; margin-top: auto; }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="../../../../../index.html" class="logo">May Learning Hub</a>
+        <div class="nav-links">
+            <a href="../../../../../index.html">Home</a>
+            <a href="../../../../../about.html">About</a>
+        </div>
+    </nav>
+
+    <main class="game-container">
+        <h1 class="game-title">Life Sciences Quiz: Evolution</h1>
+        <p class="game-subtitle">Test your Grade 12 Term 3 knowledge of evolution, evidence, relationships, and variation.</p>
+        <p style="font-size: 0.78rem; color: #52606d; margin-top: 0.45rem;">Source: Evolution - Grade 12 Life Sciences Term 3 presentation.</p>
+
+        <div class="category-selection">
+            <h2>Step 1: Choose a Category</h2>
+            <div class="cat-buttons" id="catButtons">
+                <button class="cat-btn" onclick="selectCategory('definitions', this)">Definitions</button>
+                <button class="cat-btn" onclick="selectCategory('terms', this)">Name the Term</button>
+                <button class="cat-btn" onclick="selectCategory('multipleChoice', this)">Multiple Choice</button>
+                <button class="cat-btn" onclick="selectCategory('trueFalse', this)">True or False</button>
+            </div>
+        </div>
+
+        <div id="wheelArea">
+            <h2 id="activeCategoryTitle">Category: None</h2>
+
+            <div class="wheel-wrapper">
+                <div class="pointer"></div>
+                <div class="wheel-center"></div>
+                <div class="wheel" id="wheel">
+                    <div class="wheel-bg" id="wheelBg"></div>
+                    <div class="wheel-labels" id="wheelLabels"></div>
+                </div>
+            </div>
+
+            <button class="spin-btn" id="spinBtn" onclick="spinWheel()">SPIN THE WHEEL</button>
+            <p id="remainingCount" style="color: #666; font-size: 0.9rem; margin-bottom: 1rem; font-weight: bold;">20 questions remaining</p>
+
+            <div class="question-card" id="questionCard">
+                <div class="q-number-tag" id="qNumberTag">Question #</div>
+                <div class="question-text" id="questionText">Loading question...</div>
+
+                <div class="mc-options" id="mcOptions"></div>
+
+                <button class="reveal-btn" id="revealBtn" onclick="revealAnswer()">Reveal Answer</button>
+                <div class="answer-text" id="answerText"></div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 May Learning Hub. All rights reserved.</p>
+    </footer>
+
+        <script src="../../../../../game-audio.js"></script>
+<script>
+        const gameData = {
+            'definitions': [
+                { q: "Evolution", a: "The process by which the characteristics of a population change over generations." },
+                { q: "Population", a: "A group of individuals of the same species that forms a breeding unit and occupies the same habitat at the same time." },
+                { q: "Scientific Theory", a: "A widely held explanation supported by numerous observations, experiments, evidence, and repeated testing." },
+                { q: "Belief", a: "An explanation based on religious or cultural values that is not usually testable using scientific evidence." },
+                { q: "Hypothesis", a: "A possible or temporary explanation of a phenomenon that can be tested through observations or experiments." },
+                { q: "Paleontology", a: "The scientific study of fossils." },
+                { q: "Fossil", a: "The preserved remains or traces of an organism that once lived on Earth." },
+                { q: "Geological Strata", a: "Layers of rock in which fossils may be found." },
+                { q: "Modification by Descent", a: "The process in which organisms share a common ancestor but become modified over time." },
+                { q: "Pentadactyl Limb", a: "A forelimb structure that follows the same basic bone plan and ends in five digits." },
+                { q: "Homologous Structures", a: "Body parts that have a similar basic structure but perform different functions." },
+                { q: "Analogous Structures", a: "Body parts that perform the same or similar function but differ in structure." },
+                { q: "Biogeography", a: "The study of the geographical distribution of biological organisms." },
+                { q: "Continental Drift", a: "The continuing movement and changing positions of Earth's continents." },
+                { q: "Phylogenetic Tree", a: "A branching diagram that represents evolutionary relationships among a group of organisms." },
+                { q: "Cladogram", a: "A type of phylogenetic tree that represents relationships based on genetic characteristics." },
+                { q: "Variation", a: "Differences in genotype and phenotype among individuals of a particular species." },
+                { q: "Mutation", a: "A change in the structure of a gene or chromosome." },
+                { q: "Discontinuous Variation", a: "Variation in which characteristics occur in separate, distinct categories or discrete classes." },
+                { q: "Continuous Variation", a: "Variation in which phenotypes show a range of values and are usually controlled by multiple genes." }
+            ],
+            'terms': [
+                { q: "Change in the characteristics of a population over generations.", a: "Evolution" },
+                { q: "A same-species breeding unit living in the same habitat at the same time.", a: "Population" },
+                { q: "An evidence-supported explanation tested repeatedly by many scientists.", a: "Scientific Theory" },
+                { q: "An explanation based on religious or cultural values and not usually scientifically testable.", a: "Belief" },
+                { q: "A possible explanation that can be tested by observation or experiment.", a: "Hypothesis" },
+                { q: "The scientific study of fossils.", a: "Paleontology" },
+                { q: "Preserved remains or traces of an organism that lived in the past.", a: "Fossil" },
+                { q: "Rock layers used to establish the relative ages of fossils.", a: "Geological Strata" },
+                { q: "Common ancestry followed by modification over time.", a: "Modification by Descent" },
+                { q: "A five-digit forelimb plan shared by mammals.", a: "Pentadactyl Limb" },
+                { q: "Body parts with similar structure but different functions.", a: "Homologous Structures" },
+                { q: "Body parts with the same function but different structures.", a: "Analogous Structures" },
+                { q: "The study of where organisms are geographically distributed.", a: "Biogeography" },
+                { q: "The movement of continents over geological time.", a: "Continental Drift" },
+                { q: "A diagram showing evolutionary relationships using branching lines.", a: "Phylogenetic Tree" },
+                { q: "A genetic-characteristic-based evolutionary relationship diagram.", a: "Cladogram" },
+                { q: "Genotypic and phenotypic differences among members of a species.", a: "Variation" },
+                { q: "A change in gene or chromosome structure.", a: "Mutation" },
+                { q: "Variation divided into distinct categories such as blood groups.", a: "Discontinuous Variation" },
+                { q: "Variation showing a smooth range of values such as height.", a: "Continuous Variation" }
+            ],
+            'multipleChoice': [
+                { q: "Why are different flu vaccines needed over time?", options: ["A) Flu-virus RNA continually mutates", "B) Individual humans evolve during vaccination", "C) Fossils change each year", "D) Continents move every season"], a: "A) Flu-virus RNA continually mutates" },
+                { q: "Which example shows artificially induced evolution?", options: ["A) Domestic dogs from wolves", "B) Crocodiles changing slowly", "C) Mesosaurus fossils", "D) Rock strata forming"], a: "A) Domestic dogs from wolves" },
+                { q: "At what level does evolution occur?", options: ["A) Population", "B) One individual's lifetime", "C) A single cell only", "D) One organ"], a: "A) Population" },
+                { q: "Where are the oldest rock strata usually found?", options: ["A) Deeper in the Earth", "B) Closest to the surface", "C) Only in oceans", "D) Only above younger layers"], a: "A) Deeper in the Earth" },
+                { q: "What do dinosaur and mammal fossils suggest?", options: ["A) Dinosaurs evolved before mammals", "B) Mammals evolved before all dinosaurs", "C) Both appeared at exactly the same time", "D) Neither group became extinct"], a: "A) Dinosaurs evolved before mammals" },
+                { q: "Why is Archaeopteryx important?", options: ["A) It shows features linking different groups", "B) It proves individual organisms evolve", "C) It is a modern mammal", "D) It is a continental plate"], a: "A) It shows features linking different groups" },
+                { q: "Which bones form part of the pentadactyl limb?", options: ["A) Humerus, radius, ulna, carpals, metacarpals, phalanges", "B) Femur and patella only", "C) Skull and ribs only", "D) Vertebrae only"], a: "A) Humerus, radius, ulna, carpals, metacarpals, phalanges" },
+                { q: "Which pair is analogous?", options: ["A) Bird wing and insect wing", "B) Bat wing and mole forelimb", "C) Seal flipper and monkey arm", "D) Horse forelimb and bat wing"], a: "A) Bird wing and insect wing" },
+                { q: "Which mole adaptation supports digging?", options: ["A) Shovel-shaped paws and strong bones", "B) Long skin membranes", "C) A hoof", "D) A broad swimming paddle"], a: "A) Shovel-shaped paws and strong bones" },
+                { q: "Which bat adaptation increases wingspan?", options: ["A) Elongated limb bones and digits", "B) Short fused phalanges", "C) A hoof", "D) Shovel-shaped paws"], a: "A) Elongated limb bones and digits" },
+                { q: "What did Pangaea split into?", options: ["A) Laurasia and Gondwana", "B) Africa and Europe only", "C) Two oceans", "D) Permian and Cretaceous"], a: "A) Laurasia and Gondwana" },
+                { q: "Where are Mesosaurus fossils found?", options: ["A) Eastern South America and western Africa", "B) Northern Europe only", "C) Australia only", "D) Antarctica only"], a: "A) Eastern South America and western Africa" },
+                { q: "What indicates that two species are closely related genetically?", options: ["A) Very similar gene sequences", "B) Very different DNA sequences", "C) Living on different continents", "D) Having analogous structures only"], a: "A) Very similar gene sequences" },
+                { q: "What does a split on a phylogenetic tree indicate?", options: ["A) A common ancestor", "B) A fossil's exact age", "C) A mutation is harmful", "D) A continent stopped moving"], a: "A) A common ancestor" },
+                { q: "Which species are most closely related on a tree?", options: ["A) Those whose branches split most recently", "B) Those listed next to each other", "C) Those with the longest names", "D) Those at the base only"], a: "A) Those whose branches split most recently" },
+                { q: "When does crossing over occur?", options: ["A) Prophase I of meiosis", "B) Fertilisation", "C) Interphase only", "D) Mitosis only"], a: "A) Prophase I of meiosis" },
+                { q: "When does random chromosome arrangement occur?", options: ["A) Metaphase", "B) Prophase I only", "C) Fertilisation", "D) Mutation"], a: "A) Metaphase" },
+                { q: "Why does random fertilisation increase variation?", options: ["A) Any sperm may fuse with any ovum", "B) All gametes are identical", "C) It removes mutations", "D) It prevents new gene combinations"], a: "A) Any sperm may fuse with any ovum" },
+                { q: "Which is an example of discontinuous variation?", options: ["A) Blood group", "B) Height", "C) Weight", "D) Skin colour range"], a: "A) Blood group" },
+                { q: "Which graph usually represents continuous variation?", options: ["A) Histogram or bell-shaped distribution", "B) Separate-category bar graph only", "C) Cladogram", "D) Geological column"], a: "A) Histogram or bell-shaped distribution" }
+            ],
+            'trueFalse': [
+                { q: "Evolution refers to changes within one individual during its lifetime.", options: ["True", "False"], a: "False", exp: "Evolution is change in population characteristics over generations." },
+                { q: "Populations, rather than single organisms, evolve over time.", options: ["True", "False"], a: "True", exp: "Evolution occurs at population level." },
+                { q: "A scientific theory is simply an unsupported guess.", options: ["True", "False"], a: "False", exp: "A scientific theory is supported by evidence and repeated testing." },
+                { q: "A hypothesis can be tested using observations and experiments.", options: ["True", "False"], a: "True", exp: "Testing distinguishes a hypothesis from an untestable belief." },
+                { q: "Scientific theories may be modified when new evidence becomes available.", options: ["True", "False"], a: "True", exp: "Theories are not static." },
+                { q: "Fossils found deeper in rock layers are usually younger.", options: ["True", "False"], a: "False", exp: "Deeper fossils are usually older." },
+                { q: "Fossils can show extinct organisms and earlier forms of modern organisms.", options: ["True", "False"], a: "True", exp: "Both are evidence of change over time." },
+                { q: "The pentadactyl limb suggests common ancestry among mammals.", options: ["True", "False"], a: "True", exp: "The same basic bone plan is modified for different functions." },
+                { q: "Homologous structures have different basic structures but the same function.", options: ["True", "False"], a: "False", exp: "They have similar structure and may perform different functions." },
+                { q: "Analogous structures necessarily prove close common ancestry.", options: ["True", "False"], a: "False", exp: "They share function but differ structurally and do not necessarily show close ancestry." },
+                { q: "Mesosaurus fossils support both continental drift and evolution.", options: ["True", "False"], a: "True", exp: "Their distribution links Africa and South America before Gondwana split." },
+                { q: "Flightless birds on southern continents may share an extinct common ancestor.", options: ["True", "False"], a: "True", exp: "Their distribution supports common ancestry before Gondwana separated." },
+                { q: "Closely related species usually have very different gene sequences.", options: ["True", "False"], a: "False", exp: "Closely related species have very similar gene sequences." },
+                { q: "The base of a phylogenetic tree represents older ancestors.", options: ["True", "False"], a: "True", exp: "Branches then show different evolutionary lines." },
+                { q: "The order of names alone determines relatedness on an evolutionary tree.", options: ["True", "False"], a: "False", exp: "Relatedness is determined by where branches split." },
+                { q: "Variation provides raw material on which natural selection can act.", options: ["True", "False"], a: "True", exp: "Without variation, natural selection has little to act on." },
+                { q: "Crossing over exchanges genetic material between maternal and paternal chromosomes.", options: ["True", "False"], a: "True", exp: "This creates new gene combinations." },
+                { q: "A mutation always produces a harmful phenotype.", options: ["True", "False"], a: "False", exp: "Mutations may be harmful, neutral, or useful." },
+                { q: "Discontinuous traits usually form separate categories.", options: ["True", "False"], a: "True", exp: "These categories are called discrete classes." },
+                { q: "Continuous variation is usually controlled by one gene only.", options: ["True", "False"], a: "False", exp: "Continuous traits are usually controlled by multiple genes." }
+            ]
+        };
+        const totalQuestions = 20;
+        const sliceAngle = 360 / totalQuestions;
+        let currentCategoryKey = null;
+        let currentRotation = 0;
+        let currentQuestionData = null;
+        let targetQuestionIndex = null;
+
+        let availableQuestions = {
+            'definitions': Array.from({length: totalQuestions}, (_, i) => i),
+            'terms': Array.from({length: totalQuestions}, (_, i) => i),
+            'multipleChoice': Array.from({length: totalQuestions}, (_, i) => i),
+            'trueFalse': Array.from({length: totalQuestions}, (_, i) => i)
+        };
+
+        const sliceColors = ["#0055ff", "#0088ff", "#00bfff", "#0044cc"];
+
+        function buildWheel() {
+            const wheelBg = document.getElementById('wheelBg');
+            const wheelLabels = document.getElementById('wheelLabels');
+            let gradientParts = [];
+
+            for (let i = 0; i < totalQuestions; i++) {
+                let startAngle = i * sliceAngle;
+                let endAngle = (i + 1) * sliceAngle;
+                let color = sliceColors[i % sliceColors.length];
+                gradientParts.push(`${color} ${startAngle}deg ${endAngle}deg`);
+
+                let label = document.createElement('div');
+                label.className = 'label';
+                let textRotation = startAngle + (sliceAngle / 2) - 90;
+                label.style.transform = `rotate(${textRotation}deg) translate(145px, -50%)`;
+                label.innerText = i + 1;
+                wheelLabels.appendChild(label);
+            }
+            wheelBg.style.background = `conic-gradient(${gradientParts.join(', ')})`;
+        }
+
+        buildWheel();
+
+        function selectCategory(categoryKey, btnElement) {
+            currentCategoryKey = categoryKey;
+            const buttons = document.querySelectorAll('.cat-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            btnElement.classList.add('active');
+            document.getElementById('wheelArea').style.display = 'block';
+            document.getElementById('activeCategoryTitle').innerText = `Category: ${btnElement.innerText}`;
+            document.getElementById('questionCard').style.display = 'none';
+            document.getElementById('remainingCount').innerText = `${availableQuestions[categoryKey].length} questions remaining`;
+            currentRotation = 0;
+            document.getElementById('wheel').style.transform = `rotate(0deg)`;
+        }
+
+        function spinWheel() {
+            const spinBtn = document.getElementById('spinBtn');
+            const wheel = document.getElementById('wheel');
+            const questionCard = document.getElementById('questionCard');
+            let available = availableQuestions[currentCategoryKey];
+
+            if (available.length === 0) {
+                alert(`Resetting ${currentCategoryKey}!`);
+                availableQuestions[currentCategoryKey] = Array.from({length: totalQuestions}, (_, i) => i);
+                available = availableQuestions[currentCategoryKey];
+            }
+
+            spinBtn.disabled = true;
+            spinBtn.innerText = "SPINNING...";
+            MayHubSounds.startWheel();
+            questionCard.style.display = 'none';
+
+            let randomArrIndex = Math.floor(Math.random() * available.length);
+            targetQuestionIndex = available[randomArrIndex];
+            available.splice(randomArrIndex, 1);
+            document.getElementById('remainingCount').innerText = `${available.length} questions remaining`;
+
+            let sliceCenterAngle = (targetQuestionIndex * sliceAngle) + (sliceAngle / 2);
+            let targetDegree = 360 - sliceCenterAngle;
+            let currentBase = Math.ceil(currentRotation / 360) * 360;
+            currentRotation = currentBase + 1800 + targetDegree;
+            wheel.style.transform = `rotate(${currentRotation}deg)`;
+
+            setTimeout(() => {
+                MayHubSounds.stopWheel();
+                spinBtn.disabled = false;
+                spinBtn.innerText = "SPIN AGAIN";
+                currentQuestionData = gameData[currentCategoryKey][targetQuestionIndex];
+                displayQuestion(targetQuestionIndex + 1, currentQuestionData);
+            }, 4000);
+        }
+
+        function displayQuestion(questionNumber, data) {
+            document.getElementById('qNumberTag').innerText = `Question #${questionNumber}`;
+            document.getElementById('questionText').innerText = data.q;
+            const mcOptions = document.getElementById('mcOptions');
+            const revealBtn = document.getElementById('revealBtn');
+            const answerText = document.getElementById('answerText');
+            mcOptions.innerHTML = "";
+            answerText.style.display = "none";
+
+            if (currentCategoryKey === 'multipleChoice' || currentCategoryKey === 'trueFalse') {
+                revealBtn.style.display = "none";
+                mcOptions.style.display = "flex";
+                data.options.forEach(opt => {
+                    let btn = document.createElement("button");
+                    btn.className = "option-btn";
+                    btn.innerText = opt;
+                    btn.onclick = () => checkInteractiveAnswer(btn, opt);
+                    mcOptions.appendChild(btn);
+                });
+            } else {
+                mcOptions.style.display = "none";
+                revealBtn.style.display = "inline-block";
+                answerText.innerHTML = `<strong>Answer:</strong> ${data.a}`;
+            }
+            document.getElementById('questionCard').style.display = "block";
+        }
+
+        function checkInteractiveAnswer(clickedBtn, selectedText) {
+            const allBtns = document.querySelectorAll('.option-btn');
+            allBtns.forEach(btn => btn.disabled = true);
+            const isCorrect = (selectedText === currentQuestionData.a || selectedText.startsWith(currentQuestionData.a.charAt(0)));
+            const answerTextDiv = document.getElementById('answerText');
+            if (isCorrect) {
+                MayHubSounds.playCorrect();
+                clickedBtn.classList.add('correct');
+                answerTextDiv.innerHTML = `<div style="color: green; font-weight: bold;">Correct!</div> ${currentQuestionData.exp || ''}`;
+            } else {
+                MayHubSounds.playWrong();
+                clickedBtn.classList.add('incorrect');
+                answerTextDiv.innerHTML = `<div style="color: red; font-weight: bold;">Incorrect!</div> The correct answer was: ${currentQuestionData.a}. ${currentQuestionData.exp || ''}`;
+            }
+            answerTextDiv.style.display = "block";
+        }
+
+        function revealAnswer() {
+            document.getElementById('revealBtn').style.display = "none";
+            document.getElementById('answerText').style.display = "block";
+        }
+    </script>
+</body>
+</html>

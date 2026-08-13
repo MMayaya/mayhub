@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-8GCWSKNDL7"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-8GCWSKNDL7');
+</script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learning Hub | Grade 12 Life Sciences: Human Evolution</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html, body { max-width: 100%; overflow-x: clip; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f0f4f8; color: #333; line-height: 1.6; display: flex; flex-direction: column; min-height: 100vh; }
+        nav { background-color: #002b5e; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; }
+        .logo { color: #fff; font-size: 1.5rem; font-weight: bold; text-decoration: none; }
+        .nav-links a { color: #cce0ff; text-decoration: none; margin-left: 1.5rem; font-weight: 500; transition: color 0.3s; }
+        .nav-links a:hover, .nav-links a.active { color: #fff; text-decoration: underline; }
+        .game-container { max-width: 900px; margin: 3rem auto; padding: 2rem; background: #fff; border-radius: 12px; box-shadow: 0 8px 30px rgba(0,0,0,0.1); border-top: 6px solid #3385ff; text-align: center; }
+        .game-title { color: #004080; font-size: 2.5rem; margin-bottom: 0.5rem; text-shadow: 1px 1px 2px rgba(0,0,0,0.1); }
+        .game-subtitle { color: #555; margin-bottom: 2rem; font-size: 1.1rem; }
+        .category-selection { margin-bottom: 2rem; }
+        .category-selection h2 { color: #004080; margin-bottom: 1rem; font-size: 1.5rem; }
+        .cat-buttons { display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem; }
+        .cat-btn { background-color: #f0f4f8; border: 2px solid #004080; color: #004080; padding: 0.8rem 1.5rem; font-size: 1.1rem; font-weight: bold; border-radius: 8px; cursor: pointer; transition: all 0.3s ease; }
+        .cat-btn:hover, .cat-btn.active { background-color: #004080; color: #fff; transform: translateY(-3px); box-shadow: 0 4px 10px rgba(0,64,128,0.2); }
+        #wheelArea { display: none; margin-top: 2rem; padding-top: 2rem; border-top: 2px dashed #ccc; animation: fadeIn 0.5s ease; }
+        #activeCategoryTitle { color: #3385ff; margin-bottom: 1.5rem; font-size: 1.8rem; }
+        .wheel-wrapper { position: relative; width: min(380px, 100%); aspect-ratio: 1; margin: 0 auto 2rem; border-radius: 50%; box-shadow: 0 20px 40px rgba(0,0,0,0.3); }
+        .pointer { position: absolute; top: -25px; left: 50%; transform: translateX( -50%); width: 0; height: 0; border-left: 22px solid transparent; border-right: 22px solid transparent; border-top: 55px solid #e60000; z-index: 10; filter: drop-shadow(0 6px 6px rgba(0,0,0,0.5)); }
+        .wheel { width: 100%; height: 100%; border-radius: 50%; border: 15px solid #001a33; position: relative; overflow: hidden; transition: transform 4s cubic-bezier(0.17, 0.67, 0.12, 0.99); box-shadow: inset 0 0 30px rgba(0,0,0,0.7), inset 0 0 0 6px rgba(255,255,255,0.3); }
+        .wheel-center { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 45px; height: 45px; background: radial-gradient(circle, #e6f0fa, #80b3ff); border-radius: 50%; border: 5px solid #001a33; box-shadow: 0 4px 10px rgba(0,0,0,0.6); z-index: 6; }
+        .wheel-bg { width: 100%; height: 100%; position: absolute; top: 0; left: 0; }
+        .wheel-labels { position: absolute; width: 100%; height: 100%; top: 0; left: 0; }
+        .label { position: absolute; top: 50%; left: 50%; transform-origin: 0 0; font-weight: bold; color: #fff; font-size: 0.95rem; text-shadow: 1px 1px 4px rgba(0,0,0,0.9); }
+        .spin-btn { background-color: #3385ff; color: #fff; border: none; padding: 1rem 3rem; font-size: 1.5rem; font-weight: bold; border-radius: 50px; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 4px 10px rgba(51,133,255,0.4); margin-bottom: 1rem; border-bottom: 4px solid #004080; }
+        .question-card { display: none; margin-top: 2rem; padding: 2rem; background-color: #f0f7ff; border: 2px solid #b3d4ff; border-radius: 8px; text-align: center; animation: fadeIn 0.5s ease; box-shadow: 0 6px 15px rgba(0,0,0,0.05); }
+        .q-number-tag { display: inline-block; background: #004080; color: #fff; padding: 0.5rem 1.5rem; border-radius: 30px; font-size: 1.1rem; margin-bottom: 1rem; font-weight: bold; text-transform: uppercase; box-shadow: 0 3px 6px rgba(0,0,0,0.2); }
+        .question-text { font-size: 1.5rem; color: #333; margin-bottom: 1.5rem; font-weight: 500; }
+        .mc-options { display: flex; flex-direction: column; gap: 0.8rem; max-width: 450px; margin: 0 auto 1.5rem; }
+        .option-btn { background: #fff; border: 2px solid #b3d4ff; padding: 1rem; font-size: 1.1rem; border-radius: 6px; cursor: pointer; transition: all 0.2s; text-align: left; font-weight: 500; color: #004080; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+        .option-btn.correct { background-color: #d4edda !important; border-color: #28a745 !important; color: #155724 !important; }
+        .option-btn.incorrect { background-color: #f8d7da !important; border-color: #dc3545 !important; color: #721c24 !important; }
+        .reveal-btn { background-color: #3385ff; color: #fff; border: none; padding: 0.8rem 2rem; font-size: 1.1rem; font-weight: bold; border-radius: 8px; cursor: pointer; transition: background 0.3s; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .answer-text { display: none; font-size: 1.2rem; color: #333; margin-top: 1.5rem; padding-top: 1.5rem; border-top: 2px dashed #b3d4ff; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        footer { text-align: center; padding: 1rem; background-color: #002b5e; color: #fff; margin-top: auto; }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="../../../../../index.html" class="logo">May Learning Hub</a>
+        <div class="nav-links">
+            <a href="../../../../../index.html">Home</a>
+            <a href="../../../../../about.html">About</a>
+        </div>
+    </nav>
+
+    <main class="game-container">
+        <h1 class="game-title">Life Sciences Quiz: Human Evolution</h1>
+        <p class="game-subtitle">Test your knowledge of human ancestry, evidence, fossils, and evolutionary trends.</p>
+        <p style="font-size: 0.78rem; color: #52606d; margin-top: 0.45rem;">Source: Human Evolution - Grade 12 Life Sciences Term 3 presentation.</p>
+
+        <div class="category-selection">
+            <h2>Step 1: Choose a Category</h2>
+            <div class="cat-buttons" id="catButtons">
+                <button class="cat-btn" onclick="selectCategory('definitions', this)">Definitions</button>
+                <button class="cat-btn" onclick="selectCategory('terms', this)">Name the Term</button>
+                <button class="cat-btn" onclick="selectCategory('multipleChoice', this)">Multiple Choice</button>
+                <button class="cat-btn" onclick="selectCategory('trueFalse', this)">True or False</button>
+            </div>
+        </div>
+
+        <div id="wheelArea">
+            <h2 id="activeCategoryTitle">Category: None</h2>
+
+            <div class="wheel-wrapper">
+                <div class="pointer"></div>
+                <div class="wheel-center"></div>
+                <div class="wheel" id="wheel">
+                    <div class="wheel-bg" id="wheelBg"></div>
+                    <div class="wheel-labels" id="wheelLabels"></div>
+                </div>
+            </div>
+
+            <button class="spin-btn" id="spinBtn" onclick="spinWheel()">SPIN THE WHEEL</button>
+            <p id="remainingCount" style="color: #666; font-size: 0.9rem; margin-bottom: 1rem; font-weight: bold;">20 questions remaining</p>
+
+            <div class="question-card" id="questionCard">
+                <div class="q-number-tag" id="qNumberTag">Question #</div>
+                <div class="question-text" id="questionText">Loading question...</div>
+
+                <div class="mc-options" id="mcOptions"></div>
+
+                <button class="reveal-btn" id="revealBtn" onclick="revealAnswer()">Reveal Answer</button>
+                <div class="answer-text" id="answerText"></div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 May Learning Hub. All rights reserved.</p>
+    </footer>
+
+        <script src="../../../../../game-audio.js"></script>
+<script>
+        const gameData = {
+            'definitions': [
+                { q: "Hominid", a: "A modern human or extinct bipedal human ancestor belonging to the primate family Hominidae." },
+                { q: "Primate", a: "A mammalian order containing prosimians and anthropoids, including monkeys, apes, and hominids." },
+                { q: "Anthropoid", a: "A primate group containing monkeys, apes, and hominids." },
+                { q: "Stereoscopic Vision", a: "Overlapping visual fields that provide depth perception and accurate distance judgement." },
+                { q: "Precision Grip", a: "Fine control produced when an opposable thumb works with the fingers." },
+                { q: "Prognathism", a: "Forward projection of the jaws and lower face." },
+                { q: "Foramen Magnum", a: "Opening in the skull through which the spinal cord enters." },
+                { q: "Bipedalism", a: "Habitual upright walking on two limbs." },
+                { q: "Cranial Capacity", a: "The internal volume of the cranium, used as an estimate of brain size." },
+                { q: "Mitochondrial DNA", a: "Slow-changing maternally inherited DNA found in mitochondria." },
+                { q: "Mitochondrial Eve", a: "Common maternal-line ancestor of modern humans who lived in Africa about 150 000 years ago." },
+                { q: "Y-chromosome DNA", a: "Paternally inherited DNA passed from father to son." },
+                { q: "Cultural Evidence", a: "Tools, fire, art, burials, ornaments, pottery, and other products of learned behaviour." },
+                { q: "Radiometric Dating", a: "Dating method applied to volcanic rock to estimate the age of associated fossils." },
+                { q: "Sagittal Crest", a: "Skull ridge providing attachment for powerful jaw muscles." },
+                { q: "Artefact", a: "An object made or modified by humans or hominids, such as a tool or ornament." },
+                { q: "Out of Africa Hypothesis", a: "Explanation that humans evolved in Africa and later migrated to other parts of the world." },
+                { q: "Cradle of Humankind", a: "South African World Heritage Site around Maropeng and Sterkfontein rich in hominid evidence." },
+                { q: "Creationism", a: "Belief-based explanation that living organisms were created by a supernatural creator." },
+                { q: "Theistic Evolution", a: "Belief that a supreme being created the universe and evolution was the process through which life developed." }
+            ],
+            'terms': [
+                { q: "Modern humans and extinct bipedal human ancestors in Hominidae.", a: "Hominid" },
+                { q: "Mammalian order containing prosimians and anthropoids.", a: "Primate" },
+                { q: "Primate group including monkeys, apes, and hominids.", a: "Anthropoid" },
+                { q: "Three-dimensional vision produced by overlapping visual fields.", a: "Stereoscopic Vision" },
+                { q: "Fine manipulation using an opposable thumb and fingers.", a: "Precision Grip" },
+                { q: "Forward projection of the jaws and face.", a: "Prognathism" },
+                { q: "Skull opening for the spinal cord.", a: "Foramen Magnum" },
+                { q: "Walking upright on two limbs.", a: "Bipedalism" },
+                { q: "Internal skull volume indicating approximate brain size.", a: "Cranial Capacity" },
+                { q: "Maternal DNA located outside the nucleus in mitochondria.", a: "Mitochondrial DNA" },
+                { q: "African common female-line ancestor inferred from mitochondrial DNA.", a: "Mitochondrial Eve" },
+                { q: "DNA marker passed from father to son.", a: "Y-chromosome DNA" },
+                { q: "Tools, fire, art, burials, beads, pottery, and other learned products.", a: "Cultural Evidence" },
+                { q: "Method using radioactive changes in volcanic rock to date fossils.", a: "Radiometric Dating" },
+                { q: "Skull ridge for attachment of strong chewing muscles.", a: "Sagittal Crest" },
+                { q: "Human-made or modified object such as a tool or ornament.", a: "Artefact" },
+                { q: "Hypothesis proposing an African origin followed by migration worldwide.", a: "Out of Africa Hypothesis" },
+                { q: "World Heritage fossil region around Sterkfontein and Maropeng.", a: "Cradle of Humankind" },
+                { q: "Faith-based explanation involving supernatural creation.", a: "Creationism" },
+                { q: "Belief combining a divine creator with accepted evolutionary processes.", a: "Theistic Evolution" }
+            ],
+            'multipleChoice': [
+                { q: "What is the human species name?", options: ["A) Homo sapiens", "B) Australopithecus africanus", "C) Ardipithecus ramidus", "D) Homo habilis"], a: "A) Homo sapiens" },
+                { q: "Which sequence represents the three major hominid genera?", options: ["A) Ardipithecus, Australopithecus, Homo", "B) Homo, Gorilla, Pan", "C) Primate, Mammal, Vertebrate", "D) Lucy, Ardi, Java Man"], a: "A) Ardipithecus, Australopithecus, Homo" },
+                { q: "When did the human-chimpanzee common ancestor live?", options: ["A) About 6 million years ago", "B) About 6 000 years ago", "C) About 150 years ago", "D) About 90 million years ago"], a: "A) About 6 million years ago" },
+                { q: "Which statement is correct?", options: ["A) Humans and modern chimpanzees share an ancestor", "B) Humans evolved from chimpanzees alive today", "C) Human evolution was a single straight line", "D) Only one hominid species ever existed at a time"], a: "A) Humans and modern chimpanzees share an ancestor" },
+                { q: "Which human feature supports upright posture?", options: ["A) S-shaped spine", "B) C-shaped spine", "C) Opposable big toe", "D) Arms longer than legs"], a: "A) S-shaped spine" },
+                { q: "Where is the human foramen magnum positioned?", options: ["A) Underneath or toward the front of the skull", "B) At the far back only", "C) In the jaw", "D) In the pelvis"], a: "A) Underneath or toward the front of the skull" },
+                { q: "Which evolved first according to fossils?", options: ["A) Bipedalism", "B) Very large brain size", "C) Complex pottery", "D) Written language"], a: "A) Bipedalism" },
+                { q: "How is mitochondrial DNA inherited?", options: ["A) From the mother", "B) From the father only", "C) Equally from every ancestor", "D) Only from brothers"], a: "A) From the mother" },
+                { q: "Which hominid first has recognised primitive stone tools?", options: ["A) Homo habilis", "B) Ardipithecus", "C) Australopithecus boisei", "D) Little Foot"], a: "A) Homo habilis" },
+                { q: "Which hominid is first associated with controlled fire?", options: ["A) Homo erectus", "B) Ardipithecus", "C) Australopithecus afarensis", "D) Taung Child"], a: "A) Homo erectus" },
+                { q: "Who discovered Ardi?", options: ["A) Tim White", "B) Mary Leakey", "C) Raymond Dart", "D) Robert Broom"], a: "A) Tim White" },
+                { q: "Who discovered Lucy?", options: ["A) Don Johanson", "B) Richard Leakey", "C) T. Dreyer", "D) Matthew Berger"], a: "A) Don Johanson" },
+                { q: "What do the Laetoli footprints prove?", options: ["A) Bipedalism by at least 3.6 million years ago", "B) Controlled fire 3.6 million years ago", "C) Complex language in Australopithecus", "D) An Asian human origin"], a: "A) Bipedalism by at least 3.6 million years ago" },
+                { q: "Which fossil is called Turkana Boy?", options: ["A) Homo erectus", "B) Homo habilis", "C) Australopithecus africanus", "D) Ardipithecus ramidus"], a: "A) Homo erectus" },
+                { q: "Which South African fossil was discovered by Raymond Dart?", options: ["A) Taung Child", "B) Mrs Ples", "C) Little Foot", "D) Florisbad Man"], a: "A) Taung Child" },
+                { q: "Which fossil is a transitional Australopithecus-Homo species?", options: ["A) Karabo, Australopithecus sediba", "B) Mrs Ples", "C) Ardi", "D) Nutcracker Man"], a: "A) Karabo, Australopithecus sediba" },
+                { q: "When did Homo erectus first leave Africa?", options: ["A) About 2 million years ago", "B) About 90 000 years ago", "C) About 150 000 years ago", "D) About 10 000 years ago"], a: "A) About 2 million years ago" },
+                { q: "When did Homo sapiens migrate out of Africa?", options: ["A) Around 90 000 years ago", "B) Around 4.5 million years ago", "C) Around 2 million years ago", "D) Around 1 000 years ago"], a: "A) Around 90 000 years ago" },
+                { q: "Where is the Cradle of Humankind?", options: ["A) Maropeng, Gauteng", "B) Java", "C) Hadar, Ethiopia", "D) Olduvai Gorge only"], a: "A) Maropeng, Gauteng" },
+                { q: "How does a scientific explanation differ from a belief-based explanation?", options: ["A) It is tested with evidence and may change", "B) It is based only on sacred texts", "C) It cannot be modified", "D) It rejects fossils and genetics"], a: "A) It is tested with evidence and may change" }
+            ],
+            'trueFalse': [
+                { q: "Humans belong to the family Hominidae.", options: ["True", "False"], a: "True", exp: "Hominidae includes humans, extinct ancestors, and great apes." },
+                { q: "Modern humans evolved directly from chimpanzees alive today.", options: ["True", "False"], a: "False", exp: "Both lineages evolved from a shared ancestor." },
+                { q: "Human evolution occurred as one simple straight line.", options: ["True", "False"], a: "False", exp: "Several hominid species coexisted and evolution branched." },
+                { q: "Stereoscopic vision improves depth perception.", options: ["True", "False"], a: "True", exp: "Overlapping visual fields support three-dimensional vision." },
+                { q: "African apes have a more S-shaped spine than humans.", options: ["True", "False"], a: "False", exp: "Humans have the S-shaped spine; apes are more C-shaped." },
+                { q: "The human pelvis is short, broad, and cup-shaped.", options: ["True", "False"], a: "True", exp: "It supports organs above the legs during upright walking." },
+                { q: "Humans have an opposable big toe.", options: ["True", "False"], a: "False", exp: "The human big toe lies in line with the other toes." },
+                { q: "Bipedalism freed the hands for carrying and tool use.", options: ["True", "False"], a: "True", exp: "It also enabled gestures and food collection." },
+                { q: "Major brain enlargement occurred before upright walking.", options: ["True", "False"], a: "False", exp: "Fossils indicate bipedalism came first." },
+                { q: "Mitochondrial Eve was necessarily the only woman alive then.", options: ["True", "False"], a: "False", exp: "She is the ancestor of surviving maternal lines, not necessarily the only woman." },
+                { q: "The Y chromosome is passed from father to son.", options: ["True", "False"], a: "True", exp: "It helps trace paternal ancestry." },
+                { q: "No modified stone tools have been found with Ardipithecus fossils.", options: ["True", "False"], a: "True", exp: "Its tool use may have resembled that of modern apes." },
+                { q: "Homo erectus had longer legs and shorter arms than earlier hominids.", options: ["True", "False"], a: "True", exp: "Its proportions resembled modern humans." },
+                { q: "Laetoli footprints are associated with Australopithecus afarensis.", options: ["True", "False"], a: "True", exp: "They support early bipedalism." },
+                { q: "Taung Child was the first hominid fossil discovered in Africa.", options: ["True", "False"], a: "True", exp: "Raymond Dart described it in 1924." },
+                { q: "Evidence at Swartkrans shows fire about one million years ago.", options: ["True", "False"], a: "True", exp: "The exact hominid controlling it remains uncertain." },
+                { q: "Australopithecine and Homo habilis fossils occur only outside Africa.", options: ["True", "False"], a: "False", exp: "They support the earliest African stages of human evolution." },
+                { q: "The Out of Africa hypothesis is supported by fossils and genetics.", options: ["True", "False"], a: "True", exp: "Tools and cultural artefacts also contribute." },
+                { q: "Literalism and scientific evolutionary theory use the same testing method.", options: ["True", "False"], a: "False", exp: "Literalism is based on exact religious interpretation, not necessarily scientific testing." },
+                { q: "Theistic evolution accepts mutation, natural selection, and speciation.", options: ["True", "False"], a: "True", exp: "It interprets these processes as part of a divine plan." }
+            ]
+        };
+                const totalQuestions = 20;
+        const sliceAngle = 360 / totalQuestions;
+        let currentCategoryKey = null;
+        let currentRotation = 0;
+        let currentQuestionData = null;
+        let targetQuestionIndex = null;
+
+        let availableQuestions = {
+            'definitions': Array.from({length: totalQuestions}, (_, i) => i),
+            'terms': Array.from({length: totalQuestions}, (_, i) => i),
+            'multipleChoice': Array.from({length: totalQuestions}, (_, i) => i),
+            'trueFalse': Array.from({length: totalQuestions}, (_, i) => i)
+        };
+
+        const sliceColors = ["#0055ff", "#0088ff", "#00bfff", "#0044cc"];
+
+        function buildWheel() {
+            const wheelBg = document.getElementById('wheelBg');
+            const wheelLabels = document.getElementById('wheelLabels');
+            let gradientParts = [];
+
+            for (let i = 0; i < totalQuestions; i++) {
+                let startAngle = i * sliceAngle;
+                let endAngle = (i + 1) * sliceAngle;
+                let color = sliceColors[i % sliceColors.length];
+                gradientParts.push(`${color} ${startAngle}deg ${endAngle}deg`);
+
+                let label = document.createElement('div');
+                label.className = 'label';
+                let textRotation = startAngle + (sliceAngle / 2) - 90;
+                label.style.transform = `rotate(${textRotation}deg) translate(145px, -50%)`;
+                label.innerText = i + 1;
+                wheelLabels.appendChild(label);
+            }
+            wheelBg.style.background = `conic-gradient(${gradientParts.join(', ')})`;
+        }
+
+        buildWheel();
+
+        function selectCategory(categoryKey, btnElement) {
+            currentCategoryKey = categoryKey;
+            const buttons = document.querySelectorAll('.cat-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            btnElement.classList.add('active');
+            document.getElementById('wheelArea').style.display = 'block';
+            document.getElementById('activeCategoryTitle').innerText = `Category: ${btnElement.innerText}`;
+            document.getElementById('questionCard').style.display = 'none';
+            document.getElementById('remainingCount').innerText = `${availableQuestions[categoryKey].length} questions remaining`;
+            currentRotation = 0;
+            document.getElementById('wheel').style.transform = `rotate(0deg)`;
+        }
+
+        function spinWheel() {
+            const spinBtn = document.getElementById('spinBtn');
+            const wheel = document.getElementById('wheel');
+            const questionCard = document.getElementById('questionCard');
+            let available = availableQuestions[currentCategoryKey];
+
+            if (available.length === 0) {
+                alert(`Resetting ${currentCategoryKey}!`);
+                availableQuestions[currentCategoryKey] = Array.from({length: totalQuestions}, (_, i) => i);
+                available = availableQuestions[currentCategoryKey];
+            }
+
+            spinBtn.disabled = true;
+            spinBtn.innerText = "SPINNING...";
+            MayHubSounds.startWheel();
+            questionCard.style.display = 'none';
+
+            let randomArrIndex = Math.floor(Math.random() * available.length);
+            targetQuestionIndex = available[randomArrIndex];
+            available.splice(randomArrIndex, 1);
+            document.getElementById('remainingCount').innerText = `${available.length} questions remaining`;
+
+            let sliceCenterAngle = (targetQuestionIndex * sliceAngle) + (sliceAngle / 2);
+            let targetDegree = 360 - sliceCenterAngle;
+            let currentBase = Math.ceil(currentRotation / 360) * 360;
+            currentRotation = currentBase + 1800 + targetDegree;
+            wheel.style.transform = `rotate(${currentRotation}deg)`;
+
+            setTimeout(() => {
+                MayHubSounds.stopWheel();
+                spinBtn.disabled = false;
+                spinBtn.innerText = "SPIN AGAIN";
+                currentQuestionData = gameData[currentCategoryKey][targetQuestionIndex];
+                displayQuestion(targetQuestionIndex + 1, currentQuestionData);
+            }, 4000);
+        }
+
+        function displayQuestion(questionNumber, data) {
+            document.getElementById('qNumberTag').innerText = `Question #${questionNumber}`;
+            document.getElementById('questionText').innerText = data.q;
+            const mcOptions = document.getElementById('mcOptions');
+            const revealBtn = document.getElementById('revealBtn');
+            const answerText = document.getElementById('answerText');
+            mcOptions.innerHTML = "";
+            answerText.style.display = "none";
+
+            if (currentCategoryKey === 'multipleChoice' || currentCategoryKey === 'trueFalse') {
+                revealBtn.style.display = "none";
+                mcOptions.style.display = "flex";
+                data.options.forEach(opt => {
+                    let btn = document.createElement("button");
+                    btn.className = "option-btn";
+                    btn.innerText = opt;
+                    btn.onclick = () => checkInteractiveAnswer(btn, opt);
+                    mcOptions.appendChild(btn);
+                });
+            } else {
+                mcOptions.style.display = "none";
+                revealBtn.style.display = "inline-block";
+                answerText.innerHTML = `<strong>Answer:</strong> ${data.a}`;
+            }
+            document.getElementById('questionCard').style.display = "block";
+        }
+
+        function checkInteractiveAnswer(clickedBtn, selectedText) {
+            const allBtns = document.querySelectorAll('.option-btn');
+            allBtns.forEach(btn => btn.disabled = true);
+            const isCorrect = (selectedText === currentQuestionData.a || selectedText.startsWith(currentQuestionData.a.charAt(0)));
+            const answerTextDiv = document.getElementById('answerText');
+            if (isCorrect) {
+                MayHubSounds.playCorrect();
+                clickedBtn.classList.add('correct');
+                answerTextDiv.innerHTML = `<div style="color: green; font-weight: bold;">Correct!</div> ${currentQuestionData.exp || ''}`;
+            } else {
+                MayHubSounds.playWrong();
+                clickedBtn.classList.add('incorrect');
+                answerTextDiv.innerHTML = `<div style="color: red; font-weight: bold;">Incorrect!</div> The correct answer was: ${currentQuestionData.a}. ${currentQuestionData.exp || ''}`;
+            }
+            answerTextDiv.style.display = "block";
+        }
+
+        function revealAnswer() {
+            document.getElementById('revealBtn').style.display = "none";
+            document.getElementById('answerText').style.display = "block";
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-8GCWSKNDL7"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-8GCWSKNDL7');
+</script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>May Learning Hub | Grade 12 Life Sciences: Evolution</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f0f4f8; color: #333; line-height: 1.6; display: flex; flex-direction: column; min-height: 100vh; }
+
+        /* Navigation */
+        nav { background-color: #002b5e; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; }
+        .logo { color: #fff; font-size: 1.5rem; font-weight: bold; text-decoration: none; }
+        .nav-links a { color: #cce0ff; text-decoration: none; margin-left: 1.5rem; font-weight: 500; transition: color 0.3s; }
+        .nav-links a:hover, .nav-links a.active { color: #fff; text-decoration: underline; }
+
+        /* Header */
+        .game-header { text-align: center; padding: 3rem 1rem 1rem; max-width: 900px; margin: 0 auto; }
+        .game-title { color: #004080; font-size: 2.5rem; margin-bottom: 0.5rem; }
+        .game-subtitle { color: #555; margin-bottom: 2rem; font-size: 1.1rem; }
+
+        /* Categories */
+        .category-selection { margin-bottom: 2.5rem; }
+        .cat-buttons { display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem; }
+        .cat-btn { background-color: #f0f4f8; border: 2px solid #004080; color: #004080; padding: 0.8rem 1.5rem; font-size: 1rem; font-weight: bold; border-radius: 8px; cursor: pointer; transition: all 0.3s ease; }
+        .cat-btn:hover, .cat-btn.active { background-color: #004080; color: #fff; transform: translateY(-3px); box-shadow: 0 4px 10px rgba(0,64,128,0.2); }
+
+        .controls { display: none; justify-content: center; align-items: center; gap: 2rem; margin-bottom: 2rem; }
+        .move-counter { font-size: 1.2rem; font-weight: bold; color: #004080; background: #fff; padding: 0.6rem 1.8rem; border-radius: 50px; border: 2px solid #3385ff; }
+        .restart-btn { background-color: #3385ff; color: #fff; border: none; padding: 0.7rem 1.8rem; font-size: 1rem; font-weight: bold; border-radius: 50px; cursor: pointer; border-bottom: 3px solid #004080; }
+
+        /* Memory Grid */
+        .memory-game { display: none; width: 100%; max-width: 1200px; margin: 0 auto 4rem; grid-template-columns: repeat(5, 1fr); gap: 15px; padding: 0 20px; perspective: 1000px; }
+
+        @media (max-width: 950px) { .memory-game { grid-template-columns: repeat(4, 1fr); } }
+        @media (max-width: 650px) { .memory-game { grid-template-columns: repeat(2, 1fr); } }
+
+        .memory-card { position: relative; width: 100%; aspect-ratio: 1 / 1.2; transform-style: preserve-3d; transition: transform 0.5s; cursor: pointer; }
+        .memory-card.flip { transform: rotateY(180deg); }
+
+        .front-face, .back-face {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 15px;
+            text-align: center;
+            font-size: 1rem;
+            line-height: 1.4;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .front-face { background: #004080; color: #fff; font-size: 2.5rem; border: 3px solid #3385ff; font-weight: bold; }
+        .back-face { background: #fff; color: #002b5e; transform: rotateY(180deg); border: 3px solid #004080; font-weight: 700; }
+        .memory-card.matched .back-face { background: #d4edda; border-color: #28a745; color: #155724; }
+
+        footer { text-align: center; padding: 1.5rem; background-color: #002b5e; color: #fff; margin-top: auto; }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="../../../../../index.html" class="logo">May Learning Hub</a>
+        <div class="nav-links">
+            <a href="../../../../../index.html">Home</a>
+            <a href="../../../../../about.html">About</a>
+        </div>
+    </nav>
+
+    <header class="game-header">
+        <h1 class="game-title">Grade 12 Life Sciences: Evolution</h1>
+        <p class="game-subtitle">Match Evolution concepts, evidence, adaptations, relationships, and variation!</p>
+        <p style="font-size: 0.78rem; color: #52606d; margin-top: 0.45rem;">Source: Evolution - Grade 12 Life Sciences Term 3 presentation.</p>
+
+        <div class="category-selection">
+            <div class="cat-buttons">
+                <button class="cat-btn" onclick="selectCategory('topic1', this)">Evolution Foundations</button>
+                <button class="cat-btn" onclick="selectCategory('topic2', this)">Evidence for Evolution</button>
+                <button class="cat-btn" onclick="selectCategory('topic3', this)">Forelimb Adaptations</button>
+                <button class="cat-btn" onclick="selectCategory('topic4', this)">Biogeography and Trees</button>
+                <button class="cat-btn" onclick="selectCategory('topic5', this)">Sources of Variation</button>
+                <button class="cat-btn" onclick="selectCategory('topic6', this)">Variation Patterns</button>
+            </div>
+        </div>
+
+        <div class="controls" id="gameControls">
+            <div class="move-counter">Moves: <span id="moves">0</span></div>
+            <button class="restart-btn" onclick="initGame()">Restart Level</button>
+        </div>
+    </header>
+
+    <main class="memory-game" id="gameBoard"></main>
+
+    <footer>
+        <p>&copy; 2026 May Learning Hub. All rights reserved.</p>
+    </footer>
+
+        <script src="../../../../../game-audio.js"></script>
+<script>
+        const evolutionFoundations = [
+            { term: "Evolution", detail: "Change in the characteristics of a population over generations." },
+            { term: "Population", detail: "A same-species breeding unit occupying the same habitat at the same time." },
+            { term: "Belief", detail: "An explanation based on religious or cultural values that is not usually scientifically testable." },
+            { term: "Hypothesis", detail: "A possible explanation that can be tested through observation or experiment." },
+            { term: "Scientific Theory", detail: "An explanation supported by observations, experiments, evidence, and repeated testing." },
+            { term: "Paleontology", detail: "The scientific study of fossils." },
+            { term: "Fossil", detail: "Preserved remains or traces of an organism that lived in the past." },
+            { term: "Geological Strata", detail: "Layers of rock in which fossils are found." }
+        ];
+        const evidenceForEvolution = [
+            { term: "Relative Age", detail: "An age comparison inferred from a fossil's position in rock strata." },
+            { term: "Extinction", detail: "The permanent disappearance of a species, which can be shown by the fossil record." },
+            { term: "Archaeopteryx", detail: "An important fossil with features that link different organism groups." },
+            { term: "Modification by Descent", detail: "Common ancestry followed by modification over time." },
+            { term: "Pentadactyl Limb", detail: "A five-digit forelimb with the same basic bone plan in mammals." },
+            { term: "Homologous Structures", detail: "Body parts with similar structure but different functions." },
+            { term: "Analogous Structures", detail: "Body parts with the same function but different structures." },
+            { term: "Common Ancestor", detail: "An ancestral organism from which two or more evolutionary lines descended." }
+        ];
+        const forelimbAdaptations = [
+            { term: "Mole Forelimb", detail: "A shovel-shaped, strong limb adapted for digging." },
+            { term: "Bat Forelimb", detail: "An elongated limb with skin membranes adapted for flight." },
+            { term: "Horse Forelimb", detail: "A long, straight limb ending in a hoof and adapted for running." },
+            { term: "Seal Forelimb", detail: "A broad, paddle-shaped flipper adapted for swimming." },
+            { term: "Monkey Forelimb", detail: "A flexible limb with gripping fingers adapted for climbing." },
+            { term: "Skin Membrane", detail: "Tissue stretched between bat limb bones to form a wing." },
+            { term: "Hoof", detail: "A horse adaptation formed from one phalanx for movement on hard ground." },
+            { term: "Pincer Grip", detail: "A monkey adaptation using a prominent thumb for fine gripping movements." }
+        ];
+        const biogeographyAndTrees = [
+            { term: "Biogeography", detail: "The study of the geographical distribution of organisms." },
+            { term: "Pangaea", detail: "The giant landmass that existed about 250 million years ago." },
+            { term: "Gondwana", detail: "The southern supercontinent formed when Pangaea split." },
+            { term: "Mesosaurus", detail: "An extinct marine reptile whose fossils link South America and Africa." },
+            { term: "Genetic Evidence", detail: "DNA and RNA sequence comparisons used to determine relatedness." },
+            { term: "Phylogenetic Tree", detail: "A branching diagram representing evolutionary relationships." },
+            { term: "Cladogram", detail: "A phylogenetic diagram based on genetic characteristics." },
+            { term: "Recent Branch Split", detail: "A feature indicating that two species are closely related." }
+        ];
+        const sourcesOfVariation = [
+            { term: "Variation", detail: "Genotypic and phenotypic differences among individuals of a species." },
+            { term: "Crossing Over", detail: "Exchange of genetic material between maternal and paternal chromosomes." },
+            { term: "Prophase I", detail: "The stage of meiosis during which crossing over occurs." },
+            { term: "Random Arrangement", detail: "Independent positioning of chromosomes at the cell equator." },
+            { term: "Metaphase", detail: "The stage during which chromosomes arrange randomly at the equator." },
+            { term: "Random Fertilisation", detail: "Fusion of any genetically different sperm with any ovum." },
+            { term: "Mutation", detail: "A change in gene or chromosome structure." },
+            { term: "Random Mating", detail: "Unplanned mating pairs that produce different sets of offspring." }
+        ];
+        const variationPatterns = [
+            { term: "Genotype", detail: "The genetic make-up of an organism." },
+            { term: "Phenotype", detail: "The observable characteristics of an organism." },
+            { term: "Discontinuous Variation", detail: "Variation occurring in separate, distinct categories." },
+            { term: "Discrete Classes", detail: "The separate categories formed by discontinuous traits." },
+            { term: "Continuous Variation", detail: "Variation showing a smooth range of phenotype values." },
+            { term: "Multiple Genes", detail: "The usual genetic control of continuous characteristics." },
+            { term: "Bar Graph", detail: "The graph type used for separate discontinuous categories." },
+            { term: "Bell-Shaped Distribution", detail: "A typical graph pattern for continuous variation." }
+        ];
+        const toCards = factors => factors.flatMap((factor, index) => [
+            { id: index + 1, text: factor.detail },
+            { id: index + 1, text: factor.term }
+        ]);
+        const gameData = {
+            topic1: toCards(evolutionFoundations),
+            topic2: toCards(evidenceForEvolution),
+            topic3: toCards(forelimbAdaptations),
+            topic4: toCards(biogeographyAndTrees),
+            topic5: toCards(sourcesOfVariation),
+            topic6: toCards(variationPatterns)
+        };
+        const gameBoard = document.getElementById('gameBoard');
+        const movesDisplay = document.getElementById('moves');
+        const gameControls = document.getElementById('gameControls');
+
+        let currentCategory = null;
+        let hasFlippedCard = false;
+        let lockBoard = false;
+        let firstCard, secondCard;
+        let moves = 0;
+        let matchedPairs = 0;
+
+        function selectCategory(categoryKey, btnElement) {
+            currentCategory = categoryKey;
+            document.querySelectorAll('.cat-btn').forEach(btn => btn.classList.remove('active'));
+            btnElement.classList.add('active');
+            gameControls.style.display = 'flex';
+            gameBoard.style.display = 'grid';
+            initGame();
+        }
+
+        function initGame() {
+            gameBoard.innerHTML = '';
+            moves = 0;
+            matchedPairs = 0;
+            movesDisplay.innerText = moves;
+            hasFlippedCard = false;
+            lockBoard = false;
+
+            const categoryData = gameData[currentCategory];
+            const shuffledCards = [...categoryData].sort(() => 0.5 - Math.random());
+
+            shuffledCards.forEach(card => {
+                const cardElement = document.createElement('div');
+                cardElement.classList.add('memory-card');
+                cardElement.dataset.pairId = card.id;
+
+                cardElement.innerHTML = `
+                    <div class="front-face">?</div>
+                    <div class="back-face">${card.text}</div>
+                `;
+
+                cardElement.addEventListener('click', flipCard);
+                gameBoard.appendChild(cardElement);
+            });
+        }
+
+        function flipCard() {
+            if (lockBoard) return;
+            if (this === firstCard) return;
+
+            this.classList.add('flip');
+
+            if (!hasFlippedCard) {
+                hasFlippedCard = true;
+                firstCard = this;
+                return;
+            }
+
+            secondCard = this;
+            moves++;
+            movesDisplay.innerText = moves;
+            checkForMatch();
+        }
+
+        function checkForMatch() {
+            let isMatch = firstCard.dataset.pairId === secondCard.dataset.pairId;
+            if (isMatch) {
+                MayHubSounds.playCorrect();
+                disableCards();
+            } else {
+                MayHubSounds.playWrong();
+                unflipCards();
+            }
+        }
+
+        function disableCards() {
+            firstCard.classList.add('matched');
+            secondCard.classList.add('matched');
+            firstCard.removeEventListener('click', flipCard);
+            secondCard.removeEventListener('click', flipCard);
+            matchedPairs++;
+            if (matchedPairs === (gameData[currentCategory].length / 2)) {
+                setTimeout(() => alert(`Great job! Grade 12 Life Sciences: Evolution Revision Complete in ${moves} moves.`), 500);
+            }
+            resetBoard();
+        }
+
+        function unflipCards() {
+            lockBoard = true;
+            setTimeout(() => {
+                firstCard.classList.remove('flip');
+                secondCard.classList.remove('flip');
+                resetBoard();
+            }, 1200);
+        }
+
+        function resetBoard() {
+            [hasFlippedCard, lockBoard] = [false, false];
+            [firstCard, secondCard] = [null, null];
+        }
+    </script>
+</body>
+</html>

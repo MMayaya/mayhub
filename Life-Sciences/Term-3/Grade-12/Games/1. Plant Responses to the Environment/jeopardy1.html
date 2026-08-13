@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-8GCWSKNDL7"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-8GCWSKNDL7');
+</script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>May Learning Hub | Grade 12 Life Sciences Jeopardy</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f0f4f8; color: #333; line-height: 1.6; display: flex; flex-direction: column; min-height: 100vh; overflow-x: hidden; }
+        nav { background-color: #002b5e; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; }
+        .logo { color: #fff; font-size: 1.5rem; font-weight: bold; text-decoration: none; }
+        .nav-links a { color: #cce0ff; text-decoration: none; margin-left: 1.5rem; font-weight: 500; transition: color 0.3s; }
+        .nav-links a:hover, .nav-links a.active { color: #fff; text-decoration: underline; }
+        .game-header { text-align: center; padding: 2rem 1rem 1rem; }
+        .game-title { color: #004080; font-size: 2.2rem; margin-bottom: 0.5rem; }
+        .game-subtitle { color: #555; margin-bottom: 1.5rem; font-size: 1.1rem; }
+
+        .name-setup { max-width: 1000px; margin: 0 auto 1rem; padding: 0 10px; }
+        .name-box {
+            background: #ffffff;
+            border: 2px solid #b3d4ff;
+            border-radius: 12px;
+            padding: 1rem;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+        .name-box h2 { color: #002b5e; font-size: 1.2rem; }
+        .name-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.6rem; }
+        .name-input {
+            width: 100%;
+            padding: 0.7rem 0.8rem;
+            border-radius: 10px;
+            border: 2px solid #cce0ff;
+            font-size: 1rem;
+            outline: none;
+        }
+        .name-input:focus { border-color: #3385ff; }
+        .name-actions { display: flex; gap: 0.6rem; flex-wrap: wrap; }
+
+        .btn-save { background: #28a745; color: #fff; border: none; padding: 0.75rem 1rem; border-radius: 10px; cursor: pointer; font-weight: bold; transition: 0.2s; }
+        .btn-save:hover { background: #1e7e34; }
+        .btn-edit { background: #004080; color: #fff; border: none; padding: 0.75rem 1rem; border-radius: 10px; cursor: pointer; font-weight: bold; transition: 0.2s; display: none; }
+        .btn-edit:hover { background: #3385ff; }
+        .btn-reset { background: #dc3545; color: #fff; border: none; padding: 0.75rem 1rem; border-radius: 10px; cursor: pointer; font-weight: bold; transition: 0.2s; }
+        .btn-reset:hover { background: #bd2130; }
+
+        .hint { color: #555; font-size: 0.95rem; }
+        .hidden { display: none !important; }
+
+        @media (max-width: 800px) { .name-grid { grid-template-columns: repeat(2, 1fr); } }
+
+        .player-tabs { display: flex; justify-content: center; gap: 0.5rem; max-width: 1000px; margin: 0 auto 1.5rem; padding: 0 10px; flex-wrap: wrap; }
+        .tab-btn { flex: 1; min-width: 100px; background: #e6f0fa; color: #004080; border: 2px solid #b3d4ff; padding: 0.8rem; font-size: 1.1rem; font-weight: bold; border-radius: 8px; cursor: pointer; transition: all 0.3s; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        .tab-btn:hover { background: #cce0ff; }
+        .tab-btn.active { background: #3385ff; color: #fff; border-color: #002b5e; transform: translateY(-3px); box-shadow: 0 6px 15px rgba(51,133,255,0.3); }
+
+        .carousel-container { width: 100%; overflow: hidden; padding-bottom: 3rem; }
+        .carousel-track { display: flex; width: 400%; transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1); }
+        .player-slide { width: 25%; padding: 0 10px; display: flex; flex-direction: column; align-items: center; }
+        .score-board { background: #002b5e; color: #fff; display: inline-block; padding: 0.8rem 2.5rem; border-radius: 30px; font-size: 1.6rem; font-weight: bold; border: 4px solid #3385ff; box-shadow: 0 4px 10px rgba(0,0,0,0.2); margin-bottom: 2rem; transition: all 0.3s; }
+        .score-board span { color: #ffc107; }
+
+        .jeopardy-board { width: 100%; max-width: 1000px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; background: #001a33; padding: 8px; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
+        .category-header { background: #004080; color: #fff; text-align: center; font-weight: bold; padding: 1rem 0.5rem; font-size: 1.1rem; border-radius: 6px; border-bottom: 4px solid #3385ff; display: flex; align-items: center; justify-content: center; min-height: 80px; text-transform: uppercase; }
+        .point-btn { background: #3385ff; color: #fff; font-size: 1.6rem; font-weight: bold; border: none; padding: 1.5rem 0; border-radius: 6px; cursor: pointer; transition: all 0.2s; text-shadow: 1px 1px 2px rgba(0,0,0,0.5); box-shadow: inset 0 0 10px rgba(0,0,0,0.2); }
+        .point-btn:hover:not(:disabled) { background: #1a75ff; transform: scale(0.96); }
+        .point-btn:disabled { background: #002b5e; color: #001a33; cursor: not-allowed; text-shadow: none; box-shadow: none; }
+
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,26,51,0.9); align-items: center; justify-content: center; z-index: 100; animation: fadeIn 0.3s; padding: 1rem; }
+        .modal-content { background: #fff; padding: 2.5rem; border-radius: 12px; text-align: center; max-width: 600px; width: 100%; border-top: 8px solid #004080; box-shadow: 0 10px 40px rgba(0,0,0,0.5); display: flex; flex-direction: column; gap: 1.5rem; }
+        .modal-category { color: #3385ff; font-weight: bold; text-transform: uppercase; letter-spacing: 1px; }
+        .modal-question { font-size: 1.6rem; color: #002b5e; font-weight: bold; min-height: 100px; display: flex; align-items: center; justify-content: center; }
+        .modal-answer-area { display: none; border-top: 2px dashed #ccc; padding-top: 1.5rem; }
+        .modal-answer { font-size: 1.4rem; color: #28a745; font-weight: bold; margin-bottom: 1.5rem; }
+        .btn-reveal { background: #004080; color: #fff; border: none; padding: 1rem 2rem; font-size: 1.2rem; font-weight: bold; border-radius: 8px; cursor: pointer; transition: 0.3s; width: 100%; }
+        .btn-reveal:hover { background: #3385ff; }
+        .judgement-area { display: flex; flex-direction: column; gap: 1rem; }
+        .judgement-buttons { display: flex; gap: 1rem; }
+        .btn-correct { flex: 1; background: #28a745; color: #fff; border: none; padding: 1rem; font-size: 1.1rem; font-weight: bold; border-radius: 8px; cursor: pointer; transition: 0.3s; }
+        .btn-correct:hover { background: #1e7e34; }
+        .btn-incorrect { flex: 1; background: #dc3545; color: #fff; border: none; padding: 1rem; font-size: 1.1rem; font-weight: bold; border-radius: 8px; cursor: pointer; transition: 0.3s; }
+        .btn-incorrect:hover { background: #bd2130; }
+
+        .steal-area { display: none; background: #fff3cd; border: 2px solid #ffeeba; padding: 1.5rem; border-radius: 8px; margin-top: 1rem; animation: fadeIn 0.4s; }
+        .steal-title { color: #856404; font-weight: bold; font-size: 1.2rem; margin-bottom: 1rem; }
+        .steal-buttons { display: flex; flex-wrap: wrap; gap: 0.5rem; justify-content: center; }
+        .btn-steal { flex: 1; min-width: 100px; background: #ffc107; color: #000; border: none; padding: 0.8rem; font-weight: bold; border-radius: 6px; cursor: pointer; transition: 0.2s; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        .btn-steal:hover { background: #e0a800; transform: translateY(-2px); }
+
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        footer { text-align: center; padding: 1rem; background-color: #002b5e; color: #fff; margin-top: auto; }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="../../../../../index.html" class="logo">May Learning Hub</a>
+        <div class="nav-links">
+            <a href="../../../../../index.html">Home</a>
+            <a href="../../../../../about.html">About</a>
+        </div>
+    </nav>
+
+    <header class="game-header">
+        <h1 class="game-title">Grade 12 Life Sciences Jeopardy</h1>
+        <p class="game-subtitle">Topic: Plant Responses to the Environment</p>
+        <p style="font-size: 0.78rem; color: #52606d; margin-top: 0.45rem;">Source: Plant Responses to the Environment - Grade 12 Life Sciences Term 3 presentation.</p>
+    </header>
+
+    <section class="name-setup" id="nameSetupSection">
+        <div class="name-box">
+            <h2>Enter Player Names</h2>
+            <div class="name-grid">
+                <input class="name-input" id="nameInput-0" type="text" maxlength="20" placeholder="Player 1 name" />
+                <input class="name-input" id="nameInput-1" type="text" maxlength="20" placeholder="Player 2 name" />
+                <input class="name-input" id="nameInput-2" type="text" maxlength="20" placeholder="Player 3 name" />
+                <input class="name-input" id="nameInput-3" type="text" maxlength="20" placeholder="Player 4 name" />
+            </div>
+            <div class="name-actions">
+                <button class="btn-save" id="btnSaveNames" onclick="savePlayerNames()">Save Names</button>
+                <button class="btn-edit" id="btnEditNames" onclick="showNameEditor()">Edit Names</button>
+                <button class="btn-reset" onclick="resetPlayerNames()">Reset</button>
+            </div>
+            <p class="hint">80 unique clues drawn from the Grade 12 Term 3 Development presentation! </p>
+        </div>
+    </section>
+
+    <div class="player-tabs">
+        <button class="tab-btn active" id="tab-0" onclick="switchPlayer(0)">Player 1</button>
+        <button class="tab-btn" id="tab-1" onclick="switchPlayer(1)">Player 2</button>
+        <button class="tab-btn" id="tab-2" onclick="switchPlayer(2)">Player 3</button>
+        <button class="tab-btn" id="tab-3" onclick="switchPlayer(3)">Player 4</button>
+    </div>
+
+    <div class="carousel-container">
+        <div class="carousel-track" id="carouselTrack">
+            <div class="player-slide">
+                <div class="score-board"><span id="label-0">Player 1</span>: <span id="score-0">0</span></div>
+                <div class="jeopardy-board" id="board-0"></div>
+            </div>
+            <div class="player-slide">
+                <div class="score-board"><span id="label-1">Player 2</span>: <span id="score-1">0</span></div>
+                <div class="jeopardy-board" id="board-1"></div>
+            </div>
+            <div class="player-slide">
+                <div class="score-board"><span id="label-2">Player 3</span>: <span id="score-2">0</span></div>
+                <div class="jeopardy-board" id="board-2"></div>
+            </div>
+            <div class="player-slide">
+                <div class="score-board"><span id="label-3">Player 4</span>: <span id="score-3">0</span></div>
+                <div class="jeopardy-board" id="board-3"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="questionModal">
+        <div class="modal-content">
+            <div class="modal-category" id="modalCategory">Category</div>
+            <div class="modal-question" id="modalQuestion">Clue</div>
+            <button class="btn-reveal" id="btnReveal" onclick="revealAnswer()">Reveal Correct Question</button>
+            <div class="modal-answer-area" id="answerArea">
+                <div class="modal-answer" id="modalAnswer">Correct Question</div>
+                <div class="judgement-area" id="judgementArea">
+                    <p>Did <strong id="activePlayerName">Player</strong> get it right?</p>
+                    <div class="judgement-buttons">
+                        <button class="btn-incorrect" onclick="judgeActivePlayer(false)">Wrong</button>
+                        <button class="btn-correct" onclick="judgeActivePlayer(true)">Correct!</button>
+                    </div>
+                </div>
+                <div class="steal-area" id="stealArea">
+                    <div class="steal-title" id="stealTitle">STEAL OPPORTUNITY!</div>
+                    <div class="steal-buttons" id="stealButtons"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer><p>&copy; 2026 May Learning Hub. All rights reserved.</p></footer>
+
+        <script src="../../../../../game-audio.js"></script>
+<script>
+        const plantFoundations = [
+            { q: "How do plants respond without a nervous system?", a: "They use chemical substances called plant hormones." },
+            { q: "Define a hormone.", a: "A chemical substance produced in small quantities in one part of an organism and transported to another part where it performs a function." },
+            { q: "What two opposite effects can hormones have?", a: "They can stimulate or inhibit physiological processes." },
+            { q: "Name four processes controlled by plant hormones.", a: "Any four of growth, cell division, cell elongation, seed germination, fruit development, and responses to light, gravity, or water." },
+            { q: "Where are animal hormones often produced?", a: "At specialised sites such as endocrine glands." },
+            { q: "How are animal hormones usually transported?", a: "Through the blood." },
+            { q: "How do plant hormonal responses compare in speed with animal responses?", a: "Plant responses are usually slower." },
+            { q: "Why are plant hormones not always regarded as true hormones in the same way as animal hormones?", a: "They may act in the same region where they are produced and are not necessarily made in specialised tissues." },
+            { q: "Name the five main plant hormones in the presentation.", a: "Auxins, gibberellins, cytokinins, ethene or ethylene, and abscisic acid." },
+            { q: "Which three hormones receive the main focus?", a: "Auxins, gibberellins, and abscisic acid." },
+            { q: "What does IAA stand for?", a: "Indole acetic acid." },
+            { q: "Which auxin is best known?", a: "Indole acetic acid or IAA." },
+            { q: "What is a stimulus?", a: "An environmental change that causes a response." },
+            { q: "Which three stimuli are emphasised for plant growth responses?", a: "Light, gravity, and water." },
+            { q: "What is growth?", a: "A permanent increase in the size or development of an organism or its parts." },
+            { q: "What is cell division?", a: "The process by which cells produce new cells." },
+            { q: "What is cell elongation?", a: "An increase in the length of a cell." },
+            { q: "Why are root tips and stem tips important?", a: "They are areas of active growth where auxins are produced." },
+            { q: "What is a physiological process?", a: "A function or activity carried out by a living organism." },
+            { q: "What broad role do plant hormones perform?", a: "They coordinate growth and responses to the environment." }
+        ];
+        const hormones = [
+            { q: "State two main effects of IAA.", a: "It promotes cell elongation and cell division." },
+            { q: "Where are auxins produced?", a: "In root tips and growing points of stems." },
+            { q: "Name three additional functions of auxins besides cell division and elongation.", a: "Any three of tropic responses, vascular-tissue growth, apical dominance, adventitious roots, and fruit development." },
+            { q: "What is apical dominance?", a: "The growing shoot tip suppresses the growth of lateral buds." },
+            { q: "How can auxins assist stem cuttings?", a: "They promote the development of adventitious roots." },
+            { q: "When do auxins promote fruit development?", a: "After the ovules have been fertilised." },
+            { q: "How does high auxin usually affect stems?", a: "It promotes cell division and elongation." },
+            { q: "How can high auxin affect roots?", a: "It can inhibit cell division and elongation." },
+            { q: "Name four functions of gibberellins.", a: "Any four of stem elongation, cell division, seed germination, cell enlargement, and development of buds, flowers, fruit, or seedless fruit." },
+            { q: "What is an internode?", a: "The part of a stem between two nodes." },
+            { q: "How do gibberellins make a shoot taller?", a: "They promote elongation of the internodes." },
+            { q: "Why does internode elongation benefit a shoot?", a: "It helps the shoot grow taller and reach more light." },
+            { q: "What do gibberellins do during seed germination?", a: "They activate growth so the embryo plant begins developing." },
+            { q: "What does germination mark?", a: "The beginning of a new plant's growth." },
+            { q: "What is the main growth effect of abscisic acid?", a: "It retards or inhibits growth." },
+            { q: "Name three functions of abscisic acid.", a: "Any three of slowing growth, promoting bud or seed dormancy, inhibiting seed growth, and helping stomatal function." },
+            { q: "Define dormancy.", a: "A period of inactive or reduced growth." },
+            { q: "Name three unfavourable conditions survived through dormancy.", a: "Cold winters, dry seasons, and lack of water." },
+            { q: "Why is dormancy useful?", a: "It prevents growth from occurring at the wrong time." },
+            { q: "Which hormone promotes dormancy in buds and seeds?", a: "Abscisic acid." }
+        ];
+        const tropismsAndAuxinAction = [
+            { q: "Define a tropism.", a: "A growth response by part of a plant to an external stimulus." },
+            { q: "Define positive tropism.", a: "Growth towards a stimulus." },
+            { q: "Define negative tropism.", a: "Growth away from a stimulus." },
+            { q: "Define phototropism.", a: "A plant growth response to light." },
+            { q: "Define geotropism.", a: "A plant growth response to gravity." },
+            { q: "Define hydrotropism.", a: "A plant growth response to water." },
+            { q: "How do stems respond to light?", a: "They grow towards it and are positively phototropic." },
+            { q: "How do roots respond to light?", a: "They grow away from it and are negatively phototropic." },
+            { q: "How do stems respond to gravity?", a: "They grow away from it and are negatively geotropic." },
+            { q: "How do roots respond to gravity?", a: "They grow towards it and are positively geotropic." },
+            { q: "How do stems respond to water in the presentation?", a: "They grow away from it and are negatively hydrotropic." },
+            { q: "How do roots respond to water?", a: "They grow towards it and are positively hydrotropic." },
+            { q: "How do auxins cause a plant organ to bend?", a: "Unequal auxin concentrations cause the two sides to grow at different rates." },
+            { q: "Where do auxins move in a stem lit from one side?", a: "To the darker side of the stem tip." },
+            { q: "What happens to cells on the darker side of a stem?", a: "They divide and elongate faster." },
+            { q: "Why does a stem bend towards light?", a: "The shaded side grows faster than the illuminated side." },
+            { q: "Where do auxins accumulate in a horizontal root?", a: "On the lower side due to gravity." },
+            { q: "What is the effect of high auxin on the lower side of a root?", a: "It inhibits cell elongation, so that side grows more slowly." },
+            { q: "Which side of a horizontal root grows faster?", a: "The upper side." },
+            { q: "Why does a root bend downwards?", a: "The upper side grows faster than the auxin-inhibited lower side." }
+        ];
+        const herbicidesAndDefences = [
+            { q: "What are auxin-based herbicides used for?", a: "To destroy weeds." },
+            { q: "What does selective mean for these herbicides?", a: "They kill weeds but not grass or most garden plants at the correct dosage." },
+            { q: "What does systemic mean for a herbicide?", a: "It is absorbed and transported throughout the weed." },
+            { q: "Name the auxin-based herbicide in the presentation.", a: "2,4-D." },
+            { q: "How does an auxin-based herbicide begin killing a weed?", a: "It is absorbed and transported through the plant, causing rapid cell growth." },
+            { q: "Why does the weed eventually die?", a: "Abnormal rapid growth exhausts the plant." },
+            { q: "Name four herbicide safety precautions.", a: "Wear gloves, wear goggles, do not inhale vapours, and remove pets during application." },
+            { q: "How long do these herbicides take to decompose in soil?", a: "About four weeks after application." },
+            { q: "What threats do plant defences protect against?", a: "Injury, excessive predation, herbivores, and pathogenic microorganisms." },
+            { q: "Name the two broad types of plant defence.", a: "Physical and chemical defences." },
+            { q: "How do thorns and spines protect a plant?", a: "They prevent or slow herbivores from eating or damaging it." },
+            { q: "How can thorns reduce infection?", a: "By reducing plant damage that could allow pathogenic microorganisms to enter." },
+            { q: "Give four possible effects of defensive plant chemicals on herbivores.", a: "They may taste bad, be bitter, be hard to digest, or burn the animal's mouth." },
+            { q: "Which plant example has a chemical that burns an animal's mouth?", a: "The Gemsbok cucumber." },
+            { q: "What triggers the Acacia chemical warning?", a: "Giraffes eating Acacia leaves." },
+            { q: "How is the Acacia warning carried?", a: "By an airborne chemical hormone or signal." },
+            { q: "How do nearby Acacia trees respond?", a: "They secrete tannins in their leaves." },
+            { q: "What effect do tannins have on Acacia leaves?", a: "They make the leaves unpalatable to giraffes." },
+            { q: "Classify thorns and bitter chemicals.", a: "Thorns are a physical defence; bitter chemicals are a chemical defence." },
+            { q: "Why is the Acacia response chemical signalling?", a: "One tree releases an airborne chemical that triggers a defensive chemical response in nearby trees." }
+        ];
+        function makeJeopardyQuestions(factors, offset) {
+            return Array.from({ length: 5 }, (_, index) => {
+                const question = factors[(offset * 5 + index) % factors.length];
+                return { points: (index + 1) * 10, q: question.q, a: question.a };
+            });
+        }
+        function makePlayerBoard(offset) {
+            return [
+                { name: "Foundations", questions: makeJeopardyQuestions(plantFoundations, offset) },
+                { name: "Plant Hormones", questions: makeJeopardyQuestions(hormones, offset) },
+                { name: "Tropisms and Auxins", questions: makeJeopardyQuestions(tropismsAndAuxinAction, offset) },
+                { name: "Herbicides and Defences", questions: makeJeopardyQuestions(herbicidesAndDefences, offset) }
+            ];
+        }
+        const player1Cats = makePlayerBoard(0);
+        const player2Cats = makePlayerBoard(1);
+        const player3Cats = makePlayerBoard(2);
+        const player4Cats = makePlayerBoard(3);
+        const gameData = [player1Cats, player2Cats, player3Cats, player4Cats];
+
+        let currentPlayerIndex = 0;
+        let scores = [0, 0, 0, 0];
+        let activePointValue = 0;
+        let activeTileButton = null;
+        let playerNames = ["Player 1", "Player 2", "Player 3", "Player 4"];
+
+        const carouselTrack = document.getElementById('carouselTrack');
+        const modal = document.getElementById('questionModal');
+        const modalCategory = document.getElementById('modalCategory');
+        const modalQuestion = document.getElementById('modalQuestion');
+        const modalAnswer = document.getElementById('modalAnswer');
+        const answerArea = document.getElementById('answerArea');
+        const btnReveal = document.getElementById('btnReveal');
+        const judgementArea = document.getElementById('judgementArea');
+        const activePlayerNameLabel = document.getElementById('activePlayerName');
+        const stealArea = document.getElementById('stealArea');
+        const stealButtonsContainer = document.getElementById('stealButtons');
+
+        function savePlayerNames() {
+            for (let i = 0; i < 4; i++) {
+                const val = document.getElementById(`nameInput-${i}`).value.trim();
+                if (val) playerNames[i] = val;
+                document.getElementById(`tab-${i}`).innerText = playerNames[i];
+                document.getElementById(`label-${i}`).innerText = playerNames[i];
+            }
+            document.getElementById('nameSetupSection').classList.add('hidden');
+            document.getElementById('btnEditNames').style.display = 'inline-block';
+        }
+
+        function showNameEditor() {
+            document.getElementById('nameSetupSection').classList.remove('hidden');
+        }
+
+        function buildBoards() {
+            for (let p = 0; p < 4; p++) {
+                const board = document.getElementById(`board-${p}`);
+                board.innerHTML = '';
+                const cats = gameData[p];
+                cats.forEach(c => {
+                    let h = document.createElement('div');
+                    h.className = 'category-header';
+                    h.innerText = c.name;
+                    board.appendChild(h);
+                });
+                for (let r = 0; r < 5; r++) {
+                    cats.forEach(c => {
+                        let btn = document.createElement('button');
+                        btn.className = 'point-btn';
+                        btn.innerText = c.questions[r].points;
+                        btn.onclick = () => openQuestion(c.name, c.questions[r], btn, p);
+                        board.appendChild(btn);
+                    });
+                }
+            }
+        }
+
+        function switchPlayer(idx) {
+            currentPlayerIndex = idx;
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            document.getElementById(`tab-${idx}`).classList.add('active');
+            carouselTrack.style.transform = `translateX(-${idx * 25}%)`;
+        }
+
+        function openQuestion(catName, qData, btn, pIdx) {
+            if (pIdx !== currentPlayerIndex) return;
+            activePointValue = qData.points;
+            activeTileButton = btn;
+            modalCategory.innerText = `${playerNames[pIdx]} | ${catName}`;
+            modalQuestion.innerText = qData.q;
+            modalAnswer.innerText = qData.a;
+            activePlayerNameLabel.innerText = playerNames[pIdx];
+            btnReveal.style.display = 'block';
+            answerArea.style.display = 'none';
+            stealArea.style.display = 'none';
+            modal.style.display = 'flex';
+        }
+
+        function revealAnswer() {
+            btnReveal.style.display = 'none';
+            answerArea.style.display = 'block';
+            judgementArea.style.display = 'flex';
+        }
+
+        function judgeActivePlayer(correct) {
+            if (correct) {
+                MayHubSounds.playCorrect();
+                scores[currentPlayerIndex] += activePointValue;
+                updateScore(currentPlayerIndex);
+                closeModal();
+            } else {
+                MayHubSounds.playWrong();
+                judgementArea.style.display = 'none';
+                showSteal();
+            }
+        }
+
+        function showSteal() {
+            stealArea.style.display = 'block';
+            stealButtonsContainer.innerHTML = '';
+            for (let i = 0; i < 4; i++) {
+                if (i !== currentPlayerIndex) {
+                    let b = document.createElement('button');
+                    b.className = 'btn-steal';
+                    b.innerText = playerNames[i];
+                    b.onclick = () => { MayHubSounds.playCorrect(); scores[i] += Math.floor(activePointValue/2); updateScore(i); closeModal(); };
+                    stealButtonsContainer.appendChild(b);
+                }
+            }
+            let none = document.createElement('button');
+            none.className = 'btn-incorrect';
+            none.innerText = "No one";
+            none.onclick = closeModal;
+            stealButtonsContainer.appendChild(none);
+        }
+
+        function updateScore(i) { document.getElementById(`score-${i}`).innerText = scores[i]; }
+        function closeModal() { activeTileButton.innerText = ""; activeTileButton.disabled = true; modal.style.display = 'none'; }
+
+        buildBoards();
+
+        function resetPlayerNames() {
+            playerNames = ["Player 1", "Player 2", "Player 3", "Player 4"];
+            for (let i = 0; i < 4; i++) {
+                document.getElementById(`nameInput-${i}`).value = "";
+                document.getElementById(`tab-${i}`).innerText = playerNames[i];
+                document.getElementById(`label-${i}`).innerText = playerNames[i];
+            }
+            showNameEditor();
+        }
+    </script>
+</body>
+</html>

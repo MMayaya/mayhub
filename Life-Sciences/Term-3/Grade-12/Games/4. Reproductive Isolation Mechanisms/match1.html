@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-8GCWSKNDL7"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-8GCWSKNDL7');
+</script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>May Learning Hub | Grade 12 Life Sciences: Reproductive Isolation Mechanisms</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f0f4f8; color: #333; line-height: 1.6; display: flex; flex-direction: column; min-height: 100vh; }
+
+        /* Navigation */
+        nav { background-color: #002b5e; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; }
+        .logo { color: #fff; font-size: 1.5rem; font-weight: bold; text-decoration: none; }
+        .nav-links a { color: #cce0ff; text-decoration: none; margin-left: 1.5rem; font-weight: 500; transition: color 0.3s; }
+        .nav-links a:hover, .nav-links a.active { color: #fff; text-decoration: underline; }
+
+        /* Header */
+        .game-header { text-align: center; padding: 3rem 1rem 1rem; max-width: 900px; margin: 0 auto; }
+        .game-title { color: #004080; font-size: 2.5rem; margin-bottom: 0.5rem; }
+        .game-subtitle { color: #555; margin-bottom: 2rem; font-size: 1.1rem; }
+
+        /* Categories */
+        .category-selection { margin-bottom: 2.5rem; }
+        .cat-buttons { display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem; }
+        .cat-btn { background-color: #f0f4f8; border: 2px solid #004080; color: #004080; padding: 0.8rem 1.5rem; font-size: 1rem; font-weight: bold; border-radius: 8px; cursor: pointer; transition: all 0.3s ease; }
+        .cat-btn:hover, .cat-btn.active { background-color: #004080; color: #fff; transform: translateY(-3px); box-shadow: 0 4px 10px rgba(0,64,128,0.2); }
+
+        .controls { display: none; justify-content: center; align-items: center; gap: 2rem; margin-bottom: 2rem; }
+        .move-counter { font-size: 1.2rem; font-weight: bold; color: #004080; background: #fff; padding: 0.6rem 1.8rem; border-radius: 50px; border: 2px solid #3385ff; }
+        .restart-btn { background-color: #3385ff; color: #fff; border: none; padding: 0.7rem 1.8rem; font-size: 1rem; font-weight: bold; border-radius: 50px; cursor: pointer; border-bottom: 3px solid #004080; }
+
+        /* Memory Grid */
+        .memory-game { display: none; width: 100%; max-width: 1200px; margin: 0 auto 4rem; grid-template-columns: repeat(5, 1fr); gap: 15px; padding: 0 20px; perspective: 1000px; }
+
+        @media (max-width: 950px) { .memory-game { grid-template-columns: repeat(4, 1fr); } }
+        @media (max-width: 650px) { .memory-game { grid-template-columns: repeat(2, 1fr); } }
+
+        .memory-card { position: relative; width: 100%; aspect-ratio: 1 / 1.2; transform-style: preserve-3d; transition: transform 0.5s; cursor: pointer; }
+        .memory-card.flip { transform: rotateY(180deg); }
+
+        .front-face, .back-face {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 15px;
+            text-align: center;
+            font-size: 1rem;
+            line-height: 1.4;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .front-face { background: #004080; color: #fff; font-size: 2.5rem; border: 3px solid #3385ff; font-weight: bold; }
+        .back-face { background: #fff; color: #002b5e; transform: rotateY(180deg); border: 3px solid #004080; font-weight: 700; }
+        .memory-card.matched .back-face { background: #d4edda; border-color: #28a745; color: #155724; }
+
+        footer { text-align: center; padding: 1.5rem; background-color: #002b5e; color: #fff; margin-top: auto; }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="../../../../../index.html" class="logo">May Learning Hub</a>
+        <div class="nav-links">
+            <a href="../../../../../index.html">Home</a>
+            <a href="../../../../../about.html">About</a>
+        </div>
+    </nav>
+
+    <header class="game-header">
+        <h1 class="game-title">Grade 12 Life Sciences: Reproductive Isolation Mechanisms</h1>
+        <p class="game-subtitle">Match reproductive barriers, examples, and speciation concepts!</p>
+        <p style="font-size: 0.78rem; color: #52606d; margin-top: 0.45rem;">Source: Reproductive Isolation Mechanisms - Grade 12 Life Sciences Term 3 presentation.</p>
+
+        <div class="category-selection">
+            <div class="cat-buttons">
+                <button class="cat-btn" onclick="selectCategory('topic1', this)">Foundations</button>
+                <button class="cat-btn" onclick="selectCategory('topic2', this)">Breeding Times</button>
+                <button class="cat-btn" onclick="selectCategory('topic3', this)">Courtship</button>
+                <button class="cat-btn" onclick="selectCategory('topic4', this)">Pollinators</button>
+                <button class="cat-btn" onclick="selectCategory('topic5', this)">Preventing Fertilisation</button>
+                <button class="cat-btn" onclick="selectCategory('topic6', this)">Hybrids and Gene Pools</button>
+            </div>
+        </div>
+
+        <div class="controls" id="gameControls">
+            <div class="move-counter">Moves: <span id="moves">0</span></div>
+            <button class="restart-btn" onclick="initGame()">Restart Level</button>
+        </div>
+    </header>
+
+    <main class="memory-game" id="gameBoard"></main>
+
+    <footer>
+        <p>&copy; 2026 May Learning Hub. All rights reserved.</p>
+    </footer>
+
+        <script src="../../../../../game-audio.js"></script>
+<script>
+        const foundations = [
+            { term: "Reproductive Isolation", detail: "Prevention of successful reproduction between individuals or populations." },
+            { term: "Geographic Isolation", detail: "A physical barrier separates populations into different areas." },
+            { term: "Same Geographical Area", detail: "A location reproductive-isolation groups may share despite being unable to reproduce successfully." },
+            { term: "Speciation", detail: "Formation of a new species after populations diverge." },
+            { term: "Gene Flow", detail: "Exchange of alleles between populations through successful reproduction." },
+            { term: "Behavioural Barrier", detail: "A difference in actions or signals that prevents mate recognition." },
+            { term: "Structural Barrier", detail: "A physical incompatibility of reproductive structures." },
+            { term: "Timing Barrier", detail: "A difference in reproductive timing that prevents mating or pollination." }
+        ];
+        const breedingTimes = [
+            { term: "Temporal Isolation", detail: "Reproductive separation caused by breeding or flowering at different times." },
+            { term: "Rainbow Trout", detail: "Related trout species that breeds during spring." },
+            { term: "Brown Trout", detail: "Related trout species that breeds during autumn." },
+            { term: "Flowering Period", detail: "Short reproductive window that may differ by only a few days between plant species." },
+            { term: "Seasonal Separation", detail: "Non-overlapping reproductive seasons in the same habitat." },
+            { term: "Cross-pollination", detail: "Pollen transfer between plants that timing differences can prevent." },
+            { term: "Hybridisation", detail: "Cross-species reproduction reduced when breeding periods do not overlap." },
+            { term: "No Genetic Exchange", detail: "Outcome when populations are never reproductively ready at the same time." }
+        ];
+        const courtship = [
+            { term: "Courtship Behaviour", detail: "Behaviour used to attract and recognise a reproductive partner." },
+            { term: "Species-specific Signal", detail: "A call, song, movement, display, or scent recognised mainly by one species." },
+            { term: "Mate Recognition", detail: "Identification of a suitable reproductive partner from the same species." },
+            { term: "Bufo Toads", detail: "Three related Tshwane species isolated by different mating calls." },
+            { term: "Mating Call", detail: "Sound to which female toads respond mainly when produced by their own species." },
+            { term: "Courtship Mutation", detail: "Genetic change that may alter a signal or mate preference." },
+            { term: "Mate Preference", detail: "Choice that may divide groups when individuals respond to different signals." },
+            { term: "Unsuccessful Cross-species Mating", detail: "Outcome avoided when animals recognise only their own species signals." }
+        ];
+        const pollinators = [
+            { term: "Pollinator", detail: "Organism that transfers pollen between flowers." },
+            { term: "Pollination", detail: "Transfer of pollen from anther to stigma." },
+            { term: "Anther", detail: "Flower structure from which pollen is transferred." },
+            { term: "Stigma", detail: "Flower structure that receives pollen." },
+            { term: "Sunbird Orchid", detail: "Long tubular flower with large nectaries suited to a hovering bird." },
+            { term: "Bumblebee Orchid", detail: "Broad flat flower providing a landing platform." },
+            { term: "Large Nectary", detail: "Nectar-producing structure attracting sunbirds." },
+            { term: "Landing Platform", detail: "Broad petal surface required by a bumblebee." }
+        ];
+        const fertilisationBarriers = [
+            { term: "Structural Incompatibility", detail: "Shape, size, or position differences that prevent successful copulation." },
+            { term: "Copulation", detail: "Mating action that structural differences may prevent." },
+            { term: "Gamete Incompatibility", detail: "Chemical mismatch between sperm and ovum." },
+            { term: "Sperm Recognition", detail: "Species-specific interaction required before sperm can fuse with an ovum." },
+            { term: "Fertilisation", detail: "Fusion of male and female gametes." },
+            { term: "Zygote", detail: "Cell that does not form when fertilisation fails." },
+            { term: "Reproductive Structures", detail: "Sex organs whose different forms can block mating." },
+            { term: "Pre-fertilisation Barrier", detail: "Mechanism stopping reproduction before gamete fusion." }
+        ];
+        const hybridsAndGenePools = [
+            { term: "Hybridisation", detail: "Reproduction between organisms from different species or varieties." },
+            { term: "Hybrid", detail: "Offspring produced by unlike species or varieties." },
+            { term: "Infertile", detail: "Unable to reproduce." },
+            { term: "Mule", detail: "Usually infertile hybrid produced by a horse and donkey." },
+            { term: "O. lamarckiana", detail: "Plant parent with chromosome number 2n = 14." },
+            { term: "O. gigas", detail: "Plant parent with chromosome number 2n = 28." },
+            { term: "Chromosome Mismatch", detail: "Unusual combination that prevents viable gamete or seed production." },
+            { term: "Post-fertilisation Barrier", detail: "Hybrid infertility acting after gametes have fused." }
+        ];
+        const toCards = factors => factors.flatMap((factor, index) => [
+            { id: index + 1, text: factor.detail },
+            { id: index + 1, text: factor.term }
+        ]);
+        const gameData = {
+            topic1: toCards(foundations),
+            topic2: toCards(breedingTimes),
+            topic3: toCards(courtship),
+            topic4: toCards(pollinators),
+            topic5: toCards(fertilisationBarriers),
+            topic6: toCards(hybridsAndGenePools)
+        };
+                const gameBoard = document.getElementById('gameBoard');
+        const movesDisplay = document.getElementById('moves');
+        const gameControls = document.getElementById('gameControls');
+
+        let currentCategory = null;
+        let hasFlippedCard = false;
+        let lockBoard = false;
+        let firstCard, secondCard;
+        let moves = 0;
+        let matchedPairs = 0;
+
+        function selectCategory(categoryKey, btnElement) {
+            currentCategory = categoryKey;
+            document.querySelectorAll('.cat-btn').forEach(btn => btn.classList.remove('active'));
+            btnElement.classList.add('active');
+            gameControls.style.display = 'flex';
+            gameBoard.style.display = 'grid';
+            initGame();
+        }
+
+        function initGame() {
+            gameBoard.innerHTML = '';
+            moves = 0;
+            matchedPairs = 0;
+            movesDisplay.innerText = moves;
+            hasFlippedCard = false;
+            lockBoard = false;
+
+            const categoryData = gameData[currentCategory];
+            const shuffledCards = [...categoryData].sort(() => 0.5 - Math.random());
+
+            shuffledCards.forEach(card => {
+                const cardElement = document.createElement('div');
+                cardElement.classList.add('memory-card');
+                cardElement.dataset.pairId = card.id;
+
+                cardElement.innerHTML = `
+                    <div class="front-face">?</div>
+                    <div class="back-face">${card.text}</div>
+                `;
+
+                cardElement.addEventListener('click', flipCard);
+                gameBoard.appendChild(cardElement);
+            });
+        }
+
+        function flipCard() {
+            if (lockBoard) return;
+            if (this === firstCard) return;
+
+            this.classList.add('flip');
+
+            if (!hasFlippedCard) {
+                hasFlippedCard = true;
+                firstCard = this;
+                return;
+            }
+
+            secondCard = this;
+            moves++;
+            movesDisplay.innerText = moves;
+            checkForMatch();
+        }
+
+        function checkForMatch() {
+            let isMatch = firstCard.dataset.pairId === secondCard.dataset.pairId;
+            if (isMatch) {
+                MayHubSounds.playCorrect();
+                disableCards();
+            } else {
+                MayHubSounds.playWrong();
+                unflipCards();
+            }
+        }
+
+        function disableCards() {
+            firstCard.classList.add('matched');
+            secondCard.classList.add('matched');
+            firstCard.removeEventListener('click', flipCard);
+            secondCard.removeEventListener('click', flipCard);
+            matchedPairs++;
+            if (matchedPairs === (gameData[currentCategory].length / 2)) {
+                setTimeout(() => alert(`Great job! Grade 12 Life Sciences: Reproductive Isolation Revision Complete in ${moves} moves.`), 500);
+            }
+            resetBoard();
+        }
+
+        function unflipCards() {
+            lockBoard = true;
+            setTimeout(() => {
+                firstCard.classList.remove('flip');
+                secondCard.classList.remove('flip');
+                resetBoard();
+            }, 1200);
+        }
+
+        function resetBoard() {
+            [hasFlippedCard, lockBoard] = [false, false];
+            [firstCard, secondCard] = [null, null];
+        }
+    </script>
+</body>
+</html>

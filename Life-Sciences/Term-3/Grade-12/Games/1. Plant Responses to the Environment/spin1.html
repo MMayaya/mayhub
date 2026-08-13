@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-8GCWSKNDL7"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-8GCWSKNDL7');
+</script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learning Hub | Grade 12 Life Sciences: Plant Responses to the Environment</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f0f4f8; color: #333; line-height: 1.6; display: flex; flex-direction: column; min-height: 100vh; }
+        nav { background-color: #002b5e; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; }
+        .logo { color: #fff; font-size: 1.5rem; font-weight: bold; text-decoration: none; }
+        .nav-links a { color: #cce0ff; text-decoration: none; margin-left: 1.5rem; font-weight: 500; transition: color 0.3s; }
+        .nav-links a:hover, .nav-links a.active { color: #fff; text-decoration: underline; }
+        .game-container { max-width: 900px; margin: 3rem auto; padding: 2rem; background: #fff; border-radius: 12px; box-shadow: 0 8px 30px rgba(0,0,0,0.1); border-top: 6px solid #3385ff; text-align: center; }
+        .game-title { color: #004080; font-size: 2.5rem; margin-bottom: 0.5rem; text-shadow: 1px 1px 2px rgba(0,0,0,0.1); }
+        .game-subtitle { color: #555; margin-bottom: 2rem; font-size: 1.1rem; }
+        .category-selection { margin-bottom: 2rem; }
+        .category-selection h2 { color: #004080; margin-bottom: 1rem; font-size: 1.5rem; }
+        .cat-buttons { display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem; }
+        .cat-btn { background-color: #f0f4f8; border: 2px solid #004080; color: #004080; padding: 0.8rem 1.5rem; font-size: 1.1rem; font-weight: bold; border-radius: 8px; cursor: pointer; transition: all 0.3s ease; }
+        .cat-btn:hover, .cat-btn.active { background-color: #004080; color: #fff; transform: translateY(-3px); box-shadow: 0 4px 10px rgba(0,64,128,0.2); }
+        #wheelArea { display: none; margin-top: 2rem; padding-top: 2rem; border-top: 2px dashed #ccc; animation: fadeIn 0.5s ease; }
+        #activeCategoryTitle { color: #3385ff; margin-bottom: 1.5rem; font-size: 1.8rem; }
+        .wheel-wrapper { position: relative; width: 380px; height: 380px; margin: 0 auto 2rem; border-radius: 50%; box-shadow: 0 20px 40px rgba(0,0,0,0.3); }
+        .pointer { position: absolute; top: -25px; left: 50%; transform: translateX( -50%); width: 0; height: 0; border-left: 22px solid transparent; border-right: 22px solid transparent; border-top: 55px solid #e60000; z-index: 10; filter: drop-shadow(0 6px 6px rgba(0,0,0,0.5)); }
+        .wheel { width: 100%; height: 100%; border-radius: 50%; border: 15px solid #001a33; position: relative; overflow: hidden; transition: transform 4s cubic-bezier(0.17, 0.67, 0.12, 0.99); box-shadow: inset 0 0 30px rgba(0,0,0,0.7), inset 0 0 0 6px rgba(255,255,255,0.3); }
+        .wheel-center { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 45px; height: 45px; background: radial-gradient(circle, #e6f0fa, #80b3ff); border-radius: 50%; border: 5px solid #001a33; box-shadow: 0 4px 10px rgba(0,0,0,0.6); z-index: 6; }
+        .wheel-bg { width: 100%; height: 100%; position: absolute; top: 0; left: 0; }
+        .wheel-labels { position: absolute; width: 100%; height: 100%; top: 0; left: 0; }
+        .label { position: absolute; top: 50%; left: 50%; transform-origin: 0 0; font-weight: bold; color: #fff; font-size: 0.95rem; text-shadow: 1px 1px 4px rgba(0,0,0,0.9); }
+        .spin-btn { background-color: #3385ff; color: #fff; border: none; padding: 1rem 3rem; font-size: 1.5rem; font-weight: bold; border-radius: 50px; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 4px 10px rgba(51,133,255,0.4); margin-bottom: 1rem; border-bottom: 4px solid #004080; }
+        .question-card { display: none; margin-top: 2rem; padding: 2rem; background-color: #f0f7ff; border: 2px solid #b3d4ff; border-radius: 8px; text-align: center; animation: fadeIn 0.5s ease; box-shadow: 0 6px 15px rgba(0,0,0,0.05); }
+        .q-number-tag { display: inline-block; background: #004080; color: #fff; padding: 0.5rem 1.5rem; border-radius: 30px; font-size: 1.1rem; margin-bottom: 1rem; font-weight: bold; text-transform: uppercase; box-shadow: 0 3px 6px rgba(0,0,0,0.2); }
+        .question-text { font-size: 1.5rem; color: #333; margin-bottom: 1.5rem; font-weight: 500; }
+        .mc-options { display: flex; flex-direction: column; gap: 0.8rem; max-width: 450px; margin: 0 auto 1.5rem; }
+        .option-btn { background: #fff; border: 2px solid #b3d4ff; padding: 1rem; font-size: 1.1rem; border-radius: 6px; cursor: pointer; transition: all 0.2s; text-align: left; font-weight: 500; color: #004080; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+        .option-btn.correct { background-color: #d4edda !important; border-color: #28a745 !important; color: #155724 !important; }
+        .option-btn.incorrect { background-color: #f8d7da !important; border-color: #dc3545 !important; color: #721c24 !important; }
+        .reveal-btn { background-color: #3385ff; color: #fff; border: none; padding: 0.8rem 2rem; font-size: 1.1rem; font-weight: bold; border-radius: 8px; cursor: pointer; transition: background 0.3s; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .answer-text { display: none; font-size: 1.2rem; color: #333; margin-top: 1.5rem; padding-top: 1.5rem; border-top: 2px dashed #b3d4ff; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        footer { text-align: center; padding: 1rem; background-color: #002b5e; color: #fff; margin-top: auto; }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="../../../../../index.html" class="logo">May Learning Hub</a>
+        <div class="nav-links">
+            <a href="../../../../../index.html">Home</a>
+            <a href="../../../../../about.html">About</a>
+        </div>
+    </nav>
+
+    <main class="game-container">
+        <h1 class="game-title">Life Sciences Quiz: Plant Responses to the Environment</h1>
+        <p class="game-subtitle">Test your Grade 12 Term 3 knowledge of plant hormones, tropisms, herbicides, and plant defences.</p>
+        <p style="font-size: 0.78rem; color: #52606d; margin-top: 0.45rem;">Source: Plant Responses to the Environment - Grade 12 Life Sciences Term 3 presentation.</p>
+
+        <div class="category-selection">
+            <h2>Step 1: Choose a Category</h2>
+            <div class="cat-buttons" id="catButtons">
+                <button class="cat-btn" onclick="selectCategory('definitions', this)">Definitions</button>
+                <button class="cat-btn" onclick="selectCategory('terms', this)">Name the Term</button>
+                <button class="cat-btn" onclick="selectCategory('multipleChoice', this)">Multiple Choice</button>
+                <button class="cat-btn" onclick="selectCategory('trueFalse', this)">True or False</button>
+            </div>
+        </div>
+
+        <div id="wheelArea">
+            <h2 id="activeCategoryTitle">Category: None</h2>
+
+            <div class="wheel-wrapper">
+                <div class="pointer"></div>
+                <div class="wheel-center"></div>
+                <div class="wheel" id="wheel">
+                    <div class="wheel-bg" id="wheelBg"></div>
+                    <div class="wheel-labels" id="wheelLabels"></div>
+                </div>
+            </div>
+
+            <button class="spin-btn" id="spinBtn" onclick="spinWheel()">SPIN THE WHEEL</button>
+            <p id="remainingCount" style="color: #666; font-size: 0.9rem; margin-bottom: 1rem; font-weight: bold;">20 questions remaining</p>
+
+            <div class="question-card" id="questionCard">
+                <div class="q-number-tag" id="qNumberTag">Question #</div>
+                <div class="question-text" id="questionText">Loading question...</div>
+
+                <div class="mc-options" id="mcOptions"></div>
+
+                <button class="reveal-btn" id="revealBtn" onclick="revealAnswer()">Reveal Answer</button>
+                <div class="answer-text" id="answerText"></div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 May Learning Hub. All rights reserved.</p>
+    </footer>
+
+        <script src="../../../../../game-audio.js"></script>
+<script>
+        const gameData = {
+            'definitions': [
+                { q: "Hormone", a: "A chemical substance produced in small quantities in one part of an organism and transported to another part where it performs a function." },
+                { q: "Plant Hormone", a: "A chemical substance that coordinates plant growth and responses to the environment." },
+                { q: "Auxin", a: "A plant hormone involved in growth, especially cell division, cell elongation, and tropic responses." },
+                { q: "Indole Acetic Acid (IAA)", a: "A naturally occurring auxin that promotes cell division and cell elongation." },
+                { q: "Gibberellin", a: "A plant hormone that promotes growth, including stem elongation, seed germination, and fruit development." },
+                { q: "Cell Division", a: "The process by which a cell divides to form new cells." },
+                { q: "Cell Elongation", a: "An increase in cell length that contributes to plant growth." },
+                { q: "Abscisic Acid", a: "A plant hormone associated with growth inhibition, dormancy, and the functioning of stomata." },
+                { q: "Dormancy", a: "A period of inactive or reduced growth that helps a plant survive unfavourable conditions." },
+                { q: "Tropism", a: "A growth response by part of a plant to an external stimulus." },
+                { q: "Positive Tropism", a: "Growth towards a stimulus." },
+                { q: "Negative Tropism", a: "Growth away from a stimulus." },
+                { q: "Phototropism", a: "A plant growth response to light." },
+                { q: "Geotropism", a: "A plant growth response to gravity." },
+                { q: "Hydrotropism", a: "A plant growth response to water." },
+                { q: "Apical Dominance", a: "The suppression of lateral-bud growth by the actively growing shoot tip." },
+                { q: "Adventitious Root", a: "A root that develops from a non-root organ, such as a stem cutting." },
+                { q: "Internode", a: "The part of a stem between two nodes." },
+                { q: "Selective Herbicide", a: "A weed-killer that destroys weeds without killing grass or most garden plants when used at the correct dosage." },
+                { q: "Systemic Herbicide", a: "A weed-killer that is absorbed and transported throughout the weed." }
+            ],
+            'terms': [
+                { q: "A chemical messenger produced in small amounts and transported to where it acts.", a: "Hormone" },
+                { q: "The best-known auxin, abbreviated IAA.", a: "Indole Acetic Acid" },
+                { q: "A hormone that promotes cell elongation and cell division in growing plant regions.", a: "Auxin" },
+                { q: "A growth-promoting hormone involved in internode elongation and seed germination.", a: "Gibberellin" },
+                { q: "A hormone that retards growth and promotes bud and seed dormancy.", a: "Abscisic Acid" },
+                { q: "A period in which growth is inactive or greatly reduced.", a: "Dormancy" },
+                { q: "The part of a stem found between two nodes.", a: "Internode" },
+                { q: "A directional growth response to an external stimulus.", a: "Tropism" },
+                { q: "Growth towards a stimulus.", a: "Positive Tropism" },
+                { q: "Growth away from a stimulus.", a: "Negative Tropism" },
+                { q: "A growth response to light.", a: "Phototropism" },
+                { q: "A growth response to gravity.", a: "Geotropism" },
+                { q: "A growth response to water.", a: "Hydrotropism" },
+                { q: "The tendency of a growing shoot tip to suppress lateral-bud growth.", a: "Apical Dominance" },
+                { q: "Roots that develop from a stem cutting rather than from an existing root.", a: "Adventitious Roots" },
+                { q: "A herbicide that kills weeds but leaves grass and most garden plants unharmed at the correct dose.", a: "Selective Herbicide" },
+                { q: "A herbicide that moves throughout a weed after being absorbed.", a: "Systemic Herbicide" },
+                { q: "The example of an auxin-based herbicide named in the presentation.", a: "2,4-D" },
+                { q: "Plant structures such as thorns and spines that deter herbivores.", a: "Physical Defence" },
+                { q: "A bitter substance produced in Acacia leaves after chemical warning signals.", a: "Tannins" }
+            ],
+            'multipleChoice': [
+                { q: "Where are auxins produced?", options: ["A) Root tips and growing points of stems", "B) Only mature leaves", "C) Only flowers", "D) Only dry seeds"], a: "A) Root tips and growing points of stems" },
+                { q: "Which process is promoted by auxins?", options: ["A) Cell elongation", "B) Permanent dormancy", "C) Tissue death", "D) Loss of all roots"], a: "A) Cell elongation" },
+                { q: "How does a high auxin concentration usually affect a stem?", options: ["A) It promotes growth", "B) It stops all cell activity", "C) It prevents elongation", "D) It causes immediate dormancy"], a: "A) It promotes growth" },
+                { q: "How can a high auxin concentration affect a root?", options: ["A) It can inhibit cell division and elongation", "B) It always accelerates growth", "C) It changes the root into a stem", "D) It causes fruit development"], a: "A) It can inhibit cell division and elongation" },
+                { q: "Which hormone promotes internode elongation?", options: ["A) Gibberellin", "B) Abscisic acid", "C) Tannin", "D) 2,4-D only"], a: "A) Gibberellin" },
+                { q: "Which hormone helps activate growth during seed germination?", options: ["A) Gibberellin", "B) Tannin", "C) Abscisic acid", "D) Ethene only"], a: "A) Gibberellin" },
+                { q: "Which hormone helps a plant survive unfavourable conditions by slowing growth?", options: ["A) Abscisic acid", "B) Gibberellin", "C) IAA at every concentration", "D) Tannin"], a: "A) Abscisic acid" },
+                { q: "A stem growing towards light is:", options: ["A) Positively phototropic", "B) Negatively phototropic", "C) Positively geotropic", "D) Negatively hydrotropic"], a: "A) Positively phototropic" },
+                { q: "A root growing towards gravity is:", options: ["A) Positively geotropic", "B) Negatively geotropic", "C) Positively phototropic", "D) Negatively hydrotropic"], a: "A) Positively geotropic" },
+                { q: "A root growing towards water is:", options: ["A) Positively hydrotropic", "B) Negatively hydrotropic", "C) Positively phototropic", "D) Negatively geotropic"], a: "A) Positively hydrotropic" },
+                { q: "When light reaches a stem from one side, where do auxins accumulate?", options: ["A) On the darker side", "B) On the lighter side only", "C) Equally in the soil", "D) Inside the flower only"], a: "A) On the darker side" },
+                { q: "Why does a stem bend towards a one-sided light source?", options: ["A) The shaded side elongates faster", "B) The illuminated side dies", "C) The roots push the stem", "D) Gravity stops acting"], a: "A) The shaded side elongates faster" },
+                { q: "Where do auxins collect in a horizontally placed root?", options: ["A) On the lower side", "B) On the upper side only", "C) In the leaves", "D) Outside the root"], a: "A) On the lower side" },
+                { q: "Why does a horizontal root bend downwards?", options: ["A) The upper side grows faster than the lower side", "B) The lower side grows faster", "C) Both sides stop growing", "D) Light pulls it downward"], a: "A) The upper side grows faster than the lower side" },
+                { q: "What does a systemic herbicide do?", options: ["A) It is transported throughout the weed", "B) It stays only on the spray nozzle", "C) It affects only the soil surface", "D) It prevents absorption"], a: "A) It is transported throughout the weed" },
+                { q: "How does an auxin-based herbicide kill a weed?", options: ["A) Abnormal rapid growth exhausts the plant", "B) It freezes the weed immediately", "C) It removes all soil water", "D) It blocks every light ray"], a: "A) Abnormal rapid growth exhausts the plant" },
+                { q: "Which safety step is recommended when applying herbicide?", options: ["A) Wear gloves and goggles", "B) Inhale the vapour", "C) Keep pets in the area", "D) Spray without protection"], a: "A) Wear gloves and goggles" },
+                { q: "Which is a physical plant defence?", options: ["A) Thorns", "B) Tannins", "C) Bitter chemicals", "D) Airborne chemical signals"], a: "A) Thorns" },
+                { q: "What do nearby Acacia trees produce after receiving the warning signal?", options: ["A) Tannins", "B) Auxin herbicide", "C) More water", "D) New flowers immediately"], a: "A) Tannins" },
+                { q: "Why are tannin-rich Acacia leaves protected?", options: ["A) They become unpalatable to giraffes", "B) They become sweeter", "C) They lose all chemicals", "D) They attract more feeding"], a: "A) They become unpalatable to giraffes" }
+            ],
+            'trueFalse': [
+                { q: "Plants use chemical substances called hormones to coordinate responses.", options: ["True", "False"], a: "True", exp: "Plant hormones coordinate growth and environmental responses." },
+                { q: "Plants have a nervous system like animals.", options: ["True", "False"], a: "False", exp: "Plants respond without a nervous system." },
+                { q: "Animal hormones are usually transported through blood.", options: ["True", "False"], a: "True", exp: "The presentation contrasts blood transport in animals with plant responses." },
+                { q: "Plant responses to hormones are usually faster than animal responses.", options: ["True", "False"], a: "False", exp: "Plant hormonal responses are usually slower." },
+                { q: "IAA is the best-known auxin.", options: ["True", "False"], a: "True", exp: "IAA stands for indole acetic acid." },
+                { q: "Auxins are produced in root tips and growing stem points.", options: ["True", "False"], a: "True", exp: "These are active-growth regions." },
+                { q: "High auxin concentrations always stimulate growth in every plant part.", options: ["True", "False"], a: "False", exp: "High auxin may inhibit growth in roots." },
+                { q: "Gibberellins can promote seedless fruit development.", options: ["True", "False"], a: "True", exp: "This is one of the functions listed in the presentation." },
+                { q: "Abscisic acid promotes dormancy.", options: ["True", "False"], a: "True", exp: "It helps prevent growth at an unfavourable time." },
+                { q: "Dormancy is a period of rapid, unrestricted growth.", options: ["True", "False"], a: "False", exp: "Dormancy is inactive or reduced growth." },
+                { q: "Phototropism is a response to gravity.", options: ["True", "False"], a: "False", exp: "Phototropism is a growth response to light." },
+                { q: "Roots are positively geotropic.", options: ["True", "False"], a: "True", exp: "Roots grow in the direction of gravity." },
+                { q: "Stems are positively hydrotropic in the presentation.", options: ["True", "False"], a: "False", exp: "Stems grow away from water and are negatively hydrotropic." },
+                { q: "Unequal auxin distribution can make a plant organ bend.", options: ["True", "False"], a: "True", exp: "The two sides grow at different rates." },
+                { q: "Auxins move to the lighter side of a stem exposed to one-sided light.", options: ["True", "False"], a: "False", exp: "They accumulate on the darker side." },
+                { q: "In a horizontal root, high auxin on the lower side inhibits elongation.", options: ["True", "False"], a: "True", exp: "The upper side then grows faster and the root bends down." },
+                { q: "2,4-D is an auxin-based herbicide.", options: ["True", "False"], a: "True", exp: "It is the herbicide example named in the presentation." },
+                { q: "Herbicide precautions are unnecessary because toxicity is relatively low.", options: ["True", "False"], a: "False", exp: "Gloves, goggles, and other precautions are still required." },
+                { q: "Thorns and spines are chemical defences.", options: ["True", "False"], a: "False", exp: "They are physical defence structures." },
+                { q: "Acacia trees can warn nearby trees using an airborne chemical signal.", options: ["True", "False"], a: "True", exp: "Nearby trees respond by secreting tannins." }
+            ]
+        };
+        const totalQuestions = 20;
+        const sliceAngle = 360 / totalQuestions;
+        let currentCategoryKey = null;
+        let currentRotation = 0;
+        let currentQuestionData = null;
+        let targetQuestionIndex = null;
+
+        let availableQuestions = {
+            'definitions': Array.from({length: totalQuestions}, (_, i) => i),
+            'terms': Array.from({length: totalQuestions}, (_, i) => i),
+            'multipleChoice': Array.from({length: totalQuestions}, (_, i) => i),
+            'trueFalse': Array.from({length: totalQuestions}, (_, i) => i)
+        };
+
+        const sliceColors = ["#0055ff", "#0088ff", "#00bfff", "#0044cc"];
+
+        function buildWheel() {
+            const wheelBg = document.getElementById('wheelBg');
+            const wheelLabels = document.getElementById('wheelLabels');
+            let gradientParts = [];
+
+            for (let i = 0; i < totalQuestions; i++) {
+                let startAngle = i * sliceAngle;
+                let endAngle = (i + 1) * sliceAngle;
+                let color = sliceColors[i % sliceColors.length];
+                gradientParts.push(`${color} ${startAngle}deg ${endAngle}deg`);
+
+                let label = document.createElement('div');
+                label.className = 'label';
+                let textRotation = startAngle + (sliceAngle / 2) - 90;
+                label.style.transform = `rotate(${textRotation}deg) translate(145px, -50%)`;
+                label.innerText = i + 1;
+                wheelLabels.appendChild(label);
+            }
+            wheelBg.style.background = `conic-gradient(${gradientParts.join(', ')})`;
+        }
+
+        buildWheel();
+
+        function selectCategory(categoryKey, btnElement) {
+            currentCategoryKey = categoryKey;
+            const buttons = document.querySelectorAll('.cat-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            btnElement.classList.add('active');
+            document.getElementById('wheelArea').style.display = 'block';
+            document.getElementById('activeCategoryTitle').innerText = `Category: ${btnElement.innerText}`;
+            document.getElementById('questionCard').style.display = 'none';
+            document.getElementById('remainingCount').innerText = `${availableQuestions[categoryKey].length} questions remaining`;
+            currentRotation = 0;
+            document.getElementById('wheel').style.transform = `rotate(0deg)`;
+        }
+
+        function spinWheel() {
+            const spinBtn = document.getElementById('spinBtn');
+            const wheel = document.getElementById('wheel');
+            const questionCard = document.getElementById('questionCard');
+            let available = availableQuestions[currentCategoryKey];
+
+            if (available.length === 0) {
+                alert(`Resetting ${currentCategoryKey}!`);
+                availableQuestions[currentCategoryKey] = Array.from({length: totalQuestions}, (_, i) => i);
+                available = availableQuestions[currentCategoryKey];
+            }
+
+            spinBtn.disabled = true;
+            spinBtn.innerText = "SPINNING...";
+            MayHubSounds.startWheel();
+            questionCard.style.display = 'none';
+
+            let randomArrIndex = Math.floor(Math.random() * available.length);
+            targetQuestionIndex = available[randomArrIndex];
+            available.splice(randomArrIndex, 1);
+            document.getElementById('remainingCount').innerText = `${available.length} questions remaining`;
+
+            let sliceCenterAngle = (targetQuestionIndex * sliceAngle) + (sliceAngle / 2);
+            let targetDegree = 360 - sliceCenterAngle;
+            let currentBase = Math.ceil(currentRotation / 360) * 360;
+            currentRotation = currentBase + 1800 + targetDegree;
+            wheel.style.transform = `rotate(${currentRotation}deg)`;
+
+            setTimeout(() => {
+                MayHubSounds.stopWheel();
+                spinBtn.disabled = false;
+                spinBtn.innerText = "SPIN AGAIN";
+                currentQuestionData = gameData[currentCategoryKey][targetQuestionIndex];
+                displayQuestion(targetQuestionIndex + 1, currentQuestionData);
+            }, 4000);
+        }
+
+        function displayQuestion(questionNumber, data) {
+            document.getElementById('qNumberTag').innerText = `Question #${questionNumber}`;
+            document.getElementById('questionText').innerText = data.q;
+            const mcOptions = document.getElementById('mcOptions');
+            const revealBtn = document.getElementById('revealBtn');
+            const answerText = document.getElementById('answerText');
+            mcOptions.innerHTML = "";
+            answerText.style.display = "none";
+
+            if (currentCategoryKey === 'multipleChoice' || currentCategoryKey === 'trueFalse') {
+                revealBtn.style.display = "none";
+                mcOptions.style.display = "flex";
+                data.options.forEach(opt => {
+                    let btn = document.createElement("button");
+                    btn.className = "option-btn";
+                    btn.innerText = opt;
+                    btn.onclick = () => checkInteractiveAnswer(btn, opt);
+                    mcOptions.appendChild(btn);
+                });
+            } else {
+                mcOptions.style.display = "none";
+                revealBtn.style.display = "inline-block";
+                answerText.innerHTML = `<strong>Answer:</strong> ${data.a}`;
+            }
+            document.getElementById('questionCard').style.display = "block";
+        }
+
+        function checkInteractiveAnswer(clickedBtn, selectedText) {
+            const allBtns = document.querySelectorAll('.option-btn');
+            allBtns.forEach(btn => btn.disabled = true);
+            const isCorrect = (selectedText === currentQuestionData.a || selectedText.startsWith(currentQuestionData.a.charAt(0)));
+            const answerTextDiv = document.getElementById('answerText');
+            if (isCorrect) {
+                MayHubSounds.playCorrect();
+                clickedBtn.classList.add('correct');
+                answerTextDiv.innerHTML = `<div style="color: green; font-weight: bold;">Correct!</div> ${currentQuestionData.exp || ''}`;
+            } else {
+                MayHubSounds.playWrong();
+                clickedBtn.classList.add('incorrect');
+                answerTextDiv.innerHTML = `<div style="color: red; font-weight: bold;">Incorrect!</div> The correct answer was: ${currentQuestionData.a}. ${currentQuestionData.exp || ''}`;
+            }
+            answerTextDiv.style.display = "block";
+        }
+
+        function revealAnswer() {
+            document.getElementById('revealBtn').style.display = "none";
+            document.getElementById('answerText').style.display = "block";
+        }
+    </script>
+</body>
+</html>

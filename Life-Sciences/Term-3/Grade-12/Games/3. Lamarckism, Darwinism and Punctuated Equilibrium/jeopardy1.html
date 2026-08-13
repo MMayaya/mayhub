@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-8GCWSKNDL7"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-8GCWSKNDL7');
+</script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>May Learning Hub | Grade 12 Life Sciences Jeopardy</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f0f4f8; color: #333; line-height: 1.6; display: flex; flex-direction: column; min-height: 100vh; overflow-x: hidden; }
+        nav { background-color: #002b5e; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; }
+        .logo { color: #fff; font-size: 1.5rem; font-weight: bold; text-decoration: none; }
+        .nav-links a { color: #cce0ff; text-decoration: none; margin-left: 1.5rem; font-weight: 500; transition: color 0.3s; }
+        .nav-links a:hover, .nav-links a.active { color: #fff; text-decoration: underline; }
+        .game-header { text-align: center; padding: 2rem 1rem 1rem; }
+        .game-title { color: #004080; font-size: 2.2rem; margin-bottom: 0.5rem; }
+        .game-subtitle { color: #555; margin-bottom: 1.5rem; font-size: 1.1rem; }
+
+        .name-setup { max-width: 1000px; margin: 0 auto 1rem; padding: 0 10px; }
+        .name-box {
+            background: #ffffff;
+            border: 2px solid #b3d4ff;
+            border-radius: 12px;
+            padding: 1rem;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+        .name-box h2 { color: #002b5e; font-size: 1.2rem; }
+        .name-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.6rem; }
+        .name-input {
+            width: 100%;
+            padding: 0.7rem 0.8rem;
+            border-radius: 10px;
+            border: 2px solid #cce0ff;
+            font-size: 1rem;
+            outline: none;
+        }
+        .name-input:focus { border-color: #3385ff; }
+        .name-actions { display: flex; gap: 0.6rem; flex-wrap: wrap; }
+
+        .btn-save { background: #28a745; color: #fff; border: none; padding: 0.75rem 1rem; border-radius: 10px; cursor: pointer; font-weight: bold; transition: 0.2s; }
+        .btn-save:hover { background: #1e7e34; }
+        .btn-edit { background: #004080; color: #fff; border: none; padding: 0.75rem 1rem; border-radius: 10px; cursor: pointer; font-weight: bold; transition: 0.2s; display: none; }
+        .btn-edit:hover { background: #3385ff; }
+        .btn-reset { background: #dc3545; color: #fff; border: none; padding: 0.75rem 1rem; border-radius: 10px; cursor: pointer; font-weight: bold; transition: 0.2s; }
+        .btn-reset:hover { background: #bd2130; }
+
+        .hint { color: #555; font-size: 0.95rem; }
+        .hidden { display: none !important; }
+
+        @media (max-width: 800px) { .name-grid { grid-template-columns: repeat(2, 1fr); } }
+
+        .player-tabs { display: flex; justify-content: center; gap: 0.5rem; max-width: 1000px; margin: 0 auto 1.5rem; padding: 0 10px; flex-wrap: wrap; }
+        .tab-btn { flex: 1; min-width: 100px; background: #e6f0fa; color: #004080; border: 2px solid #b3d4ff; padding: 0.8rem; font-size: 1.1rem; font-weight: bold; border-radius: 8px; cursor: pointer; transition: all 0.3s; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        .tab-btn:hover { background: #cce0ff; }
+        .tab-btn.active { background: #3385ff; color: #fff; border-color: #002b5e; transform: translateY(-3px); box-shadow: 0 6px 15px rgba(51,133,255,0.3); }
+
+        .carousel-container { width: 100%; overflow: hidden; padding-bottom: 3rem; }
+        .carousel-track { display: flex; width: 400%; transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1); }
+        .player-slide { width: 25%; padding: 0 10px; display: flex; flex-direction: column; align-items: center; }
+        .score-board { background: #002b5e; color: #fff; display: inline-block; padding: 0.8rem 2.5rem; border-radius: 30px; font-size: 1.6rem; font-weight: bold; border: 4px solid #3385ff; box-shadow: 0 4px 10px rgba(0,0,0,0.2); margin-bottom: 2rem; transition: all 0.3s; }
+        .score-board span { color: #ffc107; }
+
+        .jeopardy-board { width: 100%; max-width: 1000px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; background: #001a33; padding: 8px; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
+        .category-header { background: #004080; color: #fff; text-align: center; font-weight: bold; padding: 1rem 0.5rem; font-size: 1.1rem; border-radius: 6px; border-bottom: 4px solid #3385ff; display: flex; align-items: center; justify-content: center; min-height: 80px; text-transform: uppercase; }
+        .point-btn { background: #3385ff; color: #fff; font-size: 1.6rem; font-weight: bold; border: none; padding: 1.5rem 0; border-radius: 6px; cursor: pointer; transition: all 0.2s; text-shadow: 1px 1px 2px rgba(0,0,0,0.5); box-shadow: inset 0 0 10px rgba(0,0,0,0.2); }
+        .point-btn:hover:not(:disabled) { background: #1a75ff; transform: scale(0.96); }
+        .point-btn:disabled { background: #002b5e; color: #001a33; cursor: not-allowed; text-shadow: none; box-shadow: none; }
+
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,26,51,0.9); align-items: center; justify-content: center; z-index: 100; animation: fadeIn 0.3s; padding: 1rem; }
+        .modal-content { background: #fff; padding: 2.5rem; border-radius: 12px; text-align: center; max-width: 600px; width: 100%; border-top: 8px solid #004080; box-shadow: 0 10px 40px rgba(0,0,0,0.5); display: flex; flex-direction: column; gap: 1.5rem; }
+        .modal-category { color: #3385ff; font-weight: bold; text-transform: uppercase; letter-spacing: 1px; }
+        .modal-question { font-size: 1.6rem; color: #002b5e; font-weight: bold; min-height: 100px; display: flex; align-items: center; justify-content: center; }
+        .modal-answer-area { display: none; border-top: 2px dashed #ccc; padding-top: 1.5rem; }
+        .modal-answer { font-size: 1.4rem; color: #28a745; font-weight: bold; margin-bottom: 1.5rem; }
+        .btn-reveal { background: #004080; color: #fff; border: none; padding: 1rem 2rem; font-size: 1.2rem; font-weight: bold; border-radius: 8px; cursor: pointer; transition: 0.3s; width: 100%; }
+        .btn-reveal:hover { background: #3385ff; }
+        .judgement-area { display: flex; flex-direction: column; gap: 1rem; }
+        .judgement-buttons { display: flex; gap: 1rem; }
+        .btn-correct { flex: 1; background: #28a745; color: #fff; border: none; padding: 1rem; font-size: 1.1rem; font-weight: bold; border-radius: 8px; cursor: pointer; transition: 0.3s; }
+        .btn-correct:hover { background: #1e7e34; }
+        .btn-incorrect { flex: 1; background: #dc3545; color: #fff; border: none; padding: 1rem; font-size: 1.1rem; font-weight: bold; border-radius: 8px; cursor: pointer; transition: 0.3s; }
+        .btn-incorrect:hover { background: #bd2130; }
+
+        .steal-area { display: none; background: #fff3cd; border: 2px solid #ffeeba; padding: 1.5rem; border-radius: 8px; margin-top: 1rem; animation: fadeIn 0.4s; }
+        .steal-title { color: #856404; font-weight: bold; font-size: 1.2rem; margin-bottom: 1rem; }
+        .steal-buttons { display: flex; flex-wrap: wrap; gap: 0.5rem; justify-content: center; }
+        .btn-steal { flex: 1; min-width: 100px; background: #ffc107; color: #000; border: none; padding: 0.8rem; font-weight: bold; border-radius: 6px; cursor: pointer; transition: 0.2s; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        .btn-steal:hover { background: #e0a800; transform: translateY(-2px); }
+
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        footer { text-align: center; padding: 1rem; background-color: #002b5e; color: #fff; margin-top: auto; }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="../../../../../index.html" class="logo">May Learning Hub</a>
+        <div class="nav-links">
+            <a href="../../../../../index.html">Home</a>
+            <a href="../../../../../about.html">About</a>
+        </div>
+    </nav>
+
+    <header class="game-header">
+        <h1 class="game-title">Grade 12 Life Sciences Jeopardy</h1>
+        <p class="game-subtitle">Topic: Lamarckism, Darwinism and Punctuated Equilibrium</p>
+        <p style="font-size: 0.78rem; color: #52606d; margin-top: 0.45rem;">Source: Lamarckism, Darwinism and Punctuated Equilibrium - Grade 12 Life Sciences Term 3 presentation.</p>
+    </header>
+
+    <section class="name-setup" id="nameSetupSection">
+        <div class="name-box">
+            <h2>Enter Player Names</h2>
+            <div class="name-grid">
+                <input class="name-input" id="nameInput-0" type="text" maxlength="20" placeholder="Player 1 name" />
+                <input class="name-input" id="nameInput-1" type="text" maxlength="20" placeholder="Player 2 name" />
+                <input class="name-input" id="nameInput-2" type="text" maxlength="20" placeholder="Player 3 name" />
+                <input class="name-input" id="nameInput-3" type="text" maxlength="20" placeholder="Player 4 name" />
+            </div>
+            <div class="name-actions">
+                <button class="btn-save" id="btnSaveNames" onclick="savePlayerNames()">Save Names</button>
+                <button class="btn-edit" id="btnEditNames" onclick="showNameEditor()">Edit Names</button>
+                <button class="btn-reset" onclick="resetPlayerNames()">Reset</button>
+            </div>
+            <p class="hint">80 unique clues drawn from the Grade 12 Term 3 Lamarckism, Darwinism and Punctuated Equilibrium presentation!</p>
+        </div>
+    </section>
+
+    <div class="player-tabs">
+        <button class="tab-btn active" id="tab-0" onclick="switchPlayer(0)">Player 1</button>
+        <button class="tab-btn" id="tab-1" onclick="switchPlayer(1)">Player 2</button>
+        <button class="tab-btn" id="tab-2" onclick="switchPlayer(2)">Player 3</button>
+        <button class="tab-btn" id="tab-3" onclick="switchPlayer(3)">Player 4</button>
+    </div>
+
+    <div class="carousel-container">
+        <div class="carousel-track" id="carouselTrack">
+            <div class="player-slide">
+                <div class="score-board"><span id="label-0">Player 1</span>: <span id="score-0">0</span></div>
+                <div class="jeopardy-board" id="board-0"></div>
+            </div>
+            <div class="player-slide">
+                <div class="score-board"><span id="label-1">Player 2</span>: <span id="score-1">0</span></div>
+                <div class="jeopardy-board" id="board-1"></div>
+            </div>
+            <div class="player-slide">
+                <div class="score-board"><span id="label-2">Player 3</span>: <span id="score-2">0</span></div>
+                <div class="jeopardy-board" id="board-2"></div>
+            </div>
+            <div class="player-slide">
+                <div class="score-board"><span id="label-3">Player 4</span>: <span id="score-3">0</span></div>
+                <div class="jeopardy-board" id="board-3"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="questionModal">
+        <div class="modal-content">
+            <div class="modal-category" id="modalCategory">Category</div>
+            <div class="modal-question" id="modalQuestion">Clue</div>
+            <button class="btn-reveal" id="btnReveal" onclick="revealAnswer()">Reveal Correct Question</button>
+            <div class="modal-answer-area" id="answerArea">
+                <div class="modal-answer" id="modalAnswer">Correct Question</div>
+                <div class="judgement-area" id="judgementArea">
+                    <p>Did <strong id="activePlayerName">Player</strong> get it right?</p>
+                    <div class="judgement-buttons">
+                        <button class="btn-incorrect" onclick="judgeActivePlayer(false)">Wrong</button>
+                        <button class="btn-correct" onclick="judgeActivePlayer(true)">Correct!</button>
+                    </div>
+                </div>
+                <div class="steal-area" id="stealArea">
+                    <div class="steal-title" id="stealTitle">STEAL OPPORTUNITY!</div>
+                    <div class="steal-buttons" id="stealButtons"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer><p>&copy; 2026 May Learning Hub. All rights reserved.</p></footer>
+
+        <script src="../../../../../game-audio.js"></script>
+<script>
+        const theories = [
+            { q: "Who was Jean-Baptiste Lamarck?", a: "A French naturalist who lived from 1744 to 1829 and proposed an early explanation of evolution." },
+            { q: "Name Lamarck's two laws.", a: "The law of use and disuse and the law of inheritance of acquired characteristics." },
+            { q: "State Lamarck's law of use and disuse.", a: "Frequently used structures become better developed, while unused structures weaken or shrink." },
+            { q: "How did Lamarck explain vestigial pelvic bones in snakes?", a: "He argued that ancestral legs weakened through disuse when they were no longer used for locomotion." },
+            { q: "State Lamarck's law of inheritance of acquired characteristics.", a: "Changes acquired during an organism's lifetime are passed to its offspring." },
+            { q: "How did Lamarck explain the long neck of a giraffe?", a: "A giraffe stretched its neck during life, and the acquired length was supposedly inherited by offspring." },
+            { q: "According to Lamarck, why did organisms change?", a: "Because they needed or wanted to change in response to their environment." },
+            { q: "Give the main reason Lamarckism was rejected.", a: "There is no evidence that acquired characteristics are inherited." },
+            { q: "Why does use of a structure not prove inheritable evolutionary change?", a: "A lifetime effect of use does not automatically change the genetic information passed to offspring." },
+            { q: "What modern principle contradicts consciously directed evolution?", a: "Nature selects among existing favourable inherited characteristics; organisms do not direct their own evolution." },
+            { q: "Why is Lamarck still studied?", a: "He contributed to early evolutionary thinking and used careful observation, information gathering, and data analysis." },
+            { q: "What does Lamarck's history show about scientific theories?", a: "Scientific explanations can be revised or rejected when stronger evidence becomes available." },
+            { q: "Who was Charles Darwin?", a: "The naturalist who lived from 1809 to 1882 and developed evolution by natural selection." },
+            { q: "State Darwin's central explanation of evolution.", a: "Individuals vary, and those with favourable inherited traits survive and reproduce more successfully." },
+            { q: "Define natural selection.", a: "The process by which the environment favours inherited characteristics that improve survival and reproduction." },
+            { q: "What is a selecting agent?", a: "An environmental factor or condition that determines which characteristics are favourable." },
+            { q: "What happens to favourable characteristics over generations?", a: "They become more common because their bearers leave more offspring." },
+            { q: "What happens to less favourable characteristics over generations?", a: "They become less common because their bearers survive or reproduce less successfully." },
+            { q: "Define a gene pool.", a: "All the alleles present in a population." },
+            { q: "Give the core difference between Lamarckism and Darwinism.", a: "Lamarck proposed inheritance of acquired changes; Darwin proposed selection of existing inherited variation." }
+        ];
+        const punctuatedAndNaturalSelection = [
+            { q: "How long did Darwin travel on the HMS Beagle?", a: "Five years." },
+            { q: "What did Darwin do as the Beagle's naturalist?", a: "He collected specimens, took notes, observed organisms and environments, and discussed ideas with scientists." },
+            { q: "Define gradualism.", a: "Evolutionary change occurring slowly and gradually over many generations." },
+            { q: "Why are coelacanths and ginkgo trees called living fossils?", a: "They have changed very little over long periods." },
+            { q: "Define punctuated equilibrium.", a: "The hypothesis that long periods of little change are interrupted by short periods of rapid evolution." },
+            { q: "Who proposed punctuated equilibrium, and when?", a: "Stephen Gould and Niles Eldredge in 1972." },
+            { q: "What is equilibrium in punctuated equilibrium?", a: "A long period of stability with little or no evolutionary change." },
+            { q: "What does punctuated mean in this hypothesis?", a: "Stable periods are interrupted by relatively short bursts of rapid change." },
+            { q: "Name four events that may create sudden selection pressures.", a: "Any four of earthquakes, tsunamis, meteor impacts, pollution, new habitats, and catastrophic environmental change." },
+            { q: "How can missing transitional fossils support punctuated equilibrium?", a: "Rapid change may leave few intermediate forms in the fossil record." },
+            { q: "Describe the cichlid fish example.", a: "An isolated lake gained five unused habitats, and one cichlid species rapidly evolved into five species in about 4 000 years." },
+            { q: "When did Darwin visit the Galapagos Islands?", a: "In 1835." },
+            { q: "Where are the Galapagos Islands?", a: "Near the equator, off the west coast of South America." },
+            { q: "What did Darwin infer about mainland and island finches?", a: "The one mainland finch type was probably ancestral to the different island finches." },
+            { q: "What food suits a crushing finch beak?", a: "Fruits, buds, and seeds." },
+            { q: "What food suits a probing finch beak?", a: "Insects." },
+            { q: "List Darwin's four observations behind natural selection.", a: "Overproduction, variation, survival of a few with favourable traits, and inheritance of favourable traits." },
+            { q: "Why does overproduction cause competition?", a: "More offspring are produced than limited resources can support." },
+            { q: "Why is genetic variation important for population survival?", a: "It increases the chance that some individuals have traits suited to environmental change." },
+            { q: "Why may a population with little variation become extinct?", a: "Changed conditions may leave no individuals with favourable traits that allow survival and reproduction." }
+        ];
+        const selectionInAction = [
+            { q: "Name the scientific species used in the peppered moth example.", a: "Biston betularia." },
+            { q: "What two colour forms occur in peppered moths?", a: "A common pale form and a rarer dark form." },
+            { q: "Why were pale moths originally favoured?", a: "They were camouflaged against pale tree bark and were less visible to birds." },
+            { q: "How did the Industrial Revolution change tree bark?", a: "Soot and smog darkened it." },
+            { q: "Why did pale moth mortality increase in polluted areas?", a: "They became more visible to bird predators on dark bark." },
+            { q: "Why did dark moths leave more offspring?", a: "Better camouflage increased their survival and reproductive success." },
+            { q: "What changed in the moth population over time?", a: "Dark-colour alleles increased, so the population became predominantly darker." },
+            { q: "State the exam phrase illustrated by peppered moths.", a: "Natural selection changes the frequency of favourable characteristics in a population." },
+            { q: "List the five broad steps of natural selection in the summary.", a: "Genetic variation, overproduction, competition, environmental change, and survival of the fittest." },
+            { q: "How does rising sea temperature select among corals?", a: "Warm-tolerant corals survive and reproduce while less tolerant corals die." },
+            { q: "Name three outcomes of natural selection.", a: "Better adaptation, gene-pool change, and increased favourable-allele frequency; sufficient change may cause speciation." },
+            { q: "Define artificial selection.", a: "Human selection and breeding of organisms with desirable characteristics." },
+            { q: "How does artificial selection differ from natural selection?", a: "Humans choose traits and breeders in artificial selection; the environment determines success in natural selection." },
+            { q: "What is the origin of domestic dog breeds given in the presentation?", a: "They descended from a few South Asian wolves domesticated about 10 000 years ago." },
+            { q: "How did artificial breeding help Darwin's reasoning?", a: "It showed that selection can cause major population changes, suggesting nature could do more over millions of years." },
+            { q: "What is Bonsmara?", a: "A South African beef-cattle breed developed for local environmental conditions." },
+            { q: "Who began the Bonsmara breeding programme, and when?", a: "Professor Jan Bosma in the 1950s." },
+            { q: "Which traits came from Nguni cattle?", a: "Resistance to disease and pests and adaptation to hot, dry conditions." },
+            { q: "Which traits came from imported British beef cattle?", a: "High-quality beef production and early maturity." },
+            { q: "How did repeated selection produce Bonsmara?", a: "Each generation, calves with desired traits were selected and bred, increasing desired alleles over many generations." }
+        ];
+        const maizeSpeciesAndBaobabs = [
+            { q: "What is the wild ancestor of maize?", a: "Teosinte, a wild grass endemic to Mexico." },
+            { q: "When and where was maize first domesticated?", a: "In Central America between 9 000 and 6 000 BC." },
+            { q: "Which maize traits did early farmers increase?", a: "Cob size, number of kernel rows, taste, productivity, and adaptation to local areas." },
+            { q: "What has been inserted into some GM maize genomes?", a: "Genes for resistance to herbicides and insect pests." },
+            { q: "Why must wild teosinte be conserved?", a: "Its ancestral genes may protect the maize gene pool and support future breeding and useful crop traits." },
+            { q: "Define a species.", a: "A group of similar organisms able to interbreed and produce fertile offspring." },
+            { q: "What does viable offspring mean in the species definition?", a: "Offspring that survive and can reproduce at sexual maturity." },
+            { q: "Why do mules show that horses and donkeys are different species?", a: "Mules are infertile and cannot reproduce." },
+            { q: "Define speciation.", a: "The process by which a new species evolves." },
+            { q: "Name the two methods of speciation in the presentation.", a: "Geographic isolation and reproductive isolation." },
+            { q: "Define geographic isolation.", a: "Physical separation of a population so the groups can no longer interact and breed." },
+            { q: "What is gene flow?", a: "The movement of alleles between interbreeding populations." },
+            { q: "Outline allopatric speciation after a barrier forms.", a: "Gene flow stops, different environments select independently, populations diverge, and eventually they cannot interbreed." },
+            { q: "Name four examples of allopatric speciation.", a: "Galapagos finches, Galapagos tortoises, proteas in South Africa and Australia, and baobabs." },
+            { q: "How many baobab species occur in Madagascar, Africa, and Australia?", a: "Six in Madagascar, two in Africa, and one in north-western Australia." },
+            { q: "What separated ancestral baobabs in Madagascar and Africa?", a: "Continental drift and an ocean about 160 million years ago." },
+            { q: "Contrast the habitats of A. digitata and A. kilima.", a: "A. digitata occupies hot dry areas below 800 m; A. kilima occupies cooler mountains from 650 to 1 500 m." },
+            { q: "Which Madagascan baobab is probably ancestral?", a: "A. madagascarensis, the island's most widely distributed species." },
+            { q: "Match two Madagascan baobabs to habitats.", a: "Examples: A. rubrostipa - sandy soils; A. perrieri - rainforests; A. grandidieri - floodplains and rivers." },
+            { q: "How did the Australian baobab population probably originate?", a: "African seedpods drifted by ocean current, germinated in Australia, and became isolated by the Indian Ocean." }
+        ];
+                function makeJeopardyQuestions(factors, offset) {
+            return Array.from({ length: 5 }, (_, index) => {
+                const question = factors[(offset * 5 + index) % factors.length];
+                return { points: (index + 1) * 10, q: question.q, a: question.a };
+            });
+        }
+        function makePlayerBoard(offset) {
+            return [
+                { name: "Lamarckism and Darwinism", questions: makeJeopardyQuestions(theories, offset) },
+                { name: "Punctuated Equilibrium and Natural Selection", questions: makeJeopardyQuestions(punctuatedAndNaturalSelection, offset) },
+                { name: "Selection in Action", questions: makeJeopardyQuestions(selectionInAction, offset) },
+                { name: "Maize, Species and Baobabs", questions: makeJeopardyQuestions(maizeSpeciesAndBaobabs, offset) }
+            ];
+        }
+        const player1Cats = makePlayerBoard(0);
+        const player2Cats = makePlayerBoard(1);
+        const player3Cats = makePlayerBoard(2);
+        const player4Cats = makePlayerBoard(3);
+        const gameData = [player1Cats, player2Cats, player3Cats, player4Cats];
+
+        let currentPlayerIndex = 0;
+        let scores = [0, 0, 0, 0];
+        let activePointValue = 0;
+        let activeTileButton = null;
+        let playerNames = ["Player 1", "Player 2", "Player 3", "Player 4"];
+
+        const carouselTrack = document.getElementById('carouselTrack');
+        const modal = document.getElementById('questionModal');
+        const modalCategory = document.getElementById('modalCategory');
+        const modalQuestion = document.getElementById('modalQuestion');
+        const modalAnswer = document.getElementById('modalAnswer');
+        const answerArea = document.getElementById('answerArea');
+        const btnReveal = document.getElementById('btnReveal');
+        const judgementArea = document.getElementById('judgementArea');
+        const activePlayerNameLabel = document.getElementById('activePlayerName');
+        const stealArea = document.getElementById('stealArea');
+        const stealButtonsContainer = document.getElementById('stealButtons');
+
+        function savePlayerNames() {
+            for (let i = 0; i < 4; i++) {
+                const val = document.getElementById(`nameInput-${i}`).value.trim();
+                if (val) playerNames[i] = val;
+                document.getElementById(`tab-${i}`).innerText = playerNames[i];
+                document.getElementById(`label-${i}`).innerText = playerNames[i];
+            }
+            document.getElementById('nameSetupSection').classList.add('hidden');
+            document.getElementById('btnEditNames').style.display = 'inline-block';
+        }
+
+        function showNameEditor() {
+            document.getElementById('nameSetupSection').classList.remove('hidden');
+        }
+
+        function buildBoards() {
+            for (let p = 0; p < 4; p++) {
+                const board = document.getElementById(`board-${p}`);
+                board.innerHTML = '';
+                const cats = gameData[p];
+                cats.forEach(c => {
+                    let h = document.createElement('div');
+                    h.className = 'category-header';
+                    h.innerText = c.name;
+                    board.appendChild(h);
+                });
+                for (let r = 0; r < 5; r++) {
+                    cats.forEach(c => {
+                        let btn = document.createElement('button');
+                        btn.className = 'point-btn';
+                        btn.innerText = c.questions[r].points;
+                        btn.onclick = () => openQuestion(c.name, c.questions[r], btn, p);
+                        board.appendChild(btn);
+                    });
+                }
+            }
+        }
+
+        function switchPlayer(idx) {
+            currentPlayerIndex = idx;
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            document.getElementById(`tab-${idx}`).classList.add('active');
+            carouselTrack.style.transform = `translateX(-${idx * 25}%)`;
+        }
+
+        function openQuestion(catName, qData, btn, pIdx) {
+            if (pIdx !== currentPlayerIndex) return;
+            activePointValue = qData.points;
+            activeTileButton = btn;
+            modalCategory.innerText = `${playerNames[pIdx]} | ${catName}`;
+            modalQuestion.innerText = qData.q;
+            modalAnswer.innerText = qData.a;
+            activePlayerNameLabel.innerText = playerNames[pIdx];
+            btnReveal.style.display = 'block';
+            answerArea.style.display = 'none';
+            stealArea.style.display = 'none';
+            modal.style.display = 'flex';
+        }
+
+        function revealAnswer() {
+            btnReveal.style.display = 'none';
+            answerArea.style.display = 'block';
+            judgementArea.style.display = 'flex';
+        }
+
+        function judgeActivePlayer(correct) {
+            if (correct) {
+                MayHubSounds.playCorrect();
+                scores[currentPlayerIndex] += activePointValue;
+                updateScore(currentPlayerIndex);
+                closeModal();
+            } else {
+                MayHubSounds.playWrong();
+                judgementArea.style.display = 'none';
+                showSteal();
+            }
+        }
+
+        function showSteal() {
+            stealArea.style.display = 'block';
+            stealButtonsContainer.innerHTML = '';
+            for (let i = 0; i < 4; i++) {
+                if (i !== currentPlayerIndex) {
+                    let b = document.createElement('button');
+                    b.className = 'btn-steal';
+                    b.innerText = playerNames[i];
+                    b.onclick = () => { MayHubSounds.playCorrect(); scores[i] += Math.floor(activePointValue/2); updateScore(i); closeModal(); };
+                    stealButtonsContainer.appendChild(b);
+                }
+            }
+            let none = document.createElement('button');
+            none.className = 'btn-incorrect';
+            none.innerText = "No one";
+            none.onclick = closeModal;
+            stealButtonsContainer.appendChild(none);
+        }
+
+        function updateScore(i) { document.getElementById(`score-${i}`).innerText = scores[i]; }
+        function closeModal() { activeTileButton.innerText = ""; activeTileButton.disabled = true; modal.style.display = 'none'; }
+
+        buildBoards();
+
+        function resetPlayerNames() {
+            playerNames = ["Player 1", "Player 2", "Player 3", "Player 4"];
+            for (let i = 0; i < 4; i++) {
+                document.getElementById(`nameInput-${i}`).value = "";
+                document.getElementById(`tab-${i}`).innerText = playerNames[i];
+                document.getElementById(`label-${i}`).innerText = playerNames[i];
+            }
+            showNameEditor();
+        }
+    </script>
+</body>
+</html>

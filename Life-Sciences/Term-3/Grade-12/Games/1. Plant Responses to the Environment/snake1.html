@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-8GCWSKNDL7"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-8GCWSKNDL7');
+</script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>May Learning Hub | Smart Snake - Plant Responses</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f0f4f8; color: #333; line-height: 1.6; display: flex; flex-direction: column; min-height: 100vh; touch-action: manipulation; }
+
+        /* Navigation */
+        nav { background-color: #002b5e; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        .logo { color: #fff; font-size: 1.5rem; font-weight: bold; text-decoration: none; }
+        .nav-links a { color: #cce0ff; text-decoration: none; margin-left: 1.5rem; font-weight: 500; transition: color 0.3s; }
+        .nav-links a:hover, .nav-links a.active { color: #fff; text-decoration: underline; }
+
+        /* Game Header */
+        .game-header { text-align: center; padding: 2rem 1rem 1rem; }
+        .game-title { color: #004080; font-size: 2.2rem; margin-bottom: 0.5rem; }
+        .game-subtitle { color: #555; margin-bottom: 1.5rem; font-size: 1.1rem; }
+
+        /* --- Topic Selection UI --- */
+        .category-selection { margin-bottom: 2rem; text-align: center; }
+        .cat-buttons { display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem; max-width: 800px; margin: 0 auto; padding: 0 10px; }
+        .cat-btn { background-color: #fff; border: 2px solid #004080; color: #004080; padding: 0.8rem 1.5rem; font-size: 1.1rem; font-weight: bold; border-radius: 8px; cursor: pointer; transition: all 0.3s ease; flex: 1; min-width: 150px; }
+        .cat-btn:hover { background-color: #e6f0fa; transform: translateY(-3px); }
+
+        /* --- Game Area --- */
+        #gameArea { display: none; flex-direction: column; align-items: center; width: 100%; padding: 0 10px; }
+
+        .score-board { display: flex; justify-content: space-between; width: 100%; max-width: 600px; background: #002b5e; color: #fff; padding: 0.8rem 1.5rem; border-radius: 8px 8px 0 0; font-size: 1.2rem; font-weight: bold; }
+        .score-board span { color: #ffc107; }
+
+        .canvas-container { position: relative; max-width: 600px; width: 100%; }
+        canvas { background-color: #d1e0e0; box-shadow: 0 8px 20px rgba(0,0,0,0.2); border-radius: 0 0 8px 8px; border: 4px solid #002b5e; width: 100%; height: auto; display: block; }
+
+        #pauseOverlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 43, 94, 0.7); border-radius: 0 0 8px 8px; display: none; flex-direction: column; justify-content: center; align-items: center; color: #fff; font-size: 1.5rem; font-weight: bold; text-align: center; padding: 1rem; z-index: 10; animation: pulse 1.5s infinite; }
+        @keyframes pulse { 0% { opacity: 0.8; } 50% { opacity: 1; transform: scale(1.02); } 100% { opacity: 0.8; } }
+
+        .controls-container { display: grid; grid-template-columns: repeat(3, 60px); grid-template-rows: repeat(2, 60px); gap: 10px; margin-top: 2rem; justify-content: center; }
+        .control-btn { background: #3385ff; color: #fff; border: none; border-radius: 12px; font-size: 1.5rem; font-weight: bold; cursor: pointer; box-shadow: 0 4px 6px rgba(0,0,0,0.2); display: flex; align-items: center; justify-content: center; user-select: none; }
+        .control-btn:active { background: #004080; transform: translateY(2px); box-shadow: 0 2px 3px rgba(0,0,0,0.2); }
+
+        #btnUp { grid-column: 2; grid-row: 1; }
+        #btnLeft { grid-column: 1; grid-row: 2; }
+        #btnDown { grid-column: 2; grid-row: 2; }
+        #btnRight { grid-column: 3; grid-row: 2; }
+
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,26,51,0.9); align-items: center; justify-content: center; z-index: 100; padding: 1rem; }
+        .modal-content { background: #fff; padding: 2rem; border-radius: 12px; text-align: center; max-width: 500px; width: 100%; border-top: 6px solid #ffc107; box-shadow: 0 10px 40px rgba(0,0,0,0.5); }
+
+        .modal-points { color: #d32f2f; font-weight: bold; font-size: 1.2rem; margin-bottom: 0.5rem; }
+        .golden-text { color: #d39e00; }
+        .modal-question { font-size: 1.4rem; color: #002b5e; font-weight: bold; margin-bottom: 1.5rem; }
+
+        .mc-options { display: flex; flex-direction: column; gap: 0.8rem; }
+        .option-btn { background: #f0f7ff; border: 2px solid #b3d4ff; padding: 1rem; font-size: 1.1rem; border-radius: 6px; cursor: pointer; transition: all 0.2s; text-align: left; font-weight: bold; color: #004080; }
+        .option-btn:hover:not(:disabled) { background: #3385ff; color: #fff; border-color: #002b5e; }
+        .option-btn.correct { background-color: #28a745 !important; border-color: #1e7e34 !important; color: #fff !important; }
+        .option-btn.incorrect { background-color: #dc3545 !important; border-color: #bd2130 !important; color: #fff !important; }
+
+        .continue-btn { display: none; background: #004080; color: #fff; border: none; padding: 1rem 2rem; font-size: 1.1rem; font-weight: bold; border-radius: 8px; cursor: pointer; margin-top: 1.5rem; width: 100%; }
+
+        #endScreen { display: none; text-align: center; padding: 3rem 1rem; }
+        #endTitle { font-size: 2.5rem; margin-bottom: 1rem; }
+        #endMessage { font-size: 1.2rem; color: #555; }
+
+        footer { text-align: center; padding: 1rem; background-color: #002b5e; color: #fff; margin-top: auto; }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="../../../../../index.html" class="logo">May Learning Hub</a>
+        <div class="nav-links">
+            <a href="../../../../../index.html">Home</a>
+            <a href="../../../../../about.html">About</a>
+        </div>
+    </nav>
+
+    <header class="game-header">
+        <h1 class="game-title">Smart Snake: Plant Responses to the Environment</h1>
+        <p class="game-subtitle">Grade 12 Life Sciences - Term 3. Eat 10 apples while mastering plant hormones, tropisms, herbicides, and defences!</p>
+        <p style="font-size: 0.78rem; color: #52606d; margin-top: 0.45rem;">Source: Plant Responses to the Environment - Grade 12 Life Sciences Term 3 presentation.</p>
+    </header>
+
+    <div class="category-selection" id="categorySelection">
+        <div class="cat-buttons">
+            <button class="cat-btn" onclick="startGame('game1')">Plant Hormones</button>
+            <button class="cat-btn" onclick="startGame('game2')">Auxins and Growth</button>
+            <button class="cat-btn" onclick="startGame('game3')">Tropisms</button>
+            <button class="cat-btn" onclick="startGame('game4')">Herbicides and Defences</button>
+        </div>
+    </div>
+
+    <main id="gameArea">
+        <div class="score-board">
+            <div>Apples: <span id="appleCount">0</span> / 10</div>
+            <div>Score: <span id="scoreText">0</span></div>
+        </div>
+
+        <div class="canvas-container">
+            <canvas id="gameCanvas" width="600" height="400"></canvas>
+
+            <div id="pauseOverlay">
+                Tap any direction below to resume slithering! 🐍
+            </div>
+        </div>
+
+        <div class="controls-container">
+            <button class="control-btn" id="btnUp" onclick="handleInput('UP')">▲</button>
+            <button class="control-btn" id="btnLeft" onclick="handleInput('LEFT')">◀</button>
+            <button class="control-btn" id="btnDown" onclick="handleInput('DOWN')">▼</button>
+            <button class="control-btn" id="btnRight" onclick="handleInput('RIGHT')">▶</button>
+        </div>
+    </main>
+
+    <div class="modal" id="questionModal">
+        <div class="modal-content">
+            <div class="modal-points" id="modalPoints">For 1 Point:</div>
+            <div class="modal-question" id="modalQuestion">Loading question...</div>
+            <div class="mc-options" id="mcOptions"></div>
+            <button class="continue-btn" id="btnContinue" onclick="closeModalAndPause()">Continue Game</button>
+        </div>
+    </div>
+
+    <div id="endScreen">
+        <h2 id="endTitle" style="color: #28a745;">Level Complete!</h2>
+        <p id="endMessage">You successfully ate 10 apples.</p>
+        <p style="font-size: 1.5rem; margin: 1rem 0; font-weight: bold;">Final Score: <span id="finalScoreText" style="color:#004080;">0</span> Points</p>
+        <button class="cat-btn" onclick="location.reload()" style="background:#3385ff; color:#fff;">Play Again</button>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 May Learning Hub. All rights reserved.</p>
+    </footer>
+
+        <script src="../../../../../game-audio.js"></script>
+<script>
+        const questionDB = {
+            'game1': [
+                { q: "What do plants use to coordinate responses without a nervous system?", options: ["Plant hormones", "Blood", "Nerves", "Muscles"], a: 0 },
+                { q: "What is a hormone?", options: ["A chemical messenger produced in small quantities", "A type of thorn", "A mature root", "A plant disease"], a: 0 },
+                { q: "Which is the best-known auxin?", options: ["IAA", "2,4-D", "Tannin", "Ethene only"], a: 0 },
+                { q: "Which hormone promotes stem elongation and germination?", options: ["Gibberellin", "Abscisic acid", "Tannin", "Water"], a: 0 },
+                { q: "Which hormone promotes dormancy?", options: ["Abscisic acid", "Gibberellin", "IAA in stems", "Cytokinin only"], a: 0 },
+                { q: "Which hormone group includes ethylene?", options: ["Ethene", "Auxin", "Tannin", "2,4-D only"], a: 0 },
+                { q: "What is dormancy?", options: ["Inactive or reduced growth", "Rapid stem elongation", "Growth towards light", "Fruit fertilisation"], a: 0 },
+                { q: "What is an internode?", options: ["Stem region between two nodes", "Root tip", "Leaf pore", "Fruit wall"], a: 0 },
+                { q: "What do gibberellins activate in a seed?", options: ["Growth of the embryo", "Permanent inactivity", "Tannin release", "Thorn formation"], a: 0 },
+                { q: "Which hormone helps regulate stomatal function?", options: ["Abscisic acid", "Tannin", "2,4-D only", "Gibberellin only"], a: 0 }
+            ],
+            'game2': [
+                { q: "Where are auxins produced?", options: ["Root tips and growing stem points", "Only mature leaves", "Only flowers", "Only dry seeds"], a: 0 },
+                { q: "Which process is promoted by auxins?", options: ["Cell elongation", "Permanent dormancy", "Tissue death", "Chemical warning"], a: 0 },
+                { q: "What is apical dominance?", options: ["Suppression of lateral buds by the shoot tip", "Growth towards water", "Seed dormancy", "Fruit decay"], a: 0 },
+                { q: "What can auxins promote in stem cuttings?", options: ["Adventitious roots", "Tannins", "Thorns", "Dormant flowers"], a: 0 },
+                { q: "How does high auxin usually affect stems?", options: ["It promotes growth", "It stops growth", "It produces tannins", "It kills all cells"], a: 0 },
+                { q: "How can high auxin affect roots?", options: ["It inhibits elongation", "It always accelerates elongation", "It forms fruit", "It removes gravity"], a: 0 },
+                { q: "Which tissue growth is promoted by auxins?", options: ["Vascular tissue", "Animal muscle", "Bone tissue", "Blood tissue"], a: 0 },
+                { q: "Which process follows fertilisation of ovules and is promoted by auxin?", options: ["Fruit development", "Root dormancy", "Tannin warning", "Thorn loss"], a: 0 },
+                { q: "Which two processes are directly promoted by IAA?", options: ["Cell division and elongation", "Dormancy and inhibition", "Predation and infection", "Warning and tannin release"], a: 0 },
+                { q: "Why do auxins strongly influence growth direction?", options: ["They are produced in active growth regions", "They are transported in blood", "They remove all stimuli", "They are physical structures"], a: 0 }
+            ],
+            'game3': [
+                { q: "What is a tropism?", options: ["A growth response to a stimulus", "A plant disease", "A physical defence", "A herbicide"], a: 0 },
+                { q: "What is phototropism?", options: ["Response to light", "Response to gravity", "Response to water", "Response to predators"], a: 0 },
+                { q: "What is geotropism?", options: ["Response to gravity", "Response to light", "Response to water", "Response to tannins"], a: 0 },
+                { q: "What is hydrotropism?", options: ["Response to water", "Response to gravity", "Response to light", "Response to thorns"], a: 0 },
+                { q: "How are stems oriented to light?", options: ["Positively phototropic", "Negatively phototropic", "Positively geotropic", "Negatively hydrotropic"], a: 0 },
+                { q: "How are roots oriented to gravity?", options: ["Positively geotropic", "Negatively geotropic", "Positively phototropic", "Negatively hydrotropic"], a: 0 },
+                { q: "Where do auxins collect in a one-sidedly lit stem?", options: ["On the shaded side", "On the lit side only", "In the soil", "In the flower"], a: 0 },
+                { q: "Why does a stem bend towards light?", options: ["The shaded side grows faster", "The lit side grows faster", "Both sides stop", "The root pulls it"], a: 0 },
+                { q: "Where do auxins collect in a horizontal root?", options: ["On the lower side", "On the upper side", "In the leaves", "Outside the root"], a: 0 },
+                { q: "Why does a horizontal root bend down?", options: ["The upper side grows faster", "The lower side grows faster", "Both sides stop", "Light pushes it"], a: 0 }
+            ],
+            'game4': [
+                { q: "What does selective mean for a herbicide?", options: ["It kills weeds but spares grass at the correct dose", "It kills every plant", "It cannot enter weeds", "It works only in water"], a: 0 },
+                { q: "What does systemic mean for a herbicide?", options: ["It moves throughout the weed", "It stays on the bottle", "It affects only soil", "It is never absorbed"], a: 0 },
+                { q: "Which auxin-based herbicide is named?", options: ["2,4-D", "IAA only", "Tannin", "Abscisic acid"], a: 0 },
+                { q: "How does 2,4-D kill weeds?", options: ["Rapid abnormal growth exhausts them", "It causes normal dormancy", "It removes all soil", "It grows thorns"], a: 0 },
+                { q: "Which is a safe herbicide practice?", options: ["Wear gloves and goggles", "Inhale vapours", "Keep pets nearby", "Ignore dosage"], a: 0 },
+                { q: "Which is a physical defence?", options: ["Thorns", "Tannins", "Bitter chemicals", "Airborne signals"], a: 0 },
+                { q: "Which is a chemical defence?", options: ["Bitter plant secretions", "Thorns", "Spines", "Hard stems only"], a: 0 },
+                { q: "What triggers an Acacia warning signal?", options: ["Giraffes eating leaves", "Rainfall", "Seed germination", "Root growth"], a: 0 },
+                { q: "What do nearby Acacia trees secrete?", options: ["Tannins", "Blood", "Gibberellin herbicide", "Water only"], a: 0 },
+                { q: "What do tannins do to Acacia leaves?", options: ["Make them unpalatable", "Make them sweeter", "Remove all chemicals", "Attract feeding"], a: 0 }
+            ]
+        };
+        const canvas = document.getElementById("gameCanvas");
+        const ctx = canvas.getContext("2d");
+        const gridSize = 20;
+        const tileCountX = canvas.width / gridSize;
+        const tileCountY = canvas.height / gridSize;
+
+        let snake = [];
+        let dx = 0;
+        let dy = -1;
+        let foodX, foodY;
+        let bonusX = -1, bonusY = -1;
+        let score = 0;
+        let applesEaten = 0;
+        let gameLoop;
+        let currentTopic = [];
+        let isGoldenAppleActive = false;
+        let activeQuestionValue = 1;
+        let isPausedPendingInput = true;
+
+        function startGame(categoryKey) {
+            document.getElementById('categorySelection').style.display = 'none';
+            document.getElementById('gameArea').style.display = 'flex';
+            currentTopic = [...questionDB[categoryKey]];
+            snake = [{x: 15, y: 10}, {x: 15, y: 11}, {x: 15, y: 12}];
+            dx = 0; dy = -1; score = 0; applesEaten = 0;
+            updateScoreboard();
+            spawnFood();
+            document.addEventListener("keydown", handleKeyInput);
+            isPausedPendingInput = true;
+            document.getElementById('pauseOverlay').style.display = 'flex';
+            drawStaticBoard();
+        }
+
+        function drawStaticBoard() {
+            clearCanvas();
+            drawFood();
+            if (isGoldenAppleActive) drawBonusFood();
+            drawSnake();
+        }
+
+        function drawGame() {
+            moveSnake();
+            if (applesEaten >= 10) {
+                clearInterval(gameLoop);
+                endGame(true);
+                return;
+            }
+            clearCanvas();
+            drawFood();
+            if (isGoldenAppleActive) drawBonusFood();
+            drawSnake();
+        }
+
+        function clearCanvas() {
+            ctx.fillStyle = "#d1e0e0";
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+        }
+
+        function drawSnake() {
+            snake.forEach((part, index) => {
+                ctx.fillStyle = index === 0 ? "#002b5e" : "#3385ff";
+                ctx.fillRect(part.x * gridSize, part.y * gridSize, gridSize - 2, gridSize - 2);
+            });
+        }
+
+        function drawFood() {
+            ctx.fillStyle = "#d32f2f";
+            ctx.beginPath();
+            ctx.arc(foodX * gridSize + gridSize/2, foodY * gridSize + gridSize/2, gridSize/2 - 2, 0, 2 * Math.PI);
+            ctx.fill();
+        }
+
+        function drawBonusFood() {
+            ctx.fillStyle = "#ffc107";
+            ctx.shadowBlur = 10;
+            ctx.shadowColor = "#ffc107";
+            ctx.beginPath();
+            ctx.arc(bonusX * gridSize + gridSize/2, bonusY * gridSize + gridSize/2, gridSize/2 - 2, 0, 2 * Math.PI);
+            ctx.fill();
+            ctx.shadowBlur = 0;
+        }
+
+        function moveSnake() {
+            const head = { x: snake[0].x + dx, y: snake[0].y + dy };
+            if (head.x < 0) head.x = tileCountX - 1;
+            if (head.x >= tileCountX) head.x = 0;
+            if (head.y < 0) head.y = tileCountY - 1;
+            if (head.y >= tileCountY) head.y = 0;
+            for (let i = 0; i < snake.length; i++) {
+                if (head.x === snake[i].x && head.y === snake[i].y) {
+                    clearInterval(gameLoop);
+                    MayHubSounds.stopSnakeMovement();
+                    endGame(false);
+                    return;
+                }
+            }
+            snake.unshift(head);
+            if (head.x === foodX && head.y === foodY) {
+                clearInterval(gameLoop);
+                MayHubSounds.stopSnakeMovement();
+                MayHubSounds.playSnakeBite();
+                activeQuestionValue = 1;
+                applesEaten++;
+                spawnFood();
+                triggerQuestion(1);
+            } else if (isGoldenAppleActive && head.x === bonusX && head.y === bonusY) {
+                clearInterval(gameLoop);
+                MayHubSounds.stopSnakeMovement();
+                MayHubSounds.playSnakeBite();
+                activeQuestionValue = 3;
+                isGoldenAppleActive = false;
+                triggerQuestion(3);
+            } else {
+                snake.pop();
+            }
+            if (!isGoldenAppleActive && (applesEaten === 2 || applesEaten === 5 || applesEaten === 8)) {
+                spawnBonusFood();
+            }
+        }
+
+        function spawnFood() {
+            foodX = Math.floor(Math.random() * tileCountX);
+            foodY = Math.floor(Math.random() * tileCountY);
+            snake.forEach(part => { if (part.x === foodX && part.y === foodY) spawnFood(); });
+        }
+
+        function spawnBonusFood() {
+            isGoldenAppleActive = true;
+            bonusX = Math.floor(Math.random() * tileCountX);
+            bonusY = Math.floor(Math.random() * tileCountY);
+            if (bonusX === foodX && bonusY === foodY) spawnBonusFood();
+        }
+
+        function handleKeyInput(event) {
+            const key = event.keyCode;
+            if (key === 37) handleInput('LEFT');
+            if (key === 38) handleInput('UP');
+            if (key === 39) handleInput('RIGHT');
+            if (key === 40) handleInput('DOWN');
+        }
+
+        function handleInput(dir) {
+            if (isPausedPendingInput) {
+                isPausedPendingInput = false;
+                document.getElementById('pauseOverlay').style.display = 'none';
+                gameLoop = setInterval(drawGame, 150);
+                MayHubSounds.startSnakeMovement();
+            }
+            if (dir === 'LEFT' && dx !== 1) { dx = -1; dy = 0; }
+            if (dir === 'UP' && dy !== 1) { dx = 0; dy = -1; }
+            if (dir === 'RIGHT' && dx !== -1) { dx = 1; dy = 0; }
+            if (dir === 'DOWN' && dy !== -1) { dx = 0; dy = 1; }
+        }
+
+        let currentQuestionObj;
+        function triggerQuestion(pointsValue) {
+            if (currentTopic.length === 0) {
+                endGame(true);
+                return;
+            }
+            const qIndex = Math.floor(Math.random() * currentTopic.length);
+            currentQuestionObj = currentTopic.splice(qIndex, 1)[0];
+            document.getElementById('modalPoints').innerText = pointsValue === 3 ? "BONUS: 3 Points" : "Regular: 1 Point";
+            document.getElementById('modalPoints').className = pointsValue === 3 ? "modal-points golden-text" : "modal-points";
+            document.getElementById('modalQuestion').innerText = currentQuestionObj.q;
+            const mcOptions = document.getElementById('mcOptions');
+            mcOptions.innerHTML = "";
+            document.getElementById('btnContinue').style.display = 'none';
+            const shuffledOptions = currentQuestionObj.options
+                .map((text, index) => ({ text, isCorrect: index === currentQuestionObj.a }))
+                .sort(() => Math.random() - 0.5);
+            shuffledOptions.forEach(option => {
+                let btn = document.createElement("button");
+                btn.className = "option-btn";
+                btn.innerText = option.text;
+                btn.onclick = () => answerQuestion(btn, option.isCorrect);
+                mcOptions.appendChild(btn);
+            });
+            document.getElementById('questionModal').style.display = 'flex';
+        }
+
+        function answerQuestion(clickedBtn, isCorrect) {
+            const allBtns = document.querySelectorAll('.option-btn');
+            allBtns.forEach(btn => btn.disabled = true);
+            if (isCorrect) {
+                MayHubSounds.playCorrect();
+                clickedBtn.classList.add('correct');
+                score += activeQuestionValue;
+                updateScoreboard();
+                snake.push({ ...snake[snake.length - 1] });
+            } else {
+                MayHubSounds.playWrong();
+                clickedBtn.classList.add('incorrect');
+                allBtns.forEach(btn => {
+                    if (btn.innerText === currentQuestionObj.options[currentQuestionObj.a]) btn.classList.add('correct');
+                });
+            }
+            document.getElementById('btnContinue').style.display = 'block';
+        }
+
+        function closeModalAndPause() {
+            document.getElementById('questionModal').style.display = 'none';
+            updateScoreboard();
+            drawStaticBoard();
+            if (applesEaten < 10) {
+                isPausedPendingInput = true;
+                document.getElementById('pauseOverlay').style.display = 'flex';
+            } else {
+                endGame(true);
+            }
+        }
+
+        function updateScoreboard() {
+            document.getElementById('appleCount').innerText = applesEaten;
+            document.getElementById('scoreText').innerText = score;
+        }
+
+        function endGame(didWin) {
+            MayHubSounds.stopSnakeMovement();
+            document.getElementById('gameArea').style.display = 'none';
+            document.getElementById('endScreen').style.display = 'block';
+            document.getElementById('finalScoreText').innerText = score;
+            const title = document.getElementById('endTitle');
+            const msg = document.getElementById('endMessage');
+            if (didWin) {
+                title.innerText = "Level Complete!";
+                title.style.color = "#28a745";
+                msg.innerText = "Excellent! You've mastered Plant Responses to the Environment!";
+            } else {
+                title.innerText = "Game Over!";
+                title.style.color = "#dc3545";
+                msg.innerText = "Plant responses link hormones, growth, stimuli, and defence. Try again and strengthen your understanding!";
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-8GCWSKNDL7"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-8GCWSKNDL7');
+</script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learning Hub | Grade 12 Life Sciences: Reproductive Isolation Mechanisms</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f0f4f8; color: #333; line-height: 1.6; display: flex; flex-direction: column; min-height: 100vh; }
+        nav { background-color: #002b5e; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; }
+        .logo { color: #fff; font-size: 1.5rem; font-weight: bold; text-decoration: none; }
+        .nav-links a { color: #cce0ff; text-decoration: none; margin-left: 1.5rem; font-weight: 500; transition: color 0.3s; }
+        .nav-links a:hover, .nav-links a.active { color: #fff; text-decoration: underline; }
+        .game-container { max-width: 900px; margin: 3rem auto; padding: 2rem; background: #fff; border-radius: 12px; box-shadow: 0 8px 30px rgba(0,0,0,0.1); border-top: 6px solid #3385ff; text-align: center; }
+        .game-title { color: #004080; font-size: 2.5rem; margin-bottom: 0.5rem; text-shadow: 1px 1px 2px rgba(0,0,0,0.1); }
+        .game-subtitle { color: #555; margin-bottom: 2rem; font-size: 1.1rem; }
+        .category-selection { margin-bottom: 2rem; }
+        .category-selection h2 { color: #004080; margin-bottom: 1rem; font-size: 1.5rem; }
+        .cat-buttons { display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem; }
+        .cat-btn { background-color: #f0f4f8; border: 2px solid #004080; color: #004080; padding: 0.8rem 1.5rem; font-size: 1.1rem; font-weight: bold; border-radius: 8px; cursor: pointer; transition: all 0.3s ease; }
+        .cat-btn:hover, .cat-btn.active { background-color: #004080; color: #fff; transform: translateY(-3px); box-shadow: 0 4px 10px rgba(0,64,128,0.2); }
+        #wheelArea { display: none; margin-top: 2rem; padding-top: 2rem; border-top: 2px dashed #ccc; animation: fadeIn 0.5s ease; }
+        #activeCategoryTitle { color: #3385ff; margin-bottom: 1.5rem; font-size: 1.8rem; }
+        .wheel-wrapper { position: relative; width: min(380px, 100%); aspect-ratio: 1; margin: 0 auto 2rem; border-radius: 50%; box-shadow: 0 20px 40px rgba(0,0,0,0.3); }
+        .pointer { position: absolute; top: -25px; left: 50%; transform: translateX( -50%); width: 0; height: 0; border-left: 22px solid transparent; border-right: 22px solid transparent; border-top: 55px solid #e60000; z-index: 10; filter: drop-shadow(0 6px 6px rgba(0,0,0,0.5)); }
+        .wheel { width: 100%; height: 100%; border-radius: 50%; border: 15px solid #001a33; position: relative; overflow: hidden; transition: transform 4s cubic-bezier(0.17, 0.67, 0.12, 0.99); box-shadow: inset 0 0 30px rgba(0,0,0,0.7), inset 0 0 0 6px rgba(255,255,255,0.3); }
+        .wheel-center { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 45px; height: 45px; background: radial-gradient(circle, #e6f0fa, #80b3ff); border-radius: 50%; border: 5px solid #001a33; box-shadow: 0 4px 10px rgba(0,0,0,0.6); z-index: 6; }
+        .wheel-bg { width: 100%; height: 100%; position: absolute; top: 0; left: 0; }
+        .wheel-labels { position: absolute; width: 100%; height: 100%; top: 0; left: 0; }
+        .label { position: absolute; top: 50%; left: 50%; transform-origin: 0 0; font-weight: bold; color: #fff; font-size: 0.95rem; text-shadow: 1px 1px 4px rgba(0,0,0,0.9); }
+        .spin-btn { background-color: #3385ff; color: #fff; border: none; padding: 1rem 3rem; font-size: 1.5rem; font-weight: bold; border-radius: 50px; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 4px 10px rgba(51,133,255,0.4); margin-bottom: 1rem; border-bottom: 4px solid #004080; }
+        .question-card { display: none; margin-top: 2rem; padding: 2rem; background-color: #f0f7ff; border: 2px solid #b3d4ff; border-radius: 8px; text-align: center; animation: fadeIn 0.5s ease; box-shadow: 0 6px 15px rgba(0,0,0,0.05); }
+        .q-number-tag { display: inline-block; background: #004080; color: #fff; padding: 0.5rem 1.5rem; border-radius: 30px; font-size: 1.1rem; margin-bottom: 1rem; font-weight: bold; text-transform: uppercase; box-shadow: 0 3px 6px rgba(0,0,0,0.2); }
+        .question-text { font-size: 1.5rem; color: #333; margin-bottom: 1.5rem; font-weight: 500; }
+        .mc-options { display: flex; flex-direction: column; gap: 0.8rem; max-width: 450px; margin: 0 auto 1.5rem; }
+        .option-btn { background: #fff; border: 2px solid #b3d4ff; padding: 1rem; font-size: 1.1rem; border-radius: 6px; cursor: pointer; transition: all 0.2s; text-align: left; font-weight: 500; color: #004080; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+        .option-btn.correct { background-color: #d4edda !important; border-color: #28a745 !important; color: #155724 !important; }
+        .option-btn.incorrect { background-color: #f8d7da !important; border-color: #dc3545 !important; color: #721c24 !important; }
+        .reveal-btn { background-color: #3385ff; color: #fff; border: none; padding: 0.8rem 2rem; font-size: 1.1rem; font-weight: bold; border-radius: 8px; cursor: pointer; transition: background 0.3s; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .answer-text { display: none; font-size: 1.2rem; color: #333; margin-top: 1.5rem; padding-top: 1.5rem; border-top: 2px dashed #b3d4ff; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        footer { text-align: center; padding: 1rem; background-color: #002b5e; color: #fff; margin-top: auto; }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="../../../../../index.html" class="logo">May Learning Hub</a>
+        <div class="nav-links">
+            <a href="../../../../../index.html">Home</a>
+            <a href="../../../../../about.html">About</a>
+        </div>
+    </nav>
+
+    <main class="game-container">
+        <h1 class="game-title">Life Sciences Quiz: Reproductive Isolation Mechanisms</h1>
+        <p class="game-subtitle">Test your knowledge of reproductive barriers, examples, and speciation.</p>
+        <p style="font-size: 0.78rem; color: #52606d; margin-top: 0.45rem;">Source: Reproductive Isolation Mechanisms - Grade 12 Life Sciences Term 3 presentation.</p>
+
+        <div class="category-selection">
+            <h2>Step 1: Choose a Category</h2>
+            <div class="cat-buttons" id="catButtons">
+                <button class="cat-btn" onclick="selectCategory('definitions', this)">Definitions</button>
+                <button class="cat-btn" onclick="selectCategory('terms', this)">Name the Term</button>
+                <button class="cat-btn" onclick="selectCategory('multipleChoice', this)">Multiple Choice</button>
+                <button class="cat-btn" onclick="selectCategory('trueFalse', this)">True or False</button>
+            </div>
+        </div>
+
+        <div id="wheelArea">
+            <h2 id="activeCategoryTitle">Category: None</h2>
+
+            <div class="wheel-wrapper">
+                <div class="pointer"></div>
+                <div class="wheel-center"></div>
+                <div class="wheel" id="wheel">
+                    <div class="wheel-bg" id="wheelBg"></div>
+                    <div class="wheel-labels" id="wheelLabels"></div>
+                </div>
+            </div>
+
+            <button class="spin-btn" id="spinBtn" onclick="spinWheel()">SPIN THE WHEEL</button>
+            <p id="remainingCount" style="color: #666; font-size: 0.9rem; margin-bottom: 1rem; font-weight: bold;">20 questions remaining</p>
+
+            <div class="question-card" id="questionCard">
+                <div class="q-number-tag" id="qNumberTag">Question #</div>
+                <div class="question-text" id="questionText">Loading question...</div>
+
+                <div class="mc-options" id="mcOptions"></div>
+
+                <button class="reveal-btn" id="revealBtn" onclick="revealAnswer()">Reveal Answer</button>
+                <div class="answer-text" id="answerText"></div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 May Learning Hub. All rights reserved.</p>
+    </footer>
+
+        <script src="../../../../../game-audio.js"></script>
+<script>
+        const gameData = {
+            'definitions': [
+                { q: "Reproductive Isolation", a: "Prevention of successful reproduction between individuals or populations." },
+                { q: "Geographic Isolation", a: "Separation of populations by a physical barrier such as a river, mountain, ocean, or lake." },
+                { q: "Speciation", a: "The process by which new species form." },
+                { q: "Gene Flow", a: "Exchange of alleles between populations through successful reproduction." },
+                { q: "Temporal Isolation", a: "Reproductive separation because breeding or flowering occurs at different times." },
+                { q: "Courtship Behaviour", a: "Species-specific behaviour used to attract or recognise a mate." },
+                { q: "Pollination", a: "Transfer of pollen from an anther to a stigma." },
+                { q: "Pollinator", a: "An organism that transfers pollen between flowers." },
+                { q: "Structural Incompatibility", a: "Differences in reproductive-organ shape, size, or position that prevent copulation." },
+                { q: "Gamete Incompatibility", a: "Chemical differences that prevent sperm from recognising or fusing with an ovum." },
+                { q: "Fertilisation", a: "Fusion of male and female gametes." },
+                { q: "Zygote", a: "The cell formed when male and female gametes fuse." },
+                { q: "Hybridisation", a: "Reproduction between organisms from different species or varieties." },
+                { q: "Hybrid", a: "Offspring produced by parents from different species or varieties." },
+                { q: "Infertile", a: "Unable to reproduce." },
+                { q: "Fertility", a: "The ability of an organism to reproduce successfully." },
+                { q: "Pre-fertilisation Barrier", a: "A reproductive mechanism that prevents fertilisation from occurring." },
+                { q: "Post-fertilisation Barrier", a: "A mechanism acting after fertilisation, such as hybrid infertility." },
+                { q: "Cross-pollination", a: "Transfer of pollen between different plants, including related species." },
+                { q: "Species-specific Signal", a: "A call, song, movement, display, or scent recognised mainly by members of one species." }
+            ],
+            'terms': [
+                { q: "Inability of populations to reproduce successfully with one another.", a: "Reproductive Isolation" },
+                { q: "Population separation by rivers, mountains, oceans, or lakes.", a: "Geographic Isolation" },
+                { q: "Formation of a new species.", a: "Speciation" },
+                { q: "Exchange of genetic material between reproducing populations.", a: "Gene Flow" },
+                { q: "Isolation caused by non-overlapping breeding or flowering periods.", a: "Temporal Isolation" },
+                { q: "Behaviour used to attract and recognise a mate.", a: "Courtship Behaviour" },
+                { q: "Transfer of pollen from anther to stigma.", a: "Pollination" },
+                { q: "An organism such as a bird or bee that transfers pollen.", a: "Pollinator" },
+                { q: "Reproductive-organ differences that prevent mating.", a: "Structural Incompatibility" },
+                { q: "Chemical mismatch preventing sperm and ovum from fusing.", a: "Gamete Incompatibility" },
+                { q: "Fusion of male and female gametes.", a: "Fertilisation" },
+                { q: "Cell formed by fused gametes.", a: "Zygote" },
+                { q: "Reproduction between different species or varieties.", a: "Hybridisation" },
+                { q: "Offspring whose parents belong to different species or varieties.", a: "Hybrid" },
+                { q: "Unable to produce offspring.", a: "Infertile" },
+                { q: "Ability to reproduce successfully.", a: "Fertility" },
+                { q: "Barrier acting before male and female gametes fuse.", a: "Pre-fertilisation Barrier" },
+                { q: "Barrier acting after a zygote or hybrid has formed.", a: "Post-fertilisation Barrier" },
+                { q: "Pollen transfer between different plants.", a: "Cross-pollination" },
+                { q: "Call, song, display, movement, or scent recognised by one species.", a: "Species-specific Signal" }
+            ],
+            'multipleChoice': [
+                { q: "What distinguishes reproductive isolation from geographic isolation?", options: ["A) No physical geographic barrier is necessary", "B) It always requires an ocean", "C) Populations must live on different continents", "D) It never affects gene flow"], a: "A) No physical geographic barrier is necessary" },
+                { q: "Which trout breeds in spring?", options: ["A) Rainbow trout", "B) Brown trout", "C) Both at the same time", "D) Neither species"], a: "A) Rainbow trout" },
+                { q: "When does Brown trout breed?", options: ["A) Autumn", "B) Spring", "C) Summer only", "D) Every month"], a: "A) Autumn" },
+                { q: "Why can flowering a few days apart isolate plant species?", options: ["A) Their flowers are not open together for cross-pollination", "B) Their chromosomes disappear", "C) All pollinators die", "D) Fertile hybrids always form"], a: "A) Their flowers are not open together for cross-pollination" },
+                { q: "Which signal isolates related Bufo toad species?", options: ["A) Different mating calls", "B) Different rivers", "C) Different chromosome numbers only", "D) Different flowering times"], a: "A) Different mating calls" },
+                { q: "What may alter courtship preferences?", options: ["A) A mutation", "B) A geographic barrier only", "C) Fertilisation", "D) A zygote"], a: "A) A mutation" },
+                { q: "Which orchid structure suits sunbirds?", options: ["A) Long tubular flowers with large nectaries", "B) Broad flat petals only", "C) No nectar", "D) Closed stigmas"], a: "A) Long tubular flowers with large nectaries" },
+                { q: "Which orchid structure suits bumblebees?", options: ["A) Broad flat petals forming a landing platform", "B) Long tubes requiring hovering", "C) No petals", "D) A narrow inaccessible flower"], a: "A) Broad flat petals forming a landing platform" },
+                { q: "From which structure is pollen transferred?", options: ["A) Anther", "B) Stigma", "C) Ovum", "D) Nectary"], a: "A) Anther" },
+                { q: "To which structure is pollen transferred?", options: ["A) Stigma", "B) Anther", "C) Petal", "D) Sepal only"], a: "A) Stigma" },
+                { q: "Which differences may prevent successful copulation?", options: ["A) Reproductive-organ shape, size, or position", "B) Flower colour only in every animal", "C) Geographic distance only", "D) Hybrid chromosome number after birth"], a: "A) Reproductive-organ shape, size, or position" },
+                { q: "What happens when sperm cannot recognise an ovum?", options: ["A) Fertilisation fails and no zygote forms", "B) A fertile hybrid forms", "C) Pollination increases", "D) Gene flow is guaranteed"], a: "A) Fertilisation fails and no zygote forms" },
+                { q: "Which barrier acts after fertilisation?", options: ["A) Infertile hybrid", "B) Different breeding time", "C) Species-specific call", "D) Structural incompatibility"], a: "A) Infertile hybrid" },
+                { q: "What hybrid results from a horse and donkey?", options: ["A) Mule", "B) Trout", "C) Toad", "D) Orchid"], a: "A) Mule" },
+                { q: "Why is a mule a reproductive barrier?", options: ["A) It is usually infertile", "B) It cannot survive", "C) Fertilisation never occurred", "D) It has no chromosomes"], a: "A) It is usually infertile" },
+                { q: "What is the chromosome number of Oenothera lamarckiana in the example?", options: ["A) 2n = 14", "B) 2n = 28", "C) 2n = 42", "D) 2n = 7"], a: "A) 2n = 14" },
+                { q: "What is the chromosome number of Oenothera gigas?", options: ["A) 2n = 28", "B) 2n = 14", "C) 2n = 56", "D) 2n = 7"], a: "A) 2n = 28" },
+                { q: "Why can the Oenothera hybrid not produce viable seed?", options: ["A) Its unusual chromosome combination disrupts gamete formation", "B) It never germinates", "C) Pollination cannot occur", "D) Its parents flower in different seasons"], a: "A) Its unusual chromosome combination disrupts gamete formation" },
+                { q: "Which mechanisms occur before fertilisation?", options: ["A) Timing, courtship, pollinators, structural and gamete incompatibility", "B) Mule infertility only", "C) Hybrid chromosome mismatch only", "D) Fertility only"], a: "A) Timing, courtship, pollinators, structural and gamete incompatibility" },
+                { q: "How can reproductive isolation lead to speciation?", options: ["A) Groups accumulate independent genetic changes without gene exchange", "B) It makes both gene pools identical", "C) It removes every mutation", "D) It guarantees cross-pollination"], a: "A) Groups accumulate independent genetic changes without gene exchange" }
+            ],
+            'trueFalse': [
+                { q: "Reproductive isolation can occur while populations occupy the same area.", options: ["True", "False"], a: "True", exp: "No geographic barrier is required." },
+                { q: "Reproductive isolation always requires a river, mountain, ocean, or lake.", options: ["True", "False"], a: "False", exp: "Those are geographic barriers, not requirements for reproductive isolation." },
+                { q: "Different breeding times reduce opportunities for mating and hybridisation.", options: ["True", "False"], a: "True", exp: "Sexually mature organisms are not ready simultaneously." },
+                { q: "Rainbow and Brown trout breed during the same season.", options: ["True", "False"], a: "False", exp: "Rainbow trout breed in spring and Brown trout in autumn." },
+                { q: "Different flowering times can prevent cross-pollination.", options: ["True", "False"], a: "True", exp: "The flowers are not open simultaneously." },
+                { q: "Courtship signals are always identical across related species.", options: ["True", "False"], a: "False", exp: "Calls, songs, movements, displays, and scents may be species-specific." },
+                { q: "Female Bufo toads usually respond to their own species mating call.", options: ["True", "False"], a: "True", exp: "This recognition keeps the species isolated." },
+                { q: "A mutation can alter a mating call or mate preference.", options: ["True", "False"], a: "True", exp: "Inherited behavioural changes can contribute to isolation." },
+                { q: "Sunbird-pollinated orchids tend to have broad landing platforms.", options: ["True", "False"], a: "False", exp: "They tend to have long tubular flowers and large nectaries." },
+                { q: "Bumblebee-pollinated orchids provide a landing platform.", options: ["True", "False"], a: "True", exp: "Bumblebees cannot hover and feed like sunbirds." },
+                { q: "Different pollinators can reduce pollen exchange between related plants.", options: ["True", "False"], a: "True", exp: "Pollen is mainly transferred within each adapted plant group." },
+                { q: "Structural incompatibility may prevent copulation.", options: ["True", "False"], a: "True", exp: "Shape, size, or position of reproductive organs may differ." },
+                { q: "Copulation always guarantees fertilisation.", options: ["True", "False"], a: "False", exp: "Chemically incompatible gametes may fail to fuse." },
+                { q: "If no zygote forms, fertilisation did not occur.", options: ["True", "False"], a: "True", exp: "A zygote is produced by gamete fusion." },
+                { q: "A hybrid is always fertile.", options: ["True", "False"], a: "False", exp: "Hybrids such as mules may be infertile." },
+                { q: "Fertilisation and fertility mean exactly the same thing.", options: ["True", "False"], a: "False", exp: "Fertilisation is gamete fusion; fertility is the ability to reproduce." },
+                { q: "An Oenothera hybrid may germinate and grow but fail to produce viable seed.", options: ["True", "False"], a: "True", exp: "Chromosome differences can disrupt viable gamete formation." },
+                { q: "Hybrid infertility is a post-fertilisation barrier.", options: ["True", "False"], a: "True", exp: "The offspring forms but cannot reproduce." },
+                { q: "Reproductive isolation allows unrestricted gene flow.", options: ["True", "False"], a: "False", exp: "It prevents continued exchange of genetic material." },
+                { q: "Independent genetic changes can eventually make isolated groups separate species.", options: ["True", "False"], a: "True", exp: "Different gene pools may diverge over many generations." }
+            ]
+        };
+                const totalQuestions = 20;
+        const sliceAngle = 360 / totalQuestions;
+        let currentCategoryKey = null;
+        let currentRotation = 0;
+        let currentQuestionData = null;
+        let targetQuestionIndex = null;
+
+        let availableQuestions = {
+            'definitions': Array.from({length: totalQuestions}, (_, i) => i),
+            'terms': Array.from({length: totalQuestions}, (_, i) => i),
+            'multipleChoice': Array.from({length: totalQuestions}, (_, i) => i),
+            'trueFalse': Array.from({length: totalQuestions}, (_, i) => i)
+        };
+
+        const sliceColors = ["#0055ff", "#0088ff", "#00bfff", "#0044cc"];
+
+        function buildWheel() {
+            const wheelBg = document.getElementById('wheelBg');
+            const wheelLabels = document.getElementById('wheelLabels');
+            let gradientParts = [];
+
+            for (let i = 0; i < totalQuestions; i++) {
+                let startAngle = i * sliceAngle;
+                let endAngle = (i + 1) * sliceAngle;
+                let color = sliceColors[i % sliceColors.length];
+                gradientParts.push(`${color} ${startAngle}deg ${endAngle}deg`);
+
+                let label = document.createElement('div');
+                label.className = 'label';
+                let textRotation = startAngle + (sliceAngle / 2) - 90;
+                label.style.transform = `rotate(${textRotation}deg) translate(145px, -50%)`;
+                label.innerText = i + 1;
+                wheelLabels.appendChild(label);
+            }
+            wheelBg.style.background = `conic-gradient(${gradientParts.join(', ')})`;
+        }
+
+        buildWheel();
+
+        function selectCategory(categoryKey, btnElement) {
+            currentCategoryKey = categoryKey;
+            const buttons = document.querySelectorAll('.cat-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            btnElement.classList.add('active');
+            document.getElementById('wheelArea').style.display = 'block';
+            document.getElementById('activeCategoryTitle').innerText = `Category: ${btnElement.innerText}`;
+            document.getElementById('questionCard').style.display = 'none';
+            document.getElementById('remainingCount').innerText = `${availableQuestions[categoryKey].length} questions remaining`;
+            currentRotation = 0;
+            document.getElementById('wheel').style.transform = `rotate(0deg)`;
+        }
+
+        function spinWheel() {
+            const spinBtn = document.getElementById('spinBtn');
+            const wheel = document.getElementById('wheel');
+            const questionCard = document.getElementById('questionCard');
+            let available = availableQuestions[currentCategoryKey];
+
+            if (available.length === 0) {
+                alert(`Resetting ${currentCategoryKey}!`);
+                availableQuestions[currentCategoryKey] = Array.from({length: totalQuestions}, (_, i) => i);
+                available = availableQuestions[currentCategoryKey];
+            }
+
+            spinBtn.disabled = true;
+            spinBtn.innerText = "SPINNING...";
+            MayHubSounds.startWheel();
+            questionCard.style.display = 'none';
+
+            let randomArrIndex = Math.floor(Math.random() * available.length);
+            targetQuestionIndex = available[randomArrIndex];
+            available.splice(randomArrIndex, 1);
+            document.getElementById('remainingCount').innerText = `${available.length} questions remaining`;
+
+            let sliceCenterAngle = (targetQuestionIndex * sliceAngle) + (sliceAngle / 2);
+            let targetDegree = 360 - sliceCenterAngle;
+            let currentBase = Math.ceil(currentRotation / 360) * 360;
+            currentRotation = currentBase + 1800 + targetDegree;
+            wheel.style.transform = `rotate(${currentRotation}deg)`;
+
+            setTimeout(() => {
+                MayHubSounds.stopWheel();
+                spinBtn.disabled = false;
+                spinBtn.innerText = "SPIN AGAIN";
+                currentQuestionData = gameData[currentCategoryKey][targetQuestionIndex];
+                displayQuestion(targetQuestionIndex + 1, currentQuestionData);
+            }, 4000);
+        }
+
+        function displayQuestion(questionNumber, data) {
+            document.getElementById('qNumberTag').innerText = `Question #${questionNumber}`;
+            document.getElementById('questionText').innerText = data.q;
+            const mcOptions = document.getElementById('mcOptions');
+            const revealBtn = document.getElementById('revealBtn');
+            const answerText = document.getElementById('answerText');
+            mcOptions.innerHTML = "";
+            answerText.style.display = "none";
+
+            if (currentCategoryKey === 'multipleChoice' || currentCategoryKey === 'trueFalse') {
+                revealBtn.style.display = "none";
+                mcOptions.style.display = "flex";
+                data.options.forEach(opt => {
+                    let btn = document.createElement("button");
+                    btn.className = "option-btn";
+                    btn.innerText = opt;
+                    btn.onclick = () => checkInteractiveAnswer(btn, opt);
+                    mcOptions.appendChild(btn);
+                });
+            } else {
+                mcOptions.style.display = "none";
+                revealBtn.style.display = "inline-block";
+                answerText.innerHTML = `<strong>Answer:</strong> ${data.a}`;
+            }
+            document.getElementById('questionCard').style.display = "block";
+        }
+
+        function checkInteractiveAnswer(clickedBtn, selectedText) {
+            const allBtns = document.querySelectorAll('.option-btn');
+            allBtns.forEach(btn => btn.disabled = true);
+            const isCorrect = (selectedText === currentQuestionData.a || selectedText.startsWith(currentQuestionData.a.charAt(0)));
+            const answerTextDiv = document.getElementById('answerText');
+            if (isCorrect) {
+                MayHubSounds.playCorrect();
+                clickedBtn.classList.add('correct');
+                answerTextDiv.innerHTML = `<div style="color: green; font-weight: bold;">Correct!</div> ${currentQuestionData.exp || ''}`;
+            } else {
+                MayHubSounds.playWrong();
+                clickedBtn.classList.add('incorrect');
+                answerTextDiv.innerHTML = `<div style="color: red; font-weight: bold;">Incorrect!</div> The correct answer was: ${currentQuestionData.a}. ${currentQuestionData.exp || ''}`;
+            }
+            answerTextDiv.style.display = "block";
+        }
+
+        function revealAnswer() {
+            document.getElementById('revealBtn').style.display = "none";
+            document.getElementById('answerText').style.display = "block";
+        }
+    </script>
+</body>
+</html>
