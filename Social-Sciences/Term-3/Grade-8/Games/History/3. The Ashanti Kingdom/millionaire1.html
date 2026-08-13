@@ -1,0 +1,587 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-8GCWSKNDL7"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-8GCWSKNDL7');
+</script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>May Learning Hub | The Ashanti Kingdom Master Quiz</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f0f4f8; color: #333; line-height: 1.6; display: flex; flex-direction: column; min-height: 100vh; }
+        
+        nav { background-color: #002b5e; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; }
+        .logo { color: #fff; font-size: 1.5rem; font-weight: bold; text-decoration: none; }
+        .nav-links a { color: #cce0ff; text-decoration: none; margin-left: 1.5rem; font-weight: 500; transition: color 0.3s; }
+        .nav-links a:hover, .nav-links a.active { color: #fff; text-decoration: underline; }
+        
+        .game-header { text-align: center; padding: 2rem 1rem 1rem; }
+        .game-title { color: #004080; font-size: 2.2rem; margin-bottom: 0.5rem; }
+        .game-subtitle { color: #555; margin-bottom: 1.5rem; font-size: 1.1rem; }
+
+        .game-wrapper { display: flex; max-width: 1100px; margin: 0 auto 3rem; gap: 2rem; padding: 0 20px; width: 100%; align-items: flex-start; }
+        
+        .game-board { flex: 1; background: #fff; border-radius: 12px; box-shadow: 0 8px 30px rgba(0,0,0,0.1); border-top: 6px solid #3385ff; padding: 2rem; display: flex; flex-direction: column; }
+        
+        .lifelines { display: flex; justify: center; gap: 1rem; margin-bottom: 2rem; }
+        .lifeline-btn { background: #002b5e; color: #fff; border: 2px solid #b3d4ff; padding: 0.8rem 1.5rem; border-radius: 30px; font-weight: bold; cursor: pointer; transition: all 0.3s; font-size: 1rem; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .lifeline-btn:hover:not(:disabled) { background: #3385ff; transform: translateY(-2px); }
+        .lifeline-btn:disabled { background: #ccc; border-color: #aaa; color: #666; cursor: not-allowed; transform: none; box-shadow: none; text-decoration: line-through; }
+
+        .question-box { background: #004080; color: #fff; padding: 2rem; border-radius: 8px; font-size: 1.2rem; font-weight: bold; text-align: center; margin-bottom: 2rem; box-shadow: inset 0 0 10px rgba(0,0,0,0.3); min-height: 120px; display: flex; flex-direction: column; justify-content: center; align-items: center; }
+        
+        .answers-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+        .answer-btn { background: #f0f7ff; border: 2px solid #3385ff; color: #002b5e; padding: 1.2rem; font-size: 1rem; font-weight: bold; border-radius: 8px; cursor: pointer; transition: all 0.2s; text-align: left; position: relative; overflow: hidden; }
+        .answer-btn::before { content: attr(data-letter) ": "; color: #3385ff; margin-right: 0.5rem; }
+        .answer-btn:hover:not(:disabled) { background: #e6f0fa; border-color: #004080; transform: scale(1.02); }
+        
+        .answer-btn.selected { background: #ffc107; border-color: #d39e00; color: #000; }
+        .answer-btn.correct { background: #28a745 !important; border-color: #1e7e34 !important; color: #fff !important; }
+        .answer-btn.incorrect { background: #dc3545 !important; border-color: #bd2130 !important; color: #fff !important; }
+        .answer-btn.hidden { visibility: hidden; }
+
+        .prize-ladder { width: 250px; background: #001a33; border-radius: 12px; padding: 1rem; display: flex; flex-direction: column-reverse; gap: 0.1rem; box-shadow: 0 8px 30px rgba(0,0,0,0.2); max-height: 600px; overflow-y: auto; }
+        .ladder-step { display: flex; justify-content: space-between; padding: 0.2rem 0.6rem; color: #66a3ff; font-weight: bold; border-radius: 4px; transition: all 0.3s; font-size: 0.85rem; }
+        .ladder-step.active { background: #ffc107; color: #000; transform: scale(1.05); }
+        .ladder-step.passed { color: #28a745; }
+        .ladder-step.milestone { color: #fff; border-bottom: 1px solid rgba(255,255,255,0.2); } 
+
+        #endScreen { display: none; text-align: center; padding: 3rem 1rem; }
+        #endMessage { font-size: 1.8rem; color: #004080; margin-bottom: 1rem; }
+        #endPrize { font-size: 2.5rem; color: #28a745; font-weight: bold; margin-bottom: 2rem; }
+
+        @media (max-width: 850px) {
+            .game-wrapper { flex-direction: column; }
+            .prize-ladder { width: 100%; flex-direction: row; flex-wrap: wrap; height: auto; } 
+            .answers-grid { grid-template-columns: 1fr; }
+        }
+        
+        footer { text-align: center; padding: 1rem; background-color: #002b5e; color: #fff; margin-top: auto; }
+
+
+        /* Topic 2 has longer labels, so keep every control inside a phone viewport. */
+        @media (max-width: 600px) {
+            html, body { width: 100%; max-width: 100%; overflow-x: hidden; }
+            nav {
+                padding: 0.8rem 1rem;
+                flex-wrap: wrap;
+                justify-content: flex-start;
+                gap: 0.5rem 1rem;
+            }
+            .logo { flex: 1 1 100%; font-size: 1.2rem; }
+            .nav-links {
+                display: flex;
+                width: 100%;
+                flex-wrap: wrap;
+                gap: 0.35rem 1rem;
+            }
+            .nav-links a { margin-left: 0; font-size: 0.9rem; }
+            .page-header { padding: 2.5rem 1rem 2rem; }
+            .page-title, .game-title {
+                font-size: 1.75rem;
+                line-height: 1.25;
+                overflow-wrap: anywhere;
+            }
+            .page-subtitle, .game-subtitle, .grade-badge {
+                max-width: 100%;
+                overflow-wrap: anywhere;
+            }
+            .game-container, .game-header, .games-container, .category-selection, .cat-buttons {
+                min-width: 0;
+                max-width: 100%;
+            }
+            .cat-buttons { padding-left: 0; padding-right: 0; }
+            .cat-btn { min-width: 0; max-width: 100%; overflow-wrap: anywhere; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="../../../../../../index.html" class="logo">May Learning Hub</a>
+        <div class="nav-links">
+            <a href="../../../../../../index.html">Home</a>
+            <a href="../../../../../../about.html">About</a>
+        </div>
+    </nav>
+
+    <header class="game-header">
+        <h1 class="game-title">History Master Quiz</h1>
+        <p class="game-subtitle">30-Question Challenge: The Ashanti Kingdom</p>
+        <p style="font-size: 0.78rem; color: #52606d; margin-top: 0.45rem;">Source: The Ashanti Kingdom - Grade 8 Social Sciences Term 3 presentation.</p>
+    </header>
+
+    <main class="game-wrapper">
+        <div class="game-board" id="gameBoard">
+            <div class="lifelines">
+                <button class="lifeline-btn" id="btn5050" onclick="use5050()">50 / 50</button>
+                <button class="lifeline-btn" id="btnHint" onclick="useHint()">Get a Hint</button>
+            </div>
+
+            <div class="question-box">
+                <span id="questionText">Loading question...</span>
+            </div>
+
+            <div class="answers-grid">
+                <button class="answer-btn" data-letter="A" id="btn0" onclick="selectAnswer(0)"></button>
+                <button class="answer-btn" data-letter="B" id="btn1" onclick="selectAnswer(1)"></button>
+                <button class="answer-btn" data-letter="C" id="btn2" onclick="selectAnswer(2)"></button>
+                <button class="answer-btn" data-letter="D" id="btn3" onclick="selectAnswer(3)"></button>
+            </div>
+        </div>
+
+        <div class="game-board" id="endScreen">
+            <h2 id="endMessage">Game Over!</h2>
+            <p style="font-size: 1.2rem; margin-bottom: 0.5rem;">Your final score:</p>
+            <div id="endPrize">0 Pts</div>
+            <button class="lifeline-btn" onclick="location.reload()">Try Again</button>
+        </div>
+
+        <div class="prize-ladder" id="prizeLadder"></div>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 May Learning Hub. All rights reserved.</p>
+    </footer>
+
+    <script src="../../../../../../game-audio.js"></script>
+    <script>
+        const questions = [
+            {
+                        "q": "What does the Ashanti case study demonstrate?",
+                        "options": [
+                                    "African wealth, organisation and resistance",
+                                    "Africa had no pre-colonial trade",
+                                    "Britain faced no opposition",
+                                    "Gold had no importance"
+                        ],
+                        "a": 0,
+                        "hint": "The kingdom was organised and defended its authority."
+            },
+            {
+                        "q": "Which crop was traded in West Africa?",
+                        "options": [
+                                    "Rubber tyres",
+                                    "Potatoes only",
+                                    "Tobacco only",
+                                    "Sorghum"
+                        ],
+                        "a": 3,
+                        "hint": "The presentation lists millet, sorghum and wheat."
+            },
+            {
+                        "q": "Which was an imported West African product?",
+                        "options": [
+                                    "Kola nuts only",
+                                    "Local livestock only",
+                                    "Salt",
+                                    "Locally mined gold only"
+                        ],
+                        "a": 2,
+                        "hint": "Imports included salt, metals, textiles and books."
+            },
+            {
+                        "q": "Who traded with West African merchants?",
+                        "options": [
+                                    "No outside merchants",
+                                    "Merchants from the Sahara, Europe and Middle East",
+                                    "Only Ashanti villagers",
+                                    "Only British governors"
+                        ],
+                        "a": 1,
+                        "hint": "West Africa belonged to a wider international network."
+            },
+            {
+                        "q": "About what share of all mined gold has Africa produced?",
+                        "options": [
+                                    "Two-thirds",
+                                    "One-tenth",
+                                    "One-quarter",
+                                    "All of it"
+                        ],
+                        "a": 0,
+                        "hint": "The presentation gives about two-thirds."
+            },
+            {
+                        "q": "When was West Africa the world's leading gold supplier?",
+                        "options": [
+                                    "18th to 21st centuries",
+                                    "Only after 1902",
+                                    "Only during 1896",
+                                    "11th to 17th centuries"
+                        ],
+                        "a": 3,
+                        "hint": "Gold supported centuries of trade."
+            },
+            {
+                        "q": "What existed in Akan territory during the 16th and 17th centuries?",
+                        "options": [
+                                    "No rulers",
+                                    "One Portuguese state",
+                                    "Many independent kingdoms",
+                                    "One British colony"
+                        ],
+                        "a": 2,
+                        "hint": "Each Akan kingdom had its own ruler."
+            },
+            {
+                        "q": "What made the Ashanti powerful?",
+                        "options": [
+                                    "Colonial taxes",
+                                    "Trade routes and gold mines",
+                                    "British universities",
+                                    "Loss of land"
+                        ],
+                        "a": 1,
+                        "hint": "Control of trade and resources created wealth."
+            },
+            {
+                        "q": "What is an Asantehene?",
+                        "options": [
+                                    "The Ashanti king",
+                                    "A Portuguese trader",
+                                    "A British governor",
+                                    "A prison"
+                        ],
+                        "a": 0,
+                        "hint": "It is the title of the king."
+            },
+            {
+                        "q": "What is an Asantewaa?",
+                        "options": [
+                                    "The Golden Stool",
+                                    "A gold mine",
+                                    "A railway",
+                                    "The Queen Mother"
+                        ],
+                        "a": 3,
+                        "hint": "The Queen Mother held an important position."
+            },
+            {
+                        "q": "Why did the Queen Mother wear gold jewellery?",
+                        "options": [
+                                    "To hide the Stool",
+                                    "To mark railway routes",
+                                    "To show status and wealth",
+                                    "To pay British taxes"
+                        ],
+                        "a": 2,
+                        "hint": "Gold represented authority and social status."
+            },
+            {
+                        "q": "What was Elmina?",
+                        "options": [
+                                    "The Golden Stool's chair",
+                                    "A Portuguese coastal trading base",
+                                    "The Ashanti capital",
+                                    "A British museum"
+                        ],
+                        "a": 1,
+                        "hint": "It became closely connected to the slave trade."
+            },
+            {
+                        "q": "What were barracoons?",
+                        "options": [
+                                    "Prisons for enslaved people",
+                                    "Ashanti gold mines",
+                                    "British hospitals",
+                                    "Imported books"
+                        ],
+                        "a": 0,
+                        "hint": "Captives were held there before Atlantic voyages."
+            },
+            {
+                        "q": "Where were millions of enslaved West Africans taken?",
+                        "options": [
+                                    "Only the Sahara",
+                                    "Only Kumasi",
+                                    "The Middle East alone",
+                                    "The Americas"
+                        ],
+                        "a": 3,
+                        "hint": "Ships transported people across the Atlantic."
+            },
+            {
+                        "q": "What did early Ashanti slave traders receive?",
+                        "options": [
+                                    "Roads and trains",
+                                    "Political rights",
+                                    "Horses and guns",
+                                    "Schools and hospitals"
+                        ],
+                        "a": 2,
+                        "hint": "Later exchanges included manufactured goods."
+            },
+            {
+                        "q": "What did the Golden Stool represent?",
+                        "options": [
+                                    "Portuguese authority",
+                                    "Unity, nationhood and the nation's spirit",
+                                    "A seat for British governors",
+                                    "Only the value of gold"
+                        ],
+                        "a": 1,
+                        "hint": "It was sacred and politically important."
+            },
+            {
+                        "q": "In which year did the Golden Stool appear according to tradition?",
+                        "options": [
+                                    "1701",
+                                    "1824",
+                                    "1896",
+                                    "1902"
+                        ],
+                        "a": 0,
+                        "hint": "It appeared during Osei Tutu's reign."
+            },
+            {
+                        "q": "Could the Asantehene sit on the Golden Stool?",
+                        "options": [
+                                    "Yes, every day",
+                                    "Only after 1902",
+                                    "Only with British permission",
+                                    "No"
+                        ],
+                        "a": 3,
+                        "hint": "The king was lowered and raised over it."
+            },
+            {
+                        "q": "How many wars did Britain fight against the Ashanti?",
+                        "options": [
+                                    "Two",
+                                    "Ten",
+                                    "Four",
+                                    "One"
+                        ],
+                        "a": 2,
+                        "hint": "The wars ran from 1824 to 1901."
+            },
+            {
+                        "q": "Who won the first three wars?",
+                        "options": [
+                                    "Germany",
+                                    "The Ashanti",
+                                    "Britain",
+                                    "Portugal"
+                        ],
+                        "a": 1,
+                        "hint": "The victories showed organised military power."
+            },
+            {
+                        "q": "What did Britain do in Kumasi in 1896?",
+                        "options": [
+                                    "Occupied the capital and exiled leaders",
+                                    "Returned all treasures",
+                                    "Granted independence",
+                                    "Ended colonial interest"
+                        ],
+                        "a": 0,
+                        "hint": "Prempeh I, chiefs and elders were captured."
+            },
+            {
+                        "q": "Why did followers hide the Golden Stool?",
+                        "options": [
+                                    "To sell it in Europe",
+                                    "To remove Ashanti identity",
+                                    "To use it as a market",
+                                    "To stop Britain taking it"
+                        ],
+                        "a": 3,
+                        "hint": "The Stool was a sacred national symbol."
+            },
+            {
+                        "q": "What did Major Hodgson demand in 1900?",
+                        "options": [
+                                    "A new Ashanti king",
+                                    "The closure of Elmina",
+                                    "The Golden Stool so he could sit on it",
+                                    "The return of British gold"
+                        ],
+                        "a": 2,
+                        "hint": "The demand deeply offended Ashanti leaders."
+            },
+            {
+                        "q": "Who led the War of the Golden Stool?",
+                        "options": [
+                                    "Osei Tutu",
+                                    "Yaa Asantewaa",
+                                    "Major Hodgson",
+                                    "Sir James Robertson"
+                        ],
+                        "a": 1,
+                        "hint": "She encouraged the government to resist."
+            },
+            {
+                        "q": "When did Britain defeat the Ashanti?",
+                        "options": [
+                                    "1902",
+                                    "1701",
+                                    "1824",
+                                    "1896 only"
+                        ],
+                        "a": 0,
+                        "hint": "The kingdom then entered the Gold Coast colony."
+            },
+            {
+                        "q": "What happened to Ashanti gold objects?",
+                        "options": [
+                                    "All stayed in Kumasi",
+                                    "They were returned in 1902",
+                                    "They had no cultural value",
+                                    "Many were taken to British museums"
+                        ],
+                        "a": 3,
+                        "hint": "The loss was material and cultural."
+            },
+            {
+                        "q": "What political result followed conquest?",
+                        "options": [
+                                    "More power for legitimate leaders",
+                                    "Equal colonial rights",
+                                    "Loss of Ashanti self-government",
+                                    "Immediate independence"
+                        ],
+                        "a": 2,
+                        "hint": "Britain removed political authority."
+            },
+            {
+                        "q": "Why were roads and railways constructed?",
+                        "options": [
+                                    "To stop resource exports",
+                                    "To transport resources to harbours",
+                                    "Only for education",
+                                    "To protect the Stool"
+                        ],
+                        "a": 1,
+                        "hint": "Infrastructure served the colonial economy."
+            },
+            {
+                        "q": "What did Kwame Nkrumah argue?",
+                        "options": [
+                                    "Africans could govern themselves",
+                                    "Only Britain could govern Africa",
+                                    "Colonial wealth stayed in Africa",
+                                    "Roads ended exploitation"
+                        ],
+                        "a": 0,
+                        "hint": "He stressed pre-colonial self-rule and extraction."
+            },
+            {
+                        "q": "What should historians do with Nkrumah and Robertson's statements?",
+                        "options": [
+                                    "Assume both say exactly the same",
+                                    "Ignore their positions",
+                                    "Choose one without evidence",
+                                    "Compare creator, purpose and evidence"
+                        ],
+                        "a": 3,
+                        "hint": "Their backgrounds shaped different interpretations."
+            }
+];
+
+        let currentLevel = 0;
+        let isWaiting = false;
+
+        const ladderContainer = document.getElementById('prizeLadder');
+        for (let i = 0; i < 30; i++) {
+            let step = document.createElement('div');
+            step.className = 'ladder-step';
+            step.id = `ladder-${i}`;
+            if ((i + 1) % 5 === 0) step.classList.add('milestone');
+            step.innerHTML = `<span>${i + 1}</span> <span>Q-Point</span>`;
+            ladderContainer.appendChild(step);
+        }
+
+        function loadQuestion() {
+            isWaiting = false;
+            document.querySelectorAll('.ladder-step').forEach((el, index) => {
+                el.classList.remove('active');
+                if (index < currentLevel) el.classList.add('passed');
+            });
+            document.getElementById(`ladder-${currentLevel}`).classList.add('active');
+
+            const qData = questions[currentLevel];
+            document.getElementById('questionText').innerText = `Q${currentLevel + 1}: ${qData.q}`;
+
+            for (let i = 0; i < 4; i++) {
+                let btn = document.getElementById(`btn${i}`);
+                btn.innerText = qData.options[i];
+                btn.className = 'answer-btn'; 
+                btn.disabled = false;
+            }
+        }
+
+        function selectAnswer(selectedIndex) {
+            if (isWaiting) return;
+            isWaiting = true;
+
+            const qData = questions[currentLevel];
+            const correctIndex = qData.a;
+            if (selectedIndex === correctIndex) MayHubSounds.playCorrect();
+            else MayHubSounds.playWrong();
+            
+            for (let i = 0; i < 4; i++) {
+                document.getElementById(`btn${i}`).disabled = true;
+            }
+
+            const selectedBtn = document.getElementById(`btn${selectedIndex}`);
+            selectedBtn.classList.add('selected');
+
+            setTimeout(() => {
+                selectedBtn.classList.remove('selected');
+
+                if (selectedIndex === correctIndex) {
+                    selectedBtn.classList.add('correct');
+                    setTimeout(() => {
+                        currentLevel++;
+                        if (currentLevel >= 30) endGame(true);
+                        else loadQuestion();
+                    }, 1000); 
+                } else {
+                    selectedBtn.classList.add('incorrect');
+                    document.getElementById(`btn${correctIndex}`).classList.add('correct');
+                    setTimeout(() => endGame(false), 2000);
+                }
+            }, 1000);
+        }
+
+        function use5050() {
+            if (isWaiting) return;
+            document.getElementById('btn5050').disabled = true;
+            const correctIndex = questions[currentLevel].a;
+            let wrongIndexes = [0, 1, 2, 3].filter(i => i !== correctIndex);
+            wrongIndexes.sort(() => Math.random() - 0.5);
+            document.getElementById(`btn${wrongIndexes[0]}`).classList.add('hidden');
+            document.getElementById(`btn${wrongIndexes[1]}`).classList.add('hidden');
+        }
+
+        function useHint() {
+            if (isWaiting) return;
+            document.getElementById('btnHint').disabled = true;
+            alert("Study Hint: " + questions[currentLevel].hint);
+        }
+
+        function endGame(won) {
+            document.getElementById('gameBoard').style.display = 'none';
+            document.getElementById('endScreen').style.display = 'block';
+            if (won) {
+                document.getElementById('endMessage').innerText = "History Legend!";
+                document.getElementById('endPrize').innerText = "30/30 - 100%";
+            } else {
+                document.getElementById('endMessage').innerText = "Keep Studying!";
+                document.getElementById('endPrize').innerText = `${currentLevel}/30 Correct`;
+            }
+        }
+        loadQuestion();
+    </script>
+</body>
+</html>
+

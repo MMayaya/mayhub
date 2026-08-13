@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-8GCWSKNDL7"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-8GCWSKNDL7');
+</script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>May Learning Hub | Urbanisation Drag or Tap Match</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f4f8;
+            color: #333;
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        nav {
+            background-color: #002b5e;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            color: #fff;
+            font-size: 1.5rem;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .nav-links a {
+            color: #cce0ff;
+            text-decoration: none;
+            margin-left: 1.5rem;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: #fff;
+            text-decoration: underline;
+        }
+
+        .game-container {
+            max-width: 1100px;
+            margin: 3rem auto;
+            padding: 2rem;
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+            border-top: 6px solid #3385ff;
+            text-align: center;
+        }
+
+        .game-title {
+            color: #004080;
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+
+        .game-subtitle {
+            color: #555;
+            margin-bottom: 2rem;
+            font-size: 1.1rem;
+        }
+
+        .category-selection {
+            margin-bottom: 2rem;
+        }
+
+        .category-selection h2 {
+            color: #004080;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .cat-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .cat-btn {
+            background-color: #f0f4f8;
+            border: 2px solid #004080;
+            color: #004080;
+            padding: 0.8rem 1.5rem;
+            font-size: 1.05rem;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .cat-btn:hover,
+        .cat-btn.active {
+            background-color: #004080;
+            color: #fff;
+            transform: translateY(-3px);
+            box-shadow: 0 4px 10px rgba(0,64,128,0.2);
+        }
+
+        #gameArea {
+            display: none;
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 2px dashed #ccc;
+            animation: fadeIn 0.5s ease;
+        }
+
+        #activeCategoryTitle {
+            color: #3385ff;
+            margin-bottom: 0.8rem;
+            font-size: 1.8rem;
+        }
+
+        .instructions {
+            margin-bottom: 1.5rem;
+            color: #555;
+            font-size: 1rem;
+        }
+
+        .top-bar {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+        }
+
+        .info-box {
+            background: #f0f7ff;
+            border: 2px solid #b3d4ff;
+            color: #004080;
+            padding: 0.8rem 1.2rem;
+            border-radius: 10px;
+            font-weight: bold;
+            min-width: 170px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+        }
+
+        .board {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            align-items: start;
+        }
+
+        .panel {
+            background: #f8fbff;
+            border: 2px solid #d6e8ff;
+            border-radius: 12px;
+            padding: 1.2rem;
+            min-height: 420px;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.05);
+        }
+
+        .panel h3 {
+            color: #004080;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .draggable-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.9rem;
+        }
+
+        .drag-item {
+            background: #ffffff;
+            border: 2px solid #b3d4ff;
+            color: #004080;
+            padding: 0.95rem 1rem;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: grab;
+            transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+        }
+
+        .drag-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.08);
+        }
+
+        .drag-item.dragging {
+            opacity: 0.5;
+        }
+
+        .drag-item.correct {
+            background-color: #d4edda;
+            border-color: #28a745;
+            color: #155724;
+            cursor: default;
+        }
+
+        .drop-zones {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .drop-zone {
+            background: #fff;
+            border: 2px dashed #7aaef7;
+            border-radius: 12px;
+            padding: 1rem;
+            min-height: 90px;
+            text-align: left;
+            transition: all 0.2s ease;
+        }
+
+        .drop-zone.drag-over {
+            background: #eaf4ff;
+            border-color: #3385ff;
+            transform: scale(1.01);
+        }
+
+        .drop-zone.correct-zone {
+            border-style: solid;
+            border-color: #28a745;
+            background: #f2fff5;
+        }
+
+        .drop-zone.wrong-zone {
+            border-color: #dc3545;
+            background: #fff5f5;
+        }
+
+        .drop-title {
+            font-weight: bold;
+            color: #004080;
+            margin-bottom: 0.35rem;
+            font-size: 1rem;
+        }
+
+        .drop-desc {
+            font-size: 0.95rem;
+            color: #555;
+        }
+
+        .feedback-box {
+            display: none;
+            margin-top: 2rem;
+            background-color: #f0f7ff;
+            border: 2px solid #b3d4ff;
+            border-radius: 10px;
+            padding: 1.2rem;
+            text-align: center;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .feedback-box h3 {
+            color: #004080;
+            margin-bottom: 0.7rem;
+        }
+
+        .feedback-box p {
+            font-size: 1.05rem;
+            color: #333;
+            margin-bottom: 0.8rem;
+        }
+
+        .action-buttons {
+            margin-top: 2rem;
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .action-btn {
+            background-color: #3385ff;
+            color: #fff;
+            border: none;
+            padding: 0.9rem 1.8rem;
+            font-size: 1rem;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(51,133,255,0.25);
+            border-bottom: 4px solid #004080;
+        }
+
+        .action-btn:hover {
+            background-color: #1f73ea;
+            transform: translateY(-2px);
+        }
+
+        .action-btn.secondary {
+            background-color: #f0f4f8;
+            color: #004080;
+            border: 2px solid #004080;
+            border-bottom: 4px solid #004080;
+            box-shadow: none;
+        }
+
+        .action-btn.secondary:hover {
+            background-color: #dfefff;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .drag-item.selected { outline: 4px solid #ffc107; outline-offset: 2px; }
+
+        footer {
+            text-align: center;
+            padding: 1rem;
+            background-color: #002b5e;
+            color: #fff;
+            margin-top: auto;
+        }
+
+        @media (max-width: 900px) {
+            .board {
+                grid-template-columns: 1fr;
+            }
+        }
+
+
+        /* Topic 2 has longer labels, so keep every control inside a phone viewport. */
+        @media (max-width: 600px) {
+            html, body { width: 100%; max-width: 100%; overflow-x: hidden; }
+            nav {
+                padding: 0.8rem 1rem;
+                flex-wrap: wrap;
+                justify-content: flex-start;
+                gap: 0.5rem 1rem;
+            }
+            .logo { flex: 1 1 100%; font-size: 1.2rem; }
+            .nav-links {
+                display: flex;
+                width: 100%;
+                flex-wrap: wrap;
+                gap: 0.35rem 1rem;
+            }
+            .nav-links a { margin-left: 0; font-size: 0.9rem; }
+            .page-header { padding: 2.5rem 1rem 2rem; }
+            .page-title, .game-title {
+                font-size: 1.75rem;
+                line-height: 1.25;
+                overflow-wrap: anywhere;
+            }
+            .page-subtitle, .game-subtitle, .grade-badge {
+                max-width: 100%;
+                overflow-wrap: anywhere;
+            }
+            .game-container, .game-header, .games-container, .category-selection, .cat-buttons {
+                min-width: 0;
+                max-width: 100%;
+            }
+            .cat-buttons { padding-left: 0; padding-right: 0; }
+            .cat-btn { min-width: 0; max-width: 100%; overflow-wrap: anywhere; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="../../../../../../index.html" class="logo">May Learning Hub</a>
+        <div class="nav-links">
+            <a href="../../../../../../index.html">Home</a>
+            <a href="../../../../../../about.html">About</a>
+        </div>
+    </nav>
+
+    <main class="game-container">
+        <h1 class="game-title">Geography Drag or Tap Match</h1>
+        <p class="game-subtitle">Match each urbanisation term by dragging on a computer or tapping on a phone.</p>
+        <p style="font-size: 0.78rem; color: #52606d; margin-top: 0.45rem;">Source: Urbanisation - Grade 8 Social Sciences Term 3 presentation.</p>
+
+        <div class="category-selection">
+            <h2>Step 1: Choose a Set</h2>
+            <div class="cat-buttons" id="catButtons">
+                <button class="cat-btn" onclick="selectCategory('unit1', this)">1. Migration and Urbanisation</button>
+                <button class="cat-btn" onclick="selectCategory('unit2', this)">2. Growth of South African Cities</button>
+                <button class="cat-btn" onclick="selectCategory('unit3', this)">3. Land Control and Democracy</button>
+                <button class="cat-btn" onclick="selectCategory('unit4', this)">4. Rapid Growth Challenges</button>
+            </div>
+        </div>
+
+        <div id="gameArea">
+            <h2 id="activeCategoryTitle">Category: None</h2>
+            <p class="instructions">Drag a blue card to its answer, or tap a card and then tap its matching answer.</p>
+
+            <div class="top-bar">
+                <div class="info-box" id="scoreBox">Score: 0</div>
+                <div class="info-box" id="remainingBox">Remaining: 0</div>
+                <div class="info-box" id="setBox">Set: 0 / 4</div>
+            </div>
+
+            <div class="board">
+                <div class="panel">
+                    <h3>Drag These Items</h3>
+                    <div class="draggable-list" id="draggableList"></div>
+                </div>
+
+                <div class="panel">
+                    <h3>Drop Into Correct Answers</h3>
+                    <div class="drop-zones" id="dropZones"></div>
+                </div>
+            </div>
+
+            <div class="feedback-box" id="feedbackBox">
+                <h3 id="feedbackTitle">Well done!</h3>
+                <p id="feedbackMessage"></p>
+            </div>
+
+            <div class="action-buttons">
+                <button class="action-btn" onclick="resetCurrentCategory()">Restart This Set</button>
+                <button class="action-btn secondary" onclick="loadNextCategory()">Next Set</button>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 May Learning Hub. All rights reserved.</p>
+    </footer>
+
+    <script src="../../../../../../game-audio.js"></script>
+    <script src="urbanisation-data.js"></script>
+    <script>
+        const gameData = UrbanisationData.drag;
+
+        const categoryTitles = {
+            "unit1": "Migration and Urbanisation",
+            "unit2": "Growth of South African Cities",
+            "unit3": "Land Control and Democracy",
+            "unit4": "Rapid Growth Challenges"
+        };
+
+                const categoryOrder = ["unit1", "unit2", "unit3", "unit4"];
+
+        let currentCategoryKey = null;
+        let score = 0;
+        let matchedCount = 0;
+        let currentSetNumber = 1;
+        let selectedItem = null;
+
+        function shuffleArray(array) {
+            const arr = [...array];
+            for (let i = arr.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [arr[i], arr[j]] = [arr[j], arr[i]];
+            }
+            return arr;
+        }
+
+        function selectCategory(categoryKey, btnElement = null) {
+            currentCategoryKey = categoryKey;
+            matchedCount = 0;
+            score = 0;
+
+            document.getElementById('gameArea').style.display = 'block';
+            document.getElementById('activeCategoryTitle').innerText = `Category: ${categoryTitles[categoryKey]}`;
+            document.getElementById('feedbackBox').style.display = 'none';
+
+            document.querySelectorAll('.cat-btn').forEach(btn => btn.classList.remove('active'));
+            if (btnElement) btnElement.classList.add('active');
+
+            currentSetNumber = categoryOrder.indexOf(categoryKey) + 1;
+            renderGame();
+        }
+
+        function renderGame() {
+            const data = gameData[currentCategoryKey];
+            const draggableList = document.getElementById('draggableList');
+            const dropZones = document.getElementById('dropZones');
+
+            draggableList.innerHTML = "";
+            dropZones.innerHTML = "";
+
+            const shuffledItems = shuffleArray(data);
+            const shuffledMatches = shuffleArray(data.map(entry => entry.match));
+
+            shuffledItems.forEach(entry => {
+                const item = document.createElement('div');
+                item.className = 'drag-item';
+                item.draggable = true;
+                item.id = `drag-${cleanId(entry.item)}`;
+                item.dataset.answer = entry.match;
+                item.textContent = entry.item;
+
+                item.addEventListener('dragstart', handleDragStart);
+                item.addEventListener('dragend', handleDragEnd);
+                item.tabIndex = 0;
+                item.setAttribute('role', 'button');
+                item.setAttribute('aria-pressed', 'false');
+                item.addEventListener('click', () => selectItem(item));
+                item.addEventListener('keydown', event => {
+                    if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); selectItem(item); }
+                });
+
+                draggableList.appendChild(item);
+            });
+
+            shuffledMatches.forEach(matchText => {
+                const zone = document.createElement('div');
+                zone.className = 'drop-zone';
+                zone.dataset.match = matchText;
+
+                zone.innerHTML = `
+                    <div class="drop-title">${matchText}</div>
+                    <div class="drop-desc">Drop the correct term here.</div>
+                `;
+
+                zone.addEventListener('dragover', handleDragOver);
+                zone.addEventListener('dragleave', handleDragLeave);
+                zone.addEventListener('drop', handleDrop);
+                zone.tabIndex = 0;
+                zone.setAttribute('role', 'button');
+                zone.addEventListener('click', () => { if (selectedItem) attemptMatch(selectedItem, zone); });
+                zone.addEventListener('keydown', event => {
+                    if ((event.key === 'Enter' || event.key === ' ') && selectedItem) { event.preventDefault(); attemptMatch(selectedItem, zone); }
+                });
+
+                dropZones.appendChild(zone);
+            });
+
+            updateInfoBoxes(data.length);
+        }
+
+        function cleanId(text) {
+            return text.toLowerCase().replace(/[^a-z0-9]/g, '-');
+        }
+
+        function handleDragStart(e) {
+            e.dataTransfer.setData('text/plain', e.target.id);
+            e.target.classList.add('dragging');
+        }
+
+        function handleDragEnd(e) {
+            e.target.classList.remove('dragging');
+        }
+
+        function handleDragOver(e) {
+            e.preventDefault();
+            e.currentTarget.classList.add('drag-over');
+        }
+
+        function handleDragLeave(e) {
+            e.currentTarget.classList.remove('drag-over');
+        }
+
+        function selectItem(item) {
+            if (item.classList.contains('correct')) return;
+            document.querySelectorAll('.drag-item.selected').forEach(active => {
+                active.classList.remove('selected');
+                active.setAttribute('aria-pressed', 'false');
+            });
+            selectedItem = item;
+            item.classList.add('selected');
+            item.setAttribute('aria-pressed', 'true');
+        }
+
+        function handleDrop(e) {
+            e.preventDefault();
+            const zone = e.currentTarget;
+            zone.classList.remove('drag-over');
+            const draggedItem = document.getElementById(e.dataTransfer.getData('text/plain'));
+            if (draggedItem) attemptMatch(draggedItem, zone);
+        }
+
+        function attemptMatch(item, zone) {
+            if (zone.classList.contains('correct-zone') || item.classList.contains('correct')) return;
+            if (item.dataset.answer === zone.dataset.match) {
+                MayHubSounds.playCorrect();
+                zone.classList.remove('wrong-zone');
+                zone.classList.add('correct-zone');
+                item.classList.remove('selected');
+                item.classList.add('correct');
+                item.setAttribute('aria-pressed', 'false');
+                item.draggable = false;
+                item.style.cursor = 'default';
+                zone.appendChild(item);
+                matchedCount++;
+                score++;
+                updateInfoBoxes(gameData[currentCategoryKey].length);
+                if (matchedCount === gameData[currentCategoryKey].length) showCompletionMessage();
+            } else {
+                MayHubSounds.playWrong();
+                zone.classList.add('wrong-zone');
+                setTimeout(() => zone.classList.remove('wrong-zone'), 700);
+            }
+            selectedItem = null;
+            document.querySelectorAll('.drag-item.selected').forEach(active => {
+                active.classList.remove('selected');
+                active.setAttribute('aria-pressed', 'false');
+            });
+        }
+
+        function updateInfoBoxes(total) {
+            document.getElementById('scoreBox').innerText = `Score: ${score}`;
+            document.getElementById('remainingBox').innerText = `Remaining: ${total - matchedCount}`;
+            document.getElementById('setBox').innerText = `Set: ${currentSetNumber} / ${categoryOrder.length}`;
+        }
+
+        function showCompletionMessage() {
+            const feedbackBox = document.getElementById('feedbackBox');
+            const feedbackTitle = document.getElementById('feedbackTitle');
+            const feedbackMessage = document.getElementById('feedbackMessage');
+
+            feedbackTitle.innerText = "Excellent History Knowledge!";
+            feedbackMessage.innerText = `You completed the "${categoryTitles[currentCategoryKey]}" set with a score of ${score}/${gameData[currentCategoryKey].length}.`;
+            feedbackBox.style.display = 'block';
+        }
+
+        function resetCurrentCategory() {
+            if (!currentCategoryKey) return;
+            score = 0;
+            matchedCount = 0;
+            document.getElementById('feedbackBox').style.display = 'none';
+            renderGame();
+        }
+
+        function loadNextCategory() {
+            if (!currentCategoryKey) {
+                const firstBtn = document.querySelector('.cat-btn');
+                if (firstBtn) firstBtn.click();
+                return;
+            }
+
+            let currentIndex = categoryOrder.indexOf(currentCategoryKey);
+            let nextIndex = (currentIndex + 1) % categoryOrder.length;
+            let nextKey = categoryOrder[nextIndex];
+
+            const allButtons = document.querySelectorAll('.cat-btn');
+            allButtons.forEach(btn => btn.classList.remove('active'));
+            allButtons[nextIndex].classList.add('active');
+
+            currentCategoryKey = nextKey;
+            currentSetNumber = nextIndex + 1;
+            score = 0;
+            matchedCount = 0;
+            document.getElementById('feedbackBox').style.display = 'none';
+            document.getElementById('gameArea').style.display = 'block';
+            document.getElementById('activeCategoryTitle').innerText = `Category: ${categoryTitles[nextKey]}`;
+            renderGame();
+        }
+    </script>
+</body>
+</html>

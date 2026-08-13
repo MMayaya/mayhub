@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-8GCWSKNDL7"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-8GCWSKNDL7');
+</script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>May Learning Hub | Scramble for Africa Spin</title>
+    <style>
+        /* CSS styling identical to original */
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html, body { max-width: 100%; overflow-x: hidden; overflow-x: clip; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f0f4f8; color: #333; line-height: 1.6; display: flex; flex-direction: column; min-height: 100vh; }
+        nav { background-color: #002b5e; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; }
+        .logo { color: #fff; font-size: 1.5rem; font-weight: bold; text-decoration: none; }
+        .nav-links a { color: #cce0ff; text-decoration: none; margin-left: 1.5rem; font-weight: 500; transition: color 0.3s; }
+        .nav-links a:hover, .nav-links a.active { color: #fff; text-decoration: underline; }
+        .game-container { max-width: 900px; margin: 3rem auto; padding: 2rem; background: #fff; border-radius: 12px; box-shadow: 0 8px 30px rgba(0,0,0,0.1); border-top: 6px solid #3385ff; text-align: center; }
+        .game-title { color: #004080; font-size: 2.5rem; margin-bottom: 0.5rem; text-shadow: 1px 1px 2px rgba(0,0,0,0.1); }
+        .game-subtitle { color: #555; margin-bottom: 2rem; font-size: 1.1rem; }
+        .category-selection { margin-bottom: 2rem; }
+        .category-selection h2 { color: #004080; margin-bottom: 1rem; font-size: 1.5rem; }
+        .cat-buttons { display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem; }
+        .cat-btn { background-color: #f0f4f8; border: 2px solid #004080; color: #004080; padding: 0.8rem 1.5rem; font-size: 1.1rem; font-weight: bold; border-radius: 8px; cursor: pointer; transition: all 0.3s ease; }
+        .cat-btn:hover, .cat-btn.active { background-color: #004080; color: #fff; transform: translateY(-3px); box-shadow: 0 4px 10px rgba(0,64,128,0.2); }
+        #wheelArea { display: none; margin-top: 2rem; padding-top: 2rem; border-top: 2px dashed #ccc; animation: fadeIn 0.5s ease; }
+        #activeCategoryTitle { color: #3385ff; margin-bottom: 1.5rem; font-size: 1.8rem; }
+        .wheel-wrapper { position: relative; width: min(380px, 100%); aspect-ratio: 1; margin: 0 auto 2rem; border-radius: 50%; box-shadow: 0 20px 40px rgba(0,0,0,0.3); }
+        .pointer { position: absolute; top: -25px; left: 50%; transform: translateX(-50%); width: 0; height: 0; border-left: 22px solid transparent; border-right: 22px solid transparent; border-top: 55px solid #e60000; z-index: 10; filter: drop-shadow(0 6px 6px rgba(0,0,0,0.5)); }
+        .wheel { width: 100%; height: 100%; border-radius: 50%; border: 15px solid #001a33; position: relative; overflow: hidden; transition: transform 4s cubic-bezier(0.17, 0.67, 0.12, 0.99); box-shadow: inset 0 0 30px rgba(0,0,0,0.7), inset 0 0 0 6px rgba(255,255,255,0.3); }
+        .wheel-center { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 45px; height: 45px; background: radial-gradient(circle, #e6f0fa, #80b3ff); border-radius: 50%; border: 5px solid #001a33; box-shadow: 0 4px 10px rgba(0,0,0,0.6); z-index: 6; }
+        .wheel-bg { width: 100%; height: 100%; position: absolute; top: 0; left: 0; }
+        .wheel-labels { position: absolute; width: 100%; height: 100%; top: 0; left: 0; }
+        .label { position: absolute; top: 50%; left: 50%; transform-origin: 0 0; font-weight: bold; color: #fff; font-size: 0.95rem; text-shadow: 1px 1px 4px rgba(0,0,0,0.9); }
+        .spin-btn { background-color: #3385ff; color: #fff; border: none; padding: 1rem 3rem; font-size: 1.5rem; font-weight: bold; border-radius: 50px; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 4px 10px rgba(51,133,255,0.4); margin-bottom: 1rem; border-bottom: 4px solid #004080; }
+        .question-card { display: none; margin-top: 2rem; padding: 2rem; background-color: #f0f7ff; border: 2px solid #b3d4ff; border-radius: 8px; text-align: center; animation: fadeIn 0.5s ease; box-shadow: 0 6px 15px rgba(0,0,0,0.05); }
+        .q-number-tag { display: inline-block; background: #004080; color: #fff; padding: 0.5rem 1.5rem; border-radius: 30px; font-size: 1.1rem; margin-bottom: 1rem; font-weight: bold; text-transform: uppercase; box-shadow: 0 3px 6px rgba(0,0,0,0.2); }
+        .question-text { font-size: 1.5rem; color: #333; margin-bottom: 1.5rem; font-weight: 500; }
+        .mc-options { display: flex; flex-direction: column; gap: 0.8rem; max-width: 450px; margin: 0 auto 1.5rem; }
+        .option-btn { background: #fff; border: 2px solid #b3d4ff; padding: 1rem; font-size: 1.1rem; border-radius: 6px; cursor: pointer; transition: all 0.2s; text-align: left; font-weight: 500; color: #004080; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+        .option-btn.correct { background-color: #d4edda !important; border-color: #28a745 !important; color: #155724 !important; }
+        .option-btn.incorrect { background-color: #f8d7da !important; border-color: #dc3545 !important; color: #721c24 !important; }
+        .reveal-btn { background-color: #3385ff; color: #fff; border: none; padding: 0.8rem 2rem; font-size: 1.1rem; font-weight: bold; border-radius: 8px; cursor: pointer; transition: background 0.3s; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .answer-text { display: none; font-size: 1.2rem; color: #333; margin-top: 1.5rem; padding-top: 1.5rem; border-top: 2px dashed #b3d4ff; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        footer { text-align: center; padding: 1rem; background-color: #002b5e; color: #fff; margin-top: auto; }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="../../../../../../index.html" class="logo">May Learning Hub</a>
+        <div class="nav-links">
+            <a href="../../../../../../index.html">Home</a>
+            <a href="../../../../../../about.html">About</a>
+        </div>
+    </nav>
+
+    <main class="game-container">
+        <h1 class="game-title">History Quiz: The Scramble for Africa</h1>
+        <p class="game-subtitle">Spin the wheel to revise Africa before colonisation, colonialism, the Berlin Conference, and the colonial map.</p>
+        <p style="font-size: 0.78rem; color: #52606d; margin-top: 0.45rem;">Source: The Scramble for Africa - Grade 8 Social Sciences Term 3 presentation.</p>
+
+        <div class="category-selection">
+            <h2>Step 1: Choose a Category</h2>
+            <div class="cat-buttons" id="catButtons">
+                <button class="cat-btn" onclick="selectCategory('definitions', this)">Definitions</button>
+                <button class="cat-btn" onclick="selectCategory('terms', this)">Name the Term</button>
+                <button class="cat-btn" onclick="selectCategory('multipleChoice', this)">Multiple Choice</button>
+                <button class="cat-btn" onclick="selectCategory('trueFalse', this)">True or False</button>
+            </div>
+        </div>
+
+        <div id="wheelArea">
+            <h2 id="activeCategoryTitle">Category: None</h2>
+            
+            <div class="wheel-wrapper">
+                <div class="pointer"></div>
+                <div class="wheel-center"></div>
+                <div class="wheel" id="wheel">
+                    <div class="wheel-bg" id="wheelBg"></div>
+                    <div class="wheel-labels" id="wheelLabels"></div>
+                </div>
+            </div>
+
+            <button class="spin-btn" id="spinBtn" onclick="spinWheel()">SPIN THE WHEEL</button>
+            <p id="remainingCount" style="color: #666; font-size: 0.9rem; margin-bottom: 1rem; font-weight: bold;">20 questions remaining</p>
+
+            <div class="question-card" id="questionCard">
+                <div class="q-number-tag" id="qNumberTag">Question #</div>
+                <div class="question-text" id="questionText">Loading question...</div>
+                
+                <div class="mc-options" id="mcOptions"></div>
+                
+                <button class="reveal-btn" id="revealBtn" onclick="revealAnswer()">Reveal Answer</button>
+                <div class="answer-text" id="answerText"></div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 May Learning Hub. All rights reserved.</p>
+    </footer>
+
+    <script src="../../../../../../game-audio.js"></script>
+    <script>
+        const gameData = {
+            "definitions": [
+                {
+                    "q": "Colonialism",
+                    "a": "The occupation and control of one nation by another, including its land and people, usually by force."
+                },
+                {
+                    "q": "Colony",
+                    "a": "A territory taken over and controlled by another country."
+                },
+                {
+                    "q": "Empire",
+                    "a": "A group of countries ruled by a single government."
+                },
+                {
+                    "q": "Scramble for Africa",
+                    "a": "The European competition to colonise and control African territories."
+                },
+                {
+                    "q": "Scramble",
+                    "a": "To compete frantically to obtain something that other people also want."
+                },
+                {
+                    "q": "Colonisation",
+                    "a": "The process of taking control of a territory and its people and making it part of a wider empire."
+                },
+                {
+                    "q": "Territory",
+                    "a": "An area of land under the control or authority of a country or ruler."
+                },
+                {
+                    "q": "Trade Network",
+                    "a": "Connected routes and relationships through which goods are exchanged."
+                },
+                {
+                    "q": "Kingdom",
+                    "a": "A territory or society ruled by a king or queen."
+                },
+                {
+                    "q": "State",
+                    "a": "An organised political society governed under its own authority."
+                },
+                {
+                    "q": "European Power",
+                    "a": "A strong European country able to influence or control other territories."
+                },
+                {
+                    "q": "Berlin Conference",
+                    "a": "The 1884 meeting where European powers decided how to divide Africa without fighting one another."
+                },
+                {
+                    "q": "Independent Country",
+                    "a": "A country that governs itself and is not controlled by another country."
+                },
+                {
+                    "q": "Navigation Technology",
+                    "a": "Tools and knowledge used to guide ships and determine direction during travel."
+                },
+                {
+                    "q": "Historical Cartoon",
+                    "a": "A picture that communicates a point of view about an issue or event in history."
+                },
+                {
+                    "q": "Cartoonist",
+                    "a": "The person who creates a cartoon to express a message or point of view."
+                },
+                {
+                    "q": "Symbol",
+                    "a": "An image or object used in a cartoon to represent a larger idea."
+                },
+                {
+                    "q": "Point of View",
+                    "a": "The perspective or opinion presented by a source."
+                },
+                {
+                    "q": "Turning Point",
+                    "a": "An event or process that produces a major change in history."
+                },
+                {
+                    "q": "Legacy",
+                    "a": "Effects from the past that continue to influence the present."
+                }
+            ],
+            "terms": [
+                {
+                    "q": "The occupation and control of one nation by another, including its land and people, usually by force.",
+                    "a": "Colonialism"
+                },
+                {
+                    "q": "A territory taken over and controlled by another country.",
+                    "a": "Colony"
+                },
+                {
+                    "q": "A group of countries ruled by a single government.",
+                    "a": "Empire"
+                },
+                {
+                    "q": "The European competition to colonise and control African territories.",
+                    "a": "Scramble for Africa"
+                },
+                {
+                    "q": "To compete frantically to obtain something that other people also want.",
+                    "a": "Scramble"
+                },
+                {
+                    "q": "The process of taking control of a territory and its people and making it part of a wider empire.",
+                    "a": "Colonisation"
+                },
+                {
+                    "q": "An area of land under the control or authority of a country or ruler.",
+                    "a": "Territory"
+                },
+                {
+                    "q": "Connected routes and relationships through which goods are exchanged.",
+                    "a": "Trade Network"
+                },
+                {
+                    "q": "A territory or society ruled by a king or queen.",
+                    "a": "Kingdom"
+                },
+                {
+                    "q": "An organised political society governed under its own authority.",
+                    "a": "State"
+                },
+                {
+                    "q": "A strong European country able to influence or control other territories.",
+                    "a": "European Power"
+                },
+                {
+                    "q": "The 1884 meeting where European powers decided how to divide Africa without fighting one another.",
+                    "a": "Berlin Conference"
+                },
+                {
+                    "q": "A country that governs itself and is not controlled by another country.",
+                    "a": "Independent Country"
+                },
+                {
+                    "q": "Tools and knowledge used to guide ships and determine direction during travel.",
+                    "a": "Navigation Technology"
+                },
+                {
+                    "q": "A picture that communicates a point of view about an issue or event in history.",
+                    "a": "Historical Cartoon"
+                },
+                {
+                    "q": "The person who creates a cartoon to express a message or point of view.",
+                    "a": "Cartoonist"
+                },
+                {
+                    "q": "An image or object used in a cartoon to represent a larger idea.",
+                    "a": "Symbol"
+                },
+                {
+                    "q": "The perspective or opinion presented by a source.",
+                    "a": "Point of View"
+                },
+                {
+                    "q": "An event or process that produces a major change in history.",
+                    "a": "Turning Point"
+                },
+                {
+                    "q": "Effects from the past that continue to influence the present.",
+                    "a": "Legacy"
+                }
+            ],
+            "multipleChoice": [
+                {
+                    "q": "From which century did Europeans begin exploring continents outside Europe?",
+                    "options": [
+                        "15th century",
+                        "12th century",
+                        "18th century",
+                        "20th century"
+                    ],
+                    "a": "15th century"
+                },
+                {
+                    "q": "What were European explorers mainly seeking?",
+                    "options": [
+                        "Trade and profit",
+                        "Fixed African borders",
+                        "Only farmland in Europe",
+                        "Places without people"
+                    ],
+                    "a": "Trade and profit"
+                },
+                {
+                    "q": "Which developments aided exploration during the Renaissance?",
+                    "options": [
+                        "Navigation technology, ships and weapons",
+                        "Railways, cars and aircraft",
+                        "Telephones and satellites",
+                        "Factories and electricity"
+                    ],
+                    "a": "Navigation technology, ships and weapons"
+                },
+                {
+                    "q": "Before European colonisation, who ruled the vast majority of Africa?",
+                    "options": [
+                        "Africans",
+                        "Seven European countries",
+                        "The Berlin Conference",
+                        "One single African empire"
+                    ],
+                    "a": "Africans"
+                },
+                {
+                    "q": "Which list shows ways people lived in African societies?",
+                    "options": [
+                        "Hunting, gathering, herding and farming",
+                        "Only factory work",
+                        "Only overseas trade",
+                        "Only mining"
+                    ],
+                    "a": "Hunting, gathering, herding and farming"
+                },
+                {
+                    "q": "Which was an important African trading kingdom?",
+                    "options": [
+                        "Mali",
+                        "Berlin",
+                        "Liberia as a colony",
+                        "Germany"
+                    ],
+                    "a": "Mali"
+                },
+                {
+                    "q": "Across which ocean did Swahili trading routes connect Africa?",
+                    "options": [
+                        "Indian Ocean",
+                        "Arctic Ocean",
+                        "Southern Ocean only",
+                        "Atlantic Ocean only"
+                    ],
+                    "a": "Indian Ocean"
+                },
+                {
+                    "q": "By when were European powers competing for African territories?",
+                    "options": [
+                        "The 1870s",
+                        "The 1470s",
+                        "The 1770s",
+                        "The 1970s"
+                    ],
+                    "a": "The 1870s"
+                },
+                {
+                    "q": "Who invited European powers to the Berlin Conference?",
+                    "options": [
+                        "Otto von Bismarck",
+                        "An African king",
+                        "A British cartoonist",
+                        "The ruler of Liberia"
+                    ],
+                    "a": "Otto von Bismarck"
+                },
+                {
+                    "q": "Where was the Berlin Conference held?",
+                    "options": [
+                        "Berlin, Germany",
+                        "Mali",
+                        "Ethiopia",
+                        "Great Zimbabwe"
+                    ],
+                    "a": "Berlin, Germany"
+                },
+                {
+                    "q": "In which year was the Berlin Conference held?",
+                    "options": [
+                        "1884",
+                        "1800",
+                        "1870",
+                        "1914"
+                    ],
+                    "a": "1884"
+                },
+                {
+                    "q": "Why did European powers meet at the Berlin Conference?",
+                    "options": [
+                        "To divide Africa without fighting each other",
+                        "To return all colonies to Africans",
+                        "To create African trade routes",
+                        "To establish old borders"
+                    ],
+                    "a": "To divide Africa without fighting each other"
+                },
+                {
+                    "q": "Who was excluded from the Berlin Conference?",
+                    "options": [
+                        "Africans",
+                        "European powers",
+                        "Otto von Bismarck",
+                        "Germany"
+                    ],
+                    "a": "Africans"
+                },
+                {
+                    "q": "How many European countries eventually controlled almost all of Africa?",
+                    "options": [
+                        "Seven",
+                        "Two",
+                        "Fourteen",
+                        "Forty-six"
+                    ],
+                    "a": "Seven"
+                },
+                {
+                    "q": "Which group obtained some of the largest African territories?",
+                    "options": [
+                        "Britain, France and Germany",
+                        "Ethiopia, Liberia and Mali",
+                        "Spain, Italy and Liberia",
+                        "Egypt, Mapungubwe and Mali"
+                    ],
+                    "a": "Britain, France and Germany"
+                },
+                {
+                    "q": "Approximately how much of Africa was controlled by Europeans at one stage?",
+                    "options": [
+                        "98%",
+                        "46%",
+                        "14%",
+                        "8%"
+                    ],
+                    "a": "98%"
+                },
+                {
+                    "q": "By which year had almost the entire African continent been colonised?",
+                    "options": [
+                        "1914",
+                        "1884",
+                        "1800",
+                        "1870"
+                    ],
+                    "a": "1914"
+                },
+                {
+                    "q": "Which two countries remained independent?",
+                    "options": [
+                        "Ethiopia and Liberia",
+                        "Egypt and Mali",
+                        "Britain and France",
+                        "Germany and Italy"
+                    ],
+                    "a": "Ethiopia and Liberia"
+                },
+                {
+                    "q": "Into approximately how many colonies was Africa divided?",
+                    "options": [
+                        "46",
+                        "7",
+                        "98",
+                        "2"
+                    ],
+                    "a": "46"
+                },
+                {
+                    "q": "What should learners remember about historical cartoons?",
+                    "options": [
+                        "They present a point of view and may use symbols",
+                        "They always show events exactly",
+                        "They are always funny",
+                        "They need no historical knowledge"
+                    ],
+                    "a": "They present a point of view and may use symbols"
+                }
+            ],
+            "trueFalse": [
+                {
+                    "q": "Europeans began exploring outside Europe from the 15th century.",
+                    "options": [
+                        "True",
+                        "False"
+                    ],
+                    "a": "True",
+                    "exp": "The presentation links this exploration to trade and profit."
+                },
+                {
+                    "q": "European countries only traded and never conquered territories.",
+                    "options": [
+                        "True",
+                        "False"
+                    ],
+                    "a": "False",
+                    "exp": "They eventually conquered and colonised territories."
+                },
+                {
+                    "q": "Colonialism usually involved control of both land and people.",
+                    "options": [
+                        "True",
+                        "False"
+                    ],
+                    "a": "True",
+                    "exp": "Territories and their inhabitants were placed under outside control."
+                },
+                {
+                    "q": "A colony remained completely separate from the empire controlling it.",
+                    "options": [
+                        "True",
+                        "False"
+                    ],
+                    "a": "False",
+                    "exp": "A colony became part of the controlling country's wider empire."
+                },
+                {
+                    "q": "The Scramble for Africa describes European competition for African territories.",
+                    "options": [
+                        "True",
+                        "False"
+                    ],
+                    "a": "True",
+                    "exp": "Competition was intense during the late 19th century."
+                },
+                {
+                    "q": "Africa was empty before European colonisation.",
+                    "options": [
+                        "True",
+                        "False"
+                    ],
+                    "a": "False",
+                    "exp": "Africa contained long-established societies and states."
+                },
+                {
+                    "q": "Most of Africa was under African rule before late-19th-century colonisation.",
+                    "options": [
+                        "True",
+                        "False"
+                    ],
+                    "a": "True",
+                    "exp": "The vast majority was governed by Africans."
+                },
+                {
+                    "q": "All African societies followed exactly the same way of life.",
+                    "options": [
+                        "True",
+                        "False"
+                    ],
+                    "a": "False",
+                    "exp": "People hunted, gathered, herded and farmed."
+                },
+                {
+                    "q": "African societies were always at peace with one another.",
+                    "options": [
+                        "True",
+                        "False"
+                    ],
+                    "a": "False",
+                    "exp": "Relations could be peaceful or involve war."
+                },
+                {
+                    "q": "Africa had trade networks before European colonisation.",
+                    "options": [
+                        "True",
+                        "False"
+                    ],
+                    "a": "True",
+                    "exp": "African and Indian Ocean trade routes already existed."
+                },
+                {
+                    "q": "Mali and Great Zimbabwe were important trading kingdoms.",
+                    "options": [
+                        "True",
+                        "False"
+                    ],
+                    "a": "True",
+                    "exp": "Both are examples in the presentation."
+                },
+                {
+                    "q": "African kingdoms always had modern fixed borders.",
+                    "options": [
+                        "True",
+                        "False"
+                    ],
+                    "a": "False",
+                    "exp": "Borders were not always fixed."
+                },
+                {
+                    "q": "European competition in the 1870s risked conflict among European powers.",
+                    "options": [
+                        "True",
+                        "False"
+                    ],
+                    "a": "True",
+                    "exp": "Several countries wanted the same territories."
+                },
+                {
+                    "q": "The Berlin Conference was held in 1884.",
+                    "options": [
+                        "True",
+                        "False"
+                    ],
+                    "a": "True",
+                    "exp": "Bismarck invited European powers to Berlin."
+                },
+                {
+                    "q": "African representatives decided how Africa would be divided at Berlin.",
+                    "options": [
+                        "True",
+                        "False"
+                    ],
+                    "a": "False",
+                    "exp": "No Africans were invited."
+                },
+                {
+                    "q": "Seven European countries controlled almost the entire continent.",
+                    "options": [
+                        "True",
+                        "False"
+                    ],
+                    "a": "True",
+                    "exp": "They included Britain, France, Portugal, Germany, Belgium, Italy and Spain."
+                },
+                {
+                    "q": "Ethiopia and Liberia remained independent by 1914.",
+                    "options": [
+                        "True",
+                        "False"
+                    ],
+                    "a": "True",
+                    "exp": "They were the two exceptions identified."
+                },
+                {
+                    "q": "At one stage, about 98% of Africa was under European control.",
+                    "options": [
+                        "True",
+                        "False"
+                    ],
+                    "a": "True",
+                    "exp": "Only a very small portion remained independent."
+                },
+                {
+                    "q": "Historical cartoons always reproduce an event exactly.",
+                    "options": [
+                        "True",
+                        "False"
+                    ],
+                    "a": "False",
+                    "exp": "They communicate a viewpoint and often use symbols."
+                },
+                {
+                    "q": "The effects of colonisation continue to influence Africa today.",
+                    "options": [
+                        "True",
+                        "False"
+                    ],
+                    "a": "True",
+                    "exp": "The presentation describes this continuing legacy."
+                }
+            ]
+        };
+
+                const totalQuestions = 20; 
+        const sliceAngle = 360 / totalQuestions;
+        let currentCategoryKey = null;
+        let currentRotation = 0;
+        let currentQuestionData = null;
+        let targetQuestionIndex = null;
+
+        let availableQuestions = {
+            'definitions': Array.from({length: totalQuestions}, (_, i) => i),
+            'terms': Array.from({length: totalQuestions}, (_, i) => i),
+            'multipleChoice': Array.from({length: totalQuestions}, (_, i) => i),
+            'trueFalse': Array.from({length: totalQuestions}, (_, i) => i)
+        };
+
+        const sliceColors = ["#0055ff", "#0088ff", "#00bfff", "#0044cc"];
+
+        function buildWheel() {
+            const wheelBg = document.getElementById('wheelBg');
+            const wheelLabels = document.getElementById('wheelLabels');
+            wheelLabels.innerHTML = '';
+            let gradientParts = [];
+            const wheelDiameter = document.querySelector('.wheel-wrapper').getBoundingClientRect().width || 380;
+            const labelRadius = Math.max(64, Math.min(145, (wheelDiameter / 2) - 45));
+
+            for (let i = 0; i < totalQuestions; i++) {
+                let startAngle = i * sliceAngle;
+                let endAngle = (i + 1) * sliceAngle;
+                let color = sliceColors[i % sliceColors.length];
+                gradientParts.push(`${color} ${startAngle}deg ${endAngle}deg`);
+
+                let label = document.createElement('div');
+                label.className = 'label';
+                let textRotation = startAngle + (sliceAngle / 2) - 90;
+                label.style.transform = `rotate(${textRotation}deg) translate(${labelRadius}px, -50%)`;
+                label.innerText = i + 1;
+                wheelLabels.appendChild(label);
+            }
+            wheelBg.style.background = `conic-gradient(${gradientParts.join(', ')})`;
+        }
+
+        buildWheel();
+
+        function selectCategory(categoryKey, btnElement) {
+            currentCategoryKey = categoryKey;
+            const buttons = document.querySelectorAll('.cat-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            btnElement.classList.add('active');
+            document.getElementById('wheelArea').style.display = 'block';
+            buildWheel();
+            document.getElementById('activeCategoryTitle').innerText = `Category: ${btnElement.innerText}`;
+            document.getElementById('questionCard').style.display = 'none';
+            document.getElementById('remainingCount').innerText = `${availableQuestions[categoryKey].length} questions remaining`;
+            currentRotation = 0;
+            document.getElementById('wheel').style.transform = `rotate(0deg)`;
+        }
+
+        function spinWheel() {
+            const spinBtn = document.getElementById('spinBtn');
+            const wheel = document.getElementById('wheel');
+            const questionCard = document.getElementById('questionCard');
+            let available = availableQuestions[currentCategoryKey];
+            
+            if (available.length === 0) {
+                alert(`Resetting ${currentCategoryKey}!`);
+                availableQuestions[currentCategoryKey] = Array.from({length: totalQuestions}, (_, i) => i);
+                available = availableQuestions[currentCategoryKey];
+            }
+
+            spinBtn.disabled = true;
+            spinBtn.innerText = "SPINNING...";
+            questionCard.style.display = 'none';
+            MayHubSounds.startWheel();
+
+            let randomArrIndex = Math.floor(Math.random() * available.length);
+            targetQuestionIndex = available[randomArrIndex];
+            available.splice(randomArrIndex, 1);
+            document.getElementById('remainingCount').innerText = `${available.length} questions remaining`;
+
+            let sliceCenterAngle = (targetQuestionIndex * sliceAngle) + (sliceAngle / 2);
+            let targetDegree = 360 - sliceCenterAngle;
+            let currentBase = Math.ceil(currentRotation / 360) * 360; 
+            currentRotation = currentBase + 1800 + targetDegree;
+            wheel.style.transform = `rotate(${currentRotation}deg)`;
+
+            setTimeout(() => {
+                MayHubSounds.stopWheel();
+                spinBtn.disabled = false;
+                spinBtn.innerText = "SPIN AGAIN";
+                currentQuestionData = gameData[currentCategoryKey][targetQuestionIndex];
+                displayQuestion(targetQuestionIndex + 1, currentQuestionData);
+            }, 4000);
+        }
+
+        function displayQuestion(questionNumber, data) {
+            document.getElementById('qNumberTag').innerText = `Question #${questionNumber}`;
+            document.getElementById('questionText').innerText = data.q;
+            const mcOptions = document.getElementById('mcOptions');
+            const revealBtn = document.getElementById('revealBtn');
+            const answerText = document.getElementById('answerText');
+            mcOptions.innerHTML = "";
+            answerText.style.display = "none";
+            
+            if (currentCategoryKey === 'multipleChoice' || currentCategoryKey === 'trueFalse') {
+                revealBtn.style.display = "none"; 
+                mcOptions.style.display = "flex";
+                data.options.forEach(opt => {
+                    let btn = document.createElement("button");
+                    btn.className = "option-btn";
+                    btn.innerText = opt;
+                    btn.onclick = () => checkInteractiveAnswer(btn, opt);
+                    mcOptions.appendChild(btn);
+                });
+            } else {
+                mcOptions.style.display = "none";
+                revealBtn.style.display = "inline-block";
+                answerText.innerHTML = `<strong>Answer:</strong> ${data.a}`;
+            }
+            document.getElementById('questionCard').style.display = "block";
+        }
+
+        function checkInteractiveAnswer(clickedBtn, selectedText) {
+            const allBtns = document.querySelectorAll('.option-btn');
+            allBtns.forEach(btn => btn.disabled = true);
+            const isCorrect = (selectedText === currentQuestionData.a || selectedText.startsWith(currentQuestionData.a.charAt(0)));
+            const answerTextDiv = document.getElementById('answerText');
+            if (isCorrect) {
+                MayHubSounds.playCorrect();
+                clickedBtn.classList.add('correct');
+                answerTextDiv.innerHTML = `<div style="color: green;">Correct!</div> ${currentQuestionData.exp || ''}`;
+            } else {
+                MayHubSounds.playWrong();
+                clickedBtn.classList.add('incorrect');
+                answerTextDiv.innerHTML = `<div style="color: red;">Incorrect!</div> The correct answer was: ${currentQuestionData.a}. ${currentQuestionData.exp || ''}`;
+            }
+            answerTextDiv.style.display = "block";
+        }
+
+        function revealAnswer() {
+            document.getElementById('revealBtn').style.display = "none";
+            document.getElementById('answerText').style.display = "block";
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,865 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-8GCWSKNDL7"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-8GCWSKNDL7');
+</script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>May Learning Hub | Colonisation Causes and Results Spin</title>
+    <style>
+        /* CSS styling identical to original */
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html, body { max-width: 100%; overflow-x: hidden; overflow-x: clip; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f0f4f8; color: #333; line-height: 1.6; display: flex; flex-direction: column; min-height: 100vh; }
+        nav { background-color: #002b5e; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; }
+        .logo { color: #fff; font-size: 1.5rem; font-weight: bold; text-decoration: none; }
+        .nav-links a { color: #cce0ff; text-decoration: none; margin-left: 1.5rem; font-weight: 500; transition: color 0.3s; }
+        .nav-links a:hover, .nav-links a.active { color: #fff; text-decoration: underline; }
+        .game-container { max-width: 900px; margin: 3rem auto; padding: 2rem; background: #fff; border-radius: 12px; box-shadow: 0 8px 30px rgba(0,0,0,0.1); border-top: 6px solid #3385ff; text-align: center; }
+        .game-title { color: #004080; font-size: 2.5rem; margin-bottom: 0.5rem; text-shadow: 1px 1px 2px rgba(0,0,0,0.1); }
+        .game-subtitle { color: #555; margin-bottom: 2rem; font-size: 1.1rem; }
+        .category-selection { margin-bottom: 2rem; }
+        .category-selection h2 { color: #004080; margin-bottom: 1rem; font-size: 1.5rem; }
+        .cat-buttons { display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem; }
+        .cat-btn { background-color: #f0f4f8; border: 2px solid #004080; color: #004080; padding: 0.8rem 1.5rem; font-size: 1.1rem; font-weight: bold; border-radius: 8px; cursor: pointer; transition: all 0.3s ease; }
+        .cat-btn:hover, .cat-btn.active { background-color: #004080; color: #fff; transform: translateY(-3px); box-shadow: 0 4px 10px rgba(0,64,128,0.2); }
+        #wheelArea { display: none; margin-top: 2rem; padding-top: 2rem; border-top: 2px dashed #ccc; animation: fadeIn 0.5s ease; }
+        #activeCategoryTitle { color: #3385ff; margin-bottom: 1.5rem; font-size: 1.8rem; }
+        .wheel-wrapper { position: relative; width: min(380px, 100%); aspect-ratio: 1; margin: 0 auto 2rem; border-radius: 50%; box-shadow: 0 20px 40px rgba(0,0,0,0.3); }
+        .pointer { position: absolute; top: -25px; left: 50%; transform: translateX(-50%); width: 0; height: 0; border-left: 22px solid transparent; border-right: 22px solid transparent; border-top: 55px solid #e60000; z-index: 10; filter: drop-shadow(0 6px 6px rgba(0,0,0,0.5)); }
+        .wheel { width: 100%; height: 100%; border-radius: 50%; border: 15px solid #001a33; position: relative; overflow: hidden; transition: transform 4s cubic-bezier(0.17, 0.67, 0.12, 0.99); box-shadow: inset 0 0 30px rgba(0,0,0,0.7), inset 0 0 0 6px rgba(255,255,255,0.3); }
+        .wheel-center { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 45px; height: 45px; background: radial-gradient(circle, #e6f0fa, #80b3ff); border-radius: 50%; border: 5px solid #001a33; box-shadow: 0 4px 10px rgba(0,0,0,0.6); z-index: 6; }
+        .wheel-bg { width: 100%; height: 100%; position: absolute; top: 0; left: 0; }
+        .wheel-labels { position: absolute; width: 100%; height: 100%; top: 0; left: 0; }
+        .label { position: absolute; top: 50%; left: 50%; transform-origin: 0 0; font-weight: bold; color: #fff; font-size: 0.95rem; text-shadow: 1px 1px 4px rgba(0,0,0,0.9); }
+        .spin-btn { background-color: #3385ff; color: #fff; border: none; padding: 1rem 3rem; font-size: 1.5rem; font-weight: bold; border-radius: 50px; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 4px 10px rgba(51,133,255,0.4); margin-bottom: 1rem; border-bottom: 4px solid #004080; }
+        .question-card { display: none; margin-top: 2rem; padding: 2rem; background-color: #f0f7ff; border: 2px solid #b3d4ff; border-radius: 8px; text-align: center; animation: fadeIn 0.5s ease; box-shadow: 0 6px 15px rgba(0,0,0,0.05); }
+        .q-number-tag { display: inline-block; background: #004080; color: #fff; padding: 0.5rem 1.5rem; border-radius: 30px; font-size: 1.1rem; margin-bottom: 1rem; font-weight: bold; text-transform: uppercase; box-shadow: 0 3px 6px rgba(0,0,0,0.2); }
+        .question-text { font-size: 1.5rem; color: #333; margin-bottom: 1.5rem; font-weight: 500; }
+        .mc-options { display: flex; flex-direction: column; gap: 0.8rem; max-width: 450px; margin: 0 auto 1.5rem; }
+        .option-btn { background: #fff; border: 2px solid #b3d4ff; padding: 1rem; font-size: 1.1rem; border-radius: 6px; cursor: pointer; transition: all 0.2s; text-align: left; font-weight: 500; color: #004080; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+        .option-btn.correct { background-color: #d4edda !important; border-color: #28a745 !important; color: #155724 !important; }
+        .option-btn.incorrect { background-color: #f8d7da !important; border-color: #dc3545 !important; color: #721c24 !important; }
+        .reveal-btn { background-color: #3385ff; color: #fff; border: none; padding: 0.8rem 2rem; font-size: 1.1rem; font-weight: bold; border-radius: 8px; cursor: pointer; transition: background 0.3s; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .answer-text { display: none; font-size: 1.2rem; color: #333; margin-top: 1.5rem; padding-top: 1.5rem; border-top: 2px dashed #b3d4ff; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        footer { text-align: center; padding: 1rem; background-color: #002b5e; color: #fff; margin-top: auto; }
+
+
+        /* Topic 2 has longer labels, so keep every control inside a phone viewport. */
+        @media (max-width: 600px) {
+            html, body { width: 100%; max-width: 100%; overflow-x: hidden; }
+            nav {
+                padding: 0.8rem 1rem;
+                flex-wrap: wrap;
+                justify-content: flex-start;
+                gap: 0.5rem 1rem;
+            }
+            .logo { flex: 1 1 100%; font-size: 1.2rem; }
+            .nav-links {
+                display: flex;
+                width: 100%;
+                flex-wrap: wrap;
+                gap: 0.35rem 1rem;
+            }
+            .nav-links a { margin-left: 0; font-size: 0.9rem; }
+            .page-header { padding: 2.5rem 1rem 2rem; }
+            .page-title, .game-title {
+                font-size: 1.75rem;
+                line-height: 1.25;
+                overflow-wrap: anywhere;
+            }
+            .page-subtitle, .game-subtitle, .grade-badge {
+                max-width: 100%;
+                overflow-wrap: anywhere;
+            }
+            .game-container, .game-header, .games-container, .category-selection, .cat-buttons {
+                min-width: 0;
+                max-width: 100%;
+            }
+            .cat-buttons { padding-left: 0; padding-right: 0; }
+            .cat-btn { min-width: 0; max-width: 100%; overflow-wrap: anywhere; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="../../../../../../index.html" class="logo">May Learning Hub</a>
+        <div class="nav-links">
+            <a href="../../../../../../index.html">Home</a>
+            <a href="../../../../../../about.html">About</a>
+        </div>
+    </nav>
+
+    <main class="game-container">
+        <h1 class="game-title">History Quiz: Causes, Conquest &amp; Results</h1>
+        <p class="game-subtitle">Spin the wheel to revise the causes of colonisation, rapid conquest, colonial results, resistance, and cultural change.</p>
+        <p style="font-size: 0.78rem; color: #52606d; margin-top: 0.45rem;">Source: Causes, Rapid Conquest & Results of Colonisation - Grade 8 Social Sciences Term 3 presentation.</p>
+
+        <div class="category-selection">
+            <h2>Step 1: Choose a Category</h2>
+            <div class="cat-buttons" id="catButtons">
+                <button class="cat-btn" onclick="selectCategory('definitions', this)">Definitions</button>
+                <button class="cat-btn" onclick="selectCategory('terms', this)">Name the Term</button>
+                <button class="cat-btn" onclick="selectCategory('multipleChoice', this)">Multiple Choice</button>
+                <button class="cat-btn" onclick="selectCategory('trueFalse', this)">True or False</button>
+            </div>
+        </div>
+
+        <div id="wheelArea">
+            <h2 id="activeCategoryTitle">Category: None</h2>
+            
+            <div class="wheel-wrapper">
+                <div class="pointer"></div>
+                <div class="wheel-center"></div>
+                <div class="wheel" id="wheel">
+                    <div class="wheel-bg" id="wheelBg"></div>
+                    <div class="wheel-labels" id="wheelLabels"></div>
+                </div>
+            </div>
+
+            <button class="spin-btn" id="spinBtn" onclick="spinWheel()">SPIN THE WHEEL</button>
+            <p id="remainingCount" style="color: #666; font-size: 0.9rem; margin-bottom: 1rem; font-weight: bold;">20 questions remaining</p>
+
+            <div class="question-card" id="questionCard">
+                <div class="q-number-tag" id="qNumberTag">Question #</div>
+                <div class="question-text" id="questionText">Loading question...</div>
+                
+                <div class="mc-options" id="mcOptions"></div>
+                
+                <button class="reveal-btn" id="revealBtn" onclick="revealAnswer()">Reveal Answer</button>
+                <div class="answer-text" id="answerText"></div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 May Learning Hub. All rights reserved.</p>
+    </footer>
+
+    <script src="../../../../../../game-audio.js"></script>
+    <script>
+        const gameData = {
+            "definitions": [
+                        {
+                                    "q": "Raw materials",
+                                    "a": "Natural resources used by factories to manufacture goods."
+                        },
+                        {
+                                    "q": "Cash crops",
+                                    "a": "Crops grown mainly for sale and profit rather than for the grower's own food."
+                        },
+                        {
+                                    "q": "Market",
+                                    "a": "A place or group of consumers where manufactured goods can be sold."
+                        },
+                        {
+                                    "q": "Nationalism",
+                                    "a": "Strong pride in one's country together with competition for national power and prestige."
+                        },
+                        {
+                                    "q": "Christian missionary",
+                                    "a": "A person who travels to spread the Christian religion."
+                        },
+                        {
+                                    "q": "Quinine",
+                                    "a": "A treatment that helped Europeans survive malaria in Africa."
+                        },
+                        {
+                                    "q": "Malaria",
+                                    "a": "A disease transmitted through the bites of infected mosquitoes."
+                        },
+                        {
+                                    "q": "Rinderpest",
+                                    "a": "A cattle disease that killed cattle, sheep and goats in Africa during the 1890s."
+                        },
+                        {
+                                    "q": "Maxim gun",
+                                    "a": "A machine gun developed in the 1880s that could fire about eleven bullets per second."
+                        },
+                        {
+                                    "q": "Immunity",
+                                    "a": "Resistance to disease."
+                        },
+                        {
+                                    "q": "Epidemic",
+                                    "a": "A widespread outbreak of an infectious disease affecting many people at the same time."
+                        },
+                        {
+                                    "q": "Turning point",
+                                    "a": "A major change in the course of history."
+                        },
+                        {
+                                    "q": "Legacy",
+                                    "a": "Lasting results or effects inherited from the past."
+                        },
+                        {
+                                    "q": "Wage labour",
+                                    "a": "Work performed in exchange for payment."
+                        },
+                        {
+                                    "q": "Artificial borders",
+                                    "a": "Colonial boundaries created by European powers rather than from existing African political communities."
+                        },
+                        {
+                                    "q": "Resistance",
+                                    "a": "Opposition to or fighting against colonial control."
+                        },
+                        {
+                                    "q": "Maji-Maji Rebellion",
+                                    "a": "The 1905 uprising against German colonial rule in German East Africa."
+                        },
+                        {
+                                    "q": "Maji water",
+                                    "a": "Special water that Kinjikitile claimed would protect people from German bullets."
+                        },
+                        {
+                                    "q": "Racism",
+                                    "a": "Judging or treating people differently because of perceived race or skin colour."
+                        },
+                        {
+                                    "q": "Colonial economic cycle",
+                                    "a": "A system in which African resources went to European factories, manufactured goods were sold, and profits flowed to Europe."
+                        }
+            ],
+            "terms": [
+                        {
+                                    "q": "European industries needed a continuous supply of these from Africa.",
+                                    "a": "Raw materials"
+                        },
+                        {
+                                    "q": "Colonial land produced crops such as cotton, cocoa and coffee mainly for sale.",
+                                    "a": "Cash crops"
+                        },
+                        {
+                                    "q": "African colonies provided consumers for European manufactured goods.",
+                                    "a": "New markets"
+                        },
+                        {
+                                    "q": "This encouraged European nations to compete for colonies as signs of power.",
+                                    "a": "Nationalism"
+                        },
+                        {
+                                    "q": "These travellers spread Christianity and often European culture.",
+                                    "a": "Christian missionaries"
+                        },
+                        {
+                                    "q": "This medicine reduced European deaths from malaria by about four-fifths.",
+                                    "a": "Quinine"
+                        },
+                        {
+                                    "q": "European governments used disagreements among kings and chiefs to divide resistance.",
+                                    "a": "Rivalries between African leaders"
+                        },
+                        {
+                                    "q": "Drought, locusts and rinderpest belong to this conquest factor.",
+                                    "a": "Natural disasters"
+                        },
+                        {
+                                    "q": "This weapon gave European armies a major advantage and fired about eleven bullets per second.",
+                                    "a": "Maxim gun"
+                        },
+                        {
+                                    "q": "Smallpox outbreaks belong to this factor that weakened communities.",
+                                    "a": "New diseases"
+                        },
+                        {
+                                    "q": "The long-lasting effects of colonialism.",
+                                    "a": "Legacy"
+                        },
+                        {
+                                    "q": "Colonial governments took this from African communities and rulers.",
+                                    "a": "Land"
+                        },
+                        {
+                                    "q": "Africans often did difficult work for very little pay under this system.",
+                                    "a": "Low-paid wage labour"
+                        },
+                        {
+                                    "q": "These colonial boundaries later became borders of independent African states.",
+                                    "a": "Artificial borders"
+                        },
+                        {
+                                    "q": "This 1905 uprising opposed German colonial rule.",
+                                    "a": "Maji-Maji Rebellion"
+                        },
+                        {
+                                    "q": "This prophet spread belief in protective water.",
+                                    "a": "Kinjikitile"
+                        },
+                        {
+                                    "q": "The colony where the Maji-Maji Rebellion occurred.",
+                                    "a": "German East Africa"
+                        },
+                        {
+                                    "q": "The crop local people were forced to grow in unsuitable soil.",
+                                    "a": "Cotton"
+                        },
+                        {
+                                    "q": "These beliefs supported unequal treatment by claiming Europeans were superior.",
+                                    "a": "Racism"
+                        },
+                        {
+                                    "q": "African resources to Europe, factory production, sales and European profit.",
+                                    "a": "Colonial economic cycle"
+                        }
+            ],
+            "multipleChoice": [
+                        {
+                                    "q": "Which was one of the four main causes of European colonisation?",
+                                    "options": [
+                                                "Search for raw materials and profits",
+                                                "African independence",
+                                                "The end of factories",
+                                                "Fixed African borders"
+                                    ],
+                                    "a": "Search for raw materials and profits",
+                                    "exp": "Search for raw materials and profits."
+                        },
+                        {
+                                    "q": "Why did European factories need African colonies?",
+                                    "options": [
+                                                "To reduce production",
+                                                "To end overseas trade",
+                                                "To protect African borders",
+                                                "For raw materials and markets"
+                                    ],
+                                    "a": "For raw materials and markets",
+                                    "exp": "For raw materials and markets."
+                        },
+                        {
+                                    "q": "Which item was an African raw material named in the presentation?",
+                                    "options": [
+                                                "Motorcar",
+                                                "Electric lamp",
+                                                "Rubber",
+                                                "Steel railway"
+                                    ],
+                                    "a": "Rubber",
+                                    "exp": "Rubber."
+                        },
+                        {
+                                    "q": "What did colonies represent to competing European nations?",
+                                    "options": [
+                                                "Equal wages",
+                                                "Power and prestige",
+                                                "African self-rule",
+                                                "The end of nationalism"
+                                    ],
+                                    "a": "Power and prestige",
+                                    "exp": "Power and prestige."
+                        },
+                        {
+                                    "q": "What did missionaries want to spread?",
+                                    "options": [
+                                                "Christianity",
+                                                "Rinderpest",
+                                                "Artificial borders",
+                                                "The Maxim gun"
+                                    ],
+                                    "a": "Christianity",
+                                    "exp": "Christianity."
+                        },
+                        {
+                                    "q": "Why was quinine important?",
+                                    "options": [
+                                                "It cured rinderpest",
+                                                "It drew borders",
+                                                "It created markets",
+                                                "It treated malaria"
+                                    ],
+                                    "a": "It treated malaria",
+                                    "exp": "It treated malaria."
+                        },
+                        {
+                                    "q": "How did African rivalries help Europeans?",
+                                    "options": [
+                                                "They removed European weapons",
+                                                "They ended colonial expansion",
+                                                "Europeans formed alliances and divided resistance",
+                                                "They united all African rulers"
+                                    ],
+                                    "a": "Europeans formed alliances and divided resistance",
+                                    "exp": "Europeans formed alliances and divided resistance."
+                        },
+                        {
+                                    "q": "What percentage of Africa's cattle died during rinderpest?",
+                                    "options": [
+                                                "About 50%",
+                                                "About 95%",
+                                                "About 5%",
+                                                "About 25%"
+                                    ],
+                                    "a": "About 95%",
+                                    "exp": "About 95%."
+                        },
+                        {
+                                    "q": "About how many bullets could a Maxim gun fire each second?",
+                                    "options": [
+                                                "Eleven",
+                                                "One",
+                                                "Three",
+                                                "Fifty"
+                                    ],
+                                    "a": "Eleven",
+                                    "exp": "Eleven."
+                        },
+                        {
+                                    "q": "Why did some Europeans have more immunity to infectious disease?",
+                                    "options": [
+                                                "They never encountered disease",
+                                                "Quinine prevented every disease",
+                                                "They lived only in colonies",
+                                                "They had experienced repeated outbreaks"
+                                    ],
+                                    "a": "They had experienced repeated outbreaks",
+                                    "exp": "They had experienced repeated outbreaks."
+                        },
+                        {
+                                    "q": "Which was a result of colonisation?",
+                                    "options": [
+                                                "The end of European markets",
+                                                "Natural African borders",
+                                                "Loss of African land and resources",
+                                                "Equal control of profits"
+                                    ],
+                                    "a": "Loss of African land and resources",
+                                    "exp": "Loss of African land and resources."
+                        },
+                        {
+                                    "q": "Why are many colonial borders called artificial?",
+                                    "options": [
+                                                "They disappeared at independence",
+                                                "Europeans created them without following existing African communities",
+                                                "They were drawn by African kingdoms only",
+                                                "They followed every natural feature"
+                                    ],
+                                    "a": "Europeans created them without following existing African communities",
+                                    "exp": "Europeans created them without following existing African communities."
+                        },
+                        {
+                                    "q": "What caused anger before the Maji-Maji Rebellion?",
+                                    "options": [
+                                                "Forced difficult labour for very low pay",
+                                                "High wages for cotton workers",
+                                                "African control of plantations",
+                                                "The end of German rule"
+                                    ],
+                                    "a": "Forced difficult labour for very low pay",
+                                    "exp": "Forced difficult labour for very low pay."
+                        },
+                        {
+                                    "q": "What happened to Kinjikitile?",
+                                    "options": [
+                                                "He became a German governor",
+                                                "He moved to Europe",
+                                                "He introduced quinine",
+                                                "German soldiers captured and hanged him"
+                                    ],
+                                    "a": "German soldiers captured and hanged him",
+                                    "exp": "German soldiers captured and hanged him."
+                        },
+                        {
+                                    "q": "What did resistance fighters attack and burn?",
+                                    "options": [
+                                                "African independent parliaments",
+                                                "Railway stations in Europe",
+                                                "Missionaries and colonial trading posts",
+                                                "European factories in Europe"
+                                    ],
+                                    "a": "Missionaries and colonial trading posts",
+                                    "exp": "Missionaries and colonial trading posts."
+                        },
+                        {
+                                    "q": "Which European cultural feature was introduced?",
+                                    "options": [
+                                                "African political independence",
+                                                "European languages and writing",
+                                                "Maji water",
+                                                "Rinderpest"
+                                    ],
+                                    "a": "European languages and writing",
+                                    "exp": "European languages and writing."
+                        },
+                        {
+                                    "q": "How did colonial labour reinforce racism?",
+                                    "options": [
+                                                "Africans were associated with service while whites held authority",
+                                                "All workers received equal status",
+                                                "Africans controlled colonial governments",
+                                                "Race no longer influenced treatment"
+                                    ],
+                                    "a": "Africans were associated with service while whites held authority",
+                                    "exp": "Africans were associated with service while whites held authority."
+                        },
+                        {
+                                    "q": "What does the Gold Diggers cartoon suggest?",
+                                    "options": [
+                                                "Africa had no resources",
+                                                "Colonialism protected African ownership",
+                                                "Only Africa profited from gold",
+                                                "Africa's gold was extracted for wealth elsewhere"
+                                    ],
+                                    "a": "Africa's gold was extracted for wealth elsewhere",
+                                    "exp": "Africa's gold was extracted for wealth elsewhere."
+                        },
+                        {
+                                    "q": "Where were African raw materials processed?",
+                                    "options": [
+                                                "Colonial government offices",
+                                                "Mission stations only",
+                                                "European factories",
+                                                "Only African farms"
+                                    ],
+                                    "a": "European factories",
+                                    "exp": "European factories."
+                        },
+                        {
+                                    "q": "What followed African resistance in the lesson's cause-and-result chain?",
+                                    "options": [
+                                                "The end of racial prejudice",
+                                                "Long-lasting political, economic and cultural consequences",
+                                                "Immediate equal independence",
+                                                "The disappearance of colonial borders"
+                                    ],
+                                    "a": "Long-lasting political, economic and cultural consequences",
+                                    "exp": "Long-lasting political, economic and cultural consequences."
+                        }
+            ],
+            "trueFalse": [
+                        {
+                                    "q": "European countries wanted direct control of African raw materials.",
+                                    "options": [
+                                                "True",
+                                                "False"
+                                    ],
+                                    "a": "True",
+                                    "exp": "Resources supplied European industries."
+                        },
+                        {
+                                    "q": "African colonies were used only as sources of raw materials, never as markets.",
+                                    "options": [
+                                                "True",
+                                                "False"
+                                    ],
+                                    "a": "False",
+                                    "exp": "Colonies also became markets for European manufactured goods."
+                        },
+                        {
+                                    "q": "Nationalism encouraged rivalry between European countries.",
+                                    "options": [
+                                                "True",
+                                                "False"
+                                    ],
+                                    "a": "True",
+                                    "exp": "Colonies were seen as signs of power and prestige."
+                        },
+                        {
+                                    "q": "Missionaries only spread religion and never promoted European culture.",
+                                    "options": [
+                                                "True",
+                                                "False"
+                                    ],
+                                    "a": "False",
+                                    "exp": "Many also promoted European customs and ways of life."
+                        },
+                        {
+                                    "q": "Malaria was transmitted through infected mosquito bites.",
+                                    "options": [
+                                                "True",
+                                                "False"
+                                    ],
+                                    "a": "True",
+                                    "exp": "It was a major barrier to European travel and settlement."
+                        },
+                        {
+                                    "q": "Quinine made it harder for Europeans to enter malaria-affected regions.",
+                                    "options": [
+                                                "True",
+                                                "False"
+                                    ],
+                                    "a": "False",
+                                    "exp": "It reduced malaria deaths and made expansion easier."
+                        },
+                        {
+                                    "q": "European powers sometimes used African rivalries to divide resistance.",
+                                    "options": [
+                                                "True",
+                                                "False"
+                                    ],
+                                    "a": "True",
+                                    "exp": "They formed alliances with one group against another."
+                        },
+                        {
+                                    "q": "The drought after 1895 improved crop production.",
+                                    "options": [
+                                                "True",
+                                                "False"
+                                    ],
+                                    "a": "False",
+                                    "exp": "It caused crop failure and major food shortages."
+                        },
+                        {
+                                    "q": "Locust plagues worsened hunger by destroying crops.",
+                                    "options": [
+                                                "True",
+                                                "False"
+                                    ],
+                                    "a": "True",
+                                    "exp": "They deepened the food crisis."
+                        },
+                        {
+                                    "q": "Rinderpest affected only wild birds.",
+                                    "options": [
+                                                "True",
+                                                "False"
+                                    ],
+                                    "a": "False",
+                                    "exp": "It killed cattle, sheep and goats."
+                        },
+                        {
+                                    "q": "European countries agreed not to sell Maxim guns to Africans.",
+                                    "options": [
+                                                "True",
+                                                "False"
+                                    ],
+                                    "a": "True",
+                                    "exp": "This preserved their military advantage."
+                        },
+                        {
+                                    "q": "Smallpox epidemics strengthened African resistance.",
+                                    "options": [
+                                                "True",
+                                                "False"
+                                    ],
+                                    "a": "False",
+                                    "exp": "They weakened communities."
+                        },
+                        {
+                                    "q": "Colonialism is described as a turning point in African history.",
+                                    "options": [
+                                                "True",
+                                                "False"
+                                    ],
+                                    "a": "True",
+                                    "exp": "It changed political and economic control."
+                        },
+                        {
+                                    "q": "A legacy is a short-lived result with no effect after independence.",
+                                    "options": [
+                                                "True",
+                                                "False"
+                                    ],
+                                    "a": "False",
+                                    "exp": "A legacy is a lasting effect inherited from the past."
+                        },
+                        {
+                                    "q": "Colonial governments introduced laws controlling land use and labour.",
+                                    "options": [
+                                                "True",
+                                                "False"
+                                    ],
+                                    "a": "True",
+                                    "exp": "Africans lost control of land and work."
+                        },
+                        {
+                                    "q": "Artificial borders always followed existing African political communities.",
+                                    "options": [
+                                                "True",
+                                                "False"
+                                    ],
+                                    "a": "False",
+                                    "exp": "Europeans created them during colonial rule."
+                        },
+                        {
+                                    "q": "Africans simply accepted colonisation without resistance.",
+                                    "options": [
+                                                "True",
+                                                "False"
+                                    ],
+                                    "a": "False",
+                                    "exp": "Many communities actively resisted colonial rule."
+                        },
+                        {
+                                    "q": "The Maji-Maji Rebellion began in 1905.",
+                                    "options": [
+                                                "True",
+                                                "False"
+                                    ],
+                                    "a": "True",
+                                    "exp": "It opposed German rule in German East Africa."
+                        },
+                        {
+                                    "q": "Colonised Africans were never pressured to adopt European customs.",
+                                    "options": [
+                                                "True",
+                                                "False"
+                                    ],
+                                    "a": "False",
+                                    "exp": "Missionaries and governments promoted European ways of life."
+                        },
+                        {
+                                    "q": "Colonial racial beliefs were used to support unequal treatment.",
+                                    "options": [
+                                                "True",
+                                                "False"
+                                    ],
+                                    "a": "True",
+                                    "exp": "They contributed to racism and racial prejudice."
+                        }
+            ]
+};
+
+        const totalQuestions = 20; 
+        const sliceAngle = 360 / totalQuestions;
+        let currentCategoryKey = null;
+        let currentRotation = 0;
+        let currentQuestionData = null;
+        let targetQuestionIndex = null;
+
+        let availableQuestions = {
+            'definitions': Array.from({length: totalQuestions}, (_, i) => i),
+            'terms': Array.from({length: totalQuestions}, (_, i) => i),
+            'multipleChoice': Array.from({length: totalQuestions}, (_, i) => i),
+            'trueFalse': Array.from({length: totalQuestions}, (_, i) => i)
+        };
+
+        const sliceColors = ["#0055ff", "#0088ff", "#00bfff", "#0044cc"];
+
+        function buildWheel() {
+            const wheelBg = document.getElementById('wheelBg');
+            const wheelLabels = document.getElementById('wheelLabels');
+            wheelLabels.innerHTML = '';
+            let gradientParts = [];
+            const wheelDiameter = document.querySelector('.wheel-wrapper').getBoundingClientRect().width || 380;
+            const labelRadius = Math.max(64, Math.min(145, (wheelDiameter / 2) - 45));
+
+            for (let i = 0; i < totalQuestions; i++) {
+                let startAngle = i * sliceAngle;
+                let endAngle = (i + 1) * sliceAngle;
+                let color = sliceColors[i % sliceColors.length];
+                gradientParts.push(`${color} ${startAngle}deg ${endAngle}deg`);
+
+                let label = document.createElement('div');
+                label.className = 'label';
+                let textRotation = startAngle + (sliceAngle / 2) - 90;
+                label.style.transform = `rotate(${textRotation}deg) translate(${labelRadius}px, -50%)`;
+                label.innerText = i + 1;
+                wheelLabels.appendChild(label);
+            }
+            wheelBg.style.background = `conic-gradient(${gradientParts.join(', ')})`;
+        }
+
+        buildWheel();
+
+        function selectCategory(categoryKey, btnElement) {
+            currentCategoryKey = categoryKey;
+            const buttons = document.querySelectorAll('.cat-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            btnElement.classList.add('active');
+            document.getElementById('wheelArea').style.display = 'block';
+            buildWheel();
+            document.getElementById('activeCategoryTitle').innerText = `Category: ${btnElement.innerText}`;
+            document.getElementById('questionCard').style.display = 'none';
+            document.getElementById('remainingCount').innerText = `${availableQuestions[categoryKey].length} questions remaining`;
+            currentRotation = 0;
+            document.getElementById('wheel').style.transform = `rotate(0deg)`;
+        }
+
+        function spinWheel() {
+            const spinBtn = document.getElementById('spinBtn');
+            const wheel = document.getElementById('wheel');
+            const questionCard = document.getElementById('questionCard');
+            let available = availableQuestions[currentCategoryKey];
+            
+            if (available.length === 0) {
+                alert(`Resetting ${currentCategoryKey}!`);
+                availableQuestions[currentCategoryKey] = Array.from({length: totalQuestions}, (_, i) => i);
+                available = availableQuestions[currentCategoryKey];
+            }
+
+            spinBtn.disabled = true;
+            spinBtn.innerText = "SPINNING...";
+            questionCard.style.display = 'none';
+            MayHubSounds.startWheel();
+
+            let randomArrIndex = Math.floor(Math.random() * available.length);
+            targetQuestionIndex = available[randomArrIndex];
+            available.splice(randomArrIndex, 1);
+            document.getElementById('remainingCount').innerText = `${available.length} questions remaining`;
+
+            let sliceCenterAngle = (targetQuestionIndex * sliceAngle) + (sliceAngle / 2);
+            let targetDegree = 360 - sliceCenterAngle;
+            let currentBase = Math.ceil(currentRotation / 360) * 360; 
+            currentRotation = currentBase + 1800 + targetDegree;
+            wheel.style.transform = `rotate(${currentRotation}deg)`;
+
+            setTimeout(() => {
+                MayHubSounds.stopWheel();
+                spinBtn.disabled = false;
+                spinBtn.innerText = "SPIN AGAIN";
+                currentQuestionData = gameData[currentCategoryKey][targetQuestionIndex];
+                displayQuestion(targetQuestionIndex + 1, currentQuestionData);
+            }, 4000);
+        }
+
+        function displayQuestion(questionNumber, data) {
+            document.getElementById('qNumberTag').innerText = `Question #${questionNumber}`;
+            document.getElementById('questionText').innerText = data.q;
+            const mcOptions = document.getElementById('mcOptions');
+            const revealBtn = document.getElementById('revealBtn');
+            const answerText = document.getElementById('answerText');
+            mcOptions.innerHTML = "";
+            answerText.style.display = "none";
+            
+            if (currentCategoryKey === 'multipleChoice' || currentCategoryKey === 'trueFalse') {
+                revealBtn.style.display = "none"; 
+                mcOptions.style.display = "flex";
+                data.options.forEach(opt => {
+                    let btn = document.createElement("button");
+                    btn.className = "option-btn";
+                    btn.innerText = opt;
+                    btn.onclick = () => checkInteractiveAnswer(btn, opt);
+                    mcOptions.appendChild(btn);
+                });
+            } else {
+                mcOptions.style.display = "none";
+                revealBtn.style.display = "inline-block";
+                answerText.innerHTML = `<strong>Answer:</strong> ${data.a}`;
+            }
+            document.getElementById('questionCard').style.display = "block";
+        }
+
+        function checkInteractiveAnswer(clickedBtn, selectedText) {
+            const allBtns = document.querySelectorAll('.option-btn');
+            allBtns.forEach(btn => btn.disabled = true);
+            const isCorrect = (selectedText === currentQuestionData.a || selectedText.startsWith(currentQuestionData.a.charAt(0)));
+            const answerTextDiv = document.getElementById('answerText');
+            if (isCorrect) {
+                MayHubSounds.playCorrect();
+                clickedBtn.classList.add('correct');
+                answerTextDiv.innerHTML = `<div style="color: green;">Correct!</div> ${currentQuestionData.exp || ''}`;
+            } else {
+                MayHubSounds.playWrong();
+                clickedBtn.classList.add('incorrect');
+                answerTextDiv.innerHTML = `<div style="color: red;">Incorrect!</div> The correct answer was: ${currentQuestionData.a}. ${currentQuestionData.exp || ''}`;
+            }
+            answerTextDiv.style.display = "block";
+        }
+
+        function revealAnswer() {
+            document.getElementById('revealBtn').style.display = "none";
+            document.getElementById('answerText').style.display = "block";
+        }
+    </script>
+</body>
+</html>

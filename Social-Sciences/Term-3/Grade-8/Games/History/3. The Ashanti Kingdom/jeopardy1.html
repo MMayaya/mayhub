@@ -1,0 +1,635 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-8GCWSKNDL7"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-8GCWSKNDL7');
+</script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>May Learning Hub | The Ashanti Kingdom Jeopardy</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f0f4f8; color: #333; line-height: 1.6; display: flex; flex-direction: column; min-height: 100vh; overflow-x: hidden; }
+        nav { background-color: #002b5e; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; }
+        .logo { color: #fff; font-size: 1.5rem; font-weight: bold; text-decoration: none; }
+        .nav-links a { color: #cce0ff; text-decoration: none; margin-left: 1.5rem; font-weight: 500; transition: color 0.3s; }
+        .nav-links a:hover, .nav-links a.active { color: #fff; text-decoration: underline; }
+        .game-header { text-align: center; padding: 2rem 1rem 1rem; }
+        .game-title { color: #004080; font-size: 2.2rem; margin-bottom: 0.5rem; }
+        .game-subtitle { color: #555; margin-bottom: 1.5rem; font-size: 1.1rem; }
+
+        /* Player name setup */
+        .name-setup { max-width: 1000px; margin: 0 auto 1rem; padding: 0 10px; }
+        .name-box {
+            background: #ffffff;
+            border: 2px solid #b3d4ff;
+            border-radius: 12px;
+            padding: 1rem;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+        .name-box h2 { color: #002b5e; font-size: 1.2rem; }
+        .name-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.6rem; }
+        .name-input {
+            width: 100%;
+            padding: 0.7rem 0.8rem;
+            border-radius: 10px;
+            border: 2px solid #cce0ff;
+            font-size: 1rem;
+            outline: none;
+        }
+        .name-input:focus { border-color: #3385ff; }
+        .name-actions { display: flex; gap: 0.6rem; flex-wrap: wrap; }
+
+        .btn-save {
+            background: #28a745;
+            color: #fff;
+            border: none;
+            padding: 0.75rem 1rem;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.2s;
+        }
+        .btn-save:hover { background: #1e7e34; }
+
+        /* NEW: small "Edit names" button (hidden until saved) */
+        .btn-edit {
+            background: #004080;
+            color: #fff;
+            border: none;
+            padding: 0.75rem 1rem;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.2s;
+            display: none;
+        }
+        .btn-edit:hover { background: #3385ff; }
+
+        .btn-reset {
+            background: #dc3545;
+            color: #fff;
+            border: none;
+            padding: 0.75rem 1rem;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.2s;
+        }
+        .btn-reset:hover { background: #bd2130; }
+
+        .hint { color: #555; font-size: 0.95rem; }
+
+        /* NEW: Hide the whole setup section when saved */
+        .hidden { display: none !important; }
+
+        @media (max-width: 800px) {
+            .name-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        .player-tabs { display: flex; justify-content: center; gap: 0.5rem; max-width: 1000px; margin: 0 auto 1.5rem; padding: 0 10px; flex-wrap: wrap; }
+        .tab-btn { flex: 1; min-width: 100px; background: #e6f0fa; color: #004080; border: 2px solid #b3d4ff; padding: 0.8rem; font-size: 1.1rem; font-weight: bold; border-radius: 8px; cursor: pointer; transition: all 0.3s; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        .tab-btn:hover { background: #cce0ff; }
+        .tab-btn.active { background: #3385ff; color: #fff; border-color: #002b5e; transform: translateY(-3px); box-shadow: 0 6px 15px rgba(51,133,255,0.3); }
+
+        .carousel-container { width: 100%; overflow: hidden; padding-bottom: 3rem; }
+        .carousel-track { display: flex; width: 400%; transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1); }
+        .player-slide { width: 25%; padding: 0 10px; display: flex; flex-direction: column; align-items: center; }
+        .score-board { background: #002b5e; color: #fff; display: inline-block; padding: 0.8rem 2.5rem; border-radius: 30px; font-size: 1.6rem; font-weight: bold; border: 4px solid #3385ff; box-shadow: 0 4px 10px rgba(0,0,0,0.2); margin-bottom: 2rem; transition: all 0.3s; }
+        .score-board span { color: #ffc107; }
+
+        .jeopardy-board { width: 100%; max-width: 1000px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; background: #001a33; padding: 8px; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
+        .category-header { background: #004080; color: #fff; text-align: center; font-weight: bold; padding: 1rem 0.5rem; font-size: 1.1rem; border-radius: 6px; border-bottom: 4px solid #3385ff; display: flex; align-items: center; justify-content: center; min-height: 80px; text-transform: uppercase; }
+        .point-btn { background: #3385ff; color: #fff; font-size: 1.6rem; font-weight: bold; border: none; padding: 1.5rem 0; border-radius: 6px; cursor: pointer; transition: all 0.2s; text-shadow: 1px 1px 2px rgba(0,0,0,0.5); box-shadow: inset 0 0 10px rgba(0,0,0,0.2); }
+        .point-btn:hover:not(:disabled) { background: #1a75ff; transform: scale(0.96); }
+        .point-btn:disabled { background: #002b5e; color: #001a33; cursor: not-allowed; text-shadow: none; box-shadow: none; }
+
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,26,51,0.9); align-items: center; justify-content: center; z-index: 100; animation: fadeIn 0.3s; padding: 1rem; }
+        .modal-content { background: #fff; padding: 2.5rem; border-radius: 12px; text-align: center; max-width: 600px; width: 100%; border-top: 8px solid #004080; box-shadow: 0 10px 40px rgba(0,0,0,0.5); display: flex; flex-direction: column; gap: 1.5rem; }
+        .modal-category { color: #3385ff; font-weight: bold; text-transform: uppercase; letter-spacing: 1px; }
+        .modal-question { font-size: 1.6rem; color: #002b5e; font-weight: bold; min-height: 100px; display: flex; align-items: center; justify-content: center; }
+        .modal-answer-area { display: none; border-top: 2px dashed #ccc; padding-top: 1.5rem; }
+        .modal-answer { font-size: 1.4rem; color: #28a745; font-weight: bold; margin-bottom: 1.5rem; }
+        .btn-reveal { background: #004080; color: #fff; border: none; padding: 1rem 2rem; font-size: 1.2rem; font-weight: bold; border-radius: 8px; cursor: pointer; transition: 0.3s; width: 100%; }
+        .btn-reveal:hover { background: #3385ff; }
+        .judgement-area { display: flex; flex-direction: column; gap: 1rem; }
+        .judgement-buttons { display: flex; gap: 1rem; }
+        .btn-correct { flex: 1; background: #28a745; color: #fff; border: none; padding: 1rem; font-size: 1.1rem; font-weight: bold; border-radius: 8px; cursor: pointer; transition: 0.3s; }
+        .btn-correct:hover { background: #1e7e34; }
+        .btn-incorrect { flex: 1; background: #dc3545; color: #fff; border: none; padding: 1rem; font-size: 1.1rem; font-weight: bold; border-radius: 8px; cursor: pointer; transition: 0.3s; }
+        .btn-incorrect:hover { background: #bd2130; }
+
+        .steal-area { display: none; background: #fff3cd; border: 2px solid #ffeeba; padding: 1.5rem; border-radius: 8px; margin-top: 1rem; animation: fadeIn 0.4s; }
+        .steal-title { color: #856404; font-weight: bold; font-size: 1.2rem; margin-bottom: 1rem; }
+        .steal-buttons { display: flex; flex-wrap: wrap; gap: 0.5rem; justify-content: center; }
+        .btn-steal { flex: 1; min-width: 100px; background: #ffc107; color: #000; border: none; padding: 0.8rem; font-weight: bold; border-radius: 6px; cursor: pointer; transition: 0.2s; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        .btn-steal:hover { background: #e0a800; transform: translateY(-2px); }
+
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        footer { text-align: center; padding: 1rem; background-color: #002b5e; color: #fff; margin-top: auto; }
+
+
+        /* Topic 2 has longer labels, so keep every control inside a phone viewport. */
+        @media (max-width: 600px) {
+            html, body { width: 100%; max-width: 100%; overflow-x: hidden; }
+            nav {
+                padding: 0.8rem 1rem;
+                flex-wrap: wrap;
+                justify-content: flex-start;
+                gap: 0.5rem 1rem;
+            }
+            .logo { flex: 1 1 100%; font-size: 1.2rem; }
+            .nav-links {
+                display: flex;
+                width: 100%;
+                flex-wrap: wrap;
+                gap: 0.35rem 1rem;
+            }
+            .nav-links a { margin-left: 0; font-size: 0.9rem; }
+            .page-header { padding: 2.5rem 1rem 2rem; }
+            .page-title, .game-title {
+                font-size: 1.75rem;
+                line-height: 1.25;
+                overflow-wrap: anywhere;
+            }
+            .page-subtitle, .game-subtitle, .grade-badge {
+                max-width: 100%;
+                overflow-wrap: anywhere;
+            }
+            .game-container, .game-header, .games-container, .category-selection, .cat-buttons {
+                min-width: 0;
+                max-width: 100%;
+            }
+            .cat-buttons { padding-left: 0; padding-right: 0; }
+            .cat-btn { min-width: 0; max-width: 100%; overflow-wrap: anywhere; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="../../../../../../index.html" class="logo">May Learning Hub</a>
+        <div class="nav-links">
+            <a href="../../../../../../index.html">Home</a>
+            <a href="../../../../../../about.html">About</a>
+        </div>
+    </nav>
+
+    <header class="game-header">
+        <h1 class="game-title">Grade 8 History Jeopardy</h1>
+        <p class="game-subtitle">The Ashanti Kingdom</p>
+        <p style="font-size: 0.78rem; color: #52606d; margin-top: 0.45rem;">Source: The Ashanti Kingdom - Grade 8 Social Sciences Term 3 presentation.</p>
+    </header>
+
+    <section class="name-setup" id="nameSetupSection">
+        <div class="name-box">
+            <h2>Enter Player Names</h2>
+            <div class="name-grid">
+                <input class="name-input" id="nameInput-0" type="text" maxlength="20" placeholder="Player 1 name" />
+                <input class="name-input" id="nameInput-1" type="text" maxlength="20" placeholder="Player 2 name" />
+                <input class="name-input" id="nameInput-2" type="text" maxlength="20" placeholder="Player 3 name" />
+                <input class="name-input" id="nameInput-3" type="text" maxlength="20" placeholder="Player 4 name" />
+            </div>
+
+            <div class="name-actions">
+                <button class="btn-save" id="btnSaveNames" onclick="savePlayerNames()">Save Names</button>
+                <button class="btn-edit" id="btnEditNames" onclick="showNameEditor()">Edit Names</button>
+                <button class="btn-reset" onclick="resetPlayerNames()">Reset</button>
+            </div>
+
+            <p class="hint" id="nameHint">After you save, this section will disappear to create space.</p>
+        </div>
+    </section>
+
+    <div class="player-tabs">
+        <button class="tab-btn active" id="tab-0" onclick="switchPlayer(0)">Player 1</button>
+        <button class="tab-btn" id="tab-1" onclick="switchPlayer(1)">Player 2</button>
+        <button class="tab-btn" id="tab-2" onclick="switchPlayer(2)">Player 3</button>
+        <button class="tab-btn" id="tab-3" onclick="switchPlayer(3)">Player 4</button>
+    </div>
+
+    <div class="carousel-container">
+        <div class="carousel-track" id="carouselTrack">
+            <div class="player-slide">
+                <div class="score-board"><span id="label-0">Player 1</span> Score: <span id="score-0">0</span></div>
+                <div class="jeopardy-board" id="board-0"></div>
+            </div>
+            <div class="player-slide">
+                <div class="score-board"><span id="label-1">Player 2</span> Score: <span id="score-1">0</span></div>
+                <div class="jeopardy-board" id="board-1"></div>
+            </div>
+            <div class="player-slide">
+                <div class="score-board"><span id="label-2">Player 3</span> Score: <span id="score-2">0</span></div>
+                <div class="jeopardy-board" id="board-2"></div>
+            </div>
+            <div class="player-slide">
+                <div class="score-board"><span id="label-3">Player 4</span> Score: <span id="score-3">0</span></div>
+                <div class="jeopardy-board" id="board-3"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="questionModal">
+        <div class="modal-content">
+            <div class="modal-category" id="modalCategory">Category</div>
+            <div class="modal-question" id="modalQuestion">Question</div>
+            <button class="btn-reveal" id="btnReveal" onclick="revealAnswer()">Reveal Answer</button>
+            <div class="modal-answer-area" id="answerArea">
+                <div class="modal-answer" id="modalAnswer">Answer</div>
+                <div class="judgement-area" id="judgementArea">
+                    <p>Did <strong id="activePlayerName">Player X</strong> get it right?</p>
+                    <div class="judgement-buttons">
+                        <button class="btn-incorrect" onclick="judgeActivePlayer(false)">Wrong</button>
+                        <button class="btn-correct" onclick="judgeActivePlayer(true)">Correct!</button>
+                    </div>
+                </div>
+                <div class="steal-area" id="stealArea">
+                    <div class="steal-title" id="stealTitle">STEAL OPPORTUNITY!</div>
+                    <div class="steal-buttons" id="stealButtons"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer><p>&copy; 2026 May Learning Hub. All rights reserved.</p></footer>
+
+    <script src="../../../../../../game-audio.js"></script>
+    <script>
+        const historyCategories = [
+            {
+                        "name": "West African Trade and Gold",
+                        "questions": [
+                                    {
+                                                "points": 10,
+                                                "q": "Name four products made or traded in West Africa.",
+                                                "a": "Any four of millet, sorghum, wheat, kola nuts, livestock, ivory, ostrich feathers, cloth and gold."
+                                    },
+                                    {
+                                                "points": 20,
+                                                "q": "With which three outside regions did West African merchants trade?",
+                                                "a": "The Sahara Desert, Europe and the Middle East."
+                                    },
+                                    {
+                                                "points": 30,
+                                                "q": "Name four imported goods that reached West Africa.",
+                                                "a": "Any four of salt, copper, brass, silver, tin, textiles, books, jewellery, tea, coffee, sugar and spices."
+                                    },
+                                    {
+                                                "points": 40,
+                                                "q": "What two facts show West Africa's importance in the global gold trade?",
+                                                "a": "Africa produced about two-thirds of all gold ever mined, and West Africa led world supply from the 11th to 17th centuries."
+                                    },
+                                    {
+                                                "points": 50,
+                                                "q": "Explain why pre-colonial West Africa cannot be described as economically isolated.",
+                                                "a": "It had productive kingdoms, regional trade and international exchange with merchants from the Sahara, Europe and the Middle East."
+                                    }
+                        ]
+            },
+            {
+                        "name": "Ashanti Power and Early Contact",
+                        "questions": [
+                                    {
+                                                "points": 10,
+                                                "q": "What were the titles of the Ashanti king and Queen Mother?",
+                                                "a": "The Asantehene and the Asantewaa."
+                                    },
+                                    {
+                                                "points": 20,
+                                                "q": "Which two sources of wealth made the Ashanti powerful?",
+                                                "a": "Control of coastal trade routes and some of Africa's richest gold mines."
+                                    },
+                                    {
+                                                "points": 30,
+                                                "q": "Why did Europeans call the region the Gold Coast?",
+                                                "a": "They were astonished by the quantity of gold and associated the coast with mineral wealth."
+                                    },
+                                    {
+                                                "points": 40,
+                                                "q": "What role did Elmina Castle play in the slave trade?",
+                                                "a": "Enslaved people were held in barracoons there before ships transported them across the Atlantic."
+                                    },
+                                    {
+                                                "points": 50,
+                                                "q": "How did Ashanti trade with Europeans change over time?",
+                                                "a": "Portuguese interest moved from gold to enslaved people; exchanges included horses, guns and later cloth, metal, copperware and brassware."
+                                    }
+                        ]
+            },
+            {
+                        "name": "Golden Stool and Resistance",
+                        "questions": [
+                                    {
+                                                "points": 10,
+                                                "q": "What did the Golden Stool symbolise?",
+                                                "a": "Ashanti unity, nationhood, political legitimacy and the soul of the people."
+                                    },
+                                    {
+                                                "points": 20,
+                                                "q": "Name two sacred rules surrounding the Golden Stool.",
+                                                "a": "No one could sit on it, and it could not touch the ground; it rested on its own chair."
+                                    },
+                                    {
+                                                "points": 30,
+                                                "q": "What happened during the British occupation of Kumasi in 1896?",
+                                                "a": "Prempeh I, chiefs and elders were exiled, while followers hid the Golden Stool."
+                                    },
+                                    {
+                                                "points": 40,
+                                                "q": "Why did Hodgson's 1900 demand provoke resistance?",
+                                                "a": "He demanded the sacred Stool so he could sit on it, insulting Ashanti spirit, unity and nationhood."
+                                    },
+                                    {
+                                                "points": 50,
+                                                "q": "Explain Yaa Asantewaa's role and the outcome of the War of the Golden Stool.",
+                                                "a": "She rallied and led Ashanti resistance; Britain used local allies and defeated the Ashanti in 1902, after which leaders were exiled."
+                                    }
+                        ]
+            },
+            {
+                        "name": "Colonial Results and Viewpoints",
+                        "questions": [
+                                    {
+                                                "points": 10,
+                                                "q": "What happened to the Ashanti Kingdom after defeat?",
+                                                "a": "It lost independence and became part of Britain's Gold Coast colony."
+                                    },
+                                    {
+                                                "points": 20,
+                                                "q": "Name two economic burdens placed on Ashanti people.",
+                                                "a": "Low-paid labour and taxes; some people also lost their land."
+                                    },
+                                    {
+                                                "points": 30,
+                                                "q": "Why did Britain build roads and railways in the Gold Coast?",
+                                                "a": "Mainly to move gold and other resources from production areas to harbours for export."
+                                    },
+                                    {
+                                                "points": 40,
+                                                "q": "How did Nkrumah and Robertson differ about colonialism?",
+                                                "a": "Nkrumah stressed African self-government and exploitation; Robertson stressed roads, schools, hospitals and other institutions."
+                                    },
+                                    {
+                                                "points": 50,
+                                                "q": "Why must historians consider the creators of these two sources?",
+                                                "a": "Nkrumah was an African nationalist and Robertson a former colonial official, so their positions shaped their interpretations."
+                                    }
+                        ]
+            }
+];
+
+        const gameData = [historyCategories, historyCategories, historyCategories, historyCategories];
+
+        let currentPlayerIndex = 0;
+        let scores = [0, 0, 0, 0];
+        let activePointValue = 0;
+        let activeTileButton = null;
+
+        // Player names
+        const defaultNames = ["Player 1", "Player 2", "Player 3", "Player 4"];
+        let playerNames = [...defaultNames];
+
+        const carouselTrack = document.getElementById('carouselTrack');
+        const modal = document.getElementById('questionModal');
+        const modalCategory = document.getElementById('modalCategory');
+        const modalQuestion = document.getElementById('modalQuestion');
+        const modalAnswer = document.getElementById('modalAnswer');
+        const answerArea = document.getElementById('answerArea');
+        const btnReveal = document.getElementById('btnReveal');
+        const judgementArea = document.getElementById('judgementArea');
+        const activePlayerName = document.getElementById('activePlayerName');
+        const stealArea = document.getElementById('stealArea');
+        const stealTitle = document.getElementById('stealTitle');
+        const stealButtonsContainer = document.getElementById('stealButtons');
+
+        const nameSetupSection = document.getElementById('nameSetupSection');
+        const btnSaveNames = document.getElementById('btnSaveNames');
+        const btnEditNames = document.getElementById('btnEditNames');
+
+        function sanitizeName(name, fallback) {
+            const cleaned = (name || "").trim().replace(/\s+/g, " ");
+            const safe = cleaned.replace(/[^a-zA-Z0-9 \-'.]/g, "");
+            return safe.length ? safe.slice(0, 20) : fallback;
+        }
+
+        function applyNamesToUI() {
+            for (let i = 0; i < 4; i++) {
+                document.getElementById(`tab-${i}`).innerText = playerNames[i];
+                document.getElementById(`label-${i}`).innerText = playerNames[i];
+            }
+        }
+
+        function loadPlayerNames() {
+            try {
+                const saved = localStorage.getItem("jeopardyPlayerNames");
+                if (saved) {
+                    const arr = JSON.parse(saved);
+                    if (Array.isArray(arr) && arr.length === 4) {
+                        playerNames = arr.map((n, i) => sanitizeName(n, defaultNames[i]));
+                    }
+                }
+            } catch (e) { /* ignore */ }
+
+            for (let i = 0; i < 4; i++) {
+                document.getElementById(`nameInput-${i}`).value = playerNames[i];
+            }
+
+            applyNamesToUI();
+
+            const hasSaved = !!localStorage.getItem("jeopardyPlayerNames");
+            if (hasSaved) hideNameEditor();
+        }
+
+        function hideNameEditor() {
+            nameSetupSection.classList.add('hidden');
+            btnEditNames.style.display = 'inline-block';
+            ensureEditNamesButtonNearTabs();
+        }
+
+        function showNameEditor() {
+            nameSetupSection.classList.remove('hidden');
+            for (let i = 0; i < 4; i++) {
+                document.getElementById(`nameInput-${i}`).value = playerNames[i];
+            }
+            const floating = document.getElementById('floatingEditNames');
+            if (floating) floating.remove();
+        }
+
+        function ensureEditNamesButtonNearTabs() {
+            if (document.getElementById('floatingEditNames')) return;
+
+            const tabs = document.querySelector('.player-tabs');
+            const wrap = document.createElement('div');
+            wrap.id = 'floatingEditNames';
+            wrap.style.maxWidth = '1000px';
+            wrap.style.margin = '0 auto 0.8rem';
+            wrap.style.padding = '0 10px';
+            wrap.style.display = 'flex';
+            wrap.style.justifyContent = 'center';
+
+            const btn = document.createElement('button');
+            btn.className = 'btn-edit';
+            btn.style.display = 'inline-block';
+            btn.innerText = 'Edit Player Names';
+            btn.onclick = showNameEditor;
+
+            wrap.appendChild(btn);
+            tabs.parentNode.insertBefore(wrap, tabs);
+        }
+
+        function savePlayerNames() {
+            const newNames = [];
+            for (let i = 0; i < 4; i++) {
+                const raw = document.getElementById(`nameInput-${i}`).value;
+                newNames.push(sanitizeName(raw, defaultNames[i]));
+            }
+            playerNames = newNames;
+
+            try {
+                localStorage.setItem("jeopardyPlayerNames", JSON.stringify(playerNames));
+            } catch (e) { /* ignore */ }
+
+            applyNamesToUI();
+            hideNameEditor();
+        }
+
+        function resetPlayerNames() {
+            playerNames = [...defaultNames];
+            try { localStorage.removeItem("jeopardyPlayerNames"); } catch (e) { /* ignore */ }
+
+            for (let i = 0; i < 4; i++) {
+                document.getElementById(`nameInput-${i}`).value = playerNames[i];
+            }
+
+            applyNamesToUI();
+            showNameEditor();
+        }
+
+        function buildBoards() {
+            for (let p = 0; p < 4; p++) {
+                const boardElement = document.getElementById(`board-${p}`);
+                boardElement.innerHTML = '';
+                const pCats = gameData[p];
+
+                pCats.forEach(cat => {
+                    let header = document.createElement('div');
+                    header.className = 'category-header';
+                    header.innerText = cat.name;
+                    boardElement.appendChild(header);
+                });
+
+                for (let row = 0; row < 5; row++) {
+                    pCats.forEach(cat => {
+                        let btn = document.createElement('button');
+                        let qData = cat.questions[row];
+                        btn.className = 'point-btn';
+                        btn.innerText = qData.points;
+                        btn.onclick = () => openQuestion(cat.name, qData, btn, p);
+                        boardElement.appendChild(btn);
+                    });
+                }
+            }
+        }
+
+        function switchPlayer(index) {
+            currentPlayerIndex = index;
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            document.getElementById(`tab-${index}`).classList.add('active');
+            carouselTrack.style.transform = `translateX(-${index * 25}%)`;
+        }
+
+        function openQuestion(categoryName, qData, btnElement, pIndex) {
+            if (pIndex !== currentPlayerIndex) return;
+
+            activePointValue = qData.points;
+            activeTileButton = btnElement;
+
+            modalCategory.innerText = `${playerNames[pIndex]} | ${categoryName}`;
+            modalQuestion.innerText = qData.q;
+            modalAnswer.innerText = qData.a;
+
+            btnReveal.style.display = 'block';
+            answerArea.style.display = 'none';
+            judgementArea.style.display = 'flex';
+            stealArea.style.display = 'none';
+
+            activePlayerName.innerText = playerNames[pIndex];
+
+            modal.style.display = 'flex';
+        }
+
+        function revealAnswer() {
+            btnReveal.style.display = 'none';
+            answerArea.style.display = 'block';
+        }
+
+        function judgeActivePlayer(isCorrect) {
+            if (isCorrect) {
+                MayHubSounds.playCorrect();
+                scores[currentPlayerIndex] += activePointValue;
+                updateScoreUI(currentPlayerIndex);
+                closeAndDisable();
+            } else {
+                MayHubSounds.playWrong();
+                judgementArea.style.display = 'none';
+                setupStealPhase();
+            }
+        }
+
+        function setupStealPhase() {
+            stealArea.style.display = 'block';
+            const stealPoints = Math.floor(activePointValue / 2);
+            stealTitle.innerText = `STEAL OPPORTUNITY! (+${stealPoints})`;
+            stealButtonsContainer.innerHTML = '';
+
+            for (let i = 0; i < 4; i++) {
+                if (i !== currentPlayerIndex) {
+                    let btn = document.createElement('button');
+                    btn.className = 'btn-steal';
+                    btn.innerText = playerNames[i];
+                    btn.onclick = () => awardSteal(i, stealPoints);
+                    stealButtonsContainer.appendChild(btn);
+                }
+            }
+
+            let btnNone = document.createElement('button');
+            btnNone.className = 'btn-incorrect';
+            btnNone.innerText = "No One";
+            btnNone.onclick = () => awardSteal(null, 0);
+            stealButtonsContainer.appendChild(btnNone);
+        }
+
+        function awardSteal(stealerIndex, points) {
+            if (stealerIndex !== null) {
+                MayHubSounds.playCorrect();
+                scores[stealerIndex] += points;
+                updateScoreUI(stealerIndex);
+            }
+            closeAndDisable();
+        }
+
+        function updateScoreUI(index) {
+            document.getElementById(`score-${index}`).innerText = scores[index];
+        }
+
+        function closeAndDisable() {
+            activeTileButton.innerText = "";
+            activeTileButton.disabled = true;
+            modal.style.display = 'none';
+        }
+
+        buildBoards();
+        loadPlayerNames();
+    </script>
+</body>
+</html>

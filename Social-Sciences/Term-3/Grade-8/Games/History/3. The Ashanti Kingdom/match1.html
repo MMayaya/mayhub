@@ -1,0 +1,577 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-8GCWSKNDL7"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-8GCWSKNDL7');
+</script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>May Learning Hub | The Ashanti Kingdom Memory Match</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f0f4f8; color: #333; line-height: 1.6; display: flex; flex-direction: column; min-height: 100vh; }
+        
+        /* Navigation */
+        nav { background-color: #002b5e; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; }
+        .logo { color: #fff; font-size: 1.5rem; font-weight: bold; text-decoration: none; }
+        .nav-links a { color: #cce0ff; text-decoration: none; margin-left: 1.5rem; font-weight: 500; transition: color 0.3s; }
+        .nav-links a:hover, .nav-links a.active { color: #fff; text-decoration: underline; }
+        
+        /* Header */
+        .game-header { text-align: center; padding: 3rem 1rem 1rem; max-width: 900px; margin: 0 auto; }
+        .game-title { color: #004080; font-size: 2.5rem; margin-bottom: 0.5rem; }
+        .game-subtitle { color: #555; margin-bottom: 2rem; font-size: 1.1rem; }
+        
+        /* Categories */
+        .category-selection { margin-bottom: 2.5rem; }
+        .cat-buttons { display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem; }
+        .cat-btn { background-color: #f0f4f8; border: 2px solid #004080; color: #004080; padding: 0.8rem 1.5rem; font-size: 1rem; font-weight: bold; border-radius: 8px; cursor: pointer; transition: all 0.3s ease; }
+        .cat-btn:hover, .cat-btn.active { background-color: #004080; color: #fff; transform: translateY(-3px); box-shadow: 0 4px 10px rgba(0,64,128,0.2); }
+
+        .controls { display: none; justify-content: center; align-items: center; gap: 2rem; margin-bottom: 2rem; }
+        .move-counter { font-size: 1.2rem; font-weight: bold; color: #004080; background: #fff; padding: 0.6rem 1.8rem; border-radius: 50px; border: 2px solid #3385ff; }
+        .restart-btn { background-color: #3385ff; color: #fff; border: none; padding: 0.7rem 1.8rem; font-size: 1rem; font-weight: bold; border-radius: 50px; cursor: pointer; border-bottom: 3px solid #004080; }
+
+        /* Memory Grid */
+        .memory-game { display: none; width: 100%; max-width: 1200px; margin: 0 auto 4rem; grid-template-columns: repeat(5, 1fr); gap: 15px; padding: 0 20px; perspective: 1000px; }
+        
+        @media (max-width: 950px) { .memory-game { grid-template-columns: repeat(4, 1fr); } }
+        @media (max-width: 650px) { .memory-game { grid-template-columns: repeat(2, 1fr); } }
+
+        .memory-card { position: relative; width: 100%; aspect-ratio: 1 / 1.2; transform-style: preserve-3d; transition: transform 0.5s; cursor: pointer; }
+        .memory-card.flip { transform: rotateY(180deg); }
+        
+        .front-face, .back-face { 
+            position: absolute; 
+            width: 100%; 
+            height: 100%; 
+            backface-visibility: hidden; 
+            border-radius: 12px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            padding: 15px; 
+            text-align: center; 
+            font-size: 1rem; 
+            line-height: 1.4; 
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .front-face { background: #004080; color: #fff; font-size: 2.5rem; border: 3px solid #3385ff; font-weight: bold; }
+        .back-face { background: #fff; color: #002b5e; transform: rotateY(180deg); border: 3px solid #004080; font-weight: 700; }
+        .memory-card.matched .back-face { background: #d4edda; border-color: #28a745; color: #155724; }
+
+        footer { text-align: center; padding: 1.5rem; background-color: #002b5e; color: #fff; margin-top: auto; }
+
+
+        /* Topic 2 has longer labels, so keep every control inside a phone viewport. */
+        @media (max-width: 600px) {
+            html, body { width: 100%; max-width: 100%; overflow-x: hidden; }
+            nav {
+                padding: 0.8rem 1rem;
+                flex-wrap: wrap;
+                justify-content: flex-start;
+                gap: 0.5rem 1rem;
+            }
+            .logo { flex: 1 1 100%; font-size: 1.2rem; }
+            .nav-links {
+                display: flex;
+                width: 100%;
+                flex-wrap: wrap;
+                gap: 0.35rem 1rem;
+            }
+            .nav-links a { margin-left: 0; font-size: 0.9rem; }
+            .page-header { padding: 2.5rem 1rem 2rem; }
+            .page-title, .game-title {
+                font-size: 1.75rem;
+                line-height: 1.25;
+                overflow-wrap: anywhere;
+            }
+            .page-subtitle, .game-subtitle, .grade-badge {
+                max-width: 100%;
+                overflow-wrap: anywhere;
+            }
+            .game-container, .game-header, .games-container, .category-selection, .cat-buttons {
+                min-width: 0;
+                max-width: 100%;
+            }
+            .cat-buttons { padding-left: 0; padding-right: 0; }
+            .cat-btn { min-width: 0; max-width: 100%; overflow-wrap: anywhere; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="../../../../../../index.html" class="logo">May Learning Hub</a>
+        <div class="nav-links">
+            <a href="../../../../../../index.html">Home</a>
+            <a href="../../../../../../about.html">About</a>
+        </div>
+    </nav>
+
+    <header class="game-header">
+        <h1 class="game-title">Grade 8 History: The Ashanti Kingdom</h1>
+        <p class="game-subtitle">Match the people, places, symbols, trade goods, resistance events, and colonial results.</p>
+        <p style="font-size: 0.78rem; color: #52606d; margin-top: 0.45rem;">Source: The Ashanti Kingdom - Grade 8 Social Sciences Term 3 presentation.</p>
+        
+        <div class="category-selection">
+            <div class="cat-buttons">
+                <button class="cat-btn" onclick="selectCategory('topic1', this)">Trade and Gold</button>
+                <button class="cat-btn" onclick="selectCategory('topic2', this)">Ashanti Society and Contact</button>
+                <button class="cat-btn" onclick="selectCategory('topic3', this)">Golden Stool and Resistance</button>
+                <button class="cat-btn" onclick="selectCategory('topic4', this)">Colonial Results and Viewpoints</button>
+            </div>
+        </div>
+
+        <div class="controls" id="gameControls">
+            <div class="move-counter">Moves: <span id="moves">0</span></div>
+            <button class="restart-btn" onclick="initGame()">Restart Level</button>
+        </div>
+    </header>
+
+    <main class="memory-game" id="gameBoard"></main>
+
+    <footer>
+        <p>&copy; 2026 May Learning Hub. All rights reserved.</p>
+    </footer>
+
+    <script src="../../../../../../game-audio.js"></script>
+    <script>
+        const gameData = {
+            "topic1": [
+                        {
+                                    "id": 1,
+                                    "text": "Grain produced and traded in West Africa."
+                        },
+                        {
+                                    "id": 1,
+                                    "text": "Millet"
+                        },
+                        {
+                                    "id": 2,
+                                    "text": "Nut used as a West African trade product."
+                        },
+                        {
+                                    "id": 2,
+                                    "text": "Kola Nut"
+                        },
+                        {
+                                    "id": 3,
+                                    "text": "One animal-based luxury trade product."
+                        },
+                        {
+                                    "id": 3,
+                                    "text": "Ostrich Feathers"
+                        },
+                        {
+                                    "id": 4,
+                                    "text": "Region whose merchants traded across the desert."
+                        },
+                        {
+                                    "id": 4,
+                                    "text": "Sahara"
+                        },
+                        {
+                                    "id": 5,
+                                    "text": "Imported mineral used in trade."
+                        },
+                        {
+                                    "id": 5,
+                                    "text": "Copper"
+                        },
+                        {
+                                    "id": 6,
+                                    "text": "Resource that made West Africa globally important."
+                        },
+                        {
+                                    "id": 6,
+                                    "text": "Gold"
+                        },
+                        {
+                                    "id": 7,
+                                    "text": "Share of all mined gold attributed to Africa."
+                        },
+                        {
+                                    "id": 7,
+                                    "text": "About Two-Thirds"
+                        },
+                        {
+                                    "id": 8,
+                                    "text": "Centuries of West African leadership in gold supply."
+                        },
+                        {
+                                    "id": 8,
+                                    "text": "11th to 17th Centuries"
+                        },
+                        {
+                                    "id": 9,
+                                    "text": "System connecting producers and merchants across regions."
+                        },
+                        {
+                                    "id": 9,
+                                    "text": "Trading Network"
+                        },
+                        {
+                                    "id": 10,
+                                    "text": "European name for the gold-rich coastal region."
+                        },
+                        {
+                                    "id": 10,
+                                    "text": "Gold Coast"
+                        }
+            ],
+            "topic2": [
+                        {
+                                    "id": 1,
+                                    "text": "Independent kingdoms in Akan territory."
+                        },
+                        {
+                                    "id": 1,
+                                    "text": "Akan States"
+                        },
+                        {
+                                    "id": 2,
+                                    "text": "Kingdom that united many Akan states."
+                        },
+                        {
+                                    "id": 2,
+                                    "text": "Ashanti Kingdom"
+                        },
+                        {
+                                    "id": 3,
+                                    "text": "Ashanti king's title."
+                        },
+                        {
+                                    "id": 3,
+                                    "text": "Asantehene"
+                        },
+                        {
+                                    "id": 4,
+                                    "text": "Ashanti Queen Mother's title."
+                        },
+                        {
+                                    "id": 4,
+                                    "text": "Asantewaa"
+                        },
+                        {
+                                    "id": 5,
+                                    "text": "Routes that linked Ashanti trade to the coast."
+                        },
+                        {
+                                    "id": 5,
+                                    "text": "Coastal Trade Routes"
+                        },
+                        {
+                                    "id": 6,
+                                    "text": "Craft that produced symbolic gold spectacles."
+                        },
+                        {
+                                    "id": 6,
+                                    "text": "Goldsmithing"
+                        },
+                        {
+                                    "id": 7,
+                                    "text": "Portuguese slave-trading base."
+                        },
+                        {
+                                    "id": 7,
+                                    "text": "Elmina"
+                        },
+                        {
+                                    "id": 8,
+                                    "text": "Prison holding enslaved people at Elmina."
+                        },
+                        {
+                                    "id": 8,
+                                    "text": "Barracoon"
+                        },
+                        {
+                                    "id": 9,
+                                    "text": "Early goods exchanged for enslaved people."
+                        },
+                        {
+                                    "id": 9,
+                                    "text": "Horses and Guns"
+                        },
+                        {
+                                    "id": 10,
+                                    "text": "Ocean crossed by ships carrying enslaved people."
+                        },
+                        {
+                                    "id": 10,
+                                    "text": "Atlantic Ocean"
+                        }
+            ],
+            "topic3": [
+                        {
+                                    "id": 1,
+                                    "text": "Sacred symbol of Ashanti unity and nationhood."
+                        },
+                        {
+                                    "id": 1,
+                                    "text": "Golden Stool"
+                        },
+                        {
+                                    "id": 2,
+                                    "text": "Asantehene linked to the Stool's appearance in 1701."
+                        },
+                        {
+                                    "id": 2,
+                                    "text": "Osei Tutu"
+                        },
+                        {
+                                    "id": 3,
+                                    "text": "Ashanti capital occupied in 1896."
+                        },
+                        {
+                                    "id": 3,
+                                    "text": "Kumasi"
+                        },
+                        {
+                                    "id": 4,
+                                    "text": "King exiled after British occupation."
+                        },
+                        {
+                                    "id": 4,
+                                    "text": "Prempeh I"
+                        },
+                        {
+                                    "id": 5,
+                                    "text": "Governor who demanded the Stool in 1900."
+                        },
+                        {
+                                    "id": 5,
+                                    "text": "Major Hodgson"
+                        },
+                        {
+                                    "id": 6,
+                                    "text": "Leader of the War of the Golden Stool."
+                        },
+                        {
+                                    "id": 6,
+                                    "text": "Yaa Asantewaa"
+                        },
+                        {
+                                    "id": 7,
+                                    "text": "Wars fought between 1824 and 1901."
+                        },
+                        {
+                                    "id": 7,
+                                    "text": "Ashanti-British Wars"
+                        },
+                        {
+                                    "id": 8,
+                                    "text": "Number of early wars won by the Ashanti."
+                        },
+                        {
+                                    "id": 8,
+                                    "text": "First Three"
+                        },
+                        {
+                                    "id": 9,
+                                    "text": "Groups recruited by Britain against the Ashanti."
+                        },
+                        {
+                                    "id": 9,
+                                    "text": "Local Rivals"
+                        },
+                        {
+                                    "id": 10,
+                                    "text": "Year of final British defeat of the Ashanti."
+                        },
+                        {
+                                    "id": 10,
+                                    "text": "1902"
+                        }
+            ],
+            "topic4": [
+                        {
+                                    "id": 1,
+                                    "text": "Foreign territory that absorbed the Ashanti Kingdom."
+                        },
+                        {
+                                    "id": 1,
+                                    "text": "British Gold Coast"
+                        },
+                        {
+                                    "id": 2,
+                                    "text": "Cultural wealth removed from the royal palace."
+                        },
+                        {
+                                    "id": 2,
+                                    "text": "Gold Treasures"
+                        },
+                        {
+                                    "id": 3,
+                                    "text": "Compulsory payments to colonial government."
+                        },
+                        {
+                                    "id": 3,
+                                    "text": "Taxes"
+                        },
+                        {
+                                    "id": 4,
+                                    "text": "Unfairly paid work on farms and in factories."
+                        },
+                        {
+                                    "id": 4,
+                                    "text": "Low-Wage Labour"
+                        },
+                        {
+                                    "id": 5,
+                                    "text": "Services receiving little colonial spending."
+                        },
+                        {
+                                    "id": 5,
+                                    "text": "Healthcare and Education"
+                        },
+                        {
+                                    "id": 6,
+                                    "text": "Transport designed to move resources to ports."
+                        },
+                        {
+                                    "id": 6,
+                                    "text": "Roads and Railways"
+                        },
+                        {
+                                    "id": 7,
+                                    "text": "African nationalist supporting self-government."
+                        },
+                        {
+                                    "id": 7,
+                                    "text": "Kwame Nkrumah"
+                        },
+                        {
+                                    "id": 8,
+                                    "text": "Former colonial official praising British institutions."
+                        },
+                        {
+                                    "id": 8,
+                                    "text": "Sir James Robertson"
+                        },
+                        {
+                                    "id": 9,
+                                    "text": "Port destinations for extracted resources."
+                        },
+                        {
+                                    "id": 9,
+                                    "text": "Harbours"
+                        },
+                        {
+                                    "id": 10,
+                                    "text": "Country that gained wealth and influence."
+                        },
+                        {
+                                    "id": 10,
+                                    "text": "Britain"
+                        }
+            ]
+};
+
+        const gameBoard = document.getElementById('gameBoard');
+        const movesDisplay = document.getElementById('moves');
+        const gameControls = document.getElementById('gameControls');
+        
+        let currentCategory = null;
+        let hasFlippedCard = false;
+        let lockBoard = false;
+        let firstCard, secondCard;
+        let moves = 0;
+        let matchedPairs = 0;
+
+        function selectCategory(categoryKey, btnElement) {
+            currentCategory = categoryKey;
+            document.querySelectorAll('.cat-btn').forEach(btn => btn.classList.remove('active'));
+            btnElement.classList.add('active');
+            gameControls.style.display = 'flex';
+            gameBoard.style.display = 'grid';
+            initGame();
+        }
+
+        function initGame() {
+            gameBoard.innerHTML = '';
+            moves = 0;
+            matchedPairs = 0;
+            movesDisplay.innerText = moves;
+            hasFlippedCard = false;
+            lockBoard = false;
+
+            const categoryData = gameData[currentCategory];
+            const shuffledCards = [...categoryData].sort(() => 0.5 - Math.random());
+
+            shuffledCards.forEach(card => {
+                const cardElement = document.createElement('div');
+                cardElement.classList.add('memory-card');
+                cardElement.dataset.pairId = card.id;
+                
+                cardElement.innerHTML = `
+                    <div class="front-face">?</div>
+                    <div class="back-face">${card.text}</div>
+                `;
+                
+                cardElement.addEventListener('click', flipCard);
+                gameBoard.appendChild(cardElement);
+            });
+        }
+
+        function flipCard() {
+            if (lockBoard) return;
+            if (this === firstCard) return;
+
+            this.classList.add('flip');
+
+            if (!hasFlippedCard) {
+                hasFlippedCard = true;
+                firstCard = this;
+                return;
+            }
+
+            secondCard = this;
+            moves++;
+            movesDisplay.innerText = moves;
+            checkForMatch();
+        }
+
+        function checkForMatch() {
+            let isMatch = firstCard.dataset.pairId === secondCard.dataset.pairId;
+            isMatch ? disableCards() : unflipCards();
+        }
+
+        function disableCards() {
+            MayHubSounds.playCorrect();
+            firstCard.classList.add('matched');
+            secondCard.classList.add('matched');
+            firstCard.removeEventListener('click', flipCard);
+            secondCard.removeEventListener('click', flipCard);
+            matchedPairs++;
+            if (matchedPairs === (gameData[currentCategory].length / 2)) {
+                setTimeout(() => alert(`Great job! The Ashanti Kingdom Revision Complete in ${moves} moves.`), 500);
+            }
+            resetBoard();
+        }
+
+        function unflipCards() {
+            MayHubSounds.playWrong();
+            lockBoard = true;
+            setTimeout(() => {
+                firstCard.classList.remove('flip');
+                secondCard.classList.remove('flip');
+                resetBoard();
+            }, 1200);
+        }
+
+        function resetBoard() {
+            [hasFlippedCard, lockBoard] = [false, false];
+            [firstCard, secondCard] = [null, null];
+        }
+    </script>
+</body>
+</html>
