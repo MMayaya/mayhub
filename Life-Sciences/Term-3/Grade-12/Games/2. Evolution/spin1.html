@@ -16,6 +16,7 @@
     <title>Learning Hub | Grade 12 Life Sciences: Evolution</title>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
+        html, body { max-width: 100%; overflow-x: hidden; overflow-x: clip; }
         body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f0f4f8; color: #333; line-height: 1.6; display: flex; flex-direction: column; min-height: 100vh; }
         nav { background-color: #002b5e; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; }
         .logo { color: #fff; font-size: 1.5rem; font-weight: bold; text-decoration: none; }
@@ -219,7 +220,10 @@
         function buildWheel() {
             const wheelBg = document.getElementById('wheelBg');
             const wheelLabels = document.getElementById('wheelLabels');
+            wheelLabels.innerHTML = '';
             let gradientParts = [];
+            const wheelDiameter = document.querySelector('.wheel-wrapper').getBoundingClientRect().width || 380;
+            const labelRadius = Math.max(64, Math.min(145, (wheelDiameter / 2) - 45));
 
             for (let i = 0; i < totalQuestions; i++) {
                 let startAngle = i * sliceAngle;
@@ -230,7 +234,7 @@
                 let label = document.createElement('div');
                 label.className = 'label';
                 let textRotation = startAngle + (sliceAngle / 2) - 90;
-                label.style.transform = `rotate(${textRotation}deg) translate(145px, -50%)`;
+                label.style.transform = `rotate(${textRotation}deg) translate(${labelRadius}px, -50%)`;
                 label.innerText = i + 1;
                 wheelLabels.appendChild(label);
             }
@@ -245,6 +249,7 @@
             buttons.forEach(btn => btn.classList.remove('active'));
             btnElement.classList.add('active');
             document.getElementById('wheelArea').style.display = 'block';
+            buildWheel();
             document.getElementById('activeCategoryTitle').innerText = `Category: ${btnElement.innerText}`;
             document.getElementById('questionCard').style.display = 'none';
             document.getElementById('remainingCount').innerText = `${availableQuestions[categoryKey].length} questions remaining`;
