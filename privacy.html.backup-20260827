@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-8GCWSKNDL7"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-8GCWSKNDL7');
+    </script>
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Privacy Policy for May Learning Hub website and Android application.">
+    <meta name="theme-color" content="#002b5e">
+    <link rel="icon" href="/favicon.ico" sizes="any">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <title>Privacy Policy | May Learning Hub</title>
+    
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f4f8;
+            color: #333;
+            line-height: 1.6;
+        }
+        img { max-width: 100%; display: block; }
+        a:focus-visible, button:focus-visible {
+            outline: 3px solid #66a3ff;
+            outline-offset: 3px;
+            border-radius: 6px;
+        }
+        @keyframes slideInDown {
+            0% { opacity: 0; transform: translateY(-30px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeInUp {
+            0% { opacity: 0; transform: translateY(40px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeIn {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+
+        /* --- NAV STYLES --- */
+        nav {
+            background-color: #002b5e;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.12);
+            opacity: 0;
+            animation: slideInDown 0.6s ease-out forwards;
+        }
+        .logo {
+            color: #fff;
+            font-size: 1.45rem;
+            font-weight: bold;
+            text-decoration: none;
+            white-space: nowrap;
+        }
+        .nav-toggle {
+            display: none;
+            background: transparent;
+            border: none;
+            color: #fff;
+            font-size: 1.6rem;
+            cursor: pointer;
+            padding: 0.3rem 0.5rem;
+        }
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+        .nav-links a {
+            color: #cce0ff;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s, background-color 0.3s;
+            padding: 0.45rem 0.7rem;
+            border-radius: 6px;
+        }
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: #fff;
+            background-color: rgba(255,255,255,0.08);
+            text-decoration: none;
+        }
+
+        /* --- HEADER STYLES --- */
+        header {
+            background: linear-gradient(135deg, #004080, #0059b3);
+            color: #fff;
+            padding: 3rem 1rem 2.5rem;
+            overflow: hidden;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+        .header-content h1 {
+            font-size: 2.4rem;
+            margin-bottom: 0.3rem;
+            animation: fadeIn 0.8s ease-out forwards;
+        }
+        .motto {
+            font-size: 1.2rem;
+            font-style: italic;
+            color: #c7deff;
+            font-weight: 500;
+            animation: fadeIn 0.8s ease-out 0.2s forwards;
+        }
+
+        /* --- MAIN CONTENT STYLES --- */
+        .container {
+            max-width: 900px; /* Slightly narrower for reading documents */
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        .policy-panel {
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+            border-top: 5px solid #3385ff;
+            opacity: 0;
+            animation: fadeInUp 0.8s ease-out 0.3s forwards;
+        }
+        .policy-panel h2 {
+            font-size: 1.6rem;
+            color: #003a75;
+            margin-top: 1.5rem;
+            margin-bottom: 0.8rem;
+            border-bottom: 1px dashed #ccc;
+            padding-bottom: 0.3rem;
+        }
+        .policy-panel h2:first-of-type {
+            margin-top: 0;
+        }
+        .policy-panel p, .policy-panel ul {
+            font-size: 1.05rem;
+            line-height: 1.7;
+            color: #444;
+            margin-bottom: 1.2rem;
+        }
+        .policy-panel ul {
+            margin-left: 1.5rem;
+        }
+        .policy-panel li {
+            margin-bottom: 0.5rem;
+        }
+        .policy-panel strong {
+            color: #002b5e;
+        }
+        .policy-panel a {
+            color: #0066ff;
+            text-decoration: none;
+        }
+        .policy-panel a:hover {
+            text-decoration: underline;
+        }
+
+        /* --- FOOTER STYLES --- */
+        footer {
+            background-color: #002b5e;
+            color: #fff;
+            margin-top: 3rem;
+            opacity: 0;
+            animation: fadeIn 1s ease-out 1s forwards;
+        }
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 20px 1.3rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.5rem;
+        }
+        .footer-brand h3, .footer-links h4, .footer-note h4 {
+            margin-bottom: 0.6rem;
+        }
+        .footer-brand p, .footer-note p, .footer-links a {
+            color: #d4e3f7;
+            font-size: 0.94rem;
+        }
+        .footer-links a {
+            display: block;
+            text-decoration: none;
+            margin-bottom: 0.45rem;
+        }
+        .footer-links a:hover {
+            color: #fff;
+        }
+        .footer-bottom {
+            text-align: center;
+            padding: 1rem 20px;
+            border-top: 1px solid rgba(255,255,255,0.12);
+            color: #d4e3f7;
+            font-size: 0.92rem;
+        }
+
+        /* --- MOBILE STYLES --- */
+        @media (max-width: 768px) {
+            nav { padding: 1rem; flex-wrap: wrap; }
+            .nav-toggle { display: block; margin-left: auto; }
+            .nav-links {
+                width: 100%; display: none; flex-direction: column;
+                align-items: flex-start; padding-top: 0.5rem;
+            }
+            .nav-links.show { display: flex; }
+            .policy-panel { padding: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+    <nav aria-label="Main navigation">
+        <a href="index.html" class="logo">May Learning Hub</a>
+        <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="navLinks" aria-label="Toggle navigation menu">
+            ☰
+        </button>
+        <div class="nav-links" id="navLinks">
+            <a href="index.html">Home</a>
+            <a href="about.html">About</a>
+            <a href="suppdown.html">App &amp; Support</a>
+            <a href="privacy.html" class="active">Privacy Policy</a>
+        </div>
+    </nav>
+
+    <header>
+        <div class="header-content">
+            <h1>Privacy Policy</h1>
+            <p class="motto">How we protect and manage your data.</p>
+        </div>
+    </header>
+
+    <div class="container">
+        <section class="policy-panel">
+            <p><strong>Effective Date:</strong> May 14, 2026</p>
+            <p>Welcome to May Learning Hub ("we," "our," or "us"). We respect your privacy and are committed to protecting the personal information you share with us. This Privacy Policy explains how we collect, use, and safeguard your data when you visit our website (<strong>maylearninghub.co.za</strong>) or use the May Learning Hub Android application available on Google Play.</p>
+
+            <h2>1. Information We Collect</h2>
+            <p>We believe in data minimization. We only collect the information absolutely necessary to provide you with our educational platform. When you create an account, register for activities, or fill out our feedback forms, we may ask for:</p>
+            <ul>
+                <li><strong>Personal Identifiable Information:</strong> Your Name and Email Address.</li>
+                <li><strong>Educational Information:</strong> The name of your School.</li>
+            </ul>
+
+            <h2>2. How We Use Your Information</h2>
+            <p>The minimal data we collect is used strictly to enhance your educational experience:</p>
+            <ul>
+                <li>To create and secure your user account.</li>
+                <li>To verify that you are a student, educator, or parent interacting with our CAPS-aligned materials.</li>
+                <li>To respond to your feedback, support queries, or requests for specific presentations, games, and learning guides.</li>
+            </ul>
+
+            <h2>3. Third-Party Analytics</h2>
+            <p>To understand how users interact with our site and app, and to help us improve our content, we use <strong>Google Analytics</strong>. This service tracks basic, non-personally identifiable user traffic data (such as pages visited, time spent on the app, and general geographic region). Google Analytics has its own privacy practices, which you can review in the <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">Google Privacy Policy</a>.</p>
+
+            <h2>4. Data Sharing and Security</h2>
+            <p><strong>We do not sell, rent, or trade your personal information to any third parties.</strong> Your data is kept strictly confidential.</p>
+            <p>We implement standard security measures, including Firebase Authentication, to protect your personal information against unauthorized access, alteration, or disclosure.</p>
+
+            <h2>5. Children's Privacy</h2>
+            <p>Because our platform is an educational tool built for learners (Grades 8-12), we take extra care. We strictly limit data collection to a name, email, and school to facilitate learning. If you are a parent or guardian and believe we have inadvertently collected excessive personal information from your child, please contact us immediately so we can remove it.</p>
+
+            <h2>6. Changes to This Privacy Policy</h2>
+            <p>We may update this Privacy Policy from time to time to reflect changes in our app features or legal requirements. We encourage you to review this page periodically. Any updates will be posted on this page with a revised "Effective Date".</p>
+
+            <h2>7. Contact Us</h2>
+            <p>If you have any questions or concerns regarding this Privacy Policy or how your data is handled, please reach out to the developer, MJ Mayaya, using the <a href="index.html#feedback">Feedback Form</a> on our homepage.</p>
+        </section>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-brand">
+                <h3>May Learning Hub</h3>
+                <p>A growing learning platform for teachers and learners, designed to make presentations, games, activities, and learning guides easier to access and use.</p>
+            </div>
+            <div class="footer-links">
+                <h4>Quick Links</h4>
+                <a href="index.html">Home</a>
+                <a href="exam-hub.html">Exam Hub</a>
+                <a href="about.html">About</a>
+                <a href="suppdown.html">App &amp; Support</a>
+            </div>
+            <div class="footer-note">
+                <h4>Site Note</h4>
+                <p>Content is organised by subject, grade, and term to support structured classroom learning, revision, Learning Guides, and app-based access.</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 May Learning Hub. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Navigation Toggle
+        const navToggle = document.getElementById('navToggle');
+        const navLinks = document.getElementById('navLinks');
+        navToggle.addEventListener('click', () => {
+            const isOpen = navLinks.classList.toggle('show');
+            navToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+        });
+    </script>
+</body>
+</html>

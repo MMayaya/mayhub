@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-8GCWSKNDL7"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-8GCWSKNDL7');
+    </script>
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Privacy Policy for the May Learning Hub website, Android application, and May Exam &amp; Invigilation Manager for Windows.">
+    <meta name="theme-color" content="#002b5e">
+    <link rel="icon" href="/favicon.ico" sizes="any">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <title>Privacy Policy | May Learning Hub</title>
+    
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f4f8;
+            color: #333;
+            line-height: 1.6;
+        }
+        img { max-width: 100%; display: block; }
+        a:focus-visible, button:focus-visible {
+            outline: 3px solid #66a3ff;
+            outline-offset: 3px;
+            border-radius: 6px;
+        }
+        @keyframes slideInDown {
+            0% { opacity: 0; transform: translateY(-30px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeInUp {
+            0% { opacity: 0; transform: translateY(40px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeIn {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+
+        /* --- NAV STYLES --- */
+        nav {
+            background-color: #002b5e;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.12);
+            opacity: 0;
+            animation: slideInDown 0.6s ease-out forwards;
+        }
+        .logo {
+            color: #fff;
+            font-size: 1.45rem;
+            font-weight: bold;
+            text-decoration: none;
+            white-space: nowrap;
+        }
+        .nav-toggle {
+            display: none;
+            background: transparent;
+            border: none;
+            color: #fff;
+            font-size: 1.6rem;
+            cursor: pointer;
+            padding: 0.3rem 0.5rem;
+        }
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+        .nav-links a {
+            color: #cce0ff;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s, background-color 0.3s;
+            padding: 0.45rem 0.7rem;
+            border-radius: 6px;
+        }
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: #fff;
+            background-color: rgba(255,255,255,0.08);
+            text-decoration: none;
+        }
+
+        /* --- HEADER STYLES --- */
+        header {
+            background: linear-gradient(135deg, #004080, #0059b3);
+            color: #fff;
+            padding: 3rem 1rem 2.5rem;
+            overflow: hidden;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+        .header-content h1 {
+            font-size: 2.4rem;
+            margin-bottom: 0.3rem;
+            animation: fadeIn 0.8s ease-out forwards;
+        }
+        .motto {
+            font-size: 1.2rem;
+            font-style: italic;
+            color: #c7deff;
+            font-weight: 500;
+            animation: fadeIn 0.8s ease-out 0.2s forwards;
+        }
+
+        /* --- MAIN CONTENT STYLES --- */
+        .container {
+            max-width: 900px; /* Slightly narrower for reading documents */
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        .policy-panel {
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+            border-top: 5px solid #3385ff;
+            opacity: 0;
+            animation: fadeInUp 0.8s ease-out 0.3s forwards;
+        }
+        .policy-panel h2 {
+            font-size: 1.6rem;
+            color: #003a75;
+            margin-top: 1.5rem;
+            margin-bottom: 0.8rem;
+            border-bottom: 1px dashed #ccc;
+            padding-bottom: 0.3rem;
+        }
+        .policy-panel h2:first-of-type {
+            margin-top: 0;
+        }
+        .policy-panel p, .policy-panel ul {
+            font-size: 1.05rem;
+            line-height: 1.7;
+            color: #444;
+            margin-bottom: 1.2rem;
+        }
+        .policy-panel ul {
+            margin-left: 1.5rem;
+        }
+        .policy-panel li {
+            margin-bottom: 0.5rem;
+        }
+        .policy-panel strong {
+            color: #002b5e;
+        }
+        .policy-panel a {
+            color: #0066ff;
+            text-decoration: none;
+        }
+        .policy-panel a:hover {
+            text-decoration: underline;
+        }
+
+        /* --- FOOTER STYLES --- */
+        footer {
+            background-color: #002b5e;
+            color: #fff;
+            margin-top: 3rem;
+            opacity: 0;
+            animation: fadeIn 1s ease-out 1s forwards;
+        }
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 20px 1.3rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.5rem;
+        }
+        .footer-brand h3, .footer-links h4, .footer-note h4 {
+            margin-bottom: 0.6rem;
+        }
+        .footer-brand p, .footer-note p, .footer-links a {
+            color: #d4e3f7;
+            font-size: 0.94rem;
+        }
+        .footer-links a {
+            display: block;
+            text-decoration: none;
+            margin-bottom: 0.45rem;
+        }
+        .footer-links a:hover {
+            color: #fff;
+        }
+        .footer-bottom {
+            text-align: center;
+            padding: 1rem 20px;
+            border-top: 1px solid rgba(255,255,255,0.12);
+            color: #d4e3f7;
+            font-size: 0.92rem;
+        }
+
+        /* --- MOBILE STYLES --- */
+        @media (max-width: 768px) {
+            nav { padding: 1rem; flex-wrap: wrap; }
+            .nav-toggle { display: block; margin-left: auto; }
+            .nav-links {
+                width: 100%; display: none; flex-direction: column;
+                align-items: flex-start; padding-top: 0.5rem;
+            }
+            .nav-links.show { display: flex; }
+            .policy-panel { padding: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+    <nav aria-label="Main navigation">
+        <a href="index.html" class="logo">May Learning Hub</a>
+        <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="navLinks" aria-label="Toggle navigation menu">
+            ☰
+        </button>
+        <div class="nav-links" id="navLinks">
+            <a href="index.html">Home</a>
+            <a href="about.html">About</a>
+            <a href="suppdown.html">App &amp; Support</a>
+            <a href="privacy.html" class="active">Privacy Policy</a>
+        </div>
+    </nav>
+
+    <header>
+        <div class="header-content">
+            <h1>Privacy Policy</h1>
+            <p class="motto">How we protect and manage your data.</p>
+        </div>
+    </header>
+
+    <div class="container">
+        <section class="policy-panel">
+            <p><strong>Effective Date:</strong> August 27, 2026</p>
+            <p>May Learning Hub ("we," "our," or "us"), operated by MJ Mayaya, respects your privacy and is committed to handling personal information responsibly. This Privacy Policy explains how we collect, use, store, and protect information when you use <strong>maylearninghub.co.za</strong>, the May Learning Hub Android application, or the <strong>May Exam &amp; Invigilation Manager</strong> Windows application (together, the "Services"). We process personal information in accordance with applicable South African law, including the <a href="https://www.gov.za/documents/protection-personal-information-act" target="_blank" rel="noopener noreferrer">Protection of Personal Information Act 4 of 2013 (POPIA)</a>.</p>
+
+            <h2>1. Who Is Responsible for Your Information</h2>
+            <p>May Learning Hub, operated by MJ Mayaya, is the responsible party for the personal information described in this Policy. Questions and privacy requests can be sent to <a href="mailto:MJMayaya@gmail.com">MJMayaya@gmail.com</a> or through the <a href="index.html#feedback">Feedback Form</a>.</p>
+
+            <h2>2. Information We Collect</h2>
+            <p>We aim to collect only information reasonably needed to provide, secure, support, and license the Services.</p>
+            <ul>
+                <li><strong>Information you provide:</strong> Your name, email address, school or organisation, account details where applicable, and information included in feedback or support requests.</li>
+                <li><strong>Windows licence registration information:</strong> Activation code, product identifier, app version, contact name, email address, school or organisation, approval status, licence holder name, activation and status-check dates, device claims, device limit, redemption deadline, and licence expiry date where applicable. Activation codes and client tokens are stored on the server in hashed form.</li>
+                <li><strong>Pseudonymous device identifier:</strong> The Windows app creates a one-way SHA-256 identifier from the product identifier and the Windows installation identifier. This is used to bind a licence to an allowed computer and prevent duplicate use. The raw Windows MachineGuid is not uploaded to our licensing service.</li>
+                <li><strong>Security and network information:</strong> When the licensing service is contacted, Google Cloud Functions temporarily processes the request's IP address. Our rate-limiting system stores only a one-way hash based on the network address or device identifier, together with the action, attempt count, and timestamps, to reduce activation-code guessing and abuse.</li>
+                <li><strong>Website analytics information:</strong> The website uses Google Analytics. Google may process cookies or similar online identifiers, IP address, approximate location, browser and device information, pages viewed, interactions, and visit times. You can limit cookies through your browser settings.</li>
+            </ul>
+            <p>The Windows licensing service does <strong>not</strong> upload the exam timetables, invigilation schedules, teacher lists, or documents you create in the Windows app. Those working documents remain on your computer unless you choose to export, copy, or share them elsewhere.</p>
+
+            <h2>3. Why We Use Your Information</h2>
+            <p>Depending on the context, we process information with your consent, to perform or prepare for a contract with you, to comply with legal obligations, or for legitimate interests that do not unjustifiably interfere with your privacy. We use information to:</p>
+            <ul>
+                <li>provide website, educational, account, and support features;</li>
+                <li>receive and review Windows licence registration requests;</li>
+                <li>activate licences, verify status, enforce device limits and expiry dates, and provide an offline grace period;</li>
+                <li>detect excessive requests, invalid-code guessing, fraud, and misuse;</li>
+                <li>respond to enquiries and maintain appropriate customer and transaction records;</li>
+                <li>understand and improve use, performance, accessibility, and content on the website; and</li>
+                <li>protect our rights, users, systems, and comply with lawful requirements.</li>
+            </ul>
+
+            <h2>4. Licence Decisions and Manual Approval</h2>
+            <p>The licensing system automatically checks whether an activation code is valid and enabled, whether its redemption date has passed, whether its device limit has been reached, whether a licence has expired, and whether too many requests have been made. A valid new registration is submitted as pending and must be approved online by us before the full version becomes active. If you believe a licence decision is incorrect, contact us and request a manual review.</p>
+
+            <h2>5. Local Storage in the Windows App</h2>
+            <p>The Windows app stores a local licence-state file in your Windows user application-data folder. It contains the pseudonymous device identifier, a licence client token, the licensed-to name, server status, last online-check time, and expiry date where applicable. It enables status checks and limited offline licence verification. This file does not contain the raw Windows MachineGuid or your exam and invigilation documents. Anyone who can access your Windows account may be able to access local app files, so you should keep the computer and account secure.</p>
+
+            <h2>6. Service Providers, Sharing, and International Processing</h2>
+            <p>We do not sell or rent your personal information. We may share information only as necessary with service providers that operate the Services, with professional advisers where reasonably necessary, when required by law or a lawful authority, or to protect rights and security.</p>
+            <p>We use Google services, including Google Analytics and Firebase/Google Cloud services such as Cloud Functions and Cloud Firestore. Google processes relevant information on our behalf or under its own applicable terms to provide, secure, and maintain these services. Information may be processed in South Africa and in other countries where Google or its service providers operate, subject to applicable contractual, security, and cross-border data-protection safeguards. More information is available in <a href="https://firebase.google.com/support/privacy" target="_blank" rel="noopener noreferrer">Privacy and Security in Firebase</a>, <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">Google's Privacy Policy</a>, and <a href="https://policies.google.com/technologies/partner-sites" target="_blank" rel="noopener noreferrer">how Google uses information from sites and apps that use its services</a>.</p>
+
+            <h2>7. Retention and Deletion</h2>
+            <p>We keep personal information only for as long as reasonably necessary for the purposes described in this Policy, including administering an active licence, providing support, resolving disputes, preventing fraud, and meeting contractual or legal record-keeping requirements. We then delete, destroy, or de-identify it where reasonably practicable.</p>
+            <ul>
+                <li><strong>Rate-limit records:</strong> These hashed security records are scheduled for automatic deletion approximately 24 hours after creation. Because deletion runs in the background, removal may occur later.</li>
+                <li><strong>Licence records:</strong> Registration and activation records are retained while needed to operate and verify the licence and for a reasonable period afterwards for support, security, dispute, and record-keeping purposes.</li>
+                <li><strong>Feedback and support:</strong> Messages are retained for as long as needed to answer the request and maintain appropriate support records.</li>
+                <li><strong>Analytics:</strong> Google Analytics information is retained according to our Analytics configuration and Google's applicable retention practices.</li>
+            </ul>
+            <p>You may request deletion of eligible personal information. If information is required to verify an active licence, deleting it may require the licence to be reset, transferred, or deactivated. Some information may be retained where permitted or required by law.</p>
+
+            <h2>8. Security</h2>
+            <p>We use reasonable technical and organisational safeguards appropriate to the information we process. These include HTTPS transmission, restricted database access, server-side licence validation, one-way hashing of activation codes and client tokens, pseudonymous device identifiers, rate limiting, and access controls. Firebase states that its services encrypt data in transit and that Cloud Firestore and Cloud Functions encrypt data at rest. No electronic system can be guaranteed completely secure, and users should protect their devices, email accounts, activation codes, and passwords.</p>
+
+            <h2>9. Your Privacy Rights</h2>
+            <p>Subject to POPIA and other applicable law, you may ask us to confirm whether we hold personal information about you and request access to it. You may also request correction, deletion, destruction, or restriction where applicable; object to certain processing; or withdraw consent where processing is based on consent. We may need to verify your identity before acting on a request.</p>
+            <p>Send a request to <a href="mailto:MJMayaya@gmail.com">MJMayaya@gmail.com</a> or use the <a href="index.html#feedback">Feedback Form</a>. If you are not satisfied with our response, you may contact or lodge a complaint with the South African Information Regulator through its <a href="https://eservices.inforegulator.org.za/services.aspx" target="_blank" rel="noopener noreferrer">official eServices portal</a>.</p>
+
+            <h2>10. Children's Privacy</h2>
+            <p>Our educational content may be used by learners, including people under 18. The Windows app's registration feature is intended for the purchaser, teacher, school representative, or other responsible adult; learners' personal details should not be entered for licence registration unless this is lawful, necessary, and authorised by a parent, guardian, or other competent person. The Windows licensing service does not require or upload learner records contained in locally created schedules or documents. If you believe a child's personal information was provided improperly, contact us so we can investigate and take appropriate action.</p>
+
+            <h2>11. Changes to This Policy</h2>
+            <p>We may update this Privacy Policy when our Services, providers, or legal obligations change. The revised version will be posted on this page with a new effective date. Material changes may also be communicated through the website or app where appropriate.</p>
+
+            <h2>12. Contact Us</h2>
+            <p>For privacy questions, requests, or concerns, contact <strong>MJ Mayaya / May Learning Hub</strong> at <a href="mailto:MJMayaya@gmail.com">MJMayaya@gmail.com</a> or use the <a href="index.html#feedback">Feedback Form</a>.</p>
+        </section>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-brand">
+                <h3>May Learning Hub</h3>
+                <p>A growing learning platform for teachers and learners, designed to make presentations, games, activities, and learning guides easier to access and use.</p>
+            </div>
+            <div class="footer-links">
+                <h4>Quick Links</h4>
+                <a href="index.html">Home</a>
+                <a href="exam-hub.html">Exam Hub</a>
+                <a href="about.html">About</a>
+                <a href="suppdown.html">App &amp; Support</a>
+            </div>
+            <div class="footer-note">
+                <h4>Site Note</h4>
+                <p>Content is organised by subject, grade, and term to support structured classroom learning, revision, Learning Guides, and app-based access.</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 May Learning Hub. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Navigation Toggle
+        const navToggle = document.getElementById('navToggle');
+        const navLinks = document.getElementById('navLinks');
+        navToggle.addEventListener('click', () => {
+            const isOpen = navLinks.classList.toggle('show');
+            navToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+        });
+    </script>
+</body>
+</html>

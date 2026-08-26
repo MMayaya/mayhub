@@ -15,7 +15,7 @@
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
     <link rel="apple-touch-icon" href="/apple-touch-icon.png">
     <link rel="manifest" href="/site.webmanifest">
-    <title>May Learning Hub | Support</title>
+    <title>May Learning Hub | Support &amp; Downloads</title>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f0f4f8; color: #333; line-height: 1.6; display: flex; flex-direction: column; min-height: 100vh; overflow-x: hidden; }
@@ -30,8 +30,8 @@
         .page-header { text-align: center; padding: 3rem 1rem; background: linear-gradient(135deg, #002b5e, #004080); color: #fff; animation: fadeIn 1.2s ease-out; }
         .page-title { font-size: 2.5rem; margin-bottom: 0.5rem; }
 
-        /* Container - Updated to fit 3 cards */
-        .container { max-width: 1100px; margin: 3rem auto 1rem auto; padding: 0 20px; display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; align-items: stretch; }
+        /* Responsive card grid for support and app downloads */
+        .container { max-width: 1280px; margin: 3rem auto 1rem auto; padding: 0 20px; display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 2rem; align-items: stretch; }
 
         /* Card Styling */
         .card { background: #fff; padding: 2rem; border-radius: 12px; box-shadow: 0 8px 30px rgba(0,0,0,0.06); border-top: 6px solid #3385ff; text-align: center; display: flex; flex-direction: column; justify-content: space-between; transition: transform 0.4s ease; opacity: 0; animation: slideUpGlide 0.8s ease-out forwards; }
@@ -39,6 +39,7 @@
         #contactCard { animation-delay: 0.4s; }
         #downloadCard { animation-delay: 0.7s; }
         #windowsCard { animation-delay: 1.0s; }
+        #eiManagerCard { animation-delay: 1.3s; }
 
         .card:hover { transform: translateY(-8px); }
         .card h2 { color: #002b5e; margin-bottom: 0.8rem; font-size: 1.5rem; }
@@ -102,7 +103,7 @@
     </nav>
 
     <header class="page-header">
-        <h1 class="page-title">Support & App</h1>
+        <h1 class="page-title">Support &amp; Downloads</h1>
     </header>
 
     <main>
@@ -158,6 +159,24 @@
                 </div>
             </section>
 
+            <section class="card" id="eiManagerCard">
+                <div>
+                    <span class="icon">&#128203;</span>
+                    <h2>May EI Manager for Windows</h2>
+                    <p>Download <strong>May Exam &amp; Invigilation Manager</strong> for Windows to support examination and invigilation planning.</p>
+                    <ul class="feature-list">
+                        <li>&#128197; Examination planning</li>
+                        <li>&#128101; Invigilation management</li>
+                        <li>&#128230; Installer and spreadsheet template included</li>
+                    </ul>
+                </div>
+                <div class="btn-group">
+                    <a href="May EI Manager.zip" download class="btn btn-windows">
+                        &#11015;&#65039; Download May EI Manager
+                    </a>
+                </div>
+            </section>
+
         </div>
 
         <section class="faq-section">
@@ -165,7 +184,7 @@
             
             <div class="faq-box">
                 <h3>How do I install the app?</h3>
-                <p>For Android, click the Google Play button above and install the app directly from the official Play Store. For the Windows version, click the download button and extract the ZIP file.</p>
+                <p>For Android, use the Google Play button. For either Windows app, download and extract its ZIP file, then run the included setup program. May EI Manager also includes a spreadsheet template.</p>
             </div>
 
             <div class="faq-box">
