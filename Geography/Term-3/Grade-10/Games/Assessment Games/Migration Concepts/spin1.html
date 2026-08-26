@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-8GCWSKNDL7"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-8GCWSKNDL7');
+</script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learning Hub | Grade 10 Geography: Migration Concepts</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f0f4f8; color: #333; line-height: 1.6; display: flex; flex-direction: column; min-height: 100vh; }
+        nav { background-color: #002b5e; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; }
+        .logo { color: #fff; font-size: 1.5rem; font-weight: bold; text-decoration: none; }
+        .nav-links a { color: #cce0ff; text-decoration: none; margin-left: 1.5rem; font-weight: 500; transition: color 0.3s; }
+        .nav-links a:hover, .nav-links a.active { color: #fff; text-decoration: underline; }
+        .game-container { max-width: 900px; margin: 3rem auto; padding: 2rem; background: #fff; border-radius: 12px; box-shadow: 0 8px 30px rgba(0,0,0,0.1); border-top: 6px solid #3385ff; text-align: center; }
+        .game-title { color: #004080; font-size: 2.5rem; margin-bottom: 0.5rem; text-shadow: 1px 1px 2px rgba(0,0,0,0.1); }
+        .game-subtitle { color: #555; margin-bottom: 2rem; font-size: 1.1rem; }
+        .category-selection { margin-bottom: 2rem; }
+        .category-selection h2 { color: #004080; margin-bottom: 1rem; font-size: 1.5rem; }
+        .cat-buttons { display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem; }
+        .cat-btn { background-color: #f0f4f8; border: 2px solid #004080; color: #004080; padding: 0.8rem 1.5rem; font-size: 1.1rem; font-weight: bold; border-radius: 8px; cursor: pointer; transition: all 0.3s ease; }
+        .cat-btn:hover, .cat-btn.active { background-color: #004080; color: #fff; transform: translateY(-3px); box-shadow: 0 4px 10px rgba(0,64,128,0.2); }
+        #wheelArea { display: none; margin-top: 2rem; padding-top: 2rem; border-top: 2px dashed #ccc; animation: fadeIn 0.5s ease; }
+        #activeCategoryTitle { color: #3385ff; margin-bottom: 1.5rem; font-size: 1.8rem; }
+        .wheel-wrapper { position: relative; width: 380px; height: 380px; margin: 0 auto 2rem; border-radius: 50%; box-shadow: 0 20px 40px rgba(0,0,0,0.3); }
+        .pointer { position: absolute; top: -25px; left: 50%; transform: translateX( -50%); width: 0; height: 0; border-left: 22px solid transparent; border-right: 22px solid transparent; border-top: 55px solid #e60000; z-index: 10; filter: drop-shadow(0 6px 6px rgba(0,0,0,0.5)); }
+        .wheel { width: 100%; height: 100%; border-radius: 50%; border: 15px solid #001a33; position: relative; overflow: hidden; transition: transform 4s cubic-bezier(0.17, 0.67, 0.12, 0.99); box-shadow: inset 0 0 30px rgba(0,0,0,0.7), inset 0 0 0 6px rgba(255,255,255,0.3); }
+        .wheel-center { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 45px; height: 45px; background: radial-gradient(circle, #e6f0fa, #80b3ff); border-radius: 50%; border: 5px solid #001a33; box-shadow: 0 4px 10px rgba(0,0,0,0.6); z-index: 6; }
+        .wheel-bg { width: 100%; height: 100%; position: absolute; top: 0; left: 0; }
+        .wheel-labels { position: absolute; width: 100%; height: 100%; top: 0; left: 0; }
+        .label { position: absolute; top: 50%; left: 50%; transform-origin: 0 0; font-weight: bold; color: #fff; font-size: 0.95rem; text-shadow: 1px 1px 4px rgba(0,0,0,0.9); }
+        .spin-btn { background-color: #3385ff; color: #fff; border: none; padding: 1rem 3rem; font-size: 1.5rem; font-weight: bold; border-radius: 50px; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 4px 10px rgba(51,133,255,0.4); margin-bottom: 1rem; border-bottom: 4px solid #004080; }
+        .question-card { display: none; margin-top: 2rem; padding: 2rem; background-color: #f0f7ff; border: 2px solid #b3d4ff; border-radius: 8px; text-align: center; animation: fadeIn 0.5s ease; box-shadow: 0 6px 15px rgba(0,0,0,0.05); }
+        .q-number-tag { display: inline-block; background: #004080; color: #fff; padding: 0.5rem 1.5rem; border-radius: 30px; font-size: 1.1rem; margin-bottom: 1rem; font-weight: bold; text-transform: uppercase; box-shadow: 0 3px 6px rgba(0,0,0,0.2); }
+        .question-text { font-size: 1.5rem; color: #333; margin-bottom: 1.5rem; font-weight: 500; }
+        .mc-options { display: flex; flex-direction: column; gap: 0.8rem; max-width: 450px; margin: 0 auto 1.5rem; }
+        .option-btn { background: #fff; border: 2px solid #b3d4ff; padding: 1rem; font-size: 1.1rem; border-radius: 6px; cursor: pointer; transition: all 0.2s; text-align: left; font-weight: 500; color: #004080; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+        .option-btn.correct { background-color: #d4edda !important; border-color: #28a745 !important; color: #155724 !important; }
+        .option-btn.incorrect { background-color: #f8d7da !important; border-color: #dc3545 !important; color: #721c24 !important; }
+        .reveal-btn { background-color: #3385ff; color: #fff; border: none; padding: 0.8rem 2rem; font-size: 1.1rem; font-weight: bold; border-radius: 8px; cursor: pointer; transition: background 0.3s; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .answer-text { display: none; font-size: 1.2rem; color: #333; margin-top: 1.5rem; padding-top: 1.5rem; border-top: 2px dashed #b3d4ff; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        footer { text-align: center; padding: 1rem; background-color: #002b5e; color: #fff; margin-top: auto; }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="../../../../../../index.html" class="logo">May Learning Hub</a>
+        <div class="nav-links">
+            <a href="../../../../../../index.html">Home</a>
+            <a href="../../../../../../about.html">About</a>
+        </div>
+    </nav>
+
+    <main class="game-container">
+        <h1 class="game-title">Geography Quiz: Migration Concepts</h1>
+        <p class="game-subtitle">Revise development terminology, inequality, health, GDP, sustainability and human-development indicators.</p>
+        <p style="font-size: 0.78rem; color: #52606d; margin-top: 0.45rem;">Grade 10 Geography Term 3 revision</p>
+
+        <div class="category-selection">
+            <h2>Step 1: Choose a Category</h2>
+            <div class="cat-buttons" id="catButtons">
+                <button class="cat-btn" onclick="selectCategory('definitions', this)">Definitions: Term → Meaning</button>
+                <button class="cat-btn" onclick="selectCategory('terms', this)">Name the Term: Meaning → Term</button>
+                <button class="cat-btn" onclick="selectCategory('multipleChoice', this)">Multiple Choice</button>
+                <button class="cat-btn" onclick="selectCategory('trueFalse', this)">True or False</button>
+            </div>
+        </div>
+
+        <div id="wheelArea">
+            <h2 id="activeCategoryTitle">Category: None</h2>
+            
+            <div class="wheel-wrapper">
+                <div class="pointer"></div>
+                <div class="wheel-center"></div>
+                <div class="wheel" id="wheel">
+                    <div class="wheel-bg" id="wheelBg"></div>
+                    <div class="wheel-labels" id="wheelLabels"></div>
+                </div>
+            </div>
+
+            <button class="spin-btn" id="spinBtn" onclick="spinWheel()">SPIN THE WHEEL</button>
+            <p id="remainingCount" style="color: #666; font-size: 0.9rem; margin-bottom: 1rem; font-weight: bold;">20 questions remaining</p>
+
+            <div class="question-card" id="questionCard">
+                <div class="q-number-tag" id="qNumberTag">Question #</div>
+                <div class="question-text" id="questionText">Loading question...</div>
+                
+                <div class="mc-options" id="mcOptions"></div>
+                
+                <button class="reveal-btn" id="revealBtn" onclick="revealAnswer()">Reveal Answer</button>
+                <div class="answer-text" id="answerText"></div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 May Learning Hub. All rights reserved.</p>
+    </footer>
+
+        <script src="../../../../../../game-audio.js"></script>
+<script>
+        const gameData = {
+    "definitions": [
+        {
+            "q": "Migration",
+            "a": "The movement of people to change their usual place of residence."
+        },
+        {
+            "q": "International migration",
+            "a": "Movement from one country to another."
+        },
+        {
+            "q": "Immigration",
+            "a": "Moving into a country to settle there."
+        },
+        {
+            "q": "Emigration",
+            "a": "Leaving a country to settle elsewhere."
+        },
+        {
+            "q": "Regional migration",
+            "a": "Movement within a region, such as within Southern Africa."
+        },
+        {
+            "q": "Rural-urban migration",
+            "a": "Movement from a rural area to a town or city."
+        },
+        {
+            "q": "Urbanisation",
+            "a": "An increase in the percentage of people living in urban areas."
+        },
+        {
+            "q": "Rural depopulation",
+            "a": "A reduction in the number of people living in rural areas."
+        },
+        {
+            "q": "Internal migration",
+            "a": "Movement within the borders of the same country."
+        },
+        {
+            "q": "External migration",
+            "a": "Movement across an international border."
+        },
+        {
+            "q": "Place of origin",
+            "a": "The place from which a migrant moves."
+        },
+        {
+            "q": "Destination",
+            "a": "The place to which a migrant moves."
+        },
+        {
+            "q": "Migrant",
+            "a": "A person who changes their usual place of residence."
+        },
+        {
+            "q": "Push factor",
+            "a": "A condition that encourages people to leave a place."
+        },
+        {
+            "q": "Pull factor",
+            "a": "A condition that attracts people to a new place."
+        },
+        {
+            "q": "Voluntary migration",
+            "a": "Movement made by personal choice."
+        },
+        {
+            "q": "Forced migration",
+            "a": "Movement caused by danger, conflict, disaster or compulsion."
+        },
+        {
+            "q": "Temporary migration",
+            "a": "Movement for a limited period with an intention to return."
+        },
+        {
+            "q": "Permanent migration",
+            "a": "Movement intended to establish a long-term home elsewhere."
+        },
+        {
+            "q": "Seasonal migration",
+            "a": "Temporary movement linked to a season or seasonal work."
+        }
+    ],
+    "terms": [
+        {
+            "q": "The movement of people to change their usual place of residence.",
+            "a": "Migration"
+        },
+        {
+            "q": "Movement from one country to another.",
+            "a": "International migration"
+        },
+        {
+            "q": "Moving into a country to settle there.",
+            "a": "Immigration"
+        },
+        {
+            "q": "Leaving a country to settle elsewhere.",
+            "a": "Emigration"
+        },
+        {
+            "q": "Movement within a region, such as within Southern Africa.",
+            "a": "Regional migration"
+        },
+        {
+            "q": "Movement from a rural area to a town or city.",
+            "a": "Rural-urban migration"
+        },
+        {
+            "q": "An increase in the percentage of people living in urban areas.",
+            "a": "Urbanisation"
+        },
+        {
+            "q": "A reduction in the number of people living in rural areas.",
+            "a": "Rural depopulation"
+        },
+        {
+            "q": "Movement within the borders of the same country.",
+            "a": "Internal migration"
+        },
+        {
+            "q": "Movement across an international border.",
+            "a": "External migration"
+        },
+        {
+            "q": "The place from which a migrant moves.",
+            "a": "Place of origin"
+        },
+        {
+            "q": "The place to which a migrant moves.",
+            "a": "Destination"
+        },
+        {
+            "q": "A person who changes their usual place of residence.",
+            "a": "Migrant"
+        },
+        {
+            "q": "A condition that encourages people to leave a place.",
+            "a": "Push factor"
+        },
+        {
+            "q": "A condition that attracts people to a new place.",
+            "a": "Pull factor"
+        },
+        {
+            "q": "Movement made by personal choice.",
+            "a": "Voluntary migration"
+        },
+        {
+            "q": "Movement caused by danger, conflict, disaster or compulsion.",
+            "a": "Forced migration"
+        },
+        {
+            "q": "Movement for a limited period with an intention to return.",
+            "a": "Temporary migration"
+        },
+        {
+            "q": "Movement intended to establish a long-term home elsewhere.",
+            "a": "Permanent migration"
+        },
+        {
+            "q": "Temporary movement linked to a season or seasonal work.",
+            "a": "Seasonal migration"
+        }
+    ],
+    "multipleChoice": [
+        {
+            "q": "Which geographical term means: The movement of people to change their usual place of residence.",
+            "options": [
+                "A) Migration",
+                "B) International migration",
+                "C) Immigration",
+                "D) Emigration"
+            ],
+            "a": "A) Migration"
+        },
+        {
+            "q": "Which geographical term means: Movement from one country to another.",
+            "options": [
+                "A) Immigration",
+                "B) International migration",
+                "C) Emigration",
+                "D) Regional migration"
+            ],
+            "a": "B) International migration"
+        },
+        {
+            "q": "Which geographical term means: Moving into a country to settle there.",
+            "options": [
+                "A) Emigration",
+                "B) Regional migration",
+                "C) Immigration",
+                "D) Rural-urban migration"
+            ],
+            "a": "C) Immigration"
+        },
+        {
+            "q": "Which geographical term means: Leaving a country to settle elsewhere.",
+            "options": [
+                "A) Regional migration",
+                "B) Rural-urban migration",
+                "C) Urbanisation",
+                "D) Emigration"
+            ],
+            "a": "D) Emigration"
+        },
+        {
+            "q": "Which geographical term means: Movement within a region, such as within Southern Africa.",
+            "options": [
+                "A) Regional migration",
+                "B) Rural-urban migration",
+                "C) Urbanisation",
+                "D) Rural depopulation"
+            ],
+            "a": "A) Regional migration"
+        },
+        {
+            "q": "Which geographical term means: Movement from a rural area to a town or city.",
+            "options": [
+                "A) Urbanisation",
+                "B) Rural-urban migration",
+                "C) Rural depopulation",
+                "D) Internal migration"
+            ],
+            "a": "B) Rural-urban migration"
+        },
+        {
+            "q": "Which geographical term means: An increase in the percentage of people living in urban areas.",
+            "options": [
+                "A) Rural depopulation",
+                "B) Internal migration",
+                "C) Urbanisation",
+                "D) External migration"
+            ],
+            "a": "C) Urbanisation"
+        },
+        {
+            "q": "Which geographical term means: A reduction in the number of people living in rural areas.",
+            "options": [
+                "A) Internal migration",
+                "B) External migration",
+                "C) Place of origin",
+                "D) Rural depopulation"
+            ],
+            "a": "D) Rural depopulation"
+        },
+        {
+            "q": "Which geographical term means: Movement within the borders of the same country.",
+            "options": [
+                "A) Internal migration",
+                "B) External migration",
+                "C) Place of origin",
+                "D) Destination"
+            ],
+            "a": "A) Internal migration"
+        },
+        {
+            "q": "Which geographical term means: Movement across an international border.",
+            "options": [
+                "A) Place of origin",
+                "B) External migration",
+                "C) Destination",
+                "D) Migrant"
+            ],
+            "a": "B) External migration"
+        },
+        {
+            "q": "Which geographical term means: The place from which a migrant moves.",
+            "options": [
+                "A) Destination",
+                "B) Migrant",
+                "C) Place of origin",
+                "D) Push factor"
+            ],
+            "a": "C) Place of origin"
+        },
+        {
+            "q": "Which geographical term means: The place to which a migrant moves.",
+            "options": [
+                "A) Migrant",
+                "B) Push factor",
+                "C) Pull factor",
+                "D) Destination"
+            ],
+            "a": "D) Destination"
+        },
+        {
+            "q": "Which geographical term means: A person who changes their usual place of residence.",
+            "options": [
+                "A) Migrant",
+                "B) Push factor",
+                "C) Pull factor",
+                "D) Voluntary migration"
+            ],
+            "a": "A) Migrant"
+        },
+        {
+            "q": "Which geographical term means: A condition that encourages people to leave a place.",
+            "options": [
+                "A) Pull factor",
+                "B) Push factor",
+                "C) Voluntary migration",
+                "D) Forced migration"
+            ],
+            "a": "B) Push factor"
+        },
+        {
+            "q": "Which geographical term means: A condition that attracts people to a new place.",
+            "options": [
+                "A) Voluntary migration",
+                "B) Forced migration",
+                "C) Pull factor",
+                "D) Temporary migration"
+            ],
+            "a": "C) Pull factor"
+        },
+        {
+            "q": "Which geographical term means: Movement made by personal choice.",
+            "options": [
+                "A) Forced migration",
+                "B) Temporary migration",
+                "C) Permanent migration",
+                "D) Voluntary migration"
+            ],
+            "a": "D) Voluntary migration"
+        },
+        {
+            "q": "Which geographical term means: Movement caused by danger, conflict, disaster or compulsion.",
+            "options": [
+                "A) Forced migration",
+                "B) Temporary migration",
+                "C) Permanent migration",
+                "D) Seasonal migration"
+            ],
+            "a": "A) Forced migration"
+        },
+        {
+            "q": "Which geographical term means: Movement for a limited period with an intention to return.",
+            "options": [
+                "A) Permanent migration",
+                "B) Temporary migration",
+                "C) Seasonal migration",
+                "D) Migration"
+            ],
+            "a": "B) Temporary migration"
+        },
+        {
+            "q": "Which geographical term means: Movement intended to establish a long-term home elsewhere.",
+            "options": [
+                "A) Seasonal migration",
+                "B) Migration",
+                "C) Permanent migration",
+                "D) International migration"
+            ],
+            "a": "C) Permanent migration"
+        },
+        {
+            "q": "Which geographical term means: Temporary movement linked to a season or seasonal work.",
+            "options": [
+                "A) Migration",
+                "B) International migration",
+                "C) Immigration",
+                "D) Seasonal migration"
+            ],
+            "a": "D) Seasonal migration"
+        }
+    ],
+    "trueFalse": [
+        {
+            "q": "Migration — The movement of people to change their usual place of residence.",
+            "options": [
+                "True",
+                "False"
+            ],
+            "a": "True",
+            "exp": "Correct meaning: Migration — The movement of people to change their usual place of residence."
+        },
+        {
+            "q": "International migration — Moving into a country to settle there.",
+            "options": [
+                "True",
+                "False"
+            ],
+            "a": "False",
+            "exp": "Correct meaning: International migration — Movement from one country to another."
+        },
+        {
+            "q": "Immigration — Moving into a country to settle there.",
+            "options": [
+                "True",
+                "False"
+            ],
+            "a": "True",
+            "exp": "Correct meaning: Immigration — Moving into a country to settle there."
+        },
+        {
+            "q": "Emigration — Movement within a region, such as within Southern Africa.",
+            "options": [
+                "True",
+                "False"
+            ],
+            "a": "False",
+            "exp": "Correct meaning: Emigration — Leaving a country to settle elsewhere."
+        },
+        {
+            "q": "Regional migration — Movement within a region, such as within Southern Africa.",
+            "options": [
+                "True",
+                "False"
+            ],
+            "a": "True",
+            "exp": "Correct meaning: Regional migration — Movement within a region, such as within Southern Africa."
+        },
+        {
+            "q": "Rural-urban migration — An increase in the percentage of people living in urban areas.",
+            "options": [
+                "True",
+                "False"
+            ],
+            "a": "False",
+            "exp": "Correct meaning: Rural-urban migration — Movement from a rural area to a town or city."
+        },
+        {
+            "q": "Urbanisation — An increase in the percentage of people living in urban areas.",
+            "options": [
+                "True",
+                "False"
+            ],
+            "a": "True",
+            "exp": "Correct meaning: Urbanisation — An increase in the percentage of people living in urban areas."
+        },
+        {
+            "q": "Rural depopulation — Movement within the borders of the same country.",
+            "options": [
+                "True",
+                "False"
+            ],
+            "a": "False",
+            "exp": "Correct meaning: Rural depopulation — A reduction in the number of people living in rural areas."
+        },
+        {
+            "q": "Internal migration — Movement within the borders of the same country.",
+            "options": [
+                "True",
+                "False"
+            ],
+            "a": "True",
+            "exp": "Correct meaning: Internal migration — Movement within the borders of the same country."
+        },
+        {
+            "q": "External migration — The place from which a migrant moves.",
+            "options": [
+                "True",
+                "False"
+            ],
+            "a": "False",
+            "exp": "Correct meaning: External migration — Movement across an international border."
+        },
+        {
+            "q": "Place of origin — The place from which a migrant moves.",
+            "options": [
+                "True",
+                "False"
+            ],
+            "a": "True",
+            "exp": "Correct meaning: Place of origin — The place from which a migrant moves."
+        },
+        {
+            "q": "Destination — A person who changes their usual place of residence.",
+            "options": [
+                "True",
+                "False"
+            ],
+            "a": "False",
+            "exp": "Correct meaning: Destination — The place to which a migrant moves."
+        },
+        {
+            "q": "Migrant — A person who changes their usual place of residence.",
+            "options": [
+                "True",
+                "False"
+            ],
+            "a": "True",
+            "exp": "Correct meaning: Migrant — A person who changes their usual place of residence."
+        },
+        {
+            "q": "Push factor — A condition that attracts people to a new place.",
+            "options": [
+                "True",
+                "False"
+            ],
+            "a": "False",
+            "exp": "Correct meaning: Push factor — A condition that encourages people to leave a place."
+        },
+        {
+            "q": "Pull factor — A condition that attracts people to a new place.",
+            "options": [
+                "True",
+                "False"
+            ],
+            "a": "True",
+            "exp": "Correct meaning: Pull factor — A condition that attracts people to a new place."
+        },
+        {
+            "q": "Voluntary migration — Movement caused by danger, conflict, disaster or compulsion.",
+            "options": [
+                "True",
+                "False"
+            ],
+            "a": "False",
+            "exp": "Correct meaning: Voluntary migration — Movement made by personal choice."
+        },
+        {
+            "q": "Forced migration — Movement caused by danger, conflict, disaster or compulsion.",
+            "options": [
+                "True",
+                "False"
+            ],
+            "a": "True",
+            "exp": "Correct meaning: Forced migration — Movement caused by danger, conflict, disaster or compulsion."
+        },
+        {
+            "q": "Temporary migration — Movement intended to establish a long-term home elsewhere.",
+            "options": [
+                "True",
+                "False"
+            ],
+            "a": "False",
+            "exp": "Correct meaning: Temporary migration — Movement for a limited period with an intention to return."
+        },
+        {
+            "q": "Permanent migration — Movement intended to establish a long-term home elsewhere.",
+            "options": [
+                "True",
+                "False"
+            ],
+            "a": "True",
+            "exp": "Correct meaning: Permanent migration — Movement intended to establish a long-term home elsewhere."
+        },
+        {
+            "q": "Seasonal migration — The movement of people to change their usual place of residence.",
+            "options": [
+                "True",
+                "False"
+            ],
+            "a": "False",
+            "exp": "Correct meaning: Seasonal migration — Temporary movement linked to a season or seasonal work."
+        }
+    ]
+};
+
+        const totalQuestions = 20; 
+        const sliceAngle = 360 / totalQuestions;
+        let currentCategoryKey = null;
+        let currentRotation = 0;
+        let currentQuestionData = null;
+        let targetQuestionIndex = null;
+
+        let availableQuestions = {
+            'definitions': Array.from({length: totalQuestions}, (_, i) => i),
+            'terms': Array.from({length: totalQuestions}, (_, i) => i),
+            'multipleChoice': Array.from({length: totalQuestions}, (_, i) => i),
+            'trueFalse': Array.from({length: totalQuestions}, (_, i) => i)
+        };
+
+        const sliceColors = ["#0055ff", "#0088ff", "#00bfff", "#0044cc"];
+
+        function buildWheel() {
+            const wheelBg = document.getElementById('wheelBg');
+            const wheelLabels = document.getElementById('wheelLabels');
+            let gradientParts = [];
+
+            for (let i = 0; i < totalQuestions; i++) {
+                let startAngle = i * sliceAngle;
+                let endAngle = (i + 1) * sliceAngle;
+                let color = sliceColors[i % sliceColors.length];
+                gradientParts.push(`${color} ${startAngle}deg ${endAngle}deg`);
+
+                let label = document.createElement('div');
+                label.className = 'label';
+                let textRotation = startAngle + (sliceAngle / 2) - 90;
+                label.style.transform = `rotate(${textRotation}deg) translate(145px, -50%)`;
+                label.innerText = i + 1;
+                wheelLabels.appendChild(label);
+            }
+            wheelBg.style.background = `conic-gradient(${gradientParts.join(', ')})`;
+        }
+
+        buildWheel();
+
+        function selectCategory(categoryKey, btnElement) {
+            currentCategoryKey = categoryKey;
+            const buttons = document.querySelectorAll('.cat-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            btnElement.classList.add('active');
+            document.getElementById('wheelArea').style.display = 'block';
+            document.getElementById('activeCategoryTitle').innerText = `Category: ${btnElement.innerText}`;
+            document.getElementById('questionCard').style.display = 'none';
+            document.getElementById('remainingCount').innerText = `${availableQuestions[categoryKey].length} questions remaining`;
+            currentRotation = 0;
+            document.getElementById('wheel').style.transform = `rotate(0deg)`;
+        }
+
+        function spinWheel() {
+            const spinBtn = document.getElementById('spinBtn');
+            const wheel = document.getElementById('wheel');
+            const questionCard = document.getElementById('questionCard');
+            let available = availableQuestions[currentCategoryKey];
+            
+            if (available.length === 0) {
+                alert(`Resetting ${currentCategoryKey}!`);
+                availableQuestions[currentCategoryKey] = Array.from({length: totalQuestions}, (_, i) => i);
+                available = availableQuestions[currentCategoryKey];
+            }
+
+            spinBtn.disabled = true;
+            spinBtn.innerText = "SPINNING...";
+            MayHubSounds.startWheel();
+            questionCard.style.display = 'none';
+
+            let randomArrIndex = Math.floor(Math.random() * available.length);
+            targetQuestionIndex = available[randomArrIndex];
+            available.splice(randomArrIndex, 1);
+            document.getElementById('remainingCount').innerText = `${available.length} questions remaining`;
+
+            let sliceCenterAngle = (targetQuestionIndex * sliceAngle) + (sliceAngle / 2);
+            let targetDegree = 360 - sliceCenterAngle;
+            let currentBase = Math.ceil(currentRotation / 360) * 360; 
+            currentRotation = currentBase + 1800 + targetDegree;
+            wheel.style.transform = `rotate(${currentRotation}deg)`;
+
+            setTimeout(() => {
+                MayHubSounds.stopWheel();
+                spinBtn.disabled = false;
+                spinBtn.innerText = "SPIN AGAIN";
+                currentQuestionData = gameData[currentCategoryKey][targetQuestionIndex];
+                displayQuestion(targetQuestionIndex + 1, currentQuestionData);
+            }, 4000);
+        }
+
+        function displayQuestion(questionNumber, data) {
+            document.getElementById('qNumberTag').innerText = `Question #${questionNumber}`;
+            document.getElementById('questionText').innerText = data.q;
+            const mcOptions = document.getElementById('mcOptions');
+            const revealBtn = document.getElementById('revealBtn');
+            const answerText = document.getElementById('answerText');
+            mcOptions.innerHTML = "";
+            answerText.style.display = "none";
+            
+            if (currentCategoryKey === 'multipleChoice' || currentCategoryKey === 'trueFalse') {
+                revealBtn.style.display = "none"; 
+                mcOptions.style.display = "flex";
+                data.options.forEach(opt => {
+                    let btn = document.createElement("button");
+                    btn.className = "option-btn";
+                    btn.innerText = opt;
+                    btn.onclick = () => checkInteractiveAnswer(btn, opt);
+                    mcOptions.appendChild(btn);
+                });
+            } else {
+                mcOptions.style.display = "none";
+                revealBtn.style.display = "inline-block";
+                answerText.innerHTML = `<strong>Answer:</strong> ${data.a}`;
+            }
+            document.getElementById('questionCard').style.display = "block";
+        }
+
+        function checkInteractiveAnswer(clickedBtn, selectedText) {
+            const allBtns = document.querySelectorAll('.option-btn');
+            allBtns.forEach(btn => btn.disabled = true);
+            const isCorrect = (selectedText === currentQuestionData.a || selectedText.startsWith(currentQuestionData.a.charAt(0)));
+            const answerTextDiv = document.getElementById('answerText');
+            if (isCorrect) {
+                MayHubSounds.playCorrect();
+                clickedBtn.classList.add('correct');
+                answerTextDiv.innerHTML = `<div style="color: green; font-weight: bold;">Correct!</div> ${currentQuestionData.exp || ''}`;
+            } else {
+                MayHubSounds.playWrong();
+                clickedBtn.classList.add('incorrect');
+                answerTextDiv.innerHTML = `<div style="color: red; font-weight: bold;">Incorrect!</div> The correct answer was: ${currentQuestionData.a}. ${currentQuestionData.exp || ''}`;
+            }
+            answerTextDiv.style.display = "block";
+        }
+
+        function revealAnswer() {
+            document.getElementById('revealBtn').style.display = "none";
+            document.getElementById('answerText').style.display = "block";
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,1192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-8GCWSKNDL7"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-8GCWSKNDL7');
+</script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>May Learning Hub | Smart Snake - Population Structure and Growth</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f0f4f8; color: #333; line-height: 1.6; display: flex; flex-direction: column; min-height: 100vh; touch-action: manipulation; }
+        
+        /* Navigation */
+        nav { background-color: #002b5e; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        .logo { color: #fff; font-size: 1.5rem; font-weight: bold; text-decoration: none; }
+        .nav-links a { color: #cce0ff; text-decoration: none; margin-left: 1.5rem; font-weight: 500; transition: color 0.3s; }
+        .nav-links a:hover, .nav-links a.active { color: #fff; text-decoration: underline; }
+        
+        /* Game Header */
+        .game-header { text-align: center; padding: 2rem 1rem 1rem; }
+        .game-title { color: #004080; font-size: 2.2rem; margin-bottom: 0.5rem; }
+        .game-subtitle { color: #555; margin-bottom: 1.5rem; font-size: 1.1rem; }
+
+        /* --- Topic Selection UI --- */
+        .category-selection { margin-bottom: 2rem; text-align: center; }
+        .cat-buttons { display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem; max-width: 800px; margin: 0 auto; padding: 0 10px; }
+        .cat-btn { background-color: #fff; border: 2px solid #004080; color: #004080; padding: 0.8rem 1.5rem; font-size: 1.1rem; font-weight: bold; border-radius: 8px; cursor: pointer; transition: all 0.3s ease; flex: 1; min-width: 150px; }
+        .cat-btn:hover { background-color: #e6f0fa; transform: translateY(-3px); }
+
+        /* --- Game Area --- */
+        #gameArea { display: none; flex-direction: column; align-items: center; width: 100%; padding: 0 10px; }
+        
+        .score-board { display: flex; justify-content: space-between; width: 100%; max-width: 600px; background: #002b5e; color: #fff; padding: 0.8rem 1.5rem; border-radius: 8px 8px 0 0; font-size: 1.2rem; font-weight: bold; }
+        .score-board span { color: #ffc107; }
+
+        .canvas-container { position: relative; max-width: 600px; width: 100%; }
+        canvas { background-color: #d1e0e0; box-shadow: 0 8px 20px rgba(0,0,0,0.2); border-radius: 0 0 8px 8px; border: 4px solid #002b5e; width: 100%; height: auto; display: block; }
+
+        #pauseOverlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 43, 94, 0.7); border-radius: 0 0 8px 8px; display: none; flex-direction: column; justify-content: center; align-items: center; color: #fff; font-size: 1.5rem; font-weight: bold; text-align: center; padding: 1rem; z-index: 10; animation: pulse 1.5s infinite; }
+        @keyframes pulse { 0% { opacity: 0.8; } 50% { opacity: 1; transform: scale(1.02); } 100% { opacity: 0.8; } }
+
+        .controls-container { display: grid; grid-template-columns: repeat(3, 60px); grid-template-rows: repeat(2, 60px); gap: 10px; margin-top: 2rem; justify-content: center; }
+        .control-btn { background: #3385ff; color: #fff; border: none; border-radius: 12px; font-size: 1.5rem; font-weight: bold; cursor: pointer; box-shadow: 0 4px 6px rgba(0,0,0,0.2); display: flex; align-items: center; justify-content: center; user-select: none; }
+        .control-btn:active { background: #004080; transform: translateY(2px); box-shadow: 0 2px 3px rgba(0,0,0,0.2); }
+        
+        #btnUp { grid-column: 2; grid-row: 1; }
+        #btnLeft { grid-column: 1; grid-row: 2; }
+        #btnDown { grid-column: 2; grid-row: 2; }
+        #btnRight { grid-column: 3; grid-row: 2; }
+
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,26,51,0.9); align-items: center; justify-content: center; z-index: 100; padding: 1rem; }
+        .modal-content { background: #fff; padding: 2rem; border-radius: 12px; text-align: center; max-width: 500px; width: 100%; border-top: 6px solid #ffc107; box-shadow: 0 10px 40px rgba(0,0,0,0.5); }
+        
+        .modal-points { color: #d32f2f; font-weight: bold; font-size: 1.2rem; margin-bottom: 0.5rem; }
+        .golden-text { color: #d39e00; }
+        .modal-question { font-size: 1.4rem; color: #002b5e; font-weight: bold; margin-bottom: 1.5rem; }
+        
+        .mc-options { display: flex; flex-direction: column; gap: 0.8rem; }
+        .option-btn { background: #f0f7ff; border: 2px solid #b3d4ff; padding: 1rem; font-size: 1.1rem; border-radius: 6px; cursor: pointer; transition: all 0.2s; text-align: left; font-weight: bold; color: #004080; }
+        .option-btn:hover:not(:disabled) { background: #3385ff; color: #fff; border-color: #002b5e; }
+        .option-btn.correct { background-color: #28a745 !important; border-color: #1e7e34 !important; color: #fff !important; }
+        .option-btn.incorrect { background-color: #dc3545 !important; border-color: #bd2130 !important; color: #fff !important; }
+
+        .continue-btn { display: none; background: #004080; color: #fff; border: none; padding: 1rem 2rem; font-size: 1.1rem; font-weight: bold; border-radius: 8px; cursor: pointer; margin-top: 1.5rem; width: 100%; }
+
+        #endScreen { display: none; text-align: center; padding: 3rem 1rem; }
+        #endTitle { font-size: 2.5rem; margin-bottom: 1rem; }
+        #endMessage { font-size: 1.2rem; color: #555; }
+        
+        footer { text-align: center; padding: 1rem; background-color: #002b5e; color: #fff; margin-top: auto; }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="../../../../../index.html" class="logo">May Learning Hub</a>
+        <div class="nav-links">
+            <a href="../../../../../index.html">Home</a>
+            <a href="../../../../../about.html">About</a>
+        </div>
+    </nav>
+
+    <header class="game-header">
+        <h1 class="game-title">Smart Snake: Population Structure and Growth</h1>
+        <p class="game-subtitle">Revise development terminology, inequality, health, GDP, sustainability and human-development indicators.</p>
+        <p style="font-size: 0.78rem; color: #52606d; margin-top: 0.45rem;">Grade 10 Geography Term 3 revision</p>
+    </header>
+
+    <div class="category-selection" id="categorySelection">
+        <div class="cat-buttons">
+            <button class="cat-btn" onclick="startGame('game1')">Development Concepts</button>
+            <button class="cat-btn" onclick="startGame('game2')">Countries & Aspects</button>
+            <button class="cat-btn" onclick="startGame('game3')">Development Indicators</button>
+            <button class="cat-btn" onclick="startGame('game4')">Environmental Indicators</button>
+        </div>
+    </div>
+
+    <main id="gameArea">
+        <div class="score-board">
+            <div>Apples: <span id="appleCount">0</span> / 10</div>
+            <div>Score: <span id="scoreText">0</span></div>
+        </div>
+        
+        <div class="canvas-container">
+            <canvas id="gameCanvas" width="600" height="400"></canvas>
+            
+            <div id="pauseOverlay">
+                Tap any direction below to resume slithering! 🐍
+            </div>
+        </div>
+        
+        <div class="controls-container">
+            <button class="control-btn" id="btnUp" onclick="handleInput('UP')">▲</button>
+            <button class="control-btn" id="btnLeft" onclick="handleInput('LEFT')">◀</button>
+            <button class="control-btn" id="btnDown" onclick="handleInput('DOWN')">▼</button>
+            <button class="control-btn" id="btnRight" onclick="handleInput('RIGHT')">▶</button>
+        </div>
+    </main>
+
+    <div class="modal" id="questionModal">
+        <div class="modal-content">
+            <div class="modal-points" id="modalPoints">For 1 Point:</div>
+            <div class="modal-question" id="modalQuestion">Loading question...</div>
+            <div class="mc-options" id="mcOptions"></div>
+            <button class="continue-btn" id="btnContinue" onclick="closeModalAndPause()">Continue Game</button>
+        </div>
+    </div>
+
+    <div id="endScreen">
+        <h2 id="endTitle" style="color: #28a745;">Level Complete!</h2>
+        <p id="endMessage">You successfully ate 10 apples.</p>
+        <p style="font-size: 1.5rem; margin: 1rem 0; font-weight: bold;">Final Score: <span id="finalScoreText" style="color:#004080;">0</span> Points</p>
+        <button class="cat-btn" onclick="location.reload()" style="background:#3385ff; color:#fff;">Play Again</button>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 May Learning Hub. All rights reserved.</p>
+    </footer>
+
+        <script src="../../../../../game-audio.js"></script>
+<script>
+        const questionDB = {
+    "game1": [
+        {
+            "q": "Which geographical term means: A graph showing the age and sex structure of a population.",
+            "options": [
+                "Population pyramid",
+                "Age-sex structure",
+                "Cohort",
+                "Expanding pyramid"
+            ],
+            "a": 0
+        },
+        {
+            "q": "Which geographical term means: The composition of a population according to age groups and sex.",
+            "options": [
+                "Cohort",
+                "Age-sex structure",
+                "Expanding pyramid",
+                "Stable pyramid"
+            ],
+            "a": 1
+        },
+        {
+            "q": "Which geographical term means: A group of people within the same age range.",
+            "options": [
+                "Expanding pyramid",
+                "Stable pyramid",
+                "Cohort",
+                "Declining pyramid"
+            ],
+            "a": 2
+        },
+        {
+            "q": "Which geographical term means: A pyramid with a broad base, showing a youthful and rapidly growing population.",
+            "options": [
+                "Stable pyramid",
+                "Declining pyramid",
+                "Broad base",
+                "Expanding pyramid"
+            ],
+            "a": 3
+        },
+        {
+            "q": "Which geographical term means: A pyramid with similar-sized younger and middle cohorts, showing slow change.",
+            "options": [
+                "Stable pyramid",
+                "Declining pyramid",
+                "Broad base",
+                "Narrow apex"
+            ],
+            "a": 0
+        },
+        {
+            "q": "Which geographical term means: A pyramid with a narrow base, showing low birth rates and possible population decline.",
+            "options": [
+                "Broad base",
+                "Declining pyramid",
+                "Narrow apex",
+                "Young dependants"
+            ],
+            "a": 1
+        },
+        {
+            "q": "Which geographical term means: A wide youngest-age section that usually indicates a high birth rate.",
+            "options": [
+                "Narrow apex",
+                "Young dependants",
+                "Broad base",
+                "Working-age population"
+            ],
+            "a": 2
+        },
+        {
+            "q": "Which geographical term means: A small elderly section that usually indicates relatively low life expectancy.",
+            "options": [
+                "Young dependants",
+                "Working-age population",
+                "Elderly dependants",
+                "Narrow apex"
+            ],
+            "a": 3
+        },
+        {
+            "q": "Which geographical term means: Children who generally rely on working adults for support.",
+            "options": [
+                "Young dependants",
+                "Working-age population",
+                "Elderly dependants",
+                "Sex ratio"
+            ],
+            "a": 0
+        },
+        {
+            "q": "Which geographical term means: Adults in the age range that normally supplies most workers.",
+            "options": [
+                "Elderly dependants",
+                "Working-age population",
+                "Sex ratio",
+                "High birth rate"
+            ],
+            "a": 1
+        },
+        {
+            "q": "Which geographical term means: Older people who may rely on workers, pensions or care services.",
+            "options": [
+                "Sex ratio",
+                "High birth rate",
+                "Elderly dependants",
+                "Low life expectancy"
+            ],
+            "a": 2
+        },
+        {
+            "q": "Which geographical term means: The relationship between the number of males and females in a population.",
+            "options": [
+                "High birth rate",
+                "Low life expectancy",
+                "Dependency ratio",
+                "Sex ratio"
+            ],
+            "a": 3
+        },
+        {
+            "q": "Which geographical term means: A large number of live births per 1,000 people.",
+            "options": [
+                "High birth rate",
+                "Low life expectancy",
+                "Dependency ratio",
+                "Government planning"
+            ],
+            "a": 0
+        },
+        {
+            "q": "Which geographical term means: A relatively low average number of years that people are expected to live.",
+            "options": [
+                "Dependency ratio",
+                "Low life expectancy",
+                "Government planning",
+                "Demographic data"
+            ],
+            "a": 1
+        },
+        {
+            "q": "Which geographical term means: A comparison of dependants with the working-age population.",
+            "options": [
+                "Government planning",
+                "Demographic data",
+                "Dependency ratio",
+                "Natural increase"
+            ],
+            "a": 2
+        },
+        {
+            "q": "Which geographical term means: Using population information to prepare services and infrastructure.",
+            "options": [
+                "Demographic data",
+                "Natural increase",
+                "Population growth rate",
+                "Government planning"
+            ],
+            "a": 3
+        },
+        {
+            "q": "Which geographical term means: Statistical information about a population.",
+            "options": [
+                "Demographic data",
+                "Natural increase",
+                "Population growth rate",
+                "Infant mortality rate"
+            ],
+            "a": 0
+        },
+        {
+            "q": "Which geographical term means: Population growth calculated by subtracting the death rate from the birth rate.",
+            "options": [
+                "Population growth rate",
+                "Natural increase",
+                "Infant mortality rate",
+                "Population pyramid"
+            ],
+            "a": 1
+        },
+        {
+            "q": "Which geographical term means: The rate at which the size of a population changes over time.",
+            "options": [
+                "Infant mortality rate",
+                "Population pyramid",
+                "Population growth rate",
+                "Age-sex structure"
+            ],
+            "a": 2
+        },
+        {
+            "q": "Which geographical term means: The number of deaths of babies under one year per 1,000 live births.",
+            "options": [
+                "Population pyramid",
+                "Age-sex structure",
+                "Cohort",
+                "Infant mortality rate"
+            ],
+            "a": 3
+        }
+    ],
+    "game2": [
+        {
+            "q": "Which statement correctly defines Population pyramid?",
+            "options": [
+                "The composition of a population according to age groups and sex.",
+                "A graph showing the age and sex structure of a population.",
+                "A group of people within the same age range.",
+                "A pyramid with a broad base, showing a youthful and rapidly growing population."
+            ],
+            "a": 1
+        },
+        {
+            "q": "Which statement correctly defines Age-sex structure?",
+            "options": [
+                "A group of people within the same age range.",
+                "A pyramid with a broad base, showing a youthful and rapidly growing population.",
+                "The composition of a population according to age groups and sex.",
+                "A pyramid with similar-sized younger and middle cohorts, showing slow change."
+            ],
+            "a": 2
+        },
+        {
+            "q": "Which statement correctly defines Cohort?",
+            "options": [
+                "A pyramid with a broad base, showing a youthful and rapidly growing population.",
+                "A pyramid with similar-sized younger and middle cohorts, showing slow change.",
+                "A pyramid with a narrow base, showing low birth rates and possible population decline.",
+                "A group of people within the same age range."
+            ],
+            "a": 3
+        },
+        {
+            "q": "Which statement correctly defines Expanding pyramid?",
+            "options": [
+                "A pyramid with a broad base, showing a youthful and rapidly growing population.",
+                "A pyramid with similar-sized younger and middle cohorts, showing slow change.",
+                "A pyramid with a narrow base, showing low birth rates and possible population decline.",
+                "A wide youngest-age section that usually indicates a high birth rate."
+            ],
+            "a": 0
+        },
+        {
+            "q": "Which statement correctly defines Stable pyramid?",
+            "options": [
+                "A pyramid with a narrow base, showing low birth rates and possible population decline.",
+                "A pyramid with similar-sized younger and middle cohorts, showing slow change.",
+                "A wide youngest-age section that usually indicates a high birth rate.",
+                "A small elderly section that usually indicates relatively low life expectancy."
+            ],
+            "a": 1
+        },
+        {
+            "q": "Which statement correctly defines Declining pyramid?",
+            "options": [
+                "A wide youngest-age section that usually indicates a high birth rate.",
+                "A small elderly section that usually indicates relatively low life expectancy.",
+                "A pyramid with a narrow base, showing low birth rates and possible population decline.",
+                "Children who generally rely on working adults for support."
+            ],
+            "a": 2
+        },
+        {
+            "q": "Which statement correctly defines Broad base?",
+            "options": [
+                "A small elderly section that usually indicates relatively low life expectancy.",
+                "Children who generally rely on working adults for support.",
+                "Adults in the age range that normally supplies most workers.",
+                "A wide youngest-age section that usually indicates a high birth rate."
+            ],
+            "a": 3
+        },
+        {
+            "q": "Which statement correctly defines Narrow apex?",
+            "options": [
+                "A small elderly section that usually indicates relatively low life expectancy.",
+                "Children who generally rely on working adults for support.",
+                "Adults in the age range that normally supplies most workers.",
+                "Older people who may rely on workers, pensions or care services."
+            ],
+            "a": 0
+        },
+        {
+            "q": "Which statement correctly defines Young dependants?",
+            "options": [
+                "Adults in the age range that normally supplies most workers.",
+                "Children who generally rely on working adults for support.",
+                "Older people who may rely on workers, pensions or care services.",
+                "The relationship between the number of males and females in a population."
+            ],
+            "a": 1
+        },
+        {
+            "q": "Which statement correctly defines Working-age population?",
+            "options": [
+                "Older people who may rely on workers, pensions or care services.",
+                "The relationship between the number of males and females in a population.",
+                "Adults in the age range that normally supplies most workers.",
+                "A large number of live births per 1,000 people."
+            ],
+            "a": 2
+        },
+        {
+            "q": "Which statement correctly defines Elderly dependants?",
+            "options": [
+                "The relationship between the number of males and females in a population.",
+                "A large number of live births per 1,000 people.",
+                "A relatively low average number of years that people are expected to live.",
+                "Older people who may rely on workers, pensions or care services."
+            ],
+            "a": 3
+        },
+        {
+            "q": "Which statement correctly defines Sex ratio?",
+            "options": [
+                "The relationship between the number of males and females in a population.",
+                "A large number of live births per 1,000 people.",
+                "A relatively low average number of years that people are expected to live.",
+                "A comparison of dependants with the working-age population."
+            ],
+            "a": 0
+        },
+        {
+            "q": "Which statement correctly defines High birth rate?",
+            "options": [
+                "A relatively low average number of years that people are expected to live.",
+                "A large number of live births per 1,000 people.",
+                "A comparison of dependants with the working-age population.",
+                "Using population information to prepare services and infrastructure."
+            ],
+            "a": 1
+        },
+        {
+            "q": "Which statement correctly defines Low life expectancy?",
+            "options": [
+                "A comparison of dependants with the working-age population.",
+                "Using population information to prepare services and infrastructure.",
+                "A relatively low average number of years that people are expected to live.",
+                "Statistical information about a population."
+            ],
+            "a": 2
+        },
+        {
+            "q": "Which statement correctly defines Dependency ratio?",
+            "options": [
+                "Using population information to prepare services and infrastructure.",
+                "Statistical information about a population.",
+                "Population growth calculated by subtracting the death rate from the birth rate.",
+                "A comparison of dependants with the working-age population."
+            ],
+            "a": 3
+        },
+        {
+            "q": "Which statement correctly defines Government planning?",
+            "options": [
+                "Using population information to prepare services and infrastructure.",
+                "Statistical information about a population.",
+                "Population growth calculated by subtracting the death rate from the birth rate.",
+                "The rate at which the size of a population changes over time."
+            ],
+            "a": 0
+        },
+        {
+            "q": "Which statement correctly defines Demographic data?",
+            "options": [
+                "Population growth calculated by subtracting the death rate from the birth rate.",
+                "Statistical information about a population.",
+                "The rate at which the size of a population changes over time.",
+                "The number of deaths of babies under one year per 1,000 live births."
+            ],
+            "a": 1
+        },
+        {
+            "q": "Which statement correctly defines Natural increase?",
+            "options": [
+                "The rate at which the size of a population changes over time.",
+                "The number of deaths of babies under one year per 1,000 live births.",
+                "Population growth calculated by subtracting the death rate from the birth rate.",
+                "A graph showing the age and sex structure of a population."
+            ],
+            "a": 2
+        },
+        {
+            "q": "Which statement correctly defines Population growth rate?",
+            "options": [
+                "The number of deaths of babies under one year per 1,000 live births.",
+                "A graph showing the age and sex structure of a population.",
+                "The composition of a population according to age groups and sex.",
+                "The rate at which the size of a population changes over time."
+            ],
+            "a": 3
+        },
+        {
+            "q": "Which statement correctly defines Infant mortality rate?",
+            "options": [
+                "The number of deaths of babies under one year per 1,000 live births.",
+                "A graph showing the age and sex structure of a population.",
+                "The composition of a population according to age groups and sex.",
+                "A group of people within the same age range."
+            ],
+            "a": 0
+        }
+    ],
+    "game3": [
+        {
+            "q": "Identify the concept: A graph showing the age and sex structure of a population.",
+            "options": [
+                "Age-sex structure",
+                "Cohort",
+                "Population pyramid",
+                "Expanding pyramid"
+            ],
+            "a": 2
+        },
+        {
+            "q": "Identify the concept: The composition of a population according to age groups and sex.",
+            "options": [
+                "Cohort",
+                "Expanding pyramid",
+                "Stable pyramid",
+                "Age-sex structure"
+            ],
+            "a": 3
+        },
+        {
+            "q": "Identify the concept: A group of people within the same age range.",
+            "options": [
+                "Cohort",
+                "Expanding pyramid",
+                "Stable pyramid",
+                "Declining pyramid"
+            ],
+            "a": 0
+        },
+        {
+            "q": "Identify the concept: A pyramid with a broad base, showing a youthful and rapidly growing population.",
+            "options": [
+                "Stable pyramid",
+                "Expanding pyramid",
+                "Declining pyramid",
+                "Broad base"
+            ],
+            "a": 1
+        },
+        {
+            "q": "Identify the concept: A pyramid with similar-sized younger and middle cohorts, showing slow change.",
+            "options": [
+                "Declining pyramid",
+                "Broad base",
+                "Stable pyramid",
+                "Narrow apex"
+            ],
+            "a": 2
+        },
+        {
+            "q": "Identify the concept: A pyramid with a narrow base, showing low birth rates and possible population decline.",
+            "options": [
+                "Broad base",
+                "Narrow apex",
+                "Young dependants",
+                "Declining pyramid"
+            ],
+            "a": 3
+        },
+        {
+            "q": "Identify the concept: A wide youngest-age section that usually indicates a high birth rate.",
+            "options": [
+                "Broad base",
+                "Narrow apex",
+                "Young dependants",
+                "Working-age population"
+            ],
+            "a": 0
+        },
+        {
+            "q": "Identify the concept: A small elderly section that usually indicates relatively low life expectancy.",
+            "options": [
+                "Young dependants",
+                "Narrow apex",
+                "Working-age population",
+                "Elderly dependants"
+            ],
+            "a": 1
+        },
+        {
+            "q": "Identify the concept: Children who generally rely on working adults for support.",
+            "options": [
+                "Working-age population",
+                "Elderly dependants",
+                "Young dependants",
+                "Sex ratio"
+            ],
+            "a": 2
+        },
+        {
+            "q": "Identify the concept: Adults in the age range that normally supplies most workers.",
+            "options": [
+                "Elderly dependants",
+                "Sex ratio",
+                "High birth rate",
+                "Working-age population"
+            ],
+            "a": 3
+        },
+        {
+            "q": "Identify the concept: Older people who may rely on workers, pensions or care services.",
+            "options": [
+                "Elderly dependants",
+                "Sex ratio",
+                "High birth rate",
+                "Low life expectancy"
+            ],
+            "a": 0
+        },
+        {
+            "q": "Identify the concept: The relationship between the number of males and females in a population.",
+            "options": [
+                "High birth rate",
+                "Sex ratio",
+                "Low life expectancy",
+                "Dependency ratio"
+            ],
+            "a": 1
+        },
+        {
+            "q": "Identify the concept: A large number of live births per 1,000 people.",
+            "options": [
+                "Low life expectancy",
+                "Dependency ratio",
+                "High birth rate",
+                "Government planning"
+            ],
+            "a": 2
+        },
+        {
+            "q": "Identify the concept: A relatively low average number of years that people are expected to live.",
+            "options": [
+                "Dependency ratio",
+                "Government planning",
+                "Demographic data",
+                "Low life expectancy"
+            ],
+            "a": 3
+        },
+        {
+            "q": "Identify the concept: A comparison of dependants with the working-age population.",
+            "options": [
+                "Dependency ratio",
+                "Government planning",
+                "Demographic data",
+                "Natural increase"
+            ],
+            "a": 0
+        },
+        {
+            "q": "Identify the concept: Using population information to prepare services and infrastructure.",
+            "options": [
+                "Demographic data",
+                "Government planning",
+                "Natural increase",
+                "Population growth rate"
+            ],
+            "a": 1
+        },
+        {
+            "q": "Identify the concept: Statistical information about a population.",
+            "options": [
+                "Natural increase",
+                "Population growth rate",
+                "Demographic data",
+                "Infant mortality rate"
+            ],
+            "a": 2
+        },
+        {
+            "q": "Identify the concept: Population growth calculated by subtracting the death rate from the birth rate.",
+            "options": [
+                "Population growth rate",
+                "Infant mortality rate",
+                "Population pyramid",
+                "Natural increase"
+            ],
+            "a": 3
+        },
+        {
+            "q": "Identify the concept: The rate at which the size of a population changes over time.",
+            "options": [
+                "Population growth rate",
+                "Infant mortality rate",
+                "Population pyramid",
+                "Age-sex structure"
+            ],
+            "a": 0
+        },
+        {
+            "q": "Identify the concept: The number of deaths of babies under one year per 1,000 live births.",
+            "options": [
+                "Population pyramid",
+                "Infant mortality rate",
+                "Age-sex structure",
+                "Cohort"
+            ],
+            "a": 1
+        }
+    ],
+    "game4": [
+        {
+            "q": "Select the accurate description of Population pyramid.",
+            "options": [
+                "A graph showing the age and sex structure of a population.",
+                "The composition of a population according to age groups and sex.",
+                "A group of people within the same age range.",
+                "A pyramid with a broad base, showing a youthful and rapidly growing population."
+            ],
+            "a": 0
+        },
+        {
+            "q": "Select the accurate description of Age-sex structure.",
+            "options": [
+                "A group of people within the same age range.",
+                "The composition of a population according to age groups and sex.",
+                "A pyramid with a broad base, showing a youthful and rapidly growing population.",
+                "A pyramid with similar-sized younger and middle cohorts, showing slow change."
+            ],
+            "a": 1
+        },
+        {
+            "q": "Select the accurate description of Cohort.",
+            "options": [
+                "A pyramid with a broad base, showing a youthful and rapidly growing population.",
+                "A pyramid with similar-sized younger and middle cohorts, showing slow change.",
+                "A group of people within the same age range.",
+                "A pyramid with a narrow base, showing low birth rates and possible population decline."
+            ],
+            "a": 2
+        },
+        {
+            "q": "Select the accurate description of Expanding pyramid.",
+            "options": [
+                "A pyramid with similar-sized younger and middle cohorts, showing slow change.",
+                "A pyramid with a narrow base, showing low birth rates and possible population decline.",
+                "A wide youngest-age section that usually indicates a high birth rate.",
+                "A pyramid with a broad base, showing a youthful and rapidly growing population."
+            ],
+            "a": 3
+        },
+        {
+            "q": "Select the accurate description of Stable pyramid.",
+            "options": [
+                "A pyramid with similar-sized younger and middle cohorts, showing slow change.",
+                "A pyramid with a narrow base, showing low birth rates and possible population decline.",
+                "A wide youngest-age section that usually indicates a high birth rate.",
+                "A small elderly section that usually indicates relatively low life expectancy."
+            ],
+            "a": 0
+        },
+        {
+            "q": "Select the accurate description of Declining pyramid.",
+            "options": [
+                "A wide youngest-age section that usually indicates a high birth rate.",
+                "A pyramid with a narrow base, showing low birth rates and possible population decline.",
+                "A small elderly section that usually indicates relatively low life expectancy.",
+                "Children who generally rely on working adults for support."
+            ],
+            "a": 1
+        },
+        {
+            "q": "Select the accurate description of Broad base.",
+            "options": [
+                "A small elderly section that usually indicates relatively low life expectancy.",
+                "Children who generally rely on working adults for support.",
+                "A wide youngest-age section that usually indicates a high birth rate.",
+                "Adults in the age range that normally supplies most workers."
+            ],
+            "a": 2
+        },
+        {
+            "q": "Select the accurate description of Narrow apex.",
+            "options": [
+                "Children who generally rely on working adults for support.",
+                "Adults in the age range that normally supplies most workers.",
+                "Older people who may rely on workers, pensions or care services.",
+                "A small elderly section that usually indicates relatively low life expectancy."
+            ],
+            "a": 3
+        },
+        {
+            "q": "Select the accurate description of Young dependants.",
+            "options": [
+                "Children who generally rely on working adults for support.",
+                "Adults in the age range that normally supplies most workers.",
+                "Older people who may rely on workers, pensions or care services.",
+                "The relationship between the number of males and females in a population."
+            ],
+            "a": 0
+        },
+        {
+            "q": "Select the accurate description of Working-age population.",
+            "options": [
+                "Older people who may rely on workers, pensions or care services.",
+                "Adults in the age range that normally supplies most workers.",
+                "The relationship between the number of males and females in a population.",
+                "A large number of live births per 1,000 people."
+            ],
+            "a": 1
+        },
+        {
+            "q": "Select the accurate description of Elderly dependants.",
+            "options": [
+                "The relationship between the number of males and females in a population.",
+                "A large number of live births per 1,000 people.",
+                "Older people who may rely on workers, pensions or care services.",
+                "A relatively low average number of years that people are expected to live."
+            ],
+            "a": 2
+        },
+        {
+            "q": "Select the accurate description of Sex ratio.",
+            "options": [
+                "A large number of live births per 1,000 people.",
+                "A relatively low average number of years that people are expected to live.",
+                "A comparison of dependants with the working-age population.",
+                "The relationship between the number of males and females in a population."
+            ],
+            "a": 3
+        },
+        {
+            "q": "Select the accurate description of High birth rate.",
+            "options": [
+                "A large number of live births per 1,000 people.",
+                "A relatively low average number of years that people are expected to live.",
+                "A comparison of dependants with the working-age population.",
+                "Using population information to prepare services and infrastructure."
+            ],
+            "a": 0
+        },
+        {
+            "q": "Select the accurate description of Low life expectancy.",
+            "options": [
+                "A comparison of dependants with the working-age population.",
+                "A relatively low average number of years that people are expected to live.",
+                "Using population information to prepare services and infrastructure.",
+                "Statistical information about a population."
+            ],
+            "a": 1
+        },
+        {
+            "q": "Select the accurate description of Dependency ratio.",
+            "options": [
+                "Using population information to prepare services and infrastructure.",
+                "Statistical information about a population.",
+                "A comparison of dependants with the working-age population.",
+                "Population growth calculated by subtracting the death rate from the birth rate."
+            ],
+            "a": 2
+        },
+        {
+            "q": "Select the accurate description of Government planning.",
+            "options": [
+                "Statistical information about a population.",
+                "Population growth calculated by subtracting the death rate from the birth rate.",
+                "The rate at which the size of a population changes over time.",
+                "Using population information to prepare services and infrastructure."
+            ],
+            "a": 3
+        },
+        {
+            "q": "Select the accurate description of Demographic data.",
+            "options": [
+                "Statistical information about a population.",
+                "Population growth calculated by subtracting the death rate from the birth rate.",
+                "The rate at which the size of a population changes over time.",
+                "The number of deaths of babies under one year per 1,000 live births."
+            ],
+            "a": 0
+        },
+        {
+            "q": "Select the accurate description of Natural increase.",
+            "options": [
+                "The rate at which the size of a population changes over time.",
+                "Population growth calculated by subtracting the death rate from the birth rate.",
+                "The number of deaths of babies under one year per 1,000 live births.",
+                "A graph showing the age and sex structure of a population."
+            ],
+            "a": 1
+        },
+        {
+            "q": "Select the accurate description of Population growth rate.",
+            "options": [
+                "The number of deaths of babies under one year per 1,000 live births.",
+                "A graph showing the age and sex structure of a population.",
+                "The rate at which the size of a population changes over time.",
+                "The composition of a population according to age groups and sex."
+            ],
+            "a": 2
+        },
+        {
+            "q": "Select the accurate description of Infant mortality rate.",
+            "options": [
+                "A graph showing the age and sex structure of a population.",
+                "The composition of a population according to age groups and sex.",
+                "A group of people within the same age range.",
+                "The number of deaths of babies under one year per 1,000 live births."
+            ],
+            "a": 3
+        }
+    ]
+};
+
+        const canvas = document.getElementById("gameCanvas");
+        const ctx = canvas.getContext("2d");
+        const gridSize = 20;
+        const tileCountX = canvas.width / gridSize;
+        const tileCountY = canvas.height / gridSize;
+
+        let snake = [];
+        let dx = 0;
+        let dy = -1;
+        let foodX, foodY;
+        let bonusX = -1, bonusY = -1;
+        let score = 0;
+        let applesEaten = 0;
+        let gameLoop;
+        let currentTopic = [];
+        let isGoldenAppleActive = false;
+        let activeQuestionValue = 1; 
+        let isPausedPendingInput = true;
+
+        function startGame(categoryKey) {
+            document.getElementById('categorySelection').style.display = 'none';
+            document.getElementById('gameArea').style.display = 'flex';
+            currentTopic = [...questionDB[categoryKey]];
+            snake = [{x: 15, y: 10}, {x: 15, y: 11}, {x: 15, y: 12}];
+            dx = 0; dy = -1; score = 0; applesEaten = 0;
+            updateScoreboard();
+            spawnFood();
+            document.addEventListener("keydown", handleKeyInput);
+            isPausedPendingInput = true;
+            document.getElementById('pauseOverlay').style.display = 'flex';
+            drawStaticBoard();
+        }
+
+        function drawStaticBoard() {
+            clearCanvas();
+            drawFood();
+            if (isGoldenAppleActive) drawBonusFood();
+            drawSnake();
+        }
+
+        function drawGame() {
+            moveSnake();
+            if (applesEaten >= 10) {
+                clearInterval(gameLoop);
+                endGame(true);
+                return;
+            }
+            clearCanvas();
+            drawFood();
+            if (isGoldenAppleActive) drawBonusFood();
+            drawSnake();
+        }
+
+        function clearCanvas() {
+            ctx.fillStyle = "#d1e0e0";
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+        }
+
+        function drawSnake() {
+            snake.forEach((part, index) => {
+                ctx.fillStyle = index === 0 ? "#002b5e" : "#3385ff"; 
+                ctx.fillRect(part.x * gridSize, part.y * gridSize, gridSize - 2, gridSize - 2);
+            });
+        }
+
+        function drawFood() {
+            ctx.fillStyle = "#d32f2f"; 
+            ctx.beginPath();
+            ctx.arc(foodX * gridSize + gridSize/2, foodY * gridSize + gridSize/2, gridSize/2 - 2, 0, 2 * Math.PI);
+            ctx.fill();
+        }
+
+        function drawBonusFood() {
+            ctx.fillStyle = "#ffc107"; 
+            ctx.shadowBlur = 10;
+            ctx.shadowColor = "#ffc107";
+            ctx.beginPath();
+            ctx.arc(bonusX * gridSize + gridSize/2, bonusY * gridSize + gridSize/2, gridSize/2 - 2, 0, 2 * Math.PI);
+            ctx.fill();
+            ctx.shadowBlur = 0; 
+        }
+
+        function moveSnake() {
+            const head = { x: snake[0].x + dx, y: snake[0].y + dy };
+            if (head.x < 0) head.x = tileCountX - 1;
+            if (head.x >= tileCountX) head.x = 0;
+            if (head.y < 0) head.y = tileCountY - 1;
+            if (head.y >= tileCountY) head.y = 0;
+            for (let i = 0; i < snake.length; i++) {
+                if (head.x === snake[i].x && head.y === snake[i].y) {
+                    clearInterval(gameLoop);
+                    MayHubSounds.stopSnakeMovement();
+                    endGame(false);
+                    return;
+                }
+            }
+            snake.unshift(head);
+            if (head.x === foodX && head.y === foodY) {
+                clearInterval(gameLoop);
+                MayHubSounds.stopSnakeMovement();
+                MayHubSounds.playSnakeBite();
+                activeQuestionValue = 1;
+                applesEaten++;
+                spawnFood();
+                triggerQuestion(1);
+            } else if (isGoldenAppleActive && head.x === bonusX && head.y === bonusY) {
+                clearInterval(gameLoop);
+                MayHubSounds.stopSnakeMovement();
+                MayHubSounds.playSnakeBite();
+                activeQuestionValue = 3;
+                isGoldenAppleActive = false; 
+                triggerQuestion(3);
+            } else {
+                snake.pop();
+            }
+            if (!isGoldenAppleActive && (applesEaten === 2 || applesEaten === 5 || applesEaten === 8)) {
+                spawnBonusFood();
+            }
+        }
+
+        function spawnFood() {
+            foodX = Math.floor(Math.random() * tileCountX);
+            foodY = Math.floor(Math.random() * tileCountY);
+            snake.forEach(part => { if (part.x === foodX && part.y === foodY) spawnFood(); });
+        }
+
+        function spawnBonusFood() {
+            isGoldenAppleActive = true;
+            bonusX = Math.floor(Math.random() * tileCountX);
+            bonusY = Math.floor(Math.random() * tileCountY);
+            if (bonusX === foodX && bonusY === foodY) spawnBonusFood();
+        }
+
+        function handleKeyInput(event) {
+            const key = event.keyCode;
+            if (key === 37) handleInput('LEFT');
+            if (key === 38) handleInput('UP');
+            if (key === 39) handleInput('RIGHT');
+            if (key === 40) handleInput('DOWN');
+        }
+
+        function handleInput(dir) {
+            if (isPausedPendingInput) {
+                isPausedPendingInput = false;
+                document.getElementById('pauseOverlay').style.display = 'none';
+                gameLoop = setInterval(drawGame, 150);
+                MayHubSounds.startSnakeMovement();
+            }
+            if (dir === 'LEFT' && dx !== 1) { dx = -1; dy = 0; }
+            if (dir === 'UP' && dy !== 1) { dx = 0; dy = -1; }
+            if (dir === 'RIGHT' && dx !== -1) { dx = 1; dy = 0; }
+            if (dir === 'DOWN' && dy !== -1) { dx = 0; dy = 1; }
+        }
+
+        let currentQuestionObj;
+        function triggerQuestion(pointsValue) {
+            if (currentTopic.length === 0) {
+                endGame(true);
+                return;
+            }
+            const qIndex = Math.floor(Math.random() * currentTopic.length);
+            currentQuestionObj = currentTopic.splice(qIndex, 1)[0]; 
+            document.getElementById('modalPoints').innerText = pointsValue === 3 ? "⭐ BONUS: 3 Points" : "🍎 Regular: 1 Point";
+            document.getElementById('modalPoints').className = pointsValue === 3 ? "modal-points golden-text" : "modal-points";
+            document.getElementById('modalQuestion').innerText = currentQuestionObj.q;
+            const mcOptions = document.getElementById('mcOptions');
+            mcOptions.innerHTML = "";
+            document.getElementById('btnContinue').style.display = 'none';
+            currentQuestionObj.options.forEach((opt, index) => {
+                let btn = document.createElement("button");
+                btn.className = "option-btn";
+                btn.innerText = opt;
+                btn.onclick = () => answerQuestion(btn, index);
+                mcOptions.appendChild(btn);
+            });
+            document.getElementById('questionModal').style.display = 'flex';
+        }
+
+        function answerQuestion(clickedBtn, selectedIndex) {
+            const allBtns = document.querySelectorAll('.option-btn');
+            allBtns.forEach(btn => btn.disabled = true); 
+            if (selectedIndex === currentQuestionObj.a) {
+                MayHubSounds.playCorrect();
+                clickedBtn.classList.add('correct');
+                score += activeQuestionValue;
+                updateScoreboard();
+                snake.push({ ...snake[snake.length - 1] }); 
+            } else {
+                MayHubSounds.playWrong();
+                clickedBtn.classList.add('incorrect');
+                allBtns[currentQuestionObj.a].classList.add('correct');
+            }
+            document.getElementById('btnContinue').style.display = 'block';
+        }
+
+        function closeModalAndPause() {
+            document.getElementById('questionModal').style.display = 'none';
+            updateScoreboard();
+            drawStaticBoard();
+            if (applesEaten < 10) {
+                isPausedPendingInput = true;
+                document.getElementById('pauseOverlay').style.display = 'flex';
+            } else {
+                endGame(true);
+            }
+        }
+
+        function updateScoreboard() {
+            document.getElementById('appleCount').innerText = applesEaten;
+            document.getElementById('scoreText').innerText = score;
+        }
+
+        function endGame(didWin) {
+            MayHubSounds.stopSnakeMovement();
+            document.getElementById('gameArea').style.display = 'none';
+            document.getElementById('endScreen').style.display = 'block';
+            document.getElementById('finalScoreText').innerText = score;
+            const title = document.getElementById('endTitle');
+            const msg = document.getElementById('endMessage');
+            if (didWin) {
+                title.innerText = "Level Complete!";
+                title.style.color = "#28a745";
+                msg.innerText = "Excellent! You've mastered Population Structure and Growth!";
+            } else {
+                title.innerText = "Game Over!";
+                title.style.color = "#dc3545";
+                msg.innerText = "Development is a journey. Try again and strengthen your understanding of its concepts and indicators!";
+            }
+        }
+    </script>
+</body>
+</html>

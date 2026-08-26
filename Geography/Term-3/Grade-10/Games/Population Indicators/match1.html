@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-8GCWSKNDL7"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-8GCWSKNDL7');
+</script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>May Learning Hub | Grade 10 Geography: Population Indicators</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f0f4f8; color: #333; line-height: 1.6; display: flex; flex-direction: column; min-height: 100vh; }
+        
+        /* Navigation */
+        nav { background-color: #002b5e; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; }
+        .logo { color: #fff; font-size: 1.5rem; font-weight: bold; text-decoration: none; }
+        .nav-links a { color: #cce0ff; text-decoration: none; margin-left: 1.5rem; font-weight: 500; transition: color 0.3s; }
+        .nav-links a:hover, .nav-links a.active { color: #fff; text-decoration: underline; }
+        
+        /* Header */
+        .game-header { text-align: center; padding: 3rem 1rem 1rem; max-width: 900px; margin: 0 auto; }
+        .game-title { color: #004080; font-size: 2.5rem; margin-bottom: 0.5rem; }
+        .game-subtitle { color: #555; margin-bottom: 2rem; font-size: 1.1rem; }
+        
+        /* Categories */
+        .category-selection { margin-bottom: 2.5rem; }
+        .cat-buttons { display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem; }
+        .cat-btn { background-color: #f0f4f8; border: 2px solid #004080; color: #004080; padding: 0.8rem 1.5rem; font-size: 1rem; font-weight: bold; border-radius: 8px; cursor: pointer; transition: all 0.3s ease; }
+        .cat-btn:hover, .cat-btn.active { background-color: #004080; color: #fff; transform: translateY(-3px); box-shadow: 0 4px 10px rgba(0,64,128,0.2); }
+
+        .controls { display: none; justify-content: center; align-items: center; gap: 2rem; margin-bottom: 2rem; }
+        .move-counter { font-size: 1.2rem; font-weight: bold; color: #004080; background: #fff; padding: 0.6rem 1.8rem; border-radius: 50px; border: 2px solid #3385ff; }
+        .restart-btn { background-color: #3385ff; color: #fff; border: none; padding: 0.7rem 1.8rem; font-size: 1rem; font-weight: bold; border-radius: 50px; cursor: pointer; border-bottom: 3px solid #004080; }
+
+        /* Memory Grid */
+        .memory-game { display: none; width: 100%; max-width: 1200px; margin: 0 auto 4rem; grid-template-columns: repeat(5, 1fr); gap: 15px; padding: 0 20px; perspective: 1000px; }
+        
+        @media (max-width: 950px) { .memory-game { grid-template-columns: repeat(4, 1fr); } }
+        @media (max-width: 650px) { .memory-game { grid-template-columns: repeat(2, 1fr); } }
+
+        .memory-card { position: relative; width: 100%; aspect-ratio: 1 / 1.2; transform-style: preserve-3d; transition: transform 0.5s; cursor: pointer; }
+        .memory-card.flip { transform: rotateY(180deg); }
+        
+        .front-face, .back-face { 
+            position: absolute; 
+            width: 100%; 
+            height: 100%; 
+            backface-visibility: hidden; 
+            border-radius: 12px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            padding: 15px; 
+            text-align: center; 
+            font-size: 1rem; 
+            line-height: 1.4; 
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .front-face { background: #004080; color: #fff; font-size: 2.5rem; border: 3px solid #3385ff; font-weight: bold; }
+        .back-face { background: #fff; color: #002b5e; transform: rotateY(180deg); border: 3px solid #004080; font-weight: 700; }
+        .memory-card.matched .back-face { background: #d4edda; border-color: #28a745; color: #155724; }
+
+        footer { text-align: center; padding: 1.5rem; background-color: #002b5e; color: #fff; margin-top: auto; }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="../../../../../index.html" class="logo">May Learning Hub</a>
+        <div class="nav-links">
+            <a href="../../../../../index.html">Home</a>
+            <a href="../../../../../about.html">About</a>
+        </div>
+    </nav>
+
+    <header class="game-header">
+        <h1 class="game-title">Grade 10 Geography: Population Indicators</h1>
+        <p class="game-subtitle">Revise development terminology, inequality, health, GDP, sustainability and human-development indicators.</p>
+        <p style="font-size: 0.78rem; color: #52606d; margin-top: 0.45rem;">Grade 10 Geography Term 3 revision</p>
+        
+        <div class="category-selection">
+            <div class="cat-buttons">
+                <button class="cat-btn" onclick="selectCategory('topic1', this)">Development Terms</button>
+                <button class="cat-btn" onclick="selectCategory('topic2', this)">Aspects & Countries</button>
+                <button class="cat-btn" onclick="selectCategory('topic3', this)">Development Indicators</button>
+                <button class="cat-btn" onclick="selectCategory('topic4', this)">Environmental Indicators</button>
+            </div>
+        </div>
+
+        <div class="controls" id="gameControls">
+            <div class="move-counter">Moves: <span id="moves">0</span></div>
+            <button class="restart-btn" onclick="initGame()">Restart Level</button>
+        </div>
+    </header>
+
+    <main class="memory-game" id="gameBoard"></main>
+
+    <footer>
+        <p>&copy; 2026 May Learning Hub. All rights reserved.</p>
+    </footer>
+
+        <script src="../../../../../game-audio.js"></script>
+<script>
+        const gameData = {
+    "topic1": [
+        {
+            "id": 1,
+            "text": "Explain the meaning of Census."
+        },
+        {
+            "id": 1,
+            "text": "An official survey that counts and records information about a country's population."
+        },
+        {
+            "id": 2,
+            "text": "Explain the meaning of Literacy rate."
+        },
+        {
+            "id": 2,
+            "text": "The percentage of people who can read and write with understanding."
+        },
+        {
+            "id": 3,
+            "text": "Explain the meaning of Infant mortality rate."
+        },
+        {
+            "id": 3,
+            "text": "The number of deaths of babies under one year per 1,000 live births."
+        },
+        {
+            "id": 4,
+            "text": "Explain the meaning of Birth rate."
+        },
+        {
+            "id": 4,
+            "text": "The number of live births per 1,000 people in a year."
+        },
+        {
+            "id": 5,
+            "text": "Explain the meaning of Death rate."
+        },
+        {
+            "id": 5,
+            "text": "The number of deaths per 1,000 people in a year."
+        },
+        {
+            "id": 6,
+            "text": "Explain the meaning of Crude birth rate."
+        },
+        {
+            "id": 6,
+            "text": "The annual number of live births per 1,000 people."
+        },
+        {
+            "id": 7,
+            "text": "Explain the meaning of Crude death rate."
+        },
+        {
+            "id": 7,
+            "text": "The annual number of deaths per 1,000 people."
+        },
+        {
+            "id": 8,
+            "text": "Explain the meaning of Natural increase."
+        },
+        {
+            "id": 8,
+            "text": "Population growth calculated by subtracting the death rate from the birth rate."
+        },
+        {
+            "id": 9,
+            "text": "Explain the meaning of Natural decrease."
+        },
+        {
+            "id": 9,
+            "text": "A population decline that occurs when the death rate is higher than the birth rate."
+        },
+        {
+            "id": 10,
+            "text": "Explain the meaning of Life expectancy."
+        },
+        {
+            "id": 10,
+            "text": "The average number of years a person is expected to live."
+        }
+    ],
+    "topic2": [
+        {
+            "id": 1,
+            "text": "Explain the meaning of Fertility rate."
+        },
+        {
+            "id": 1,
+            "text": "The average number of children born to a woman during her lifetime."
+        },
+        {
+            "id": 2,
+            "text": "Explain the meaning of Economically active population."
+        },
+        {
+            "id": 2,
+            "text": "People of working age who are employed or actively seeking work."
+        },
+        {
+            "id": 3,
+            "text": "Explain the meaning of Dependency ratio."
+        },
+        {
+            "id": 3,
+            "text": "A comparison of dependants with the working-age population."
+        },
+        {
+            "id": 4,
+            "text": "Explain the meaning of Population growth rate."
+        },
+        {
+            "id": 4,
+            "text": "The rate at which the size of a population changes over time."
+        },
+        {
+            "id": 5,
+            "text": "Explain the meaning of Per thousand."
+        },
+        {
+            "id": 5,
+            "text": "A rate expressed for every 1,000 people or live births."
+        },
+        {
+            "id": 6,
+            "text": "Explain the meaning of Positive natural increase."
+        },
+        {
+            "id": 6,
+            "text": "A result above zero because births exceed deaths."
+        },
+        {
+            "id": 7,
+            "text": "Explain the meaning of Negative natural increase."
+        },
+        {
+            "id": 7,
+            "text": "A result below zero because deaths exceed births."
+        },
+        {
+            "id": 8,
+            "text": "Explain the meaning of Zero natural increase."
+        },
+        {
+            "id": 8,
+            "text": "A situation in which the birth rate and death rate are equal."
+        },
+        {
+            "id": 9,
+            "text": "Explain the meaning of Demographic data."
+        },
+        {
+            "id": 9,
+            "text": "Statistical information about a population."
+        },
+        {
+            "id": 10,
+            "text": "Explain the meaning of Sex ratio."
+        },
+        {
+            "id": 10,
+            "text": "The relationship between the number of males and females in a population."
+        }
+    ],
+    "topic3": [
+        {
+            "id": 1,
+            "text": "Define Census."
+        },
+        {
+            "id": 1,
+            "text": "An official survey that counts and records information about a country's population."
+        },
+        {
+            "id": 2,
+            "text": "Define Literacy rate."
+        },
+        {
+            "id": 2,
+            "text": "The percentage of people who can read and write with understanding."
+        },
+        {
+            "id": 3,
+            "text": "Define Infant mortality rate."
+        },
+        {
+            "id": 3,
+            "text": "The number of deaths of babies under one year per 1,000 live births."
+        },
+        {
+            "id": 4,
+            "text": "Define Birth rate."
+        },
+        {
+            "id": 4,
+            "text": "The number of live births per 1,000 people in a year."
+        },
+        {
+            "id": 5,
+            "text": "Define Death rate."
+        },
+        {
+            "id": 5,
+            "text": "The number of deaths per 1,000 people in a year."
+        },
+        {
+            "id": 6,
+            "text": "Define Crude birth rate."
+        },
+        {
+            "id": 6,
+            "text": "The annual number of live births per 1,000 people."
+        },
+        {
+            "id": 7,
+            "text": "Define Crude death rate."
+        },
+        {
+            "id": 7,
+            "text": "The annual number of deaths per 1,000 people."
+        },
+        {
+            "id": 8,
+            "text": "Define Natural increase."
+        },
+        {
+            "id": 8,
+            "text": "Population growth calculated by subtracting the death rate from the birth rate."
+        },
+        {
+            "id": 9,
+            "text": "Define Natural decrease."
+        },
+        {
+            "id": 9,
+            "text": "A population decline that occurs when the death rate is higher than the birth rate."
+        },
+        {
+            "id": 10,
+            "text": "Define Life expectancy."
+        },
+        {
+            "id": 10,
+            "text": "The average number of years a person is expected to live."
+        }
+    ],
+    "topic4": [
+        {
+            "id": 1,
+            "text": "Define Fertility rate."
+        },
+        {
+            "id": 1,
+            "text": "The average number of children born to a woman during her lifetime."
+        },
+        {
+            "id": 2,
+            "text": "Define Economically active population."
+        },
+        {
+            "id": 2,
+            "text": "People of working age who are employed or actively seeking work."
+        },
+        {
+            "id": 3,
+            "text": "Define Dependency ratio."
+        },
+        {
+            "id": 3,
+            "text": "A comparison of dependants with the working-age population."
+        },
+        {
+            "id": 4,
+            "text": "Define Population growth rate."
+        },
+        {
+            "id": 4,
+            "text": "The rate at which the size of a population changes over time."
+        },
+        {
+            "id": 5,
+            "text": "Define Per thousand."
+        },
+        {
+            "id": 5,
+            "text": "A rate expressed for every 1,000 people or live births."
+        },
+        {
+            "id": 6,
+            "text": "Define Positive natural increase."
+        },
+        {
+            "id": 6,
+            "text": "A result above zero because births exceed deaths."
+        },
+        {
+            "id": 7,
+            "text": "Define Negative natural increase."
+        },
+        {
+            "id": 7,
+            "text": "A result below zero because deaths exceed births."
+        },
+        {
+            "id": 8,
+            "text": "Define Zero natural increase."
+        },
+        {
+            "id": 8,
+            "text": "A situation in which the birth rate and death rate are equal."
+        },
+        {
+            "id": 9,
+            "text": "Define Demographic data."
+        },
+        {
+            "id": 9,
+            "text": "Statistical information about a population."
+        },
+        {
+            "id": 10,
+            "text": "Define Sex ratio."
+        },
+        {
+            "id": 10,
+            "text": "The relationship between the number of males and females in a population."
+        }
+    ]
+};
+
+        const gameBoard = document.getElementById('gameBoard');
+        const movesDisplay = document.getElementById('moves');
+        const gameControls = document.getElementById('gameControls');
+        
+        let currentCategory = null;
+        let hasFlippedCard = false;
+        let lockBoard = false;
+        let firstCard, secondCard;
+        let moves = 0;
+        let matchedPairs = 0;
+
+        function selectCategory(categoryKey, btnElement) {
+            currentCategory = categoryKey;
+            document.querySelectorAll('.cat-btn').forEach(btn => btn.classList.remove('active'));
+            btnElement.classList.add('active');
+            gameControls.style.display = 'flex';
+            gameBoard.style.display = 'grid';
+            initGame();
+        }
+
+        function initGame() {
+            gameBoard.innerHTML = '';
+            moves = 0;
+            matchedPairs = 0;
+            movesDisplay.innerText = moves;
+            hasFlippedCard = false;
+            lockBoard = false;
+
+            const categoryData = gameData[currentCategory];
+            const shuffledCards = [...categoryData].sort(() => 0.5 - Math.random());
+
+            shuffledCards.forEach(card => {
+                const cardElement = document.createElement('div');
+                cardElement.classList.add('memory-card');
+                cardElement.dataset.pairId = card.id;
+                
+                cardElement.innerHTML = `
+                    <div class="front-face">?</div>
+                    <div class="back-face">${card.text}</div>
+                `;
+                
+                cardElement.addEventListener('click', flipCard);
+                gameBoard.appendChild(cardElement);
+            });
+        }
+
+        function flipCard() {
+            if (lockBoard) return;
+            if (this === firstCard) return;
+
+            this.classList.add('flip');
+
+            if (!hasFlippedCard) {
+                hasFlippedCard = true;
+                firstCard = this;
+                return;
+            }
+
+            secondCard = this;
+            moves++;
+            movesDisplay.innerText = moves;
+            checkForMatch();
+        }
+
+        function checkForMatch() {
+            let isMatch = firstCard.dataset.pairId === secondCard.dataset.pairId;
+            if (isMatch) {
+                MayHubSounds.playCorrect();
+                disableCards();
+            } else {
+                MayHubSounds.playWrong();
+                unflipCards();
+            }
+        }
+
+        function disableCards() {
+            firstCard.classList.add('matched');
+            secondCard.classList.add('matched');
+            firstCard.removeEventListener('click', flipCard);
+            secondCard.removeEventListener('click', flipCard);
+            matchedPairs++;
+            if (matchedPairs === (gameData[currentCategory].length / 2)) {
+                setTimeout(() => alert(`Great job! Grade 10 Geography: Development Revision Complete in ${moves} moves.`), 500);
+            }
+            resetBoard();
+        }
+
+        function unflipCards() {
+            lockBoard = true;
+            setTimeout(() => {
+                firstCard.classList.remove('flip');
+                secondCard.classList.remove('flip');
+                resetBoard();
+            }, 1200);
+        }
+
+        function resetBoard() {
+            [hasFlippedCard, lockBoard] = [false, false];
+            [firstCard, secondCard] = [null, null];
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-8GCWSKNDL7"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-8GCWSKNDL7');
+</script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>May Learning Hub | Grade 10 Geography: Rural-Urban Migration</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f0f4f8; color: #333; line-height: 1.6; display: flex; flex-direction: column; min-height: 100vh; }
+        
+        /* Navigation */
+        nav { background-color: #002b5e; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; }
+        .logo { color: #fff; font-size: 1.5rem; font-weight: bold; text-decoration: none; }
+        .nav-links a { color: #cce0ff; text-decoration: none; margin-left: 1.5rem; font-weight: 500; transition: color 0.3s; }
+        .nav-links a:hover, .nav-links a.active { color: #fff; text-decoration: underline; }
+        
+        /* Header */
+        .game-header { text-align: center; padding: 3rem 1rem 1rem; max-width: 900px; margin: 0 auto; }
+        .game-title { color: #004080; font-size: 2.5rem; margin-bottom: 0.5rem; }
+        .game-subtitle { color: #555; margin-bottom: 2rem; font-size: 1.1rem; }
+        
+        /* Categories */
+        .category-selection { margin-bottom: 2.5rem; }
+        .cat-buttons { display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem; }
+        .cat-btn { background-color: #f0f4f8; border: 2px solid #004080; color: #004080; padding: 0.8rem 1.5rem; font-size: 1rem; font-weight: bold; border-radius: 8px; cursor: pointer; transition: all 0.3s ease; }
+        .cat-btn:hover, .cat-btn.active { background-color: #004080; color: #fff; transform: translateY(-3px); box-shadow: 0 4px 10px rgba(0,64,128,0.2); }
+
+        .controls { display: none; justify-content: center; align-items: center; gap: 2rem; margin-bottom: 2rem; }
+        .move-counter { font-size: 1.2rem; font-weight: bold; color: #004080; background: #fff; padding: 0.6rem 1.8rem; border-radius: 50px; border: 2px solid #3385ff; }
+        .restart-btn { background-color: #3385ff; color: #fff; border: none; padding: 0.7rem 1.8rem; font-size: 1rem; font-weight: bold; border-radius: 50px; cursor: pointer; border-bottom: 3px solid #004080; }
+
+        /* Memory Grid */
+        .memory-game { display: none; width: 100%; max-width: 1200px; margin: 0 auto 4rem; grid-template-columns: repeat(5, 1fr); gap: 15px; padding: 0 20px; perspective: 1000px; }
+        
+        @media (max-width: 950px) { .memory-game { grid-template-columns: repeat(4, 1fr); } }
+        @media (max-width: 650px) { .memory-game { grid-template-columns: repeat(2, 1fr); } }
+
+        .memory-card { position: relative; width: 100%; aspect-ratio: 1 / 1.2; transform-style: preserve-3d; transition: transform 0.5s; cursor: pointer; }
+        .memory-card.flip { transform: rotateY(180deg); }
+        
+        .front-face, .back-face { 
+            position: absolute; 
+            width: 100%; 
+            height: 100%; 
+            backface-visibility: hidden; 
+            border-radius: 12px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            padding: 15px; 
+            text-align: center; 
+            font-size: 1rem; 
+            line-height: 1.4; 
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .front-face { background: #004080; color: #fff; font-size: 2.5rem; border: 3px solid #3385ff; font-weight: bold; }
+        .back-face { background: #fff; color: #002b5e; transform: rotateY(180deg); border: 3px solid #004080; font-weight: 700; }
+        .memory-card.matched .back-face { background: #d4edda; border-color: #28a745; color: #155724; }
+
+        footer { text-align: center; padding: 1.5rem; background-color: #002b5e; color: #fff; margin-top: auto; }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="../../../../../../index.html" class="logo">May Learning Hub</a>
+        <div class="nav-links">
+            <a href="../../../../../../index.html">Home</a>
+            <a href="../../../../../../about.html">About</a>
+        </div>
+    </nav>
+
+    <header class="game-header">
+        <h1 class="game-title">Grade 10 Geography: Rural-Urban Migration</h1>
+        <p class="game-subtitle">Revise development terminology, inequality, health, GDP, sustainability and human-development indicators.</p>
+        <p style="font-size: 0.78rem; color: #52606d; margin-top: 0.45rem;">Grade 10 Geography Term 3 revision</p>
+        
+        <div class="category-selection">
+            <div class="cat-buttons">
+                <button class="cat-btn" onclick="selectCategory('topic1', this)">Development Terms</button>
+                <button class="cat-btn" onclick="selectCategory('topic2', this)">Aspects & Countries</button>
+                <button class="cat-btn" onclick="selectCategory('topic3', this)">Development Indicators</button>
+                <button class="cat-btn" onclick="selectCategory('topic4', this)">Environmental Indicators</button>
+            </div>
+        </div>
+
+        <div class="controls" id="gameControls">
+            <div class="move-counter">Moves: <span id="moves">0</span></div>
+            <button class="restart-btn" onclick="initGame()">Restart Level</button>
+        </div>
+    </header>
+
+    <main class="memory-game" id="gameBoard"></main>
+
+    <footer>
+        <p>&copy; 2026 May Learning Hub. All rights reserved.</p>
+    </footer>
+
+        <script src="../../../../../../game-audio.js"></script>
+<script>
+        const gameData = {
+    "topic1": [
+        {
+            "id": 1,
+            "text": "What is movement from the countryside to a town or city called?"
+        },
+        {
+            "id": 1,
+            "text": "Rural-urban migration"
+        },
+        {
+            "id": 2,
+            "text": "Which active age group is most likely to move to cities for work?"
+        },
+        {
+            "id": 2,
+            "text": "Young adults of working age"
+        },
+        {
+            "id": 3,
+            "text": "Give one economic reason why young adults move to urban areas."
+        },
+        {
+            "id": 3,
+            "text": "More jobs, higher wages or better career opportunities"
+        },
+        {
+            "id": 4,
+            "text": "A rural scene contains cultivated fields and grazing livestock. Which economic sector is dominant?"
+        },
+        {
+            "id": 4,
+            "text": "Agriculture"
+        },
+        {
+            "id": 5,
+            "text": "Name two visual features that would show agriculture dominates a rural scene."
+        },
+        {
+            "id": 5,
+            "text": "Any two of crop fields, livestock, farm buildings, tractors or farming tools"
+        },
+        {
+            "id": 6,
+            "text": "How can rural-urban migration reduce farm production?"
+        },
+        {
+            "id": 6,
+            "text": "It removes young and skilled agricultural workers"
+        },
+        {
+            "id": 7,
+            "text": "How can migration change the age structure of a rural community?"
+        },
+        {
+            "id": 7,
+            "text": "The remaining population becomes older on average"
+        },
+        {
+            "id": 8,
+            "text": "Why may rural schools or shops close after migration?"
+        },
+        {
+            "id": 8,
+            "text": "The smaller population provides too few learners or customers"
+        },
+        {
+            "id": 9,
+            "text": "What happens to rural labour supply when many young adults leave?"
+        },
+        {
+            "id": 9,
+            "text": "It decreases"
+        },
+        {
+            "id": 10,
+            "text": "What is the loss of educated or skilled residents called?"
+        },
+        {
+            "id": 10,
+            "text": "Brain drain"
+        }
+    ],
+    "topic2": [
+        {
+            "id": 1,
+            "text": "How may migrants benefit rural households financially?"
+        },
+        {
+            "id": 1,
+            "text": "They can send remittances home"
+        },
+        {
+            "id": 2,
+            "text": "Name one urban problem caused by migration faster than job creation."
+        },
+        {
+            "id": 2,
+            "text": "Urban unemployment"
+        },
+        {
+            "id": 3,
+            "text": "Name one housing problem linked to rapid urban growth."
+        },
+        {
+            "id": 3,
+            "text": "Housing shortages or informal settlements"
+        },
+        {
+            "id": 4,
+            "text": "How can rapid urban growth affect roads and public transport?"
+        },
+        {
+            "id": 4,
+            "text": "It can cause congestion and overcrowding"
+        },
+        {
+            "id": 5,
+            "text": "Is a lack of rural jobs a push or pull factor?"
+        },
+        {
+            "id": 5,
+            "text": "Push factor"
+        },
+        {
+            "id": 6,
+            "text": "Are higher urban wages a push or pull factor?"
+        },
+        {
+            "id": 6,
+            "text": "Pull factor"
+        },
+        {
+            "id": 7,
+            "text": "What broader process increases the urban share of a country's population?"
+        },
+        {
+            "id": 7,
+            "text": "Urbanisation"
+        },
+        {
+            "id": 8,
+            "text": "What is the decline of the rural population called?"
+        },
+        {
+            "id": 8,
+            "text": "Rural depopulation"
+        },
+        {
+            "id": 9,
+            "text": "How might mechanisation reduce rural employment?"
+        },
+        {
+            "id": 9,
+            "text": "Machines replace some manual farm work"
+        },
+        {
+            "id": 10,
+            "text": "Give three negative rural effects of rural-urban migration."
+        },
+        {
+            "id": 10,
+            "text": "Any three of labour loss, lower farm output, ageing population, brain drain or service decline"
+        }
+    ],
+    "topic3": [
+        {
+            "id": 1,
+            "text": "Define Rural-urban migration."
+        },
+        {
+            "id": 1,
+            "text": "Movement from a rural area to a town or city."
+        },
+        {
+            "id": 2,
+            "text": "Define Urbanisation."
+        },
+        {
+            "id": 2,
+            "text": "An increase in the percentage of people living in urban areas."
+        },
+        {
+            "id": 3,
+            "text": "Define Rural depopulation."
+        },
+        {
+            "id": 3,
+            "text": "A reduction in the number of people living in rural areas."
+        },
+        {
+            "id": 4,
+            "text": "Define Young adult migrants."
+        },
+        {
+            "id": 4,
+            "text": "Working-age young people who commonly move in search of opportunities."
+        },
+        {
+            "id": 5,
+            "text": "Define Employment pull."
+        },
+        {
+            "id": 5,
+            "text": "The attraction of better job opportunities at a destination."
+        },
+        {
+            "id": 6,
+            "text": "Define Low wages push."
+        },
+        {
+            "id": 6,
+            "text": "Poor earnings that encourage people to leave their place of origin."
+        },
+        {
+            "id": 7,
+            "text": "Define Agricultural labour loss."
+        },
+        {
+            "id": 7,
+            "text": "A decline in available farm workers after people leave rural areas."
+        },
+        {
+            "id": 8,
+            "text": "Define Ageing rural population."
+        },
+        {
+            "id": 8,
+            "text": "A rising proportion of older residents as younger adults move away."
+        },
+        {
+            "id": 9,
+            "text": "Define Reduced agricultural output."
+        },
+        {
+            "id": 9,
+            "text": "Lower farm production caused by labour and skills losses."
+        },
+        {
+            "id": 10,
+            "text": "Define Rural service decline."
+        },
+        {
+            "id": 10,
+            "text": "The weakening or closure of rural schools, shops and other services."
+        }
+    ],
+    "topic4": [
+        {
+            "id": 1,
+            "text": "Define Urban unemployment."
+        },
+        {
+            "id": 1,
+            "text": "A shortage of jobs for people living in towns and cities."
+        },
+        {
+            "id": 2,
+            "text": "Define Informal settlement."
+        },
+        {
+            "id": 2,
+            "text": "Housing built without full formal planning or secure services."
+        },
+        {
+            "id": 3,
+            "text": "Define Urban congestion."
+        },
+        {
+            "id": 3,
+            "text": "Crowding and pressure on roads, housing and services in urban areas."
+        },
+        {
+            "id": 4,
+            "text": "Define Remittances."
+        },
+        {
+            "id": 4,
+            "text": "Money sent home by migrants to support people at their place of origin."
+        },
+        {
+            "id": 5,
+            "text": "Define Brain drain."
+        },
+        {
+            "id": 5,
+            "text": "The loss of skilled or educated people from an area through migration."
+        },
+        {
+            "id": 6,
+            "text": "Define Mechanisation."
+        },
+        {
+            "id": 6,
+            "text": "The use of machinery to perform work previously done by people."
+        },
+        {
+            "id": 7,
+            "text": "Define Rural area."
+        },
+        {
+            "id": 7,
+            "text": "A countryside area with low settlement density and strong links to farming."
+        },
+        {
+            "id": 8,
+            "text": "Define Urban area."
+        },
+        {
+            "id": 8,
+            "text": "A built-up town or city with relatively high population density."
+        },
+        {
+            "id": 9,
+            "text": "Define Push factor."
+        },
+        {
+            "id": 9,
+            "text": "A condition that encourages people to leave a place."
+        },
+        {
+            "id": 10,
+            "text": "Define Pull factor."
+        },
+        {
+            "id": 10,
+            "text": "A condition that attracts people to a new place."
+        }
+    ]
+};
+
+        const gameBoard = document.getElementById('gameBoard');
+        const movesDisplay = document.getElementById('moves');
+        const gameControls = document.getElementById('gameControls');
+        
+        let currentCategory = null;
+        let hasFlippedCard = false;
+        let lockBoard = false;
+        let firstCard, secondCard;
+        let moves = 0;
+        let matchedPairs = 0;
+
+        function selectCategory(categoryKey, btnElement) {
+            currentCategory = categoryKey;
+            document.querySelectorAll('.cat-btn').forEach(btn => btn.classList.remove('active'));
+            btnElement.classList.add('active');
+            gameControls.style.display = 'flex';
+            gameBoard.style.display = 'grid';
+            initGame();
+        }
+
+        function initGame() {
+            gameBoard.innerHTML = '';
+            moves = 0;
+            matchedPairs = 0;
+            movesDisplay.innerText = moves;
+            hasFlippedCard = false;
+            lockBoard = false;
+
+            const categoryData = gameData[currentCategory];
+            const shuffledCards = [...categoryData].sort(() => 0.5 - Math.random());
+
+            shuffledCards.forEach(card => {
+                const cardElement = document.createElement('div');
+                cardElement.classList.add('memory-card');
+                cardElement.dataset.pairId = card.id;
+                
+                cardElement.innerHTML = `
+                    <div class="front-face">?</div>
+                    <div class="back-face">${card.text}</div>
+                `;
+                
+                cardElement.addEventListener('click', flipCard);
+                gameBoard.appendChild(cardElement);
+            });
+        }
+
+        function flipCard() {
+            if (lockBoard) return;
+            if (this === firstCard) return;
+
+            this.classList.add('flip');
+
+            if (!hasFlippedCard) {
+                hasFlippedCard = true;
+                firstCard = this;
+                return;
+            }
+
+            secondCard = this;
+            moves++;
+            movesDisplay.innerText = moves;
+            checkForMatch();
+        }
+
+        function checkForMatch() {
+            let isMatch = firstCard.dataset.pairId === secondCard.dataset.pairId;
+            if (isMatch) {
+                MayHubSounds.playCorrect();
+                disableCards();
+            } else {
+                MayHubSounds.playWrong();
+                unflipCards();
+            }
+        }
+
+        function disableCards() {
+            firstCard.classList.add('matched');
+            secondCard.classList.add('matched');
+            firstCard.removeEventListener('click', flipCard);
+            secondCard.removeEventListener('click', flipCard);
+            matchedPairs++;
+            if (matchedPairs === (gameData[currentCategory].length / 2)) {
+                setTimeout(() => alert(`Great job! Grade 10 Geography: Development Revision Complete in ${moves} moves.`), 500);
+            }
+            resetBoard();
+        }
+
+        function unflipCards() {
+            lockBoard = true;
+            setTimeout(() => {
+                firstCard.classList.remove('flip');
+                secondCard.classList.remove('flip');
+                resetBoard();
+            }, 1200);
+        }
+
+        function resetBoard() {
+            [hasFlippedCard, lockBoard] = [false, false];
+            [firstCard, secondCard] = [null, null];
+        }
+    </script>
+</body>
+</html>

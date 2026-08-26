@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-8GCWSKNDL7"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-8GCWSKNDL7');
+</script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>May Learning Hub | Grade 10 Geography Jeopardy</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f0f4f8; color: #333; line-height: 1.6; display: flex; flex-direction: column; min-height: 100vh; overflow-x: hidden; }
+        nav { background-color: #002b5e; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; }
+        .logo { color: #fff; font-size: 1.5rem; font-weight: bold; text-decoration: none; }
+        .nav-links a { color: #cce0ff; text-decoration: none; margin-left: 1.5rem; font-weight: 500; transition: color 0.3s; }
+        .nav-links a:hover, .nav-links a.active { color: #fff; text-decoration: underline; }
+        .game-header { text-align: center; padding: 2rem 1rem 1rem; }
+        .game-title { color: #004080; font-size: 2.2rem; margin-bottom: 0.5rem; }
+        .game-subtitle { color: #555; margin-bottom: 1.5rem; font-size: 1.1rem; }
+
+        .name-setup { max-width: 1000px; margin: 0 auto 1rem; padding: 0 10px; }
+        .name-box {
+            background: #ffffff;
+            border: 2px solid #b3d4ff;
+            border-radius: 12px;
+            padding: 1rem;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+        .name-box h2 { color: #002b5e; font-size: 1.2rem; }
+        .name-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.6rem; }
+        .name-input {
+            width: 100%;
+            padding: 0.7rem 0.8rem;
+            border-radius: 10px;
+            border: 2px solid #cce0ff;
+            font-size: 1rem;
+            outline: none;
+        }
+        .name-input:focus { border-color: #3385ff; }
+        .name-actions { display: flex; gap: 0.6rem; flex-wrap: wrap; }
+
+        .btn-save { background: #28a745; color: #fff; border: none; padding: 0.75rem 1rem; border-radius: 10px; cursor: pointer; font-weight: bold; transition: 0.2s; }
+        .btn-save:hover { background: #1e7e34; }
+        .btn-edit { background: #004080; color: #fff; border: none; padding: 0.75rem 1rem; border-radius: 10px; cursor: pointer; font-weight: bold; transition: 0.2s; display: none; }
+        .btn-edit:hover { background: #3385ff; }
+        .btn-reset { background: #dc3545; color: #fff; border: none; padding: 0.75rem 1rem; border-radius: 10px; cursor: pointer; font-weight: bold; transition: 0.2s; }
+        .btn-reset:hover { background: #bd2130; }
+
+        .hint { color: #555; font-size: 0.95rem; }
+        .hidden { display: none !important; }
+
+        @media (max-width: 800px) { .name-grid { grid-template-columns: repeat(2, 1fr); } }
+
+        .player-tabs { display: flex; justify-content: center; gap: 0.5rem; max-width: 1000px; margin: 0 auto 1.5rem; padding: 0 10px; flex-wrap: wrap; }
+        .tab-btn { flex: 1; min-width: 100px; background: #e6f0fa; color: #004080; border: 2px solid #b3d4ff; padding: 0.8rem; font-size: 1.1rem; font-weight: bold; border-radius: 8px; cursor: pointer; transition: all 0.3s; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        .tab-btn:hover { background: #cce0ff; }
+        .tab-btn.active { background: #3385ff; color: #fff; border-color: #002b5e; transform: translateY(-3px); box-shadow: 0 6px 15px rgba(51,133,255,0.3); }
+
+        .carousel-container { width: 100%; overflow: hidden; padding-bottom: 3rem; }
+        .carousel-track { display: flex; width: 400%; transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1); }
+        .player-slide { width: 25%; padding: 0 10px; display: flex; flex-direction: column; align-items: center; }
+        .score-board { background: #002b5e; color: #fff; display: inline-block; padding: 0.8rem 2.5rem; border-radius: 30px; font-size: 1.6rem; font-weight: bold; border: 4px solid #3385ff; box-shadow: 0 4px 10px rgba(0,0,0,0.2); margin-bottom: 2rem; transition: all 0.3s; }
+        .score-board span { color: #ffc107; }
+
+        .jeopardy-board { width: 100%; max-width: 1000px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; background: #001a33; padding: 8px; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
+        .category-header { background: #004080; color: #fff; text-align: center; font-weight: bold; padding: 1rem 0.5rem; font-size: 1.1rem; border-radius: 6px; border-bottom: 4px solid #3385ff; display: flex; align-items: center; justify-content: center; min-height: 80px; text-transform: uppercase; }
+        .point-btn { background: #3385ff; color: #fff; font-size: 1.6rem; font-weight: bold; border: none; padding: 1.5rem 0; border-radius: 6px; cursor: pointer; transition: all 0.2s; text-shadow: 1px 1px 2px rgba(0,0,0,0.5); box-shadow: inset 0 0 10px rgba(0,0,0,0.2); }
+        .point-btn:hover:not(:disabled) { background: #1a75ff; transform: scale(0.96); }
+        .point-btn:disabled { background: #002b5e; color: #001a33; cursor: not-allowed; text-shadow: none; box-shadow: none; }
+
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,26,51,0.9); align-items: center; justify-content: center; z-index: 100; animation: fadeIn 0.3s; padding: 1rem; }
+        .modal-content { background: #fff; padding: 2.5rem; border-radius: 12px; text-align: center; max-width: 600px; width: 100%; border-top: 8px solid #004080; box-shadow: 0 10px 40px rgba(0,0,0,0.5); display: flex; flex-direction: column; gap: 1.5rem; }
+        .modal-category { color: #3385ff; font-weight: bold; text-transform: uppercase; letter-spacing: 1px; }
+        .modal-question { font-size: 1.6rem; color: #002b5e; font-weight: bold; min-height: 100px; display: flex; align-items: center; justify-content: center; }
+        .modal-answer-area { display: none; border-top: 2px dashed #ccc; padding-top: 1.5rem; }
+        .modal-answer { font-size: 1.4rem; color: #28a745; font-weight: bold; margin-bottom: 1.5rem; }
+        .btn-reveal { background: #004080; color: #fff; border: none; padding: 1rem 2rem; font-size: 1.2rem; font-weight: bold; border-radius: 8px; cursor: pointer; transition: 0.3s; width: 100%; }
+        .btn-reveal:hover { background: #3385ff; }
+        .judgement-area { display: flex; flex-direction: column; gap: 1rem; }
+        .judgement-buttons { display: flex; gap: 1rem; }
+        .btn-correct { flex: 1; background: #28a745; color: #fff; border: none; padding: 1rem; font-size: 1.1rem; font-weight: bold; border-radius: 8px; cursor: pointer; transition: 0.3s; }
+        .btn-correct:hover { background: #1e7e34; }
+        .btn-incorrect { flex: 1; background: #dc3545; color: #fff; border: none; padding: 1rem; font-size: 1.1rem; font-weight: bold; border-radius: 8px; cursor: pointer; transition: 0.3s; }
+        .btn-incorrect:hover { background: #bd2130; }
+
+        .steal-area { display: none; background: #fff3cd; border: 2px solid #ffeeba; padding: 1.5rem; border-radius: 8px; margin-top: 1rem; animation: fadeIn 0.4s; }
+        .steal-title { color: #856404; font-weight: bold; font-size: 1.2rem; margin-bottom: 1rem; }
+        .steal-buttons { display: flex; flex-wrap: wrap; gap: 0.5rem; justify-content: center; }
+        .btn-steal { flex: 1; min-width: 100px; background: #ffc107; color: #000; border: none; padding: 0.8rem; font-weight: bold; border-radius: 6px; cursor: pointer; transition: 0.2s; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        .btn-steal:hover { background: #e0a800; transform: translateY(-2px); }
+
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        footer { text-align: center; padding: 1rem; background-color: #002b5e; color: #fff; margin-top: auto; }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="../../../../../index.html" class="logo">May Learning Hub</a>
+        <div class="nav-links">
+            <a href="../../../../../index.html">Home</a>
+            <a href="../../../../../about.html">About</a>
+        </div>
+    </nav>
+
+    <header class="game-header">
+        <h1 class="game-title">Grade 10 Geography Jeopardy</h1>
+        <p class="game-subtitle">Revise development terminology, inequality, health, GDP, sustainability and human-development indicators.</p>
+        <p style="font-size: 0.78rem; color: #52606d; margin-top: 0.45rem;">Grade 10 Geography Term 3 revision</p>
+    </header>
+
+    <section class="name-setup" id="nameSetupSection">
+        <div class="name-box">
+            <h2>Enter Player Names</h2>
+            <div class="name-grid">
+                <input class="name-input" id="nameInput-0" type="text" maxlength="20" placeholder="Player 1 name" />
+                <input class="name-input" id="nameInput-1" type="text" maxlength="20" placeholder="Player 2 name" />
+                <input class="name-input" id="nameInput-2" type="text" maxlength="20" placeholder="Player 3 name" />
+                <input class="name-input" id="nameInput-3" type="text" maxlength="20" placeholder="Player 4 name" />
+            </div>
+            <div class="name-actions">
+                <button class="btn-save" id="btnSaveNames" onclick="savePlayerNames()">Save Names</button>
+                <button class="btn-edit" id="btnEditNames" onclick="showNameEditor()">Edit Names</button>
+                <button class="btn-reset" onclick="resetPlayerNames()">Reset</button>
+            </div>
+            <p class="hint">80 unique clues drawn from the Grade 10 Term 3 Development presentation! </p>
+        </div>
+    </section>
+
+    <div class="player-tabs">
+        <button class="tab-btn active" id="tab-0" onclick="switchPlayer(0)">Player 1</button>
+        <button class="tab-btn" id="tab-1" onclick="switchPlayer(1)">Player 2</button>
+        <button class="tab-btn" id="tab-2" onclick="switchPlayer(2)">Player 3</button>
+        <button class="tab-btn" id="tab-3" onclick="switchPlayer(3)">Player 4</button>
+    </div>
+
+    <div class="carousel-container">
+        <div class="carousel-track" id="carouselTrack">
+            <div class="player-slide">
+                <div class="score-board"><span id="label-0">Player 1</span>: <span id="score-0">0</span></div>
+                <div class="jeopardy-board" id="board-0"></div>
+            </div>
+            <div class="player-slide">
+                <div class="score-board"><span id="label-1">Player 2</span>: <span id="score-1">0</span></div>
+                <div class="jeopardy-board" id="board-1"></div>
+            </div>
+            <div class="player-slide">
+                <div class="score-board"><span id="label-2">Player 3</span>: <span id="score-2">0</span></div>
+                <div class="jeopardy-board" id="board-2"></div>
+            </div>
+            <div class="player-slide">
+                <div class="score-board"><span id="label-3">Player 4</span>: <span id="score-3">0</span></div>
+                <div class="jeopardy-board" id="board-3"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="questionModal">
+        <div class="modal-content">
+            <div class="modal-category" id="modalCategory">Category</div>
+            <div class="modal-question" id="modalQuestion">Clue</div>
+            <button class="btn-reveal" id="btnReveal" onclick="revealAnswer()">Reveal Correct Question</button>
+            <div class="modal-answer-area" id="answerArea">
+                <div class="modal-answer" id="modalAnswer">Correct Question</div>
+                <div class="judgement-area" id="judgementArea">
+                    <p>Did <strong id="activePlayerName">Player</strong> get it right?</p>
+                    <div class="judgement-buttons">
+                        <button class="btn-incorrect" onclick="judgeActivePlayer(false)">Wrong</button>
+                        <button class="btn-correct" onclick="judgeActivePlayer(true)">Correct!</button>
+                    </div>
+                </div>
+                <div class="steal-area" id="stealArea">
+                    <div class="steal-title" id="stealTitle">STEAL OPPORTUNITY!</div>
+                    <div class="steal-buttons" id="stealButtons"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer><p>&copy; 2026 May Learning Hub. All rights reserved.</p></footer>
+
+        <script src="../../../../../game-audio.js"></script>
+<script>
+        const questionBank = [
+    {
+        "category": "Explain",
+        "q": "Define the geographical term: Push factor.",
+        "a": "A condition that encourages people to leave a place."
+    },
+    {
+        "category": "Explain",
+        "q": "Define the geographical term: Pull factor.",
+        "a": "A condition that attracts people to a new place."
+    },
+    {
+        "category": "Explain",
+        "q": "Define the geographical term: Voluntary migration.",
+        "a": "Movement made by personal choice."
+    },
+    {
+        "category": "Explain",
+        "q": "Define the geographical term: Forced migration.",
+        "a": "Movement caused by danger, conflict, disaster or compulsion."
+    },
+    {
+        "category": "Explain",
+        "q": "Define the geographical term: Temporary migration.",
+        "a": "Movement for a limited period with an intention to return."
+    },
+    {
+        "category": "Explain",
+        "q": "Define the geographical term: Permanent migration.",
+        "a": "Movement intended to establish a long-term home elsewhere."
+    },
+    {
+        "category": "Explain",
+        "q": "Define the geographical term: Seasonal migration.",
+        "a": "Temporary movement linked to a season or seasonal work."
+    },
+    {
+        "category": "Explain",
+        "q": "Define the geographical term: Young adult migrants.",
+        "a": "Working-age young people who commonly move in search of opportunities."
+    },
+    {
+        "category": "Explain",
+        "q": "Define the geographical term: Employment pull.",
+        "a": "The attraction of better job opportunities at a destination."
+    },
+    {
+        "category": "Explain",
+        "q": "Define the geographical term: Low wages push.",
+        "a": "Poor earnings that encourage people to leave their place of origin."
+    },
+    {
+        "category": "Explain",
+        "q": "Define the geographical term: Agricultural labour loss.",
+        "a": "A decline in available farm workers after people leave rural areas."
+    },
+    {
+        "category": "Explain",
+        "q": "Define the geographical term: Ageing rural population.",
+        "a": "A rising proportion of older residents as younger adults move away."
+    },
+    {
+        "category": "Explain",
+        "q": "Define the geographical term: Reduced agricultural output.",
+        "a": "Lower farm production caused by labour and skills losses."
+    },
+    {
+        "category": "Explain",
+        "q": "Define the geographical term: Rural service decline.",
+        "a": "The weakening or closure of rural schools, shops and other services."
+    },
+    {
+        "category": "Explain",
+        "q": "Define the geographical term: Urban unemployment.",
+        "a": "A shortage of jobs for people living in towns and cities."
+    },
+    {
+        "category": "Explain",
+        "q": "Define the geographical term: Informal settlement.",
+        "a": "Housing built without full formal planning or secure services."
+    },
+    {
+        "category": "Explain",
+        "q": "Define the geographical term: Urban congestion.",
+        "a": "Crowding and pressure on roads, housing and services in urban areas."
+    },
+    {
+        "category": "Explain",
+        "q": "Define the geographical term: Remittances.",
+        "a": "Money sent home by migrants to support people at their place of origin."
+    },
+    {
+        "category": "Explain",
+        "q": "Define the geographical term: Brain drain.",
+        "a": "The loss of skilled or educated people from an area through migration."
+    },
+    {
+        "category": "Explain",
+        "q": "Define the geographical term: Mechanisation.",
+        "a": "The use of machinery to perform work previously done by people."
+    },
+    {
+        "category": "Identify",
+        "q": "A condition that encourages people to leave a place. Name the correct geographical term.",
+        "a": "Push factor"
+    },
+    {
+        "category": "Identify",
+        "q": "A condition that attracts people to a new place. Name the correct geographical term.",
+        "a": "Pull factor"
+    },
+    {
+        "category": "Identify",
+        "q": "Movement made by personal choice. Name the correct geographical term.",
+        "a": "Voluntary migration"
+    },
+    {
+        "category": "Identify",
+        "q": "Movement caused by danger, conflict, disaster or compulsion. Name the correct geographical term.",
+        "a": "Forced migration"
+    },
+    {
+        "category": "Identify",
+        "q": "Movement for a limited period with an intention to return. Name the correct geographical term.",
+        "a": "Temporary migration"
+    },
+    {
+        "category": "Identify",
+        "q": "Movement intended to establish a long-term home elsewhere. Name the correct geographical term.",
+        "a": "Permanent migration"
+    },
+    {
+        "category": "Identify",
+        "q": "Temporary movement linked to a season or seasonal work. Name the correct geographical term.",
+        "a": "Seasonal migration"
+    },
+    {
+        "category": "Identify",
+        "q": "Working-age young people who commonly move in search of opportunities. Name the correct geographical term.",
+        "a": "Young adult migrants"
+    },
+    {
+        "category": "Identify",
+        "q": "The attraction of better job opportunities at a destination. Name the correct geographical term.",
+        "a": "Employment pull"
+    },
+    {
+        "category": "Identify",
+        "q": "Poor earnings that encourage people to leave their place of origin. Name the correct geographical term.",
+        "a": "Low wages push"
+    },
+    {
+        "category": "Identify",
+        "q": "A decline in available farm workers after people leave rural areas. Name the correct geographical term.",
+        "a": "Agricultural labour loss"
+    },
+    {
+        "category": "Identify",
+        "q": "A rising proportion of older residents as younger adults move away. Name the correct geographical term.",
+        "a": "Ageing rural population"
+    },
+    {
+        "category": "Identify",
+        "q": "Lower farm production caused by labour and skills losses. Name the correct geographical term.",
+        "a": "Reduced agricultural output"
+    },
+    {
+        "category": "Identify",
+        "q": "The weakening or closure of rural schools, shops and other services. Name the correct geographical term.",
+        "a": "Rural service decline"
+    },
+    {
+        "category": "Identify",
+        "q": "A shortage of jobs for people living in towns and cities. Name the correct geographical term.",
+        "a": "Urban unemployment"
+    },
+    {
+        "category": "Identify",
+        "q": "Housing built without full formal planning or secure services. Name the correct geographical term.",
+        "a": "Informal settlement"
+    },
+    {
+        "category": "Identify",
+        "q": "Crowding and pressure on roads, housing and services in urban areas. Name the correct geographical term.",
+        "a": "Urban congestion"
+    },
+    {
+        "category": "Identify",
+        "q": "Money sent home by migrants to support people at their place of origin. Name the correct geographical term.",
+        "a": "Remittances"
+    },
+    {
+        "category": "Identify",
+        "q": "The loss of skilled or educated people from an area through migration. Name the correct geographical term.",
+        "a": "Brain drain"
+    },
+    {
+        "category": "Identify",
+        "q": "The use of machinery to perform work previously done by people. Name the correct geographical term.",
+        "a": "Mechanisation"
+    },
+    {
+        "category": "Choose",
+        "q": "Which geographical term means: A condition that encourages people to leave a place. Options: A) Push factor | B) Pull factor | C) Voluntary migration | D) Forced migration",
+        "a": "A) Push factor"
+    },
+    {
+        "category": "Choose",
+        "q": "Which geographical term means: A condition that attracts people to a new place. Options: A) Voluntary migration | B) Pull factor | C) Forced migration | D) Temporary migration",
+        "a": "B) Pull factor"
+    },
+    {
+        "category": "Choose",
+        "q": "Which geographical term means: Movement made by personal choice. Options: A) Forced migration | B) Temporary migration | C) Voluntary migration | D) Permanent migration",
+        "a": "C) Voluntary migration"
+    },
+    {
+        "category": "Choose",
+        "q": "Which geographical term means: Movement caused by danger, conflict, disaster or compulsion. Options: A) Temporary migration | B) Permanent migration | C) Seasonal migration | D) Forced migration",
+        "a": "D) Forced migration"
+    },
+    {
+        "category": "Choose",
+        "q": "Which geographical term means: Movement for a limited period with an intention to return. Options: A) Temporary migration | B) Permanent migration | C) Seasonal migration | D) Young adult migrants",
+        "a": "A) Temporary migration"
+    },
+    {
+        "category": "Choose",
+        "q": "Which geographical term means: Movement intended to establish a long-term home elsewhere. Options: A) Seasonal migration | B) Permanent migration | C) Young adult migrants | D) Employment pull",
+        "a": "B) Permanent migration"
+    },
+    {
+        "category": "Choose",
+        "q": "Which geographical term means: Temporary movement linked to a season or seasonal work. Options: A) Young adult migrants | B) Employment pull | C) Seasonal migration | D) Low wages push",
+        "a": "C) Seasonal migration"
+    },
+    {
+        "category": "Choose",
+        "q": "Which geographical term means: Working-age young people who commonly move in search of opportunities. Options: A) Employment pull | B) Low wages push | C) Agricultural labour loss | D) Young adult migrants",
+        "a": "D) Young adult migrants"
+    },
+    {
+        "category": "Choose",
+        "q": "Which geographical term means: The attraction of better job opportunities at a destination. Options: A) Employment pull | B) Low wages push | C) Agricultural labour loss | D) Ageing rural population",
+        "a": "A) Employment pull"
+    },
+    {
+        "category": "Choose",
+        "q": "Which geographical term means: Poor earnings that encourage people to leave their place of origin. Options: A) Agricultural labour loss | B) Low wages push | C) Ageing rural population | D) Reduced agricultural output",
+        "a": "B) Low wages push"
+    },
+    {
+        "category": "Choose",
+        "q": "Which geographical term means: A decline in available farm workers after people leave rural areas. Options: A) Ageing rural population | B) Reduced agricultural output | C) Agricultural labour loss | D) Rural service decline",
+        "a": "C) Agricultural labour loss"
+    },
+    {
+        "category": "Choose",
+        "q": "Which geographical term means: A rising proportion of older residents as younger adults move away. Options: A) Reduced agricultural output | B) Rural service decline | C) Urban unemployment | D) Ageing rural population",
+        "a": "D) Ageing rural population"
+    },
+    {
+        "category": "Choose",
+        "q": "Which geographical term means: Lower farm production caused by labour and skills losses. Options: A) Reduced agricultural output | B) Rural service decline | C) Urban unemployment | D) Informal settlement",
+        "a": "A) Reduced agricultural output"
+    },
+    {
+        "category": "Choose",
+        "q": "Which geographical term means: The weakening or closure of rural schools, shops and other services. Options: A) Urban unemployment | B) Rural service decline | C) Informal settlement | D) Urban congestion",
+        "a": "B) Rural service decline"
+    },
+    {
+        "category": "Choose",
+        "q": "Which geographical term means: A shortage of jobs for people living in towns and cities. Options: A) Informal settlement | B) Urban congestion | C) Urban unemployment | D) Remittances",
+        "a": "C) Urban unemployment"
+    },
+    {
+        "category": "Choose",
+        "q": "Which geographical term means: Housing built without full formal planning or secure services. Options: A) Urban congestion | B) Remittances | C) Brain drain | D) Informal settlement",
+        "a": "D) Informal settlement"
+    },
+    {
+        "category": "Choose",
+        "q": "Which geographical term means: Crowding and pressure on roads, housing and services in urban areas. Options: A) Urban congestion | B) Remittances | C) Brain drain | D) Mechanisation",
+        "a": "A) Urban congestion"
+    },
+    {
+        "category": "Choose",
+        "q": "Which geographical term means: Money sent home by migrants to support people at their place of origin. Options: A) Brain drain | B) Remittances | C) Mechanisation | D) Push factor",
+        "a": "B) Remittances"
+    },
+    {
+        "category": "Choose",
+        "q": "Which geographical term means: The loss of skilled or educated people from an area through migration. Options: A) Mechanisation | B) Push factor | C) Brain drain | D) Pull factor",
+        "a": "C) Brain drain"
+    },
+    {
+        "category": "Choose",
+        "q": "Which geographical term means: The use of machinery to perform work previously done by people. Options: A) Push factor | B) Pull factor | C) Voluntary migration | D) Mechanisation",
+        "a": "D) Mechanisation"
+    },
+    {
+        "category": "Apply",
+        "q": "Explain the meaning of Push factor.",
+        "a": "A condition that encourages people to leave a place."
+    },
+    {
+        "category": "Apply",
+        "q": "Explain the meaning of Pull factor.",
+        "a": "A condition that attracts people to a new place."
+    },
+    {
+        "category": "Apply",
+        "q": "Explain the meaning of Voluntary migration.",
+        "a": "Movement made by personal choice."
+    },
+    {
+        "category": "Apply",
+        "q": "Explain the meaning of Forced migration.",
+        "a": "Movement caused by danger, conflict, disaster or compulsion."
+    },
+    {
+        "category": "Apply",
+        "q": "Explain the meaning of Temporary migration.",
+        "a": "Movement for a limited period with an intention to return."
+    },
+    {
+        "category": "Apply",
+        "q": "Explain the meaning of Permanent migration.",
+        "a": "Movement intended to establish a long-term home elsewhere."
+    },
+    {
+        "category": "Apply",
+        "q": "Explain the meaning of Seasonal migration.",
+        "a": "Temporary movement linked to a season or seasonal work."
+    },
+    {
+        "category": "Apply",
+        "q": "Explain the meaning of Young adult migrants.",
+        "a": "Working-age young people who commonly move in search of opportunities."
+    },
+    {
+        "category": "Apply",
+        "q": "Explain the meaning of Employment pull.",
+        "a": "The attraction of better job opportunities at a destination."
+    },
+    {
+        "category": "Apply",
+        "q": "Explain the meaning of Low wages push.",
+        "a": "Poor earnings that encourage people to leave their place of origin."
+    },
+    {
+        "category": "Apply",
+        "q": "Explain the meaning of Agricultural labour loss.",
+        "a": "A decline in available farm workers after people leave rural areas."
+    },
+    {
+        "category": "Apply",
+        "q": "Explain the meaning of Ageing rural population.",
+        "a": "A rising proportion of older residents as younger adults move away."
+    },
+    {
+        "category": "Apply",
+        "q": "Explain the meaning of Reduced agricultural output.",
+        "a": "Lower farm production caused by labour and skills losses."
+    },
+    {
+        "category": "Apply",
+        "q": "Explain the meaning of Rural service decline.",
+        "a": "The weakening or closure of rural schools, shops and other services."
+    },
+    {
+        "category": "Apply",
+        "q": "Explain the meaning of Urban unemployment.",
+        "a": "A shortage of jobs for people living in towns and cities."
+    },
+    {
+        "category": "Apply",
+        "q": "Explain the meaning of Informal settlement.",
+        "a": "Housing built without full formal planning or secure services."
+    },
+    {
+        "category": "Apply",
+        "q": "Explain the meaning of Urban congestion.",
+        "a": "Crowding and pressure on roads, housing and services in urban areas."
+    },
+    {
+        "category": "Apply",
+        "q": "Explain the meaning of Remittances.",
+        "a": "Money sent home by migrants to support people at their place of origin."
+    },
+    {
+        "category": "Apply",
+        "q": "Explain the meaning of Brain drain.",
+        "a": "The loss of skilled or educated people from an area through migration."
+    },
+    {
+        "category": "Apply",
+        "q": "Explain the meaning of Mechanisation.",
+        "a": "The use of machinery to perform work previously done by people."
+    }
+];
+
+        function shuffleJeopardyQuestions(items) {
+            const shuffled = [...items];
+            for (let i = shuffled.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+            }
+            return shuffled;
+        }
+
+        function dealJeopardyPlayerQuestions(items, playerIndex) {
+            const playerQuestions = items.slice(playerIndex * 20, playerIndex * 20 + 20);
+            return Array.from({ length: 4 }, (_, categoryIndex) => ({
+                name: ["Round One", "Round Two", "Round Three", "Round Four"][categoryIndex],
+                questions: playerQuestions.slice(categoryIndex * 5, categoryIndex * 5 + 5).map((item, questionIndex) => ({
+                    points: (questionIndex + 1) * 10,
+                    q: item.q,
+                    a: item.a
+                }))
+            }));
+        }
+
+        const shuffledQuestionBank = shuffleJeopardyQuestions(questionBank);
+        const player1Cats = dealJeopardyPlayerQuestions(shuffledQuestionBank, 0);
+        const player2Cats = dealJeopardyPlayerQuestions(shuffledQuestionBank, 1);
+        const player3Cats = dealJeopardyPlayerQuestions(shuffledQuestionBank, 2);
+        const player4Cats = dealJeopardyPlayerQuestions(shuffledQuestionBank, 3);
+        const gameData = [player1Cats, player2Cats, player3Cats, player4Cats];
+
+        let currentPlayerIndex = 0;
+        let scores = [0, 0, 0, 0];
+        let activePointValue = 0;
+        let activeTileButton = null;
+        let playerNames = ["Player 1", "Player 2", "Player 3", "Player 4"];
+
+        const carouselTrack = document.getElementById('carouselTrack');
+        const modal = document.getElementById('questionModal');
+        const modalCategory = document.getElementById('modalCategory');
+        const modalQuestion = document.getElementById('modalQuestion');
+        const modalAnswer = document.getElementById('modalAnswer');
+        const answerArea = document.getElementById('answerArea');
+        const btnReveal = document.getElementById('btnReveal');
+        const judgementArea = document.getElementById('judgementArea');
+        const activePlayerNameLabel = document.getElementById('activePlayerName');
+        const stealArea = document.getElementById('stealArea');
+        const stealButtonsContainer = document.getElementById('stealButtons');
+
+        function savePlayerNames() {
+            for (let i = 0; i < 4; i++) {
+                const val = document.getElementById(`nameInput-${i}`).value.trim();
+                if (val) playerNames[i] = val;
+                document.getElementById(`tab-${i}`).innerText = playerNames[i];
+                document.getElementById(`label-${i}`).innerText = playerNames[i];
+            }
+            document.getElementById('nameSetupSection').classList.add('hidden');
+            document.getElementById('btnEditNames').style.display = 'inline-block';
+        }
+
+        function showNameEditor() {
+            document.getElementById('nameSetupSection').classList.remove('hidden');
+        }
+
+        function buildBoards() {
+            for (let p = 0; p < 4; p++) {
+                const board = document.getElementById(`board-${p}`);
+                board.innerHTML = '';
+                const cats = gameData[p];
+                cats.forEach(c => {
+                    let h = document.createElement('div');
+                    h.className = 'category-header';
+                    h.innerText = c.name;
+                    board.appendChild(h);
+                });
+                for (let r = 0; r < 5; r++) {
+                    cats.forEach(c => {
+                        let btn = document.createElement('button');
+                        btn.className = 'point-btn';
+                        btn.innerText = c.questions[r].points;
+                        btn.onclick = () => openQuestion(c.name, c.questions[r], btn, p);
+                        board.appendChild(btn);
+                    });
+                }
+            }
+        }
+
+        function switchPlayer(idx) {
+            currentPlayerIndex = idx;
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            document.getElementById(`tab-${idx}`).classList.add('active');
+            carouselTrack.style.transform = `translateX(-${idx * 25}%)`;
+        }
+
+        function openQuestion(catName, qData, btn, pIdx) {
+            if (pIdx !== currentPlayerIndex) return;
+            activePointValue = qData.points;
+            activeTileButton = btn;
+            modalCategory.innerText = `${playerNames[pIdx]} | ${catName}`;
+            modalQuestion.innerText = qData.q;
+            modalAnswer.innerText = qData.a;
+            activePlayerNameLabel.innerText = playerNames[pIdx];
+            btnReveal.style.display = 'block';
+            answerArea.style.display = 'none';
+            stealArea.style.display = 'none';
+            modal.style.display = 'flex';
+        }
+
+        function revealAnswer() {
+            btnReveal.style.display = 'none';
+            answerArea.style.display = 'block';
+            judgementArea.style.display = 'flex';
+        }
+
+        function judgeActivePlayer(correct) {
+            if (correct) {
+                MayHubSounds.playCorrect();
+                scores[currentPlayerIndex] += activePointValue;
+                updateScore(currentPlayerIndex);
+                closeModal();
+            } else {
+                MayHubSounds.playWrong();
+                judgementArea.style.display = 'none';
+                showSteal();
+            }
+        }
+
+        function showSteal() {
+            stealArea.style.display = 'block';
+            stealButtonsContainer.innerHTML = '';
+            for (let i = 0; i < 4; i++) {
+                if (i !== currentPlayerIndex) {
+                    let b = document.createElement('button');
+                    b.className = 'btn-steal';
+                    b.innerText = playerNames[i];
+                    b.onclick = () => { MayHubSounds.playCorrect(); scores[i] += Math.floor(activePointValue/2); updateScore(i); closeModal(); };
+                    stealButtonsContainer.appendChild(b);
+                }
+            }
+            let none = document.createElement('button');
+            none.className = 'btn-incorrect';
+            none.innerText = "No one";
+            none.onclick = closeModal;
+            stealButtonsContainer.appendChild(none);
+        }
+
+        function updateScore(i) { document.getElementById(`score-${i}`).innerText = scores[i]; }
+        function closeModal() { activeTileButton.innerText = ""; activeTileButton.disabled = true; modal.style.display = 'none'; }
+        
+        buildBoards();
+
+        function resetPlayerNames() {
+            playerNames = ["Player 1", "Player 2", "Player 3", "Player 4"];
+            for (let i = 0; i < 4; i++) {
+                document.getElementById(`nameInput-${i}`).value = "";
+                document.getElementById(`tab-${i}`).innerText = playerNames[i];
+                document.getElementById(`label-${i}`).innerText = playerNames[i];
+            }
+            showNameEditor();
+        }
+    </script>
+</body>
+</html>

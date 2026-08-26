@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-8GCWSKNDL7"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-8GCWSKNDL7');
+</script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>May Learning Hub | Grade 10 Geography Jeopardy</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f0f4f8; color: #333; line-height: 1.6; display: flex; flex-direction: column; min-height: 100vh; overflow-x: hidden; }
+        nav { background-color: #002b5e; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; }
+        .logo { color: #fff; font-size: 1.5rem; font-weight: bold; text-decoration: none; }
+        .nav-links a { color: #cce0ff; text-decoration: none; margin-left: 1.5rem; font-weight: 500; transition: color 0.3s; }
+        .nav-links a:hover, .nav-links a.active { color: #fff; text-decoration: underline; }
+        .game-header { text-align: center; padding: 2rem 1rem 1rem; }
+        .game-title { color: #004080; font-size: 2.2rem; margin-bottom: 0.5rem; }
+        .game-subtitle { color: #555; margin-bottom: 1.5rem; font-size: 1.1rem; }
+
+        .name-setup { max-width: 1000px; margin: 0 auto 1rem; padding: 0 10px; }
+        .name-box {
+            background: #ffffff;
+            border: 2px solid #b3d4ff;
+            border-radius: 12px;
+            padding: 1rem;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+        .name-box h2 { color: #002b5e; font-size: 1.2rem; }
+        .name-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.6rem; }
+        .name-input {
+            width: 100%;
+            padding: 0.7rem 0.8rem;
+            border-radius: 10px;
+            border: 2px solid #cce0ff;
+            font-size: 1rem;
+            outline: none;
+        }
+        .name-input:focus { border-color: #3385ff; }
+        .name-actions { display: flex; gap: 0.6rem; flex-wrap: wrap; }
+
+        .btn-save { background: #28a745; color: #fff; border: none; padding: 0.75rem 1rem; border-radius: 10px; cursor: pointer; font-weight: bold; transition: 0.2s; }
+        .btn-save:hover { background: #1e7e34; }
+        .btn-edit { background: #004080; color: #fff; border: none; padding: 0.75rem 1rem; border-radius: 10px; cursor: pointer; font-weight: bold; transition: 0.2s; display: none; }
+        .btn-edit:hover { background: #3385ff; }
+        .btn-reset { background: #dc3545; color: #fff; border: none; padding: 0.75rem 1rem; border-radius: 10px; cursor: pointer; font-weight: bold; transition: 0.2s; }
+        .btn-reset:hover { background: #bd2130; }
+
+        .hint { color: #555; font-size: 0.95rem; }
+        .hidden { display: none !important; }
+
+        @media (max-width: 800px) { .name-grid { grid-template-columns: repeat(2, 1fr); } }
+
+        .player-tabs { display: flex; justify-content: center; gap: 0.5rem; max-width: 1000px; margin: 0 auto 1.5rem; padding: 0 10px; flex-wrap: wrap; }
+        .tab-btn { flex: 1; min-width: 100px; background: #e6f0fa; color: #004080; border: 2px solid #b3d4ff; padding: 0.8rem; font-size: 1.1rem; font-weight: bold; border-radius: 8px; cursor: pointer; transition: all 0.3s; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        .tab-btn:hover { background: #cce0ff; }
+        .tab-btn.active { background: #3385ff; color: #fff; border-color: #002b5e; transform: translateY(-3px); box-shadow: 0 6px 15px rgba(51,133,255,0.3); }
+
+        .carousel-container { width: 100%; overflow: hidden; padding-bottom: 3rem; }
+        .carousel-track { display: flex; width: 400%; transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1); }
+        .player-slide { width: 25%; padding: 0 10px; display: flex; flex-direction: column; align-items: center; }
+        .score-board { background: #002b5e; color: #fff; display: inline-block; padding: 0.8rem 2.5rem; border-radius: 30px; font-size: 1.6rem; font-weight: bold; border: 4px solid #3385ff; box-shadow: 0 4px 10px rgba(0,0,0,0.2); margin-bottom: 2rem; transition: all 0.3s; }
+        .score-board span { color: #ffc107; }
+
+        .jeopardy-board { width: 100%; max-width: 1000px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; background: #001a33; padding: 8px; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
+        .category-header { background: #004080; color: #fff; text-align: center; font-weight: bold; padding: 1rem 0.5rem; font-size: 1.1rem; border-radius: 6px; border-bottom: 4px solid #3385ff; display: flex; align-items: center; justify-content: center; min-height: 80px; text-transform: uppercase; }
+        .point-btn { background: #3385ff; color: #fff; font-size: 1.6rem; font-weight: bold; border: none; padding: 1.5rem 0; border-radius: 6px; cursor: pointer; transition: all 0.2s; text-shadow: 1px 1px 2px rgba(0,0,0,0.5); box-shadow: inset 0 0 10px rgba(0,0,0,0.2); }
+        .point-btn:hover:not(:disabled) { background: #1a75ff; transform: scale(0.96); }
+        .point-btn:disabled { background: #002b5e; color: #001a33; cursor: not-allowed; text-shadow: none; box-shadow: none; }
+
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,26,51,0.9); align-items: center; justify-content: center; z-index: 100; animation: fadeIn 0.3s; padding: 1rem; }
+        .modal-content { background: #fff; padding: 2.5rem; border-radius: 12px; text-align: center; max-width: 600px; width: 100%; border-top: 8px solid #004080; box-shadow: 0 10px 40px rgba(0,0,0,0.5); display: flex; flex-direction: column; gap: 1.5rem; }
+        .modal-category { color: #3385ff; font-weight: bold; text-transform: uppercase; letter-spacing: 1px; }
+        .modal-question { font-size: 1.6rem; color: #002b5e; font-weight: bold; min-height: 100px; display: flex; align-items: center; justify-content: center; }
+        .modal-answer-area { display: none; border-top: 2px dashed #ccc; padding-top: 1.5rem; }
+        .modal-answer { font-size: 1.4rem; color: #28a745; font-weight: bold; margin-bottom: 1.5rem; }
+        .btn-reveal { background: #004080; color: #fff; border: none; padding: 1rem 2rem; font-size: 1.2rem; font-weight: bold; border-radius: 8px; cursor: pointer; transition: 0.3s; width: 100%; }
+        .btn-reveal:hover { background: #3385ff; }
+        .judgement-area { display: flex; flex-direction: column; gap: 1rem; }
+        .judgement-buttons { display: flex; gap: 1rem; }
+        .btn-correct { flex: 1; background: #28a745; color: #fff; border: none; padding: 1rem; font-size: 1.1rem; font-weight: bold; border-radius: 8px; cursor: pointer; transition: 0.3s; }
+        .btn-correct:hover { background: #1e7e34; }
+        .btn-incorrect { flex: 1; background: #dc3545; color: #fff; border: none; padding: 1rem; font-size: 1.1rem; font-weight: bold; border-radius: 8px; cursor: pointer; transition: 0.3s; }
+        .btn-incorrect:hover { background: #bd2130; }
+
+        .steal-area { display: none; background: #fff3cd; border: 2px solid #ffeeba; padding: 1.5rem; border-radius: 8px; margin-top: 1rem; animation: fadeIn 0.4s; }
+        .steal-title { color: #856404; font-weight: bold; font-size: 1.2rem; margin-bottom: 1rem; }
+        .steal-buttons { display: flex; flex-wrap: wrap; gap: 0.5rem; justify-content: center; }
+        .btn-steal { flex: 1; min-width: 100px; background: #ffc107; color: #000; border: none; padding: 0.8rem; font-weight: bold; border-radius: 6px; cursor: pointer; transition: 0.2s; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        .btn-steal:hover { background: #e0a800; transform: translateY(-2px); }
+
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        footer { text-align: center; padding: 1rem; background-color: #002b5e; color: #fff; margin-top: auto; }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="../../../../../../index.html" class="logo">May Learning Hub</a>
+        <div class="nav-links">
+            <a href="../../../../../../index.html">Home</a>
+            <a href="../../../../../../about.html">About</a>
+        </div>
+    </nav>
+
+    <header class="game-header">
+        <h1 class="game-title">Grade 10 Geography Jeopardy</h1>
+        <p class="game-subtitle">Revise development terminology, inequality, health, GDP, sustainability and human-development indicators.</p>
+        <p style="font-size: 0.78rem; color: #52606d; margin-top: 0.45rem;">Grade 10 Geography Term 3 revision</p>
+    </header>
+
+    <section class="name-setup" id="nameSetupSection">
+        <div class="name-box">
+            <h2>Enter Player Names</h2>
+            <div class="name-grid">
+                <input class="name-input" id="nameInput-0" type="text" maxlength="20" placeholder="Player 1 name" />
+                <input class="name-input" id="nameInput-1" type="text" maxlength="20" placeholder="Player 2 name" />
+                <input class="name-input" id="nameInput-2" type="text" maxlength="20" placeholder="Player 3 name" />
+                <input class="name-input" id="nameInput-3" type="text" maxlength="20" placeholder="Player 4 name" />
+            </div>
+            <div class="name-actions">
+                <button class="btn-save" id="btnSaveNames" onclick="savePlayerNames()">Save Names</button>
+                <button class="btn-edit" id="btnEditNames" onclick="showNameEditor()">Edit Names</button>
+                <button class="btn-reset" onclick="resetPlayerNames()">Reset</button>
+            </div>
+            <p class="hint">80 unique clues drawn from the Grade 10 Term 3 Development presentation! </p>
+        </div>
+    </section>
+
+    <div class="player-tabs">
+        <button class="tab-btn active" id="tab-0" onclick="switchPlayer(0)">Player 1</button>
+        <button class="tab-btn" id="tab-1" onclick="switchPlayer(1)">Player 2</button>
+        <button class="tab-btn" id="tab-2" onclick="switchPlayer(2)">Player 3</button>
+        <button class="tab-btn" id="tab-3" onclick="switchPlayer(3)">Player 4</button>
+    </div>
+
+    <div class="carousel-container">
+        <div class="carousel-track" id="carouselTrack">
+            <div class="player-slide">
+                <div class="score-board"><span id="label-0">Player 1</span>: <span id="score-0">0</span></div>
+                <div class="jeopardy-board" id="board-0"></div>
+            </div>
+            <div class="player-slide">
+                <div class="score-board"><span id="label-1">Player 2</span>: <span id="score-1">0</span></div>
+                <div class="jeopardy-board" id="board-1"></div>
+            </div>
+            <div class="player-slide">
+                <div class="score-board"><span id="label-2">Player 3</span>: <span id="score-2">0</span></div>
+                <div class="jeopardy-board" id="board-2"></div>
+            </div>
+            <div class="player-slide">
+                <div class="score-board"><span id="label-3">Player 4</span>: <span id="score-3">0</span></div>
+                <div class="jeopardy-board" id="board-3"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="questionModal">
+        <div class="modal-content">
+            <div class="modal-category" id="modalCategory">Category</div>
+            <div class="modal-question" id="modalQuestion">Clue</div>
+            <button class="btn-reveal" id="btnReveal" onclick="revealAnswer()">Reveal Correct Question</button>
+            <div class="modal-answer-area" id="answerArea">
+                <div class="modal-answer" id="modalAnswer">Correct Question</div>
+                <div class="judgement-area" id="judgementArea">
+                    <p>Did <strong id="activePlayerName">Player</strong> get it right?</p>
+                    <div class="judgement-buttons">
+                        <button class="btn-incorrect" onclick="judgeActivePlayer(false)">Wrong</button>
+                        <button class="btn-correct" onclick="judgeActivePlayer(true)">Correct!</button>
+                    </div>
+                </div>
+                <div class="steal-area" id="stealArea">
+                    <div class="steal-title" id="stealTitle">STEAL OPPORTUNITY!</div>
+                    <div class="steal-buttons" id="stealButtons"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer><p>&copy; 2026 May Learning Hub. All rights reserved.</p></footer>
+
+        <script src="../../../../../../game-audio.js"></script>
+<script>
+        const questionBank = [
+    {
+        "category": "Explain",
+        "q": "Define the geographical term: Census.",
+        "a": "An official survey that counts and records information about a country's population."
+    },
+    {
+        "category": "Explain",
+        "q": "Define the geographical term: Literacy rate.",
+        "a": "The percentage of people who can read and write with understanding."
+    },
+    {
+        "category": "Explain",
+        "q": "Define the geographical term: Population density.",
+        "a": "The average number of people living in each square kilometre."
+    },
+    {
+        "category": "Explain",
+        "q": "Define the geographical term: Population distribution.",
+        "a": "The pattern showing where people live across an area."
+    },
+    {
+        "category": "Explain",
+        "q": "Define the geographical term: Infant mortality rate.",
+        "a": "The number of deaths of babies under one year per 1,000 live births."
+    },
+    {
+        "category": "Explain",
+        "q": "Define the geographical term: Economically active population.",
+        "a": "People of working age who are employed or actively seeking work."
+    },
+    {
+        "category": "Explain",
+        "q": "Define the geographical term: Birth rate.",
+        "a": "The number of live births per 1,000 people in a year."
+    },
+    {
+        "category": "Explain",
+        "q": "Define the geographical term: Death rate.",
+        "a": "The number of deaths per 1,000 people in a year."
+    },
+    {
+        "category": "Explain",
+        "q": "Define the geographical term: Crude birth rate.",
+        "a": "The annual number of live births per 1,000 people."
+    },
+    {
+        "category": "Explain",
+        "q": "Define the geographical term: Crude death rate.",
+        "a": "The annual number of deaths per 1,000 people."
+    },
+    {
+        "category": "Explain",
+        "q": "Define the geographical term: Natural increase.",
+        "a": "Population growth calculated by subtracting the death rate from the birth rate."
+    },
+    {
+        "category": "Explain",
+        "q": "Define the geographical term: Life expectancy.",
+        "a": "The average number of years a person is expected to live."
+    },
+    {
+        "category": "Explain",
+        "q": "Define the geographical term: Fertility rate.",
+        "a": "The average number of children born to a woman during her lifetime."
+    },
+    {
+        "category": "Explain",
+        "q": "Define the geographical term: Dependency ratio.",
+        "a": "A comparison of dependants with the working-age population."
+    },
+    {
+        "category": "Explain",
+        "q": "Define the geographical term: Population growth rate.",
+        "a": "The rate at which the size of a population changes over time."
+    },
+    {
+        "category": "Explain",
+        "q": "Define the geographical term: Per thousand.",
+        "a": "A rate expressed for every 1,000 people or live births."
+    },
+    {
+        "category": "Explain",
+        "q": "Define the geographical term: Positive natural increase.",
+        "a": "A result above zero because births exceed deaths."
+    },
+    {
+        "category": "Explain",
+        "q": "Define the geographical term: Negative natural increase.",
+        "a": "A result below zero because deaths exceed births."
+    },
+    {
+        "category": "Explain",
+        "q": "Define the geographical term: Zero natural increase.",
+        "a": "A situation in which the birth rate and death rate are equal."
+    },
+    {
+        "category": "Explain",
+        "q": "Define the geographical term: Demographic data.",
+        "a": "Statistical information about a population."
+    },
+    {
+        "category": "Identify",
+        "q": "An official survey that counts and records information about a country's population. Name the correct geographical term.",
+        "a": "Census"
+    },
+    {
+        "category": "Identify",
+        "q": "The percentage of people who can read and write with understanding. Name the correct geographical term.",
+        "a": "Literacy rate"
+    },
+    {
+        "category": "Identify",
+        "q": "The average number of people living in each square kilometre. Name the correct geographical term.",
+        "a": "Population density"
+    },
+    {
+        "category": "Identify",
+        "q": "The pattern showing where people live across an area. Name the correct geographical term.",
+        "a": "Population distribution"
+    },
+    {
+        "category": "Identify",
+        "q": "The number of deaths of babies under one year per 1,000 live births. Name the correct geographical term.",
+        "a": "Infant mortality rate"
+    },
+    {
+        "category": "Identify",
+        "q": "People of working age who are employed or actively seeking work. Name the correct geographical term.",
+        "a": "Economically active population"
+    },
+    {
+        "category": "Identify",
+        "q": "The number of live births per 1,000 people in a year. Name the correct geographical term.",
+        "a": "Birth rate"
+    },
+    {
+        "category": "Identify",
+        "q": "The number of deaths per 1,000 people in a year. Name the correct geographical term.",
+        "a": "Death rate"
+    },
+    {
+        "category": "Identify",
+        "q": "The annual number of live births per 1,000 people. Name the correct geographical term.",
+        "a": "Crude birth rate"
+    },
+    {
+        "category": "Identify",
+        "q": "The annual number of deaths per 1,000 people. Name the correct geographical term.",
+        "a": "Crude death rate"
+    },
+    {
+        "category": "Identify",
+        "q": "Population growth calculated by subtracting the death rate from the birth rate. Name the correct geographical term.",
+        "a": "Natural increase"
+    },
+    {
+        "category": "Identify",
+        "q": "The average number of years a person is expected to live. Name the correct geographical term.",
+        "a": "Life expectancy"
+    },
+    {
+        "category": "Identify",
+        "q": "The average number of children born to a woman during her lifetime. Name the correct geographical term.",
+        "a": "Fertility rate"
+    },
+    {
+        "category": "Identify",
+        "q": "A comparison of dependants with the working-age population. Name the correct geographical term.",
+        "a": "Dependency ratio"
+    },
+    {
+        "category": "Identify",
+        "q": "The rate at which the size of a population changes over time. Name the correct geographical term.",
+        "a": "Population growth rate"
+    },
+    {
+        "category": "Identify",
+        "q": "A rate expressed for every 1,000 people or live births. Name the correct geographical term.",
+        "a": "Per thousand"
+    },
+    {
+        "category": "Identify",
+        "q": "A result above zero because births exceed deaths. Name the correct geographical term.",
+        "a": "Positive natural increase"
+    },
+    {
+        "category": "Identify",
+        "q": "A result below zero because deaths exceed births. Name the correct geographical term.",
+        "a": "Negative natural increase"
+    },
+    {
+        "category": "Identify",
+        "q": "A situation in which the birth rate and death rate are equal. Name the correct geographical term.",
+        "a": "Zero natural increase"
+    },
+    {
+        "category": "Identify",
+        "q": "Statistical information about a population. Name the correct geographical term.",
+        "a": "Demographic data"
+    },
+    {
+        "category": "Choose",
+        "q": "Which geographical term means: An official survey that counts and records information about a country's population. Options: A) Census | B) Literacy rate | C) Population density | D) Population distribution",
+        "a": "A) Census"
+    },
+    {
+        "category": "Choose",
+        "q": "Which geographical term means: The percentage of people who can read and write with understanding. Options: A) Population density | B) Literacy rate | C) Population distribution | D) Infant mortality rate",
+        "a": "B) Literacy rate"
+    },
+    {
+        "category": "Choose",
+        "q": "Which geographical term means: The average number of people living in each square kilometre. Options: A) Population distribution | B) Infant mortality rate | C) Population density | D) Economically active population",
+        "a": "C) Population density"
+    },
+    {
+        "category": "Choose",
+        "q": "Which geographical term means: The pattern showing where people live across an area. Options: A) Infant mortality rate | B) Economically active population | C) Birth rate | D) Population distribution",
+        "a": "D) Population distribution"
+    },
+    {
+        "category": "Choose",
+        "q": "Which geographical term means: The number of deaths of babies under one year per 1,000 live births. Options: A) Infant mortality rate | B) Economically active population | C) Birth rate | D) Death rate",
+        "a": "A) Infant mortality rate"
+    },
+    {
+        "category": "Choose",
+        "q": "Which geographical term means: People of working age who are employed or actively seeking work. Options: A) Birth rate | B) Economically active population | C) Death rate | D) Crude birth rate",
+        "a": "B) Economically active population"
+    },
+    {
+        "category": "Choose",
+        "q": "Which geographical term means: The number of live births per 1,000 people in a year. Options: A) Death rate | B) Crude birth rate | C) Birth rate | D) Crude death rate",
+        "a": "C) Birth rate"
+    },
+    {
+        "category": "Choose",
+        "q": "Which geographical term means: The number of deaths per 1,000 people in a year. Options: A) Crude birth rate | B) Crude death rate | C) Natural increase | D) Death rate",
+        "a": "D) Death rate"
+    },
+    {
+        "category": "Choose",
+        "q": "Which geographical term means: The annual number of live births per 1,000 people. Options: A) Crude birth rate | B) Crude death rate | C) Natural increase | D) Life expectancy",
+        "a": "A) Crude birth rate"
+    },
+    {
+        "category": "Choose",
+        "q": "Which geographical term means: The annual number of deaths per 1,000 people. Options: A) Natural increase | B) Crude death rate | C) Life expectancy | D) Fertility rate",
+        "a": "B) Crude death rate"
+    },
+    {
+        "category": "Choose",
+        "q": "Which geographical term means: Population growth calculated by subtracting the death rate from the birth rate. Options: A) Life expectancy | B) Fertility rate | C) Natural increase | D) Dependency ratio",
+        "a": "C) Natural increase"
+    },
+    {
+        "category": "Choose",
+        "q": "Which geographical term means: The average number of years a person is expected to live. Options: A) Fertility rate | B) Dependency ratio | C) Population growth rate | D) Life expectancy",
+        "a": "D) Life expectancy"
+    },
+    {
+        "category": "Choose",
+        "q": "Which geographical term means: The average number of children born to a woman during her lifetime. Options: A) Fertility rate | B) Dependency ratio | C) Population growth rate | D) Per thousand",
+        "a": "A) Fertility rate"
+    },
+    {
+        "category": "Choose",
+        "q": "Which geographical term means: A comparison of dependants with the working-age population. Options: A) Population growth rate | B) Dependency ratio | C) Per thousand | D) Positive natural increase",
+        "a": "B) Dependency ratio"
+    },
+    {
+        "category": "Choose",
+        "q": "Which geographical term means: The rate at which the size of a population changes over time. Options: A) Per thousand | B) Positive natural increase | C) Population growth rate | D) Negative natural increase",
+        "a": "C) Population growth rate"
+    },
+    {
+        "category": "Choose",
+        "q": "Which geographical term means: A rate expressed for every 1,000 people or live births. Options: A) Positive natural increase | B) Negative natural increase | C) Zero natural increase | D) Per thousand",
+        "a": "D) Per thousand"
+    },
+    {
+        "category": "Choose",
+        "q": "Which geographical term means: A result above zero because births exceed deaths. Options: A) Positive natural increase | B) Negative natural increase | C) Zero natural increase | D) Demographic data",
+        "a": "A) Positive natural increase"
+    },
+    {
+        "category": "Choose",
+        "q": "Which geographical term means: A result below zero because deaths exceed births. Options: A) Zero natural increase | B) Negative natural increase | C) Demographic data | D) Census",
+        "a": "B) Negative natural increase"
+    },
+    {
+        "category": "Choose",
+        "q": "Which geographical term means: A situation in which the birth rate and death rate are equal. Options: A) Demographic data | B) Census | C) Zero natural increase | D) Literacy rate",
+        "a": "C) Zero natural increase"
+    },
+    {
+        "category": "Choose",
+        "q": "Which geographical term means: Statistical information about a population. Options: A) Census | B) Literacy rate | C) Population density | D) Demographic data",
+        "a": "D) Demographic data"
+    },
+    {
+        "category": "Apply",
+        "q": "Which measure records the percentage of people who can read and write?",
+        "a": "Literacy rate"
+    },
+    {
+        "category": "Apply",
+        "q": "Which measure gives the average number of people per square kilometre?",
+        "a": "Population density"
+    },
+    {
+        "category": "Apply",
+        "q": "Which concept describes how people are spread across an area?",
+        "a": "Population distribution"
+    },
+    {
+        "category": "Apply",
+        "q": "Which rate counts deaths of babies under one year per 1,000 live births?",
+        "a": "Infant mortality rate"
+    },
+    {
+        "category": "Apply",
+        "q": "What official survey counts all people living in a country?",
+        "a": "Census"
+    },
+    {
+        "category": "Apply",
+        "q": "What group includes employed people and those actively seeking work?",
+        "a": "Economically active population"
+    },
+    {
+        "category": "Apply",
+        "q": "Which rate counts live births per 1,000 people each year?",
+        "a": "Birth rate"
+    },
+    {
+        "category": "Apply",
+        "q": "Which rate counts deaths per 1,000 people each year?",
+        "a": "Death rate"
+    },
+    {
+        "category": "Apply",
+        "q": "What calculation is birth rate minus death rate?",
+        "a": "Natural increase"
+    },
+    {
+        "category": "Apply",
+        "q": "A birth rate of 18 and death rate of 7 gives what natural increase?",
+        "a": "11 per 1,000"
+    },
+    {
+        "category": "Apply",
+        "q": "A birth rate of 8 and death rate of 11 produces what type of change?",
+        "a": "Negative natural increase"
+    },
+    {
+        "category": "Apply",
+        "q": "If birth and death rates are both 10, what is the natural increase?",
+        "a": "Zero per 1,000"
+    },
+    {
+        "category": "Apply",
+        "q": "What indicator estimates the average years a person may live?",
+        "a": "Life expectancy"
+    },
+    {
+        "category": "Apply",
+        "q": "What rate gives the average number of children born per woman?",
+        "a": "Fertility rate"
+    },
+    {
+        "category": "Apply",
+        "q": "What ratio compares dependants with working-age people?",
+        "a": "Dependency ratio"
+    },
+    {
+        "category": "Apply",
+        "q": "A district has 120,000 people and 600 km². Calculate its density.",
+        "a": "200 people per km²"
+    },
+    {
+        "category": "Apply",
+        "q": "What does a literacy rate of 88% mean?",
+        "a": "88% of the population can read and write with understanding"
+    },
+    {
+        "category": "Apply",
+        "q": "Give one planning use of census data.",
+        "a": "Planning services such as schools, housing or clinics"
+    },
+    {
+        "category": "Apply",
+        "q": "What phrase means a rate is stated for every 1,000 people?",
+        "a": "Per thousand"
+    },
+    {
+        "category": "Apply",
+        "q": "What name is given to statistical information about a population?",
+        "a": "Demographic data"
+    }
+];
+
+        function shuffleJeopardyQuestions(items) {
+            const shuffled = [...items];
+            for (let i = shuffled.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+            }
+            return shuffled;
+        }
+
+        function dealJeopardyPlayerQuestions(items, playerIndex) {
+            const playerQuestions = items.slice(playerIndex * 20, playerIndex * 20 + 20);
+            return Array.from({ length: 4 }, (_, categoryIndex) => ({
+                name: ["Round One", "Round Two", "Round Three", "Round Four"][categoryIndex],
+                questions: playerQuestions.slice(categoryIndex * 5, categoryIndex * 5 + 5).map((item, questionIndex) => ({
+                    points: (questionIndex + 1) * 10,
+                    q: item.q,
+                    a: item.a
+                }))
+            }));
+        }
+
+        const shuffledQuestionBank = shuffleJeopardyQuestions(questionBank);
+        const player1Cats = dealJeopardyPlayerQuestions(shuffledQuestionBank, 0);
+        const player2Cats = dealJeopardyPlayerQuestions(shuffledQuestionBank, 1);
+        const player3Cats = dealJeopardyPlayerQuestions(shuffledQuestionBank, 2);
+        const player4Cats = dealJeopardyPlayerQuestions(shuffledQuestionBank, 3);
+        const gameData = [player1Cats, player2Cats, player3Cats, player4Cats];
+
+        let currentPlayerIndex = 0;
+        let scores = [0, 0, 0, 0];
+        let activePointValue = 0;
+        let activeTileButton = null;
+        let playerNames = ["Player 1", "Player 2", "Player 3", "Player 4"];
+
+        const carouselTrack = document.getElementById('carouselTrack');
+        const modal = document.getElementById('questionModal');
+        const modalCategory = document.getElementById('modalCategory');
+        const modalQuestion = document.getElementById('modalQuestion');
+        const modalAnswer = document.getElementById('modalAnswer');
+        const answerArea = document.getElementById('answerArea');
+        const btnReveal = document.getElementById('btnReveal');
+        const judgementArea = document.getElementById('judgementArea');
+        const activePlayerNameLabel = document.getElementById('activePlayerName');
+        const stealArea = document.getElementById('stealArea');
+        const stealButtonsContainer = document.getElementById('stealButtons');
+
+        function savePlayerNames() {
+            for (let i = 0; i < 4; i++) {
+                const val = document.getElementById(`nameInput-${i}`).value.trim();
+                if (val) playerNames[i] = val;
+                document.getElementById(`tab-${i}`).innerText = playerNames[i];
+                document.getElementById(`label-${i}`).innerText = playerNames[i];
+            }
+            document.getElementById('nameSetupSection').classList.add('hidden');
+            document.getElementById('btnEditNames').style.display = 'inline-block';
+        }
+
+        function showNameEditor() {
+            document.getElementById('nameSetupSection').classList.remove('hidden');
+        }
+
+        function buildBoards() {
+            for (let p = 0; p < 4; p++) {
+                const board = document.getElementById(`board-${p}`);
+                board.innerHTML = '';
+                const cats = gameData[p];
+                cats.forEach(c => {
+                    let h = document.createElement('div');
+                    h.className = 'category-header';
+                    h.innerText = c.name;
+                    board.appendChild(h);
+                });
+                for (let r = 0; r < 5; r++) {
+                    cats.forEach(c => {
+                        let btn = document.createElement('button');
+                        btn.className = 'point-btn';
+                        btn.innerText = c.questions[r].points;
+                        btn.onclick = () => openQuestion(c.name, c.questions[r], btn, p);
+                        board.appendChild(btn);
+                    });
+                }
+            }
+        }
+
+        function switchPlayer(idx) {
+            currentPlayerIndex = idx;
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            document.getElementById(`tab-${idx}`).classList.add('active');
+            carouselTrack.style.transform = `translateX(-${idx * 25}%)`;
+        }
+
+        function openQuestion(catName, qData, btn, pIdx) {
+            if (pIdx !== currentPlayerIndex) return;
+            activePointValue = qData.points;
+            activeTileButton = btn;
+            modalCategory.innerText = `${playerNames[pIdx]} | ${catName}`;
+            modalQuestion.innerText = qData.q;
+            modalAnswer.innerText = qData.a;
+            activePlayerNameLabel.innerText = playerNames[pIdx];
+            btnReveal.style.display = 'block';
+            answerArea.style.display = 'none';
+            stealArea.style.display = 'none';
+            modal.style.display = 'flex';
+        }
+
+        function revealAnswer() {
+            btnReveal.style.display = 'none';
+            answerArea.style.display = 'block';
+            judgementArea.style.display = 'flex';
+        }
+
+        function judgeActivePlayer(correct) {
+            if (correct) {
+                MayHubSounds.playCorrect();
+                scores[currentPlayerIndex] += activePointValue;
+                updateScore(currentPlayerIndex);
+                closeModal();
+            } else {
+                MayHubSounds.playWrong();
+                judgementArea.style.display = 'none';
+                showSteal();
+            }
+        }
+
+        function showSteal() {
+            stealArea.style.display = 'block';
+            stealButtonsContainer.innerHTML = '';
+            for (let i = 0; i < 4; i++) {
+                if (i !== currentPlayerIndex) {
+                    let b = document.createElement('button');
+                    b.className = 'btn-steal';
+                    b.innerText = playerNames[i];
+                    b.onclick = () => { MayHubSounds.playCorrect(); scores[i] += Math.floor(activePointValue/2); updateScore(i); closeModal(); };
+                    stealButtonsContainer.appendChild(b);
+                }
+            }
+            let none = document.createElement('button');
+            none.className = 'btn-incorrect';
+            none.innerText = "No one";
+            none.onclick = closeModal;
+            stealButtonsContainer.appendChild(none);
+        }
+
+        function updateScore(i) { document.getElementById(`score-${i}`).innerText = scores[i]; }
+        function closeModal() { activeTileButton.innerText = ""; activeTileButton.disabled = true; modal.style.display = 'none'; }
+        
+        buildBoards();
+
+        function resetPlayerNames() {
+            playerNames = ["Player 1", "Player 2", "Player 3", "Player 4"];
+            for (let i = 0; i < 4; i++) {
+                document.getElementById(`nameInput-${i}`).value = "";
+                document.getElementById(`tab-${i}`).innerText = playerNames[i];
+                document.getElementById(`label-${i}`).innerText = playerNames[i];
+            }
+            showNameEditor();
+        }
+    </script>
+</body>
+</html>

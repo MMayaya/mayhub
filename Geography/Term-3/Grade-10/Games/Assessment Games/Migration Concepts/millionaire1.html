@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-8GCWSKNDL7"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-8GCWSKNDL7');
+</script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>May Learning Hub | Grade 10 Geography: Migration Concepts Quiz</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f0f4f8; color: #333; line-height: 1.6; display: flex; flex-direction: column; min-height: 100vh; }
+        
+        nav { background-color: #002b5e; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; }
+        .logo { color: #fff; font-size: 1.5rem; font-weight: bold; text-decoration: none; }
+        .nav-links a { color: #cce0ff; text-decoration: none; margin-left: 1.5rem; font-weight: 500; transition: color 0.3s; }
+        .nav-links a:hover, .nav-links a.active { color: #fff; text-decoration: underline; }
+        
+        .game-header { text-align: center; padding: 2rem 1rem 1rem; }
+        .game-title { color: #004080; font-size: 2.2rem; margin-bottom: 0.5rem; }
+        .game-subtitle { color: #555; margin-bottom: 1.5rem; font-size: 1.1rem; }
+
+        .game-wrapper { display: flex; max-width: 1100px; margin: 0 auto 3rem; gap: 2rem; padding: 0 20px; width: 100%; align-items: flex-start; }
+        
+        .game-board { flex: 1; background: #fff; border-radius: 12px; box-shadow: 0 8px 30px rgba(0,0,0,0.1); border-top: 6px solid #3385ff; padding: 2rem; display: flex; flex-direction: column; }
+        
+        .lifelines { display: flex; justify-content: center; gap: 1rem; margin-bottom: 2rem; }
+        .lifeline-btn { background: #002b5e; color: #fff; border: 2px solid #b3d4ff; padding: 0.8rem 1.5rem; border-radius: 30px; font-weight: bold; cursor: pointer; transition: all 0.3s; font-size: 1rem; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .lifeline-btn:hover:not(:disabled) { background: #3385ff; transform: translateY(-2px); }
+        .lifeline-btn:disabled { background: #ccc; border-color: #aaa; color: #666; cursor: not-allowed; transform: none; box-shadow: none; text-decoration: line-through; }
+
+        .question-box { background: #004080; color: #fff; padding: 2rem; border-radius: 8px; font-size: 1.2rem; font-weight: bold; text-align: center; margin-bottom: 2rem; box-shadow: inset 0 0 10px rgba(0,0,0,0.3); min-height: 120px; display: flex; flex-direction: column; justify-content: center; align-items: center; }
+        
+        .answers-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+        .answer-btn { background: #f0f7ff; border: 2px solid #3385ff; color: #002b5e; padding: 1.2rem; font-size: 1rem; font-weight: bold; border-radius: 8px; cursor: pointer; transition: all 0.2s; text-align: left; position: relative; overflow: hidden; }
+        .answer-btn::before { content: attr(data-letter) ": "; color: #3385ff; margin-right: 0.5rem; }
+        .answer-btn:hover:not(:disabled) { background: #e6f0fa; border-color: #004080; transform: scale(1.02); }
+        
+        .answer-btn.selected { background: #ffc107; border-color: #d39e00; color: #000; }
+        .answer-btn.correct { background: #28a745 !important; border-color: #1e7e34 !important; color: #fff !important; }
+        .answer-btn.incorrect { background: #dc3545 !important; border-color: #bd2130 !important; color: #fff !important; }
+        .answer-btn.hidden { visibility: hidden; }
+
+        .prize-ladder { width: 280px; background: #001a33; border-radius: 12px; padding: 1rem; display: flex; flex-direction: column-reverse; gap: 0.1rem; box-shadow: 0 8px 30px rgba(0,0,0,0.2); max-height: 600px; overflow-y: auto; }
+        .ladder-step { display: flex; justify-content: space-between; padding: 0.2rem 0.6rem; color: #66a3ff; font-weight: bold; border-radius: 4px; transition: all 0.3s; font-size: 0.85rem; }
+        .ladder-step.active { background: #ffc107; color: #000; transform: scale(1.05); }
+        .ladder-step.passed { color: #28a745; }
+        .ladder-step.milestone { color: #fff; border-bottom: 1px solid rgba(255,255,255,0.2); } 
+
+        #endScreen { display: none; text-align: center; padding: 3rem 1rem; }
+        #endMessage { font-size: 1.8rem; color: #004080; margin-bottom: 1rem; }
+        #endPrize { font-size: 2.5rem; color: #28a745; font-weight: bold; margin-bottom: 2rem; }
+
+        @media (max-width: 850px) {
+            .game-wrapper { flex-direction: column; }
+            .prize-ladder { width: 100%; flex-direction: row; flex-wrap: wrap; height: auto; } 
+            .answers-grid { grid-template-columns: 1fr; }
+        }
+        
+        footer { text-align: center; padding: 1rem; background-color: #002b5e; color: #fff; margin-top: auto; }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="../../../../../../index.html" class="logo">May Learning Hub</a>
+        <div class="nav-links">
+            <a href="../../../../../../index.html">Home</a>
+            <a href="../../../../../../about.html">About</a>
+        </div>
+    </nav>
+
+    <header class="game-header">
+        <h1 class="game-title">R1,000,000 Geography Challenge</h1>
+        <p class="game-subtitle">Revise development terminology, inequality, health, GDP, sustainability and human-development indicators.</p>
+        <p style="font-size: 0.78rem; color: #52606d; margin-top: 0.45rem;">Grade 10 Geography Term 3 revision</p>
+    </header>
+
+    <main class="game-wrapper">
+        <div class="game-board" id="gameBoard">
+            <div class="lifelines">
+                <button class="lifeline-btn" id="btn5050" onclick="use5050()">50 / 50</button>
+                <button class="lifeline-btn" id="btnHint" onclick="useHint()">Get a Hint</button>
+            </div>
+
+            <div class="question-box">
+                <span id="questionText">Loading question...</span>
+            </div>
+
+            <div class="answers-grid">
+                <button class="answer-btn" data-letter="A" id="btn0" onclick="selectAnswer(0)"></button>
+                <button class="answer-btn" data-letter="B" id="btn1" onclick="selectAnswer(1)"></button>
+                <button class="answer-btn" data-letter="C" id="btn2" onclick="selectAnswer(2)"></button>
+                <button class="answer-btn" data-letter="D" id="btn3" onclick="selectAnswer(3)"></button>
+            </div>
+        </div>
+
+        <div class="game-board" id="endScreen">
+            <h2 id="endMessage">Game Over!</h2>
+            <p style="font-size: 1.2rem; margin-bottom: 0.5rem;">Your final winnings:</p>
+            <div id="endPrize">R0</div>
+            <button class="lifeline-btn" onclick="location.reload()">New Game</button>
+        </div>
+
+        <div class="prize-ladder" id="prizeLadder"></div>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 May Learning Hub. All rights reserved.</p>
+    </footer>
+
+        <script src="../../../../../../game-audio.js"></script>
+<script>
+        const questions = [
+    {
+        "q": "Select the term described here: The movement of people to change their usual place of residence.",
+        "options": [
+            "International migration",
+            "Migration",
+            "Immigration",
+            "Emigration"
+        ],
+        "a": 1,
+        "hint": "The correct answer is Migration."
+    },
+    {
+        "q": "Select the term described here: Movement from one country to another.",
+        "options": [
+            "Immigration",
+            "Emigration",
+            "International migration",
+            "Regional migration"
+        ],
+        "a": 2,
+        "hint": "The correct answer is International migration."
+    },
+    {
+        "q": "Select the term described here: Moving into a country to settle there.",
+        "options": [
+            "Emigration",
+            "Regional migration",
+            "Rural-urban migration",
+            "Immigration"
+        ],
+        "a": 3,
+        "hint": "The correct answer is Immigration."
+    },
+    {
+        "q": "Select the term described here: Leaving a country to settle elsewhere.",
+        "options": [
+            "Emigration",
+            "Regional migration",
+            "Rural-urban migration",
+            "Urbanisation"
+        ],
+        "a": 0,
+        "hint": "The correct answer is Emigration."
+    },
+    {
+        "q": "Select the term described here: Movement within a region, such as within Southern Africa.",
+        "options": [
+            "Rural-urban migration",
+            "Regional migration",
+            "Urbanisation",
+            "Rural depopulation"
+        ],
+        "a": 1,
+        "hint": "The correct answer is Regional migration."
+    },
+    {
+        "q": "Select the term described here: Movement from a rural area to a town or city.",
+        "options": [
+            "Urbanisation",
+            "Rural depopulation",
+            "Rural-urban migration",
+            "Internal migration"
+        ],
+        "a": 2,
+        "hint": "The correct answer is Rural-urban migration."
+    },
+    {
+        "q": "Select the term described here: An increase in the percentage of people living in urban areas.",
+        "options": [
+            "Rural depopulation",
+            "Internal migration",
+            "External migration",
+            "Urbanisation"
+        ],
+        "a": 3,
+        "hint": "The correct answer is Urbanisation."
+    },
+    {
+        "q": "Select the term described here: A reduction in the number of people living in rural areas.",
+        "options": [
+            "Rural depopulation",
+            "Internal migration",
+            "External migration",
+            "Place of origin"
+        ],
+        "a": 0,
+        "hint": "The correct answer is Rural depopulation."
+    },
+    {
+        "q": "Select the term described here: Movement within the borders of the same country.",
+        "options": [
+            "External migration",
+            "Internal migration",
+            "Place of origin",
+            "Destination"
+        ],
+        "a": 1,
+        "hint": "The correct answer is Internal migration."
+    },
+    {
+        "q": "Select the term described here: Movement across an international border.",
+        "options": [
+            "Place of origin",
+            "Destination",
+            "External migration",
+            "Migrant"
+        ],
+        "a": 2,
+        "hint": "The correct answer is External migration."
+    },
+    {
+        "q": "Select the term described here: The place from which a migrant moves.",
+        "options": [
+            "Destination",
+            "Migrant",
+            "Push factor",
+            "Place of origin"
+        ],
+        "a": 3,
+        "hint": "The correct answer is Place of origin."
+    },
+    {
+        "q": "Select the term described here: The place to which a migrant moves.",
+        "options": [
+            "Destination",
+            "Migrant",
+            "Push factor",
+            "Pull factor"
+        ],
+        "a": 0,
+        "hint": "The correct answer is Destination."
+    },
+    {
+        "q": "Select the term described here: A person who changes their usual place of residence.",
+        "options": [
+            "Push factor",
+            "Migrant",
+            "Pull factor",
+            "Voluntary migration"
+        ],
+        "a": 1,
+        "hint": "The correct answer is Migrant."
+    },
+    {
+        "q": "Select the term described here: A condition that encourages people to leave a place.",
+        "options": [
+            "Pull factor",
+            "Voluntary migration",
+            "Push factor",
+            "Forced migration"
+        ],
+        "a": 2,
+        "hint": "The correct answer is Push factor."
+    },
+    {
+        "q": "Select the term described here: A condition that attracts people to a new place.",
+        "options": [
+            "Voluntary migration",
+            "Forced migration",
+            "Temporary migration",
+            "Pull factor"
+        ],
+        "a": 3,
+        "hint": "The correct answer is Pull factor."
+    },
+    {
+        "q": "Select the term described here: Movement made by personal choice.",
+        "options": [
+            "Voluntary migration",
+            "Forced migration",
+            "Temporary migration",
+            "Permanent migration"
+        ],
+        "a": 0,
+        "hint": "The correct answer is Voluntary migration."
+    },
+    {
+        "q": "Select the term described here: Movement caused by danger, conflict, disaster or compulsion.",
+        "options": [
+            "Temporary migration",
+            "Forced migration",
+            "Permanent migration",
+            "Seasonal migration"
+        ],
+        "a": 1,
+        "hint": "The correct answer is Forced migration."
+    },
+    {
+        "q": "Select the term described here: Movement for a limited period with an intention to return.",
+        "options": [
+            "Permanent migration",
+            "Seasonal migration",
+            "Temporary migration",
+            "Migration"
+        ],
+        "a": 2,
+        "hint": "The correct answer is Temporary migration."
+    },
+    {
+        "q": "Select the term described here: Movement intended to establish a long-term home elsewhere.",
+        "options": [
+            "Seasonal migration",
+            "Migration",
+            "International migration",
+            "Permanent migration"
+        ],
+        "a": 3,
+        "hint": "The correct answer is Permanent migration."
+    },
+    {
+        "q": "Select the term described here: Temporary movement linked to a season or seasonal work.",
+        "options": [
+            "Seasonal migration",
+            "Migration",
+            "International migration",
+            "Immigration"
+        ],
+        "a": 0,
+        "hint": "The correct answer is Seasonal migration."
+    },
+    {
+        "q": "Migration refers to which of the following?",
+        "options": [
+            "Movement from one country to another.",
+            "Moving into a country to settle there.",
+            "Leaving a country to settle elsewhere.",
+            "The movement of people to change their usual place of residence."
+        ],
+        "a": 3,
+        "hint": "The correct answer is The movement of people to change their usual place of residence.."
+    },
+    {
+        "q": "International migration refers to which of the following?",
+        "options": [
+            "Movement from one country to another.",
+            "Moving into a country to settle there.",
+            "Leaving a country to settle elsewhere.",
+            "Movement within a region, such as within Southern Africa."
+        ],
+        "a": 0,
+        "hint": "The correct answer is Movement from one country to another.."
+    },
+    {
+        "q": "Immigration refers to which of the following?",
+        "options": [
+            "Leaving a country to settle elsewhere.",
+            "Moving into a country to settle there.",
+            "Movement within a region, such as within Southern Africa.",
+            "Movement from a rural area to a town or city."
+        ],
+        "a": 1,
+        "hint": "The correct answer is Moving into a country to settle there.."
+    },
+    {
+        "q": "Emigration refers to which of the following?",
+        "options": [
+            "Movement within a region, such as within Southern Africa.",
+            "Movement from a rural area to a town or city.",
+            "Leaving a country to settle elsewhere.",
+            "An increase in the percentage of people living in urban areas."
+        ],
+        "a": 2,
+        "hint": "The correct answer is Leaving a country to settle elsewhere.."
+    },
+    {
+        "q": "Regional migration refers to which of the following?",
+        "options": [
+            "Movement from a rural area to a town or city.",
+            "An increase in the percentage of people living in urban areas.",
+            "A reduction in the number of people living in rural areas.",
+            "Movement within a region, such as within Southern Africa."
+        ],
+        "a": 3,
+        "hint": "The correct answer is Movement within a region, such as within Southern Africa.."
+    },
+    {
+        "q": "Rural-urban migration refers to which of the following?",
+        "options": [
+            "Movement from a rural area to a town or city.",
+            "An increase in the percentage of people living in urban areas.",
+            "A reduction in the number of people living in rural areas.",
+            "Movement within the borders of the same country."
+        ],
+        "a": 0,
+        "hint": "The correct answer is Movement from a rural area to a town or city.."
+    },
+    {
+        "q": "Urbanisation refers to which of the following?",
+        "options": [
+            "A reduction in the number of people living in rural areas.",
+            "An increase in the percentage of people living in urban areas.",
+            "Movement within the borders of the same country.",
+            "Movement across an international border."
+        ],
+        "a": 1,
+        "hint": "The correct answer is An increase in the percentage of people living in urban areas.."
+    },
+    {
+        "q": "Rural depopulation refers to which of the following?",
+        "options": [
+            "Movement within the borders of the same country.",
+            "Movement across an international border.",
+            "A reduction in the number of people living in rural areas.",
+            "The place from which a migrant moves."
+        ],
+        "a": 2,
+        "hint": "The correct answer is A reduction in the number of people living in rural areas.."
+    },
+    {
+        "q": "Internal migration refers to which of the following?",
+        "options": [
+            "Movement across an international border.",
+            "The place from which a migrant moves.",
+            "The place to which a migrant moves.",
+            "Movement within the borders of the same country."
+        ],
+        "a": 3,
+        "hint": "The correct answer is Movement within the borders of the same country.."
+    },
+    {
+        "q": "External migration refers to which of the following?",
+        "options": [
+            "Movement across an international border.",
+            "The place from which a migrant moves.",
+            "The place to which a migrant moves.",
+            "A person who changes their usual place of residence."
+        ],
+        "a": 0,
+        "hint": "The correct answer is Movement across an international border.."
+    }
+];
+
+        const prizes = [
+            "R100", "R200", "R300", "R500", "R1,000",
+            "R2,000", "R3,000", "R4,000", "R5,000", "R10,000",
+            "R15,000", "R20,000", "R25,000", "R30,000", "R40,000",
+            "R50,000", "R60,000", "R70,000", "R80,000", "R100,000",
+            "R150,000", "R200,000", "R250,000", "R300,000", "R400,000",
+            "R500,000", "R600,000", "R750,000", "R850,000", "R1,000,000"
+        ];
+
+        let currentLevel = 0;
+        let isWaiting = false;
+
+        const ladderContainer = document.getElementById('prizeLadder');
+        for (let i = 0; i < 30; i++) {
+            let step = document.createElement('div');
+            step.className = 'ladder-step';
+            step.id = `ladder-${i}`;
+            if ((i + 1) % 5 === 0) step.classList.add('milestone');
+            step.innerHTML = `<span>${i + 1}</span> <span>${prizes[i]}</span>`;
+            ladderContainer.appendChild(step);
+        }
+
+        function loadQuestion() {
+            isWaiting = false;
+            document.querySelectorAll('.ladder-step').forEach((el, index) => {
+                el.classList.remove('active');
+                if (index < currentLevel) el.classList.add('passed');
+            });
+            document.getElementById(`ladder-${currentLevel}`).classList.add('active');
+
+            const qData = questions[currentLevel];
+            document.getElementById('questionText').innerText = `Q${currentLevel + 1}: ${qData.q}`;
+
+            let options = [...qData.options];
+            let correctText = options[qData.a];
+            options.sort(() => Math.random() - 0.5);
+            let correctIdx = options.indexOf(correctText);
+
+            for (let i = 0; i < 4; i++) {
+                let btn = document.getElementById(`btn${i}`);
+                btn.innerText = options[i];
+                btn.className = 'answer-btn'; 
+                btn.disabled = false;
+                btn.classList.remove('hidden', 'selected', 'correct', 'incorrect');
+                btn.setAttribute('data-correct', i === correctIdx);
+            }
+        }
+
+        function selectAnswer(selectedIndex) {
+            if (isWaiting) return;
+            isWaiting = true;
+
+            const selectedBtn = document.getElementById(`btn${selectedIndex}`);
+            const isCorrect = selectedBtn.getAttribute('data-correct') === 'true';
+            if (isCorrect) MayHubSounds.playCorrect();
+            else MayHubSounds.playWrong();
+            
+            for (let i = 0; i < 4; i++) {
+                document.getElementById(`btn${i}`).disabled = true;
+            }
+
+            selectedBtn.classList.add('selected');
+
+            setTimeout(() => {
+                selectedBtn.classList.remove('selected');
+
+                if (isCorrect) {
+                    selectedBtn.classList.add('correct');
+                    setTimeout(() => {
+                        currentLevel++;
+                        if (currentLevel >= 30) endGame(true);
+                        else loadQuestion();
+                    }, 1000); 
+                } else {
+                    selectedBtn.classList.add('incorrect');
+                    for (let i = 0; i < 4; i++) {
+                        if (document.getElementById(`btn${i}`).getAttribute('data-correct') === 'true') {
+                            document.getElementById(`btn${i}`).classList.add('correct');
+                        }
+                    }
+                    setTimeout(() => endGame(false), 2000);
+                }
+            }, 1000);
+        }
+
+        function use5050() {
+            if (isWaiting) return;
+            document.getElementById('btn5050').disabled = true;
+            let hiddenCount = 0;
+            for(let i=0; i<4; i++){
+                let btn = document.getElementById(`btn${i}`);
+                if(btn.getAttribute('data-correct') === 'false' && hiddenCount < 2) {
+                    btn.classList.add('hidden');
+                    hiddenCount++;
+                }
+            }
+        }
+
+        function useHint() {
+            if (isWaiting) return;
+            document.getElementById('btnHint').disabled = true;
+            alert("Geography Teacher Hint: " + questions[currentLevel].hint);
+        }
+
+        function endGame(won) {
+            document.getElementById('gameBoard').style.display = 'none';
+            document.getElementById('endScreen').style.display = 'block';
+            if (won) {
+                document.getElementById('endMessage').innerText = "Geography Legend!";
+                document.getElementById('endPrize').innerText = "R1,000,000";
+            } else {
+                document.getElementById('endMessage').innerText = "Final Winnings:";
+                document.getElementById('endPrize').innerText = currentLevel > 0 ? prizes[currentLevel - 1] : "R0";
+            }
+        }
+        loadQuestion();
+    </script>
+</body>
+</html>

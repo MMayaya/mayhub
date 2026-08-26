@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-8GCWSKNDL7"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-8GCWSKNDL7');
+</script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learning Hub | Grade 10 Geography: Population Indicators</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f0f4f8; color: #333; line-height: 1.6; display: flex; flex-direction: column; min-height: 100vh; }
+        nav { background-color: #002b5e; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; }
+        .logo { color: #fff; font-size: 1.5rem; font-weight: bold; text-decoration: none; }
+        .nav-links a { color: #cce0ff; text-decoration: none; margin-left: 1.5rem; font-weight: 500; transition: color 0.3s; }
+        .nav-links a:hover, .nav-links a.active { color: #fff; text-decoration: underline; }
+        .game-container { max-width: 900px; margin: 3rem auto; padding: 2rem; background: #fff; border-radius: 12px; box-shadow: 0 8px 30px rgba(0,0,0,0.1); border-top: 6px solid #3385ff; text-align: center; }
+        .game-title { color: #004080; font-size: 2.5rem; margin-bottom: 0.5rem; text-shadow: 1px 1px 2px rgba(0,0,0,0.1); }
+        .game-subtitle { color: #555; margin-bottom: 2rem; font-size: 1.1rem; }
+        .category-selection { margin-bottom: 2rem; }
+        .category-selection h2 { color: #004080; margin-bottom: 1rem; font-size: 1.5rem; }
+        .cat-buttons { display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem; }
+        .cat-btn { background-color: #f0f4f8; border: 2px solid #004080; color: #004080; padding: 0.8rem 1.5rem; font-size: 1.1rem; font-weight: bold; border-radius: 8px; cursor: pointer; transition: all 0.3s ease; }
+        .cat-btn:hover, .cat-btn.active { background-color: #004080; color: #fff; transform: translateY(-3px); box-shadow: 0 4px 10px rgba(0,64,128,0.2); }
+        #wheelArea { display: none; margin-top: 2rem; padding-top: 2rem; border-top: 2px dashed #ccc; animation: fadeIn 0.5s ease; }
+        #activeCategoryTitle { color: #3385ff; margin-bottom: 1.5rem; font-size: 1.8rem; }
+        .wheel-wrapper { position: relative; width: 380px; height: 380px; margin: 0 auto 2rem; border-radius: 50%; box-shadow: 0 20px 40px rgba(0,0,0,0.3); }
+        .pointer { position: absolute; top: -25px; left: 50%; transform: translateX( -50%); width: 0; height: 0; border-left: 22px solid transparent; border-right: 22px solid transparent; border-top: 55px solid #e60000; z-index: 10; filter: drop-shadow(0 6px 6px rgba(0,0,0,0.5)); }
+        .wheel { width: 100%; height: 100%; border-radius: 50%; border: 15px solid #001a33; position: relative; overflow: hidden; transition: transform 4s cubic-bezier(0.17, 0.67, 0.12, 0.99); box-shadow: inset 0 0 30px rgba(0,0,0,0.7), inset 0 0 0 6px rgba(255,255,255,0.3); }
+        .wheel-center { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 45px; height: 45px; background: radial-gradient(circle, #e6f0fa, #80b3ff); border-radius: 50%; border: 5px solid #001a33; box-shadow: 0 4px 10px rgba(0,0,0,0.6); z-index: 6; }
+        .wheel-bg { width: 100%; height: 100%; position: absolute; top: 0; left: 0; }
+        .wheel-labels { position: absolute; width: 100%; height: 100%; top: 0; left: 0; }
+        .label { position: absolute; top: 50%; left: 50%; transform-origin: 0 0; font-weight: bold; color: #fff; font-size: 0.95rem; text-shadow: 1px 1px 4px rgba(0,0,0,0.9); }
+        .spin-btn { background-color: #3385ff; color: #fff; border: none; padding: 1rem 3rem; font-size: 1.5rem; font-weight: bold; border-radius: 50px; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 4px 10px rgba(51,133,255,0.4); margin-bottom: 1rem; border-bottom: 4px solid #004080; }
+        .question-card { display: none; margin-top: 2rem; padding: 2rem; background-color: #f0f7ff; border: 2px solid #b3d4ff; border-radius: 8px; text-align: center; animation: fadeIn 0.5s ease; box-shadow: 0 6px 15px rgba(0,0,0,0.05); }
+        .q-number-tag { display: inline-block; background: #004080; color: #fff; padding: 0.5rem 1.5rem; border-radius: 30px; font-size: 1.1rem; margin-bottom: 1rem; font-weight: bold; text-transform: uppercase; box-shadow: 0 3px 6px rgba(0,0,0,0.2); }
+        .question-text { font-size: 1.5rem; color: #333; margin-bottom: 1.5rem; font-weight: 500; }
+        .mc-options { display: flex; flex-direction: column; gap: 0.8rem; max-width: 450px; margin: 0 auto 1.5rem; }
+        .option-btn { background: #fff; border: 2px solid #b3d4ff; padding: 1rem; font-size: 1.1rem; border-radius: 6px; cursor: pointer; transition: all 0.2s; text-align: left; font-weight: 500; color: #004080; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+        .option-btn.correct { background-color: #d4edda !important; border-color: #28a745 !important; color: #155724 !important; }
+        .option-btn.incorrect { background-color: #f8d7da !important; border-color: #dc3545 !important; color: #721c24 !important; }
+        .reveal-btn { background-color: #3385ff; color: #fff; border: none; padding: 0.8rem 2rem; font-size: 1.1rem; font-weight: bold; border-radius: 8px; cursor: pointer; transition: background 0.3s; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .answer-text { display: none; font-size: 1.2rem; color: #333; margin-top: 1.5rem; padding-top: 1.5rem; border-top: 2px dashed #b3d4ff; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        footer { text-align: center; padding: 1rem; background-color: #002b5e; color: #fff; margin-top: auto; }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="../../../../../index.html" class="logo">May Learning Hub</a>
+        <div class="nav-links">
+            <a href="../../../../../index.html">Home</a>
+            <a href="../../../../../about.html">About</a>
+        </div>
+    </nav>
+
+    <main class="game-container">
+        <h1 class="game-title">Geography Quiz: Population Indicators</h1>
+        <p class="game-subtitle">Revise development terminology, inequality, health, GDP, sustainability and human-development indicators.</p>
+        <p style="font-size: 0.78rem; color: #52606d; margin-top: 0.45rem;">Grade 10 Geography Term 3 revision</p>
+
+        <div class="category-selection">
+            <h2>Step 1: Choose a Category</h2>
+            <div class="cat-buttons" id="catButtons">
+                <button class="cat-btn" onclick="selectCategory('definitions', this)">Definitions: Term → Meaning</button>
+                <button class="cat-btn" onclick="selectCategory('terms', this)">Name the Term: Meaning → Term</button>
+                <button class="cat-btn" onclick="selectCategory('multipleChoice', this)">Multiple Choice</button>
+                <button class="cat-btn" onclick="selectCategory('trueFalse', this)">True or False</button>
+            </div>
+        </div>
+
+        <div id="wheelArea">
+            <h2 id="activeCategoryTitle">Category: None</h2>
+            
+            <div class="wheel-wrapper">
+                <div class="pointer"></div>
+                <div class="wheel-center"></div>
+                <div class="wheel" id="wheel">
+                    <div class="wheel-bg" id="wheelBg"></div>
+                    <div class="wheel-labels" id="wheelLabels"></div>
+                </div>
+            </div>
+
+            <button class="spin-btn" id="spinBtn" onclick="spinWheel()">SPIN THE WHEEL</button>
+            <p id="remainingCount" style="color: #666; font-size: 0.9rem; margin-bottom: 1rem; font-weight: bold;">20 questions remaining</p>
+
+            <div class="question-card" id="questionCard">
+                <div class="q-number-tag" id="qNumberTag">Question #</div>
+                <div class="question-text" id="questionText">Loading question...</div>
+                
+                <div class="mc-options" id="mcOptions"></div>
+                
+                <button class="reveal-btn" id="revealBtn" onclick="revealAnswer()">Reveal Answer</button>
+                <div class="answer-text" id="answerText"></div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 May Learning Hub. All rights reserved.</p>
+    </footer>
+
+        <script src="../../../../../game-audio.js"></script>
+<script>
+        const gameData = {
+    "definitions": [
+        {
+            "q": "Census",
+            "a": "An official survey that counts and records information about a country's population."
+        },
+        {
+            "q": "Literacy rate",
+            "a": "The percentage of people who can read and write with understanding."
+        },
+        {
+            "q": "Infant mortality rate",
+            "a": "The number of deaths of babies under one year per 1,000 live births."
+        },
+        {
+            "q": "Birth rate",
+            "a": "The number of live births per 1,000 people in a year."
+        },
+        {
+            "q": "Death rate",
+            "a": "The number of deaths per 1,000 people in a year."
+        },
+        {
+            "q": "Crude birth rate",
+            "a": "The annual number of live births per 1,000 people."
+        },
+        {
+            "q": "Crude death rate",
+            "a": "The annual number of deaths per 1,000 people."
+        },
+        {
+            "q": "Natural increase",
+            "a": "Population growth calculated by subtracting the death rate from the birth rate."
+        },
+        {
+            "q": "Natural decrease",
+            "a": "A population decline that occurs when the death rate is higher than the birth rate."
+        },
+        {
+            "q": "Life expectancy",
+            "a": "The average number of years a person is expected to live."
+        },
+        {
+            "q": "Fertility rate",
+            "a": "The average number of children born to a woman during her lifetime."
+        },
+        {
+            "q": "Economically active population",
+            "a": "People of working age who are employed or actively seeking work."
+        },
+        {
+            "q": "Dependency ratio",
+            "a": "A comparison of dependants with the working-age population."
+        },
+        {
+            "q": "Population growth rate",
+            "a": "The rate at which the size of a population changes over time."
+        },
+        {
+            "q": "Per thousand",
+            "a": "A rate expressed for every 1,000 people or live births."
+        },
+        {
+            "q": "Positive natural increase",
+            "a": "A result above zero because births exceed deaths."
+        },
+        {
+            "q": "Negative natural increase",
+            "a": "A result below zero because deaths exceed births."
+        },
+        {
+            "q": "Zero natural increase",
+            "a": "A situation in which the birth rate and death rate are equal."
+        },
+        {
+            "q": "Demographic data",
+            "a": "Statistical information about a population."
+        },
+        {
+            "q": "Sex ratio",
+            "a": "The relationship between the number of males and females in a population."
+        }
+    ],
+    "terms": [
+        {
+            "q": "An official survey that counts and records information about a country's population.",
+            "a": "Census"
+        },
+        {
+            "q": "The percentage of people who can read and write with understanding.",
+            "a": "Literacy rate"
+        },
+        {
+            "q": "The number of deaths of babies under one year per 1,000 live births.",
+            "a": "Infant mortality rate"
+        },
+        {
+            "q": "The number of live births per 1,000 people in a year.",
+            "a": "Birth rate"
+        },
+        {
+            "q": "The number of deaths per 1,000 people in a year.",
+            "a": "Death rate"
+        },
+        {
+            "q": "The annual number of live births per 1,000 people.",
+            "a": "Crude birth rate"
+        },
+        {
+            "q": "The annual number of deaths per 1,000 people.",
+            "a": "Crude death rate"
+        },
+        {
+            "q": "Population growth calculated by subtracting the death rate from the birth rate.",
+            "a": "Natural increase"
+        },
+        {
+            "q": "A population decline that occurs when the death rate is higher than the birth rate.",
+            "a": "Natural decrease"
+        },
+        {
+            "q": "The average number of years a person is expected to live.",
+            "a": "Life expectancy"
+        },
+        {
+            "q": "The average number of children born to a woman during her lifetime.",
+            "a": "Fertility rate"
+        },
+        {
+            "q": "People of working age who are employed or actively seeking work.",
+            "a": "Economically active population"
+        },
+        {
+            "q": "A comparison of dependants with the working-age population.",
+            "a": "Dependency ratio"
+        },
+        {
+            "q": "The rate at which the size of a population changes over time.",
+            "a": "Population growth rate"
+        },
+        {
+            "q": "A rate expressed for every 1,000 people or live births.",
+            "a": "Per thousand"
+        },
+        {
+            "q": "A result above zero because births exceed deaths.",
+            "a": "Positive natural increase"
+        },
+        {
+            "q": "A result below zero because deaths exceed births.",
+            "a": "Negative natural increase"
+        },
+        {
+            "q": "A situation in which the birth rate and death rate are equal.",
+            "a": "Zero natural increase"
+        },
+        {
+            "q": "Statistical information about a population.",
+            "a": "Demographic data"
+        },
+        {
+            "q": "The relationship between the number of males and females in a population.",
+            "a": "Sex ratio"
+        }
+    ],
+    "multipleChoice": [
+        {
+            "q": "Which geographical term means: An official survey that counts and records information about a country's population.",
+            "options": [
+                "A) Census",
+                "B) Literacy rate",
+                "C) Infant mortality rate",
+                "D) Birth rate"
+            ],
+            "a": "A) Census"
+        },
+        {
+            "q": "Which geographical term means: The percentage of people who can read and write with understanding.",
+            "options": [
+                "A) Infant mortality rate",
+                "B) Literacy rate",
+                "C) Birth rate",
+                "D) Death rate"
+            ],
+            "a": "B) Literacy rate"
+        },
+        {
+            "q": "Which geographical term means: The number of deaths of babies under one year per 1,000 live births.",
+            "options": [
+                "A) Birth rate",
+                "B) Death rate",
+                "C) Infant mortality rate",
+                "D) Crude birth rate"
+            ],
+            "a": "C) Infant mortality rate"
+        },
+        {
+            "q": "Which geographical term means: The number of live births per 1,000 people in a year.",
+            "options": [
+                "A) Death rate",
+                "B) Crude birth rate",
+                "C) Crude death rate",
+                "D) Birth rate"
+            ],
+            "a": "D) Birth rate"
+        },
+        {
+            "q": "Which geographical term means: The number of deaths per 1,000 people in a year.",
+            "options": [
+                "A) Death rate",
+                "B) Crude birth rate",
+                "C) Crude death rate",
+                "D) Natural increase"
+            ],
+            "a": "A) Death rate"
+        },
+        {
+            "q": "Which geographical term means: The annual number of live births per 1,000 people.",
+            "options": [
+                "A) Crude death rate",
+                "B) Crude birth rate",
+                "C) Natural increase",
+                "D) Natural decrease"
+            ],
+            "a": "B) Crude birth rate"
+        },
+        {
+            "q": "Which geographical term means: The annual number of deaths per 1,000 people.",
+            "options": [
+                "A) Natural increase",
+                "B) Natural decrease",
+                "C) Crude death rate",
+                "D) Life expectancy"
+            ],
+            "a": "C) Crude death rate"
+        },
+        {
+            "q": "Which geographical term means: Population growth calculated by subtracting the death rate from the birth rate.",
+            "options": [
+                "A) Natural decrease",
+                "B) Life expectancy",
+                "C) Fertility rate",
+                "D) Natural increase"
+            ],
+            "a": "D) Natural increase"
+        },
+        {
+            "q": "Which geographical term means: A population decline that occurs when the death rate is higher than the birth rate.",
+            "options": [
+                "A) Natural decrease",
+                "B) Life expectancy",
+                "C) Fertility rate",
+                "D) Economically active population"
+            ],
+            "a": "A) Natural decrease"
+        },
+        {
+            "q": "Which geographical term means: The average number of years a person is expected to live.",
+            "options": [
+                "A) Fertility rate",
+                "B) Life expectancy",
+                "C) Economically active population",
+                "D) Dependency ratio"
+            ],
+            "a": "B) Life expectancy"
+        },
+        {
+            "q": "Which geographical term means: The average number of children born to a woman during her lifetime.",
+            "options": [
+                "A) Economically active population",
+                "B) Dependency ratio",
+                "C) Fertility rate",
+                "D) Population growth rate"
+            ],
+            "a": "C) Fertility rate"
+        },
+        {
+            "q": "Which geographical term means: People of working age who are employed or actively seeking work.",
+            "options": [
+                "A) Dependency ratio",
+                "B) Population growth rate",
+                "C) Per thousand",
+                "D) Economically active population"
+            ],
+            "a": "D) Economically active population"
+        },
+        {
+            "q": "Which geographical term means: A comparison of dependants with the working-age population.",
+            "options": [
+                "A) Dependency ratio",
+                "B) Population growth rate",
+                "C) Per thousand",
+                "D) Positive natural increase"
+            ],
+            "a": "A) Dependency ratio"
+        },
+        {
+            "q": "Which geographical term means: The rate at which the size of a population changes over time.",
+            "options": [
+                "A) Per thousand",
+                "B) Population growth rate",
+                "C) Positive natural increase",
+                "D) Negative natural increase"
+            ],
+            "a": "B) Population growth rate"
+        },
+        {
+            "q": "Which geographical term means: A rate expressed for every 1,000 people or live births.",
+            "options": [
+                "A) Positive natural increase",
+                "B) Negative natural increase",
+                "C) Per thousand",
+                "D) Zero natural increase"
+            ],
+            "a": "C) Per thousand"
+        },
+        {
+            "q": "Which geographical term means: A result above zero because births exceed deaths.",
+            "options": [
+                "A) Negative natural increase",
+                "B) Zero natural increase",
+                "C) Demographic data",
+                "D) Positive natural increase"
+            ],
+            "a": "D) Positive natural increase"
+        },
+        {
+            "q": "Which geographical term means: A result below zero because deaths exceed births.",
+            "options": [
+                "A) Negative natural increase",
+                "B) Zero natural increase",
+                "C) Demographic data",
+                "D) Sex ratio"
+            ],
+            "a": "A) Negative natural increase"
+        },
+        {
+            "q": "Which geographical term means: A situation in which the birth rate and death rate are equal.",
+            "options": [
+                "A) Demographic data",
+                "B) Zero natural increase",
+                "C) Sex ratio",
+                "D) Census"
+            ],
+            "a": "B) Zero natural increase"
+        },
+        {
+            "q": "Which geographical term means: Statistical information about a population.",
+            "options": [
+                "A) Sex ratio",
+                "B) Census",
+                "C) Demographic data",
+                "D) Literacy rate"
+            ],
+            "a": "C) Demographic data"
+        },
+        {
+            "q": "Which geographical term means: The relationship between the number of males and females in a population.",
+            "options": [
+                "A) Census",
+                "B) Literacy rate",
+                "C) Infant mortality rate",
+                "D) Sex ratio"
+            ],
+            "a": "D) Sex ratio"
+        }
+    ],
+    "trueFalse": [
+        {
+            "q": "Census — An official survey that counts and records information about a country's population.",
+            "options": [
+                "True",
+                "False"
+            ],
+            "a": "True",
+            "exp": "Correct meaning: Census — An official survey that counts and records information about a country's population."
+        },
+        {
+            "q": "Literacy rate — The number of deaths of babies under one year per 1,000 live births.",
+            "options": [
+                "True",
+                "False"
+            ],
+            "a": "False",
+            "exp": "Correct meaning: Literacy rate — The percentage of people who can read and write with understanding."
+        },
+        {
+            "q": "Infant mortality rate — The number of deaths of babies under one year per 1,000 live births.",
+            "options": [
+                "True",
+                "False"
+            ],
+            "a": "True",
+            "exp": "Correct meaning: Infant mortality rate — The number of deaths of babies under one year per 1,000 live births."
+        },
+        {
+            "q": "Birth rate — The number of deaths per 1,000 people in a year.",
+            "options": [
+                "True",
+                "False"
+            ],
+            "a": "False",
+            "exp": "Correct meaning: Birth rate — The number of live births per 1,000 people in a year."
+        },
+        {
+            "q": "Death rate — The number of deaths per 1,000 people in a year.",
+            "options": [
+                "True",
+                "False"
+            ],
+            "a": "True",
+            "exp": "Correct meaning: Death rate — The number of deaths per 1,000 people in a year."
+        },
+        {
+            "q": "Crude birth rate — The annual number of deaths per 1,000 people.",
+            "options": [
+                "True",
+                "False"
+            ],
+            "a": "False",
+            "exp": "Correct meaning: Crude birth rate — The annual number of live births per 1,000 people."
+        },
+        {
+            "q": "Crude death rate — The annual number of deaths per 1,000 people.",
+            "options": [
+                "True",
+                "False"
+            ],
+            "a": "True",
+            "exp": "Correct meaning: Crude death rate — The annual number of deaths per 1,000 people."
+        },
+        {
+            "q": "Natural increase — A population decline that occurs when the death rate is higher than the birth rate.",
+            "options": [
+                "True",
+                "False"
+            ],
+            "a": "False",
+            "exp": "Correct meaning: Natural increase — Population growth calculated by subtracting the death rate from the birth rate."
+        },
+        {
+            "q": "Natural decrease — A population decline that occurs when the death rate is higher than the birth rate.",
+            "options": [
+                "True",
+                "False"
+            ],
+            "a": "True",
+            "exp": "Correct meaning: Natural decrease — A population decline that occurs when the death rate is higher than the birth rate."
+        },
+        {
+            "q": "Life expectancy — The average number of children born to a woman during her lifetime.",
+            "options": [
+                "True",
+                "False"
+            ],
+            "a": "False",
+            "exp": "Correct meaning: Life expectancy — The average number of years a person is expected to live."
+        },
+        {
+            "q": "Fertility rate — The average number of children born to a woman during her lifetime.",
+            "options": [
+                "True",
+                "False"
+            ],
+            "a": "True",
+            "exp": "Correct meaning: Fertility rate — The average number of children born to a woman during her lifetime."
+        },
+        {
+            "q": "Economically active population — A comparison of dependants with the working-age population.",
+            "options": [
+                "True",
+                "False"
+            ],
+            "a": "False",
+            "exp": "Correct meaning: Economically active population — People of working age who are employed or actively seeking work."
+        },
+        {
+            "q": "Dependency ratio — A comparison of dependants with the working-age population.",
+            "options": [
+                "True",
+                "False"
+            ],
+            "a": "True",
+            "exp": "Correct meaning: Dependency ratio — A comparison of dependants with the working-age population."
+        },
+        {
+            "q": "Population growth rate — A rate expressed for every 1,000 people or live births.",
+            "options": [
+                "True",
+                "False"
+            ],
+            "a": "False",
+            "exp": "Correct meaning: Population growth rate — The rate at which the size of a population changes over time."
+        },
+        {
+            "q": "Per thousand — A rate expressed for every 1,000 people or live births.",
+            "options": [
+                "True",
+                "False"
+            ],
+            "a": "True",
+            "exp": "Correct meaning: Per thousand — A rate expressed for every 1,000 people or live births."
+        },
+        {
+            "q": "Positive natural increase — A result below zero because deaths exceed births.",
+            "options": [
+                "True",
+                "False"
+            ],
+            "a": "False",
+            "exp": "Correct meaning: Positive natural increase — A result above zero because births exceed deaths."
+        },
+        {
+            "q": "Negative natural increase — A result below zero because deaths exceed births.",
+            "options": [
+                "True",
+                "False"
+            ],
+            "a": "True",
+            "exp": "Correct meaning: Negative natural increase — A result below zero because deaths exceed births."
+        },
+        {
+            "q": "Zero natural increase — Statistical information about a population.",
+            "options": [
+                "True",
+                "False"
+            ],
+            "a": "False",
+            "exp": "Correct meaning: Zero natural increase — A situation in which the birth rate and death rate are equal."
+        },
+        {
+            "q": "Demographic data — Statistical information about a population.",
+            "options": [
+                "True",
+                "False"
+            ],
+            "a": "True",
+            "exp": "Correct meaning: Demographic data — Statistical information about a population."
+        },
+        {
+            "q": "Sex ratio — An official survey that counts and records information about a country's population.",
+            "options": [
+                "True",
+                "False"
+            ],
+            "a": "False",
+            "exp": "Correct meaning: Sex ratio — The relationship between the number of males and females in a population."
+        }
+    ]
+};
+
+        const totalQuestions = 20; 
+        const sliceAngle = 360 / totalQuestions;
+        let currentCategoryKey = null;
+        let currentRotation = 0;
+        let currentQuestionData = null;
+        let targetQuestionIndex = null;
+
+        let availableQuestions = {
+            'definitions': Array.from({length: totalQuestions}, (_, i) => i),
+            'terms': Array.from({length: totalQuestions}, (_, i) => i),
+            'multipleChoice': Array.from({length: totalQuestions}, (_, i) => i),
+            'trueFalse': Array.from({length: totalQuestions}, (_, i) => i)
+        };
+
+        const sliceColors = ["#0055ff", "#0088ff", "#00bfff", "#0044cc"];
+
+        function buildWheel() {
+            const wheelBg = document.getElementById('wheelBg');
+            const wheelLabels = document.getElementById('wheelLabels');
+            let gradientParts = [];
+
+            for (let i = 0; i < totalQuestions; i++) {
+                let startAngle = i * sliceAngle;
+                let endAngle = (i + 1) * sliceAngle;
+                let color = sliceColors[i % sliceColors.length];
+                gradientParts.push(`${color} ${startAngle}deg ${endAngle}deg`);
+
+                let label = document.createElement('div');
+                label.className = 'label';
+                let textRotation = startAngle + (sliceAngle / 2) - 90;
+                label.style.transform = `rotate(${textRotation}deg) translate(145px, -50%)`;
+                label.innerText = i + 1;
+                wheelLabels.appendChild(label);
+            }
+            wheelBg.style.background = `conic-gradient(${gradientParts.join(', ')})`;
+        }
+
+        buildWheel();
+
+        function selectCategory(categoryKey, btnElement) {
+            currentCategoryKey = categoryKey;
+            const buttons = document.querySelectorAll('.cat-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            btnElement.classList.add('active');
+            document.getElementById('wheelArea').style.display = 'block';
+            document.getElementById('activeCategoryTitle').innerText = `Category: ${btnElement.innerText}`;
+            document.getElementById('questionCard').style.display = 'none';
+            document.getElementById('remainingCount').innerText = `${availableQuestions[categoryKey].length} questions remaining`;
+            currentRotation = 0;
+            document.getElementById('wheel').style.transform = `rotate(0deg)`;
+        }
+
+        function spinWheel() {
+            const spinBtn = document.getElementById('spinBtn');
+            const wheel = document.getElementById('wheel');
+            const questionCard = document.getElementById('questionCard');
+            let available = availableQuestions[currentCategoryKey];
+            
+            if (available.length === 0) {
+                alert(`Resetting ${currentCategoryKey}!`);
+                availableQuestions[currentCategoryKey] = Array.from({length: totalQuestions}, (_, i) => i);
+                available = availableQuestions[currentCategoryKey];
+            }
+
+            spinBtn.disabled = true;
+            spinBtn.innerText = "SPINNING...";
+            MayHubSounds.startWheel();
+            questionCard.style.display = 'none';
+
+            let randomArrIndex = Math.floor(Math.random() * available.length);
+            targetQuestionIndex = available[randomArrIndex];
+            available.splice(randomArrIndex, 1);
+            document.getElementById('remainingCount').innerText = `${available.length} questions remaining`;
+
+            let sliceCenterAngle = (targetQuestionIndex * sliceAngle) + (sliceAngle / 2);
+            let targetDegree = 360 - sliceCenterAngle;
+            let currentBase = Math.ceil(currentRotation / 360) * 360; 
+            currentRotation = currentBase + 1800 + targetDegree;
+            wheel.style.transform = `rotate(${currentRotation}deg)`;
+
+            setTimeout(() => {
+                MayHubSounds.stopWheel();
+                spinBtn.disabled = false;
+                spinBtn.innerText = "SPIN AGAIN";
+                currentQuestionData = gameData[currentCategoryKey][targetQuestionIndex];
+                displayQuestion(targetQuestionIndex + 1, currentQuestionData);
+            }, 4000);
+        }
+
+        function displayQuestion(questionNumber, data) {
+            document.getElementById('qNumberTag').innerText = `Question #${questionNumber}`;
+            document.getElementById('questionText').innerText = data.q;
+            const mcOptions = document.getElementById('mcOptions');
+            const revealBtn = document.getElementById('revealBtn');
+            const answerText = document.getElementById('answerText');
+            mcOptions.innerHTML = "";
+            answerText.style.display = "none";
+            
+            if (currentCategoryKey === 'multipleChoice' || currentCategoryKey === 'trueFalse') {
+                revealBtn.style.display = "none"; 
+                mcOptions.style.display = "flex";
+                data.options.forEach(opt => {
+                    let btn = document.createElement("button");
+                    btn.className = "option-btn";
+                    btn.innerText = opt;
+                    btn.onclick = () => checkInteractiveAnswer(btn, opt);
+                    mcOptions.appendChild(btn);
+                });
+            } else {
+                mcOptions.style.display = "none";
+                revealBtn.style.display = "inline-block";
+                answerText.innerHTML = `<strong>Answer:</strong> ${data.a}`;
+            }
+            document.getElementById('questionCard').style.display = "block";
+        }
+
+        function checkInteractiveAnswer(clickedBtn, selectedText) {
+            const allBtns = document.querySelectorAll('.option-btn');
+            allBtns.forEach(btn => btn.disabled = true);
+            const isCorrect = (selectedText === currentQuestionData.a || selectedText.startsWith(currentQuestionData.a.charAt(0)));
+            const answerTextDiv = document.getElementById('answerText');
+            if (isCorrect) {
+                MayHubSounds.playCorrect();
+                clickedBtn.classList.add('correct');
+                answerTextDiv.innerHTML = `<div style="color: green; font-weight: bold;">Correct!</div> ${currentQuestionData.exp || ''}`;
+            } else {
+                MayHubSounds.playWrong();
+                clickedBtn.classList.add('incorrect');
+                answerTextDiv.innerHTML = `<div style="color: red; font-weight: bold;">Incorrect!</div> The correct answer was: ${currentQuestionData.a}. ${currentQuestionData.exp || ''}`;
+            }
+            answerTextDiv.style.display = "block";
+        }
+
+        function revealAnswer() {
+            document.getElementById('revealBtn').style.display = "none";
+            document.getElementById('answerText').style.display = "block";
+        }
+    </script>
+</body>
+</html>
