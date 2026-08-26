@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-8GCWSKNDL7"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-8GCWSKNDL7');
+</script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>May Learning Hub | Grade 11 Geography: Aid and Humanitarian Action</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f0f4f8; color: #333; line-height: 1.6; display: flex; flex-direction: column; min-height: 100vh; }
+        
+        /* Navigation */
+        nav { background-color: #002b5e; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; }
+        .logo { color: #fff; font-size: 1.5rem; font-weight: bold; text-decoration: none; }
+        .nav-links a { color: #cce0ff; text-decoration: none; margin-left: 1.5rem; font-weight: 500; transition: color 0.3s; }
+        .nav-links a:hover, .nav-links a.active { color: #fff; text-decoration: underline; }
+        
+        /* Header */
+        .game-header { text-align: center; padding: 3rem 1rem 1rem; max-width: 900px; margin: 0 auto; }
+        .game-title { color: #004080; font-size: 2.5rem; margin-bottom: 0.5rem; }
+        .game-subtitle { color: #555; margin-bottom: 2rem; font-size: 1.1rem; }
+        
+        /* Categories */
+        .category-selection { margin-bottom: 2.5rem; }
+        .cat-buttons { display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem; }
+        .cat-btn { background-color: #f0f4f8; border: 2px solid #004080; color: #004080; padding: 0.8rem 1.5rem; font-size: 1rem; font-weight: bold; border-radius: 8px; cursor: pointer; transition: all 0.3s ease; }
+        .cat-btn:hover, .cat-btn.active { background-color: #004080; color: #fff; transform: translateY(-3px); box-shadow: 0 4px 10px rgba(0,64,128,0.2); }
+
+        .controls { display: none; justify-content: center; align-items: center; gap: 2rem; margin-bottom: 2rem; }
+        .move-counter { font-size: 1.2rem; font-weight: bold; color: #004080; background: #fff; padding: 0.6rem 1.8rem; border-radius: 50px; border: 2px solid #3385ff; }
+        .restart-btn { background-color: #3385ff; color: #fff; border: none; padding: 0.7rem 1.8rem; font-size: 1rem; font-weight: bold; border-radius: 50px; cursor: pointer; border-bottom: 3px solid #004080; }
+
+        /* Memory Grid */
+        .memory-game { display: none; width: 100%; max-width: 1200px; margin: 0 auto 4rem; grid-template-columns: repeat(5, 1fr); gap: 15px; padding: 0 20px; perspective: 1000px; }
+        
+        @media (max-width: 950px) { .memory-game { grid-template-columns: repeat(4, 1fr); } }
+        @media (max-width: 650px) { .memory-game { grid-template-columns: repeat(2, 1fr); } }
+
+        .memory-card { position: relative; width: 100%; aspect-ratio: 1 / 1.2; transform-style: preserve-3d; transition: transform 0.5s; cursor: pointer; }
+        .memory-card.flip { transform: rotateY(180deg); }
+        
+        .front-face, .back-face { 
+            position: absolute; 
+            width: 100%; 
+            height: 100%; 
+            backface-visibility: hidden; 
+            border-radius: 12px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            padding: 15px; 
+            text-align: center; 
+            font-size: 1rem; 
+            line-height: 1.4; 
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .front-face { background: #004080; color: #fff; font-size: 2.5rem; border: 3px solid #3385ff; font-weight: bold; }
+        .back-face { background: #fff; color: #002b5e; transform: rotateY(180deg); border: 3px solid #004080; font-weight: 700; }
+        .memory-card.matched .back-face { background: #d4edda; border-color: #28a745; color: #155724; }
+
+        footer { text-align: center; padding: 1.5rem; background-color: #002b5e; color: #fff; margin-top: auto; }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="../../../../../../index.html" class="logo">May Learning Hub</a>
+        <div class="nav-links">
+            <a href="../../../../../../index.html">Home</a>
+            <a href="../../../../../../about.html">About</a>
+        </div>
+    </nav>
+
+    <header class="game-header">
+        <h1 class="game-title">Grade 11 Geography: Aid and Humanitarian Action</h1>
+        <p class="game-subtitle">Revise development aid, humanitarian response, aid agencies, benefits, risks and accountability.</p>
+        <p style="font-size: 0.78rem; color: #52606d; margin-top: 0.45rem;">Grade 11 Geography Term 3 revision</p>
+        
+        <div class="category-selection">
+            <div class="cat-buttons">
+                <button class="cat-btn" onclick="selectCategory('topic1', this)">Development Terms</button>
+                <button class="cat-btn" onclick="selectCategory('topic2', this)">Aspects & Countries</button>
+                <button class="cat-btn" onclick="selectCategory('topic3', this)">Development Indicators</button>
+                <button class="cat-btn" onclick="selectCategory('topic4', this)">Environmental Indicators</button>
+            </div>
+        </div>
+
+        <div class="controls" id="gameControls">
+            <div class="move-counter">Moves: <span id="moves">0</span></div>
+            <button class="restart-btn" onclick="initGame()">Restart Level</button>
+        </div>
+    </header>
+
+    <main class="memory-game" id="gameBoard"></main>
+
+    <footer>
+        <p>&copy; 2026 May Learning Hub. All rights reserved.</p>
+    </footer>
+
+        <script src="../../../../../../game-audio.js"></script>
+<script>
+        const gameData = {
+    "topic1": [
+        {
+            "id": 1,
+            "text": "Define bilateral aid."
+        },
+        {
+            "id": 1,
+            "text": "Direct assistance from one country to another"
+        },
+        {
+            "id": 2,
+            "text": "Expand WFP."
+        },
+        {
+            "id": 2,
+            "text": "World Food Programme"
+        },
+        {
+            "id": 3,
+            "text": "Name one immediate health effect of famine."
+        },
+        {
+            "id": 3,
+            "text": "Malnutrition, illness or death"
+        },
+        {
+            "id": 4,
+            "text": "How can emergency food aid save lives?"
+        },
+        {
+            "id": 4,
+            "text": "It prevents starvation and severe malnutrition"
+        },
+        {
+            "id": 5,
+            "text": "What governance problem can divert aid money?"
+        },
+        {
+            "id": 5,
+            "text": "Corruption"
+        },
+        {
+            "id": 6,
+            "text": "How does multilateral aid differ from bilateral aid?"
+        },
+        {
+            "id": 6,
+            "text": "It is coordinated by multiple countries/an international organisation"
+        },
+        {
+            "id": 7,
+            "text": "Name one international body that can channel multilateral aid."
+        },
+        {
+            "id": 7,
+            "text": "UN, World Bank, WFP or another valid body"
+        },
+        {
+            "id": 8,
+            "text": "Why is drought especially dangerous for subsistence farmers?"
+        },
+        {
+            "id": 8,
+            "text": "It destroys crops/livestock and food supply"
+        },
+        {
+            "id": 9,
+            "text": "Give one non-food form of humanitarian relief."
+        },
+        {
+            "id": 9,
+            "text": "Medical aid, water, shelter or sanitation"
+        },
+        {
+            "id": 10,
+            "text": "What does aid dependency mean?"
+        },
+        {
+            "id": 10,
+            "text": "Relying excessively on continuing outside assistance"
+        }
+    ],
+    "topic2": [
+        {
+            "id": 1,
+            "text": "How does multilateral aid differ from bilateral aid?"
+        },
+        {
+            "id": 1,
+            "text": "It is coordinated by multiple countries/an international organisation"
+        },
+        {
+            "id": 2,
+            "text": "Name one international body that can channel multilateral aid."
+        },
+        {
+            "id": 2,
+            "text": "UN, World Bank, WFP or another valid body"
+        },
+        {
+            "id": 3,
+            "text": "Why is drought especially dangerous for subsistence farmers?"
+        },
+        {
+            "id": 3,
+            "text": "It destroys crops/livestock and food supply"
+        },
+        {
+            "id": 4,
+            "text": "Give one non-food form of humanitarian relief."
+        },
+        {
+            "id": 4,
+            "text": "Medical aid, water, shelter or sanitation"
+        },
+        {
+            "id": 5,
+            "text": "What does aid dependency mean?"
+        },
+        {
+            "id": 5,
+            "text": "Relying excessively on continuing outside assistance"
+        },
+        {
+            "id": 6,
+            "text": "Is emergency disaster relief mainly humanitarian or development aid?"
+        },
+        {
+            "id": 6,
+            "text": "Humanitarian aid"
+        },
+        {
+            "id": 7,
+            "text": "What is the role of a donor?"
+        },
+        {
+            "id": 7,
+            "text": "To provide funds, goods, skills or other assistance"
+        },
+        {
+            "id": 8,
+            "text": "Why does acting on an early famine warning matter?"
+        },
+        {
+            "id": 8,
+            "text": "It can prevent deaths and stop the crisis worsening"
+        },
+        {
+            "id": 9,
+            "text": "How might aid help stabilise a crisis-affected region?"
+        },
+        {
+            "id": 9,
+            "text": "It reduces suffering, displacement and pressure on services/conflict"
+        },
+        {
+            "id": 10,
+            "text": "Why can imported free food sometimes harm local farmers?"
+        },
+        {
+            "id": 10,
+            "text": "It may depress local prices and demand"
+        }
+    ],
+    "topic3": [
+        {
+            "id": 1,
+            "text": "Is emergency disaster relief mainly humanitarian or development aid?"
+        },
+        {
+            "id": 1,
+            "text": "Humanitarian aid"
+        },
+        {
+            "id": 2,
+            "text": "What is the role of a donor?"
+        },
+        {
+            "id": 2,
+            "text": "To provide funds, goods, skills or other assistance"
+        },
+        {
+            "id": 3,
+            "text": "Why does acting on an early famine warning matter?"
+        },
+        {
+            "id": 3,
+            "text": "It can prevent deaths and stop the crisis worsening"
+        },
+        {
+            "id": 4,
+            "text": "How might aid help stabilise a crisis-affected region?"
+        },
+        {
+            "id": 4,
+            "text": "It reduces suffering, displacement and pressure on services/conflict"
+        },
+        {
+            "id": 5,
+            "text": "Why can imported free food sometimes harm local farmers?"
+        },
+        {
+            "id": 5,
+            "text": "It may depress local prices and demand"
+        },
+        {
+            "id": 6,
+            "text": "What kind of aid builds schools, skills or infrastructure over time?"
+        },
+        {
+            "id": 6,
+            "text": "Development aid"
+        },
+        {
+            "id": 7,
+            "text": "Name one quality an effective aid organisation needs."
+        },
+        {
+            "id": 7,
+            "text": "Accountability, speed, local knowledge or coordination"
+        },
+        {
+            "id": 8,
+            "text": "The semi-arid belt immediately south of the Sahara, stretching across West Africa and often affected by drought, is called what?"
+        },
+        {
+            "id": 8,
+            "text": "The Sahel"
+        },
+        {
+            "id": 9,
+            "text": "How can medical aid complement food aid?"
+        },
+        {
+            "id": 9,
+            "text": "It treats illness and malnutrition and supports recovery"
+        },
+        {
+            "id": 10,
+            "text": "Suggest one safeguard against aid corruption."
+        },
+        {
+            "id": 10,
+            "text": "Independent monitoring, transparent records or community oversight"
+        }
+    ],
+    "topic4": [
+        {
+            "id": 1,
+            "text": "What kind of aid builds schools, skills or infrastructure over time?"
+        },
+        {
+            "id": 1,
+            "text": "Development aid"
+        },
+        {
+            "id": 2,
+            "text": "Name one quality an effective aid organisation needs."
+        },
+        {
+            "id": 2,
+            "text": "Accountability, speed, local knowledge or coordination"
+        },
+        {
+            "id": 3,
+            "text": "The semi-arid belt immediately south of the Sahara, stretching across West Africa and often affected by drought, is called what?"
+        },
+        {
+            "id": 3,
+            "text": "The Sahel"
+        },
+        {
+            "id": 4,
+            "text": "How can medical aid complement food aid?"
+        },
+        {
+            "id": 4,
+            "text": "It treats illness and malnutrition and supports recovery"
+        },
+        {
+            "id": 5,
+            "text": "Suggest one safeguard against aid corruption."
+        },
+        {
+            "id": 5,
+            "text": "Independent monitoring, transparent records or community oversight"
+        },
+        {
+            "id": 6,
+            "text": "Define bilateral aid."
+        },
+        {
+            "id": 6,
+            "text": "Direct assistance from one country to another"
+        },
+        {
+            "id": 7,
+            "text": "Expand WFP."
+        },
+        {
+            "id": 7,
+            "text": "World Food Programme"
+        },
+        {
+            "id": 8,
+            "text": "Name one immediate health effect of famine."
+        },
+        {
+            "id": 8,
+            "text": "Malnutrition, illness or death"
+        },
+        {
+            "id": 9,
+            "text": "How can emergency food aid save lives?"
+        },
+        {
+            "id": 9,
+            "text": "It prevents starvation and severe malnutrition"
+        },
+        {
+            "id": 10,
+            "text": "What governance problem can divert aid money?"
+        },
+        {
+            "id": 10,
+            "text": "Corruption"
+        }
+    ]
+};
+
+        const gameBoard = document.getElementById('gameBoard');
+        const movesDisplay = document.getElementById('moves');
+        const gameControls = document.getElementById('gameControls');
+        
+        let currentCategory = null;
+        let hasFlippedCard = false;
+        let lockBoard = false;
+        let firstCard, secondCard;
+        let moves = 0;
+        let matchedPairs = 0;
+
+        function selectCategory(categoryKey, btnElement) {
+            currentCategory = categoryKey;
+            document.querySelectorAll('.cat-btn').forEach(btn => btn.classList.remove('active'));
+            btnElement.classList.add('active');
+            gameControls.style.display = 'flex';
+            gameBoard.style.display = 'grid';
+            initGame();
+        }
+
+        function initGame() {
+            gameBoard.innerHTML = '';
+            moves = 0;
+            matchedPairs = 0;
+            movesDisplay.innerText = moves;
+            hasFlippedCard = false;
+            lockBoard = false;
+
+            const categoryData = gameData[currentCategory];
+            const shuffledCards = [...categoryData].sort(() => 0.5 - Math.random());
+
+            shuffledCards.forEach(card => {
+                const cardElement = document.createElement('div');
+                cardElement.classList.add('memory-card');
+                cardElement.dataset.pairId = card.id;
+                
+                cardElement.innerHTML = `
+                    <div class="front-face">?</div>
+                    <div class="back-face">${card.text}</div>
+                `;
+                
+                cardElement.addEventListener('click', flipCard);
+                gameBoard.appendChild(cardElement);
+            });
+        }
+
+        function flipCard() {
+            if (lockBoard) return;
+            if (this === firstCard) return;
+
+            this.classList.add('flip');
+
+            if (!hasFlippedCard) {
+                hasFlippedCard = true;
+                firstCard = this;
+                return;
+            }
+
+            secondCard = this;
+            moves++;
+            movesDisplay.innerText = moves;
+            checkForMatch();
+        }
+
+        function checkForMatch() {
+            let isMatch = firstCard.dataset.pairId === secondCard.dataset.pairId;
+            if (isMatch) {
+                MayHubSounds.playCorrect();
+                disableCards();
+            } else {
+                MayHubSounds.playWrong();
+                unflipCards();
+            }
+        }
+
+        function disableCards() {
+            firstCard.classList.add('matched');
+            secondCard.classList.add('matched');
+            firstCard.removeEventListener('click', flipCard);
+            secondCard.removeEventListener('click', flipCard);
+            matchedPairs++;
+            if (matchedPairs === (gameData[currentCategory].length / 2)) {
+                setTimeout(() => alert(`Great job! Grade 11 Geography: Development Revision Complete in ${moves} moves.`), 500);
+            }
+            resetBoard();
+        }
+
+        function unflipCards() {
+            lockBoard = true;
+            setTimeout(() => {
+                firstCard.classList.remove('flip');
+                secondCard.classList.remove('flip');
+                resetBoard();
+            }, 1200);
+        }
+
+        function resetBoard() {
+            [hasFlippedCard, lockBoard] = [false, false];
+            [firstCard, secondCard] = [null, null];
+        }
+    </script>
+</body>
+</html>

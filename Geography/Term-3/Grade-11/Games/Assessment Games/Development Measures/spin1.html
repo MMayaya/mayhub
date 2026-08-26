@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-8GCWSKNDL7"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-8GCWSKNDL7');
+</script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learning Hub | Grade 11 Geography: Development Measures</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f0f4f8; color: #333; line-height: 1.6; display: flex; flex-direction: column; min-height: 100vh; }
+        nav { background-color: #002b5e; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; }
+        .logo { color: #fff; font-size: 1.5rem; font-weight: bold; text-decoration: none; }
+        .nav-links a { color: #cce0ff; text-decoration: none; margin-left: 1.5rem; font-weight: 500; transition: color 0.3s; }
+        .nav-links a:hover, .nav-links a.active { color: #fff; text-decoration: underline; }
+        .game-container { max-width: 900px; margin: 3rem auto; padding: 2rem; background: #fff; border-radius: 12px; box-shadow: 0 8px 30px rgba(0,0,0,0.1); border-top: 6px solid #3385ff; text-align: center; }
+        .game-title { color: #004080; font-size: 2.5rem; margin-bottom: 0.5rem; text-shadow: 1px 1px 2px rgba(0,0,0,0.1); }
+        .game-subtitle { color: #555; margin-bottom: 2rem; font-size: 1.1rem; }
+        .category-selection { margin-bottom: 2rem; }
+        .category-selection h2 { color: #004080; margin-bottom: 1rem; font-size: 1.5rem; }
+        .cat-buttons { display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem; }
+        .cat-btn { background-color: #f0f4f8; border: 2px solid #004080; color: #004080; padding: 0.8rem 1.5rem; font-size: 1.1rem; font-weight: bold; border-radius: 8px; cursor: pointer; transition: all 0.3s ease; }
+        .cat-btn:hover, .cat-btn.active { background-color: #004080; color: #fff; transform: translateY(-3px); box-shadow: 0 4px 10px rgba(0,64,128,0.2); }
+        #wheelArea { display: none; margin-top: 2rem; padding-top: 2rem; border-top: 2px dashed #ccc; animation: fadeIn 0.5s ease; }
+        #activeCategoryTitle { color: #3385ff; margin-bottom: 1.5rem; font-size: 1.8rem; }
+        .wheel-wrapper { position: relative; width: 380px; height: 380px; margin: 0 auto 2rem; border-radius: 50%; box-shadow: 0 20px 40px rgba(0,0,0,0.3); }
+        .pointer { position: absolute; top: -25px; left: 50%; transform: translateX( -50%); width: 0; height: 0; border-left: 22px solid transparent; border-right: 22px solid transparent; border-top: 55px solid #e60000; z-index: 10; filter: drop-shadow(0 6px 6px rgba(0,0,0,0.5)); }
+        .wheel { width: 100%; height: 100%; border-radius: 50%; border: 15px solid #001a33; position: relative; overflow: hidden; transition: transform 4s cubic-bezier(0.17, 0.67, 0.12, 0.99); box-shadow: inset 0 0 30px rgba(0,0,0,0.7), inset 0 0 0 6px rgba(255,255,255,0.3); }
+        .wheel-center { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 45px; height: 45px; background: radial-gradient(circle, #e6f0fa, #80b3ff); border-radius: 50%; border: 5px solid #001a33; box-shadow: 0 4px 10px rgba(0,0,0,0.6); z-index: 6; }
+        .wheel-bg { width: 100%; height: 100%; position: absolute; top: 0; left: 0; }
+        .wheel-labels { position: absolute; width: 100%; height: 100%; top: 0; left: 0; }
+        .label { position: absolute; top: 50%; left: 50%; transform-origin: 0 0; font-weight: bold; color: #fff; font-size: 0.95rem; text-shadow: 1px 1px 4px rgba(0,0,0,0.9); }
+        .spin-btn { background-color: #3385ff; color: #fff; border: none; padding: 1rem 3rem; font-size: 1.5rem; font-weight: bold; border-radius: 50px; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 4px 10px rgba(51,133,255,0.4); margin-bottom: 1rem; border-bottom: 4px solid #004080; }
+        .question-card { display: none; margin-top: 2rem; padding: 2rem; background-color: #f0f7ff; border: 2px solid #b3d4ff; border-radius: 8px; text-align: center; animation: fadeIn 0.5s ease; box-shadow: 0 6px 15px rgba(0,0,0,0.05); }
+        .q-number-tag { display: inline-block; background: #004080; color: #fff; padding: 0.5rem 1.5rem; border-radius: 30px; font-size: 1.1rem; margin-bottom: 1rem; font-weight: bold; text-transform: uppercase; box-shadow: 0 3px 6px rgba(0,0,0,0.2); }
+        .question-text { font-size: 1.5rem; color: #333; margin-bottom: 1.5rem; font-weight: 500; }
+        .mc-options { display: flex; flex-direction: column; gap: 0.8rem; max-width: 450px; margin: 0 auto 1.5rem; }
+        .option-btn { background: #fff; border: 2px solid #b3d4ff; padding: 1rem; font-size: 1.1rem; border-radius: 6px; cursor: pointer; transition: all 0.2s; text-align: left; font-weight: 500; color: #004080; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+        .option-btn.correct { background-color: #d4edda !important; border-color: #28a745 !important; color: #155724 !important; }
+        .option-btn.incorrect { background-color: #f8d7da !important; border-color: #dc3545 !important; color: #721c24 !important; }
+        .reveal-btn { background-color: #3385ff; color: #fff; border: none; padding: 0.8rem 2rem; font-size: 1.1rem; font-weight: bold; border-radius: 8px; cursor: pointer; transition: background 0.3s; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .answer-text { display: none; font-size: 1.2rem; color: #333; margin-top: 1.5rem; padding-top: 1.5rem; border-top: 2px dashed #b3d4ff; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        footer { text-align: center; padding: 1rem; background-color: #002b5e; color: #fff; margin-top: auto; }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="../../../../../../index.html" class="logo">May Learning Hub</a>
+        <div class="nav-links">
+            <a href="../../../../../../index.html">Home</a>
+            <a href="../../../../../../about.html">About</a>
+        </div>
+    </nav>
+
+    <main class="game-container">
+        <h1 class="game-title">Geography Quiz: Development Measures</h1>
+        <p class="game-subtitle">Revise development terminology, inequality, health, GDP, sustainability and human-development indicators.</p>
+        <p style="font-size: 0.78rem; color: #52606d; margin-top: 0.45rem;">Grade 11 Geography Term 3 revision</p>
+
+        <div class="category-selection">
+            <h2>Step 1: Choose a Category</h2>
+            <div class="cat-buttons" id="catButtons">
+                <button class="cat-btn" onclick="selectCategory('definitions', this)">Definitions: Term → Meaning</button>
+                <button class="cat-btn" onclick="selectCategory('terms', this)">Name the Term: Meaning → Term</button>
+                <button class="cat-btn" onclick="selectCategory('multipleChoice', this)">Multiple Choice</button>
+                <button class="cat-btn" onclick="selectCategory('trueFalse', this)">True or False</button>
+            </div>
+        </div>
+
+        <div id="wheelArea">
+            <h2 id="activeCategoryTitle">Category: None</h2>
+            
+            <div class="wheel-wrapper">
+                <div class="pointer"></div>
+                <div class="wheel-center"></div>
+                <div class="wheel" id="wheel">
+                    <div class="wheel-bg" id="wheelBg"></div>
+                    <div class="wheel-labels" id="wheelLabels"></div>
+                </div>
+            </div>
+
+            <button class="spin-btn" id="spinBtn" onclick="spinWheel()">SPIN THE WHEEL</button>
+            <p id="remainingCount" style="color: #666; font-size: 0.9rem; margin-bottom: 1rem; font-weight: bold;">20 questions remaining</p>
+
+            <div class="question-card" id="questionCard">
+                <div class="q-number-tag" id="qNumberTag">Question #</div>
+                <div class="question-text" id="questionText">Loading question...</div>
+                
+                <div class="mc-options" id="mcOptions"></div>
+                
+                <button class="reveal-btn" id="revealBtn" onclick="revealAnswer()">Reveal Answer</button>
+                <div class="answer-text" id="answerText"></div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 May Learning Hub. All rights reserved.</p>
+    </footer>
+
+        <script src="../../../../../../game-audio.js"></script>
+<script>
+        const gameData = {
+    "definitions": [
+    {
+        "q": "Development",
+        "a": "The process of improving people's quality of life and economic well-being."
+    },
+    {
+        "q": "Gini Coefficient",
+        "a": "A numerical measure showing the level of income inequality in a country."
+    },
+    {
+        "q": "Life Expectancy",
+        "a": "The average number of years a person is expected to live."
+    },
+    {
+        "q": "Gross Domestic Product",
+        "a": "The total value of goods and services produced within a country during a given period."
+    },
+    {
+        "q": "Sustainable Development",
+        "a": "Development that meets present needs without limiting future generations."
+    },
+    {
+        "q": "MEDCs",
+        "a": "More economically developed countries with relatively high incomes and standards of living."
+    },
+    {
+        "q": "LEDCs",
+        "a": "Less economically developed countries with relatively lower incomes and standards of living."
+    },
+    {
+        "q": "Human Development Index",
+        "a": "A composite index combining health, education and standard of living."
+    },
+    {
+        "q": "Resource Management",
+        "a": "The careful planning and use of natural resources for long-term availability."
+    },
+    {
+        "q": "GDP Per Capita",
+        "a": "Gross Domestic Product divided by the population to provide an average per person."
+    },
+    {
+        "q": "Infant Mortality Rate",
+        "a": "The number of deaths of babies under one year per 1,000 live births."
+    },
+    {
+        "q": "Literacy Rate",
+        "a": "The percentage of people who can read and write with understanding."
+    },
+    {
+        "q": "Standard of Living",
+        "a": "The level of material comfort and access to goods and services experienced by people."
+    },
+    {
+        "q": "Health Indicator",
+        "a": "A measure used to describe population health, such as life expectancy."
+    },
+    {
+        "q": "Economic Indicator",
+        "a": "A measure used to describe economic performance, such as GDP."
+    },
+    {
+        "q": "Social Indicator",
+        "a": "A measure used to describe people's welfare or quality of life."
+    },
+    {
+        "q": "Composite Index",
+        "a": "A measure created by combining several different indicators."
+    },
+    {
+        "q": "Income Inequality",
+        "a": "The uneven distribution of income among people in a country."
+    },
+    {
+        "q": "Quality of Life",
+        "a": "People's overall well-being, including health, education, safety and material conditions."
+    },
+    {
+        "q": "Renewable Resource",
+        "a": "A natural resource that can replenish within a human timescale when managed properly."
+    }
+],
+    "terms": [
+    {
+        "q": "The process of improving people's quality of life and economic well-being.",
+        "a": "Development"
+    },
+    {
+        "q": "A numerical measure showing the level of income inequality in a country.",
+        "a": "Gini Coefficient"
+    },
+    {
+        "q": "The average number of years a person is expected to live.",
+        "a": "Life Expectancy"
+    },
+    {
+        "q": "The total value of goods and services produced within a country during a given period.",
+        "a": "Gross Domestic Product"
+    },
+    {
+        "q": "Development that meets present needs without limiting future generations.",
+        "a": "Sustainable Development"
+    },
+    {
+        "q": "More economically developed countries with relatively high incomes and standards of living.",
+        "a": "MEDCs"
+    },
+    {
+        "q": "Less economically developed countries with relatively lower incomes and standards of living.",
+        "a": "LEDCs"
+    },
+    {
+        "q": "A composite index combining health, education and standard of living.",
+        "a": "Human Development Index"
+    },
+    {
+        "q": "The careful planning and use of natural resources for long-term availability.",
+        "a": "Resource Management"
+    },
+    {
+        "q": "Gross Domestic Product divided by the population to provide an average per person.",
+        "a": "GDP Per Capita"
+    },
+    {
+        "q": "The number of deaths of babies under one year per 1,000 live births.",
+        "a": "Infant Mortality Rate"
+    },
+    {
+        "q": "The percentage of people who can read and write with understanding.",
+        "a": "Literacy Rate"
+    },
+    {
+        "q": "The level of material comfort and access to goods and services experienced by people.",
+        "a": "Standard of Living"
+    },
+    {
+        "q": "A measure used to describe population health, such as life expectancy.",
+        "a": "Health Indicator"
+    },
+    {
+        "q": "A measure used to describe economic performance, such as GDP.",
+        "a": "Economic Indicator"
+    },
+    {
+        "q": "A measure used to describe people's welfare or quality of life.",
+        "a": "Social Indicator"
+    },
+    {
+        "q": "A measure created by combining several different indicators.",
+        "a": "Composite Index"
+    },
+    {
+        "q": "The uneven distribution of income among people in a country.",
+        "a": "Income Inequality"
+    },
+    {
+        "q": "People's overall well-being, including health, education, safety and material conditions.",
+        "a": "Quality of Life"
+    },
+    {
+        "q": "A natural resource that can replenish within a human timescale when managed properly.",
+        "a": "Renewable Resource"
+    }
+],
+    "multipleChoice": [
+        {
+            "q": "Improving people's quality of life and economic well-being is called...",
+            "options": [
+                "A) Development",
+                "B) Globalisation",
+                "C) Urbanisation",
+                "D) Protectionism"
+            ],
+            "a": "A) Development"
+        },
+        {
+            "q": "Which measure shows how evenly or unevenly income is distributed?",
+            "options": [
+                "A) GDP",
+                "B) HDI",
+                "C) Gini coefficient",
+                "D) Life expectancy"
+            ],
+            "a": "C) Gini coefficient"
+        },
+        {
+            "q": "The average number of years a person is expected to live is...",
+            "options": [
+                "A) Literacy rate",
+                "B) Life expectancy",
+                "C) GDP per capita",
+                "D) Infant mortality"
+            ],
+            "a": "B) Life expectancy"
+        },
+        {
+            "q": "The annual value of goods and services produced inside a country is...",
+            "options": [
+                "A) GDP",
+                "B) HDI",
+                "C) Gini coefficient",
+                "D) Balance of trade"
+            ],
+            "a": "A) GDP"
+        },
+        {
+            "q": "Meeting present needs without reducing future generations' ability to meet theirs is...",
+            "options": [
+                "A) Economic growth",
+                "B) Sustainable development",
+                "C) Free trade",
+                "D) Resource depletion"
+            ],
+            "a": "B) Sustainable development"
+        },
+        {
+            "q": "Countries with high incomes and industrialisation are often classified as...",
+            "options": [
+                "A) LEDCs",
+                "B) MEDCs",
+                "C) LDCs only",
+                "D) NICs only"
+            ],
+            "a": "B) MEDCs"
+        },
+        {
+            "q": "Which index combines health, education and standard of living?",
+            "options": [
+                "A) GDP",
+                "B) HDI",
+                "C) Gini coefficient",
+                "D) CPI"
+            ],
+            "a": "B) HDI"
+        },
+        {
+            "q": "Which item is NOT one of HDI's three dimensions?",
+            "options": [
+                "A) Health",
+                "B) Education",
+                "C) Standard of living",
+                "D) Exports"
+            ],
+            "a": "D) Exports"
+        },
+        {
+            "q": "A high Gini coefficient generally signals...",
+            "options": [
+                "A) Greater income inequality",
+                "B) Perfect equality",
+                "C) Long life expectancy",
+                "D) High literacy only"
+            ],
+            "a": "A) Greater income inequality"
+        },
+        {
+            "q": "Why is GDP alone an incomplete development measure?",
+            "options": [
+                "A) It measures no production",
+                "B) It hides distribution and social well-being",
+                "C) It is always negative",
+                "D) It includes education directly"
+            ],
+            "a": "B) It hides distribution and social well-being"
+        },
+        {
+            "q": "Managing natural resources carefully for long-term use is...",
+            "options": [
+                "A) Resource management",
+                "B) Balance of payments",
+                "C) Import substitution",
+                "D) Urban sprawl"
+            ],
+            "a": "A) Resource management"
+        },
+        {
+            "q": "Which indicator most directly reflects population health outcomes?",
+            "options": [
+                "A) Life expectancy",
+                "B) Export value",
+                "C) Tariff rate",
+                "D) Trade surplus"
+            ],
+            "a": "A) Life expectancy"
+        },
+        {
+            "q": "Review: Improving people's quality of life and economic well-being is called...",
+            "options": [
+                "A) Development",
+                "B) Globalisation",
+                "C) Urbanisation",
+                "D) Protectionism"
+            ],
+            "a": "A) Development"
+        },
+        {
+            "q": "Review: Which measure shows how evenly or unevenly income is distributed?",
+            "options": [
+                "A) GDP",
+                "B) HDI",
+                "C) Gini coefficient",
+                "D) Life expectancy"
+            ],
+            "a": "C) Gini coefficient"
+        },
+        {
+            "q": "Review: The average number of years a person is expected to live is...",
+            "options": [
+                "A) Literacy rate",
+                "B) Life expectancy",
+                "C) GDP per capita",
+                "D) Infant mortality"
+            ],
+            "a": "B) Life expectancy"
+        },
+        {
+            "q": "Review: The annual value of goods and services produced inside a country is...",
+            "options": [
+                "A) GDP",
+                "B) HDI",
+                "C) Gini coefficient",
+                "D) Balance of trade"
+            ],
+            "a": "A) GDP"
+        },
+        {
+            "q": "Review: Meeting present needs without reducing future generations' ability to meet theirs is...",
+            "options": [
+                "A) Economic growth",
+                "B) Sustainable development",
+                "C) Free trade",
+                "D) Resource depletion"
+            ],
+            "a": "B) Sustainable development"
+        },
+        {
+            "q": "Review: Countries with high incomes and industrialisation are often classified as...",
+            "options": [
+                "A) LEDCs",
+                "B) MEDCs",
+                "C) LDCs only",
+                "D) NICs only"
+            ],
+            "a": "B) MEDCs"
+        },
+        {
+            "q": "Review: Which index combines health, education and standard of living?",
+            "options": [
+                "A) GDP",
+                "B) HDI",
+                "C) Gini coefficient",
+                "D) CPI"
+            ],
+            "a": "B) HDI"
+        },
+        {
+            "q": "Review: Which item is NOT one of HDI's three dimensions?",
+            "options": [
+                "A) Health",
+                "B) Education",
+                "C) Standard of living",
+                "D) Exports"
+            ],
+            "a": "D) Exports"
+        }
+    ],
+    "trueFalse": [
+        {
+            "q": "Development matches this description: Improved quality of life and well-being",
+            "options": [
+                "True",
+                "False"
+            ],
+            "a": "True",
+            "exp": "Development means: Improved quality of life and well-being"
+        },
+        {
+            "q": "Gini coefficient matches this description: Expected average years of life",
+            "options": [
+                "True",
+                "False"
+            ],
+            "a": "False",
+            "exp": "Gini coefficient means: Income inequality measure"
+        },
+        {
+            "q": "Life expectancy matches this description: Expected average years of life",
+            "options": [
+                "True",
+                "False"
+            ],
+            "a": "True",
+            "exp": "Life expectancy means: Expected average years of life"
+        },
+        {
+            "q": "GDP matches this description: Present needs without harming future needs",
+            "options": [
+                "True",
+                "False"
+            ],
+            "a": "False",
+            "exp": "GDP means: Value of domestic goods and services"
+        },
+        {
+            "q": "Sustainable development matches this description: Present needs without harming future needs",
+            "options": [
+                "True",
+                "False"
+            ],
+            "a": "True",
+            "exp": "Sustainable development means: Present needs without harming future needs"
+        },
+        {
+            "q": "MEDCs matches this description: Health, education and standard of living",
+            "options": [
+                "True",
+                "False"
+            ],
+            "a": "False",
+            "exp": "MEDCs means: More economically developed countries"
+        },
+        {
+            "q": "HDI matches this description: Health, education and standard of living",
+            "options": [
+                "True",
+                "False"
+            ],
+            "a": "True",
+            "exp": "HDI means: Health, education and standard of living"
+        },
+        {
+            "q": "Resource management matches this description: Improved quality of life and well-being",
+            "options": [
+                "True",
+                "False"
+            ],
+            "a": "False",
+            "exp": "Resource management means: Careful planning and use of resources"
+        },
+        {
+            "q": "Development matches this description: Improved quality of life and well-being",
+            "options": [
+                "True",
+                "False"
+            ],
+            "a": "True",
+            "exp": "Development means: Improved quality of life and well-being"
+        },
+        {
+            "q": "Gini coefficient matches this description: Expected average years of life",
+            "options": [
+                "True",
+                "False"
+            ],
+            "a": "False",
+            "exp": "Gini coefficient means: Income inequality measure"
+        },
+        {
+            "q": "Life expectancy matches this description: Expected average years of life",
+            "options": [
+                "True",
+                "False"
+            ],
+            "a": "True",
+            "exp": "Life expectancy means: Expected average years of life"
+        },
+        {
+            "q": "GDP matches this description: Present needs without harming future needs",
+            "options": [
+                "True",
+                "False"
+            ],
+            "a": "False",
+            "exp": "GDP means: Value of domestic goods and services"
+        },
+        {
+            "q": "Sustainable development matches this description: Present needs without harming future needs",
+            "options": [
+                "True",
+                "False"
+            ],
+            "a": "True",
+            "exp": "Sustainable development means: Present needs without harming future needs"
+        },
+        {
+            "q": "MEDCs matches this description: Health, education and standard of living",
+            "options": [
+                "True",
+                "False"
+            ],
+            "a": "False",
+            "exp": "MEDCs means: More economically developed countries"
+        },
+        {
+            "q": "HDI matches this description: Health, education and standard of living",
+            "options": [
+                "True",
+                "False"
+            ],
+            "a": "True",
+            "exp": "HDI means: Health, education and standard of living"
+        },
+        {
+            "q": "Resource management matches this description: Improved quality of life and well-being",
+            "options": [
+                "True",
+                "False"
+            ],
+            "a": "False",
+            "exp": "Resource management means: Careful planning and use of resources"
+        },
+        {
+            "q": "Development matches this description: Improved quality of life and well-being",
+            "options": [
+                "True",
+                "False"
+            ],
+            "a": "True",
+            "exp": "Development means: Improved quality of life and well-being"
+        },
+        {
+            "q": "Gini coefficient matches this description: Expected average years of life",
+            "options": [
+                "True",
+                "False"
+            ],
+            "a": "False",
+            "exp": "Gini coefficient means: Income inequality measure"
+        },
+        {
+            "q": "Life expectancy matches this description: Expected average years of life",
+            "options": [
+                "True",
+                "False"
+            ],
+            "a": "True",
+            "exp": "Life expectancy means: Expected average years of life"
+        },
+        {
+            "q": "GDP matches this description: Present needs without harming future needs",
+            "options": [
+                "True",
+                "False"
+            ],
+            "a": "False",
+            "exp": "GDP means: Value of domestic goods and services"
+        }
+    ]
+};
+
+        const totalQuestions = 20; 
+        const sliceAngle = 360 / totalQuestions;
+        let currentCategoryKey = null;
+        let currentRotation = 0;
+        let currentQuestionData = null;
+        let targetQuestionIndex = null;
+
+        let availableQuestions = {
+            'definitions': Array.from({length: totalQuestions}, (_, i) => i),
+            'terms': Array.from({length: totalQuestions}, (_, i) => i),
+            'multipleChoice': Array.from({length: totalQuestions}, (_, i) => i),
+            'trueFalse': Array.from({length: totalQuestions}, (_, i) => i)
+        };
+
+        const sliceColors = ["#0055ff", "#0088ff", "#00bfff", "#0044cc"];
+
+        function buildWheel() {
+            const wheelBg = document.getElementById('wheelBg');
+            const wheelLabels = document.getElementById('wheelLabels');
+            let gradientParts = [];
+
+            for (let i = 0; i < totalQuestions; i++) {
+                let startAngle = i * sliceAngle;
+                let endAngle = (i + 1) * sliceAngle;
+                let color = sliceColors[i % sliceColors.length];
+                gradientParts.push(`${color} ${startAngle}deg ${endAngle}deg`);
+
+                let label = document.createElement('div');
+                label.className = 'label';
+                let textRotation = startAngle + (sliceAngle / 2) - 90;
+                label.style.transform = `rotate(${textRotation}deg) translate(145px, -50%)`;
+                label.innerText = i + 1;
+                wheelLabels.appendChild(label);
+            }
+            wheelBg.style.background = `conic-gradient(${gradientParts.join(', ')})`;
+        }
+
+        buildWheel();
+
+        function selectCategory(categoryKey, btnElement) {
+            currentCategoryKey = categoryKey;
+            const buttons = document.querySelectorAll('.cat-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            btnElement.classList.add('active');
+            document.getElementById('wheelArea').style.display = 'block';
+            document.getElementById('activeCategoryTitle').innerText = `Category: ${btnElement.innerText}`;
+            document.getElementById('questionCard').style.display = 'none';
+            document.getElementById('remainingCount').innerText = `${availableQuestions[categoryKey].length} questions remaining`;
+            currentRotation = 0;
+            document.getElementById('wheel').style.transform = `rotate(0deg)`;
+        }
+
+        function spinWheel() {
+            const spinBtn = document.getElementById('spinBtn');
+            const wheel = document.getElementById('wheel');
+            const questionCard = document.getElementById('questionCard');
+            let available = availableQuestions[currentCategoryKey];
+            
+            if (available.length === 0) {
+                alert(`Resetting ${currentCategoryKey}!`);
+                availableQuestions[currentCategoryKey] = Array.from({length: totalQuestions}, (_, i) => i);
+                available = availableQuestions[currentCategoryKey];
+            }
+
+            spinBtn.disabled = true;
+            spinBtn.innerText = "SPINNING...";
+            MayHubSounds.startWheel();
+            questionCard.style.display = 'none';
+
+            let randomArrIndex = Math.floor(Math.random() * available.length);
+            targetQuestionIndex = available[randomArrIndex];
+            available.splice(randomArrIndex, 1);
+            document.getElementById('remainingCount').innerText = `${available.length} questions remaining`;
+
+            let sliceCenterAngle = (targetQuestionIndex * sliceAngle) + (sliceAngle / 2);
+            let targetDegree = 360 - sliceCenterAngle;
+            let currentBase = Math.ceil(currentRotation / 360) * 360; 
+            currentRotation = currentBase + 1800 + targetDegree;
+            wheel.style.transform = `rotate(${currentRotation}deg)`;
+
+            setTimeout(() => {
+                MayHubSounds.stopWheel();
+                spinBtn.disabled = false;
+                spinBtn.innerText = "SPIN AGAIN";
+                currentQuestionData = gameData[currentCategoryKey][targetQuestionIndex];
+                displayQuestion(targetQuestionIndex + 1, currentQuestionData);
+            }, 4000);
+        }
+
+        function displayQuestion(questionNumber, data) {
+            document.getElementById('qNumberTag').innerText = `Question #${questionNumber}`;
+            document.getElementById('questionText').innerText = data.q;
+            const mcOptions = document.getElementById('mcOptions');
+            const revealBtn = document.getElementById('revealBtn');
+            const answerText = document.getElementById('answerText');
+            mcOptions.innerHTML = "";
+            answerText.style.display = "none";
+            
+            if (currentCategoryKey === 'multipleChoice' || currentCategoryKey === 'trueFalse') {
+                revealBtn.style.display = "none"; 
+                mcOptions.style.display = "flex";
+                data.options.forEach(opt => {
+                    let btn = document.createElement("button");
+                    btn.className = "option-btn";
+                    btn.innerText = opt;
+                    btn.onclick = () => checkInteractiveAnswer(btn, opt);
+                    mcOptions.appendChild(btn);
+                });
+            } else {
+                mcOptions.style.display = "none";
+                revealBtn.style.display = "inline-block";
+                answerText.innerHTML = `<strong>Answer:</strong> ${data.a}`;
+            }
+            document.getElementById('questionCard').style.display = "block";
+        }
+
+        function checkInteractiveAnswer(clickedBtn, selectedText) {
+            const allBtns = document.querySelectorAll('.option-btn');
+            allBtns.forEach(btn => btn.disabled = true);
+            const isCorrect = (selectedText === currentQuestionData.a || selectedText.startsWith(currentQuestionData.a.charAt(0)));
+            const answerTextDiv = document.getElementById('answerText');
+            if (isCorrect) {
+                MayHubSounds.playCorrect();
+                clickedBtn.classList.add('correct');
+                answerTextDiv.innerHTML = `<div style="color: green; font-weight: bold;">Correct!</div> ${currentQuestionData.exp || ''}`;
+            } else {
+                MayHubSounds.playWrong();
+                clickedBtn.classList.add('incorrect');
+                answerTextDiv.innerHTML = `<div style="color: red; font-weight: bold;">Incorrect!</div> The correct answer was: ${currentQuestionData.a}. ${currentQuestionData.exp || ''}`;
+            }
+            answerTextDiv.style.display = "block";
+        }
+
+        function revealAnswer() {
+            document.getElementById('revealBtn').style.display = "none";
+            document.getElementById('answerText').style.display = "block";
+        }
+    </script>
+</body>
+</html>

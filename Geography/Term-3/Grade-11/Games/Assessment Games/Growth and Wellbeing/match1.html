@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-8GCWSKNDL7"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-8GCWSKNDL7');
+</script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>May Learning Hub | Grade 11 Geography: Growth and Wellbeing</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f0f4f8; color: #333; line-height: 1.6; display: flex; flex-direction: column; min-height: 100vh; }
+        
+        /* Navigation */
+        nav { background-color: #002b5e; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; }
+        .logo { color: #fff; font-size: 1.5rem; font-weight: bold; text-decoration: none; }
+        .nav-links a { color: #cce0ff; text-decoration: none; margin-left: 1.5rem; font-weight: 500; transition: color 0.3s; }
+        .nav-links a:hover, .nav-links a.active { color: #fff; text-decoration: underline; }
+        
+        /* Header */
+        .game-header { text-align: center; padding: 3rem 1rem 1rem; max-width: 900px; margin: 0 auto; }
+        .game-title { color: #004080; font-size: 2.5rem; margin-bottom: 0.5rem; }
+        .game-subtitle { color: #555; margin-bottom: 2rem; font-size: 1.1rem; }
+        
+        /* Categories */
+        .category-selection { margin-bottom: 2.5rem; }
+        .cat-buttons { display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem; }
+        .cat-btn { background-color: #f0f4f8; border: 2px solid #004080; color: #004080; padding: 0.8rem 1.5rem; font-size: 1rem; font-weight: bold; border-radius: 8px; cursor: pointer; transition: all 0.3s ease; }
+        .cat-btn:hover, .cat-btn.active { background-color: #004080; color: #fff; transform: translateY(-3px); box-shadow: 0 4px 10px rgba(0,64,128,0.2); }
+
+        .controls { display: none; justify-content: center; align-items: center; gap: 2rem; margin-bottom: 2rem; }
+        .move-counter { font-size: 1.2rem; font-weight: bold; color: #004080; background: #fff; padding: 0.6rem 1.8rem; border-radius: 50px; border: 2px solid #3385ff; }
+        .restart-btn { background-color: #3385ff; color: #fff; border: none; padding: 0.7rem 1.8rem; font-size: 1rem; font-weight: bold; border-radius: 50px; cursor: pointer; border-bottom: 3px solid #004080; }
+
+        /* Memory Grid */
+        .memory-game { display: none; width: 100%; max-width: 1200px; margin: 0 auto 4rem; grid-template-columns: repeat(5, 1fr); gap: 15px; padding: 0 20px; perspective: 1000px; }
+        
+        @media (max-width: 950px) { .memory-game { grid-template-columns: repeat(4, 1fr); } }
+        @media (max-width: 650px) { .memory-game { grid-template-columns: repeat(2, 1fr); } }
+
+        .memory-card { position: relative; width: 100%; aspect-ratio: 1 / 1.2; transform-style: preserve-3d; transition: transform 0.5s; cursor: pointer; }
+        .memory-card.flip { transform: rotateY(180deg); }
+        
+        .front-face, .back-face { 
+            position: absolute; 
+            width: 100%; 
+            height: 100%; 
+            backface-visibility: hidden; 
+            border-radius: 12px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            padding: 15px; 
+            text-align: center; 
+            font-size: 1rem; 
+            line-height: 1.4; 
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .front-face { background: #004080; color: #fff; font-size: 2.5rem; border: 3px solid #3385ff; font-weight: bold; }
+        .back-face { background: #fff; color: #002b5e; transform: rotateY(180deg); border: 3px solid #004080; font-weight: 700; }
+        .memory-card.matched .back-face { background: #d4edda; border-color: #28a745; color: #155724; }
+
+        footer { text-align: center; padding: 1.5rem; background-color: #002b5e; color: #fff; margin-top: auto; }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="../../../../../../index.html" class="logo">May Learning Hub</a>
+        <div class="nav-links">
+            <a href="../../../../../../index.html">Home</a>
+            <a href="../../../../../../about.html">About</a>
+        </div>
+    </nav>
+
+    <header class="game-header">
+        <h1 class="game-title">Grade 11 Geography: Growth and Wellbeing</h1>
+        <p class="game-subtitle">Explore how economic growth, inequality, public services and inclusive policies affect people.</p>
+        <p style="font-size: 0.78rem; color: #52606d; margin-top: 0.45rem;">Grade 11 Geography Term 3 revision</p>
+        
+        <div class="category-selection">
+            <div class="cat-buttons">
+                <button class="cat-btn" onclick="selectCategory('topic1', this)">Development Terms</button>
+                <button class="cat-btn" onclick="selectCategory('topic2', this)">Aspects & Countries</button>
+                <button class="cat-btn" onclick="selectCategory('topic3', this)">Development Indicators</button>
+                <button class="cat-btn" onclick="selectCategory('topic4', this)">Environmental Indicators</button>
+            </div>
+        </div>
+
+        <div class="controls" id="gameControls">
+            <div class="move-counter">Moves: <span id="moves">0</span></div>
+            <button class="restart-btn" onclick="initGame()">Restart Level</button>
+        </div>
+    </header>
+
+    <main class="memory-game" id="gameBoard"></main>
+
+    <footer>
+        <p>&copy; 2026 May Learning Hub. All rights reserved.</p>
+    </footer>
+
+        <script src="../../../../../../game-audio.js"></script>
+<script>
+        const gameData = {
+    "topic1": [
+        {
+            "id": 1,
+            "text": "Define GDP growth."
+        },
+        {
+            "id": 1,
+            "text": "An increase in a country's economic output/GDP over time"
+        },
+        {
+            "id": 2,
+            "text": "Name one dimension of human development besides income."
+        },
+        {
+            "id": 2,
+            "text": "Health or education"
+        },
+        {
+            "id": 3,
+            "text": "What problem exists when growth benefits only a small elite?"
+        },
+        {
+            "id": 3,
+            "text": "Inequality / unequal distribution"
+        },
+        {
+            "id": 4,
+            "text": "Name one public service in which governments can invest."
+        },
+        {
+            "id": 4,
+            "text": "Education or healthcare"
+        },
+        {
+            "id": 5,
+            "text": "Why can more jobs improve human development?"
+        },
+        {
+            "id": 5,
+            "text": "They can raise incomes, security and choices"
+        },
+        {
+            "id": 6,
+            "text": "State one source of government revenue that may rise with economic growth."
+        },
+        {
+            "id": 6,
+            "text": "Tax revenue"
+        },
+        {
+            "id": 7,
+            "text": "What composite index measures health, education and living standards?"
+        },
+        {
+            "id": 7,
+            "text": "HDI"
+        },
+        {
+            "id": 8,
+            "text": "Why is average GDP per person not proof that everyone is prosperous?"
+        },
+        {
+            "id": 8,
+            "text": "An average hides unequal distribution"
+        },
+        {
+            "id": 9,
+            "text": "What tax system asks higher earners to pay a larger proportion?"
+        },
+        {
+            "id": 9,
+            "text": "Progressive taxation"
+        },
+        {
+            "id": 10,
+            "text": "How can clinics turn economic resources into better human outcomes?"
+        },
+        {
+            "id": 10,
+            "text": "By improving access to healthcare and life expectancy"
+        }
+    ],
+    "topic2": [
+        {
+            "id": 1,
+            "text": "State one source of government revenue that may rise with economic growth."
+        },
+        {
+            "id": 1,
+            "text": "Tax revenue"
+        },
+        {
+            "id": 2,
+            "text": "What composite index measures health, education and living standards?"
+        },
+        {
+            "id": 2,
+            "text": "HDI"
+        },
+        {
+            "id": 3,
+            "text": "Why is average GDP per person not proof that everyone is prosperous?"
+        },
+        {
+            "id": 3,
+            "text": "An average hides unequal distribution"
+        },
+        {
+            "id": 4,
+            "text": "What tax system asks higher earners to pay a larger proportion?"
+        },
+        {
+            "id": 4,
+            "text": "Progressive taxation"
+        },
+        {
+            "id": 5,
+            "text": "How can clinics turn economic resources into better human outcomes?"
+        },
+        {
+            "id": 5,
+            "text": "By improving access to healthcare and life expectancy"
+        },
+        {
+            "id": 6,
+            "text": "Name one way infrastructure spending can support growth."
+        },
+        {
+            "id": 6,
+            "text": "It improves transport/services/productivity and can create jobs"
+        },
+        {
+            "id": 7,
+            "text": "What does quality of life include beyond material income?"
+        },
+        {
+            "id": 7,
+            "text": "Valid examples: health, education, safety, freedom or environment"
+        },
+        {
+            "id": 8,
+            "text": "What happens when social services are neglected during rapid growth?"
+        },
+        {
+            "id": 8,
+            "text": "Human development may remain low or unequal"
+        },
+        {
+            "id": 9,
+            "text": "Describe an inclusive economic policy."
+        },
+        {
+            "id": 9,
+            "text": "A policy that gives broad groups access to opportunities and benefits"
+        },
+        {
+            "id": 10,
+            "text": "If GDP rises but life expectancy falls, what does this show?"
+        },
+        {
+            "id": 10,
+            "text": "Economic growth is not automatically human development"
+        }
+    ],
+    "topic3": [
+        {
+            "id": 1,
+            "text": "Name one way infrastructure spending can support growth."
+        },
+        {
+            "id": 1,
+            "text": "It improves transport/services/productivity and can create jobs"
+        },
+        {
+            "id": 2,
+            "text": "What does quality of life include beyond material income?"
+        },
+        {
+            "id": 2,
+            "text": "Valid examples: health, education, safety, freedom or environment"
+        },
+        {
+            "id": 3,
+            "text": "What happens when social services are neglected during rapid growth?"
+        },
+        {
+            "id": 3,
+            "text": "Human development may remain low or unequal"
+        },
+        {
+            "id": 4,
+            "text": "Describe an inclusive economic policy."
+        },
+        {
+            "id": 4,
+            "text": "A policy that gives broad groups access to opportunities and benefits"
+        },
+        {
+            "id": 5,
+            "text": "If GDP rises but life expectancy falls, what does this show?"
+        },
+        {
+            "id": 5,
+            "text": "Economic growth is not automatically human development"
+        },
+        {
+            "id": 6,
+            "text": "Does GDP growth measure how income is shared?"
+        },
+        {
+            "id": 6,
+            "text": "No"
+        },
+        {
+            "id": 7,
+            "text": "Why is education considered an investment in development?"
+        },
+        {
+            "id": 7,
+            "text": "It builds knowledge, skills and future opportunities"
+        },
+        {
+            "id": 8,
+            "text": "Name one social consequence of extreme inequality."
+        },
+        {
+            "id": 8,
+            "text": "Valid examples: poverty, exclusion, unrest or unequal access to services"
+        },
+        {
+            "id": 9,
+            "text": "Give one way to make growth more equitable."
+        },
+        {
+            "id": 9,
+            "text": "Valid examples: social grants, fair wages, progressive tax, education or healthcare"
+        },
+        {
+            "id": 10,
+            "text": "What should a country monitor alongside GDP to judge real progress?"
+        },
+        {
+            "id": 10,
+            "text": "Human-development and inequality indicators"
+        }
+    ],
+    "topic4": [
+        {
+            "id": 1,
+            "text": "Does GDP growth measure how income is shared?"
+        },
+        {
+            "id": 1,
+            "text": "No"
+        },
+        {
+            "id": 2,
+            "text": "Why is education considered an investment in development?"
+        },
+        {
+            "id": 2,
+            "text": "It builds knowledge, skills and future opportunities"
+        },
+        {
+            "id": 3,
+            "text": "Name one social consequence of extreme inequality."
+        },
+        {
+            "id": 3,
+            "text": "Valid examples: poverty, exclusion, unrest or unequal access to services"
+        },
+        {
+            "id": 4,
+            "text": "Give one way to make growth more equitable."
+        },
+        {
+            "id": 4,
+            "text": "Valid examples: social grants, fair wages, progressive tax, education or healthcare"
+        },
+        {
+            "id": 5,
+            "text": "What should a country monitor alongside GDP to judge real progress?"
+        },
+        {
+            "id": 5,
+            "text": "Human-development and inequality indicators"
+        },
+        {
+            "id": 6,
+            "text": "Define GDP growth."
+        },
+        {
+            "id": 6,
+            "text": "An increase in a country's economic output/GDP over time"
+        },
+        {
+            "id": 7,
+            "text": "Name one dimension of human development besides income."
+        },
+        {
+            "id": 7,
+            "text": "Health or education"
+        },
+        {
+            "id": 8,
+            "text": "What problem exists when growth benefits only a small elite?"
+        },
+        {
+            "id": 8,
+            "text": "Inequality / unequal distribution"
+        },
+        {
+            "id": 9,
+            "text": "Name one public service in which governments can invest."
+        },
+        {
+            "id": 9,
+            "text": "Education or healthcare"
+        },
+        {
+            "id": 10,
+            "text": "Why can more jobs improve human development?"
+        },
+        {
+            "id": 10,
+            "text": "They can raise incomes, security and choices"
+        }
+    ]
+};
+
+        const gameBoard = document.getElementById('gameBoard');
+        const movesDisplay = document.getElementById('moves');
+        const gameControls = document.getElementById('gameControls');
+        
+        let currentCategory = null;
+        let hasFlippedCard = false;
+        let lockBoard = false;
+        let firstCard, secondCard;
+        let moves = 0;
+        let matchedPairs = 0;
+
+        function selectCategory(categoryKey, btnElement) {
+            currentCategory = categoryKey;
+            document.querySelectorAll('.cat-btn').forEach(btn => btn.classList.remove('active'));
+            btnElement.classList.add('active');
+            gameControls.style.display = 'flex';
+            gameBoard.style.display = 'grid';
+            initGame();
+        }
+
+        function initGame() {
+            gameBoard.innerHTML = '';
+            moves = 0;
+            matchedPairs = 0;
+            movesDisplay.innerText = moves;
+            hasFlippedCard = false;
+            lockBoard = false;
+
+            const categoryData = gameData[currentCategory];
+            const shuffledCards = [...categoryData].sort(() => 0.5 - Math.random());
+
+            shuffledCards.forEach(card => {
+                const cardElement = document.createElement('div');
+                cardElement.classList.add('memory-card');
+                cardElement.dataset.pairId = card.id;
+                
+                cardElement.innerHTML = `
+                    <div class="front-face">?</div>
+                    <div class="back-face">${card.text}</div>
+                `;
+                
+                cardElement.addEventListener('click', flipCard);
+                gameBoard.appendChild(cardElement);
+            });
+        }
+
+        function flipCard() {
+            if (lockBoard) return;
+            if (this === firstCard) return;
+
+            this.classList.add('flip');
+
+            if (!hasFlippedCard) {
+                hasFlippedCard = true;
+                firstCard = this;
+                return;
+            }
+
+            secondCard = this;
+            moves++;
+            movesDisplay.innerText = moves;
+            checkForMatch();
+        }
+
+        function checkForMatch() {
+            let isMatch = firstCard.dataset.pairId === secondCard.dataset.pairId;
+            if (isMatch) {
+                MayHubSounds.playCorrect();
+                disableCards();
+            } else {
+                MayHubSounds.playWrong();
+                unflipCards();
+            }
+        }
+
+        function disableCards() {
+            firstCard.classList.add('matched');
+            secondCard.classList.add('matched');
+            firstCard.removeEventListener('click', flipCard);
+            secondCard.removeEventListener('click', flipCard);
+            matchedPairs++;
+            if (matchedPairs === (gameData[currentCategory].length / 2)) {
+                setTimeout(() => alert(`Great job! Grade 11 Geography: Development Revision Complete in ${moves} moves.`), 500);
+            }
+            resetBoard();
+        }
+
+        function unflipCards() {
+            lockBoard = true;
+            setTimeout(() => {
+                firstCard.classList.remove('flip');
+                secondCard.classList.remove('flip');
+                resetBoard();
+            }, 1200);
+        }
+
+        function resetBoard() {
+            [hasFlippedCard, lockBoard] = [false, false];
+            [firstCard, secondCard] = [null, null];
+        }
+    </script>
+</body>
+</html>

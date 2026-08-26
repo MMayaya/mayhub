@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-8GCWSKNDL7"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-8GCWSKNDL7');
+</script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>May Learning Hub | Grade 11 Geography: Fair and Free Trade Quiz</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f0f4f8; color: #333; line-height: 1.6; display: flex; flex-direction: column; min-height: 100vh; }
+        
+        nav { background-color: #002b5e; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; }
+        .logo { color: #fff; font-size: 1.5rem; font-weight: bold; text-decoration: none; }
+        .nav-links a { color: #cce0ff; text-decoration: none; margin-left: 1.5rem; font-weight: 500; transition: color 0.3s; }
+        .nav-links a:hover, .nav-links a.active { color: #fff; text-decoration: underline; }
+        
+        .game-header { text-align: center; padding: 2rem 1rem 1rem; }
+        .game-title { color: #004080; font-size: 2.2rem; margin-bottom: 0.5rem; }
+        .game-subtitle { color: #555; margin-bottom: 1.5rem; font-size: 1.1rem; }
+
+        .game-wrapper { display: flex; max-width: 1100px; margin: 0 auto 3rem; gap: 2rem; padding: 0 20px; width: 100%; align-items: flex-start; }
+        
+        .game-board { flex: 1; background: #fff; border-radius: 12px; box-shadow: 0 8px 30px rgba(0,0,0,0.1); border-top: 6px solid #3385ff; padding: 2rem; display: flex; flex-direction: column; }
+        
+        .lifelines { display: flex; justify-content: center; gap: 1rem; margin-bottom: 2rem; }
+        .lifeline-btn { background: #002b5e; color: #fff; border: 2px solid #b3d4ff; padding: 0.8rem 1.5rem; border-radius: 30px; font-weight: bold; cursor: pointer; transition: all 0.3s; font-size: 1rem; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .lifeline-btn:hover:not(:disabled) { background: #3385ff; transform: translateY(-2px); }
+        .lifeline-btn:disabled { background: #ccc; border-color: #aaa; color: #666; cursor: not-allowed; transform: none; box-shadow: none; text-decoration: line-through; }
+
+        .question-box { background: #004080; color: #fff; padding: 2rem; border-radius: 8px; font-size: 1.2rem; font-weight: bold; text-align: center; margin-bottom: 2rem; box-shadow: inset 0 0 10px rgba(0,0,0,0.3); min-height: 120px; display: flex; flex-direction: column; justify-content: center; align-items: center; }
+        
+        .answers-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+        .answer-btn { background: #f0f7ff; border: 2px solid #3385ff; color: #002b5e; padding: 1.2rem; font-size: 1rem; font-weight: bold; border-radius: 8px; cursor: pointer; transition: all 0.2s; text-align: left; position: relative; overflow: hidden; }
+        .answer-btn::before { content: attr(data-letter) ": "; color: #3385ff; margin-right: 0.5rem; }
+        .answer-btn:hover:not(:disabled) { background: #e6f0fa; border-color: #004080; transform: scale(1.02); }
+        
+        .answer-btn.selected { background: #ffc107; border-color: #d39e00; color: #000; }
+        .answer-btn.correct { background: #28a745 !important; border-color: #1e7e34 !important; color: #fff !important; }
+        .answer-btn.incorrect { background: #dc3545 !important; border-color: #bd2130 !important; color: #fff !important; }
+        .answer-btn.hidden { visibility: hidden; }
+
+        .prize-ladder { width: 280px; background: #001a33; border-radius: 12px; padding: 1rem; display: flex; flex-direction: column-reverse; gap: 0.1rem; box-shadow: 0 8px 30px rgba(0,0,0,0.2); max-height: 600px; overflow-y: auto; }
+        .ladder-step { display: flex; justify-content: space-between; padding: 0.2rem 0.6rem; color: #66a3ff; font-weight: bold; border-radius: 4px; transition: all 0.3s; font-size: 0.85rem; }
+        .ladder-step.active { background: #ffc107; color: #000; transform: scale(1.05); }
+        .ladder-step.passed { color: #28a745; }
+        .ladder-step.milestone { color: #fff; border-bottom: 1px solid rgba(255,255,255,0.2); } 
+
+        #endScreen { display: none; text-align: center; padding: 3rem 1rem; }
+        #endMessage { font-size: 1.8rem; color: #004080; margin-bottom: 1rem; }
+        #endPrize { font-size: 2.5rem; color: #28a745; font-weight: bold; margin-bottom: 2rem; }
+
+        @media (max-width: 850px) {
+            .game-wrapper { flex-direction: column; }
+            .prize-ladder { width: 100%; flex-direction: row; flex-wrap: wrap; height: auto; } 
+            .answers-grid { grid-template-columns: 1fr; }
+        }
+        
+        footer { text-align: center; padding: 1rem; background-color: #002b5e; color: #fff; margin-top: auto; }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="../../../../../../index.html" class="logo">May Learning Hub</a>
+        <div class="nav-links">
+            <a href="../../../../../../index.html">Home</a>
+            <a href="../../../../../../about.html">About</a>
+        </div>
+    </nav>
+
+    <header class="game-header">
+        <h1 class="game-title">R1,000,000 Geography Challenge</h1>
+        <p class="game-subtitle">Compare trading relationships and evaluate tariffs, quotas, market access, benefits and risks.</p>
+        <p style="font-size: 0.78rem; color: #52606d; margin-top: 0.45rem;">Grade 11 Geography Term 3 revision</p>
+    </header>
+
+    <main class="game-wrapper">
+        <div class="game-board" id="gameBoard">
+            <div class="lifelines">
+                <button class="lifeline-btn" id="btn5050" onclick="use5050()">50 / 50</button>
+                <button class="lifeline-btn" id="btnHint" onclick="useHint()">Get a Hint</button>
+            </div>
+
+            <div class="question-box">
+                <span id="questionText">Loading question...</span>
+            </div>
+
+            <div class="answers-grid">
+                <button class="answer-btn" data-letter="A" id="btn0" onclick="selectAnswer(0)"></button>
+                <button class="answer-btn" data-letter="B" id="btn1" onclick="selectAnswer(1)"></button>
+                <button class="answer-btn" data-letter="C" id="btn2" onclick="selectAnswer(2)"></button>
+                <button class="answer-btn" data-letter="D" id="btn3" onclick="selectAnswer(3)"></button>
+            </div>
+        </div>
+
+        <div class="game-board" id="endScreen">
+            <h2 id="endMessage">Game Over!</h2>
+            <p style="font-size: 1.2rem; margin-bottom: 0.5rem;">Your final winnings:</p>
+            <div id="endPrize">R0</div>
+            <button class="lifeline-btn" onclick="location.reload()">New Game</button>
+        </div>
+
+        <div class="prize-ladder" id="prizeLadder"></div>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 May Learning Hub. All rights reserved.</p>
+    </footer>
+
+        <script src="../../../../../../game-audio.js"></script>
+<script>
+        const questions = [
+    {
+        "q": "Does a powerful country imposing restrictive terms represent genuine free trade?",
+        "options": [
+            "Yes",
+            "No",
+            "Only when GDP falls",
+            "Only with aid"
+        ],
+        "a": 1,
+        "hint": "Restrictions and unequal power contradict genuine free trade."
+    },
+    {
+        "q": "In an unequal international trading relationship, the wealthier country with greater bargaining power usually represents...",
+        "options": [
+            "LEDCs",
+            "MEDCs",
+            "Aid agencies",
+            "Local consumers only"
+        ],
+        "a": 1,
+        "hint": "The wealthier and more powerful trading partner represents more economically developed countries."
+    },
+    {
+        "q": "In an unequal international trading relationship, the countries with less bargaining power usually represent...",
+        "options": [
+            "MEDCs",
+            "LEDCs",
+            "Banks only",
+            "Export quotas"
+        ],
+        "a": 1,
+        "hint": "They represent less economically developed countries."
+    },
+    {
+        "q": "A tariff is...",
+        "options": [
+            "A tax on imports",
+            "A limit on import quantity",
+            "A cash gift",
+            "An equality index"
+        ],
+        "a": 0,
+        "hint": "Tariffs make imported goods more expensive."
+    },
+    {
+        "q": "A quota is...",
+        "options": [
+            "A tax on exports",
+            "A limit on the quantity imported",
+            "A health measure",
+            "A trade surplus"
+        ],
+        "a": 1,
+        "hint": "Quotas cap the volume of a product that may enter."
+    },
+    {
+        "q": "One advantage of free trade for LEDCs is...",
+        "options": [
+            "Access to larger markets",
+            "Guaranteed equality",
+            "No competition",
+            "Automatic debt removal"
+        ],
+        "a": 0,
+        "hint": "Larger markets can expand sales and production."
+    },
+    {
+        "q": "Free trade may attract...",
+        "options": [
+            "Foreign investment",
+            "Lower literacy",
+            "Trade isolation",
+            "Import bans"
+        ],
+        "a": 0,
+        "hint": "Market access can attract foreign direct investment."
+    },
+    {
+        "q": "One disadvantage of free trade for LEDCs is...",
+        "options": [
+            "Local firms may be unable to compete",
+            "All exports stop",
+            "No products are available",
+            "Tariffs automatically rise"
+        ],
+        "a": 0,
+        "hint": "Stronger foreign firms can displace vulnerable local industries."
+    },
+    {
+        "q": "Why do tariffs protect domestic producers?",
+        "options": [
+            "They make imports relatively more expensive",
+            "They increase import quantity",
+            "They measure health",
+            "They remove borders"
+        ],
+        "a": 0,
+        "hint": "Higher import prices can improve local firms' competitiveness."
+    },
+    {
+        "q": "Which policy is a non-tax trade barrier?",
+        "options": [
+            "Quota",
+            "Tariff",
+            "Income tax",
+            "VAT"
+        ],
+        "a": 0,
+        "hint": "A quota restricts quantity rather than charging a tax."
+    },
+    {
+        "q": "Trade is fairer when...",
+        "options": [
+            "Benefits and bargaining power are more equitable",
+            "One side sets every rule",
+            "Poor producers earn less",
+            "Markets are hidden"
+        ],
+        "a": 0,
+        "hint": "Fairness concerns the terms, returns and power within trade."
+    },
+    {
+        "q": "Foreign firms entering an LEDC can bring...",
+        "options": [
+            "Capital, skills and jobs",
+            "Guaranteed equality",
+            "No competition",
+            "Only quotas"
+        ],
+        "a": 0,
+        "hint": "Investment may add capital, technology, skills and employment."
+    },
+    {
+        "q": "Review: Does a powerful country imposing restrictive terms represent genuine free trade?",
+        "options": [
+            "Yes",
+            "No",
+            "Only when GDP falls",
+            "Only with aid"
+        ],
+        "a": 1,
+        "hint": "Restrictions and unequal power contradict genuine free trade."
+    },
+    {
+        "q": "Review: In an unequal international trading relationship, the wealthier country with greater bargaining power usually represents...",
+        "options": [
+            "LEDCs",
+            "MEDCs",
+            "Aid agencies",
+            "Local consumers only"
+        ],
+        "a": 1,
+        "hint": "The wealthier and more powerful trading partner represents more economically developed countries."
+    },
+    {
+        "q": "Review: In an unequal international trading relationship, the countries with less bargaining power usually represent...",
+        "options": [
+            "MEDCs",
+            "LEDCs",
+            "Banks only",
+            "Export quotas"
+        ],
+        "a": 1,
+        "hint": "They represent less economically developed countries."
+    },
+    {
+        "q": "Review: A tariff is...",
+        "options": [
+            "A tax on imports",
+            "A limit on import quantity",
+            "A cash gift",
+            "An equality index"
+        ],
+        "a": 0,
+        "hint": "Tariffs make imported goods more expensive."
+    },
+    {
+        "q": "Review: A quota is...",
+        "options": [
+            "A tax on exports",
+            "A limit on the quantity imported",
+            "A health measure",
+            "A trade surplus"
+        ],
+        "a": 1,
+        "hint": "Quotas cap the volume of a product that may enter."
+    },
+    {
+        "q": "Review: One advantage of free trade for LEDCs is...",
+        "options": [
+            "Access to larger markets",
+            "Guaranteed equality",
+            "No competition",
+            "Automatic debt removal"
+        ],
+        "a": 0,
+        "hint": "Larger markets can expand sales and production."
+    },
+    {
+        "q": "Review: Free trade may attract...",
+        "options": [
+            "Foreign investment",
+            "Lower literacy",
+            "Trade isolation",
+            "Import bans"
+        ],
+        "a": 0,
+        "hint": "Market access can attract foreign direct investment."
+    },
+    {
+        "q": "Review: One disadvantage of free trade for LEDCs is...",
+        "options": [
+            "Local firms may be unable to compete",
+            "All exports stop",
+            "No products are available",
+            "Tariffs automatically rise"
+        ],
+        "a": 0,
+        "hint": "Stronger foreign firms can displace vulnerable local industries."
+    },
+    {
+        "q": "Review: Why do tariffs protect domestic producers?",
+        "options": [
+            "They make imports relatively more expensive",
+            "They increase import quantity",
+            "They measure health",
+            "They remove borders"
+        ],
+        "a": 0,
+        "hint": "Higher import prices can improve local firms' competitiveness."
+    },
+    {
+        "q": "Review: Which policy is a non-tax trade barrier?",
+        "options": [
+            "Quota",
+            "Tariff",
+            "Income tax",
+            "VAT"
+        ],
+        "a": 0,
+        "hint": "A quota restricts quantity rather than charging a tax."
+    },
+    {
+        "q": "Review: Trade is fairer when...",
+        "options": [
+            "Benefits and bargaining power are more equitable",
+            "One side sets every rule",
+            "Poor producers earn less",
+            "Markets are hidden"
+        ],
+        "a": 0,
+        "hint": "Fairness concerns the terms, returns and power within trade."
+    },
+    {
+        "q": "Review: Foreign firms entering an LEDC can bring...",
+        "options": [
+            "Capital, skills and jobs",
+            "Guaranteed equality",
+            "No competition",
+            "Only quotas"
+        ],
+        "a": 0,
+        "hint": "Investment may add capital, technology, skills and employment."
+    },
+    {
+        "q": "Challenge: Does a powerful country imposing restrictive terms represent genuine free trade?",
+        "options": [
+            "Yes",
+            "No",
+            "Only when GDP falls",
+            "Only with aid"
+        ],
+        "a": 1,
+        "hint": "Restrictions and unequal power contradict genuine free trade."
+    },
+    {
+        "q": "Challenge: In an unequal international trading relationship, the wealthier country with greater bargaining power usually represents...",
+        "options": [
+            "LEDCs",
+            "MEDCs",
+            "Aid agencies",
+            "Local consumers only"
+        ],
+        "a": 1,
+        "hint": "The wealthier and more powerful trading partner represents more economically developed countries."
+    },
+    {
+        "q": "Challenge: In an unequal international trading relationship, the countries with less bargaining power usually represent...",
+        "options": [
+            "MEDCs",
+            "LEDCs",
+            "Banks only",
+            "Export quotas"
+        ],
+        "a": 1,
+        "hint": "They represent less economically developed countries."
+    },
+    {
+        "q": "Challenge: A tariff is...",
+        "options": [
+            "A tax on imports",
+            "A limit on import quantity",
+            "A cash gift",
+            "An equality index"
+        ],
+        "a": 0,
+        "hint": "Tariffs make imported goods more expensive."
+    },
+    {
+        "q": "Challenge: A quota is...",
+        "options": [
+            "A tax on exports",
+            "A limit on the quantity imported",
+            "A health measure",
+            "A trade surplus"
+        ],
+        "a": 1,
+        "hint": "Quotas cap the volume of a product that may enter."
+    },
+    {
+        "q": "Challenge: One advantage of free trade for LEDCs is...",
+        "options": [
+            "Access to larger markets",
+            "Guaranteed equality",
+            "No competition",
+            "Automatic debt removal"
+        ],
+        "a": 0,
+        "hint": "Larger markets can expand sales and production."
+    }
+];
+
+        const prizes = [
+            "R100", "R200", "R300", "R500", "R1,000",
+            "R2,000", "R3,000", "R4,000", "R5,000", "R10,000",
+            "R15,000", "R20,000", "R25,000", "R30,000", "R40,000",
+            "R50,000", "R60,000", "R70,000", "R80,000", "R100,000",
+            "R150,000", "R200,000", "R250,000", "R300,000", "R400,000",
+            "R500,000", "R600,000", "R750,000", "R850,000", "R1,000,000"
+        ];
+
+        let currentLevel = 0;
+        let isWaiting = false;
+
+        const ladderContainer = document.getElementById('prizeLadder');
+        for (let i = 0; i < 30; i++) {
+            let step = document.createElement('div');
+            step.className = 'ladder-step';
+            step.id = `ladder-${i}`;
+            if ((i + 1) % 5 === 0) step.classList.add('milestone');
+            step.innerHTML = `<span>${i + 1}</span> <span>${prizes[i]}</span>`;
+            ladderContainer.appendChild(step);
+        }
+
+        function loadQuestion() {
+            isWaiting = false;
+            document.querySelectorAll('.ladder-step').forEach((el, index) => {
+                el.classList.remove('active');
+                if (index < currentLevel) el.classList.add('passed');
+            });
+            document.getElementById(`ladder-${currentLevel}`).classList.add('active');
+
+            const qData = questions[currentLevel];
+            document.getElementById('questionText').innerText = `Q${currentLevel + 1}: ${qData.q}`;
+
+            let options = [...qData.options];
+            let correctText = options[qData.a];
+            options.sort(() => Math.random() - 0.5);
+            let correctIdx = options.indexOf(correctText);
+
+            for (let i = 0; i < 4; i++) {
+                let btn = document.getElementById(`btn${i}`);
+                btn.innerText = options[i];
+                btn.className = 'answer-btn'; 
+                btn.disabled = false;
+                btn.classList.remove('hidden', 'selected', 'correct', 'incorrect');
+                btn.setAttribute('data-correct', i === correctIdx);
+            }
+        }
+
+        function selectAnswer(selectedIndex) {
+            if (isWaiting) return;
+            isWaiting = true;
+
+            const selectedBtn = document.getElementById(`btn${selectedIndex}`);
+            const isCorrect = selectedBtn.getAttribute('data-correct') === 'true';
+            if (isCorrect) MayHubSounds.playCorrect();
+            else MayHubSounds.playWrong();
+            
+            for (let i = 0; i < 4; i++) {
+                document.getElementById(`btn${i}`).disabled = true;
+            }
+
+            selectedBtn.classList.add('selected');
+
+            setTimeout(() => {
+                selectedBtn.classList.remove('selected');
+
+                if (isCorrect) {
+                    selectedBtn.classList.add('correct');
+                    setTimeout(() => {
+                        currentLevel++;
+                        if (currentLevel >= 30) endGame(true);
+                        else loadQuestion();
+                    }, 1000); 
+                } else {
+                    selectedBtn.classList.add('incorrect');
+                    for (let i = 0; i < 4; i++) {
+                        if (document.getElementById(`btn${i}`).getAttribute('data-correct') === 'true') {
+                            document.getElementById(`btn${i}`).classList.add('correct');
+                        }
+                    }
+                    setTimeout(() => endGame(false), 2000);
+                }
+            }, 1000);
+        }
+
+        function use5050() {
+            if (isWaiting) return;
+            document.getElementById('btn5050').disabled = true;
+            let hiddenCount = 0;
+            for(let i=0; i<4; i++){
+                let btn = document.getElementById(`btn${i}`);
+                if(btn.getAttribute('data-correct') === 'false' && hiddenCount < 2) {
+                    btn.classList.add('hidden');
+                    hiddenCount++;
+                }
+            }
+        }
+
+        function useHint() {
+            if (isWaiting) return;
+            document.getElementById('btnHint').disabled = true;
+            alert("Geography Teacher Hint: " + questions[currentLevel].hint);
+        }
+
+        function endGame(won) {
+            document.getElementById('gameBoard').style.display = 'none';
+            document.getElementById('endScreen').style.display = 'block';
+            if (won) {
+                document.getElementById('endMessage').innerText = "Geography Legend!";
+                document.getElementById('endPrize').innerText = "R1,000,000";
+            } else {
+                document.getElementById('endMessage').innerText = "Final Winnings:";
+                document.getElementById('endPrize').innerText = currentLevel > 0 ? prizes[currentLevel - 1] : "R0";
+            }
+        }
+        loadQuestion();
+    </script>
+</body>
+</html>
