@@ -117,16 +117,6 @@
         .replay-btn { background: #ffc107; color: #2f2500; }
         .category-btn { background: #fff; color: #003a75; border: 1px solid #aab8c6; }
         .share-note { margin-top: 0.75rem; color: #536273; font-size: 0.8rem; }
-        .certificate-save-overlay { position: fixed; inset: 0; z-index: 10000; display: grid; place-items: center; padding: 1rem; background: rgba(7,24,39,.92); overflow-y: auto; }
-        .certificate-save-dialog { width: min(620px, 100%); padding: 1rem; border-radius: 16px; background: #fff; box-shadow: 0 18px 60px rgba(0,0,0,.45); text-align: center; }
-        .certificate-save-dialog h2 { color: #003f75; margin-bottom: 0.35rem; }
-        .certificate-save-dialog p { color: #425466; margin-bottom: 0.8rem; }
-        .certificate-save-image { display: block; width: min(390px, 100%); max-height: 65vh; margin: 0 auto 1rem; border: 1px solid #aab8c6; border-radius: 8px; object-fit: contain; background: #fff; }
-        .certificate-save-actions { display: flex; justify-content: center; flex-wrap: wrap; gap: 0.65rem; }
-        .certificate-save-actions a, .certificate-save-actions button { border: none; border-radius: 9px; padding: 0.75rem 0.95rem; font: inherit; font-weight: 800; text-decoration: none; cursor: pointer; }
-        .certificate-open-btn { background: #005bb5; color: #fff; }
-        .certificate-whatsapp-link { background: #25d366; color: #072d16; }
-        .certificate-close-btn { background: #e8edf2; color: #17324d; }
         .review-page { display: none; margin-top: 2rem; padding: 1.5rem; border-radius: 16px; background: #f7fbff; border: 2px solid #b3d4ff; text-align: left; }
         .review-page h2 { color: #004080; text-align: center; margin-bottom: 0.4rem; }
         .review-summary { text-align: center; color: #52606d; margin-bottom: 1rem; }
@@ -1286,8 +1276,14 @@
 
                 const whatsappUrl = 'https://wa.me/?text=' + encodeURIComponent(message);
                 if (isLikelyWebView()) {
-                    await showCertificateSaveFallback(certificate.blob, certificate.fileName, whatsappUrl);
-                    announce('Certificate image ready. Save or open it, then continue to WhatsApp.');
+                    const sameSiteDownloadStarted = await triggerServiceWorkerCertificateDownload(certificate.blob, certificate.fileName);
+                    if (sameSiteDownloadStarted) {
+                        window.alert('Your certificate download has started. WhatsApp will now open; attach the downloaded certificate and choose My status or a contact.');
+                        window.location.href = whatsappUrl;
+                        announce('Certificate download started for WhatsApp sharing.');
+                    } else {
+                        await showCertificateSaveFallback(certificate.blob, certificate.fileName, whatsappUrl);
+                    }
                 } else {
                     triggerCertificateDownload(certificate.blob, certificate.fileName);
                     window.alert('Your certificate image has been downloaded. WhatsApp will now open; attach the downloaded certificate and choose My status or a contact.');
@@ -1591,6 +1587,85 @@
             setTimeout(() => URL.revokeObjectURL(objectUrl), 30000);
         }
 
+        function getCertificateServiceWorkerVersion(controller) {
+            if (!controller || typeof MessageChannel !== 'function') return Promise.resolve('');
+            return new Promise(resolve => {
+                const channel = new MessageChannel();
+                const timeoutId = setTimeout(() => resolve(''), 1500);
+                channel.port1.onmessage = event => {
+                    clearTimeout(timeoutId);
+                    resolve(event.data?.version || '');
+                };
+                try {
+                    controller.postMessage({ type: 'MAYHUB_GET_SW_VERSION' }, [channel.port2]);
+                } catch {
+                    clearTimeout(timeoutId);
+                    resolve('');
+                }
+            });
+        }
+
+        async function ensureCertificateServiceWorker() {
+            if (!('serviceWorker' in navigator) || !('caches' in window)) return false;
+            if (!/^https?:$/.test(window.location.protocol)) return false;
+            try {
+                const registration = await navigator.serviceWorker.register('/sw.js', { updateViaCache: 'none' });
+                try { await registration.update(); } catch {}
+                await navigator.serviceWorker.ready;
+                let activeVersion = await getCertificateServiceWorkerVersion(navigator.serviceWorker.controller);
+                if (activeVersion !== '5-certificate-downloads') {
+                    if (registration.waiting) registration.waiting.postMessage({ type: 'MAYHUB_SKIP_WAITING' });
+                    await new Promise(resolve => {
+                        const timeoutId = setTimeout(resolve, 6000);
+                        navigator.serviceWorker.addEventListener('controllerchange', () => {
+                            clearTimeout(timeoutId);
+                            resolve();
+                        }, { once: true });
+                    });
+                    activeVersion = await getCertificateServiceWorkerVersion(navigator.serviceWorker.controller);
+                }
+                return activeVersion === '5-certificate-downloads';
+            } catch (error) {
+                console.warn('Certificate service worker unavailable:', error);
+                return false;
+            }
+        }
+
+        async function triggerServiceWorkerCertificateDownload(blob, fileName) {
+            if (!await ensureCertificateServiceWorker()) return false;
+            try {
+                const safeFileName = fileName.replace(/[^a-z0-9._-]+/gi, '-');
+                const downloadId = (window.crypto && typeof window.crypto.randomUUID === 'function')
+                    ? window.crypto.randomUUID()
+                    : Date.now().toString(36) + Math.random().toString(36).slice(2);
+                const downloadUrl = new URL('/certificate-download/' + downloadId + '/' + encodeURIComponent(safeFileName), window.location.origin);
+                const downloadCache = await caches.open('may-learning-certificate-downloads');
+                const response = new Response(blob, {
+                    status: 200,
+                    headers: {
+                        'Content-Type': 'image/png',
+                        'Content-Length': String(blob.size),
+                        'Content-Disposition': 'attachment; filename="' + safeFileName + '"',
+                        'Cache-Control': 'no-store, max-age=0'
+                    }
+                });
+                await downloadCache.put(downloadUrl.href, response);
+
+                const link = document.createElement('a');
+                link.href = downloadUrl.href;
+                link.download = safeFileName;
+                link.style.display = 'none';
+                document.body.appendChild(link);
+                link.click();
+                link.remove();
+                setTimeout(() => downloadCache.delete(downloadUrl.href), 300000);
+                return true;
+            } catch (error) {
+                console.warn('Same-site certificate download failed:', error);
+                return false;
+            }
+        }
+
         function isLikelyWebView() {
             const userAgent = navigator.userAgent || '';
             const androidWebView = /\bwv\b|;\s*wv\)|Android.*Version\/[\d.]+.*Chrome\/[\d.]+.*Mobile Safari/i.test(userAgent);
@@ -1653,63 +1728,20 @@
         }
 
         async function showCertificateSaveFallback(blob, fileName, whatsappUrl = '') {
-            const existingOverlay = document.getElementById('certificateSaveOverlay');
-            if (existingOverlay) existingOverlay.remove();
             const dataUrl = await blobToDataUrl(blob);
-            const overlay = document.createElement('div');
-            overlay.className = 'certificate-save-overlay';
-            overlay.id = 'certificateSaveOverlay';
-            overlay.setAttribute('role', 'dialog');
-            overlay.setAttribute('aria-modal', 'true');
-            overlay.setAttribute('aria-labelledby', 'certificateSaveTitle');
-
-            const dialog = document.createElement('div');
-            dialog.className = 'certificate-save-dialog';
-            const title = document.createElement('h2');
-            title.id = 'certificateSaveTitle';
-            title.innerText = 'Your Certificate Is Ready';
-            const instructions = document.createElement('p');
-            instructions.innerText = 'Press and hold the certificate image to save or share it. You can also open the full image using the button below.';
-            const image = document.createElement('img');
-            image.className = 'certificate-save-image';
-            image.src = dataUrl;
-            image.alt = 'May Learning Hub certificate for ' + (lastCompletedScore?.name || 'learner');
-
-            const actions = document.createElement('div');
-            actions.className = 'certificate-save-actions';
-            const openLink = document.createElement('a');
-            openLink.className = 'certificate-open-btn';
-            openLink.href = dataUrl;
-            openLink.download = fileName;
-            openLink.target = '_blank';
-            openLink.rel = 'noopener';
-            openLink.innerText = 'Open / Save Certificate';
-            actions.appendChild(openLink);
-
+            const attachmentUrl = String(dataUrl).replace(/^data:image\/png/i, 'data:application/octet-stream');
+            const link = document.createElement('a');
+            link.href = attachmentUrl;
+            link.download = fileName;
+            link.style.display = 'none';
+            document.body.appendChild(link);
+            link.click();
+            link.remove();
             if (whatsappUrl) {
-                const whatsappLink = document.createElement('a');
-                whatsappLink.className = 'certificate-whatsapp-link';
-                whatsappLink.href = whatsappUrl;
-                whatsappLink.target = '_blank';
-                whatsappLink.rel = 'noopener';
-                whatsappLink.innerText = 'Continue to WhatsApp';
-                actions.appendChild(whatsappLink);
+                window.alert('The certificate file has been prepared. WhatsApp will now open; attach the certificate and choose My status or a contact.');
+                window.location.href = whatsappUrl;
             }
-
-            const closeButton = document.createElement('button');
-            closeButton.type = 'button';
-            closeButton.className = 'certificate-close-btn';
-            closeButton.innerText = 'Close';
-            closeButton.onclick = () => overlay.remove();
-            actions.appendChild(closeButton);
-            dialog.append(title, instructions, image, actions);
-            overlay.appendChild(dialog);
-            overlay.addEventListener('click', event => {
-                if (event.target === overlay) overlay.remove();
-            });
-            document.body.appendChild(overlay);
-            closeButton.focus();
-            return 'preview';
+            return 'data-download';
         }
 
         async function saveCertificateForDevice(blob, fileName) {
@@ -1735,6 +1767,7 @@
             }
 
             if (await tryNativeCertificateSave(blob, fileName)) return 'native';
+            if (await triggerServiceWorkerCertificateDownload(blob, fileName)) return 'web-download';
             return showCertificateSaveFallback(blob, fileName);
         }
 
@@ -1747,9 +1780,10 @@
                 const certificate = await createCertificateImage(learnerName);
                 const saveMode = await saveCertificateForDevice(certificate.blob, certificate.fileName);
                 if (saveMode === 'downloaded') announce('Certificate downloaded as a PNG image.');
+                else if (saveMode === 'web-download') announce('Certificate download started in the app.');
                 else if (saveMode === 'native') announce('Certificate sent to the app for saving.');
                 else if (saveMode === 'shared') announce('Choose where to save the certificate on your device.');
-                else if (saveMode === 'preview') announce('Certificate image opened. Press and hold it to save.');
+                else if (saveMode === 'data-download') announce('Certificate file download requested from the app.');
             } catch (error) {
                 console.error('Certificate download failed:', error);
                 window.alert('The certificate could not be downloaded on this browser. Please try again.');
