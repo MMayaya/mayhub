@@ -1,0 +1,904 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-8GCWSKNDL7"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-8GCWSKNDL7');
+</script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learning Hub | Grade 8 Social Sciences History: The Berlin Conference</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f0f4f8; color: #333; line-height: 1.6; display: flex; flex-direction: column; min-height: 100vh; }
+        nav { background-color: #002b5e; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; }
+        .logo { color: #fff; font-size: 1.5rem; font-weight: bold; text-decoration: none; }
+        .nav-links a { color: #cce0ff; text-decoration: none; margin-left: 1.5rem; font-weight: 500; transition: color 0.3s; }
+        .nav-links a:hover, .nav-links a.active { color: #fff; text-decoration: underline; }
+        .game-container { max-width: 900px; margin: 3rem auto; padding: 2rem; background: #fff; border-radius: 12px; box-shadow: 0 8px 30px rgba(0,0,0,0.1); border-top: 6px solid #3385ff; text-align: center; }
+        .game-title { color: #004080; font-size: 2.5rem; margin-bottom: 0.5rem; text-shadow: 1px 1px 2px rgba(0,0,0,0.1); }
+        .game-subtitle { color: #555; margin-bottom: 2rem; font-size: 1.1rem; }
+        .category-selection { margin-bottom: 2rem; }
+        .category-selection h2 { color: #004080; margin-bottom: 1rem; font-size: 1.5rem; }
+        .cat-buttons { display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem; }
+        .cat-btn { background-color: #f0f4f8; border: 2px solid #004080; color: #004080; padding: 0.8rem 1.5rem; font-size: 1.1rem; font-weight: bold; border-radius: 8px; cursor: pointer; transition: all 0.3s ease; }
+        .cat-btn:hover, .cat-btn.active { background-color: #004080; color: #fff; transform: translateY(-3px); box-shadow: 0 4px 10px rgba(0,64,128,0.2); }
+        #wheelArea { display: none; margin-top: 2rem; padding-top: 2rem; border-top: 2px dashed #ccc; animation: fadeIn 0.5s ease; }
+        #activeCategoryTitle { color: #3385ff; margin-bottom: 1.5rem; font-size: 1.8rem; }
+        .wheel-wrapper { position: relative; width: 380px; height: 380px; margin: 0 auto 2rem; border-radius: 50%; box-shadow: 0 20px 40px rgba(0,0,0,0.3); }
+        .pointer { position: absolute; top: -25px; left: 50%; transform: translateX( -50%); width: 0; height: 0; border-left: 22px solid transparent; border-right: 22px solid transparent; border-top: 55px solid #e60000; z-index: 10; filter: drop-shadow(0 6px 6px rgba(0,0,0,0.5)); }
+        .wheel { width: 100%; height: 100%; border-radius: 50%; border: 15px solid #001a33; position: relative; overflow: hidden; transition: transform 4s cubic-bezier(0.17, 0.67, 0.12, 0.99); box-shadow: inset 0 0 30px rgba(0,0,0,0.7), inset 0 0 0 6px rgba(255,255,255,0.3); }
+        .wheel-center { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 45px; height: 45px; background: radial-gradient(circle, #e6f0fa, #80b3ff); border-radius: 50%; border: 5px solid #001a33; box-shadow: 0 4px 10px rgba(0,0,0,0.6); z-index: 6; }
+        .wheel-bg { width: 100%; height: 100%; position: absolute; top: 0; left: 0; }
+        .wheel-labels { position: absolute; width: 100%; height: 100%; top: 0; left: 0; }
+        .label { position: absolute; top: 50%; left: 50%; transform-origin: 0 0; font-weight: bold; color: #fff; font-size: 0.95rem; text-shadow: 1px 1px 4px rgba(0,0,0,0.9); }
+        .spin-btn { background-color: #3385ff; color: #fff; border: none; padding: 1rem 3rem; font-size: 1.5rem; font-weight: bold; border-radius: 50px; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 4px 10px rgba(51,133,255,0.4); margin-bottom: 1rem; border-bottom: 4px solid #004080; }
+        .question-card { display: none; margin-top: 2rem; padding: 2rem; background-color: #f0f7ff; border: 2px solid #b3d4ff; border-radius: 8px; text-align: center; animation: fadeIn 0.5s ease; box-shadow: 0 6px 15px rgba(0,0,0,0.05); }
+        .q-number-tag { display: inline-block; background: #004080; color: #fff; padding: 0.5rem 1.5rem; border-radius: 30px; font-size: 1.1rem; margin-bottom: 1rem; font-weight: bold; text-transform: uppercase; box-shadow: 0 3px 6px rgba(0,0,0,0.2); }
+        .question-text { font-size: 1.5rem; color: #333; margin-bottom: 1.5rem; font-weight: 500; }
+        .mc-options { display: flex; flex-direction: column; gap: 0.8rem; max-width: 450px; margin: 0 auto 1.5rem; }
+        .option-btn { background: #fff; border: 2px solid #b3d4ff; padding: 1rem; font-size: 1.1rem; border-radius: 6px; cursor: pointer; transition: all 0.2s; text-align: left; font-weight: 500; color: #004080; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+        .option-btn.correct { background-color: #d4edda !important; border-color: #28a745 !important; color: #155724 !important; }
+        .option-btn.incorrect { background-color: #f8d7da !important; border-color: #dc3545 !important; color: #721c24 !important; }
+        .term-carousel { display: none; max-width: 500px; margin: 0 auto 0.9rem; padding: 0.85rem; border-radius: 15px; background: linear-gradient(145deg, #e8f3ff, #fff); border: 2px solid #80b3ff; box-shadow: 0 8px 20px rgba(0,64,128,.12); }
+        .term-carousel-row { display: grid; grid-template-columns: 44px minmax(0, 1fr) 44px; align-items: stretch; gap: 0.55rem; }
+        .term-nav-btn { border: none; border-radius: 10px; background: #004080; color: #fff; font-size: 1.65rem; font-weight: 900; cursor: pointer; box-shadow: 0 4px 10px rgba(0,64,128,.2); transition: transform .2s, background .2s; }
+        .term-nav-btn:hover { background: #005bb5; transform: scale(1.04); }
+        .term-option-display { width: 100%; min-height: 64px; padding: 0.7rem; display: grid; place-items: center; border-radius: 11px; background: #fff; border: 2px solid #3385ff; color: #003a75; font: inherit; font-size: clamp(1.05rem, 3.5vw, 1.28rem); font-weight: 850; cursor: pointer; box-shadow: inset 0 0 0 2px #e6f1ff; transition: background .2s, border-color .2s, transform .2s; }
+        .term-option-display:hover:not(:disabled) { transform: translateY(-2px); border-color: #005bb5; }
+        .term-option-display.correct { background: #d4edda; border-color: #28a745; color: #155724; transform: scale(1.02); }
+        .term-option-display.incorrect { background: #f8d7da; border-color: #dc3545; color: #721c24; }
+        .term-position { margin: 0.4rem 0 0; color: #52606d; font-size: 0.8rem; font-weight: 750; }
+        .term-nav-btn:disabled { cursor: not-allowed; opacity: .45; transform: none; }
+        .term-option-display:disabled { cursor: not-allowed; }
+        .reveal-btn { background-color: #3385ff; color: #fff; border: none; padding: 0.8rem 2rem; font-size: 1.1rem; font-weight: bold; border-radius: 8px; cursor: pointer; transition: background 0.3s; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .answer-text { display: none; font-size: 1.2rem; color: #333; margin-top: 1.5rem; padding-top: 1.5rem; border-top: 2px dashed #b3d4ff; }
+
+        .score-tracker { display: none; width: fit-content; margin: 0 auto 1rem; padding: 0.55rem 1.1rem; border-radius: 999px; background: #e8f2ff; color: #003a75; border: 2px solid #80b3ff; font-weight: 800; }
+        .celebration-page { display: none; position: relative; overflow: hidden; margin-top: 2rem; padding: 2rem 1rem; border-radius: 20px; color: #203040; background: linear-gradient(145deg, #dfe9f3, #f8fbff); box-shadow: 0 18px 45px rgba(0,43,94,0.2); animation: celebrationIn 0.65s ease both; }
+        .celebration-content { position: relative; z-index: 2; max-width: 610px; margin: 0 auto; }
+        .certificate { --award: #b87333; --award-dark: #6f3b16; --award-soft: #f7e8d8; position: relative; min-height: 780px; padding: 2rem; display: flex; flex-direction: column; align-items: center; background: linear-gradient(145deg, #fffdf7, var(--award-soft)); color: #263442; border: 12px solid var(--award); outline: 3px double var(--award-dark); outline-offset: -20px; box-shadow: 0 18px 38px rgba(29,42,56,.25); overflow: hidden; }
+        .certificate::before, .certificate::after { content: ''; position: absolute; width: 130px; height: 130px; border: 3px solid var(--award); opacity: .35; transform: rotate(45deg); }
+        .certificate::before { top: -82px; left: -82px; }
+        .certificate::after { right: -82px; bottom: -82px; }
+        .certificate.tier-bronze { --award: #b87333; --award-dark: #6f3b16; --award-soft: #f7e8d8; }
+        .certificate.tier-silver { --award: #9aa6b2; --award-dark: #4e5a66; --award-soft: #edf1f4; }
+        .certificate.tier-gold { --award: #d4af37; --award-dark: #755b08; --award-soft: #fff6cf; }
+        .certificate.tier-platinum { --award: #c7d8e2; --award-dark: #165173; --award-soft: #eaf7ff; }
+        .certificate-header { width: 100%; min-height: 120px; display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; position: relative; z-index: 1; }
+        .certificate-logo { display: block; width: 128px; height: auto; object-fit: contain; filter: drop-shadow(0 4px 5px rgba(0,0,0,.13)); }
+        .certificate-trophy { font-size: 4rem; line-height: 1; filter: drop-shadow(0 6px 8px rgba(0,0,0,.22)); animation: trophyBounce 1.1s ease both; }
+        .certificate-kicker { color: var(--award-dark); font-size: 0.82rem; font-weight: 900; letter-spacing: .2em; text-transform: uppercase; }
+        .certificate h2 { margin: 0.35rem 0 0.7rem; color: #17324d; font-family: Georgia, 'Times New Roman', serif; font-size: clamp(2.1rem, 6vw, 3rem); line-height: 1.08; }
+        .certificate-award { display: inline-block; margin-bottom: 1.2rem; padding: 0.38rem 1.1rem; border: 2px solid var(--award); color: var(--award-dark); background: rgba(255,255,255,.6); border-radius: 999px; font-size: 0.82rem; font-weight: 900; letter-spacing: .08em; text-transform: uppercase; }
+        .certificate-presented { font-family: Georgia, 'Times New Roman', serif; font-size: 1rem; font-style: italic; color: #536273; }
+        .learner-name { width: 88%; margin: 0.45rem auto 0.8rem; padding-bottom: 0.35rem; color: #17324d; border-bottom: 2px solid var(--award); font-family: Georgia, 'Times New Roman', serif; font-size: clamp(1.65rem, 5vw, 2.35rem); font-weight: 700; font-style: italic; }
+        .certificate-body { max-width: 455px; margin: 0 auto; font-family: Georgia, 'Times New Roman', serif; font-size: 1rem; line-height: 1.65; }
+        .score-ring { width: 138px; height: 138px; flex: 0 0 auto; margin: 1.15rem auto 0.8rem; border-radius: 50%; display: grid; place-items: center; background: #fff; color: var(--award-dark); border: 9px double var(--award); box-shadow: 0 8px 20px rgba(0,0,0,.16); }
+        .score-ring strong { display: block; font-size: 2.55rem; line-height: 1; }
+        .score-ring span { display: block; margin-top: 0.25rem; font-size: 0.78rem; font-weight: 900; letter-spacing: .08em; text-transform: uppercase; }
+        .celebration-message { max-width: 475px; margin: 0 auto; color: var(--award-dark); font-size: 0.98rem; font-weight: 800; line-height: 1.45; }
+        .certificate-footer { width: 100%; margin-top: auto; padding-top: 1.4rem; display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; align-items: end; }
+        .certificate-footer-item { border-top: 1px solid #6f7d89; padding-top: 0.4rem; }
+        .certificate-footer strong { display: block; color: #17324d; font-size: 0.9rem; }
+        .certificate-signature { font-family: 'Segoe Script', 'Brush Script MT', cursive; font-size: 1.05rem !important; }
+        .certificate-footer span { display: block; color: #637180; font-size: 0.72rem; letter-spacing: .06em; text-transform: uppercase; }
+        .celebration-actions { display: flex; justify-content: center; flex-wrap: wrap; gap: 0.75rem; margin-top: 1.25rem; }
+        .celebration-btn { border: none; border-radius: 10px; padding: 0.9rem 1.15rem; font-size: 1rem; font-weight: 800; cursor: pointer; transition: transform .2s, box-shadow .2s; }
+        .celebration-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(0,0,0,.22); }
+        .whatsapp-btn { background: #25d366; color: #072d16; }
+        .replay-btn { background: #ffc107; color: #2f2500; }
+        .category-btn { background: #fff; color: #003a75; border: 1px solid #aab8c6; }
+        .share-note { margin-top: 0.75rem; color: #536273; font-size: 0.8rem; }
+        .confetti-piece { position: absolute; width: 11px; height: 22px; top: -30px; opacity: .9; animation: confettiFall 4.5s linear infinite; }
+        .confetti-piece:nth-child(1) { left: 7%; background:#ffc107; animation-delay:.1s; transform:rotate(14deg); }
+        .confetti-piece:nth-child(2) { left: 16%; background:#25d366; animation-delay:1.2s; }
+        .confetti-piece:nth-child(3) { left: 27%; background:#ff5f57; animation-delay:.5s; }
+        .confetti-piece:nth-child(4) { left: 39%; background:#fff; animation-delay:1.8s; }
+        .confetti-piece:nth-child(5) { left: 51%; background:#ffc107; animation-delay:.9s; }
+        .confetti-piece:nth-child(6) { left: 62%; background:#25d366; animation-delay:2.1s; }
+        .confetti-piece:nth-child(7) { left: 73%; background:#ff5f57; animation-delay:.3s; }
+        .confetti-piece:nth-child(8) { left: 84%; background:#fff; animation-delay:1.5s; }
+        .confetti-piece:nth-child(9) { left: 93%; background:#ffc107; animation-delay:2.5s; }
+        @keyframes celebrationIn { from { opacity:0; transform:translateY(22px) scale(.97); } to { opacity:1; transform:none; } }
+        @keyframes trophyBounce { 0% { transform:scale(.5) rotate(-10deg); } 65% { transform:scale(1.12) rotate(5deg); } 100% { transform:scale(1); } }
+        @keyframes confettiFall { from { transform:translateY(-40px) rotate(0); } to { transform:translateY(650px) rotate(720deg); } }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        @media (max-width: 600px) {
+            .game-container { margin: 1rem 0.55rem; padding: 1rem; }
+            .question-card { margin-top: 1rem; padding: 1rem 0.7rem; }
+            .question-text { margin-bottom: 0.8rem; font-size: 1.15rem; }
+            .mc-options { gap: 0.5rem; margin-bottom: 0.8rem; }
+            .option-btn { padding: 0.7rem; font-size: 0.95rem; }
+            .term-carousel { padding: 0.6rem; margin-bottom: 0.6rem; border-radius: 12px; }
+            .term-carousel-row { grid-template-columns: 36px minmax(0, 1fr) 36px; gap: 0.35rem; }
+            .term-nav-btn { border-radius: 8px; font-size: 1.35rem; }
+            .term-option-display { min-height: 50px; padding: 0.45rem; border-radius: 9px; font-size: 0.98rem; }
+            .term-position { margin-top: 0.25rem; font-size: 0.72rem; }
+            .celebration-page { padding: 1rem 0.45rem; }
+            .certificate { min-height: 610px; padding: 1.15rem 0.9rem; border-width: 8px; outline-offset: -14px; }
+            .certificate-header { min-height: 78px; }
+            .certificate-logo { width: 82px; }
+            .certificate-trophy { font-size: 2.7rem; }
+            .certificate-kicker { font-size: 0.66rem; letter-spacing: .12em; }
+            .certificate h2 { margin-bottom: 0.45rem; font-size: 1.75rem; }
+            .certificate-award { margin-bottom: 0.65rem; padding: 0.3rem 0.75rem; font-size: 0.65rem; }
+            .certificate-presented { font-size: 0.82rem; }
+            .learner-name { margin: 0.25rem auto 0.5rem; font-size: 1.35rem; }
+            .certificate-body { font-size: 0.79rem; line-height: 1.45; }
+            .score-ring { width: 104px; height: 104px; margin: 0.65rem auto 0.5rem; border-width: 6px; }
+            .score-ring strong { font-size: 1.9rem; }
+            .score-ring span { font-size: 0.63rem; }
+            .celebration-message { font-size: 0.76rem; }
+            .certificate-footer { gap: 0.8rem; padding-top: 0.8rem; }
+            .certificate-footer strong { font-size: 0.72rem; }
+            .certificate-signature { font-size: 0.82rem !important; }
+            .certificate-footer span { font-size: 0.58rem; }
+        }
+        footer { text-align: center; padding: 1rem; background-color: #002b5e; color: #fff; margin-top: auto; }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="../../../../../../index.html" class="logo">May Learning Hub</a>
+        <div class="nav-links">
+            <a href="../../../../../../index.html">Home</a>
+            <a href="../../../../../../about.html">About</a>
+        </div>
+    </nav>
+
+    <main class="game-container">
+        <h1 class="game-title">History Quiz: The Berlin Conference</h1>
+        <p class="game-subtitle">Revise the Berlin Conference, its organisers, decisions, rules, and consequences for Africa.</p>
+        <p style="font-size: 0.78rem; color: #52606d; margin-top: 0.45rem;">Grade 8 Social Sciences History Term 3 revision</p>
+
+        <div class="category-selection">
+            <h2>Step 1: Choose a Category</h2>
+            <div class="cat-buttons" id="catButtons">
+                <button class="cat-btn" onclick="selectCategory('definitions', this)">Definitions: Term → Meaning</button>
+                <button class="cat-btn" onclick="selectCategory('terms', this)">Name the Term: Meaning → Term</button>
+                <button class="cat-btn" onclick="selectCategory('multipleChoice', this)">Multiple Choice</button>
+                <button class="cat-btn" onclick="selectCategory('trueFalse', this)">True or False</button>
+            </div>
+        </div>
+
+        <div id="wheelArea">
+            <h2 id="activeCategoryTitle">Category: None</h2>
+            
+            <div class="wheel-wrapper">
+                <div class="pointer"></div>
+                <div class="wheel-center"></div>
+                <div class="wheel" id="wheel">
+                    <div class="wheel-bg" id="wheelBg"></div>
+                    <div class="wheel-labels" id="wheelLabels"></div>
+                </div>
+            </div>
+
+            <div class="score-tracker" id="scoreTracker">Score: 0 / 0</div>
+            <button class="spin-btn" id="spinBtn" onclick="spinWheel()">SPIN THE WHEEL</button>
+            <p id="remainingCount" style="color: #666; font-size: 0.9rem; margin-bottom: 1rem; font-weight: bold;">10 questions remaining</p>
+
+            <div class="question-card" id="questionCard">
+                <div class="q-number-tag" id="qNumberTag">Question #</div>
+                <div class="question-text" id="questionText">Loading question...</div>
+                
+                <div class="mc-options" id="mcOptions"></div>
+
+                <div class="term-carousel" id="termCarousel">
+                    <div class="term-carousel-row">
+                        <button class="term-nav-btn" id="previousTermBtn" type="button" onclick="moveTermChoice(-1)" aria-label="Show previous term">&#8249;</button>
+                        <button class="term-option-display" id="termOptionDisplay" type="button" onclick="submitCurrentTerm()" aria-live="polite" aria-label="Choose the displayed term"></button>
+                        <button class="term-nav-btn" id="nextTermBtn" type="button" onclick="moveTermChoice(1)" aria-label="Show next term">&#8250;</button>
+                    </div>
+                    <p class="term-position" id="termPosition">Term 1 of 5</p>
+                </div>
+                
+                <button class="reveal-btn" id="revealBtn" onclick="revealAnswer()">Reveal Answer</button>
+                <div class="answer-text" id="answerText"></div>
+            </div>
+        </div>
+
+        <section class="celebration-page" id="celebrationPage" aria-live="polite">
+            <span class="confetti-piece"></span><span class="confetti-piece"></span><span class="confetti-piece"></span>
+            <span class="confetti-piece"></span><span class="confetti-piece"></span><span class="confetti-piece"></span>
+            <span class="confetti-piece"></span><span class="confetti-piece"></span><span class="confetti-piece"></span>
+            <div class="celebration-content">
+                <article class="certificate tier-bronze" id="resultCertificate">
+                    <header class="certificate-header">
+                        <img class="certificate-logo" src="../../../../../../May Learning Hub Logo.png" alt="May Learning Hub">
+                        <span class="certificate-trophy" aria-hidden="true">🏆</span>
+                    </header>
+                    <p class="certificate-kicker">Grade 8 Social Sciences History</p>
+                    <h2 id="certificateTitle">Certificate of Achievement</h2>
+                    <p class="certificate-award" id="certificateAward">Silver Pass Award</p>
+                    <p class="certificate-presented">This certificate is proudly presented to</p>
+                    <p class="learner-name" id="celebrationLearner">Guest Learner</p>
+                    <p class="certificate-body">for completing <strong>The Berlin Conference</strong> challenge in the <strong id="certificateCategory">selected</strong> category.</p>
+                    <div class="score-ring"><div><strong id="celebrationScore">0/10</strong><span>Correct</span></div></div>
+                    <p class="celebration-message" id="celebrationMessage"></p>
+                    <div class="certificate-footer">
+                        <div class="certificate-footer-item">
+                            <strong id="certificateDate">27 August 2026</strong>
+                            <span>Date awarded</span>
+                        </div>
+                        <div class="certificate-footer-item">
+                            <strong class="certificate-signature">May Learning Hub</strong>
+                            <span>Signed by May Learning Hub</span>
+                        </div>
+                    </div>
+                </article>
+                <div class="celebration-actions">
+                    <button class="celebration-btn whatsapp-btn" onclick="shareWhatsApp()">Share on WhatsApp</button>
+                    <button class="celebration-btn replay-btn" onclick="playCategoryAgain()">Play Again</button>
+                    <button class="celebration-btn category-btn" onclick="chooseAnotherCategory()">Choose Another Category</button>
+                </div>
+                <p class="share-note">WhatsApp will open its sharing screen. Choose <strong>My status</strong> or a contact.</p>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 May Learning Hub. All rights reserved.</p>
+    </footer>
+
+        <script src="../../../../../../game-audio.js"></script>
+        <script src="../../../../../../assessment-certificate.js"></script>
+<script>
+        const gameData = {
+    "definitions": [
+        {
+            "q": "Scramble for Africa",
+            "a": "The European invasion, occupation, colonisation and annexation of African territory during the New Imperialism period."
+        },
+        {
+            "q": "Colonisation",
+            "a": "The process in which one country takes control of another country or territory."
+        },
+        {
+            "q": "Berlin Conference",
+            "a": "The 1884-1885 diplomatic meeting where European powers negotiated rules for colonising and partitioning Africa."
+        },
+        {
+            "q": "Otto von Bismarck",
+            "a": "The first German chancellor who organised and hosted the Berlin Conference."
+        },
+        {
+            "q": "Leopold II",
+            "a": "The Belgian king whose request helped prompt the international meeting about African claims."
+        },
+        {
+            "q": "Berlin, Germany",
+            "a": "The city and country where the Berlin Conference was held."
+        },
+        {
+            "q": "General Act of Berlin",
+            "a": "The agreement signed at the end of the conference to regulate European colonisation and trade in Africa."
+        },
+        {
+            "q": "New Imperialism",
+            "a": "The period of intensified European expansion during which the Scramble for Africa took place."
+        },
+        {
+            "q": "Partition of Africa",
+            "a": "Another name for the division of African territory among European powers."
+        },
+        {
+            "q": "Bilateral agreement",
+            "a": "An agreement between two states; several such agreements affected African claims before and after the conference."
+        }
+    ],
+    "terms": [
+        {
+            "q": "The European invasion, occupation, colonisation and annexation of African territory during the New Imperialism period.",
+            "a": "Scramble for Africa"
+        },
+        {
+            "q": "The process in which one country takes control of another country or territory.",
+            "a": "Colonisation"
+        },
+        {
+            "q": "The 1884-1885 diplomatic meeting where European powers negotiated rules for colonising and partitioning Africa.",
+            "a": "Berlin Conference"
+        },
+        {
+            "q": "The first German chancellor who organised and hosted the Berlin Conference.",
+            "a": "Otto von Bismarck"
+        },
+        {
+            "q": "The Belgian king whose request helped prompt the international meeting about African claims.",
+            "a": "Leopold II"
+        },
+        {
+            "q": "The city and country where the Berlin Conference was held.",
+            "a": "Berlin, Germany"
+        },
+        {
+            "q": "The agreement signed at the end of the conference to regulate European colonisation and trade in Africa.",
+            "a": "General Act of Berlin"
+        },
+        {
+            "q": "The period of intensified European expansion during which the Scramble for Africa took place.",
+            "a": "New Imperialism"
+        },
+        {
+            "q": "Another name for the division of African territory among European powers.",
+            "a": "Partition of Africa"
+        },
+        {
+            "q": "An agreement between two states; several such agreements affected African claims before and after the conference.",
+            "a": "Bilateral agreement"
+        }
+    ],
+    "multipleChoice": [
+        {
+            "q": "What was the Berlin Conference?",
+            "options": [
+                "A) A meeting of African rulers about independence",
+                "B) A diplomatic meeting where European powers negotiated rules for colonising and partitioning Africa",
+                "C) A trade fair held in Ghana",
+                "D) A military battle between Britain and Germany"
+            ],
+            "a": "B) A diplomatic meeting where European powers negotiated rules for colonising and partitioning Africa"
+        },
+        {
+            "q": "Who organised and hosted the Berlin Conference?",
+            "options": [
+                "A) Leopold II",
+                "B) Chief Osei Tutu",
+                "C) Otto von Bismarck",
+                "D) A British explorer"
+            ],
+            "a": "C) Otto von Bismarck"
+        },
+        {
+            "q": "Where was the Berlin Conference held?",
+            "options": [
+                "A) Kumasi, Ghana",
+                "B) Paris, France",
+                "C) Brussels, Belgium",
+                "D) Berlin, Germany"
+            ],
+            "a": "D) Berlin, Germany"
+        },
+        {
+            "q": "Why was the Berlin Conference held?",
+            "options": [
+                "A) To restore African kingdoms",
+                "B) To agree rules for European claims and reduce conflict while Africa was being divided",
+                "C) To end European trade with Africa",
+                "D) To give every African state independence"
+            ],
+            "a": "B) To agree rules for European claims and reduce conflict while Africa was being divided"
+        },
+        {
+            "q": "Which country participated in the Berlin Conference?",
+            "options": [
+                "A) Ethiopia",
+                "B) Britain",
+                "C) Liberia",
+                "D) Ghana"
+            ],
+            "a": "B) Britain"
+        },
+        {
+            "q": "When did the Berlin Conference meet?",
+            "options": [
+                "A) 15 November 1884 to 26 February 1885",
+                "B) 1 January to 31 December 1900",
+                "C) 15 November 1817 to 26 February 1818",
+                "D) 1881 to 1914 without a break"
+            ],
+            "a": "A) 15 November 1884 to 26 February 1885"
+        },
+        {
+            "q": "Which agreement was signed when the conference concluded?",
+            "options": [
+                "A) Treaty of Adwa",
+                "B) Golden Stool Agreement",
+                "C) General Act of Berlin",
+                "D) Cape Coast Charter"
+            ],
+            "a": "C) General Act of Berlin"
+        },
+        {
+            "q": "Who requested international discussion of African colonial claims?",
+            "options": [
+                "A) Leopold II of Belgium",
+                "B) The Asantehene",
+                "C) The ruler of Liberia",
+                "D) A Portuguese trader"
+            ],
+            "a": "A) Leopold II of Belgium"
+        },
+        {
+            "q": "What did the General Act regulate?",
+            "options": [
+                "A) Ashanti metalworking",
+                "B) European colonisation and trade in Africa",
+                "C) African elections",
+                "D) The abolition of all European colonies"
+            ],
+            "a": "B) European colonisation and trade in Africa"
+        },
+        {
+            "q": "How did the Berlin Conference relate to the Scramble for Africa?",
+            "options": [
+                "A) It formalised a scramble that was already under way",
+                "B) It ended the Scramble before it began",
+                "C) It gave all land back to African rulers",
+                "D) It concerned Europe only"
+            ],
+            "a": "A) It formalised a scramble that was already under way"
+        }
+    ],
+    "trueFalse": [
+        {
+            "q": "The Berlin Conference was held in Berlin, Germany.",
+            "options": [
+                "True",
+                "False"
+            ],
+            "a": "True",
+            "exp": "The meeting took place in Berlin, Germany."
+        },
+        {
+            "q": "The conference met from November 1884 until February 1885.",
+            "options": [
+                "True",
+                "False"
+            ],
+            "a": "True",
+            "exp": "It opened on 15 November 1884 and concluded on 26 February 1885."
+        },
+        {
+            "q": "Otto von Bismarck organised the Berlin Conference.",
+            "options": [
+                "True",
+                "False"
+            ],
+            "a": "True",
+            "exp": "Bismarck, the first German chancellor, organised and hosted it."
+        },
+        {
+            "q": "Leopold II of Belgium requested international discussion of African claims.",
+            "options": [
+                "True",
+                "False"
+            ],
+            "a": "True",
+            "exp": "Leopold II requested the international discussion."
+        },
+        {
+            "q": "The General Act of Berlin regulated European colonisation and trade in Africa.",
+            "options": [
+                "True",
+                "False"
+            ],
+            "a": "True",
+            "exp": "That was the stated purpose of the General Act."
+        },
+        {
+            "q": "The Scramble for Africa began only after the Berlin Conference had ended.",
+            "options": [
+                "True",
+                "False"
+            ],
+            "a": "False",
+            "exp": "The conference formalised a scramble that was already in full swing."
+        },
+        {
+            "q": "Bilateral agreements affecting African claims were made before and after the conference.",
+            "options": [
+                "True",
+                "False"
+            ],
+            "a": "True",
+            "exp": "Agreements between pairs of states affected African claims before and after the meeting."
+        },
+        {
+            "q": "Every scholar agrees that the Berlin Conference alone partitioned Africa.",
+            "options": [
+                "True",
+                "False"
+            ],
+            "a": "False",
+            "exp": "Some scholars warn against overemphasising the conference’s role."
+        },
+        {
+            "q": "The Scramble for Africa is also called the Partition or Conquest of Africa.",
+            "options": [
+                "True",
+                "False"
+            ],
+            "a": "True",
+            "exp": "Partition of Africa and Conquest of Africa are accepted alternative names."
+        },
+        {
+            "q": "Colonisation means one country taking control of another country or territory.",
+            "options": [
+                "True",
+                "False"
+            ],
+            "a": "True",
+            "exp": "Colonisation involves political and economic control of another territory."
+        }
+    ]
+};
+
+        const totalQuestions = 10;
+        const sliceAngle = 360 / totalQuestions;
+        const interactiveCategories = new Set(['terms', 'multipleChoice', 'trueFalse']);
+        let currentCategoryKey = null;
+        let currentCategoryLabel = '';
+        let currentRotation = 0;
+        let currentQuestionData = null;
+        let targetQuestionIndex = null;
+        let currentQuestionAnswered = true;
+        let lastCompletedScore = null;
+        let currentTermChoices = [];
+        let currentTermChoiceIndex = 0;
+
+        const freshQuestionIndexes = () => Array.from({ length: totalQuestions }, (_, index) => index);
+        const availableQuestions = {
+            definitions: freshQuestionIndexes(),
+            terms: freshQuestionIndexes(),
+            multipleChoice: freshQuestionIndexes(),
+            trueFalse: freshQuestionIndexes()
+        };
+        const categoryStats = {
+            terms: { correct: 0, answered: 0 },
+            multipleChoice: { correct: 0, answered: 0 },
+            trueFalse: { correct: 0, answered: 0 }
+        };
+        const sliceColors = ['#0055ff', '#0088ff', '#00bfff', '#0044cc'];
+
+        function shuffleItems(items) {
+            const shuffled = [...items];
+            for (let index = shuffled.length - 1; index > 0; index--) {
+                const swapIndex = Math.floor(Math.random() * (index + 1));
+                [shuffled[index], shuffled[swapIndex]] = [shuffled[swapIndex], shuffled[index]];
+            }
+            return shuffled;
+        }
+
+        function buildWheel() {
+            const wheelBg = document.getElementById('wheelBg');
+            const wheelLabels = document.getElementById('wheelLabels');
+            const gradientParts = [];
+            wheelLabels.innerHTML = '';
+            for (let index = 0; index < totalQuestions; index++) {
+                const startAngle = index * sliceAngle;
+                const endAngle = (index + 1) * sliceAngle;
+                gradientParts.push(sliceColors[index % sliceColors.length] + ' ' + startAngle + 'deg ' + endAngle + 'deg');
+                const label = document.createElement('div');
+                label.className = 'label';
+                label.style.transform = 'rotate(' + (startAngle + (sliceAngle / 2) - 90) + 'deg) translate(145px, -50%)';
+                label.innerText = index + 1;
+                wheelLabels.appendChild(label);
+            }
+            wheelBg.style.background = 'conic-gradient(' + gradientParts.join(', ') + ')';
+        }
+
+        function resetCategory(categoryKey) {
+            availableQuestions[categoryKey] = freshQuestionIndexes();
+            if (categoryStats[categoryKey]) categoryStats[categoryKey] = { correct: 0, answered: 0 };
+            currentQuestionData = null;
+            currentQuestionAnswered = true;
+            lastCompletedScore = null;
+        }
+
+        function updateScoreTracker() {
+            const tracker = document.getElementById('scoreTracker');
+            if (!interactiveCategories.has(currentCategoryKey)) {
+                tracker.style.display = 'none';
+                return;
+            }
+            const stats = categoryStats[currentCategoryKey];
+            tracker.style.display = 'block';
+            tracker.innerText = 'Score: ' + stats.correct + ' / ' + stats.answered;
+        }
+
+        function selectCategory(categoryKey, btnElement) {
+            currentCategoryKey = categoryKey;
+            currentCategoryLabel = btnElement.innerText;
+            if (availableQuestions[categoryKey].length === 0) resetCategory(categoryKey);
+            document.querySelectorAll('.cat-btn').forEach(button => button.classList.remove('active'));
+            btnElement.classList.add('active');
+            document.querySelector('.category-selection').style.display = 'block';
+            document.getElementById('celebrationPage').style.display = 'none';
+            document.getElementById('wheelArea').style.display = 'block';
+            document.getElementById('activeCategoryTitle').innerText = 'Category: ' + currentCategoryLabel;
+            document.getElementById('questionCard').style.display = 'none';
+            document.getElementById('remainingCount').innerText = availableQuestions[categoryKey].length + ' questions remaining';
+            document.getElementById('spinBtn').disabled = false;
+            document.getElementById('spinBtn').innerText = 'SPIN THE WHEEL';
+            currentQuestionAnswered = true;
+            currentRotation = 0;
+            document.getElementById('wheel').style.transform = 'rotate(0deg)';
+            updateScoreTracker();
+        }
+
+        function spinWheel() {
+            if (!currentCategoryKey || (!currentQuestionAnswered && interactiveCategories.has(currentCategoryKey))) return;
+            const spinBtn = document.getElementById('spinBtn');
+            const wheel = document.getElementById('wheel');
+            const questionCard = document.getElementById('questionCard');
+            const available = availableQuestions[currentCategoryKey];
+            if (available.length === 0) {
+                if (interactiveCategories.has(currentCategoryKey)) showCelebration();
+                else resetCategory(currentCategoryKey);
+                return;
+            }
+
+            spinBtn.disabled = true;
+            spinBtn.innerText = 'SPINNING...';
+            MayHubSounds.startWheel();
+            questionCard.style.display = 'none';
+
+            const randomArrayIndex = Math.floor(Math.random() * available.length);
+            targetQuestionIndex = available[randomArrayIndex];
+            available.splice(randomArrayIndex, 1);
+            document.getElementById('remainingCount').innerText = available.length + ' questions remaining';
+            const sliceCenterAngle = (targetQuestionIndex * sliceAngle) + (sliceAngle / 2);
+            const targetDegree = 360 - sliceCenterAngle;
+            const currentBase = Math.ceil(currentRotation / 360) * 360;
+            currentRotation = currentBase + 1800 + targetDegree;
+            wheel.style.transform = 'rotate(' + currentRotation + 'deg)';
+
+            setTimeout(() => {
+                MayHubSounds.stopWheel();
+                currentQuestionData = gameData[currentCategoryKey][targetQuestionIndex];
+                currentQuestionAnswered = !interactiveCategories.has(currentCategoryKey);
+                displayQuestion(totalQuestions - available.length, currentQuestionData);
+                if (currentQuestionAnswered) {
+                    spinBtn.disabled = false;
+                    spinBtn.innerText = available.length ? 'SPIN AGAIN' : 'RESTART CATEGORY';
+                } else {
+                    spinBtn.disabled = true;
+                    spinBtn.innerText = 'CHOOSE AN ANSWER';
+                }
+            }, 4000);
+        }
+
+        function buildTermChoices(correctAnswer) {
+            const remainingAnswers = availableQuestions.terms
+                .map(index => gameData.terms[index].a)
+                .filter(answer => answer !== correctAnswer);
+            const optionCount = Math.max(1, Math.min(5, availableQuestions.terms.length));
+            return shuffleItems([correctAnswer, ...shuffleItems(remainingAnswers).slice(0, Math.max(0, optionCount - 1))]);
+        }
+
+        function displayQuestion(attemptNumber, data) {
+            document.getElementById('qNumberTag').innerText = interactiveCategories.has(currentCategoryKey)
+                ? 'Attempt ' + attemptNumber + ' of ' + totalQuestions
+                : 'Card ' + attemptNumber + ' of ' + totalQuestions;
+            document.getElementById('questionText').innerText = data.q;
+            const optionsContainer = document.getElementById('mcOptions');
+            const termCarousel = document.getElementById('termCarousel');
+            const revealBtn = document.getElementById('revealBtn');
+            const answerText = document.getElementById('answerText');
+            optionsContainer.innerHTML = '';
+            termCarousel.style.display = 'none';
+            answerText.style.display = 'none';
+
+            if (currentCategoryKey === 'terms') {
+                revealBtn.style.display = 'none';
+                optionsContainer.style.display = 'none';
+                currentTermChoices = buildTermChoices(data.a);
+                currentTermChoiceIndex = 0;
+                document.getElementById('termOptionDisplay').className = 'term-option-display';
+                document.getElementById('termOptionDisplay').disabled = false;
+                document.getElementById('previousTermBtn').disabled = currentTermChoices.length < 2;
+                document.getElementById('nextTermBtn').disabled = currentTermChoices.length < 2;
+                termCarousel.style.display = 'block';
+                displayCurrentTermChoice();
+            } else if (interactiveCategories.has(currentCategoryKey)) {
+                revealBtn.style.display = 'none';
+                optionsContainer.style.display = 'flex';
+                data.options.forEach(option => {
+                    const button = document.createElement('button');
+                    button.className = 'option-btn';
+                    button.innerText = option;
+                    button.onclick = () => checkInteractiveAnswer(button, option);
+                    optionsContainer.appendChild(button);
+                });
+            } else {
+                optionsContainer.style.display = 'none';
+                termCarousel.style.display = 'none';
+                revealBtn.style.display = 'inline-block';
+                answerText.innerHTML = '<strong>Answer:</strong> ' + data.a;
+            }
+            document.getElementById('questionCard').style.display = 'block';
+        }
+
+        function displayCurrentTermChoice() {
+            document.getElementById('termOptionDisplay').innerText = currentTermChoices[currentTermChoiceIndex] || '';
+            document.getElementById('termPosition').innerText = 'Term ' + (currentTermChoiceIndex + 1) + ' of ' + currentTermChoices.length;
+        }
+
+        function moveTermChoice(direction) {
+            if (currentQuestionAnswered || currentTermChoices.length < 2) return;
+            currentTermChoiceIndex = (currentTermChoiceIndex + direction + currentTermChoices.length) % currentTermChoices.length;
+            displayCurrentTermChoice();
+        }
+
+        function submitCurrentTerm() {
+            if (currentQuestionAnswered || !currentTermChoices.length) return;
+            document.getElementById('previousTermBtn').disabled = true;
+            document.getElementById('nextTermBtn').disabled = true;
+            document.getElementById('termOptionDisplay').disabled = true;
+            checkInteractiveAnswer(document.getElementById('termOptionDisplay'), currentTermChoices[currentTermChoiceIndex]);
+        }
+
+        function checkInteractiveAnswer(clickedButton, selectedText) {
+            if (currentQuestionAnswered) return;
+            currentQuestionAnswered = true;
+            document.querySelectorAll('.option-btn').forEach(button => button.disabled = true);
+            const isCorrect = selectedText === currentQuestionData.a;
+            const stats = categoryStats[currentCategoryKey];
+            stats.answered++;
+            if (isCorrect) stats.correct++;
+            updateScoreTracker();
+
+            const answerText = document.getElementById('answerText');
+            if (isCorrect) {
+                MayHubSounds.playCorrect();
+                clickedButton.classList.add('correct');
+                answerText.innerHTML = '<div style="color:#167333;font-weight:800;">Correct!</div> ' + (currentQuestionData.exp || '');
+            } else {
+                MayHubSounds.playWrong();
+                clickedButton.classList.add('incorrect');
+                const correctButton = [...document.querySelectorAll('.option-btn')].find(button => button.innerText === currentQuestionData.a);
+                if (correctButton) correctButton.classList.add('correct');
+                answerText.innerHTML = '<div style="color:#b42318;font-weight:800;">Not quite.</div> Correct answer: ' + currentQuestionData.a + '. ' + (currentQuestionData.exp || '');
+            }
+            answerText.style.display = 'block';
+
+            const spinBtn = document.getElementById('spinBtn');
+            if (availableQuestions[currentCategoryKey].length === 0) {
+                spinBtn.disabled = true;
+                spinBtn.innerText = 'CHALLENGE COMPLETE';
+                setTimeout(showCelebration, 1100);
+            } else {
+                spinBtn.disabled = false;
+                spinBtn.innerText = 'SPIN AGAIN';
+            }
+        }
+
+        function revealAnswer() {
+            document.getElementById('revealBtn').style.display = 'none';
+            document.getElementById('answerText').style.display = 'block';
+            if (currentCategoryKey === 'definitions' && availableQuestions.definitions.length === 0) {
+                const spinBtn = document.getElementById('spinBtn');
+                spinBtn.disabled = true;
+                spinBtn.innerText = 'CATEGORY COMPLETE';
+                setTimeout(() => {
+                    MayHubCertificates.showParticipation({
+                        gameTitle: 'The Berlin Conference Spin-the-Wheel Game',
+                        category: currentCategoryLabel,
+                        detail: 'Completed all ' + totalQuestions + ' definition-and-meaning cards.',
+                        onReplay: playCategoryAgain
+                    });
+                }, 700);
+            }
+        }
+
+        function getSignedInLearnerName() {
+            for (const storage of [window.localStorage, window.sessionStorage]) {
+                try {
+                    const saved = JSON.parse(storage.getItem('mayhubActivityAccess') || 'null');
+                    const fullName = saved?.profile?.fullName?.trim();
+                    if (fullName) return fullName;
+                    if (saved?.email) return saved.email.split('@')[0];
+                } catch {}
+            }
+            return '';
+        }
+
+        function getAwardTier(percentage) {
+            if (percentage === 100) {
+                return {
+                    className: 'tier-platinum',
+                    title: 'Certificate of Excellence',
+                    award: 'Platinum Perfect Score Award',
+                    message: 'PERFECT SCORE — Exceptional work! You mastered every question in this challenge.'
+                };
+            }
+            if (percentage >= 80) {
+                return {
+                    className: 'tier-gold',
+                    title: 'Certificate of Distinction',
+                    award: 'Gold Distinction Award',
+                    message: 'DISTINCTION — Excellent work! You have an impressive understanding of this topic.'
+                };
+            }
+            if (percentage >= 50) {
+                return {
+                    className: 'tier-silver',
+                    title: 'Certificate of Achievement',
+                    award: 'Silver Pass Award',
+                    message: 'PASS — Well done! You passed the challenge. Keep practising to reach a distinction.'
+                };
+            }
+            return {
+                className: 'tier-bronze',
+                title: 'Certificate of Perseverance',
+                award: 'Bronze Progress Award',
+                message: 'NOT YET PASSED — Do not give up. Review the answers, try again, and aim for at least 50%.'
+            };
+        }
+
+        function showCelebration() {
+            const stats = categoryStats[currentCategoryKey];
+            if (!stats || stats.answered !== totalQuestions) return;
+            const learnerName = getSignedInLearnerName();
+            const percentage = (stats.correct / totalQuestions) * 100;
+            const tier = getAwardTier(percentage);
+            const awardDate = new Date().toLocaleDateString('en-ZA', { day: '2-digit', month: 'long', year: 'numeric' });
+            lastCompletedScore = { name: learnerName, category: currentCategoryLabel, correct: stats.correct, total: totalQuestions, percentage, award: tier.award, date: awardDate };
+            document.querySelector('.category-selection').style.display = 'none';
+            document.getElementById('wheelArea').style.display = 'none';
+            document.getElementById('resultCertificate').className = 'certificate ' + tier.className;
+            document.getElementById('certificateTitle').innerText = tier.title;
+            document.getElementById('certificateAward').innerText = tier.award;
+            document.getElementById('certificateCategory').innerText = currentCategoryLabel;
+            document.getElementById('certificateDate').innerText = awardDate;
+            document.getElementById('celebrationLearner').innerText = learnerName || 'Guest Learner';
+            document.getElementById('celebrationScore').innerText = stats.correct + '/' + totalQuestions;
+            document.getElementById('celebrationMessage').innerText = tier.message;
+            document.getElementById('celebrationPage').style.display = 'block';
+            if (percentage >= 50) MayHubSounds.playPass();
+            else MayHubSounds.playFail();
+            document.getElementById('celebrationPage').scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+
+        function shareWhatsApp() {
+            if (!lastCompletedScore) return;
+            const result = lastCompletedScore;
+            let shareName = result.name;
+            if (!shareName) {
+                const enteredName = window.prompt('Please enter your name and surname to include with your WhatsApp result:', '');
+                if (enteredName === null) return;
+                shareName = enteredName.trim();
+                if (!shareName) {
+                    window.alert('Please enter your name and surname before sharing.');
+                    return;
+                }
+                result.name = shareName;
+                document.getElementById('celebrationLearner').innerText = shareName;
+            }
+            const message = ['🏆 May Learning Hub Certificate', shareName, 'Grade 8 Social Sciences History - The Berlin Conference', result.award, result.category + ': ' + result.correct + '/' + result.total + ' (' + result.percentage + '%)', 'Awarded: ' + result.date, window.location.href].join('\n');
+            window.open('https://wa.me/?text=' + encodeURIComponent(message), '_blank', 'noopener,noreferrer');
+        }
+
+        function playCategoryAgain() {
+            resetCategory(currentCategoryKey);
+            document.getElementById('celebrationPage').style.display = 'none';
+            document.querySelector('.category-selection').style.display = 'block';
+            document.getElementById('wheelArea').style.display = 'block';
+            document.getElementById('questionCard').style.display = 'none';
+            document.getElementById('remainingCount').innerText = totalQuestions + ' questions remaining';
+            document.getElementById('spinBtn').disabled = false;
+            document.getElementById('spinBtn').innerText = 'SPIN THE WHEEL';
+            updateScoreTracker();
+        }
+
+        function chooseAnotherCategory() {
+            document.getElementById('celebrationPage').style.display = 'none';
+            document.querySelector('.category-selection').style.display = 'block';
+            document.getElementById('wheelArea').style.display = 'none';
+            document.querySelectorAll('.cat-btn').forEach(button => button.classList.remove('active'));
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        buildWheel();
+    </script>
+</body>
+</html>

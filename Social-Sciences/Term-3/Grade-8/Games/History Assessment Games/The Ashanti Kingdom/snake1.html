@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-8GCWSKNDL7"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-8GCWSKNDL7');
+</script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>May Learning Hub | Grade 8 History Smart Snake - The Ashanti Kingdom</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f0f4f8; color: #333; line-height: 1.6; display: flex; flex-direction: column; min-height: 100vh; touch-action: manipulation; }
+        
+        /* Navigation */
+        nav { background-color: #002b5e; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        .logo { color: #fff; font-size: 1.5rem; font-weight: bold; text-decoration: none; }
+        .nav-links a { color: #cce0ff; text-decoration: none; margin-left: 1.5rem; font-weight: 500; transition: color 0.3s; }
+        .nav-links a:hover, .nav-links a.active { color: #fff; text-decoration: underline; }
+        
+        /* Game Header */
+        .game-header { text-align: center; padding: 2rem 1rem 1rem; }
+        .game-title { color: #004080; font-size: 2.2rem; margin-bottom: 0.5rem; }
+        .game-subtitle { color: #555; margin-bottom: 1.5rem; font-size: 1.1rem; }
+
+        /* --- Topic Selection UI --- */
+        .category-selection { margin-bottom: 2rem; text-align: center; }
+        .cat-buttons { display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem; max-width: 800px; margin: 0 auto; padding: 0 10px; }
+        .cat-btn { background-color: #fff; border: 2px solid #004080; color: #004080; padding: 0.8rem 1.5rem; font-size: 1.1rem; font-weight: bold; border-radius: 8px; cursor: pointer; transition: all 0.3s ease; flex: 1; min-width: 150px; }
+        .cat-btn:hover { background-color: #e6f0fa; transform: translateY(-3px); }
+
+        /* --- Game Area --- */
+        #gameArea { display: none; flex-direction: column; align-items: center; width: 100%; padding: 0 10px; }
+        
+        .score-board { display: flex; justify-content: space-between; width: 100%; max-width: 600px; background: #002b5e; color: #fff; padding: 0.8rem 1.5rem; border-radius: 8px 8px 0 0; font-size: 1.2rem; font-weight: bold; }
+        .score-board span { color: #ffc107; }
+
+        .canvas-container { position: relative; max-width: 600px; width: 100%; }
+        canvas { background-color: #d1e0e0; box-shadow: 0 8px 20px rgba(0,0,0,0.2); border-radius: 0 0 8px 8px; border: 4px solid #002b5e; width: 100%; height: auto; display: block; }
+
+        #pauseOverlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 43, 94, 0.7); border-radius: 0 0 8px 8px; display: none; flex-direction: column; justify-content: center; align-items: center; color: #fff; font-size: 1.5rem; font-weight: bold; text-align: center; padding: 1rem; z-index: 10; animation: pulse 1.5s infinite; }
+        @keyframes pulse { 0% { opacity: 0.8; } 50% { opacity: 1; transform: scale(1.02); } 100% { opacity: 0.8; } }
+
+        .controls-container { display: grid; grid-template-columns: repeat(3, 60px); grid-template-rows: repeat(2, 60px); gap: 10px; margin-top: 2rem; justify-content: center; }
+        .control-btn { background: #3385ff; color: #fff; border: none; border-radius: 12px; font-size: 1.5rem; font-weight: bold; cursor: pointer; box-shadow: 0 4px 6px rgba(0,0,0,0.2); display: flex; align-items: center; justify-content: center; user-select: none; }
+        .control-btn:active { background: #004080; transform: translateY(2px); box-shadow: 0 2px 3px rgba(0,0,0,0.2); }
+        
+        #btnUp { grid-column: 2; grid-row: 1; }
+        #btnLeft { grid-column: 1; grid-row: 2; }
+        #btnDown { grid-column: 2; grid-row: 2; }
+        #btnRight { grid-column: 3; grid-row: 2; }
+
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,26,51,0.9); align-items: center; justify-content: center; z-index: 100; padding: 1rem; }
+        .modal-content { background: #fff; padding: 2rem; border-radius: 12px; text-align: center; max-width: 500px; width: 100%; border-top: 6px solid #ffc107; box-shadow: 0 10px 40px rgba(0,0,0,0.5); }
+        
+        .modal-points { color: #d32f2f; font-weight: bold; font-size: 1.2rem; margin-bottom: 0.5rem; }
+        .golden-text { color: #d39e00; }
+        .modal-question { font-size: 1.4rem; color: #002b5e; font-weight: bold; margin-bottom: 1.5rem; }
+        
+        .mc-options { display: flex; flex-direction: column; gap: 0.8rem; }
+        .option-btn { background: #f0f7ff; border: 2px solid #b3d4ff; padding: 1rem; font-size: 1.1rem; border-radius: 6px; cursor: pointer; transition: all 0.2s; text-align: left; font-weight: bold; color: #004080; }
+        .option-btn:hover:not(:disabled) { background: #3385ff; color: #fff; border-color: #002b5e; }
+        .option-btn.correct { background-color: #28a745 !important; border-color: #1e7e34 !important; color: #fff !important; }
+        .option-btn.incorrect { background-color: #dc3545 !important; border-color: #bd2130 !important; color: #fff !important; }
+
+        .continue-btn { display: none; background: #004080; color: #fff; border: none; padding: 1rem 2rem; font-size: 1.1rem; font-weight: bold; border-radius: 8px; cursor: pointer; margin-top: 1.5rem; width: 100%; }
+
+        #endScreen { display: none; text-align: center; padding: 3rem 1rem; }
+        #endTitle { font-size: 2.5rem; margin-bottom: 1rem; }
+        #endMessage { font-size: 1.2rem; color: #555; }
+        
+        footer { text-align: center; padding: 1rem; background-color: #002b5e; color: #fff; margin-top: auto; }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="../../../../../../index.html" class="logo">May Learning Hub</a>
+        <div class="nav-links">
+            <a href="../../../../../../index.html">Home</a>
+            <a href="../../../../../../about.html">About</a>
+        </div>
+    </nav>
+
+    <header class="game-header">
+        <h1 class="game-title">Grade 8 History Smart Snake: The Ashanti Kingdom</h1>
+        <p class="game-subtitle">Revise the Ashanti Kingdom’s location, wealth, government, resistance, and experience of British colonisation.</p>
+        <p style="font-size: 0.78rem; color: #52606d; margin-top: 0.45rem;">Grade 8 Social Sciences History Term 3 revision</p>
+    </header>
+
+    <div class="category-selection" id="categorySelection">
+        <div class="cat-buttons">
+            <button class="cat-btn" onclick="startGame('game1')">Term Identification</button>
+            <button class="cat-btn" onclick="startGame('game2')">Meaning Match</button>
+            <button class="cat-btn" onclick="startGame('game3')">Multiple Choice</button>
+            <button class="cat-btn" onclick="startGame('game4')">True or False</button>
+        </div>
+    </div>
+
+    <main id="gameArea">
+        <div class="score-board">
+            <div>Apples: <span id="appleCount">0</span> / 10</div>
+            <div>Score: <span id="scoreText">0</span></div>
+        </div>
+        
+        <div class="canvas-container">
+            <canvas id="gameCanvas" width="600" height="400"></canvas>
+            
+            <div id="pauseOverlay">
+                Tap any direction below to resume slithering! 🐍
+            </div>
+        </div>
+        
+        <div class="controls-container">
+            <button class="control-btn" id="btnUp" onclick="handleInput('UP')">▲</button>
+            <button class="control-btn" id="btnLeft" onclick="handleInput('LEFT')">◀</button>
+            <button class="control-btn" id="btnDown" onclick="handleInput('DOWN')">▼</button>
+            <button class="control-btn" id="btnRight" onclick="handleInput('RIGHT')">▶</button>
+        </div>
+    </main>
+
+    <div class="modal" id="questionModal">
+        <div class="modal-content">
+            <div class="modal-points" id="modalPoints">For 1 Point:</div>
+            <div class="modal-question" id="modalQuestion">Loading question...</div>
+            <div class="mc-options" id="mcOptions"></div>
+            <button class="continue-btn" id="btnContinue" onclick="closeModalAndPause()">Continue Game</button>
+        </div>
+    </div>
+
+    <div id="endScreen">
+        <h2 id="endTitle" style="color: #28a745;">Level Complete!</h2>
+        <p id="endMessage">You successfully ate 10 apples.</p>
+        <p style="font-size: 1.5rem; margin: 1rem 0; font-weight: bold;">Final Score: <span id="finalScoreText" style="color:#004080;">0</span> Points</p>
+        <button class="cat-btn" onclick="location.reload()" style="background:#3385ff; color:#fff;">Play Again</button>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 May Learning Hub. All rights reserved.</p>
+    </footer>
+
+        <script src="../../../../../../game-audio.js"></script>
+<script>
+        const questionDB = {
+    "game1": [
+        {
+            "q": "Which historical term means: The modern country in which the Ashanti Kingdom was located.",
+            "options": [
+                "Ghana",
+                "Kumasi",
+                "Gold",
+                "Ivory"
+            ],
+            "a": 0
+        },
+        {
+            "q": "Which historical term means: The capital city of the Ashanti Kingdom.",
+            "options": [
+                "Gold",
+                "Kumasi",
+                "Ivory",
+                "Metalworking"
+            ],
+            "a": 1
+        },
+        {
+            "q": "Which historical term means: The mineral that made the Ashanti Kingdom wealthy and commercially important.",
+            "options": [
+                "Ivory",
+                "Metalworking",
+                "Gold",
+                "Centralised state"
+            ],
+            "a": 2
+        },
+        {
+            "q": "Which historical term means: Another valuable product controlled through Ashanti trade.",
+            "options": [
+                "Metalworking",
+                "Centralised state",
+                "Chief Osei Tutu",
+                "Ivory"
+            ],
+            "a": 3
+        },
+        {
+            "q": "Which historical term means: A craft for which the Ashanti people were well known.",
+            "options": [
+                "Metalworking",
+                "Centralised state",
+                "Chief Osei Tutu",
+                "Golden Stool"
+            ],
+            "a": 0
+        },
+        {
+            "q": "Which historical term means: A political system with authority organised around a strong central government.",
+            "options": [
+                "Chief Osei Tutu",
+                "Centralised state",
+                "Golden Stool",
+                "Merit-based appointment"
+            ],
+            "a": 1
+        },
+        {
+            "q": "Which historical term means: The leader who united Akan-speaking communities into a powerful military state.",
+            "options": [
+                "Golden Stool",
+                "Merit-based appointment",
+                "Chief Osei Tutu",
+                "Mission from the Cape Coast Castle to Ashantee"
+            ],
+            "a": 2
+        },
+        {
+            "q": "Which historical term means: The sacred symbol in Ashanti tradition that represented unity and authority.",
+            "options": [
+                "Merit-based appointment",
+                "Mission from the Cape Coast Castle to Ashantee",
+                "Gold",
+                "Golden Stool"
+            ],
+            "a": 3
+        },
+        {
+            "q": "Which historical term means: The selection of government officials according to ability rather than inheritance alone.",
+            "options": [
+                "Merit-based appointment",
+                "Mission from the Cape Coast Castle to Ashantee",
+                "Kumasi",
+                "Gold"
+            ],
+            "a": 0
+        },
+        {
+            "q": "Which historical term means: The book that encouraged greater British interest in the West Coast as a future colony.",
+            "options": [
+                "Ghana",
+                "Mission from the Cape Coast Castle to Ashantee",
+                "Kumasi",
+                "Gold"
+            ],
+            "a": 1
+        }
+    ],
+    "game2": [
+        {
+            "q": "Which statement correctly defines Ghana?",
+            "options": [
+                "The mineral that made the Ashanti Kingdom wealthy and commercially important.",
+                "The modern country in which the Ashanti Kingdom was located.",
+                "Another valuable product controlled through Ashanti trade.",
+                "A craft for which the Ashanti people were well known."
+            ],
+            "a": 1
+        },
+        {
+            "q": "Which statement correctly defines Kumasi?",
+            "options": [
+                "Another valuable product controlled through Ashanti trade.",
+                "A craft for which the Ashanti people were well known.",
+                "The capital city of the Ashanti Kingdom.",
+                "A political system with authority organised around a strong central government."
+            ],
+            "a": 2
+        },
+        {
+            "q": "Which statement correctly defines Gold?",
+            "options": [
+                "A craft for which the Ashanti people were well known.",
+                "A political system with authority organised around a strong central government.",
+                "The leader who united Akan-speaking communities into a powerful military state.",
+                "The mineral that made the Ashanti Kingdom wealthy and commercially important."
+            ],
+            "a": 3
+        },
+        {
+            "q": "Which statement correctly defines Ivory?",
+            "options": [
+                "Another valuable product controlled through Ashanti trade.",
+                "A political system with authority organised around a strong central government.",
+                "The leader who united Akan-speaking communities into a powerful military state.",
+                "The sacred symbol in Ashanti tradition that represented unity and authority."
+            ],
+            "a": 0
+        },
+        {
+            "q": "Which statement correctly defines Metalworking?",
+            "options": [
+                "The leader who united Akan-speaking communities into a powerful military state.",
+                "A craft for which the Ashanti people were well known.",
+                "The sacred symbol in Ashanti tradition that represented unity and authority.",
+                "The selection of government officials according to ability rather than inheritance alone."
+            ],
+            "a": 1
+        },
+        {
+            "q": "Which statement correctly defines Centralised state?",
+            "options": [
+                "The sacred symbol in Ashanti tradition that represented unity and authority.",
+                "The selection of government officials according to ability rather than inheritance alone.",
+                "A political system with authority organised around a strong central government.",
+                "The book that encouraged greater British interest in the West Coast as a future colony."
+            ],
+            "a": 2
+        },
+        {
+            "q": "Which statement correctly defines Chief Osei Tutu?",
+            "options": [
+                "The selection of government officials according to ability rather than inheritance alone.",
+                "The book that encouraged greater British interest in the West Coast as a future colony.",
+                "The mineral that made the Ashanti Kingdom wealthy and commercially important.",
+                "The leader who united Akan-speaking communities into a powerful military state."
+            ],
+            "a": 3
+        },
+        {
+            "q": "Which statement correctly defines Golden Stool?",
+            "options": [
+                "The sacred symbol in Ashanti tradition that represented unity and authority.",
+                "The book that encouraged greater British interest in the West Coast as a future colony.",
+                "The capital city of the Ashanti Kingdom.",
+                "The mineral that made the Ashanti Kingdom wealthy and commercially important."
+            ],
+            "a": 0
+        },
+        {
+            "q": "Which statement correctly defines Merit-based appointment?",
+            "options": [
+                "The modern country in which the Ashanti Kingdom was located.",
+                "The selection of government officials according to ability rather than inheritance alone.",
+                "The capital city of the Ashanti Kingdom.",
+                "The mineral that made the Ashanti Kingdom wealthy and commercially important."
+            ],
+            "a": 1
+        },
+        {
+            "q": "Which statement correctly defines Mission from the Cape Coast Castle to Ashantee?",
+            "options": [
+                "The modern country in which the Ashanti Kingdom was located.",
+                "The capital city of the Ashanti Kingdom.",
+                "The book that encouraged greater British interest in the West Coast as a future colony.",
+                "The mineral that made the Ashanti Kingdom wealthy and commercially important."
+            ],
+            "a": 2
+        }
+    ],
+    "game3": [
+        {
+            "q": "In which modern country was the Ashanti Kingdom located?",
+            "options": [
+                "Ghana",
+                "Ethiopia",
+                "Nigeria",
+                "Angola"
+            ],
+            "a": 0
+        },
+        {
+            "q": "Which mineral made the Ashanti Kingdom wealthy and famous?",
+            "options": [
+                "Coal",
+                "Gold",
+                "Copper",
+                "Iron"
+            ],
+            "a": 1
+        },
+        {
+            "q": "Why were the Ashanti considered powerful fighters?",
+            "options": [
+                "They were fierce and determined in battle",
+                "They refused to organise an army",
+                "They had no central government",
+                "They depended entirely on European soldiers"
+            ],
+            "a": 0
+        },
+        {
+            "q": "Which statement expresses the Ashanti determination to continue fighting?",
+            "options": [
+                "Better go forward and die",
+                "Always retreat before fighting",
+                "Trade is more important than unity",
+                "The Golden Stool belongs to Europe"
+            ],
+            "a": 0
+        },
+        {
+            "q": "How did the book Mission from the Cape Coast Castle to Ashantee affect Britain?",
+            "options": [
+                "It encouraged British interest in the West Coast as a future colony",
+                "It ended all British interest in Africa",
+                "It gave Ghana immediate independence",
+                "It was used to close Kumasi to visitors"
+            ],
+            "a": 0
+        },
+        {
+            "q": "What was the capital of the Ashanti Kingdom?",
+            "options": [
+                "Berlin",
+                "Kumasi",
+                "Cape Town",
+                "Addis Ababa"
+            ],
+            "a": 1
+        },
+        {
+            "q": "Who united Akan-speaking communities into a powerful military state?",
+            "options": [
+                "Otto von Bismarck",
+                "Leopold II",
+                "Chief Osei Tutu",
+                "A Portuguese trader"
+            ],
+            "a": 2
+        },
+        {
+            "q": "What symbol represented Ashanti unity and authority?",
+            "options": [
+                "The General Act",
+                "The Golden Stool",
+                "The telegraph",
+                "A colonial flag"
+            ],
+            "a": 1
+        },
+        {
+            "q": "What was one economic result of colonisation for the Ashanti?",
+            "options": [
+                "Trade and gold resources were redirected for European benefit",
+                "The Ashanti gained complete control of British markets",
+                "All resource exploitation ended",
+                "Local industries received equal colonial profits"
+            ],
+            "a": 0
+        },
+        {
+            "q": "What was one political result of British colonisation for the Ashanti?",
+            "options": [
+                "The monarch’s authority was weakened under British oversight",
+                "The Ashanti gained full control of Britain",
+                "Colonial administration disappeared",
+                "The Golden Stool became a European parliament"
+            ],
+            "a": 0
+        }
+    ],
+    "game4": [
+        {
+            "q": "The Ashanti Kingdom was located in modern Ghana.",
+            "options": [
+                "True",
+                "False"
+            ],
+            "a": 0
+        },
+        {
+            "q": "Kumasi was the capital of the Ashanti Kingdom.",
+            "options": [
+                "True",
+                "False"
+            ],
+            "a": 0
+        },
+        {
+            "q": "The Ashanti were known for metalworking and trade in gold and ivory.",
+            "options": [
+                "True",
+                "False"
+            ],
+            "a": 0
+        },
+        {
+            "q": "The Ashanti Kingdom was weak and had no central government before Europeans arrived.",
+            "options": [
+                "True",
+                "False"
+            ],
+            "a": 1
+        },
+        {
+            "q": "The Ashanti people were known as fierce fighters.",
+            "options": [
+                "True",
+                "False"
+            ],
+            "a": 0
+        },
+        {
+            "q": "Portuguese traders reached the West African coast in the late 1600s.",
+            "options": [
+                "True",
+                "False"
+            ],
+            "a": 0
+        },
+        {
+            "q": "Chief Osei Tutu united Akan speakers into a powerful military state.",
+            "options": [
+                "True",
+                "False"
+            ],
+            "a": 0
+        },
+        {
+            "q": "Ashanti government officials were selected only through inheritance.",
+            "options": [
+                "True",
+                "False"
+            ],
+            "a": 1
+        },
+        {
+            "q": "A British visitor entered Kumasi in 1817 and later wrote about Ashantee.",
+            "options": [
+                "True",
+                "False"
+            ],
+            "a": 0
+        },
+        {
+            "q": "Colonisation redirected Ashanti trade and resources for British benefit.",
+            "options": [
+                "True",
+                "False"
+            ],
+            "a": 0
+        }
+    ]
+};
+
+        const canvas = document.getElementById("gameCanvas");
+        const ctx = canvas.getContext("2d");
+        const gridSize = 20;
+        const tileCountX = canvas.width / gridSize;
+        const tileCountY = canvas.height / gridSize;
+
+        let snake = [];
+        let dx = 0;
+        let dy = -1;
+        let foodX, foodY;
+        let bonusX = -1, bonusY = -1;
+        let score = 0;
+        let applesEaten = 0;
+        let gameLoop;
+        let currentTopic = [];
+        let isGoldenAppleActive = false;
+        let activeQuestionValue = 1; 
+        let isPausedPendingInput = true;
+
+        function startGame(categoryKey) {
+            document.getElementById('categorySelection').style.display = 'none';
+            document.getElementById('gameArea').style.display = 'flex';
+            currentTopic = [...questionDB[categoryKey]];
+            snake = [{x: 15, y: 10}, {x: 15, y: 11}, {x: 15, y: 12}];
+            dx = 0; dy = -1; score = 0; applesEaten = 0;
+            updateScoreboard();
+            spawnFood();
+            document.addEventListener("keydown", handleKeyInput);
+            isPausedPendingInput = true;
+            document.getElementById('pauseOverlay').style.display = 'flex';
+            drawStaticBoard();
+        }
+
+        function drawStaticBoard() {
+            clearCanvas();
+            drawFood();
+            if (isGoldenAppleActive) drawBonusFood();
+            drawSnake();
+        }
+
+        function drawGame() {
+            moveSnake();
+            if (applesEaten >= 10) {
+                clearInterval(gameLoop);
+                endGame(true);
+                return;
+            }
+            clearCanvas();
+            drawFood();
+            if (isGoldenAppleActive) drawBonusFood();
+            drawSnake();
+        }
+
+        function clearCanvas() {
+            ctx.fillStyle = "#d1e0e0";
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+        }
+
+        function drawSnake() {
+            snake.forEach((part, index) => {
+                ctx.fillStyle = index === 0 ? "#002b5e" : "#3385ff"; 
+                ctx.fillRect(part.x * gridSize, part.y * gridSize, gridSize - 2, gridSize - 2);
+            });
+        }
+
+        function drawFood() {
+            ctx.fillStyle = "#d32f2f"; 
+            ctx.beginPath();
+            ctx.arc(foodX * gridSize + gridSize/2, foodY * gridSize + gridSize/2, gridSize/2 - 2, 0, 2 * Math.PI);
+            ctx.fill();
+        }
+
+        function drawBonusFood() {
+            ctx.fillStyle = "#ffc107"; 
+            ctx.shadowBlur = 10;
+            ctx.shadowColor = "#ffc107";
+            ctx.beginPath();
+            ctx.arc(bonusX * gridSize + gridSize/2, bonusY * gridSize + gridSize/2, gridSize/2 - 2, 0, 2 * Math.PI);
+            ctx.fill();
+            ctx.shadowBlur = 0; 
+        }
+
+        function moveSnake() {
+            const head = { x: snake[0].x + dx, y: snake[0].y + dy };
+            if (head.x < 0) head.x = tileCountX - 1;
+            if (head.x >= tileCountX) head.x = 0;
+            if (head.y < 0) head.y = tileCountY - 1;
+            if (head.y >= tileCountY) head.y = 0;
+            for (let i = 0; i < snake.length; i++) {
+                if (head.x === snake[i].x && head.y === snake[i].y) {
+                    clearInterval(gameLoop);
+                    MayHubSounds.stopSnakeMovement();
+                    endGame(false);
+                    return;
+                }
+            }
+            snake.unshift(head);
+            if (head.x === foodX && head.y === foodY) {
+                clearInterval(gameLoop);
+                MayHubSounds.stopSnakeMovement();
+                MayHubSounds.playSnakeBite();
+                activeQuestionValue = 1;
+                applesEaten++;
+                spawnFood();
+                triggerQuestion(1);
+            } else if (isGoldenAppleActive && head.x === bonusX && head.y === bonusY) {
+                clearInterval(gameLoop);
+                MayHubSounds.stopSnakeMovement();
+                MayHubSounds.playSnakeBite();
+                activeQuestionValue = 3;
+                isGoldenAppleActive = false; 
+                triggerQuestion(3);
+            } else {
+                snake.pop();
+            }
+            if (!isGoldenAppleActive && (applesEaten === 2 || applesEaten === 5 || applesEaten === 8)) {
+                spawnBonusFood();
+            }
+        }
+
+        function spawnFood() {
+            foodX = Math.floor(Math.random() * tileCountX);
+            foodY = Math.floor(Math.random() * tileCountY);
+            snake.forEach(part => { if (part.x === foodX && part.y === foodY) spawnFood(); });
+        }
+
+        function spawnBonusFood() {
+            isGoldenAppleActive = true;
+            bonusX = Math.floor(Math.random() * tileCountX);
+            bonusY = Math.floor(Math.random() * tileCountY);
+            if (bonusX === foodX && bonusY === foodY) spawnBonusFood();
+        }
+
+        function handleKeyInput(event) {
+            const key = event.keyCode;
+            if (key === 37) handleInput('LEFT');
+            if (key === 38) handleInput('UP');
+            if (key === 39) handleInput('RIGHT');
+            if (key === 40) handleInput('DOWN');
+        }
+
+        function handleInput(dir) {
+            if (isPausedPendingInput) {
+                isPausedPendingInput = false;
+                document.getElementById('pauseOverlay').style.display = 'none';
+                gameLoop = setInterval(drawGame, 150);
+                MayHubSounds.startSnakeMovement();
+            }
+            if (dir === 'LEFT' && dx !== 1) { dx = -1; dy = 0; }
+            if (dir === 'UP' && dy !== 1) { dx = 0; dy = -1; }
+            if (dir === 'RIGHT' && dx !== -1) { dx = 1; dy = 0; }
+            if (dir === 'DOWN' && dy !== -1) { dx = 0; dy = 1; }
+        }
+
+        let currentQuestionObj;
+        function triggerQuestion(pointsValue) {
+            if (currentTopic.length === 0) {
+                endGame(true);
+                return;
+            }
+            const qIndex = Math.floor(Math.random() * currentTopic.length);
+            currentQuestionObj = currentTopic.splice(qIndex, 1)[0]; 
+            document.getElementById('modalPoints').innerText = pointsValue === 3 ? "⭐ BONUS: 3 Points" : "🍎 Regular: 1 Point";
+            document.getElementById('modalPoints').className = pointsValue === 3 ? "modal-points golden-text" : "modal-points";
+            document.getElementById('modalQuestion').innerText = currentQuestionObj.q;
+            const mcOptions = document.getElementById('mcOptions');
+            mcOptions.innerHTML = "";
+            document.getElementById('btnContinue').style.display = 'none';
+            currentQuestionObj.options.forEach((opt, index) => {
+                let btn = document.createElement("button");
+                btn.className = "option-btn";
+                btn.innerText = opt;
+                btn.onclick = () => answerQuestion(btn, index);
+                mcOptions.appendChild(btn);
+            });
+            document.getElementById('questionModal').style.display = 'flex';
+        }
+
+        function answerQuestion(clickedBtn, selectedIndex) {
+            const allBtns = document.querySelectorAll('.option-btn');
+            allBtns.forEach(btn => btn.disabled = true); 
+            if (selectedIndex === currentQuestionObj.a) {
+                MayHubSounds.playCorrect();
+                clickedBtn.classList.add('correct');
+                score += activeQuestionValue;
+                updateScoreboard();
+                snake.push({ ...snake[snake.length - 1] }); 
+            } else {
+                MayHubSounds.playWrong();
+                clickedBtn.classList.add('incorrect');
+                allBtns[currentQuestionObj.a].classList.add('correct');
+            }
+            document.getElementById('btnContinue').style.display = 'block';
+        }
+
+        function closeModalAndPause() {
+            document.getElementById('questionModal').style.display = 'none';
+            updateScoreboard();
+            drawStaticBoard();
+            if (applesEaten < 10) {
+                isPausedPendingInput = true;
+                document.getElementById('pauseOverlay').style.display = 'flex';
+            } else {
+                endGame(true);
+            }
+        }
+
+        function updateScoreboard() {
+            document.getElementById('appleCount').innerText = applesEaten;
+            document.getElementById('scoreText').innerText = score;
+        }
+
+        function endGame(didWin) {
+            MayHubSounds.stopSnakeMovement();
+            document.getElementById('gameArea').style.display = 'none';
+            document.getElementById('endScreen').style.display = 'block';
+            document.getElementById('finalScoreText').innerText = score;
+            const title = document.getElementById('endTitle');
+            const msg = document.getElementById('endMessage');
+            if (didWin) {
+                title.innerText = "Level Complete!";
+                title.style.color = "#28a745";
+                msg.innerText = "Excellent! You've mastered The Ashanti Kingdom!";
+            } else {
+                title.innerText = "Game Over!";
+                title.style.color = "#dc3545";
+                msg.innerText = "History takes practice. Try again and strengthen your understanding of this topic!";
+            }
+        }
+    </script>
+</body>
+</html>

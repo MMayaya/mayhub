@@ -13,12 +13,12 @@
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="May Learning Hub Grade 8 Social Sciences Games - Interactive revision for History and Geography.">
+    <meta name="description" content="May Learning Hub Grade 8 Social Sciences Term 3 content and assessment games for History and Geography.">
     <meta name="theme-color" content="#002b5e">
-    <meta property="og:title" content="Grade 8 Social Sciences Games | May Learning Hub">
-    <meta property="og:description" content="Interactive History and Geography games for Grade 8 learners on May Learning Hub.">
+    <meta property="og:title" content="Grade 8 Games | May Learning Hub">
+    <meta property="og:description" content="Interactive Social Sciences games for Grade 8 learners on May Learning Hub.">
     <meta property="og:type" content="website">
-    <title>Grade 8 Social Sciences Games | May Learning Hub</title>
+    <title>Grade 8 Games | May Learning Hub</title>
     <style>
         /* Base Styles from May Learning Hub */
         * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -113,9 +113,9 @@
             text-decoration: none;
         }
 
-        /* Header - Earthy tones for Social Sciences */
+        /* Header */
         header {
-            background: linear-gradient(135deg, #6b4226, #8b5a2b);
+            background: linear-gradient(135deg, #004080, #0059b3);
             color: #fff;
             padding: 3rem 1rem 2.5rem;
             overflow: hidden;
@@ -143,7 +143,7 @@
         .motto {
             font-size: 1.2rem;
             font-style: italic;
-            color: #f5deb3;
+            color: #c7deff;
             margin-bottom: 0.8rem;
             font-weight: 500;
         }
@@ -155,29 +155,26 @@
             padding: 0 20px;
         }
 
-        .subject-divider {
+        .section-title {
             font-size: 1.8rem;
-            color: #4a2e1b;
-            margin-top: 2.5rem;
-            margin-bottom: 1rem;
-            padding-bottom: 0.5rem;
-            border-bottom: 3px solid #d9c4b1;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
+            color: #003a75;
+            margin-bottom: 0.35rem;
+            text-align: center;
         }
 
-        .subject-divider.geography {
-            color: #004d66;
-            border-bottom-color: #b3d9e6;
+        .section-subtitle {
+            color: #555;
+            margin-bottom: 2rem;
+            text-align: center;
+            font-size: 1.1rem;
         }
 
         /* Games Grid System */
         .games-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 1.5rem;
-            margin-bottom: 2rem;
+            margin-bottom: 3rem;
         }
 
         .game-card {
@@ -188,7 +185,7 @@
             text-decoration: none;
             color: #333;
             box-shadow: 0 4px 10px rgba(0,0,0,0.08);
-            border-top: 5px solid #8b5a2b;
+            border-top: 5px solid #3385ff;
             transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
             opacity: 0;
             animation: fadeInUp 0.8s ease-out forwards;
@@ -199,53 +196,64 @@
             height: 100%;
         }
 
-        /* History Colors */
-        .history-card:nth-child(1) { animation-delay: 0.1s; border-top-color: #a0522d; }
-        .history-card:nth-child(2) { animation-delay: 0.2s; border-top-color: #cd853f; }
-        .history-card:nth-child(3) { animation-delay: 0.3s; border-top-color: #daa520; }
-        .history-card:nth-child(4) { animation-delay: 0.4s; border-top-color: #8b4513; }
+        /* Staggered Animations */
+        .game-card:nth-child(1) { animation-delay: 0.1s; border-top-color: #ff4d4d; }
+        .game-card:nth-child(2) { animation-delay: 0.2s; border-top-color: #ffa64d; }
+        .game-card:nth-child(3) { animation-delay: 0.3s; border-top-color: #ffcc00; }
+        .game-card:nth-child(4) { animation-delay: 0.4s; border-top-color: #33cc33; }
+        .game-card:nth-child(5) { animation-delay: 0.5s; border-top-color: #ff3399; }
+        .game-card:nth-child(6) { animation-delay: 0.6s; border-top-color: #8a63d2; }
 
-        /* Geography Colors */
-        .geo-card:nth-child(1) { animation-delay: 0.1s; border-top-color: #3385ff; }
-        .geo-card:nth-child(2) { animation-delay: 0.2s; border-top-color: #33cc33; }
-        .geo-card:nth-child(3) { animation-delay: 0.3s; border-top-color: #33cccc; }
-        .geo-card:nth-child(4) { animation-delay: 0.4s; border-top-color: #004d66; }
-        
+        .game-card.upcoming {
+            background: #f4f6f8;
+            border-top-color: #9aa9b8;
+            opacity: 0.82;
+        }
+
+        .game-card.upcoming .game-icon {
+            background: #e5e9ed;
+            filter: grayscale(1);
+        }
+
+        .availability-label {
+            display: inline-block;
+            background: #5b6875;
+            color: #fff;
+            padding: 0.45rem 0.9rem;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-top: auto;
+        }
+
+        /* Only apply hover effects if it's an anchor tag */
         a.game-card:hover {
             transform: translateY(-5px);
             box-shadow: 0 8px 20px rgba(0,0,0,0.15);
-            background: #fdfaf7;
+            background: #f4f9ff;
         }
 
         .game-icon {
-            font-size: 2.5rem;
+            font-size: 3rem;
             margin-bottom: 1rem;
-            background: #f4eee9;
-            width: 70px;
-            height: 70px;
-            line-height: 70px;
+            background: #e6f0fa;
+            width: 80px;
+            height: 80px;
+            line-height: 80px;
             border-radius: 50%;
             display: inline-block;
         }
 
-        .geo-card .game-icon {
-            background: #e6f2f9;
-        }
-
         .game-card h3 {
-            color: #4a2e1b;
-            font-size: 1.15rem;
+            color: #004080;
+            font-size: 1.25rem;
             margin-bottom: 0.8rem;
             line-height: 1.3;
         }
 
-        .geo-card h3 {
-            color: #004d66;
-        }
-
         .play-btn {
             display: inline-block;
-            background-color: #8b5a2b;
+            background-color: #004080;
             color: #fff;
             padding: 0.5rem 1.2rem;
             border-radius: 8px;
@@ -256,16 +264,13 @@
             text-decoration: none;
         }
 
-        .geo-card .play-btn {
-            background-color: #006699;
-        }
-
         a.game-card:hover .play-btn {
-            background-color: #a0522d;
+            background-color: #3385ff;
         }
 
-        a.geo-card:hover .play-btn {
-            background-color: #0088cc;
+        .game-card .play-btn:hover {
+            background-color: #3385ff !important;
+            transform: translateY(-2px);
         }
 
         /* Footer */
@@ -288,7 +293,7 @@
 
         .footer-brand h3, .footer-links h4, .footer-note h4 { margin-bottom: 0.6rem; }
         .footer-brand p, .footer-note p { color: #d4e3f7; font-size: 0.94rem; }
-        
+
         .footer-links a {
             display: block;
             color: #d4e3f7;
@@ -323,15 +328,15 @@
 <body>
 
     <nav aria-label="Main navigation">
-        <a href="https://mmayaya.github.io/mayhub/" class="logo">May Learning Hub</a>
+        <a href="../../../../index.html" class="logo">May Learning Hub</a>
         <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="navLinks" aria-label="Toggle navigation menu">
             ☰
         </button>
         <div class="nav-links" id="navLinks">
-            <a href="https://mmayaya.github.io/mayhub/">Home</a>
-            <a href="https://mmayaya.github.io/mayhub/about">About</a>
+            <a href="../../../../index.html">Home</a>
+            <a href="../../../../about.html">About</a>
             <a href="games.html" class="active">Games</a>
-            <a href="https://mmayaya.github.io/mayhub/suppdown">Support &amp; Downloads</a>
+            <a href="../../../../suppdown.html">Support &amp; Downloads</a>
         </div>
     </nav>
 
@@ -340,83 +345,29 @@
             <div class="header-text">
                 <h1>Grade 8 Social Sciences Games</h1>
                 <p class="motto">Interactive Revision & Active Recall</p>
-                <p>Discover the past and explore the world through interactive History and Geography modules.</p>
+                <p>Choose content-based revision or term assessment practice.</p>
             </div>
         </div>
     </header>
 
     <div class="container">
-        
-        <h2 class="subject-divider">📜 History</h2>
+        <h2 class="section-title">Choose a Game Collection</h2>
+        <p class="section-subtitle">Select how you would like to revise Grade 8 Social Sciences Term 3.</p>
         <main class="games-grid">
-            
-            <a href="History/1. Scramble for Africa/ScrambleAfrica.html" class="game-card history-card">
-                <div class="game-icon" aria-hidden="true">&#127757;</div>
-                <h3>1. The Scramble for Africa</h3>
-                <span class="play-btn">Play Games &rarr;</span>
+            <a href="content-games.html" class="game-card">
+                <div class="game-icon" aria-hidden="true">&#128218;</div>
+                <h3>Content Games</h3>
+                <p style="margin-bottom: 1rem; color: #566575;">Revise the existing Grade 8 History and Geography content topics.</p>
+                <span class="play-btn">Choose Content &rarr;</span>
             </a>
 
-            <a href="History/2. Causes, Rapid Conquest &amp; Results of Colonisation/Colonisation.html" class="game-card history-card">
-                <div class="game-icon" aria-hidden="true">&#9876;&#65039;</div>
-                <h3>2. Causes, Rapid Conquest &amp; Results of Colonisation</h3>
-                <span class="play-btn">Play Games &rarr;</span>
+            <a href="History Assessment Games/history-assessment-games.html" class="game-card">
+                <div class="game-icon" aria-hidden="true">&#127919;</div>
+                <h3>History Term Assessment Games</h3>
+                <p style="margin-bottom: 1rem; color: #566575;">Practise Grade 8 History assessment themes through the same familiar games.</p>
+                <span class="play-btn">Choose Assessment &rarr;</span>
             </a>
-
-            <a href="History/3. The Ashanti Kingdom/AshantiKingdom.html" class="game-card history-card">
-                <div class="game-icon" aria-hidden="true">&#128081;</div>
-                <h3>3. The Ashanti Kingdom</h3>
-                <span class="play-btn">Play Games &rarr;</span>
-            </a>
-
-            <div class="game-card history-card">
-                <div class="game-icon">🎯</div>
-                <h3>History Term 3 Revision</h3>
-                <div style="display: flex; gap: 0.5rem; width: 100%; margin-top: auto;">
-                    <a href="History/Term 3 Revision/Spin the Wheel/SpinTheWheel.html" class="play-btn" style="flex: 1 1 0; display: flex; justify-content: center; align-items: center; text-align: center; padding: 0.5rem 0.2rem; font-size: 0.85rem; background-color: #cd853f;">Spin Wheel ➔</a>
-                    <a href="History/Term 3 Revision/Jeopardy/Jeopardy.html" class="play-btn" style="flex: 1 1 0; display: flex; justify-content: center; align-items: center; text-align: center; padding: 0.5rem 0.2rem; background-color: #8b4513; font-size: 0.85rem;">Jeopardy ➔</a>
-                </div>
-            </div>
-
         </main>
-
-        <h2 class="subject-divider geography">&#129517; Geography</h2>
-        <main class="games-grid">
-            
-            <a href="Geography/4. Rural Settlements/RuralSettlements.html" class="game-card geo-card">
-                <div class="game-icon">&#127969;</div>
-                <h3>4. Rural Settlements</h3>
-                <span class="play-btn">Play Game &#10132;</span>
-            </a>
-
-            <a href="Geography/5. Urban Settlements/UrbanSettlements.html" class="game-card geo-card">
-                <div class="game-icon">&#127961;&#65039;</div>
-                <h3>5. Urban Settlements</h3>
-                <span class="play-btn">Play Game &#10132;</span>
-            </a>
-
-            <a href="Geography/6. Aerial Photographs/AerialPhotographs.html" class="game-card geo-card">
-                <div class="game-icon">&#128248;</div>
-                <h3>6. Aerial Photographs</h3>
-                <span class="play-btn">Play Game &#10132;</span>
-            </a>
-
-            <a href="Geography/7. Urbanisation/Urbanisation.html" class="game-card geo-card">
-                <div class="game-icon">&#128101;</div>
-                <h3>7. Urbanisation</h3>
-                <span class="play-btn">Play Game &#10132;</span>
-            </a>
-
-            <div class="game-card geo-card">
-                <div class="game-icon">🎯</div>
-                <h3>Geography Term 3 Revision</h3>
-                <div style="display: flex; gap: 0.5rem; width: 100%; margin-top: auto;">
-                    <a href="Geography/Term 3 Revision/Spin the Wheel/SpinTheWheel.html" class="play-btn" style="flex: 1 1 0; display: flex; justify-content: center; align-items: center; text-align: center; padding: 0.5rem 0.2rem; font-size: 0.85rem; background-color: #3385ff;">Spin Wheel ➔</a>
-                    <a href="Geography/Term 3 Revision/Jeopardy/Jeopardy.html" class="play-btn" style="flex: 1 1 0; display: flex; justify-content: center; align-items: center; text-align: center; padding: 0.5rem 0.2rem; background-color: #004d66; font-size: 0.85rem;">Jeopardy ➔</a>
-                </div>
-            </div>
-
-        </main>
-
     </div>
 
     <footer>
@@ -427,10 +378,10 @@
             </div>
             <div class="footer-links">
                 <h4>Quick Links</h4>
-                <a href="https://mmayaya.github.io/mayhub/">Home</a>
-                <a href="https://mmayaya.github.io/mayhub/about">About</a>
-                <a href="https://mmayaya.github.io/mayhub/#feedback">Feedback</a>
-                <a href="https://mmayaya.github.io/mayhub/suppdown">Support &amp; Downloads</a>
+                <a href="../../../../index.html">Home</a>
+                <a href="../../../../about.html">About</a>
+                <a href="../../../../index.html#feedback">Feedback</a>
+                <a href="../../../../suppdown.html">Support &amp; Downloads</a>
             </div>
             <div class="footer-note">
                 <h4>Site Note</h4>

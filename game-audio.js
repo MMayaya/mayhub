@@ -7,6 +7,8 @@
     const audio = {
         correct: new Audio(new URL('Sounds/Correct.mp3', siteRoot)),
         wrong: new Audio(new URL('Sounds/Wrong.mp3', siteRoot)),
+        pass: new Audio(new URL('Sounds/Pass.mp3', siteRoot)),
+        fail: new Audio(new URL('Sounds/Fail.mp3', siteRoot)),
         wheel: new Audio(new URL('Sounds/Wheel.mp3', siteRoot)),
         snakeMove: new Audio(new URL('Sounds/MovingSnake.mp3', siteRoot)),
         snakeBite: new Audio(new URL('Sounds/SnakeBite.mp3', siteRoot))
@@ -14,6 +16,8 @@
 
     audio.correct.volume = 0.5;
     audio.wrong.volume = 0.45;
+    audio.pass.volume = 0.5;
+    audio.fail.volume = 0.5;
     audio.wheel.volume = 0.35;
     audio.snakeMove.volume = 0.25;
     audio.snakeBite.volume = 0.55;
@@ -97,6 +101,8 @@
     window.MayHubSounds = {
         playCorrect: () => play('correct'),
         playWrong: () => play('wrong'),
+        playPass: () => play('pass'),
+        playFail: () => play('fail'),
         startWheel: () => play('wheel'),
         stopWheel: () => stop('wheel'),
         startSnakeMovement: () => play('snakeMove'),
