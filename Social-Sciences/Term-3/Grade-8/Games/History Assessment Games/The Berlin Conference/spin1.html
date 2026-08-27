@@ -14,6 +14,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Learning Hub | Grade 8 Social Sciences History: The Berlin Conference</title>
+    <link rel="canonical" href="https://www.maylearninghub.co.za/Social-Sciences/Term-3/Grade-8/Games/History%20Assessment%20Games/The%20Berlin%20Conference/spin1.html">
+    <meta name="description" content="Test yourself with the Grade 8 Social Sciences History Berlin Conference Spin-the-Wheel assessment game from May Learning Hub.">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="The Berlin Conference Spin-the-Wheel Challenge | May Learning Hub">
+    <meta property="og:description" content="Can you beat the score? Test yourself with this Grade 8 Social Sciences History challenge.">
+    <meta property="og:url" content="https://www.maylearninghub.co.za/Social-Sciences/Term-3/Grade-8/Games/History%20Assessment%20Games/The%20Berlin%20Conference/spin1.html">
+    <meta property="og:image" content="https://www.maylearninghub.co.za/May%20Learning%20Hub%20Logo.png">
+    <meta property="og:image:alt" content="May Learning Hub">
+    <meta name="twitter:card" content="summary">
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f0f4f8; color: #333; line-height: 1.6; display: flex; flex-direction: column; min-height: 100vh; }
@@ -29,9 +38,17 @@
         .cat-buttons { display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem; }
         .cat-btn { background-color: #f0f4f8; border: 2px solid #004080; color: #004080; padding: 0.8rem 1.5rem; font-size: 1.1rem; font-weight: bold; border-radius: 8px; cursor: pointer; transition: all 0.3s ease; }
         .cat-btn:hover, .cat-btn.active { background-color: #004080; color: #fff; transform: translateY(-3px); box-shadow: 0 4px 10px rgba(0,64,128,0.2); }
+        button:focus-visible, a:focus-visible { outline: 3px solid #ffc107; outline-offset: 3px; }
+        .visually-hidden { position: absolute !important; width: 1px !important; height: 1px !important; padding: 0 !important; margin: -1px !important; overflow: hidden !important; clip: rect(0,0,0,0) !important; white-space: nowrap !important; border: 0 !important; }
+        .resume-panel { display: none; margin: 1rem auto 1.5rem; padding: 1rem; max-width: 680px; border: 2px solid #3385ff; border-radius: 12px; background: #edf6ff; color: #17324d; }
+        .resume-panel strong { display: block; margin-bottom: 0.25rem; }
+        .resume-actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.65rem; margin-top: 0.8rem; }
+        .resume-btn { border: none; border-radius: 8px; padding: 0.7rem 1rem; font-weight: 800; cursor: pointer; }
+        .resume-primary { background: #005bb5; color: #fff; }
+        .resume-secondary { background: #fff; color: #004080; border: 1px solid #80b3ff; }
         #wheelArea { display: none; margin-top: 2rem; padding-top: 2rem; border-top: 2px dashed #ccc; animation: fadeIn 0.5s ease; }
         #activeCategoryTitle { color: #3385ff; margin-bottom: 1.5rem; font-size: 1.8rem; }
-        .wheel-wrapper { position: relative; width: 380px; height: 380px; margin: 0 auto 2rem; border-radius: 50%; box-shadow: 0 20px 40px rgba(0,0,0,0.3); }
+        .wheel-wrapper { --wheel-label-radius: clamp(105px, 31vw, 145px); position: relative; width: min(380px, 82vw); height: min(380px, 82vw); margin: 0 auto 2rem; border-radius: 50%; box-shadow: 0 20px 40px rgba(0,0,0,0.3); }
         .pointer { position: absolute; top: -25px; left: 50%; transform: translateX( -50%); width: 0; height: 0; border-left: 22px solid transparent; border-right: 22px solid transparent; border-top: 55px solid #e60000; z-index: 10; filter: drop-shadow(0 6px 6px rgba(0,0,0,0.5)); }
         .wheel { width: 100%; height: 100%; border-radius: 50%; border: 15px solid #001a33; position: relative; overflow: hidden; transition: transform 4s cubic-bezier(0.17, 0.67, 0.12, 0.99); box-shadow: inset 0 0 30px rgba(0,0,0,0.7), inset 0 0 0 6px rgba(255,255,255,0.3); }
         .wheel-center { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 45px; height: 45px; background: radial-gradient(circle, #e6f0fa, #80b3ff); border-radius: 50%; border: 5px solid #001a33; box-shadow: 0 4px 10px rgba(0,0,0,0.6); z-index: 6; }
@@ -71,6 +88,7 @@
         .certificate.tier-silver { --award: #9aa6b2; --award-dark: #4e5a66; --award-soft: #edf1f4; }
         .certificate.tier-gold { --award: #d4af37; --award-dark: #755b08; --award-soft: #fff6cf; }
         .certificate.tier-platinum { --award: #c7d8e2; --award-dark: #165173; --award-soft: #eaf7ff; }
+        .certificate.tier-participation { --award: #1268ad; --award-dark: #003f75; --award-soft: #eef8ff; background: linear-gradient(155deg, #cfeaff 0%, #f3faff 30%, #fff 58%, #e8f6ff 100%); }
         .certificate-header { width: 100%; min-height: 120px; display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; position: relative; z-index: 1; }
         .certificate-logo { display: block; width: 128px; height: auto; object-fit: contain; filter: drop-shadow(0 4px 5px rgba(0,0,0,.13)); }
         .certificate-trophy { font-size: 4rem; line-height: 1; filter: drop-shadow(0 6px 8px rgba(0,0,0,.22)); animation: trophyBounce 1.1s ease both; }
@@ -84,6 +102,7 @@
         .score-ring strong { display: block; font-size: 2.55rem; line-height: 1; }
         .score-ring span { display: block; margin-top: 0.25rem; font-size: 0.78rem; font-weight: 900; letter-spacing: .08em; text-transform: uppercase; }
         .celebration-message { max-width: 475px; margin: 0 auto; color: var(--award-dark); font-size: 0.98rem; font-weight: 800; line-height: 1.45; }
+        .certificate-progress { margin: 0.65rem auto 0; padding: 0.55rem 0.8rem; max-width: 470px; border-radius: 9px; background: rgba(255,255,255,.66); color: #425466; font-size: 0.8rem; font-weight: 700; line-height: 1.4; }
         .certificate-footer { width: 100%; margin-top: auto; padding-top: 1.4rem; display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; align-items: end; }
         .certificate-footer-item { border-top: 1px solid #6f7d89; padding-top: 0.4rem; }
         .certificate-footer strong { display: block; color: #17324d; font-size: 0.9rem; }
@@ -93,9 +112,22 @@
         .celebration-btn { border: none; border-radius: 10px; padding: 0.9rem 1.15rem; font-size: 1rem; font-weight: 800; cursor: pointer; transition: transform .2s, box-shadow .2s; }
         .celebration-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(0,0,0,.22); }
         .whatsapp-btn { background: #25d366; color: #072d16; }
+        .download-btn { background: #005bb5; color: #fff; }
+        .review-btn { background: #e6f1ff; color: #003f75; border: 1px solid #80b3ff; }
         .replay-btn { background: #ffc107; color: #2f2500; }
         .category-btn { background: #fff; color: #003a75; border: 1px solid #aab8c6; }
         .share-note { margin-top: 0.75rem; color: #536273; font-size: 0.8rem; }
+        .review-page { display: none; margin-top: 2rem; padding: 1.5rem; border-radius: 16px; background: #f7fbff; border: 2px solid #b3d4ff; text-align: left; }
+        .review-page h2 { color: #004080; text-align: center; margin-bottom: 0.4rem; }
+        .review-summary { text-align: center; color: #52606d; margin-bottom: 1rem; }
+        .review-list { display: grid; gap: 0.8rem; }
+        .review-item { padding: 1rem; border-radius: 10px; background: #fff; border-left: 5px solid #dc3545; box-shadow: 0 3px 10px rgba(0,0,0,.07); }
+        .review-item.learning-card { border-left-color: #1268ad; }
+        .review-question { color: #17324d; font-weight: 800; margin-bottom: 0.35rem; }
+        .review-answer { color: #445566; font-size: 0.92rem; }
+        .review-answer strong { color: #17324d; }
+        .review-empty { padding: 1.2rem; text-align: center; border-radius: 10px; background: #e6f7ea; color: #155724; font-weight: 800; }
+        .review-actions { display: flex; justify-content: center; flex-wrap: wrap; gap: 0.7rem; margin-top: 1rem; }
         .confetti-piece { position: absolute; width: 11px; height: 22px; top: -30px; opacity: .9; animation: confettiFall 4.5s linear infinite; }
         .confetti-piece:nth-child(1) { left: 7%; background:#ffc107; animation-delay:.1s; transform:rotate(14deg); }
         .confetti-piece:nth-child(2) { left: 16%; background:#25d366; animation-delay:1.2s; }
@@ -117,8 +149,8 @@
             .mc-options { gap: 0.5rem; margin-bottom: 0.8rem; }
             .option-btn { padding: 0.7rem; font-size: 0.95rem; }
             .term-carousel { padding: 0.6rem; margin-bottom: 0.6rem; border-radius: 12px; }
-            .term-carousel-row { grid-template-columns: 36px minmax(0, 1fr) 36px; gap: 0.35rem; }
-            .term-nav-btn { border-radius: 8px; font-size: 1.35rem; }
+            .term-carousel-row { grid-template-columns: 42px minmax(0, 1fr) 42px; gap: 0.35rem; }
+            .term-nav-btn { min-height: 50px; border-radius: 8px; font-size: 1.35rem; }
             .term-option-display { min-height: 50px; padding: 0.45rem; border-radius: 9px; font-size: 0.98rem; }
             .term-position { margin-top: 0.25rem; font-size: 0.72rem; }
             .celebration-page { padding: 1rem 0.45rem; }
@@ -136,10 +168,17 @@
             .score-ring strong { font-size: 1.9rem; }
             .score-ring span { font-size: 0.63rem; }
             .celebration-message { font-size: 0.76rem; }
+            .certificate-progress { font-size: 0.66rem; padding: 0.4rem 0.55rem; }
             .certificate-footer { gap: 0.8rem; padding-top: 0.8rem; }
             .certificate-footer strong { font-size: 0.72rem; }
             .certificate-signature { font-size: 0.82rem !important; }
             .certificate-footer span { font-size: 0.58rem; }
+            .review-page { padding: 1rem 0.7rem; }
+            .review-item { padding: 0.75rem; }
+            .resume-panel { font-size: 0.9rem; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after { scroll-behavior: auto !important; animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; }
         }
         footer { text-align: center; padding: 1rem; background-color: #002b5e; color: #fff; margin-top: auto; }
     </style>
@@ -159,13 +198,22 @@
         <p class="game-subtitle">Revise the Berlin Conference, its organisers, decisions, rules, and consequences for Africa.</p>
         <p style="font-size: 0.78rem; color: #52606d; margin-top: 0.45rem;">Grade 8 Social Sciences History Term 3 revision</p>
 
+        <aside class="resume-panel" id="resumePanel" aria-live="polite">
+            <strong>Continue your saved game?</strong>
+            <span id="resumeMessage"></span>
+            <div class="resume-actions">
+                <button class="resume-btn resume-primary" type="button" onclick="resumeSavedProgress()">Continue</button>
+                <button class="resume-btn resume-secondary" type="button" onclick="discardSavedProgress()">Start Fresh</button>
+            </div>
+        </aside>
+
         <div class="category-selection">
             <h2>Step 1: Choose a Category</h2>
             <div class="cat-buttons" id="catButtons">
-                <button class="cat-btn" onclick="selectCategory('definitions', this)">Definitions: Term → Meaning</button>
-                <button class="cat-btn" onclick="selectCategory('terms', this)">Name the Term: Meaning → Term</button>
-                <button class="cat-btn" onclick="selectCategory('multipleChoice', this)">Multiple Choice</button>
-                <button class="cat-btn" onclick="selectCategory('trueFalse', this)">True or False</button>
+                <button class="cat-btn" type="button" data-category="definitions" aria-pressed="false" onclick="selectCategory('definitions', this)">Definitions: Term → Meaning</button>
+                <button class="cat-btn" type="button" data-category="terms" aria-pressed="false" onclick="selectCategory('terms', this)">Name the Term: Meaning → Term</button>
+                <button class="cat-btn" type="button" data-category="multipleChoice" aria-pressed="false" onclick="selectCategory('multipleChoice', this)">Multiple Choice</button>
+                <button class="cat-btn" type="button" data-category="trueFalse" aria-pressed="false" onclick="selectCategory('trueFalse', this)">True or False</button>
             </div>
         </div>
 
@@ -181,11 +229,11 @@
                 </div>
             </div>
 
-            <div class="score-tracker" id="scoreTracker">Score: 0 / 0</div>
+            <div class="score-tracker" id="scoreTracker" aria-live="polite">Score: 0 / 0</div>
             <button class="spin-btn" id="spinBtn" onclick="spinWheel()">SPIN THE WHEEL</button>
             <p id="remainingCount" style="color: #666; font-size: 0.9rem; margin-bottom: 1rem; font-weight: bold;">10 questions remaining</p>
 
-            <div class="question-card" id="questionCard">
+            <div class="question-card" id="questionCard" role="region" aria-labelledby="questionText">
                 <div class="q-number-tag" id="qNumberTag">Question #</div>
                 <div class="question-text" id="questionText">Loading question...</div>
                 
@@ -201,7 +249,7 @@
                 </div>
                 
                 <button class="reveal-btn" id="revealBtn" onclick="revealAnswer()">Reveal Answer</button>
-                <div class="answer-text" id="answerText"></div>
+                <div class="answer-text" id="answerText" role="status" aria-live="polite"></div>
             </div>
         </div>
 
@@ -210,7 +258,7 @@
             <span class="confetti-piece"></span><span class="confetti-piece"></span><span class="confetti-piece"></span>
             <span class="confetti-piece"></span><span class="confetti-piece"></span><span class="confetti-piece"></span>
             <div class="celebration-content">
-                <article class="certificate tier-bronze" id="resultCertificate">
+                <article class="certificate tier-bronze" id="resultCertificate" aria-labelledby="certificateTitle">
                     <header class="certificate-header">
                         <img class="certificate-logo" src="../../../../../../May Learning Hub Logo.png" alt="May Learning Hub">
                         <span class="certificate-trophy" aria-hidden="true">🏆</span>
@@ -220,9 +268,11 @@
                     <p class="certificate-award" id="certificateAward">Silver Pass Award</p>
                     <p class="certificate-presented">This certificate is proudly presented to</p>
                     <p class="learner-name" id="celebrationLearner">Guest Learner</p>
-                    <p class="certificate-body">for completing <strong>The Berlin Conference</strong> challenge in the <strong id="certificateCategory">selected</strong> category.</p>
-                    <div class="score-ring"><div><strong id="celebrationScore">0/10</strong><span>Correct</span></div></div>
+                    <p class="certificate-body" id="scoredCertificateBody">for completing <strong>The Berlin Conference</strong> challenge in the <strong id="certificateCategory">selected</strong> category.</p>
+                    <p class="certificate-body" id="participationCertificateBody" style="display:none;">for successful participation in the <strong id="participationCategory">Definitions: Term → Meaning</strong> activity on <strong>The Berlin Conference</strong>.</p>
+                    <div class="score-ring" id="certificateScoreRing"><div><strong id="celebrationScore">0/10</strong><span>Correct</span></div></div>
                     <p class="celebration-message" id="celebrationMessage"></p>
+                    <p class="certificate-progress" id="certificateProgress"></p>
                     <div class="certificate-footer">
                         <div class="certificate-footer-item">
                             <strong id="certificateDate">27 August 2026</strong>
@@ -236,12 +286,25 @@
                 </article>
                 <div class="celebration-actions">
                     <button class="celebration-btn whatsapp-btn" onclick="shareWhatsApp()">Share on WhatsApp</button>
+                    <button class="celebration-btn download-btn" onclick="downloadCertificate()">Download Certificate</button>
+                    <button class="celebration-btn review-btn" id="reviewCertificateBtn" onclick="showReview()">Review Answers</button>
                     <button class="celebration-btn replay-btn" onclick="playCategoryAgain()">Play Again</button>
                     <button class="celebration-btn category-btn" onclick="chooseAnotherCategory()">Choose Another Category</button>
                 </div>
                 <p class="share-note">WhatsApp will open its sharing screen. Choose <strong>My status</strong> or a contact.</p>
             </div>
         </section>
+
+        <section class="review-page" id="reviewPage" aria-labelledby="reviewTitle">
+            <h2 id="reviewTitle">Review</h2>
+            <p class="review-summary" id="reviewSummary"></p>
+            <div class="review-list" id="reviewList"></div>
+            <div class="review-actions">
+                <button class="celebration-btn category-btn" type="button" onclick="backToCertificate()">Back to Certificate</button>
+                <button class="celebration-btn replay-btn" type="button" onclick="playCategoryAgain()">Try Again</button>
+            </div>
+        </section>
+        <div class="visually-hidden" id="gameStatus" aria-live="polite"></div>
     </main>
 
     <footer>
@@ -249,7 +312,6 @@
     </footer>
 
         <script src="../../../../../../game-audio.js"></script>
-        <script src="../../../../../../assessment-certificate.js"></script>
 <script>
         const gameData = {
     "definitions": [
@@ -534,6 +596,10 @@
 
         const totalQuestions = 10;
         const sliceAngle = 360 / totalQuestions;
+        const publicGameUrl = 'https://www.maylearninghub.co.za/Social-Sciences/Term-3/Grade-8/Games/History%20Assessment%20Games/The%20Berlin%20Conference/spin1.html';
+        const progressVersion = 2;
+        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        const spinDuration = prefersReducedMotion ? 350 : 4000;
         const interactiveCategories = new Set(['terms', 'multipleChoice', 'trueFalse']);
         let currentCategoryKey = null;
         let currentCategoryLabel = '';
@@ -541,9 +607,11 @@
         let currentQuestionData = null;
         let targetQuestionIndex = null;
         let currentQuestionAnswered = true;
+        let currentAnswerRevealed = false;
         let lastCompletedScore = null;
         let currentTermChoices = [];
         let currentTermChoiceIndex = 0;
+        let savedProgressState = null;
 
         const freshQuestionIndexes = () => Array.from({ length: totalQuestions }, (_, index) => index);
         const availableQuestions = {
@@ -556,6 +624,11 @@
             terms: { correct: 0, answered: 0 },
             multipleChoice: { correct: 0, answered: 0 },
             trueFalse: { correct: 0, answered: 0 }
+        };
+        const categoryResults = {
+            terms: [],
+            multipleChoice: [],
+            trueFalse: []
         };
         const sliceColors = ['#0055ff', '#0088ff', '#00bfff', '#0044cc'];
 
@@ -579,18 +652,203 @@
                 gradientParts.push(sliceColors[index % sliceColors.length] + ' ' + startAngle + 'deg ' + endAngle + 'deg');
                 const label = document.createElement('div');
                 label.className = 'label';
-                label.style.transform = 'rotate(' + (startAngle + (sliceAngle / 2) - 90) + 'deg) translate(145px, -50%)';
+                label.style.transform = 'rotate(' + (startAngle + (sliceAngle / 2) - 90) + 'deg) translate(var(--wheel-label-radius), -50%)';
                 label.innerText = index + 1;
                 wheelLabels.appendChild(label);
             }
             wheelBg.style.background = 'conic-gradient(' + gradientParts.join(', ') + ')';
+            document.getElementById('wheel').style.transitionDuration = spinDuration + 'ms';
+        }
+
+        function announce(message) {
+            document.getElementById('gameStatus').innerText = message;
+        }
+
+        function getLearnerIdentity() {
+            for (const storage of [window.localStorage, window.sessionStorage]) {
+                try {
+                    const saved = JSON.parse(storage.getItem('mayhubActivityAccess') || 'null');
+                    if (!saved) continue;
+                    const fullName = saved?.profile?.fullName?.trim() || '';
+                    const email = saved?.email || '';
+                    const id = saved?.uid || email;
+                    if (id) {
+                        return {
+                            signedIn: true,
+                            id: String(id),
+                            name: fullName || email.split('@')[0] || 'Signed-in learner'
+                        };
+                    }
+                } catch {}
+            }
+            return { signedIn: false, id: 'guest', name: '' };
+        }
+
+        function progressStorageKey() {
+            const identity = getLearnerIdentity();
+            return 'mayhubBerlinSpinProgress:v' + progressVersion + ':' + encodeURIComponent(identity.id);
+        }
+
+        function saveProgress() {
+            if (!currentCategoryKey || lastCompletedScore) return;
+            try {
+                const state = {
+                    version: progressVersion,
+                    categoryKey: currentCategoryKey,
+                    categoryLabel: currentCategoryLabel,
+                    availableQuestions: Object.fromEntries(Object.entries(availableQuestions).map(([key, value]) => [key, [...value]])),
+                    categoryStats: JSON.parse(JSON.stringify(categoryStats)),
+                    categoryResults: JSON.parse(JSON.stringify(categoryResults)),
+                    currentRotation,
+                    pendingQuestionIndex: Number.isInteger(targetQuestionIndex) ? targetQuestionIndex : null,
+                    answerResolved: currentAnswerRevealed,
+                    savedAt: new Date().toISOString()
+                };
+                window.localStorage.setItem(progressStorageKey(), JSON.stringify(state));
+            } catch {}
+        }
+
+        function clearSavedProgress() {
+            try {
+                window.localStorage.removeItem(progressStorageKey());
+            } catch {}
+            savedProgressState = null;
+            document.getElementById('resumePanel').style.display = 'none';
+        }
+
+        function offerSavedProgress() {
+            try {
+                const state = JSON.parse(window.localStorage.getItem(progressStorageKey()) || 'null');
+                if (!state || state.version !== progressVersion || !gameData[state.categoryKey]) return;
+                savedProgressState = state;
+                let completed = state.categoryKey === 'definitions'
+                    ? totalQuestions - state.availableQuestions.definitions.length
+                    : state.categoryStats[state.categoryKey]?.answered || 0;
+                if (state.categoryKey === 'definitions' && Number.isInteger(state.pendingQuestionIndex) && !state.answerResolved) {
+                    completed = Math.max(0, completed - 1);
+                }
+                document.getElementById('resumeMessage').innerText = state.categoryLabel + ' — ' + completed + ' of ' + totalQuestions + ' completed.';
+                document.getElementById('resumePanel').style.display = 'block';
+            } catch {}
+        }
+
+        function resumeSavedProgress() {
+            const state = savedProgressState;
+            if (!state || !gameData[state.categoryKey]) return;
+            Object.keys(availableQuestions).forEach(key => {
+                availableQuestions[key] = Array.isArray(state.availableQuestions?.[key])
+                    ? [...state.availableQuestions[key]]
+                    : freshQuestionIndexes();
+            });
+            Object.keys(categoryStats).forEach(key => {
+                categoryStats[key] = state.categoryStats?.[key]
+                    ? { ...state.categoryStats[key] }
+                    : { correct: 0, answered: 0 };
+                categoryResults[key] = Array.isArray(state.categoryResults?.[key])
+                    ? [...state.categoryResults[key]]
+                    : [];
+            });
+
+            currentCategoryKey = state.categoryKey;
+            const categoryButton = document.querySelector('.cat-btn[data-category="' + currentCategoryKey + '"]');
+            currentCategoryLabel = state.categoryLabel || categoryButton?.innerText || currentCategoryKey;
+            if (Number.isInteger(state.pendingQuestionIndex) && !state.answerResolved) {
+                const available = availableQuestions[currentCategoryKey];
+                if (!available.includes(state.pendingQuestionIndex)) available.push(state.pendingQuestionIndex);
+            }
+
+            currentRotation = Number(state.currentRotation) || 0;
+            currentQuestionData = null;
+            targetQuestionIndex = null;
+            currentQuestionAnswered = true;
+            currentAnswerRevealed = true;
+            lastCompletedScore = null;
+            document.querySelectorAll('.cat-btn').forEach(button => {
+                const isActive = button === categoryButton;
+                button.classList.toggle('active', isActive);
+                button.setAttribute('aria-pressed', String(isActive));
+            });
+            document.getElementById('resumePanel').style.display = 'none';
+            document.querySelector('.category-selection').style.display = 'block';
+            document.getElementById('celebrationPage').style.display = 'none';
+            document.getElementById('reviewPage').style.display = 'none';
+            document.getElementById('wheelArea').style.display = 'block';
+            document.getElementById('activeCategoryTitle').innerText = 'Category: ' + currentCategoryLabel;
+            document.getElementById('questionCard').style.display = 'none';
+            document.getElementById('remainingCount').innerText = availableQuestions[currentCategoryKey].length + ' questions remaining';
+            document.getElementById('wheel').style.transform = 'rotate(' + currentRotation + 'deg)';
+            document.getElementById('spinBtn').disabled = false;
+            document.getElementById('spinBtn').innerText = 'SPIN THE WHEEL';
+            updateScoreTracker();
+            announce('Saved ' + currentCategoryLabel + ' game resumed.');
+
+            const finished = availableQuestions[currentCategoryKey].length === 0;
+            if (finished) {
+                document.getElementById('spinBtn').disabled = true;
+                setTimeout(() => {
+                    if (currentCategoryKey === 'definitions') showParticipationCertificate();
+                    else showCelebration();
+                }, 350);
+            } else {
+                saveProgress();
+            }
+        }
+
+        function discardSavedProgress() {
+            clearSavedProgress();
+            document.getElementById('resumePanel').style.display = 'none';
+            announce('Saved game discarded. Choose a category to start fresh.');
+        }
+
+        function learnerHistoryKey(identity, categoryKey) {
+            return 'mayhubBerlinSpinHistory:' + encodeURIComponent(identity.id) + ':' + categoryKey;
+        }
+
+        function updateLearnerHistory(mode, correct = null) {
+            const identity = getLearnerIdentity();
+            if (!identity.signedIn) {
+                return { text: '' };
+            }
+            try {
+                const key = learnerHistoryKey(identity, currentCategoryKey);
+                const previous = JSON.parse(window.localStorage.getItem(key) || 'null') || {};
+                if (mode === 'participation') {
+                    const completions = (previous.completions || 0) + 1;
+                    window.localStorage.setItem(key, JSON.stringify({ ...previous, completions, lastPlayed: new Date().toISOString() }));
+                    return { text: 'Saved to your activity history • Completion ' + completions };
+                }
+                const attempts = (previous.attempts || 0) + 1;
+                const previousBest = Number.isFinite(previous.bestCorrect) ? previous.bestCorrect : null;
+                const previousResult = Number.isFinite(previous.lastCorrect) ? previous.lastCorrect : null;
+                const bestCorrect = previousBest === null ? correct : Math.max(previousBest, correct);
+                window.localStorage.setItem(key, JSON.stringify({
+                    ...previous,
+                    attempts,
+                    bestCorrect,
+                    lastCorrect: correct,
+                    total: totalQuestions,
+                    lastPlayed: new Date().toISOString()
+                }));
+                let improvementText = attempts === 1 || previousResult === null
+                    ? 'First recorded attempt'
+                    : 'Change from last attempt: ' + (correct - previousResult >= 0 ? '+' : '') + (correct - previousResult);
+                if (previousBest !== null && correct > previousBest) improvementText = 'New personal best!';
+                return {
+                    text: 'Attempt ' + attempts + ' • Current ' + correct + '/' + totalQuestions + ' • Personal best ' + bestCorrect + '/' + totalQuestions + ' • ' + improvementText
+                };
+            } catch {
+                return { text: 'Your result is complete, but activity history could not be saved on this device.' };
+            }
         }
 
         function resetCategory(categoryKey) {
             availableQuestions[categoryKey] = freshQuestionIndexes();
             if (categoryStats[categoryKey]) categoryStats[categoryKey] = { correct: 0, answered: 0 };
+            if (categoryResults[categoryKey]) categoryResults[categoryKey] = [];
             currentQuestionData = null;
+            targetQuestionIndex = null;
             currentQuestionAnswered = true;
+            currentAnswerRevealed = false;
             lastCompletedScore = null;
         }
 
@@ -609,10 +867,16 @@
             currentCategoryKey = categoryKey;
             currentCategoryLabel = btnElement.innerText;
             if (availableQuestions[categoryKey].length === 0) resetCategory(categoryKey);
-            document.querySelectorAll('.cat-btn').forEach(button => button.classList.remove('active'));
+            document.querySelectorAll('.cat-btn').forEach(button => {
+                button.classList.remove('active');
+                button.setAttribute('aria-pressed', 'false');
+            });
             btnElement.classList.add('active');
+            btnElement.setAttribute('aria-pressed', 'true');
+            document.getElementById('resumePanel').style.display = 'none';
             document.querySelector('.category-selection').style.display = 'block';
             document.getElementById('celebrationPage').style.display = 'none';
+            document.getElementById('reviewPage').style.display = 'none';
             document.getElementById('wheelArea').style.display = 'block';
             document.getElementById('activeCategoryTitle').innerText = 'Category: ' + currentCategoryLabel;
             document.getElementById('questionCard').style.display = 'none';
@@ -620,13 +884,18 @@
             document.getElementById('spinBtn').disabled = false;
             document.getElementById('spinBtn').innerText = 'SPIN THE WHEEL';
             currentQuestionAnswered = true;
+            currentAnswerRevealed = false;
+            currentQuestionData = null;
+            targetQuestionIndex = null;
             currentRotation = 0;
             document.getElementById('wheel').style.transform = 'rotate(0deg)';
             updateScoreTracker();
+            announce(currentCategoryLabel + ' selected. Spin the wheel to begin.');
+            saveProgress();
         }
 
         function spinWheel() {
-            if (!currentCategoryKey || (!currentQuestionAnswered && interactiveCategories.has(currentCategoryKey))) return;
+            if (!currentCategoryKey || !currentQuestionAnswered) return;
             const spinBtn = document.getElementById('spinBtn');
             const wheel = document.getElementById('wheel');
             const questionCard = document.getElementById('questionCard');
@@ -641,6 +910,7 @@
             spinBtn.innerText = 'SPINNING...';
             MayHubSounds.startWheel();
             questionCard.style.display = 'none';
+            currentAnswerRevealed = false;
 
             const randomArrayIndex = Math.floor(Math.random() * available.length);
             targetQuestionIndex = available[randomArrayIndex];
@@ -651,20 +921,18 @@
             const currentBase = Math.ceil(currentRotation / 360) * 360;
             currentRotation = currentBase + 1800 + targetDegree;
             wheel.style.transform = 'rotate(' + currentRotation + 'deg)';
+            saveProgress();
 
             setTimeout(() => {
                 MayHubSounds.stopWheel();
                 currentQuestionData = gameData[currentCategoryKey][targetQuestionIndex];
-                currentQuestionAnswered = !interactiveCategories.has(currentCategoryKey);
+                currentQuestionAnswered = false;
                 displayQuestion(totalQuestions - available.length, currentQuestionData);
-                if (currentQuestionAnswered) {
-                    spinBtn.disabled = false;
-                    spinBtn.innerText = available.length ? 'SPIN AGAIN' : 'RESTART CATEGORY';
-                } else {
-                    spinBtn.disabled = true;
-                    spinBtn.innerText = 'CHOOSE AN ANSWER';
-                }
-            }, 4000);
+                spinBtn.disabled = true;
+                spinBtn.innerText = interactiveCategories.has(currentCategoryKey) ? 'CHOOSE AN ANSWER' : 'REVEAL THE ANSWER';
+                announce('Question ready.');
+                saveProgress();
+            }, spinDuration);
         }
 
         function buildTermChoices(correctAnswer) {
@@ -676,6 +944,7 @@
         }
 
         function displayQuestion(attemptNumber, data) {
+            currentAnswerRevealed = false;
             document.getElementById('qNumberTag').innerText = interactiveCategories.has(currentCategoryKey)
                 ? 'Attempt ' + attemptNumber + ' of ' + totalQuestions
                 : 'Card ' + attemptNumber + ' of ' + totalQuestions;
@@ -727,6 +996,7 @@
             if (currentQuestionAnswered || currentTermChoices.length < 2) return;
             currentTermChoiceIndex = (currentTermChoiceIndex + direction + currentTermChoices.length) % currentTermChoices.length;
             displayCurrentTermChoice();
+            saveProgress();
         }
 
         function submitCurrentTerm() {
@@ -745,6 +1015,14 @@
             const stats = categoryStats[currentCategoryKey];
             stats.answered++;
             if (isCorrect) stats.correct++;
+            categoryResults[currentCategoryKey].push({
+                question: currentQuestionData.q,
+                selected: selectedText,
+                correctAnswer: currentQuestionData.a,
+                correct: isCorrect,
+                explanation: currentQuestionData.exp || ''
+            });
+            currentAnswerRevealed = true;
             updateScoreTracker();
 
             const answerText = document.getElementById('answerText');
@@ -760,6 +1038,8 @@
                 answerText.innerHTML = '<div style="color:#b42318;font-weight:800;">Not quite.</div> Correct answer: ' + currentQuestionData.a + '. ' + (currentQuestionData.exp || '');
             }
             answerText.style.display = 'block';
+            announce(isCorrect ? 'Correct answer.' : 'Incorrect answer. The correct answer is ' + currentQuestionData.a + '.');
+            saveProgress();
 
             const spinBtn = document.getElementById('spinBtn');
             if (availableQuestions[currentCategoryKey].length === 0) {
@@ -775,31 +1055,24 @@
         function revealAnswer() {
             document.getElementById('revealBtn').style.display = 'none';
             document.getElementById('answerText').style.display = 'block';
+            currentQuestionAnswered = true;
+            currentAnswerRevealed = true;
+            announce('Answer revealed.');
+            saveProgress();
             if (currentCategoryKey === 'definitions' && availableQuestions.definitions.length === 0) {
                 const spinBtn = document.getElementById('spinBtn');
                 spinBtn.disabled = true;
                 spinBtn.innerText = 'CATEGORY COMPLETE';
-                setTimeout(() => {
-                    MayHubCertificates.showParticipation({
-                        gameTitle: 'The Berlin Conference Spin-the-Wheel Game',
-                        category: currentCategoryLabel,
-                        detail: 'Completed all ' + totalQuestions + ' definition-and-meaning cards.',
-                        onReplay: playCategoryAgain
-                    });
-                }, 700);
+                setTimeout(showParticipationCertificate, 700);
+            } else {
+                const spinBtn = document.getElementById('spinBtn');
+                spinBtn.disabled = false;
+                spinBtn.innerText = 'SPIN AGAIN';
             }
         }
 
         function getSignedInLearnerName() {
-            for (const storage of [window.localStorage, window.sessionStorage]) {
-                try {
-                    const saved = JSON.parse(storage.getItem('mayhubActivityAccess') || 'null');
-                    const fullName = saved?.profile?.fullName?.trim();
-                    if (fullName) return fullName;
-                    if (saved?.email) return saved.email.split('@')[0];
-                } catch {}
-            }
-            return '';
+            return getLearnerIdentity().name;
         }
 
         function getAwardTier(percentage) {
@@ -836,15 +1109,33 @@
         }
 
         function showCelebration() {
+            if (lastCompletedScore) return;
             const stats = categoryStats[currentCategoryKey];
             if (!stats || stats.answered !== totalQuestions) return;
             const learnerName = getSignedInLearnerName();
             const percentage = (stats.correct / totalQuestions) * 100;
             const tier = getAwardTier(percentage);
             const awardDate = new Date().toLocaleDateString('en-ZA', { day: '2-digit', month: 'long', year: 'numeric' });
-            lastCompletedScore = { name: learnerName, category: currentCategoryLabel, correct: stats.correct, total: totalQuestions, percentage, award: tier.award, date: awardDate };
+            const history = updateLearnerHistory('scored', stats.correct);
+            lastCompletedScore = {
+                name: learnerName,
+                categoryKey: currentCategoryKey,
+                category: currentCategoryLabel,
+                correct: stats.correct,
+                total: totalQuestions,
+                percentage,
+                award: tier.award,
+                title: tier.title,
+                message: tier.message,
+                tierClass: tier.className,
+                date: awardDate,
+                participation: false,
+                history: history.text
+            };
+            clearSavedProgress();
             document.querySelector('.category-selection').style.display = 'none';
             document.getElementById('wheelArea').style.display = 'none';
+            document.getElementById('reviewPage').style.display = 'none';
             document.getElementById('resultCertificate').className = 'certificate ' + tier.className;
             document.getElementById('certificateTitle').innerText = tier.title;
             document.getElementById('certificateAward').innerText = tier.award;
@@ -853,34 +1144,365 @@
             document.getElementById('celebrationLearner').innerText = learnerName || 'Guest Learner';
             document.getElementById('celebrationScore').innerText = stats.correct + '/' + totalQuestions;
             document.getElementById('celebrationMessage').innerText = tier.message;
+            document.getElementById('certificateProgress').innerText = history.text;
+            document.getElementById('certificateProgress').style.display = history.text ? 'block' : 'none';
+            document.getElementById('scoredCertificateBody').style.display = 'block';
+            document.getElementById('participationCertificateBody').style.display = 'none';
+            document.getElementById('certificateScoreRing').style.display = 'grid';
+            document.getElementById('reviewCertificateBtn').innerText = 'Review Missed Answers';
             document.getElementById('celebrationPage').style.display = 'block';
             if (percentage >= 50) MayHubSounds.playPass();
             else MayHubSounds.playFail();
+            announce(tier.title + ' awarded with a score of ' + stats.correct + ' out of ' + totalQuestions + '.');
             document.getElementById('celebrationPage').scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+
+        function showParticipationCertificate() {
+            if (lastCompletedScore) return;
+            const learnerName = getSignedInLearnerName();
+            const awardDate = new Date().toLocaleDateString('en-ZA', { day: '2-digit', month: 'long', year: 'numeric' });
+            const history = updateLearnerHistory('participation');
+            lastCompletedScore = {
+                name: learnerName,
+                categoryKey: currentCategoryKey,
+                category: currentCategoryLabel,
+                correct: null,
+                total: totalQuestions,
+                percentage: null,
+                award: 'May Learning Hub Participation Award',
+                title: 'Certificate of Participation',
+                message: 'Awarded in recognition of active participation.',
+                tierClass: 'tier-participation',
+                date: awardDate,
+                participation: true,
+                history: history.text
+            };
+            clearSavedProgress();
+            document.querySelector('.category-selection').style.display = 'none';
+            document.getElementById('wheelArea').style.display = 'none';
+            document.getElementById('reviewPage').style.display = 'none';
+            document.getElementById('resultCertificate').className = 'certificate tier-participation';
+            document.getElementById('certificateTitle').innerText = lastCompletedScore.title;
+            document.getElementById('certificateAward').innerText = lastCompletedScore.award;
+            document.getElementById('participationCategory').innerText = currentCategoryLabel;
+            document.getElementById('certificateDate').innerText = awardDate;
+            document.getElementById('celebrationLearner').innerText = learnerName || 'Guest Learner';
+            document.getElementById('celebrationMessage').innerText = lastCompletedScore.message;
+            document.getElementById('certificateProgress').innerText = history.text;
+            document.getElementById('certificateProgress').style.display = history.text ? 'block' : 'none';
+            document.getElementById('scoredCertificateBody').style.display = 'none';
+            document.getElementById('participationCertificateBody').style.display = 'block';
+            document.getElementById('certificateScoreRing').style.display = 'none';
+            document.getElementById('reviewCertificateBtn').innerText = 'Review Learning Cards';
+            document.getElementById('celebrationPage').style.display = 'block';
+            MayHubSounds.playPass();
+            announce('Certificate of Participation awarded.');
+            document.getElementById('celebrationPage').scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+
+        function ensureResultName(promptMessage) {
+            if (!lastCompletedScore) return '';
+            if (lastCompletedScore.name) return lastCompletedScore.name;
+            const enteredName = window.prompt(promptMessage, '');
+            if (enteredName === null) return '';
+            const shareName = enteredName.trim();
+            if (!shareName) {
+                window.alert('Please enter your name and surname to continue.');
+                return '';
+            }
+            lastCompletedScore.name = shareName;
+            document.getElementById('celebrationLearner').innerText = shareName;
+            return shareName;
         }
 
         function shareWhatsApp() {
             if (!lastCompletedScore) return;
             const result = lastCompletedScore;
-            let shareName = result.name;
-            if (!shareName) {
-                const enteredName = window.prompt('Please enter your name and surname to include with your WhatsApp result:', '');
-                if (enteredName === null) return;
-                shareName = enteredName.trim();
-                if (!shareName) {
-                    window.alert('Please enter your name and surname before sharing.');
-                    return;
-                }
-                result.name = shareName;
-                document.getElementById('celebrationLearner').innerText = shareName;
-            }
-            const message = ['🏆 May Learning Hub Certificate', shareName, 'Grade 8 Social Sciences History - The Berlin Conference', result.award, result.category + ': ' + result.correct + '/' + result.total + ' (' + result.percentage + '%)', 'Awarded: ' + result.date, window.location.href].join('\n');
+            const shareName = ensureResultName('Please enter your name and surname to include with your WhatsApp certificate:');
+            if (!shareName) return;
+            const message = result.participation
+                ? [
+                    '🏆 May Learning Hub Certificate',
+                    shareName,
+                    'Grade 8 Social Sciences History - The Berlin Conference',
+                    result.award,
+                    result.category,
+                    'Awarded: ' + result.date,
+                    'I completed this learning activity. Try it yourself at May Learning Hub:',
+                    publicGameUrl
+                ].join('\n')
+                : [
+                    '🏆 May Learning Hub Certificate',
+                    shareName,
+                    'Grade 8 Social Sciences History - The Berlin Conference',
+                    result.award,
+                    result.category + ': ' + result.correct + '/' + result.total + ' (' + Math.round(result.percentage) + '%)',
+                    'Awarded: ' + result.date,
+                    'Can you beat my score? Test yourself at May Learning Hub:',
+                    publicGameUrl
+                ].join('\n');
             window.open('https://wa.me/?text=' + encodeURIComponent(message), '_blank', 'noopener,noreferrer');
         }
 
+        function showReview() {
+            if (!lastCompletedScore) return;
+            const reviewPage = document.getElementById('reviewPage');
+            const reviewList = document.getElementById('reviewList');
+            const reviewTitle = document.getElementById('reviewTitle');
+            const reviewSummary = document.getElementById('reviewSummary');
+            reviewList.innerHTML = '';
+
+            if (lastCompletedScore.participation) {
+                reviewTitle.innerText = 'Review Learning Cards';
+                reviewSummary.innerText = 'All ' + gameData.definitions.length + ' term-and-meaning cards from this activity.';
+                gameData.definitions.forEach(card => {
+                    const item = document.createElement('article');
+                    item.className = 'review-item learning-card';
+                    const term = document.createElement('p');
+                    term.className = 'review-question';
+                    term.innerText = card.q;
+                    const meaning = document.createElement('p');
+                    meaning.className = 'review-answer';
+                    meaning.innerText = card.a;
+                    item.append(term, meaning);
+                    reviewList.appendChild(item);
+                });
+            } else {
+                const missed = categoryResults[lastCompletedScore.categoryKey].filter(result => !result.correct);
+                reviewTitle.innerText = 'Review Missed Answers';
+                reviewSummary.innerText = missed.length
+                    ? missed.length + ' question' + (missed.length === 1 ? '' : 's') + ' to review.'
+                    : 'You did not miss any answers.';
+                if (!missed.length) {
+                    const perfect = document.createElement('div');
+                    perfect.className = 'review-empty';
+                    perfect.innerText = 'Perfect work—there are no missed answers to review.';
+                    reviewList.appendChild(perfect);
+                }
+                missed.forEach(result => {
+                    const item = document.createElement('article');
+                    item.className = 'review-item';
+                    const question = document.createElement('p');
+                    question.className = 'review-question';
+                    question.innerText = result.question;
+                    const selected = document.createElement('p');
+                    selected.className = 'review-answer';
+                    selected.innerText = 'Your answer: ' + result.selected;
+                    const correct = document.createElement('p');
+                    correct.className = 'review-answer';
+                    correct.innerText = 'Correct answer: ' + result.correctAnswer;
+                    item.append(question, selected, correct);
+                    if (result.explanation) {
+                        const explanation = document.createElement('p');
+                        explanation.className = 'review-answer';
+                        explanation.innerText = result.explanation;
+                        item.appendChild(explanation);
+                    }
+                    reviewList.appendChild(item);
+                });
+            }
+            document.getElementById('celebrationPage').style.display = 'none';
+            reviewPage.style.display = 'block';
+            reviewPage.scrollIntoView({ behavior: prefersReducedMotion ? 'auto' : 'smooth', block: 'start' });
+        }
+
+        function backToCertificate() {
+            document.getElementById('reviewPage').style.display = 'none';
+            document.getElementById('celebrationPage').style.display = 'block';
+            document.getElementById('celebrationPage').scrollIntoView({ behavior: prefersReducedMotion ? 'auto' : 'smooth', block: 'start' });
+        }
+
+        function certificatePalette(result) {
+            const palettes = {
+                'tier-bronze': { main: '#b87333', dark: '#6f3b16', soft: '#f7e8d8' },
+                'tier-silver': { main: '#9aa6b2', dark: '#4e5a66', soft: '#edf1f4' },
+                'tier-gold': { main: '#d4af37', dark: '#755b08', soft: '#fff6cf' },
+                'tier-platinum': { main: '#c7d8e2', dark: '#165173', soft: '#eaf7ff' },
+                'tier-participation': { main: '#1268ad', dark: '#003f75', soft: '#d9efff' }
+            };
+            return palettes[result.tierClass] || palettes['tier-bronze'];
+        }
+
+        function drawCenteredWrappedText(ctx, text, x, y, maxWidth, lineHeight, maxLines = 4) {
+            const words = String(text).split(/\s+/);
+            const lines = [];
+            let line = '';
+            words.forEach(word => {
+                const testLine = line ? line + ' ' + word : word;
+                if (ctx.measureText(testLine).width > maxWidth && line) {
+                    lines.push(line);
+                    line = word;
+                } else {
+                    line = testLine;
+                }
+            });
+            if (line) lines.push(line);
+            lines.slice(0, maxLines).forEach((lineText, index) => ctx.fillText(lineText, x, y + (index * lineHeight)));
+            return y + (Math.min(lines.length, maxLines) * lineHeight);
+        }
+
+        function loadCertificateLogo() {
+            return new Promise(resolve => {
+                const image = new Image();
+                image.onload = () => resolve(image);
+                image.onerror = () => resolve(null);
+                image.src = '../../../../../../May Learning Hub Logo.png';
+            });
+        }
+
+        async function downloadCertificate() {
+            if (!lastCompletedScore) return;
+            const result = lastCompletedScore;
+            const learnerName = ensureResultName('Please enter your name and surname for the downloadable certificate:');
+            if (!learnerName) return;
+            const palette = certificatePalette(result);
+            const canvas = document.createElement('canvas');
+            canvas.width = 1200;
+            canvas.height = 1697;
+            const ctx = canvas.getContext('2d');
+            const background = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+            background.addColorStop(0, result.participation ? palette.soft : '#fffdf7');
+            background.addColorStop(0.5, '#ffffff');
+            background.addColorStop(1, palette.soft);
+            ctx.fillStyle = background;
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            ctx.strokeStyle = palette.main;
+            ctx.lineWidth = 30;
+            ctx.strokeRect(30, 30, canvas.width - 60, canvas.height - 60);
+            ctx.strokeStyle = palette.dark;
+            ctx.lineWidth = 5;
+            ctx.strokeRect(65, 65, canvas.width - 130, canvas.height - 130);
+            ctx.strokeStyle = palette.main;
+            ctx.lineWidth = 2;
+            ctx.strokeRect(82, 82, canvas.width - 164, canvas.height - 164);
+
+            const logo = await loadCertificateLogo();
+            if (logo) {
+                const logoSize = 200;
+                ctx.drawImage(logo, 95, 85, logoSize, logoSize);
+            }
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.font = '94px "Segoe UI Emoji", sans-serif';
+            ctx.fillText('🏆', 1010, 175);
+
+            ctx.fillStyle = palette.dark;
+            ctx.font = 'bold 25px "Segoe UI", sans-serif';
+            ctx.fillText('GRADE 8 SOCIAL SCIENCES HISTORY', 600, 285);
+            ctx.fillStyle = '#17324d';
+            ctx.font = 'bold 62px Georgia, serif';
+            let nextY = drawCenteredWrappedText(ctx, result.title, 600, 370, 900, 72, 2);
+
+            ctx.fillStyle = palette.soft;
+            ctx.strokeStyle = palette.main;
+            ctx.lineWidth = 4;
+            ctx.beginPath();
+            if (typeof ctx.roundRect === 'function') ctx.roundRect(250, nextY + 10, 700, 66, 33);
+            else ctx.rect(250, nextY + 10, 700, 66);
+            ctx.fill();
+            ctx.stroke();
+            ctx.fillStyle = palette.dark;
+            ctx.font = 'bold 24px "Segoe UI", sans-serif';
+            ctx.fillText(result.award.toUpperCase(), 600, nextY + 43);
+
+            nextY += 135;
+            ctx.fillStyle = '#536273';
+            ctx.font = 'italic 28px Georgia, serif';
+            ctx.fillText('This certificate is proudly presented to', 600, nextY);
+            nextY += 72;
+            ctx.fillStyle = '#17324d';
+            ctx.font = 'bold italic 49px Georgia, serif';
+            nextY = drawCenteredWrappedText(ctx, learnerName, 600, nextY, 850, 58, 2);
+            ctx.strokeStyle = palette.main;
+            ctx.lineWidth = 3;
+            ctx.beginPath();
+            ctx.moveTo(205, nextY + 4);
+            ctx.lineTo(995, nextY + 4);
+            ctx.stroke();
+
+            nextY += 70;
+            ctx.fillStyle = '#263442';
+            ctx.font = '29px Georgia, serif';
+            const bodyText = result.participation
+                ? 'for successful participation in the ' + result.category + ' activity on The Berlin Conference.'
+                : 'for completing The Berlin Conference challenge in the ' + result.category + ' category.';
+            nextY = drawCenteredWrappedText(ctx, bodyText, 600, nextY, 840, 43, 4);
+
+            if (!result.participation) {
+                const sealY = Math.max(nextY + 115, 900);
+                ctx.fillStyle = '#fff';
+                ctx.strokeStyle = palette.main;
+                ctx.lineWidth = 18;
+                ctx.beginPath();
+                ctx.arc(600, sealY, 112, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.stroke();
+                ctx.fillStyle = palette.dark;
+                ctx.font = 'bold 62px "Segoe UI", sans-serif';
+                ctx.fillText(result.correct + '/' + result.total, 600, sealY - 10);
+                ctx.font = 'bold 20px "Segoe UI", sans-serif';
+                ctx.fillText('CORRECT', 600, sealY + 54);
+                nextY = sealY + 160;
+            } else {
+                nextY += 70;
+            }
+
+            ctx.fillStyle = palette.dark;
+            ctx.font = 'bold 27px "Segoe UI", sans-serif';
+            nextY = drawCenteredWrappedText(ctx, result.message, 600, nextY, 850, 40, 4);
+            if (result.history) {
+                ctx.fillStyle = '#536273';
+                ctx.font = '21px "Segoe UI", sans-serif';
+                drawCenteredWrappedText(ctx, result.history, 600, nextY + 28, 820, 31, 3);
+            }
+
+            const footerY = 1450;
+            ctx.strokeStyle = '#6f7d89';
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.moveTo(150, footerY);
+            ctx.lineTo(500, footerY);
+            ctx.moveTo(700, footerY);
+            ctx.lineTo(1050, footerY);
+            ctx.stroke();
+            ctx.fillStyle = '#17324d';
+            ctx.font = 'bold 25px "Segoe UI", sans-serif';
+            ctx.fillText(result.date, 325, footerY + 34);
+            ctx.font = 'italic 29px "Segoe Script", cursive';
+            ctx.fillText('May Learning Hub', 875, footerY + 32);
+            ctx.fillStyle = '#637180';
+            ctx.font = '18px "Segoe UI", sans-serif';
+            ctx.fillText('DATE AWARDED', 325, footerY + 70);
+            ctx.fillText('SIGNED BY MAY LEARNING HUB', 875, footerY + 70);
+            ctx.fillStyle = palette.dark;
+            ctx.font = 'bold 20px "Segoe UI", sans-serif';
+            ctx.fillText('Test yourself at www.maylearninghub.co.za', 600, 1585);
+
+            const safeName = learnerName.replace(/[^a-z0-9]+/gi, '-').replace(/^-|-$/g, '') || 'Learner';
+            const fileName = 'May-Learning-Hub-' + safeName + '-' + currentCategoryKey + '-Certificate.png';
+            canvas.toBlob(blob => {
+                if (!blob) {
+                    window.alert('The certificate could not be downloaded on this browser.');
+                    return;
+                }
+                const link = document.createElement('a');
+                const objectUrl = URL.createObjectURL(blob);
+                link.href = objectUrl;
+                link.download = fileName;
+                document.body.appendChild(link);
+                link.click();
+                link.remove();
+                setTimeout(() => URL.revokeObjectURL(objectUrl), 1000);
+                announce('Certificate downloaded as a PNG image.');
+            }, 'image/png');
+        }
+
         function playCategoryAgain() {
+            clearSavedProgress();
             resetCategory(currentCategoryKey);
             document.getElementById('celebrationPage').style.display = 'none';
+            document.getElementById('reviewPage').style.display = 'none';
             document.querySelector('.category-selection').style.display = 'block';
             document.getElementById('wheelArea').style.display = 'block';
             document.getElementById('questionCard').style.display = 'none';
@@ -888,17 +1510,42 @@
             document.getElementById('spinBtn').disabled = false;
             document.getElementById('spinBtn').innerText = 'SPIN THE WHEEL';
             updateScoreTracker();
+            announce(currentCategoryLabel + ' restarted.');
+            saveProgress();
         }
 
         function chooseAnotherCategory() {
+            clearSavedProgress();
             document.getElementById('celebrationPage').style.display = 'none';
+            document.getElementById('reviewPage').style.display = 'none';
             document.querySelector('.category-selection').style.display = 'block';
             document.getElementById('wheelArea').style.display = 'none';
-            document.querySelectorAll('.cat-btn').forEach(button => button.classList.remove('active'));
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+            document.querySelectorAll('.cat-btn').forEach(button => {
+                button.classList.remove('active');
+                button.setAttribute('aria-pressed', 'false');
+            });
+            currentCategoryKey = null;
+            currentCategoryLabel = '';
+            currentQuestionData = null;
+            targetQuestionIndex = null;
+            lastCompletedScore = null;
+            announce('Choose another category.');
+            window.scrollTo({ top: 0, behavior: prefersReducedMotion ? 'auto' : 'smooth' });
         }
 
         buildWheel();
+        document.addEventListener('keydown', event => {
+            const termCarouselVisible = document.getElementById('termCarousel').style.display === 'block';
+            if (!termCarouselVisible || currentQuestionAnswered) return;
+            if (event.key === 'ArrowLeft') {
+                event.preventDefault();
+                moveTermChoice(-1);
+            } else if (event.key === 'ArrowRight') {
+                event.preventDefault();
+                moveTermChoice(1);
+            }
+        });
+        offerSavedProgress();
     </script>
 </body>
 </html>
