@@ -102,12 +102,12 @@
         .score-ring strong { display: block; font-size: 2.55rem; line-height: 1; }
         .score-ring span { display: block; margin-top: 0.25rem; font-size: 0.78rem; font-weight: 900; letter-spacing: .08em; text-transform: uppercase; }
         .celebration-message { max-width: 475px; margin: 0 auto; color: var(--award-dark); font-size: 0.98rem; font-weight: 800; line-height: 1.45; }
-        .certificate-progress { margin: 0.65rem auto 0; padding: 0.55rem 0.8rem; max-width: 470px; border-radius: 9px; background: rgba(255,255,255,.66); color: #425466; font-size: 0.8rem; font-weight: 700; line-height: 1.4; }
         .certificate-footer { width: 100%; margin-top: auto; padding-top: 1.4rem; display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; align-items: end; }
-        .certificate-footer-item { border-top: 1px solid #6f7d89; padding-top: 0.4rem; }
-        .certificate-footer strong { display: block; color: #17324d; font-size: 0.9rem; }
+        .certificate-footer-item { padding-top: 0.4rem; }
+        .certificate-footer strong { display: block; padding-bottom: 0.35rem; border-bottom: 1px solid #6f7d89; color: #17324d; font-size: 0.9rem; }
         .certificate-signature { font-family: 'Segoe Script', 'Brush Script MT', cursive; font-size: 1.05rem !important; }
-        .certificate-footer span { display: block; color: #637180; font-size: 0.72rem; letter-spacing: .06em; text-transform: uppercase; }
+        .certificate-footer span { display: block; margin-top: 0.35rem; color: #637180; font-size: 0.72rem; letter-spacing: .06em; text-transform: uppercase; }
+        .certificate-site-line { margin-top: 0.8rem; color: var(--award-dark); font-size: 0.78rem; font-weight: 800; }
         .celebration-actions { display: flex; justify-content: center; flex-wrap: wrap; gap: 0.75rem; margin-top: 1.25rem; }
         .celebration-btn { border: none; border-radius: 10px; padding: 0.9rem 1.15rem; font-size: 1rem; font-weight: 800; cursor: pointer; transition: transform .2s, box-shadow .2s; }
         .celebration-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(0,0,0,.22); }
@@ -117,6 +117,16 @@
         .replay-btn { background: #ffc107; color: #2f2500; }
         .category-btn { background: #fff; color: #003a75; border: 1px solid #aab8c6; }
         .share-note { margin-top: 0.75rem; color: #536273; font-size: 0.8rem; }
+        .certificate-save-overlay { position: fixed; inset: 0; z-index: 10000; display: grid; place-items: center; padding: 1rem; background: rgba(7,24,39,.92); overflow-y: auto; }
+        .certificate-save-dialog { width: min(620px, 100%); padding: 1rem; border-radius: 16px; background: #fff; box-shadow: 0 18px 60px rgba(0,0,0,.45); text-align: center; }
+        .certificate-save-dialog h2 { color: #003f75; margin-bottom: 0.35rem; }
+        .certificate-save-dialog p { color: #425466; margin-bottom: 0.8rem; }
+        .certificate-save-image { display: block; width: min(390px, 100%); max-height: 65vh; margin: 0 auto 1rem; border: 1px solid #aab8c6; border-radius: 8px; object-fit: contain; background: #fff; }
+        .certificate-save-actions { display: flex; justify-content: center; flex-wrap: wrap; gap: 0.65rem; }
+        .certificate-save-actions a, .certificate-save-actions button { border: none; border-radius: 9px; padding: 0.75rem 0.95rem; font: inherit; font-weight: 800; text-decoration: none; cursor: pointer; }
+        .certificate-open-btn { background: #005bb5; color: #fff; }
+        .certificate-whatsapp-link { background: #25d366; color: #072d16; }
+        .certificate-close-btn { background: #e8edf2; color: #17324d; }
         .review-page { display: none; margin-top: 2rem; padding: 1.5rem; border-radius: 16px; background: #f7fbff; border: 2px solid #b3d4ff; text-align: left; }
         .review-page h2 { color: #004080; text-align: center; margin-bottom: 0.4rem; }
         .review-summary { text-align: center; color: #52606d; margin-bottom: 1rem; }
@@ -168,7 +178,6 @@
             .score-ring strong { font-size: 1.9rem; }
             .score-ring span { font-size: 0.63rem; }
             .celebration-message { font-size: 0.76rem; }
-            .certificate-progress { font-size: 0.66rem; padding: 0.4rem 0.55rem; }
             .certificate-footer { gap: 0.8rem; padding-top: 0.8rem; }
             .certificate-footer strong { font-size: 0.72rem; }
             .certificate-signature { font-size: 0.82rem !important; }
@@ -272,7 +281,6 @@
                     <p class="certificate-body" id="participationCertificateBody" style="display:none;">for successful participation in the <strong id="participationCategory">Definitions: Term → Meaning</strong> activity on <strong>The Berlin Conference</strong>.</p>
                     <div class="score-ring" id="certificateScoreRing"><div><strong id="celebrationScore">0/10</strong><span>Correct</span></div></div>
                     <p class="celebration-message" id="celebrationMessage"></p>
-                    <p class="certificate-progress" id="certificateProgress"></p>
                     <div class="certificate-footer">
                         <div class="certificate-footer-item">
                             <strong id="certificateDate">27 August 2026</strong>
@@ -283,6 +291,7 @@
                             <span>Signed by May Learning Hub</span>
                         </div>
                     </div>
+                    <p class="certificate-site-line">Get your certificate at www.maylearninghub.co.za</p>
                 </article>
                 <div class="celebration-actions">
                     <button type="button" class="celebration-btn whatsapp-btn" id="shareCertificateBtn" onclick="shareWhatsApp()">Share Certificate on WhatsApp</button>
@@ -815,11 +824,10 @@
                 if (mode === 'participation') {
                     const completions = (previous.completions || 0) + 1;
                     window.localStorage.setItem(key, JSON.stringify({ ...previous, completions, lastPlayed: new Date().toISOString() }));
-                    return { text: 'Saved to your activity history • Completion ' + completions };
+                    return { text: '' };
                 }
                 const attempts = (previous.attempts || 0) + 1;
                 const previousBest = Number.isFinite(previous.bestCorrect) ? previous.bestCorrect : null;
-                const previousResult = Number.isFinite(previous.lastCorrect) ? previous.lastCorrect : null;
                 const bestCorrect = previousBest === null ? correct : Math.max(previousBest, correct);
                 window.localStorage.setItem(key, JSON.stringify({
                     ...previous,
@@ -829,15 +837,9 @@
                     total: totalQuestions,
                     lastPlayed: new Date().toISOString()
                 }));
-                let improvementText = attempts === 1 || previousResult === null
-                    ? 'First recorded attempt'
-                    : 'Change from last attempt: ' + (correct - previousResult >= 0 ? '+' : '') + (correct - previousResult);
-                if (previousBest !== null && correct > previousBest) improvementText = 'New personal best!';
-                return {
-                    text: 'Attempt ' + attempts + ' • Current ' + correct + '/' + totalQuestions + ' • Personal best ' + bestCorrect + '/' + totalQuestions + ' • ' + improvementText
-                };
+                return { text: '' };
             } catch {
-                return { text: 'Your result is complete, but activity history could not be saved on this device.' };
+                return { text: '' };
             }
         }
 
@@ -1144,8 +1146,6 @@
             document.getElementById('celebrationLearner').innerText = learnerName || 'Guest Learner';
             document.getElementById('celebrationScore').innerText = stats.correct + '/' + totalQuestions;
             document.getElementById('celebrationMessage').innerText = tier.message;
-            document.getElementById('certificateProgress').innerText = history.text;
-            document.getElementById('certificateProgress').style.display = history.text ? 'block' : 'none';
             document.getElementById('scoredCertificateBody').style.display = 'block';
             document.getElementById('participationCertificateBody').style.display = 'none';
             document.getElementById('certificateScoreRing').style.display = 'grid';
@@ -1188,8 +1188,6 @@
             document.getElementById('certificateDate').innerText = awardDate;
             document.getElementById('celebrationLearner').innerText = learnerName || 'Guest Learner';
             document.getElementById('celebrationMessage').innerText = lastCompletedScore.message;
-            document.getElementById('certificateProgress').innerText = history.text;
-            document.getElementById('certificateProgress').style.display = history.text ? 'block' : 'none';
             document.getElementById('scoredCertificateBody').style.display = 'none';
             document.getElementById('participationCertificateBody').style.display = 'block';
             document.getElementById('certificateScoreRing').style.display = 'none';
@@ -1234,7 +1232,7 @@
                     result.award,
                     result.category + ': ' + result.correct + '/' + result.total + ' (' + Math.round(result.percentage) + '%)',
                     'Awarded: ' + result.date,
-                    'Can you beat my score? Test yourself at May Learning Hub:',
+                    'Can you beat my score? Get your certificate at May Learning Hub:',
                     publicGameUrl
                 ].join('\n');
         }
@@ -1265,12 +1263,14 @@
             setCertificateActionBusy('shareCertificateBtn', true, 'Preparing Certificate...');
             try {
                 const certificate = await createCertificateImage(shareName);
-                const file = new File([certificate.blob], certificate.fileName, {
-                    type: 'image/png',
-                    lastModified: Date.now()
-                });
+                const file = typeof File === 'function'
+                    ? new File([certificate.blob], certificate.fileName, {
+                        type: 'image/png',
+                        lastModified: Date.now()
+                    })
+                    : null;
 
-                if (supportsCertificateFileShare(file)) {
+                if (file && supportsCertificateFileShare(file)) {
                     try {
                         await navigator.share({
                             title: 'May Learning Hub Certificate',
@@ -1284,10 +1284,16 @@
                     }
                 }
 
-                triggerCertificateDownload(certificate.blob, certificate.fileName);
-                window.alert('Your certificate image has been downloaded. WhatsApp will now open; attach the downloaded certificate and choose My status or a contact.');
-                window.open('https://wa.me/?text=' + encodeURIComponent(message), '_blank', 'noopener,noreferrer');
-                announce('Certificate downloaded for WhatsApp sharing.');
+                const whatsappUrl = 'https://wa.me/?text=' + encodeURIComponent(message);
+                if (isLikelyWebView()) {
+                    await showCertificateSaveFallback(certificate.blob, certificate.fileName, whatsappUrl);
+                    announce('Certificate image ready. Save or open it, then continue to WhatsApp.');
+                } else {
+                    triggerCertificateDownload(certificate.blob, certificate.fileName);
+                    window.alert('Your certificate image has been downloaded. WhatsApp will now open; attach the downloaded certificate and choose My status or a contact.');
+                    window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
+                    announce('Certificate downloaded for WhatsApp sharing.');
+                }
             } catch (error) {
                 console.error('Certificate sharing failed:', error);
                 window.alert('The certificate image could not be prepared. Please try again.');
@@ -1540,12 +1546,6 @@
             ctx.fillStyle = palette.dark;
             ctx.font = 'bold 27px "Segoe UI", sans-serif';
             nextY = drawCenteredWrappedText(ctx, result.message, 600, nextY, 850, 40, 4);
-            if (result.history) {
-                ctx.fillStyle = '#536273';
-                ctx.font = '21px "Segoe UI", sans-serif';
-                drawCenteredWrappedText(ctx, result.history, 600, nextY + 28, 820, 31, 3);
-            }
-
             const footerY = 1450;
             ctx.strokeStyle = '#6f7d89';
             ctx.lineWidth = 2;
@@ -1557,16 +1557,16 @@
             ctx.stroke();
             ctx.fillStyle = '#17324d';
             ctx.font = 'bold 25px "Segoe UI", sans-serif';
-            ctx.fillText(result.date, 325, footerY + 34);
+            ctx.fillText(result.date, 325, footerY - 34);
             ctx.font = 'italic 29px "Segoe Script", cursive';
-            ctx.fillText('May Learning Hub', 875, footerY + 32);
+            ctx.fillText('May Learning Hub', 875, footerY - 34);
             ctx.fillStyle = '#637180';
             ctx.font = '18px "Segoe UI", sans-serif';
-            ctx.fillText('DATE AWARDED', 325, footerY + 70);
-            ctx.fillText('SIGNED BY MAY LEARNING HUB', 875, footerY + 70);
+            ctx.fillText('DATE AWARDED', 325, footerY + 36);
+            ctx.fillText('SIGNED BY MAY LEARNING HUB', 875, footerY + 36);
             ctx.fillStyle = palette.dark;
             ctx.font = 'bold 20px "Segoe UI", sans-serif';
-            ctx.fillText('Test yourself at www.maylearninghub.co.za', 600, 1585);
+            ctx.fillText('Get your certificate at www.maylearninghub.co.za', 600, 1585);
 
             const safeName = learnerName.replace(/[^a-z0-9]+/gi, '-').replace(/^-|-$/g, '') || 'Learner';
             const fileName = 'May-Learning-Hub-' + safeName + '-' + currentCategoryKey + '-Certificate.png';
@@ -1591,6 +1591,153 @@
             setTimeout(() => URL.revokeObjectURL(objectUrl), 30000);
         }
 
+        function isLikelyWebView() {
+            const userAgent = navigator.userAgent || '';
+            const androidWebView = /\bwv\b|;\s*wv\)|Android.*Version\/[\d.]+.*Chrome\/[\d.]+.*Mobile Safari/i.test(userAgent);
+            const iosWebView = /(iPhone|iPad|iPod)/i.test(userAgent) && !/Safari/i.test(userAgent);
+            return androidWebView
+                || iosWebView
+                || /WebView|MayLearningHub/i.test(userAgent)
+                || Boolean(window.ReactNativeWebView)
+                || Boolean(window.chrome && window.chrome.webview);
+        }
+
+        function blobToDataUrl(blob) {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.onload = () => resolve(reader.result);
+                reader.onerror = () => reject(reader.error || new Error('The certificate image could not be read.'));
+                reader.readAsDataURL(blob);
+            });
+        }
+
+        async function tryNativeCertificateSave(blob, fileName) {
+            const dataUrl = await blobToDataUrl(blob);
+            const payload = {
+                type: 'mayhub-save-certificate',
+                fileName,
+                mimeType: 'image/png',
+                dataUrl,
+                base64: String(dataUrl).split(',')[1] || ''
+            };
+            const serializedPayload = JSON.stringify(payload);
+
+            const directBridges = [window.MayLearningHub, window.CertificateBridge, window.Android];
+            for (const bridge of directBridges) {
+                if (bridge && typeof bridge.saveCertificate === 'function') {
+                    try {
+                        bridge.saveCertificate(serializedPayload);
+                        return true;
+                    } catch {}
+                }
+            }
+
+            const handlers = window.webkit && window.webkit.messageHandlers;
+            const iosHandler = handlers && (handlers.saveCertificate || handlers.downloadCertificate);
+            if (iosHandler && typeof iosHandler.postMessage === 'function') {
+                try {
+                    iosHandler.postMessage(payload);
+                    return true;
+                } catch {}
+            }
+
+            try {
+                if (window.ReactNativeWebView && typeof window.ReactNativeWebView.postMessage === 'function') {
+                    window.ReactNativeWebView.postMessage(serializedPayload);
+                }
+                if (window.chrome && window.chrome.webview && typeof window.chrome.webview.postMessage === 'function') {
+                    window.chrome.webview.postMessage(payload);
+                }
+            } catch {}
+            return false;
+        }
+
+        async function showCertificateSaveFallback(blob, fileName, whatsappUrl = '') {
+            const existingOverlay = document.getElementById('certificateSaveOverlay');
+            if (existingOverlay) existingOverlay.remove();
+            const dataUrl = await blobToDataUrl(blob);
+            const overlay = document.createElement('div');
+            overlay.className = 'certificate-save-overlay';
+            overlay.id = 'certificateSaveOverlay';
+            overlay.setAttribute('role', 'dialog');
+            overlay.setAttribute('aria-modal', 'true');
+            overlay.setAttribute('aria-labelledby', 'certificateSaveTitle');
+
+            const dialog = document.createElement('div');
+            dialog.className = 'certificate-save-dialog';
+            const title = document.createElement('h2');
+            title.id = 'certificateSaveTitle';
+            title.innerText = 'Your Certificate Is Ready';
+            const instructions = document.createElement('p');
+            instructions.innerText = 'Press and hold the certificate image to save or share it. You can also open the full image using the button below.';
+            const image = document.createElement('img');
+            image.className = 'certificate-save-image';
+            image.src = dataUrl;
+            image.alt = 'May Learning Hub certificate for ' + (lastCompletedScore?.name || 'learner');
+
+            const actions = document.createElement('div');
+            actions.className = 'certificate-save-actions';
+            const openLink = document.createElement('a');
+            openLink.className = 'certificate-open-btn';
+            openLink.href = dataUrl;
+            openLink.download = fileName;
+            openLink.target = '_blank';
+            openLink.rel = 'noopener';
+            openLink.innerText = 'Open / Save Certificate';
+            actions.appendChild(openLink);
+
+            if (whatsappUrl) {
+                const whatsappLink = document.createElement('a');
+                whatsappLink.className = 'certificate-whatsapp-link';
+                whatsappLink.href = whatsappUrl;
+                whatsappLink.target = '_blank';
+                whatsappLink.rel = 'noopener';
+                whatsappLink.innerText = 'Continue to WhatsApp';
+                actions.appendChild(whatsappLink);
+            }
+
+            const closeButton = document.createElement('button');
+            closeButton.type = 'button';
+            closeButton.className = 'certificate-close-btn';
+            closeButton.innerText = 'Close';
+            closeButton.onclick = () => overlay.remove();
+            actions.appendChild(closeButton);
+            dialog.append(title, instructions, image, actions);
+            overlay.appendChild(dialog);
+            overlay.addEventListener('click', event => {
+                if (event.target === overlay) overlay.remove();
+            });
+            document.body.appendChild(overlay);
+            closeButton.focus();
+            return 'preview';
+        }
+
+        async function saveCertificateForDevice(blob, fileName) {
+            if (!isLikelyWebView()) {
+                triggerCertificateDownload(blob, fileName);
+                return 'downloaded';
+            }
+
+            if (typeof File === 'function') {
+                const file = new File([blob], fileName, { type: 'image/png', lastModified: Date.now() });
+                if (supportsCertificateFileShare(file)) {
+                    try {
+                        await navigator.share({
+                            title: 'Save May Learning Hub Certificate',
+                            text: 'Save this May Learning Hub certificate to your device.',
+                            files: [file]
+                        });
+                        return 'shared';
+                    } catch (error) {
+                        if (error && error.name === 'AbortError') return 'cancelled';
+                    }
+                }
+            }
+
+            if (await tryNativeCertificateSave(blob, fileName)) return 'native';
+            return showCertificateSaveFallback(blob, fileName);
+        }
+
         async function downloadCertificate() {
             if (!lastCompletedScore) return;
             const learnerName = ensureResultName('Please enter your name and surname for the downloadable certificate:');
@@ -1598,8 +1745,11 @@
             setCertificateActionBusy('downloadCertificateBtn', true, 'Preparing Download...');
             try {
                 const certificate = await createCertificateImage(learnerName);
-                triggerCertificateDownload(certificate.blob, certificate.fileName);
-                announce('Certificate downloaded as a PNG image.');
+                const saveMode = await saveCertificateForDevice(certificate.blob, certificate.fileName);
+                if (saveMode === 'downloaded') announce('Certificate downloaded as a PNG image.');
+                else if (saveMode === 'native') announce('Certificate sent to the app for saving.');
+                else if (saveMode === 'shared') announce('Choose where to save the certificate on your device.');
+                else if (saveMode === 'preview') announce('Certificate image opened. Press and hold it to save.');
             } catch (error) {
                 console.error('Certificate download failed:', error);
                 window.alert('The certificate could not be downloaded on this browser. Please try again.');
