@@ -285,13 +285,13 @@
                     </div>
                 </article>
                 <div class="celebration-actions">
-                    <button class="celebration-btn whatsapp-btn" onclick="shareWhatsApp()">Share on WhatsApp</button>
-                    <button class="celebration-btn download-btn" onclick="downloadCertificate()">Download Certificate</button>
+                    <button type="button" class="celebration-btn whatsapp-btn" id="shareCertificateBtn" onclick="shareWhatsApp()">Share Certificate on WhatsApp</button>
+                    <button type="button" class="celebration-btn download-btn" id="downloadCertificateBtn" onclick="downloadCertificate()">Download Certificate</button>
                     <button class="celebration-btn review-btn" id="reviewCertificateBtn" onclick="showReview()">Review Answers</button>
                     <button class="celebration-btn replay-btn" onclick="playCategoryAgain()">Play Again</button>
                     <button class="celebration-btn category-btn" onclick="chooseAnotherCategory()">Choose Another Category</button>
                 </div>
-                <p class="share-note">WhatsApp will open its sharing screen. Choose <strong>My status</strong> or a contact.</p>
+                <p class="share-note">Choose <strong>WhatsApp</strong> on your device's sharing screen, then select <strong>My status</strong> or a contact. The certificate image and challenge link will be shared together.</p>
             </div>
         </section>
 
@@ -1215,12 +1215,8 @@
             return shareName;
         }
 
-        function shareWhatsApp() {
-            if (!lastCompletedScore) return;
-            const result = lastCompletedScore;
-            const shareName = ensureResultName('Please enter your name and surname to include with your WhatsApp certificate:');
-            if (!shareName) return;
-            const message = result.participation
+        function buildCertificateShareMessage(result, shareName) {
+            return result.participation
                 ? [
                     '🏆 May Learning Hub Certificate',
                     shareName,
@@ -1241,7 +1237,63 @@
                     'Can you beat my score? Test yourself at May Learning Hub:',
                     publicGameUrl
                 ].join('\n');
-            window.open('https://wa.me/?text=' + encodeURIComponent(message), '_blank', 'noopener,noreferrer');
+        }
+
+        function setCertificateActionBusy(buttonId, busy, busyLabel) {
+            const button = document.getElementById(buttonId);
+            if (!button) return;
+            if (!button.dataset.defaultLabel) button.dataset.defaultLabel = button.innerText;
+            button.disabled = busy;
+            button.innerText = busy ? busyLabel : button.dataset.defaultLabel;
+        }
+
+        function supportsCertificateFileShare(file) {
+            if (!navigator.share || !navigator.canShare) return false;
+            try {
+                return navigator.canShare({ files: [file] });
+            } catch {
+                return false;
+            }
+        }
+
+        async function shareWhatsApp() {
+            if (!lastCompletedScore) return;
+            const result = lastCompletedScore;
+            const shareName = ensureResultName('Please enter your name and surname to include with your WhatsApp certificate:');
+            if (!shareName) return;
+            const message = buildCertificateShareMessage(result, shareName);
+            setCertificateActionBusy('shareCertificateBtn', true, 'Preparing Certificate...');
+            try {
+                const certificate = await createCertificateImage(shareName);
+                const file = new File([certificate.blob], certificate.fileName, {
+                    type: 'image/png',
+                    lastModified: Date.now()
+                });
+
+                if (supportsCertificateFileShare(file)) {
+                    try {
+                        await navigator.share({
+                            title: 'May Learning Hub Certificate',
+                            text: message,
+                            files: [file]
+                        });
+                        announce('Certificate image shared successfully.');
+                        return;
+                    } catch (error) {
+                        if (error && error.name === 'AbortError') return;
+                    }
+                }
+
+                triggerCertificateDownload(certificate.blob, certificate.fileName);
+                window.alert('Your certificate image has been downloaded. WhatsApp will now open; attach the downloaded certificate and choose My status or a contact.');
+                window.open('https://wa.me/?text=' + encodeURIComponent(message), '_blank', 'noopener,noreferrer');
+                announce('Certificate downloaded for WhatsApp sharing.');
+            } catch (error) {
+                console.error('Certificate sharing failed:', error);
+                window.alert('The certificate image could not be prepared. Please try again.');
+            } finally {
+                setCertificateActionBusy('shareCertificateBtn', false, '');
+            }
         }
 
         function showReview() {
@@ -1350,11 +1402,45 @@
             });
         }
 
-        async function downloadCertificate() {
-            if (!lastCompletedScore) return;
+        function drawCertificateBrandFallback(ctx, palette) {
+            ctx.save();
+            ctx.fillStyle = '#0b4f8a';
+            ctx.strokeStyle = palette.dark;
+            ctx.lineWidth = 5;
+            ctx.beginPath();
+            ctx.moveTo(100, 100);
+            ctx.lineTo(275, 100);
+            ctx.lineTo(275, 205);
+            ctx.quadraticCurveTo(188, 270, 100, 205);
+            ctx.closePath();
+            ctx.fill();
+            ctx.stroke();
+            ctx.fillStyle = '#ffffff';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.font = 'bold 27px "Segoe UI", sans-serif';
+            ctx.fillText('May Learning', 188, 145);
+            ctx.font = 'bold 31px "Segoe UI", sans-serif';
+            ctx.fillText('Hub', 188, 184);
+            ctx.restore();
+        }
+
+        function canvasToPngBlob(canvas) {
+            return new Promise((resolve, reject) => {
+                try {
+                    canvas.toBlob(blob => {
+                        if (blob) resolve(blob);
+                        else reject(new Error('The browser returned an empty certificate image.'));
+                    }, 'image/png');
+                } catch (error) {
+                    reject(error);
+                }
+            });
+        }
+
+        async function createCertificateImage(learnerName, includeExternalLogo = true) {
+            if (!lastCompletedScore) throw new Error('No completed result is available.');
             const result = lastCompletedScore;
-            const learnerName = ensureResultName('Please enter your name and surname for the downloadable certificate:');
-            if (!learnerName) return;
             const palette = certificatePalette(result);
             const canvas = document.createElement('canvas');
             canvas.width = 1200;
@@ -1377,10 +1463,13 @@
             ctx.lineWidth = 2;
             ctx.strokeRect(82, 82, canvas.width - 164, canvas.height - 164);
 
-            const logo = await loadCertificateLogo();
+            const canUseExternalLogo = includeExternalLogo && window.location.protocol !== 'file:';
+            const logo = canUseExternalLogo ? await loadCertificateLogo() : null;
             if (logo) {
                 const logoSize = 200;
                 ctx.drawImage(logo, 95, 85, logoSize, logoSize);
+            } else {
+                drawCertificateBrandFallback(ctx, palette);
             }
             ctx.textAlign = 'center';
             ctx.textBaseline = 'middle';
@@ -1481,21 +1570,42 @@
 
             const safeName = learnerName.replace(/[^a-z0-9]+/gi, '-').replace(/^-|-$/g, '') || 'Learner';
             const fileName = 'May-Learning-Hub-' + safeName + '-' + currentCategoryKey + '-Certificate.png';
-            canvas.toBlob(blob => {
-                if (!blob) {
-                    window.alert('The certificate could not be downloaded on this browser.');
-                    return;
-                }
-                const link = document.createElement('a');
-                const objectUrl = URL.createObjectURL(blob);
-                link.href = objectUrl;
-                link.download = fileName;
-                document.body.appendChild(link);
-                link.click();
-                link.remove();
-                setTimeout(() => URL.revokeObjectURL(objectUrl), 1000);
+            try {
+                const blob = await canvasToPngBlob(canvas);
+                return { blob, fileName };
+            } catch (error) {
+                if (includeExternalLogo && logo) return createCertificateImage(learnerName, false);
+                throw error;
+            }
+        }
+
+        function triggerCertificateDownload(blob, fileName) {
+            const link = document.createElement('a');
+            const objectUrl = URL.createObjectURL(blob);
+            link.href = objectUrl;
+            link.download = fileName;
+            link.style.display = 'none';
+            document.body.appendChild(link);
+            link.click();
+            link.remove();
+            setTimeout(() => URL.revokeObjectURL(objectUrl), 30000);
+        }
+
+        async function downloadCertificate() {
+            if (!lastCompletedScore) return;
+            const learnerName = ensureResultName('Please enter your name and surname for the downloadable certificate:');
+            if (!learnerName) return;
+            setCertificateActionBusy('downloadCertificateBtn', true, 'Preparing Download...');
+            try {
+                const certificate = await createCertificateImage(learnerName);
+                triggerCertificateDownload(certificate.blob, certificate.fileName);
                 announce('Certificate downloaded as a PNG image.');
-            }, 'image/png');
+            } catch (error) {
+                console.error('Certificate download failed:', error);
+                window.alert('The certificate could not be downloaded on this browser. Please try again.');
+            } finally {
+                setCertificateActionBusy('downloadCertificateBtn', false, '');
+            }
         }
 
         function playCategoryAgain() {
