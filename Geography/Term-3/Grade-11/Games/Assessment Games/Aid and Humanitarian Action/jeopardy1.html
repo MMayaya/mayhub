@@ -72,7 +72,7 @@
         .score-board { background: #002b5e; color: #fff; display: inline-block; padding: 0.8rem 2.5rem; border-radius: 30px; font-size: 1.6rem; font-weight: bold; border: 4px solid #3385ff; box-shadow: 0 4px 10px rgba(0,0,0,0.2); margin-bottom: 2rem; transition: all 0.3s; }
         .score-board span { color: #ffc107; }
 
-        .jeopardy-board { width: 100%; max-width: 1000px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; background: #001a33; padding: 8px; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
+        .jeopardy-board { width: 100%; max-width: 1000px; display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; background: #001a33; padding: 8px; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
         .category-header { background: #004080; color: #fff; text-align: center; font-weight: bold; padding: 1rem 0.5rem; font-size: 1.1rem; border-radius: 6px; border-bottom: 4px solid #3385ff; display: flex; align-items: center; justify-content: center; min-height: 80px; text-transform: uppercase; }
         .point-btn { background: #3385ff; color: #fff; font-size: 1.6rem; font-weight: bold; border: none; padding: 1.5rem 0; border-radius: 6px; cursor: pointer; transition: all 0.2s; text-shadow: 1px 1px 2px rgba(0,0,0,0.5); box-shadow: inset 0 0 10px rgba(0,0,0,0.2); }
         .point-btn:hover:not(:disabled) { background: #1a75ff; transform: scale(0.96); }
@@ -103,7 +103,7 @@
         footer { text-align: center; padding: 1rem; background-color: #002b5e; color: #fff; margin-top: auto; }
     </style>
 </head>
-<body>
+<body data-certificate-grade="Grade 11" data-certificate-subject="Geography" data-certificate-term="Term 3" data-certificate-topic="Aid and Humanitarian Action" data-certificate-game="Aid and Humanitarian Action Jeopardy Game" data-certificate-layout="compact-subject">
 
     <nav>
         <a href="../../../../../../index.html" class="logo">May Learning Hub</a>
@@ -115,7 +115,7 @@
 
     <header class="game-header">
         <h1 class="game-title">Grade 11 Geography Jeopardy</h1>
-        <p class="game-subtitle">Revise development aid, humanitarian response, aid agencies, benefits, risks and accountability.</p>
+        <p class="game-subtitle">Revise development and humanitarian aid, delivery channels, emergency relief, and responsible monitoring.</p>
         <p style="font-size: 0.78rem; color: #52606d; margin-top: 0.45rem;">Grade 11 Geography Term 3 revision</p>
     </header>
 
@@ -133,7 +133,7 @@
                 <button class="btn-edit" id="btnEditNames" onclick="showNameEditor()">Edit Names</button>
                 <button class="btn-reset" onclick="resetPlayerNames()">Reset</button>
             </div>
-            <p class="hint">80 unique clues drawn from the Grade 11 Term 3 Development presentation! </p>
+            <p class="hint">40 paper-bound questions are shuffled each session. Every player receives 10 different questions.</p>
         </div>
     </section>
 
@@ -168,10 +168,10 @@
     <div class="modal" id="questionModal">
         <div class="modal-content">
             <div class="modal-category" id="modalCategory">Category</div>
-            <div class="modal-question" id="modalQuestion">Clue</div>
-            <button class="btn-reveal" id="btnReveal" onclick="revealAnswer()">Reveal Correct Question</button>
+            <div class="modal-question" id="modalQuestion">Question</div>
+            <button class="btn-reveal" id="btnReveal" onclick="revealAnswer()">Reveal Answer</button>
             <div class="modal-answer-area" id="answerArea">
-                <div class="modal-answer" id="modalAnswer">Correct Question</div>
+                <div class="modal-answer" id="modalAnswer">Answer</div>
                 <div class="judgement-area" id="judgementArea">
                     <p>Did <strong id="activePlayerName">Player</strong> get it right?</p>
                     <div class="judgement-buttons">
@@ -190,6 +190,9 @@
     <footer><p>&copy; 2026 May Learning Hub. All rights reserved.</p></footer>
 
         <script src="../../../../../../game-audio.js"></script>
+        <script src="../../../../../../may-certificate-renderer.js"></script>
+        <script src="../../../../../../may-certificate-actions.js"></script>
+        <script src="../../../../../../assessment-certificate.js"></script>
 <script>
         const questionBank = [
     {
@@ -293,206 +296,6 @@
         "a": "The obligation to explain decisions and show that resources were used responsibly."
     },
     {
-        "category": "Identify",
-        "q": "Long-term assistance that supports economic and social development. Name the correct geographical term.",
-        "a": "Development Aid"
-    },
-    {
-        "category": "Identify",
-        "q": "Immediate assistance supplied to people affected by emergencies or disasters. Name the correct geographical term.",
-        "a": "Humanitarian Aid"
-    },
-    {
-        "category": "Identify",
-        "q": "Assistance given directly from one country to another. Name the correct geographical term.",
-        "a": "Bilateral Aid"
-    },
-    {
-        "category": "Identify",
-        "q": "Assistance provided by several countries through an international organisation. Name the correct geographical term.",
-        "a": "Multilateral Aid"
-    },
-    {
-        "category": "Identify",
-        "q": "The United Nations agency that provides food assistance during emergencies. Name the correct geographical term.",
-        "a": "World Food Programme"
-    },
-    {
-        "category": "Identify",
-        "q": "A country, organisation or person that provides assistance. Name the correct geographical term.",
-        "a": "Donor"
-    },
-    {
-        "category": "Identify",
-        "q": "A country, community or person that receives assistance. Name the correct geographical term.",
-        "a": "Recipient"
-    },
-    {
-        "category": "Identify",
-        "q": "Medicines, equipment and healthcare services supplied to people in need. Name the correct geographical term.",
-        "a": "Medical Assistance"
-    },
-    {
-        "category": "Identify",
-        "q": "Immediate support such as food, water, shelter and medicine during a crisis. Name the correct geographical term.",
-        "a": "Emergency Relief"
-    },
-    {
-        "category": "Identify",
-        "q": "A planned long-term initiative intended to improve livelihoods or services. Name the correct geographical term.",
-        "a": "Development Project"
-    },
-    {
-        "category": "Identify",
-        "q": "Excessive reliance on continued assistance from outside sources. Name the correct geographical term.",
-        "a": "Aid Dependency"
-    },
-    {
-        "category": "Identify",
-        "q": "The regular checking of how aid is delivered and used. Name the correct geographical term.",
-        "a": "Monitoring"
-    },
-    {
-        "category": "Identify",
-        "q": "The dishonest misuse or diversion of resources for private benefit. Name the correct geographical term.",
-        "a": "Corruption"
-    },
-    {
-        "category": "Identify",
-        "q": "The development of local skills, knowledge and institutions. Name the correct geographical term.",
-        "a": "Capacity Building"
-    },
-    {
-        "category": "Identify",
-        "q": "Assistance that helps people maintain or rebuild ways of earning a living. Name the correct geographical term.",
-        "a": "Livelihood Support"
-    },
-    {
-        "category": "Identify",
-        "q": "Reliable access to sufficient, safe and nutritious food. Name the correct geographical term.",
-        "a": "Food Security"
-    },
-    {
-        "category": "Identify",
-        "q": "An extreme shortage of food causing widespread hunger and malnutrition. Name the correct geographical term.",
-        "a": "Famine"
-    },
-    {
-        "category": "Identify",
-        "q": "A prolonged period of unusually low rainfall that causes water shortages. Name the correct geographical term.",
-        "a": "Drought"
-    },
-    {
-        "category": "Identify",
-        "q": "Information identifying an approaching crisis before its worst effects occur. Name the correct geographical term.",
-        "a": "Early Warning"
-    },
-    {
-        "category": "Identify",
-        "q": "The obligation to explain decisions and show that resources were used responsibly. Name the correct geographical term.",
-        "a": "Accountability"
-    },
-    {
-        "category": "Choose",
-        "q": "Development aid is best defined as... Options: A) Financial and technical assistance supporting development | B) A tax on imports | C) A measure of inequality | D) Trade without barriers",
-        "a": "A) Financial and technical assistance supporting development"
-    },
-    {
-        "category": "Choose",
-        "q": "Bilateral aid is given... Options: A) Directly from one country to another | B) Only by the UN | C) By many countries through one body | D) Only to businesses",
-        "a": "A) Directly from one country to another"
-    },
-    {
-        "category": "Choose",
-        "q": "Multilateral aid is channelled through... Options: A) One household | B) International organisations supported by several countries | C) A tariff office | D) A single local shop",
-        "a": "B) International organisations supported by several countries"
-    },
-    {
-        "category": "Choose",
-        "q": "Which organisation is strongly associated with emergency food assistance? Options: A) World Food Programme | B) World Trade Organization | C) International Olympic Committee | D) OPEC",
-        "a": "A) World Food Programme"
-    },
-    {
-        "category": "Choose",
-        "q": "Besides food, humanitarian aid may include... Options: A) Medical assistance | B) Import tariffs | C) Trade quotas | D) GDP calculations",
-        "a": "A) Medical assistance"
-    },
-    {
-        "category": "Choose",
-        "q": "An immediate benefit of humanitarian aid is that it can... Options: A) Save lives and prevent malnutrition | B) Guarantee permanent growth | C) End all droughts | D) Remove every conflict",
-        "a": "A) Save lives and prevent malnutrition"
-    },
-    {
-        "category": "Choose",
-        "q": "A possible long-term concern about poorly designed aid is... Options: A) Dependency | B) Higher rainfall | C) Perfect accountability | D) Guaranteed equality",
-        "a": "A) Dependency"
-    },
-    {
-        "category": "Choose",
-        "q": "Why should aid delivery be monitored? Options: A) To reduce corruption and diversion | B) To create quotas | C) To lower life expectancy | D) To stop all imports",
-        "a": "A) To reduce corruption and diversion"
-    },
-    {
-        "category": "Choose",
-        "q": "Humanitarian aid differs from long-term development aid because it... Options: A) Responds to urgent crises | B) Always funds factories | C) Is a trade barrier | D) Measures GDP",
-        "a": "A) Responds to urgent crises"
-    },
-    {
-        "category": "Choose",
-        "q": "Which is an example of multilateral assistance? Options: A) Several states funding a UN programme | B) One country directly funding another | C) A household buying food | D) A firm paying tax",
-        "a": "A) Several states funding a UN programme"
-    },
-    {
-        "category": "Choose",
-        "q": "In a famine warning, early aid is valuable because it... Options: A) Prevents conditions worsening | B) Guarantees rainfall | C) Creates tariffs | D) Raises import prices",
-        "a": "A) Prevents conditions worsening"
-    },
-    {
-        "category": "Choose",
-        "q": "One way to reduce aid dependency is to combine relief with... Options: A) Local capacity and livelihood development | B) Permanent emergency handouts only | C) Trade isolation | D) Less accountability",
-        "a": "A) Local capacity and livelihood development"
-    },
-    {
-        "category": "Apply",
-        "q": "Define bilateral aid.",
-        "a": "Direct assistance from one country to another"
-    },
-    {
-        "category": "Apply",
-        "q": "Expand WFP.",
-        "a": "World Food Programme"
-    },
-    {
-        "category": "Apply",
-        "q": "Name one immediate health effect of famine.",
-        "a": "Malnutrition, illness or death"
-    },
-    {
-        "category": "Apply",
-        "q": "How can emergency food aid save lives?",
-        "a": "It prevents starvation and severe malnutrition"
-    },
-    {
-        "category": "Apply",
-        "q": "What governance problem can divert aid money?",
-        "a": "Corruption"
-    },
-    {
-        "category": "Apply",
-        "q": "How does multilateral aid differ from bilateral aid?",
-        "a": "It is coordinated by multiple countries/an international organisation"
-    },
-    {
-        "category": "Apply",
-        "q": "Name one international body that can channel multilateral aid.",
-        "a": "UN, World Bank, WFP or another valid body"
-    },
-    {
-        "category": "Apply",
-        "q": "Why is drought especially dangerous for subsistence farmers?",
-        "a": "It destroys crops/livestock and food supply"
-    },
-    {
         "category": "Apply",
         "q": "Give one non-food form of humanitarian relief.",
         "a": "Medical aid, water, shelter or sanitation"
@@ -554,42 +357,42 @@
     },
     {
         "category": "Decide",
-        "q": "Decide whether this statement is true or false: Development aid — Support for long-term development.",
+        "q": "Decide whether this statement is true or false: Development aid: Support for long-term development.",
         "a": "True. Development aid means: Support for long-term development"
     },
     {
         "category": "Decide",
-        "q": "Decide whether this statement is true or false: Humanitarian aid — One country directly assists another.",
+        "q": "Decide whether this statement is true or false: Humanitarian aid: One country directly assists another.",
         "a": "False. Humanitarian aid means: Urgent relief during a crisis"
     },
     {
         "category": "Decide",
-        "q": "Decide whether this statement is true or false: Bilateral aid — One country directly assists another.",
+        "q": "Decide whether this statement is true or false: Bilateral aid: One country directly assists another.",
         "a": "True. Bilateral aid means: One country directly assists another"
     },
     {
         "category": "Decide",
-        "q": "Decide whether this statement is true or false: Multilateral aid — International food-assistance agency.",
+        "q": "Decide whether this statement is true or false: Multilateral aid: International food-assistance agency.",
         "a": "False. Multilateral aid means: Several countries act through an organisation"
     },
     {
         "category": "Decide",
-        "q": "Decide whether this statement is true or false: WFP — International food-assistance agency.",
+        "q": "Decide whether this statement is true or false: WFP: International food-assistance agency.",
         "a": "True. WFP means: International food-assistance agency"
     },
     {
         "category": "Decide",
-        "q": "Decide whether this statement is true or false: Medical assistance — Checks that aid reaches intended people.",
+        "q": "Decide whether this statement is true or false: Medical assistance: Checks that aid reaches intended people.",
         "a": "False. Medical assistance means: Medicines, equipment and health services"
     },
     {
         "category": "Decide",
-        "q": "Decide whether this statement is true or false: Monitoring — Checks that aid reaches intended people.",
+        "q": "Decide whether this statement is true or false: Monitoring: Checks that aid reaches intended people.",
         "a": "True. Monitoring means: Checks that aid reaches intended people"
     },
     {
         "category": "Decide",
-        "q": "Decide whether this statement is true or false: Dependency — Support for long-term development.",
+        "q": "Decide whether this statement is true or false: Dependency: Support for long-term development.",
         "a": "False. Dependency means: Over-reliance on continued outside support"
     }
 ];
@@ -604,9 +407,9 @@
         }
 
         function dealJeopardyPlayerQuestions(items, playerIndex) {
-            const playerQuestions = items.slice(playerIndex * 20, playerIndex * 20 + 20);
-            return Array.from({ length: 4 }, (_, categoryIndex) => ({
-                name: ["Round One", "Round Two", "Round Three", "Round Four"][categoryIndex],
+            const playerQuestions = items.slice(playerIndex * 10, playerIndex * 10 + 10);
+            return Array.from({ length: 2 }, (_, categoryIndex) => ({
+                name: ["Round One", "Round Two"][categoryIndex],
                 questions: playerQuestions.slice(categoryIndex * 5, categoryIndex * 5 + 5).map((item, questionIndex) => ({
                     points: (questionIndex + 1) * 10,
                     q: item.q,
@@ -627,6 +430,11 @@
         let activePointValue = 0;
         let activeTileButton = null;
         let playerNames = ["Player 1", "Player 2", "Player 3", "Player 4"];
+        let answeredTiles = 0;
+        let participationShown = false;
+        const totalJeopardyTiles = gameData.reduce((playerTotal, playerCategories) => {
+            return playerTotal + playerCategories.reduce((categoryTotal, category) => categoryTotal + category.questions.length, 0);
+        }, 0);
 
         const carouselTrack = document.getElementById('carouselTrack');
         const modal = document.getElementById('questionModal');
@@ -738,7 +546,27 @@
         }
 
         function updateScore(i) { document.getElementById(`score-${i}`).innerText = scores[i]; }
-        function closeModal() { activeTileButton.innerText = ""; activeTileButton.disabled = true; modal.style.display = 'none'; }
+        function closeModal() {
+            if (!activeTileButton) {
+                modal.style.display = 'none';
+                return;
+            }
+            activeTileButton.innerText = "";
+            activeTileButton.disabled = true;
+            activeTileButton = null;
+            modal.style.display = 'none';
+            answeredTiles++;
+            if (answeredTiles === totalJeopardyTiles && !participationShown) {
+                participationShown = true;
+                setTimeout(() => {
+                    MayHubCertificates.showParticipation({
+                        gameTitle: 'Aid and Humanitarian Action Jeopardy Game',
+                        category: 'Round One and Round Two',
+                        onReplay: () => window.location.reload()
+                    });
+                }, 650);
+            }
+        }
         
         buildBoards();
 

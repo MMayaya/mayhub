@@ -4,6 +4,7 @@
     const scriptUrl = new URL(document.currentScript.src);
     const siteRoot = new URL('.', scriptUrl);
     const logoUrl = new URL('May Learning Hub Logo.png', siteRoot).href;
+    const signatureUrl = new URL('May Learning Hub Signature-transparent.png', siteRoot).href;
     let activeResult = null;
     let replayAction = null;
     let previousBodyOverflow = '';
@@ -188,7 +189,18 @@
             border-bottom: 1px solid #6f7d89;
             font-size: .9rem;
         }
-        .mayhub-cert-signature { font-family: 'Segoe Script', 'Brush Script MT', cursive; font-size: 1.05rem !important; }
+        .mayhub-cert-signature {
+            font-family: 'Segoe Script', 'Brush Script MT', cursive;
+            font-size: 1.05rem !important;
+        }
+        .mayhub-cert-signature-text { font-style: normal; }
+        .mayhub-cert-signature-image {
+            display: none;
+            width: min(100%, 220px);
+            height: 45px;
+            object-fit: contain;
+            object-position: center bottom;
+        }
         .mayhub-cert-footer span {
             display: block;
             margin-top: .35rem;
@@ -203,6 +215,26 @@
             font-size: .78rem;
             font-weight: 800;
         }
+        .mayhub-cert-term-line {
+            display: none;
+            margin: .72rem 0 -.35rem;
+            color: #96a1ad;
+            font-size: .7rem;
+            font-weight: 700;
+            letter-spacing: .18em;
+            text-transform: uppercase;
+        }
+        body[data-certificate-layout="compact-subject"] .mayhub-cert-signature {
+            min-height: 52px;
+            padding-bottom: 0;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            font-size: 1rem !important;
+            font-weight: 400;
+        }
+        body[data-certificate-layout="compact-subject"] .mayhub-cert-signature-text { display: none; }
+        body[data-certificate-layout="compact-subject"] .mayhub-cert-signature-image { display: block; }
         .mayhub-cert-actions {
             display: flex;
             justify-content: center;
@@ -264,7 +296,9 @@
             .mayhub-cert-footer { gap: .8rem; padding-top: .8rem; }
             .mayhub-cert-footer strong { font-size: .72rem; }
             .mayhub-cert-signature { font-size: .82rem !important; }
+            .mayhub-cert-signature-image { width: min(100%, 150px); height: 36px; }
             .mayhub-cert-footer span { font-size: .58rem; }
+            .mayhub-cert-term-line { margin-top: .55rem; font-size: .58rem; }
         }
     `;
     document.head.appendChild(style);
@@ -298,10 +332,14 @@
                         <span>Date awarded</span>
                     </div>
                     <div class="mayhub-cert-footer-item">
-                        <strong class="mayhub-cert-signature">May Learning Hub</strong>
+                        <strong class="mayhub-cert-signature">
+                            <em class="mayhub-cert-signature-text">May Learning Hub</em>
+                            <img class="mayhub-cert-signature-image" src="${signatureUrl}" alt="M Learning Hub signature">
+                        </strong>
                         <span>Signed by May Learning Hub</span>
                     </div>
                 </div>
+                <p class="mayhub-cert-term-line" id="mayhubCertTerm"></p>
                 <p class="mayhub-cert-site-line">Get your certificate at www.maylearninghub.co.za</p>
             </article>
             <div class="mayhub-cert-actions">
@@ -342,6 +380,7 @@
             grade: options.grade || data.certificateGrade || '',
             subject: options.subject || data.certificateSubject || '',
             term: options.term || data.certificateTerm || '',
+            layout: options.layout || data.certificateLayout || 'standard',
             topic: options.topic || data.certificateTopic || 'Assessment Activity',
             gameTitle: options.gameTitle || data.certificateGame || 'Assessment Game'
         };
@@ -405,6 +444,7 @@
             grade: context.grade,
             subject: context.subject,
             term: context.term,
+            layout: context.layout,
             gameTitle: context.gameTitle,
             topic: context.topic,
             category: options.category || 'Assessment Game',
@@ -423,7 +463,13 @@
         certificate.className = 'mayhub-certificate ' + award.className;
         document.getElementById('mayhubCertTitle').textContent = award.title;
         document.getElementById('mayhubCertAward').textContent = award.award;
-        document.getElementById('mayhubCertKicker').textContent = [context.grade, context.subject, context.term].filter(Boolean).join(' • ') || 'May Learning Hub Assessment';
+        const kickerParts = context.layout === 'compact-subject'
+            ? [context.grade, context.subject]
+            : [context.grade, context.subject, context.term];
+        document.getElementById('mayhubCertKicker').textContent = kickerParts.filter(Boolean).join(context.layout === 'compact-subject' ? ' ' : ' • ') || 'May Learning Hub Assessment';
+        const termLine = document.getElementById('mayhubCertTerm');
+        termLine.textContent = context.term;
+        termLine.style.display = context.layout === 'compact-subject' && context.term ? 'block' : 'none';
         document.getElementById('mayhubCertName').textContent = learnerName || 'Guest Learner';
         document.getElementById('mayhubCertGame').textContent = activeResult.gameTitle;
         document.getElementById('mayhubCertCategory').textContent = activeResult.category;

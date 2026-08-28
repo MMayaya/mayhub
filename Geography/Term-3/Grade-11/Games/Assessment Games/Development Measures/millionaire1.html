@@ -67,7 +67,7 @@
         footer { text-align: center; padding: 1rem; background-color: #002b5e; color: #fff; margin-top: auto; }
     </style>
 </head>
-<body>
+<body data-certificate-grade="Grade 11" data-certificate-subject="Geography" data-certificate-term="Term 3" data-certificate-topic="Development Measures" data-certificate-game="Development Measures Millionaire Challenge" data-certificate-layout="compact-subject">
 
     <nav>
         <a href="../../../../../../index.html" class="logo">May Learning Hub</a>
@@ -79,7 +79,7 @@
 
     <header class="game-header">
         <h1 class="game-title">R1,000,000 Geography Challenge</h1>
-        <p class="game-subtitle">Revise development terminology, inequality, health, GDP, sustainability and human-development indicators.</p>
+        <p class="game-subtitle">Revise development measures, country categories, quality of life, and sustainable resource use.</p>
         <p style="font-size: 0.78rem; color: #52606d; margin-top: 0.45rem;">Grade 11 Geography Term 3 revision</p>
     </header>
 
@@ -117,6 +117,9 @@
     </footer>
 
         <script src="../../../../../../game-audio.js"></script>
+        <script src="../../../../../../may-certificate-renderer.js"></script>
+        <script src="../../../../../../may-certificate-actions.js"></script>
+        <script src="../../../../../../assessment-certificate.js"></script>
 <script>
         const questions = [
     {
@@ -134,44 +137,44 @@
         "q": "Which measure shows how evenly or unevenly income is distributed?",
         "options": [
             "GDP",
-            "HDI",
             "Gini coefficient",
+            "HDI",
             "Life expectancy"
         ],
-        "a": 2,
+        "a": 1,
         "hint": "The Gini coefficient measures income inequality."
     },
     {
         "q": "The average number of years a person is expected to live is...",
         "options": [
             "Literacy rate",
-            "Life expectancy",
             "GDP per capita",
+            "Life expectancy",
             "Infant mortality"
         ],
-        "a": 1,
+        "a": 2,
         "hint": "Life expectancy is a population-health indicator."
     },
     {
         "q": "The annual value of goods and services produced inside a country is...",
         "options": [
-            "GDP",
             "HDI",
             "Gini coefficient",
-            "Balance of trade"
+            "Balance of trade",
+            "GDP"
         ],
-        "a": 0,
+        "a": 3,
         "hint": "Gross Domestic Product measures domestic output."
     },
     {
         "q": "Meeting present needs without reducing future generations' ability to meet theirs is...",
         "options": [
-            "Economic growth",
             "Sustainable development",
+            "Economic growth",
             "Free trade",
             "Resource depletion"
         ],
-        "a": 1,
+        "a": 0,
         "hint": "This is the standard meaning of sustainable development."
     },
     {
@@ -189,11 +192,11 @@
         "q": "Which index combines health, education and standard of living?",
         "options": [
             "GDP",
-            "HDI",
             "Gini coefficient",
+            "HDI",
             "CPI"
         ],
-        "a": 1,
+        "a": 2,
         "hint": "HDI is a composite human-development measure."
     },
     {
@@ -230,241 +233,81 @@
         "hint": "GDP can rise while inequality and poor social outcomes persist."
     },
     {
-        "q": "Managing natural resources carefully for long-term use is...",
+        "q": "Why can two countries with similar GDP have different living standards?",
         "options": [
-            "Resource management",
-            "Balance of payments",
-            "Import substitution",
-            "Urban sprawl"
-        ],
-        "a": 0,
-        "hint": "Resource management plans and controls resource use."
-    },
-    {
-        "q": "Which indicator most directly reflects population health outcomes?",
-        "options": [
-            "Life expectancy",
-            "Export value",
-            "Tariff rate",
-            "Trade surplus"
-        ],
-        "a": 0,
-        "hint": "Life expectancy is closely linked to overall health conditions."
-    },
-    {
-        "q": "Review: Improving people's quality of life and economic well-being is called...",
-        "options": [
-            "Development",
-            "Globalisation",
-            "Urbanisation",
-            "Protectionism"
-        ],
-        "a": 0,
-        "hint": "Development includes economic and social improvement."
-    },
-    {
-        "q": "Review: Which measure shows how evenly or unevenly income is distributed?",
-        "options": [
+            "Higher income/industrialisation/standard of living",
             "GDP",
-            "HDI",
-            "Gini coefficient",
-            "Life expectancy"
+            "Income distribution and social conditions may differ",
+            "Less Economically Developed Country"
         ],
-        "a": 2,
-        "hint": "The Gini coefficient measures income inequality."
+        "a": 2
     },
     {
-        "q": "Review: The average number of years a person is expected to live is...",
+        "q": "Name one renewable resource.",
         "options": [
-            "Literacy rate",
-            "Life expectancy",
-            "GDP per capita",
-            "Infant mortality"
+            "Any valid example, such as recycling or controlled water use",
+            "The average years a person is expected to live",
+            "So progress is equitable and can continue long term",
+            "Any valid example, such as solar, wind or sustainably managed water"
         ],
-        "a": 1,
-        "hint": "Life expectancy is a population-health indicator."
+        "a": 3
     },
     {
-        "q": "Review: The annual value of goods and services produced inside a country is...",
+        "q": "What does the word composite mean in 'composite index'?",
         "options": [
+            "It combines several indicators",
+            "Higher income/industrialisation/standard of living",
             "GDP",
-            "HDI",
-            "Gini coefficient",
-            "Balance of trade"
+            "Income distribution and social conditions may differ"
         ],
-        "a": 0,
-        "hint": "Gross Domestic Product measures domestic output."
+        "a": 0
     },
     {
-        "q": "Review: Meeting present needs without reducing future generations' ability to meet theirs is...",
+        "q": "State HDI's education dimension in general terms.",
         "options": [
-            "Economic growth",
-            "Sustainable development",
-            "Free trade",
-            "Resource depletion"
-        ],
-        "a": 1,
-        "hint": "This is the standard meaning of sustainable development."
-    },
-    {
-        "q": "Review: Countries with high incomes and industrialisation are often classified as...",
-        "options": [
-            "LEDCs",
-            "MEDCs",
-            "LDCs only",
-            "NICs only"
-        ],
-        "a": 1,
-        "hint": "MEDCs are more economically developed countries."
-    },
-    {
-        "q": "Review: Which index combines health, education and standard of living?",
-        "options": [
+            "Higher income/industrialisation/standard of living",
+            "Knowledge/years of schooling",
             "GDP",
-            "HDI",
-            "Gini coefficient",
-            "CPI"
+            "Income distribution and social conditions may differ"
         ],
-        "a": 1,
-        "hint": "HDI is a composite human-development measure."
+        "a": 1
     },
     {
-        "q": "Review: Which item is NOT one of HDI's three dimensions?",
+        "q": "Would perfect equality have a low or high Gini value?",
         "options": [
-            "Health",
-            "Education",
-            "Standard of living",
-            "Exports"
-        ],
-        "a": 3,
-        "hint": "Exports are not a direct HDI dimension."
-    },
-    {
-        "q": "Review: A high Gini coefficient generally signals...",
-        "options": [
-            "Greater income inequality",
-            "Perfect equality",
-            "Long life expectancy",
-            "High literacy only"
-        ],
-        "a": 0,
-        "hint": "Higher Gini values generally indicate greater inequality."
-    },
-    {
-        "q": "Review: Why is GDP alone an incomplete development measure?",
-        "options": [
-            "It measures no production",
-            "It hides distribution and social well-being",
-            "It is always negative",
-            "It includes education directly"
-        ],
-        "a": 1,
-        "hint": "GDP can rise while inequality and poor social outcomes persist."
-    },
-    {
-        "q": "Review: Managing natural resources carefully for long-term use is...",
-        "options": [
-            "Resource management",
-            "Balance of payments",
-            "Import substitution",
-            "Urban sprawl"
-        ],
-        "a": 0,
-        "hint": "Resource management plans and controls resource use."
-    },
-    {
-        "q": "Review: Which indicator most directly reflects population health outcomes?",
-        "options": [
-            "Life expectancy",
-            "Export value",
-            "Tariff rate",
-            "Trade surplus"
-        ],
-        "a": 0,
-        "hint": "Life expectancy is closely linked to overall health conditions."
-    },
-    {
-        "q": "Challenge: Improving people's quality of life and economic well-being is called...",
-        "options": [
-            "Development",
-            "Globalisation",
-            "Urbanisation",
-            "Protectionism"
-        ],
-        "a": 0,
-        "hint": "Development includes economic and social improvement."
-    },
-    {
-        "q": "Challenge: Which measure shows how evenly or unevenly income is distributed?",
-        "options": [
+            "Higher income/industrialisation/standard of living",
             "GDP",
-            "HDI",
-            "Gini coefficient",
-            "Life expectancy"
+            "Low",
+            "Income distribution and social conditions may differ"
         ],
-        "a": 2,
-        "hint": "The Gini coefficient measures income inequality."
-    },
-    {
-        "q": "Challenge: The average number of years a person is expected to live is...",
-        "options": [
-            "Literacy rate",
-            "Life expectancy",
-            "GDP per capita",
-            "Infant mortality"
-        ],
-        "a": 1,
-        "hint": "Life expectancy is a population-health indicator."
-    },
-    {
-        "q": "Challenge: The annual value of goods and services produced inside a country is...",
-        "options": [
-            "GDP",
-            "HDI",
-            "Gini coefficient",
-            "Balance of trade"
-        ],
-        "a": 0,
-        "hint": "Gross Domestic Product measures domestic output."
-    },
-    {
-        "q": "Challenge: Meeting present needs without reducing future generations' ability to meet theirs is...",
-        "options": [
-            "Economic growth",
-            "Sustainable development",
-            "Free trade",
-            "Resource depletion"
-        ],
-        "a": 1,
-        "hint": "This is the standard meaning of sustainable development."
-    },
-    {
-        "q": "Challenge: Countries with high incomes and industrialisation are often classified as...",
-        "options": [
-            "LEDCs",
-            "MEDCs",
-            "LDCs only",
-            "NICs only"
-        ],
-        "a": 1,
-        "hint": "MEDCs are more economically developed countries."
+        "a": 2
     }
 ];
 
         const prizes = [
-            "R100", "R200", "R300", "R500", "R1,000",
-            "R2,000", "R3,000", "R4,000", "R5,000", "R10,000",
-            "R15,000", "R20,000", "R25,000", "R30,000", "R40,000",
-            "R50,000", "R60,000", "R70,000", "R80,000", "R100,000",
-            "R150,000", "R200,000", "R250,000", "R300,000", "R400,000",
-            "R500,000", "R600,000", "R750,000", "R850,000", "R1,000,000"
-        ];
+    "R100",
+    "R200",
+    "R300",
+    "R500",
+    "R1,000",
+    "R2,000",
+    "R4,000",
+    "R8,000",
+    "R16,000",
+    "R32,000",
+    "R64,000",
+    "R125,000",
+    "R250,000",
+    "R500,000",
+    "R1,000,000"
+];
 
         let currentLevel = 0;
         let isWaiting = false;
+        let certificateShown = false;
 
         const ladderContainer = document.getElementById('prizeLadder');
-        for (let i = 0; i < 30; i++) {
+        for (let i = 0; i < questions.length; i++) {
             let step = document.createElement('div');
             step.className = 'ladder-step';
             step.id = `ladder-${i}`;
@@ -482,7 +325,7 @@
             document.getElementById(`ladder-${currentLevel}`).classList.add('active');
 
             const qData = questions[currentLevel];
-            document.getElementById('questionText').innerText = `Q${currentLevel + 1}: ${qData.q}`;
+            document.getElementById('questionText').innerText = qData.q;
 
             let options = [...qData.options];
             let correctText = options[qData.a];
@@ -521,7 +364,7 @@
                     selectedBtn.classList.add('correct');
                     setTimeout(() => {
                         currentLevel++;
-                        if (currentLevel >= 30) endGame(true);
+                        if (currentLevel >= questions.length) endGame(true);
                         else loadQuestion();
                     }, 1000); 
                 } else {
@@ -552,18 +395,30 @@
         function useHint() {
             if (isWaiting) return;
             document.getElementById('btnHint').disabled = true;
-            alert("Geography Teacher Hint: " + questions[currentLevel].hint);
+            alert("History Teacher Hint: " + questions[currentLevel].hint);
         }
 
         function endGame(won) {
             document.getElementById('gameBoard').style.display = 'none';
             document.getElementById('endScreen').style.display = 'block';
             if (won) {
-                document.getElementById('endMessage').innerText = "Geography Legend!";
+                document.getElementById('endMessage').innerText = "History Legend!";
                 document.getElementById('endPrize').innerText = "R1,000,000";
             } else {
                 document.getElementById('endMessage').innerText = "Final Winnings:";
                 document.getElementById('endPrize').innerText = currentLevel > 0 ? prizes[currentLevel - 1] : "R0";
+            }
+            if (!certificateShown) {
+                certificateShown = true;
+                setTimeout(() => {
+                    MayHubCertificates.showScored({
+                        gameTitle: 'Development Measures Millionaire Challenge',
+                        category: 'Millionaire Quiz',
+                        correct: currentLevel,
+                        total: questions.length,
+                        onReplay: () => window.location.reload()
+                    });
+                }, 600);
             }
         }
         loadQuestion();

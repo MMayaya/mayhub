@@ -67,7 +67,7 @@
         footer { text-align: center; padding: 1rem; background-color: #002b5e; color: #fff; margin-top: auto; }
     </style>
 </head>
-<body>
+<body data-certificate-grade="Grade 11" data-certificate-subject="Geography" data-certificate-term="Term 3" data-certificate-topic="Trade Patterns" data-certificate-game="Trade Patterns Millionaire Challenge" data-certificate-layout="compact-subject">
 
     <nav>
         <a href="../../../../../../index.html" class="logo">May Learning Hub</a>
@@ -79,7 +79,7 @@
 
     <header class="game-header">
         <h1 class="game-title">R1,000,000 Geography Challenge</h1>
-        <p class="game-subtitle">Revise trade data, trading partners, trade balances, exports, imports, quotas and free trade.</p>
+        <p class="game-subtitle">Revise exports, imports, trade balances, export-led development, and trade barriers.</p>
         <p style="font-size: 0.78rem; color: #52606d; margin-top: 0.45rem;">Grade 11 Geography Term 3 revision</p>
     </header>
 
@@ -117,17 +117,20 @@
     </footer>
 
         <script src="../../../../../../game-audio.js"></script>
+        <script src="../../../../../../may-certificate-renderer.js"></script>
+        <script src="../../../../../../may-certificate-actions.js"></script>
+        <script src="../../../../../../assessment-certificate.js"></script>
 <script>
         const questions = [
     {
         "q": "South Africa exported R88.68 billion and imported R101.76 billion. Which total was greater?",
         "options": [
-            "Exports",
             "Imports",
+            "Exports",
             "They were equal",
             "Neither was recorded"
         ],
-        "a": 1,
+        "a": 0,
         "hint": "Imports (R101.76 billion) exceeded exports (R88.68 billion)."
     },
     {
@@ -144,56 +147,56 @@
     {
         "q": "South Africa sent 8.1% of its exports to the USA and received 5.7% of its imports from the USA. Its trade balance with the USA was...",
         "options": [
-            "Positive",
             "Negative",
             "Zero",
+            "Positive",
             "Cannot be determined"
         ],
-        "a": 0,
+        "a": 2,
         "hint": "The USA received 8.1% of South Africa's exports but supplied 5.7% of its imports, indicating a positive bilateral trade balance."
     },
     {
         "q": "Germany received 6.2% of South Africa's exports. What was Germany's export share?",
         "options": [
             "9.2%",
-            "6.2%",
             "8.1%",
-            "4.8%"
+            "4.8%",
+            "6.2%"
         ],
-        "a": 1,
+        "a": 3,
         "hint": "Germany received 6.2% of South Africa's exports."
     },
     {
         "q": "Germany received 6.2% of South Africa's exports but supplied 9.2% of its imports. South Africa's trade with Germany showed a...",
         "options": [
-            "Surplus",
             "Deficit",
+            "Surplus",
             "Perfect balance",
             "Quota"
         ],
-        "a": 1,
+        "a": 0,
         "hint": "Imports from Germany (9.2%) exceeded exports to Germany (6.2%)."
     },
     {
         "q": "The relationship between export value and import value is called the...",
         "options": [
-            "Balance of trade",
             "Balance of payments",
+            "Balance of trade",
             "Exchange rate",
             "Trade quota"
         ],
-        "a": 0,
+        "a": 1,
         "hint": "The balance of trade compares the value of goods exported and imported."
     },
     {
         "q": "China's rapid economic development is commonly linked to which approach?",
         "options": [
             "Import-led",
-            "Export-led",
             "Aid-led",
+            "Export-led",
             "Subsistence-led"
         ],
-        "a": 1,
+        "a": 2,
         "hint": "China is widely used as an example of export-led development."
     },
     {
@@ -201,270 +204,110 @@
         "options": [
             "Subsidy",
             "Tariff",
-            "Quota",
-            "Grant"
+            "Grant",
+            "Quota"
         ],
-        "a": 2,
+        "a": 3,
         "hint": "A quota restricts the amount of a good that may be imported."
     },
     {
         "q": "Trade without tariffs and quotas is known as...",
         "options": [
-            "Fair trade",
             "Free trade",
+            "Fair trade",
             "Bilateral aid",
             "Protectionism"
         ],
-        "a": 1,
+        "a": 0,
         "hint": "Free trade removes or reduces barriers such as tariffs and quotas."
     },
     {
-        "q": "China received 14.1% of South Africa's exports, compared with 8.1% for the USA and 6.2% for Germany. Which was the largest export market?",
+        "q": "China received 11.1% of South Africa's exports, compared with 8.1% for the USA and 6.2% for Germany. Which was the largest export market?",
         "options": [
             "Germany",
-            "USA",
             "China",
+            "USA",
             "Japan"
         ],
-        "a": 2,
-        "hint": "China had the largest export share at 14.1%."
-    },
-    {
-        "q": "China supplied 23.1% of South Africa's imports, Germany 9.2%, the USA 5.7%, India 4.2%, and Saudi Arabia 3.4%. Which country supplied the largest share?",
-        "options": [
-            "China",
-            "Germany",
-            "India",
-            "Saudi Arabia"
-        ],
-        "a": 0,
-        "hint": "China supplied 23.1% of South Africa's imports."
-    },
-    {
-        "q": "A tariff differs from a quota because a tariff...",
-        "options": [
-            "Limits quantity",
-            "Taxes imports",
-            "Rewards exporters",
-            "Measures GDP"
-        ],
         "a": 1,
-        "hint": "A tariff is a tax on imported goods; a quota limits quantity."
+        "hint": "China had the largest export share at 11.1%."
     },
     {
-        "q": "If exports rise above imports, the country has a trade...",
+        "q": "South Africa sent 8.1% of its exports to the USA. What was the USA's export share?",
         "options": [
-            "Deficit",
-            "Surplus",
-            "Embargo",
-            "Dependency"
-        ],
-        "a": 1,
-        "hint": "A trade surplus occurs when export earnings exceed import spending."
-    },
-    {
-        "q": "Review: South Africa exported R88.68 billion and imported R101.76 billion. Which total was greater?",
-        "options": [
-            "Exports",
-            "Imports",
-            "They were equal",
-            "Neither was recorded"
-        ],
-        "a": 1,
-        "hint": "Imports (R101.76 billion) exceeded exports (R88.68 billion)."
-    },
-    {
-        "q": "Review: South Africa exported R88.68 billion and imported R101.76 billion. Its overall trade balance was...",
-        "options": [
-            "Positive",
-            "Negative",
-            "Zero",
-            "Impossible to calculate"
-        ],
-        "a": 1,
-        "hint": "Imports exceeded exports, producing a negative trade balance."
-    },
-    {
-        "q": "Review: South Africa sent 8.1% of its exports to the USA and received 5.7% of its imports from the USA. Its trade balance with the USA was...",
-        "options": [
-            "Positive",
-            "Negative",
-            "Zero",
-            "Cannot be determined"
-        ],
-        "a": 0,
-        "hint": "The USA received 8.1% of South Africa's exports but supplied 5.7% of its imports, indicating a positive bilateral trade balance."
-    },
-    {
-        "q": "Review: Germany received 6.2% of South Africa's exports. What was Germany's export share?",
-        "options": [
-            "9.2%",
-            "6.2%",
+            "23.1%",
+            "Balance of trade",
             "8.1%",
-            "4.8%"
+            "A tariff"
         ],
-        "a": 1,
-        "hint": "Germany received 6.2% of South Africa's exports."
+        "a": 2
     },
     {
-        "q": "Review: Germany received 6.2% of South Africa's exports but supplied 9.2% of its imports. South Africa's trade with Germany showed a...",
+        "q": "India supplied 4.2% of South Africa's imports and Saudi Arabia supplied 3.4%. Which supplied more?",
+        "options": [
+            "Balance of trade",
+            "A tariff",
+            "A balanced trade position / zero balance",
+            "India"
+        ],
+        "a": 3
+    },
+    {
+        "q": "China supplied 23.1% of South Africa's imports. What was China's import share?",
+        "options": [
+            "23.1%",
+            "8.1%",
+            "Balance of trade",
+            "A tariff"
+        ],
+        "a": 0
+    },
+    {
+        "q": "Does a 6.2% export share and 9.2% import share with Germany suggest surplus or deficit?",
         "options": [
             "Surplus",
             "Deficit",
             "Perfect balance",
             "Quota"
         ],
-        "a": 1,
-        "hint": "Imports from Germany (9.2%) exceeded exports to Germany (6.2%)."
+        "a": 1
     },
     {
-        "q": "Review: The relationship between export value and import value is called the...",
+        "q": "Why might a country place a quota on imports?",
         "options": [
+            "They earn foreign currency and support production/employment",
             "Balance of trade",
-            "Balance of payments",
-            "Exchange rate",
-            "Trade quota"
+            "To protect local producers or conserve foreign currency",
+            "A tariff"
         ],
-        "a": 0,
-        "hint": "The balance of trade compares the value of goods exported and imported."
-    },
-    {
-        "q": "Review: China's rapid economic development is commonly linked to which approach?",
-        "options": [
-            "Import-led",
-            "Export-led",
-            "Aid-led",
-            "Subsistence-led"
-        ],
-        "a": 1,
-        "hint": "China is widely used as an example of export-led development."
-    },
-    {
-        "q": "Review: A government limit on the quantity of a product imported is a...",
-        "options": [
-            "Subsidy",
-            "Tariff",
-            "Quota",
-            "Grant"
-        ],
-        "a": 2,
-        "hint": "A quota restricts the amount of a good that may be imported."
-    },
-    {
-        "q": "Review: Trade without tariffs and quotas is known as...",
-        "options": [
-            "Fair trade",
-            "Free trade",
-            "Bilateral aid",
-            "Protectionism"
-        ],
-        "a": 1,
-        "hint": "Free trade removes or reduces barriers such as tariffs and quotas."
-    },
-    {
-        "q": "Review: China received 14.1% of South Africa's exports, compared with 8.1% for the USA and 6.2% for Germany. Which was the largest export market?",
-        "options": [
-            "Germany",
-            "USA",
-            "China",
-            "Japan"
-        ],
-        "a": 2,
-        "hint": "China had the largest export share at 14.1%."
-    },
-    {
-        "q": "Review: China supplied 23.1% of South Africa's imports, Germany 9.2%, the USA 5.7%, India 4.2%, and Saudi Arabia 3.4%. Which country supplied the largest share?",
-        "options": [
-            "China",
-            "Germany",
-            "India",
-            "Saudi Arabia"
-        ],
-        "a": 0,
-        "hint": "China supplied 23.1% of South Africa's imports."
-    },
-    {
-        "q": "Review: A tariff differs from a quota because a tariff...",
-        "options": [
-            "Limits quantity",
-            "Taxes imports",
-            "Rewards exporters",
-            "Measures GDP"
-        ],
-        "a": 1,
-        "hint": "A tariff is a tax on imported goods; a quota limits quantity."
-    },
-    {
-        "q": "Review: If exports rise above imports, the country has a trade...",
-        "options": [
-            "Deficit",
-            "Surplus",
-            "Embargo",
-            "Dependency"
-        ],
-        "a": 1,
-        "hint": "A trade surplus occurs when export earnings exceed import spending."
-    },
-    {
-        "q": "Challenge: South Africa exported R88.68 billion and imported R101.76 billion. Which total was greater?",
-        "options": [
-            "Exports",
-            "Imports",
-            "They were equal",
-            "Neither was recorded"
-        ],
-        "a": 1,
-        "hint": "Imports (R101.76 billion) exceeded exports (R88.68 billion)."
-    },
-    {
-        "q": "Challenge: South Africa exported R88.68 billion and imported R101.76 billion. Its overall trade balance was...",
-        "options": [
-            "Positive",
-            "Negative",
-            "Zero",
-            "Impossible to calculate"
-        ],
-        "a": 1,
-        "hint": "Imports exceeded exports, producing a negative trade balance."
-    },
-    {
-        "q": "Challenge: South Africa sent 8.1% of its exports to the USA and received 5.7% of its imports from the USA. Its trade balance with the USA was...",
-        "options": [
-            "Positive",
-            "Negative",
-            "Zero",
-            "Cannot be determined"
-        ],
-        "a": 0,
-        "hint": "The USA received 8.1% of South Africa's exports but supplied 5.7% of its imports, indicating a positive bilateral trade balance."
-    },
-    {
-        "q": "Challenge: Germany received 6.2% of South Africa's exports. What was Germany's export share?",
-        "options": [
-            "9.2%",
-            "6.2%",
-            "8.1%",
-            "4.8%"
-        ],
-        "a": 1,
-        "hint": "Germany received 6.2% of South Africa's exports."
+        "a": 2
     }
 ];
 
         const prizes = [
-            "R100", "R200", "R300", "R500", "R1,000",
-            "R2,000", "R3,000", "R4,000", "R5,000", "R10,000",
-            "R15,000", "R20,000", "R25,000", "R30,000", "R40,000",
-            "R50,000", "R60,000", "R70,000", "R80,000", "R100,000",
-            "R150,000", "R200,000", "R250,000", "R300,000", "R400,000",
-            "R500,000", "R600,000", "R750,000", "R850,000", "R1,000,000"
-        ];
+    "R100",
+    "R200",
+    "R300",
+    "R500",
+    "R1,000",
+    "R2,000",
+    "R4,000",
+    "R8,000",
+    "R16,000",
+    "R32,000",
+    "R64,000",
+    "R125,000",
+    "R250,000",
+    "R500,000",
+    "R1,000,000"
+];
 
         let currentLevel = 0;
         let isWaiting = false;
+        let certificateShown = false;
 
         const ladderContainer = document.getElementById('prizeLadder');
-        for (let i = 0; i < 30; i++) {
+        for (let i = 0; i < questions.length; i++) {
             let step = document.createElement('div');
             step.className = 'ladder-step';
             step.id = `ladder-${i}`;
@@ -482,7 +325,7 @@
             document.getElementById(`ladder-${currentLevel}`).classList.add('active');
 
             const qData = questions[currentLevel];
-            document.getElementById('questionText').innerText = `Q${currentLevel + 1}: ${qData.q}`;
+            document.getElementById('questionText').innerText = qData.q;
 
             let options = [...qData.options];
             let correctText = options[qData.a];
@@ -521,7 +364,7 @@
                     selectedBtn.classList.add('correct');
                     setTimeout(() => {
                         currentLevel++;
-                        if (currentLevel >= 30) endGame(true);
+                        if (currentLevel >= questions.length) endGame(true);
                         else loadQuestion();
                     }, 1000); 
                 } else {
@@ -552,18 +395,30 @@
         function useHint() {
             if (isWaiting) return;
             document.getElementById('btnHint').disabled = true;
-            alert("Geography Teacher Hint: " + questions[currentLevel].hint);
+            alert("History Teacher Hint: " + questions[currentLevel].hint);
         }
 
         function endGame(won) {
             document.getElementById('gameBoard').style.display = 'none';
             document.getElementById('endScreen').style.display = 'block';
             if (won) {
-                document.getElementById('endMessage').innerText = "Geography Legend!";
+                document.getElementById('endMessage').innerText = "History Legend!";
                 document.getElementById('endPrize').innerText = "R1,000,000";
             } else {
                 document.getElementById('endMessage').innerText = "Final Winnings:";
                 document.getElementById('endPrize').innerText = currentLevel > 0 ? prizes[currentLevel - 1] : "R0";
+            }
+            if (!certificateShown) {
+                certificateShown = true;
+                setTimeout(() => {
+                    MayHubCertificates.showScored({
+                        gameTitle: 'Trade Patterns Millionaire Challenge',
+                        category: 'Millionaire Quiz',
+                        correct: currentLevel,
+                        total: questions.length,
+                        onReplay: () => window.location.reload()
+                    });
+                }, 600);
             }
         }
         loadQuestion();

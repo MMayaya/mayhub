@@ -67,7 +67,7 @@
         footer { text-align: center; padding: 1rem; background-color: #002b5e; color: #fff; margin-top: auto; }
     </style>
 </head>
-<body>
+<body data-certificate-grade="Grade 11" data-certificate-subject="Geography" data-certificate-term="Term 3" data-certificate-topic="Fair and Free Trade" data-certificate-game="Fair and Free Trade Millionaire Challenge" data-certificate-layout="compact-subject">
 
     <nav>
         <a href="../../../../../../index.html" class="logo">May Learning Hub</a>
@@ -79,7 +79,7 @@
 
     <header class="game-header">
         <h1 class="game-title">R1,000,000 Geography Challenge</h1>
-        <p class="game-subtitle">Compare trading relationships and evaluate tariffs, quotas, market access, benefits and risks.</p>
+        <p class="game-subtitle">Revise tariffs, quotas, free and fair trade, unequal bargaining power, and impacts on LEDCs.</p>
         <p style="font-size: 0.78rem; color: #52606d; margin-top: 0.45rem;">Grade 11 Geography Term 3 revision</p>
     </header>
 
@@ -117,17 +117,20 @@
     </footer>
 
         <script src="../../../../../../game-audio.js"></script>
+        <script src="../../../../../../may-certificate-renderer.js"></script>
+        <script src="../../../../../../may-certificate-actions.js"></script>
+        <script src="../../../../../../assessment-certificate.js"></script>
 <script>
         const questions = [
     {
         "q": "Does a powerful country imposing restrictive terms represent genuine free trade?",
         "options": [
-            "Yes",
             "No",
+            "Yes",
             "Only when GDP falls",
             "Only with aid"
         ],
-        "a": 1,
+        "a": 0,
         "hint": "Restrictions and unequal power contradict genuine free trade."
     },
     {
@@ -145,66 +148,66 @@
         "q": "In an unequal international trading relationship, the countries with less bargaining power usually represent...",
         "options": [
             "MEDCs",
-            "LEDCs",
             "Banks only",
+            "LEDCs",
             "Export quotas"
         ],
-        "a": 1,
+        "a": 2,
         "hint": "They represent less economically developed countries."
     },
     {
         "q": "A tariff is...",
         "options": [
-            "A tax on imports",
             "A limit on import quantity",
             "A cash gift",
-            "An equality index"
+            "An equality index",
+            "A tax on imports"
         ],
-        "a": 0,
+        "a": 3,
         "hint": "Tariffs make imported goods more expensive."
     },
     {
         "q": "A quota is...",
         "options": [
-            "A tax on exports",
             "A limit on the quantity imported",
+            "A tax on exports",
             "A health measure",
             "A trade surplus"
         ],
-        "a": 1,
+        "a": 0,
         "hint": "Quotas cap the volume of a product that may enter."
     },
     {
         "q": "One advantage of free trade for LEDCs is...",
         "options": [
-            "Access to larger markets",
             "Guaranteed equality",
+            "Access to larger markets",
             "No competition",
             "Automatic debt removal"
         ],
-        "a": 0,
+        "a": 1,
         "hint": "Larger markets can expand sales and production."
     },
     {
         "q": "Free trade may attract...",
         "options": [
-            "Foreign investment",
             "Lower literacy",
             "Trade isolation",
+            "Foreign investment",
             "Import bans"
         ],
-        "a": 0,
+        "a": 2,
         "hint": "Market access can attract foreign direct investment."
     },
     {
         "q": "One disadvantage of free trade for LEDCs is...",
         "options": [
-            "Local firms may be unable to compete",
             "All exports stop",
             "No products are available",
-            "Tariffs automatically rise"
+            "Tariffs automatically rise",
+            "Local firms may be unable to compete"
         ],
-        "a": 0,
+        "a": 3,
         "hint": "Stronger foreign firms can displace vulnerable local industries."
     },
     {
@@ -221,250 +224,90 @@
     {
         "q": "Which policy is a non-tax trade barrier?",
         "options": [
-            "Quota",
             "Tariff",
+            "Quota",
             "Income tax",
             "VAT"
         ],
-        "a": 0,
+        "a": 1,
         "hint": "A quota restricts quantity rather than charging a tax."
     },
     {
-        "q": "Trade is fairer when...",
+        "q": "Give one danger of depending on foreign companies.",
         "options": [
-            "Benefits and bargaining power are more equitable",
-            "One side sets every rule",
-            "Poor producers earn less",
-            "Markets are hidden"
+            "Free trade reduces barriers; fair trade stresses equitable terms and returns",
+            "They need time to develop before facing established competitors",
+            "Profits may leave, firms may relocate, or local control may weaken",
+            "Valid examples: fair prices, labour standards, market access or reduced rich-country subsidies"
         ],
-        "a": 0,
-        "hint": "Fairness concerns the terms, returns and power within trade."
+        "a": 2
     },
     {
-        "q": "Foreign firms entering an LEDC can bring...",
+        "q": "When two trading partners have very different levels of wealth and influence, what does this difference communicate?",
         "options": [
-            "Capital, skills and jobs",
-            "Guaranteed equality",
-            "No competition",
-            "Only quotas"
-        ],
-        "a": 0,
-        "hint": "Investment may add capital, technology, skills and employment."
-    },
-    {
-        "q": "Review: Does a powerful country imposing restrictive terms represent genuine free trade?",
-        "options": [
-            "Yes",
+            "It makes them more expensive",
+            "Training, knowledge or technology transfer",
             "No",
-            "Only when GDP falls",
-            "Only with aid"
+            "Unequal power"
         ],
-        "a": 1,
-        "hint": "Restrictions and unequal power contradict genuine free trade."
+        "a": 3
     },
     {
-        "q": "Review: In an unequal international trading relationship, the wealthier country with greater bargaining power usually represents...",
+        "q": "Name one skill-related gain that investment can bring.",
         "options": [
-            "LEDCs",
-            "MEDCs",
-            "Aid agencies",
-            "Local consumers only"
+            "Training, knowledge or technology transfer",
+            "Unequal power",
+            "It makes them more expensive",
+            "No"
         ],
-        "a": 1,
-        "hint": "The wealthier and more powerful trading partner represents more economically developed countries."
+        "a": 0
     },
     {
-        "q": "Review: In an unequal international trading relationship, the countries with less bargaining power usually represent...",
+        "q": "Why might infant industries need temporary protection?",
         "options": [
-            "MEDCs",
-            "LEDCs",
-            "Banks only",
-            "Export quotas"
+            "Profits may leave, firms may relocate, or local control may weaken",
+            "They need time to develop before facing established competitors",
+            "Free trade reduces barriers; fair trade stresses equitable terms and returns",
+            "Valid examples: fair prices, labour standards, market access or reduced rich-country subsidies"
         ],
-        "a": 1,
-        "hint": "They represent less economically developed countries."
+        "a": 1
     },
     {
-        "q": "Review: A tariff is...",
+        "q": "What trade principle is challenged when a rich partner says 'take it or leave it'?",
         "options": [
-            "A tax on imports",
-            "A limit on import quantity",
-            "A cash gift",
-            "An equality index"
+            "Unequal power",
+            "It makes them more expensive",
+            "Fairness/equal bargaining",
+            "Training, knowledge or technology transfer"
         ],
-        "a": 0,
-        "hint": "Tariffs make imported goods more expensive."
-    },
-    {
-        "q": "Review: A quota is...",
-        "options": [
-            "A tax on exports",
-            "A limit on the quantity imported",
-            "A health measure",
-            "A trade surplus"
-        ],
-        "a": 1,
-        "hint": "Quotas cap the volume of a product that may enter."
-    },
-    {
-        "q": "Review: One advantage of free trade for LEDCs is...",
-        "options": [
-            "Access to larger markets",
-            "Guaranteed equality",
-            "No competition",
-            "Automatic debt removal"
-        ],
-        "a": 0,
-        "hint": "Larger markets can expand sales and production."
-    },
-    {
-        "q": "Review: Free trade may attract...",
-        "options": [
-            "Foreign investment",
-            "Lower literacy",
-            "Trade isolation",
-            "Import bans"
-        ],
-        "a": 0,
-        "hint": "Market access can attract foreign direct investment."
-    },
-    {
-        "q": "Review: One disadvantage of free trade for LEDCs is...",
-        "options": [
-            "Local firms may be unable to compete",
-            "All exports stop",
-            "No products are available",
-            "Tariffs automatically rise"
-        ],
-        "a": 0,
-        "hint": "Stronger foreign firms can displace vulnerable local industries."
-    },
-    {
-        "q": "Review: Why do tariffs protect domestic producers?",
-        "options": [
-            "They make imports relatively more expensive",
-            "They increase import quantity",
-            "They measure health",
-            "They remove borders"
-        ],
-        "a": 0,
-        "hint": "Higher import prices can improve local firms' competitiveness."
-    },
-    {
-        "q": "Review: Which policy is a non-tax trade barrier?",
-        "options": [
-            "Quota",
-            "Tariff",
-            "Income tax",
-            "VAT"
-        ],
-        "a": 0,
-        "hint": "A quota restricts quantity rather than charging a tax."
-    },
-    {
-        "q": "Review: Trade is fairer when...",
-        "options": [
-            "Benefits and bargaining power are more equitable",
-            "One side sets every rule",
-            "Poor producers earn less",
-            "Markets are hidden"
-        ],
-        "a": 0,
-        "hint": "Fairness concerns the terms, returns and power within trade."
-    },
-    {
-        "q": "Review: Foreign firms entering an LEDC can bring...",
-        "options": [
-            "Capital, skills and jobs",
-            "Guaranteed equality",
-            "No competition",
-            "Only quotas"
-        ],
-        "a": 0,
-        "hint": "Investment may add capital, technology, skills and employment."
-    },
-    {
-        "q": "Challenge: Does a powerful country imposing restrictive terms represent genuine free trade?",
-        "options": [
-            "Yes",
-            "No",
-            "Only when GDP falls",
-            "Only with aid"
-        ],
-        "a": 1,
-        "hint": "Restrictions and unequal power contradict genuine free trade."
-    },
-    {
-        "q": "Challenge: In an unequal international trading relationship, the wealthier country with greater bargaining power usually represents...",
-        "options": [
-            "LEDCs",
-            "MEDCs",
-            "Aid agencies",
-            "Local consumers only"
-        ],
-        "a": 1,
-        "hint": "The wealthier and more powerful trading partner represents more economically developed countries."
-    },
-    {
-        "q": "Challenge: In an unequal international trading relationship, the countries with less bargaining power usually represent...",
-        "options": [
-            "MEDCs",
-            "LEDCs",
-            "Banks only",
-            "Export quotas"
-        ],
-        "a": 1,
-        "hint": "They represent less economically developed countries."
-    },
-    {
-        "q": "Challenge: A tariff is...",
-        "options": [
-            "A tax on imports",
-            "A limit on import quantity",
-            "A cash gift",
-            "An equality index"
-        ],
-        "a": 0,
-        "hint": "Tariffs make imported goods more expensive."
-    },
-    {
-        "q": "Challenge: A quota is...",
-        "options": [
-            "A tax on exports",
-            "A limit on the quantity imported",
-            "A health measure",
-            "A trade surplus"
-        ],
-        "a": 1,
-        "hint": "Quotas cap the volume of a product that may enter."
-    },
-    {
-        "q": "Challenge: One advantage of free trade for LEDCs is...",
-        "options": [
-            "Access to larger markets",
-            "Guaranteed equality",
-            "No competition",
-            "Automatic debt removal"
-        ],
-        "a": 0,
-        "hint": "Larger markets can expand sales and production."
+        "a": 2
     }
 ];
 
         const prizes = [
-            "R100", "R200", "R300", "R500", "R1,000",
-            "R2,000", "R3,000", "R4,000", "R5,000", "R10,000",
-            "R15,000", "R20,000", "R25,000", "R30,000", "R40,000",
-            "R50,000", "R60,000", "R70,000", "R80,000", "R100,000",
-            "R150,000", "R200,000", "R250,000", "R300,000", "R400,000",
-            "R500,000", "R600,000", "R750,000", "R850,000", "R1,000,000"
-        ];
+    "R100",
+    "R200",
+    "R300",
+    "R500",
+    "R1,000",
+    "R2,000",
+    "R4,000",
+    "R8,000",
+    "R16,000",
+    "R32,000",
+    "R64,000",
+    "R125,000",
+    "R250,000",
+    "R500,000",
+    "R1,000,000"
+];
 
         let currentLevel = 0;
         let isWaiting = false;
+        let certificateShown = false;
 
         const ladderContainer = document.getElementById('prizeLadder');
-        for (let i = 0; i < 30; i++) {
+        for (let i = 0; i < questions.length; i++) {
             let step = document.createElement('div');
             step.className = 'ladder-step';
             step.id = `ladder-${i}`;
@@ -482,7 +325,7 @@
             document.getElementById(`ladder-${currentLevel}`).classList.add('active');
 
             const qData = questions[currentLevel];
-            document.getElementById('questionText').innerText = `Q${currentLevel + 1}: ${qData.q}`;
+            document.getElementById('questionText').innerText = qData.q;
 
             let options = [...qData.options];
             let correctText = options[qData.a];
@@ -521,7 +364,7 @@
                     selectedBtn.classList.add('correct');
                     setTimeout(() => {
                         currentLevel++;
-                        if (currentLevel >= 30) endGame(true);
+                        if (currentLevel >= questions.length) endGame(true);
                         else loadQuestion();
                     }, 1000); 
                 } else {
@@ -552,18 +395,30 @@
         function useHint() {
             if (isWaiting) return;
             document.getElementById('btnHint').disabled = true;
-            alert("Geography Teacher Hint: " + questions[currentLevel].hint);
+            alert("History Teacher Hint: " + questions[currentLevel].hint);
         }
 
         function endGame(won) {
             document.getElementById('gameBoard').style.display = 'none';
             document.getElementById('endScreen').style.display = 'block';
             if (won) {
-                document.getElementById('endMessage').innerText = "Geography Legend!";
+                document.getElementById('endMessage').innerText = "History Legend!";
                 document.getElementById('endPrize').innerText = "R1,000,000";
             } else {
                 document.getElementById('endMessage').innerText = "Final Winnings:";
                 document.getElementById('endPrize').innerText = currentLevel > 0 ? prizes[currentLevel - 1] : "R0";
+            }
+            if (!certificateShown) {
+                certificateShown = true;
+                setTimeout(() => {
+                    MayHubCertificates.showScored({
+                        gameTitle: 'Fair and Free Trade Millionaire Challenge',
+                        category: 'Millionaire Quiz',
+                        correct: currentLevel,
+                        total: questions.length,
+                        onReplay: () => window.location.reload()
+                    });
+                }, 600);
             }
         }
         loadQuestion();

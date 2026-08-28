@@ -67,7 +67,7 @@
         footer { text-align: center; padding: 1rem; background-color: #002b5e; color: #fff; margin-top: auto; }
     </style>
 </head>
-<body>
+<body data-certificate-grade="Grade 10" data-certificate-subject="Geography" data-certificate-term="Term 3" data-certificate-topic="Rural-Urban Migration" data-certificate-game="Rural-Urban Migration Millionaire Challenge" data-certificate-layout="compact-subject">
 
     <nav>
         <a href="../../../../../../index.html" class="logo">May Learning Hub</a>
@@ -79,7 +79,7 @@
 
     <header class="game-header">
         <h1 class="game-title">R1,000,000 Geography Challenge</h1>
-        <p class="game-subtitle">Revise development terminology, inequality, health, GDP, sustainability and human-development indicators.</p>
+        <p class="game-subtitle">Revise rural-urban migration, young migrants, economic causes, and effects on rural areas.</p>
         <p style="font-size: 0.78rem; color: #52606d; margin-top: 0.45rem;">Grade 10 Geography Term 3 revision</p>
     </header>
 
@@ -117,28 +117,31 @@
     </footer>
 
         <script src="../../../../../../game-audio.js"></script>
+        <script src="../../../../../../may-certificate-renderer.js"></script>
+        <script src="../../../../../../may-certificate-actions.js"></script>
+        <script src="../../../../../../assessment-certificate.js"></script>
 <script>
         const questions = [
     {
         "q": "Select the term described here: Movement from a rural area to a town or city.",
         "options": [
-            "Urbanisation",
             "Rural-urban migration",
+            "Urbanisation",
             "Rural depopulation",
             "Young adult migrants"
         ],
-        "a": 1,
+        "a": 0,
         "hint": "The correct answer is Rural-urban migration."
     },
     {
         "q": "Select the term described here: An increase in the percentage of people living in urban areas.",
         "options": [
             "Rural depopulation",
-            "Young adult migrants",
             "Urbanisation",
+            "Young adult migrants",
             "Employment pull"
         ],
-        "a": 2,
+        "a": 1,
         "hint": "The correct answer is Urbanisation."
     },
     {
@@ -146,43 +149,43 @@
         "options": [
             "Young adult migrants",
             "Employment pull",
-            "Low wages push",
-            "Rural depopulation"
+            "Rural depopulation",
+            "Low wages push"
         ],
-        "a": 3,
+        "a": 2,
         "hint": "The correct answer is Rural depopulation."
     },
     {
         "q": "Select the term described here: Working-age young people who commonly move in search of opportunities.",
         "options": [
-            "Young adult migrants",
             "Employment pull",
             "Low wages push",
-            "Agricultural labour loss"
+            "Agricultural labour loss",
+            "Young adult migrants"
         ],
-        "a": 0,
+        "a": 3,
         "hint": "The correct answer is Young adult migrants."
     },
     {
         "q": "Select the term described here: The attraction of better job opportunities at a destination.",
         "options": [
-            "Low wages push",
             "Employment pull",
+            "Low wages push",
             "Agricultural labour loss",
             "Ageing rural population"
         ],
-        "a": 1,
+        "a": 0,
         "hint": "The correct answer is Employment pull."
     },
     {
         "q": "Select the term described here: Poor earnings that encourage people to leave their place of origin.",
         "options": [
             "Agricultural labour loss",
-            "Ageing rural population",
             "Low wages push",
+            "Ageing rural population",
             "Reduced agricultural output"
         ],
-        "a": 2,
+        "a": 1,
         "hint": "The correct answer is Low wages push."
     },
     {
@@ -190,43 +193,43 @@
         "options": [
             "Ageing rural population",
             "Reduced agricultural output",
-            "Rural service decline",
-            "Agricultural labour loss"
+            "Agricultural labour loss",
+            "Rural service decline"
         ],
-        "a": 3,
+        "a": 2,
         "hint": "The correct answer is Agricultural labour loss."
     },
     {
         "q": "Select the term described here: A rising proportion of older residents as younger adults move away.",
         "options": [
-            "Ageing rural population",
             "Reduced agricultural output",
             "Rural service decline",
-            "Urban unemployment"
+            "Urban unemployment",
+            "Ageing rural population"
         ],
-        "a": 0,
+        "a": 3,
         "hint": "The correct answer is Ageing rural population."
     },
     {
         "q": "Select the term described here: Lower farm production caused by labour and skills losses.",
         "options": [
-            "Rural service decline",
             "Reduced agricultural output",
+            "Rural service decline",
             "Urban unemployment",
             "Informal settlement"
         ],
-        "a": 1,
+        "a": 0,
         "hint": "The correct answer is Reduced agricultural output."
     },
     {
         "q": "Select the term described here: The weakening or closure of rural schools, shops and other services.",
         "options": [
             "Urban unemployment",
-            "Informal settlement",
             "Rural service decline",
+            "Informal settlement",
             "Urban congestion"
         ],
-        "a": 2,
+        "a": 1,
         "hint": "The correct answer is Rural service decline."
     },
     {
@@ -234,43 +237,43 @@
         "options": [
             "Informal settlement",
             "Urban congestion",
-            "Remittances",
-            "Urban unemployment"
+            "Urban unemployment",
+            "Remittances"
         ],
-        "a": 3,
+        "a": 2,
         "hint": "The correct answer is Urban unemployment."
     },
     {
         "q": "Select the term described here: Housing built without full formal planning or secure services.",
         "options": [
-            "Informal settlement",
             "Urban congestion",
             "Remittances",
-            "Brain drain"
+            "Brain drain",
+            "Informal settlement"
         ],
-        "a": 0,
+        "a": 3,
         "hint": "The correct answer is Informal settlement."
     },
     {
         "q": "Select the term described here: Crowding and pressure on roads, housing and services in urban areas.",
         "options": [
-            "Remittances",
             "Urban congestion",
+            "Remittances",
             "Brain drain",
             "Mechanisation"
         ],
-        "a": 1,
+        "a": 0,
         "hint": "The correct answer is Urban congestion."
     },
     {
         "q": "Select the term described here: Money sent home by migrants to support people at their place of origin.",
         "options": [
             "Brain drain",
-            "Mechanisation",
             "Remittances",
+            "Mechanisation",
             "Rural area"
         ],
-        "a": 2,
+        "a": 1,
         "hint": "The correct answer is Remittances."
     },
     {
@@ -278,193 +281,38 @@
         "options": [
             "Mechanisation",
             "Rural area",
-            "Urban area",
-            "Brain drain"
+            "Brain drain",
+            "Urban area"
         ],
-        "a": 3,
+        "a": 2,
         "hint": "The correct answer is Brain drain."
-    },
-    {
-        "q": "Select the term described here: The use of machinery to perform work previously done by people.",
-        "options": [
-            "Mechanisation",
-            "Rural area",
-            "Urban area",
-            "Push factor"
-        ],
-        "a": 0,
-        "hint": "The correct answer is Mechanisation."
-    },
-    {
-        "q": "Select the term described here: A countryside area with low settlement density and strong links to farming.",
-        "options": [
-            "Urban area",
-            "Rural area",
-            "Push factor",
-            "Pull factor"
-        ],
-        "a": 1,
-        "hint": "The correct answer is Rural area."
-    },
-    {
-        "q": "Select the term described here: A built-up town or city with relatively high population density.",
-        "options": [
-            "Push factor",
-            "Pull factor",
-            "Urban area",
-            "Rural-urban migration"
-        ],
-        "a": 2,
-        "hint": "The correct answer is Urban area."
-    },
-    {
-        "q": "Select the term described here: A condition that encourages people to leave a place.",
-        "options": [
-            "Pull factor",
-            "Rural-urban migration",
-            "Urbanisation",
-            "Push factor"
-        ],
-        "a": 3,
-        "hint": "The correct answer is Push factor."
-    },
-    {
-        "q": "Select the term described here: A condition that attracts people to a new place.",
-        "options": [
-            "Pull factor",
-            "Rural-urban migration",
-            "Urbanisation",
-            "Rural depopulation"
-        ],
-        "a": 0,
-        "hint": "The correct answer is Pull factor."
-    },
-    {
-        "q": "Rural-urban migration refers to which of the following?",
-        "options": [
-            "An increase in the percentage of people living in urban areas.",
-            "A reduction in the number of people living in rural areas.",
-            "Working-age young people who commonly move in search of opportunities.",
-            "Movement from a rural area to a town or city."
-        ],
-        "a": 3,
-        "hint": "The correct answer is Movement from a rural area to a town or city.."
-    },
-    {
-        "q": "Urbanisation refers to which of the following?",
-        "options": [
-            "An increase in the percentage of people living in urban areas.",
-            "A reduction in the number of people living in rural areas.",
-            "Working-age young people who commonly move in search of opportunities.",
-            "The attraction of better job opportunities at a destination."
-        ],
-        "a": 0,
-        "hint": "The correct answer is An increase in the percentage of people living in urban areas.."
-    },
-    {
-        "q": "Rural depopulation refers to which of the following?",
-        "options": [
-            "Working-age young people who commonly move in search of opportunities.",
-            "A reduction in the number of people living in rural areas.",
-            "The attraction of better job opportunities at a destination.",
-            "Poor earnings that encourage people to leave their place of origin."
-        ],
-        "a": 1,
-        "hint": "The correct answer is A reduction in the number of people living in rural areas.."
-    },
-    {
-        "q": "Young adult migrants refers to which of the following?",
-        "options": [
-            "The attraction of better job opportunities at a destination.",
-            "Poor earnings that encourage people to leave their place of origin.",
-            "Working-age young people who commonly move in search of opportunities.",
-            "A decline in available farm workers after people leave rural areas."
-        ],
-        "a": 2,
-        "hint": "The correct answer is Working-age young people who commonly move in search of opportunities.."
-    },
-    {
-        "q": "Employment pull refers to which of the following?",
-        "options": [
-            "Poor earnings that encourage people to leave their place of origin.",
-            "A decline in available farm workers after people leave rural areas.",
-            "A rising proportion of older residents as younger adults move away.",
-            "The attraction of better job opportunities at a destination."
-        ],
-        "a": 3,
-        "hint": "The correct answer is The attraction of better job opportunities at a destination.."
-    },
-    {
-        "q": "Low wages push refers to which of the following?",
-        "options": [
-            "Poor earnings that encourage people to leave their place of origin.",
-            "A decline in available farm workers after people leave rural areas.",
-            "A rising proportion of older residents as younger adults move away.",
-            "Lower farm production caused by labour and skills losses."
-        ],
-        "a": 0,
-        "hint": "The correct answer is Poor earnings that encourage people to leave their place of origin.."
-    },
-    {
-        "q": "Agricultural labour loss refers to which of the following?",
-        "options": [
-            "A rising proportion of older residents as younger adults move away.",
-            "A decline in available farm workers after people leave rural areas.",
-            "Lower farm production caused by labour and skills losses.",
-            "The weakening or closure of rural schools, shops and other services."
-        ],
-        "a": 1,
-        "hint": "The correct answer is A decline in available farm workers after people leave rural areas.."
-    },
-    {
-        "q": "Ageing rural population refers to which of the following?",
-        "options": [
-            "Lower farm production caused by labour and skills losses.",
-            "The weakening or closure of rural schools, shops and other services.",
-            "A rising proportion of older residents as younger adults move away.",
-            "A shortage of jobs for people living in towns and cities."
-        ],
-        "a": 2,
-        "hint": "The correct answer is A rising proportion of older residents as younger adults move away.."
-    },
-    {
-        "q": "Reduced agricultural output refers to which of the following?",
-        "options": [
-            "The weakening or closure of rural schools, shops and other services.",
-            "A shortage of jobs for people living in towns and cities.",
-            "Housing built without full formal planning or secure services.",
-            "Lower farm production caused by labour and skills losses."
-        ],
-        "a": 3,
-        "hint": "The correct answer is Lower farm production caused by labour and skills losses.."
-    },
-    {
-        "q": "Rural service decline refers to which of the following?",
-        "options": [
-            "The weakening or closure of rural schools, shops and other services.",
-            "A shortage of jobs for people living in towns and cities.",
-            "Housing built without full formal planning or secure services.",
-            "Crowding and pressure on roads, housing and services in urban areas."
-        ],
-        "a": 0,
-        "hint": "The correct answer is The weakening or closure of rural schools, shops and other services.."
     }
 ];
 
         const prizes = [
-            "R100", "R200", "R300", "R500", "R1,000",
-            "R2,000", "R3,000", "R4,000", "R5,000", "R10,000",
-            "R15,000", "R20,000", "R25,000", "R30,000", "R40,000",
-            "R50,000", "R60,000", "R70,000", "R80,000", "R100,000",
-            "R150,000", "R200,000", "R250,000", "R300,000", "R400,000",
-            "R500,000", "R600,000", "R750,000", "R850,000", "R1,000,000"
-        ];
+    "R100",
+    "R200",
+    "R300",
+    "R500",
+    "R1,000",
+    "R2,000",
+    "R4,000",
+    "R8,000",
+    "R16,000",
+    "R32,000",
+    "R64,000",
+    "R125,000",
+    "R250,000",
+    "R500,000",
+    "R1,000,000"
+];
 
         let currentLevel = 0;
         let isWaiting = false;
+        let certificateShown = false;
 
         const ladderContainer = document.getElementById('prizeLadder');
-        for (let i = 0; i < 30; i++) {
+        for (let i = 0; i < questions.length; i++) {
             let step = document.createElement('div');
             step.className = 'ladder-step';
             step.id = `ladder-${i}`;
@@ -482,7 +330,7 @@
             document.getElementById(`ladder-${currentLevel}`).classList.add('active');
 
             const qData = questions[currentLevel];
-            document.getElementById('questionText').innerText = `Q${currentLevel + 1}: ${qData.q}`;
+            document.getElementById('questionText').innerText = qData.q;
 
             let options = [...qData.options];
             let correctText = options[qData.a];
@@ -521,7 +369,7 @@
                     selectedBtn.classList.add('correct');
                     setTimeout(() => {
                         currentLevel++;
-                        if (currentLevel >= 30) endGame(true);
+                        if (currentLevel >= questions.length) endGame(true);
                         else loadQuestion();
                     }, 1000); 
                 } else {
@@ -552,18 +400,30 @@
         function useHint() {
             if (isWaiting) return;
             document.getElementById('btnHint').disabled = true;
-            alert("Geography Teacher Hint: " + questions[currentLevel].hint);
+            alert("History Teacher Hint: " + questions[currentLevel].hint);
         }
 
         function endGame(won) {
             document.getElementById('gameBoard').style.display = 'none';
             document.getElementById('endScreen').style.display = 'block';
             if (won) {
-                document.getElementById('endMessage').innerText = "Geography Legend!";
+                document.getElementById('endMessage').innerText = "History Legend!";
                 document.getElementById('endPrize').innerText = "R1,000,000";
             } else {
                 document.getElementById('endMessage').innerText = "Final Winnings:";
                 document.getElementById('endPrize').innerText = currentLevel > 0 ? prizes[currentLevel - 1] : "R0";
+            }
+            if (!certificateShown) {
+                certificateShown = true;
+                setTimeout(() => {
+                    MayHubCertificates.showScored({
+                        gameTitle: 'Rural-Urban Migration Millionaire Challenge',
+                        category: 'Millionaire Quiz',
+                        correct: currentLevel,
+                        total: questions.length,
+                        onReplay: () => window.location.reload()
+                    });
+                }, 600);
             }
         }
         loadQuestion();

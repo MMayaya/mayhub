@@ -71,7 +71,7 @@
         footer { text-align: center; padding: 1.5rem; background-color: #002b5e; color: #fff; margin-top: auto; }
     </style>
 </head>
-<body>
+<body data-certificate-grade="Grade 11" data-certificate-subject="Geography" data-certificate-term="Term 3" data-certificate-topic="Development Measures" data-certificate-game="Development Measures Memory Game" data-certificate-layout="compact-subject">
 
     <nav>
         <a href="../../../../../../index.html" class="logo">May Learning Hub</a>
@@ -83,15 +83,12 @@
 
     <header class="game-header">
         <h1 class="game-title">Grade 11 Geography: Development Measures</h1>
-        <p class="game-subtitle">Revise development terminology, inequality, health, GDP, sustainability and human-development indicators.</p>
+        <p class="game-subtitle">Revise development measures, country categories, quality of life, and sustainable resource use.</p>
         <p style="font-size: 0.78rem; color: #52606d; margin-top: 0.45rem;">Grade 11 Geography Term 3 revision</p>
         
         <div class="category-selection">
             <div class="cat-buttons">
-                <button class="cat-btn" onclick="selectCategory('topic1', this)">Development Terms</button>
-                <button class="cat-btn" onclick="selectCategory('topic2', this)">Aspects & Countries</button>
-                <button class="cat-btn" onclick="selectCategory('topic3', this)">Development Indicators</button>
-                <button class="cat-btn" onclick="selectCategory('topic4', this)">Environmental Indicators</button>
+                <button class="cat-btn" onclick="selectCategory('topic1', this)">Assessment Review - 10 Pairs</button>
             </div>
         </div>
 
@@ -108,6 +105,9 @@
     </footer>
 
         <script src="../../../../../../game-audio.js"></script>
+        <script src="../../../../../../may-certificate-renderer.js"></script>
+        <script src="../../../../../../may-certificate-actions.js"></script>
+        <script src="../../../../../../assessment-certificate.js"></script>
 <script>
         const gameData = {
     "topic1": [
@@ -190,252 +190,6 @@
         {
             "id": 10,
             "text": "Higher income/industrialisation/standard of living"
-        }
-    ],
-    "topic2": [
-        {
-            "id": 1,
-            "text": "What does GDP stand for?"
-        },
-        {
-            "id": 1,
-            "text": "Gross Domestic Product"
-        },
-        {
-            "id": 2,
-            "text": "Which composite index uses health, education and income?"
-        },
-        {
-            "id": 2,
-            "text": "HDI"
-        },
-        {
-            "id": 3,
-            "text": "What does a rising Gini value usually suggest?"
-        },
-        {
-            "id": 3,
-            "text": "Increasing income inequality"
-        },
-        {
-            "id": 4,
-            "text": "Give one example of responsible resource management."
-        },
-        {
-            "id": 4,
-            "text": "Any valid example, such as recycling or controlled water use"
-        },
-        {
-            "id": 5,
-            "text": "What broad feature distinguishes MEDCs from LEDCs?"
-        },
-        {
-            "id": 5,
-            "text": "Higher income/industrialisation/standard of living"
-        },
-        {
-            "id": 6,
-            "text": "Define life expectancy in one sentence."
-        },
-        {
-            "id": 6,
-            "text": "The average years a person is expected to live"
-        },
-        {
-            "id": 7,
-            "text": "Which measure totals production within national borders?"
-        },
-        {
-            "id": 7,
-            "text": "GDP"
-        },
-        {
-            "id": 8,
-            "text": "Why can two countries with similar GDP have different living standards?"
-        },
-        {
-            "id": 8,
-            "text": "Income distribution and social conditions may differ"
-        },
-        {
-            "id": 9,
-            "text": "Name one renewable resource."
-        },
-        {
-            "id": 9,
-            "text": "Any valid example, such as solar, wind or sustainably managed water"
-        },
-        {
-            "id": 10,
-            "text": "Expand LEDC."
-        },
-        {
-            "id": 10,
-            "text": "Less Economically Developed Country"
-        }
-    ],
-    "topic3": [
-        {
-            "id": 1,
-            "text": "Define life expectancy in one sentence."
-        },
-        {
-            "id": 1,
-            "text": "The average years a person is expected to live"
-        },
-        {
-            "id": 2,
-            "text": "Which measure totals production within national borders?"
-        },
-        {
-            "id": 2,
-            "text": "GDP"
-        },
-        {
-            "id": 3,
-            "text": "Why can two countries with similar GDP have different living standards?"
-        },
-        {
-            "id": 3,
-            "text": "Income distribution and social conditions may differ"
-        },
-        {
-            "id": 4,
-            "text": "Name one renewable resource."
-        },
-        {
-            "id": 4,
-            "text": "Any valid example, such as solar, wind or sustainably managed water"
-        },
-        {
-            "id": 5,
-            "text": "Expand LEDC."
-        },
-        {
-            "id": 5,
-            "text": "Less Economically Developed Country"
-        },
-        {
-            "id": 6,
-            "text": "What does the word composite mean in 'composite index'?"
-        },
-        {
-            "id": 6,
-            "text": "It combines several indicators"
-        },
-        {
-            "id": 7,
-            "text": "State HDI's education dimension in general terms."
-        },
-        {
-            "id": 7,
-            "text": "Knowledge/years of schooling"
-        },
-        {
-            "id": 8,
-            "text": "Would perfect equality have a low or high Gini value?"
-        },
-        {
-            "id": 8,
-            "text": "Low"
-        },
-        {
-            "id": 9,
-            "text": "Why must development balance economic, social and environmental goals?"
-        },
-        {
-            "id": 9,
-            "text": "So progress is equitable and can continue long term"
-        },
-        {
-            "id": 10,
-            "text": "Give one limitation of dividing all countries into MEDCs and LEDCs."
-        },
-        {
-            "id": 10,
-            "text": "It oversimplifies varied development levels"
-        }
-    ],
-    "topic4": [
-        {
-            "id": 1,
-            "text": "What does the word composite mean in 'composite index'?"
-        },
-        {
-            "id": 1,
-            "text": "It combines several indicators"
-        },
-        {
-            "id": 2,
-            "text": "State HDI's education dimension in general terms."
-        },
-        {
-            "id": 2,
-            "text": "Knowledge/years of schooling"
-        },
-        {
-            "id": 3,
-            "text": "Would perfect equality have a low or high Gini value?"
-        },
-        {
-            "id": 3,
-            "text": "Low"
-        },
-        {
-            "id": 4,
-            "text": "Why must development balance economic, social and environmental goals?"
-        },
-        {
-            "id": 4,
-            "text": "So progress is equitable and can continue long term"
-        },
-        {
-            "id": 5,
-            "text": "Give one limitation of dividing all countries into MEDCs and LEDCs."
-        },
-        {
-            "id": 5,
-            "text": "It oversimplifies varied development levels"
-        },
-        {
-            "id": 6,
-            "text": "Name the process of improving economic and social well-being."
-        },
-        {
-            "id": 6,
-            "text": "Development"
-        },
-        {
-            "id": 7,
-            "text": "Which indicator records expected years of life?"
-        },
-        {
-            "id": 7,
-            "text": "Life expectancy"
-        },
-        {
-            "id": 8,
-            "text": "Name the coefficient used to compare income distribution."
-        },
-        {
-            "id": 8,
-            "text": "Gini coefficient"
-        },
-        {
-            "id": 9,
-            "text": "What principle protects future generations' ability to meet their needs?"
-        },
-        {
-            "id": 9,
-            "text": "Sustainable development"
-        },
-        {
-            "id": 10,
-            "text": "Expand MEDC."
-        },
-        {
-            "id": 10,
-            "text": "More Economically Developed Country"
         }
     ]
 };
@@ -522,7 +276,13 @@
             secondCard.removeEventListener('click', flipCard);
             matchedPairs++;
             if (matchedPairs === (gameData[currentCategory].length / 2)) {
-                setTimeout(() => alert(`Great job! Grade 11 Geography: Development Revision Complete in ${moves} moves.`), 500);
+                setTimeout(() => {
+                    MayHubCertificates.showParticipation({
+                        gameTitle: 'Development Measures Memory Game',
+                        category: 'Assessment Review – 10 Pairs',
+                        onReplay: initGame
+                    });
+                }, 500);
             }
             resetBoard();
         }

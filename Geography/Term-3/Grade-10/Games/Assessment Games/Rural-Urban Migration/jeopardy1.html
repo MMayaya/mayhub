@@ -72,7 +72,7 @@
         .score-board { background: #002b5e; color: #fff; display: inline-block; padding: 0.8rem 2.5rem; border-radius: 30px; font-size: 1.6rem; font-weight: bold; border: 4px solid #3385ff; box-shadow: 0 4px 10px rgba(0,0,0,0.2); margin-bottom: 2rem; transition: all 0.3s; }
         .score-board span { color: #ffc107; }
 
-        .jeopardy-board { width: 100%; max-width: 1000px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; background: #001a33; padding: 8px; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
+        .jeopardy-board { width: 100%; max-width: 1000px; display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; background: #001a33; padding: 8px; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
         .category-header { background: #004080; color: #fff; text-align: center; font-weight: bold; padding: 1rem 0.5rem; font-size: 1.1rem; border-radius: 6px; border-bottom: 4px solid #3385ff; display: flex; align-items: center; justify-content: center; min-height: 80px; text-transform: uppercase; }
         .point-btn { background: #3385ff; color: #fff; font-size: 1.6rem; font-weight: bold; border: none; padding: 1.5rem 0; border-radius: 6px; cursor: pointer; transition: all 0.2s; text-shadow: 1px 1px 2px rgba(0,0,0,0.5); box-shadow: inset 0 0 10px rgba(0,0,0,0.2); }
         .point-btn:hover:not(:disabled) { background: #1a75ff; transform: scale(0.96); }
@@ -103,7 +103,7 @@
         footer { text-align: center; padding: 1rem; background-color: #002b5e; color: #fff; margin-top: auto; }
     </style>
 </head>
-<body>
+<body data-certificate-grade="Grade 10" data-certificate-subject="Geography" data-certificate-term="Term 3" data-certificate-topic="Rural-Urban Migration" data-certificate-game="Rural-Urban Migration Jeopardy Game" data-certificate-layout="compact-subject">
 
     <nav>
         <a href="../../../../../../index.html" class="logo">May Learning Hub</a>
@@ -115,7 +115,7 @@
 
     <header class="game-header">
         <h1 class="game-title">Grade 10 Geography Jeopardy</h1>
-        <p class="game-subtitle">Revise development terminology, inequality, health, GDP, sustainability and human-development indicators.</p>
+        <p class="game-subtitle">Revise rural-urban migration, young migrants, economic causes, and effects on rural areas.</p>
         <p style="font-size: 0.78rem; color: #52606d; margin-top: 0.45rem;">Grade 10 Geography Term 3 revision</p>
     </header>
 
@@ -133,7 +133,7 @@
                 <button class="btn-edit" id="btnEditNames" onclick="showNameEditor()">Edit Names</button>
                 <button class="btn-reset" onclick="resetPlayerNames()">Reset</button>
             </div>
-            <p class="hint">80 unique clues drawn from the Grade 10 Term 3 Development presentation! </p>
+            <p class="hint">40 paper-bound questions are shuffled each session. Every player receives 10 different questions.</p>
         </div>
     </section>
 
@@ -168,10 +168,10 @@
     <div class="modal" id="questionModal">
         <div class="modal-content">
             <div class="modal-category" id="modalCategory">Category</div>
-            <div class="modal-question" id="modalQuestion">Clue</div>
-            <button class="btn-reveal" id="btnReveal" onclick="revealAnswer()">Reveal Correct Question</button>
+            <div class="modal-question" id="modalQuestion">Question</div>
+            <button class="btn-reveal" id="btnReveal" onclick="revealAnswer()">Reveal Answer</button>
             <div class="modal-answer-area" id="answerArea">
-                <div class="modal-answer" id="modalAnswer">Correct Question</div>
+                <div class="modal-answer" id="modalAnswer">Answer</div>
                 <div class="judgement-area" id="judgementArea">
                     <p>Did <strong id="activePlayerName">Player</strong> get it right?</p>
                     <div class="judgement-buttons">
@@ -190,6 +190,9 @@
     <footer><p>&copy; 2026 May Learning Hub. All rights reserved.</p></footer>
 
         <script src="../../../../../../game-audio.js"></script>
+        <script src="../../../../../../may-certificate-renderer.js"></script>
+        <script src="../../../../../../may-certificate-actions.js"></script>
+        <script src="../../../../../../assessment-certificate.js"></script>
 <script>
         const questionBank = [
     {
@@ -291,206 +294,6 @@
         "category": "Explain",
         "q": "Define the geographical term: Pull factor.",
         "a": "A condition that attracts people to a new place."
-    },
-    {
-        "category": "Identify",
-        "q": "Movement from a rural area to a town or city. Name the correct geographical term.",
-        "a": "Rural-urban migration"
-    },
-    {
-        "category": "Identify",
-        "q": "An increase in the percentage of people living in urban areas. Name the correct geographical term.",
-        "a": "Urbanisation"
-    },
-    {
-        "category": "Identify",
-        "q": "A reduction in the number of people living in rural areas. Name the correct geographical term.",
-        "a": "Rural depopulation"
-    },
-    {
-        "category": "Identify",
-        "q": "Working-age young people who commonly move in search of opportunities. Name the correct geographical term.",
-        "a": "Young adult migrants"
-    },
-    {
-        "category": "Identify",
-        "q": "The attraction of better job opportunities at a destination. Name the correct geographical term.",
-        "a": "Employment pull"
-    },
-    {
-        "category": "Identify",
-        "q": "Poor earnings that encourage people to leave their place of origin. Name the correct geographical term.",
-        "a": "Low wages push"
-    },
-    {
-        "category": "Identify",
-        "q": "A decline in available farm workers after people leave rural areas. Name the correct geographical term.",
-        "a": "Agricultural labour loss"
-    },
-    {
-        "category": "Identify",
-        "q": "A rising proportion of older residents as younger adults move away. Name the correct geographical term.",
-        "a": "Ageing rural population"
-    },
-    {
-        "category": "Identify",
-        "q": "Lower farm production caused by labour and skills losses. Name the correct geographical term.",
-        "a": "Reduced agricultural output"
-    },
-    {
-        "category": "Identify",
-        "q": "The weakening or closure of rural schools, shops and other services. Name the correct geographical term.",
-        "a": "Rural service decline"
-    },
-    {
-        "category": "Identify",
-        "q": "A shortage of jobs for people living in towns and cities. Name the correct geographical term.",
-        "a": "Urban unemployment"
-    },
-    {
-        "category": "Identify",
-        "q": "Housing built without full formal planning or secure services. Name the correct geographical term.",
-        "a": "Informal settlement"
-    },
-    {
-        "category": "Identify",
-        "q": "Crowding and pressure on roads, housing and services in urban areas. Name the correct geographical term.",
-        "a": "Urban congestion"
-    },
-    {
-        "category": "Identify",
-        "q": "Money sent home by migrants to support people at their place of origin. Name the correct geographical term.",
-        "a": "Remittances"
-    },
-    {
-        "category": "Identify",
-        "q": "The loss of skilled or educated people from an area through migration. Name the correct geographical term.",
-        "a": "Brain drain"
-    },
-    {
-        "category": "Identify",
-        "q": "The use of machinery to perform work previously done by people. Name the correct geographical term.",
-        "a": "Mechanisation"
-    },
-    {
-        "category": "Identify",
-        "q": "A countryside area with low settlement density and strong links to farming. Name the correct geographical term.",
-        "a": "Rural area"
-    },
-    {
-        "category": "Identify",
-        "q": "A built-up town or city with relatively high population density. Name the correct geographical term.",
-        "a": "Urban area"
-    },
-    {
-        "category": "Identify",
-        "q": "A condition that encourages people to leave a place. Name the correct geographical term.",
-        "a": "Push factor"
-    },
-    {
-        "category": "Identify",
-        "q": "A condition that attracts people to a new place. Name the correct geographical term.",
-        "a": "Pull factor"
-    },
-    {
-        "category": "Choose",
-        "q": "Which geographical term means: Movement from a rural area to a town or city. Options: A) Rural-urban migration | B) Urbanisation | C) Rural depopulation | D) Young adult migrants",
-        "a": "A) Rural-urban migration"
-    },
-    {
-        "category": "Choose",
-        "q": "Which geographical term means: An increase in the percentage of people living in urban areas. Options: A) Rural depopulation | B) Urbanisation | C) Young adult migrants | D) Employment pull",
-        "a": "B) Urbanisation"
-    },
-    {
-        "category": "Choose",
-        "q": "Which geographical term means: A reduction in the number of people living in rural areas. Options: A) Young adult migrants | B) Employment pull | C) Rural depopulation | D) Low wages push",
-        "a": "C) Rural depopulation"
-    },
-    {
-        "category": "Choose",
-        "q": "Which geographical term means: Working-age young people who commonly move in search of opportunities. Options: A) Employment pull | B) Low wages push | C) Agricultural labour loss | D) Young adult migrants",
-        "a": "D) Young adult migrants"
-    },
-    {
-        "category": "Choose",
-        "q": "Which geographical term means: The attraction of better job opportunities at a destination. Options: A) Employment pull | B) Low wages push | C) Agricultural labour loss | D) Ageing rural population",
-        "a": "A) Employment pull"
-    },
-    {
-        "category": "Choose",
-        "q": "Which geographical term means: Poor earnings that encourage people to leave their place of origin. Options: A) Agricultural labour loss | B) Low wages push | C) Ageing rural population | D) Reduced agricultural output",
-        "a": "B) Low wages push"
-    },
-    {
-        "category": "Choose",
-        "q": "Which geographical term means: A decline in available farm workers after people leave rural areas. Options: A) Ageing rural population | B) Reduced agricultural output | C) Agricultural labour loss | D) Rural service decline",
-        "a": "C) Agricultural labour loss"
-    },
-    {
-        "category": "Choose",
-        "q": "Which geographical term means: A rising proportion of older residents as younger adults move away. Options: A) Reduced agricultural output | B) Rural service decline | C) Urban unemployment | D) Ageing rural population",
-        "a": "D) Ageing rural population"
-    },
-    {
-        "category": "Choose",
-        "q": "Which geographical term means: Lower farm production caused by labour and skills losses. Options: A) Reduced agricultural output | B) Rural service decline | C) Urban unemployment | D) Informal settlement",
-        "a": "A) Reduced agricultural output"
-    },
-    {
-        "category": "Choose",
-        "q": "Which geographical term means: The weakening or closure of rural schools, shops and other services. Options: A) Urban unemployment | B) Rural service decline | C) Informal settlement | D) Urban congestion",
-        "a": "B) Rural service decline"
-    },
-    {
-        "category": "Choose",
-        "q": "Which geographical term means: A shortage of jobs for people living in towns and cities. Options: A) Informal settlement | B) Urban congestion | C) Urban unemployment | D) Remittances",
-        "a": "C) Urban unemployment"
-    },
-    {
-        "category": "Choose",
-        "q": "Which geographical term means: Housing built without full formal planning or secure services. Options: A) Urban congestion | B) Remittances | C) Brain drain | D) Informal settlement",
-        "a": "D) Informal settlement"
-    },
-    {
-        "category": "Choose",
-        "q": "Which geographical term means: Crowding and pressure on roads, housing and services in urban areas. Options: A) Urban congestion | B) Remittances | C) Brain drain | D) Mechanisation",
-        "a": "A) Urban congestion"
-    },
-    {
-        "category": "Choose",
-        "q": "Which geographical term means: Money sent home by migrants to support people at their place of origin. Options: A) Brain drain | B) Remittances | C) Mechanisation | D) Rural area",
-        "a": "B) Remittances"
-    },
-    {
-        "category": "Choose",
-        "q": "Which geographical term means: The loss of skilled or educated people from an area through migration. Options: A) Mechanisation | B) Rural area | C) Brain drain | D) Urban area",
-        "a": "C) Brain drain"
-    },
-    {
-        "category": "Choose",
-        "q": "Which geographical term means: The use of machinery to perform work previously done by people. Options: A) Rural area | B) Urban area | C) Push factor | D) Mechanisation",
-        "a": "D) Mechanisation"
-    },
-    {
-        "category": "Choose",
-        "q": "Which geographical term means: A countryside area with low settlement density and strong links to farming. Options: A) Rural area | B) Urban area | C) Push factor | D) Pull factor",
-        "a": "A) Rural area"
-    },
-    {
-        "category": "Choose",
-        "q": "Which geographical term means: A built-up town or city with relatively high population density. Options: A) Push factor | B) Urban area | C) Pull factor | D) Rural-urban migration",
-        "a": "B) Urban area"
-    },
-    {
-        "category": "Choose",
-        "q": "Which geographical term means: A condition that encourages people to leave a place. Options: A) Pull factor | B) Rural-urban migration | C) Push factor | D) Urbanisation",
-        "a": "C) Push factor"
-    },
-    {
-        "category": "Choose",
-        "q": "Which geographical term means: A condition that attracts people to a new place. Options: A) Rural-urban migration | B) Urbanisation | C) Rural depopulation | D) Pull factor",
-        "a": "D) Pull factor"
     },
     {
         "category": "Apply",
@@ -604,9 +407,9 @@
         }
 
         function dealJeopardyPlayerQuestions(items, playerIndex) {
-            const playerQuestions = items.slice(playerIndex * 20, playerIndex * 20 + 20);
-            return Array.from({ length: 4 }, (_, categoryIndex) => ({
-                name: ["Round One", "Round Two", "Round Three", "Round Four"][categoryIndex],
+            const playerQuestions = items.slice(playerIndex * 10, playerIndex * 10 + 10);
+            return Array.from({ length: 2 }, (_, categoryIndex) => ({
+                name: ["Round One", "Round Two"][categoryIndex],
                 questions: playerQuestions.slice(categoryIndex * 5, categoryIndex * 5 + 5).map((item, questionIndex) => ({
                     points: (questionIndex + 1) * 10,
                     q: item.q,
@@ -627,6 +430,11 @@
         let activePointValue = 0;
         let activeTileButton = null;
         let playerNames = ["Player 1", "Player 2", "Player 3", "Player 4"];
+        let answeredTiles = 0;
+        let participationShown = false;
+        const totalJeopardyTiles = gameData.reduce((playerTotal, playerCategories) => {
+            return playerTotal + playerCategories.reduce((categoryTotal, category) => categoryTotal + category.questions.length, 0);
+        }, 0);
 
         const carouselTrack = document.getElementById('carouselTrack');
         const modal = document.getElementById('questionModal');
@@ -738,7 +546,27 @@
         }
 
         function updateScore(i) { document.getElementById(`score-${i}`).innerText = scores[i]; }
-        function closeModal() { activeTileButton.innerText = ""; activeTileButton.disabled = true; modal.style.display = 'none'; }
+        function closeModal() {
+            if (!activeTileButton) {
+                modal.style.display = 'none';
+                return;
+            }
+            activeTileButton.innerText = "";
+            activeTileButton.disabled = true;
+            activeTileButton = null;
+            modal.style.display = 'none';
+            answeredTiles++;
+            if (answeredTiles === totalJeopardyTiles && !participationShown) {
+                participationShown = true;
+                setTimeout(() => {
+                    MayHubCertificates.showParticipation({
+                        gameTitle: 'Rural-Urban Migration Jeopardy Game',
+                        category: 'Round One and Round Two',
+                        onReplay: () => window.location.reload()
+                    });
+                }, 650);
+            }
+        }
         
         buildBoards();
 

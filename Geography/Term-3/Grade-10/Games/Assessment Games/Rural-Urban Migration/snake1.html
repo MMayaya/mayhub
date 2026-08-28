@@ -13,7 +13,7 @@
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>May Learning Hub | Smart Snake - Rural-Urban Migration</title>
+    <title>May Learning Hub | Grade 10 Geography Smart Snake - Rural-Urban Migration</title>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f0f4f8; color: #333; line-height: 1.6; display: flex; flex-direction: column; min-height: 100vh; touch-action: manipulation; }
@@ -78,7 +78,7 @@
         footer { text-align: center; padding: 1rem; background-color: #002b5e; color: #fff; margin-top: auto; }
     </style>
 </head>
-<body>
+<body data-certificate-grade="Grade 10" data-certificate-subject="Geography" data-certificate-term="Term 3" data-certificate-topic="Rural-Urban Migration" data-certificate-game="Rural-Urban Migration Snake Challenge" data-certificate-layout="compact-subject">
 
     <nav>
         <a href="../../../../../../index.html" class="logo">May Learning Hub</a>
@@ -89,17 +89,17 @@
     </nav>
 
     <header class="game-header">
-        <h1 class="game-title">Smart Snake: Rural-Urban Migration</h1>
-        <p class="game-subtitle">Revise development terminology, inequality, health, GDP, sustainability and human-development indicators.</p>
+        <h1 class="game-title">Grade 10 Geography Smart Snake: Rural-Urban Migration</h1>
+        <p class="game-subtitle">Revise rural-urban migration, young migrants, economic causes, and effects on rural areas.</p>
         <p style="font-size: 0.78rem; color: #52606d; margin-top: 0.45rem;">Grade 10 Geography Term 3 revision</p>
     </header>
 
     <div class="category-selection" id="categorySelection">
         <div class="cat-buttons">
-            <button class="cat-btn" onclick="startGame('game1')">Development Concepts</button>
-            <button class="cat-btn" onclick="startGame('game2')">Countries & Aspects</button>
-            <button class="cat-btn" onclick="startGame('game3')">Development Indicators</button>
-            <button class="cat-btn" onclick="startGame('game4')">Environmental Indicators</button>
+            <button class="cat-btn" onclick="startGame('game1')">Term Identification</button>
+            <button class="cat-btn" onclick="startGame('game2')">Meaning Match</button>
+            <button class="cat-btn" onclick="startGame('game3')">Multiple Choice</button>
+            <button class="cat-btn" onclick="startGame('game4')">True or False</button>
         </div>
     </div>
 
@@ -146,11 +146,14 @@
     </footer>
 
         <script src="../../../../../../game-audio.js"></script>
+        <script src="../../../../../../may-certificate-renderer.js"></script>
+        <script src="../../../../../../may-certificate-actions.js"></script>
+        <script src="../../../../../../assessment-certificate.js"></script>
 <script>
         const questionDB = {
     "game1": [
         {
-            "q": "Which geographical term means: Movement from a rural area to a town or city.",
+            "q": "Movement from a rural area to a town or city.",
             "options": [
                 "Rural-urban migration",
                 "Urbanisation",
@@ -160,800 +163,380 @@
             "a": 0
         },
         {
-            "q": "Which geographical term means: An increase in the percentage of people living in urban areas.",
+            "q": "A reduction in the number of people living in rural areas.",
             "options": [
-                "Rural depopulation",
-                "Urbanisation",
                 "Young adult migrants",
-                "Employment pull"
+                "Rural depopulation",
+                "Employment pull",
+                "Low wages push"
             ],
             "a": 1
         },
         {
-            "q": "Which geographical term means: A reduction in the number of people living in rural areas.",
+            "q": "Working-age young people who commonly move in search of opportunities.",
             "options": [
-                "Young adult migrants",
                 "Employment pull",
-                "Rural depopulation",
-                "Low wages push"
+                "Low wages push",
+                "Young adult migrants",
+                "Agricultural labour loss"
             ],
             "a": 2
         },
         {
-            "q": "Which geographical term means: Working-age young people who commonly move in search of opportunities.",
+            "q": "The attraction of better job opportunities at a destination.",
             "options": [
-                "Employment pull",
                 "Low wages push",
                 "Agricultural labour loss",
-                "Young adult migrants"
+                "Ageing rural population",
+                "Employment pull"
             ],
             "a": 3
         },
         {
-            "q": "Which geographical term means: The attraction of better job opportunities at a destination.",
+            "q": "Poor earnings that encourage people to leave their place of origin.",
             "options": [
-                "Employment pull",
                 "Low wages push",
                 "Agricultural labour loss",
-                "Ageing rural population"
-            ],
-            "a": 0
-        },
-        {
-            "q": "Which geographical term means: Poor earnings that encourage people to leave their place of origin.",
-            "options": [
-                "Agricultural labour loss",
-                "Low wages push",
                 "Ageing rural population",
                 "Reduced agricultural output"
             ],
+            "a": 0
+        },
+        {
+            "q": "A decline in available farm workers after people leave rural areas.",
+            "options": [
+                "Ageing rural population",
+                "Agricultural labour loss",
+                "Reduced agricultural output",
+                "Rural service decline"
+            ],
             "a": 1
         },
         {
-            "q": "Which geographical term means: A decline in available farm workers after people leave rural areas.",
+            "q": "A rising proportion of older residents as younger adults move away.",
             "options": [
-                "Ageing rural population",
                 "Reduced agricultural output",
-                "Agricultural labour loss",
-                "Rural service decline"
+                "Rural service decline",
+                "Ageing rural population",
+                "Urban unemployment"
             ],
             "a": 2
         },
         {
-            "q": "Which geographical term means: A rising proportion of older residents as younger adults move away.",
+            "q": "Lower farm production caused by labour and skills losses.",
             "options": [
-                "Reduced agricultural output",
                 "Rural service decline",
                 "Urban unemployment",
-                "Ageing rural population"
+                "Informal settlement",
+                "Reduced agricultural output"
             ],
             "a": 3
         },
         {
-            "q": "Which geographical term means: Lower farm production caused by labour and skills losses.",
+            "q": "The weakening or closure of rural schools, shops and other services.",
             "options": [
-                "Reduced agricultural output",
                 "Rural service decline",
                 "Urban unemployment",
-                "Informal settlement"
-            ],
-            "a": 0
-        },
-        {
-            "q": "Which geographical term means: The weakening or closure of rural schools, shops and other services.",
-            "options": [
-                "Urban unemployment",
-                "Rural service decline",
                 "Informal settlement",
                 "Urban congestion"
             ],
-            "a": 1
-        },
-        {
-            "q": "Which geographical term means: A shortage of jobs for people living in towns and cities.",
-            "options": [
-                "Informal settlement",
-                "Urban congestion",
-                "Urban unemployment",
-                "Remittances"
-            ],
-            "a": 2
-        },
-        {
-            "q": "Which geographical term means: Housing built without full formal planning or secure services.",
-            "options": [
-                "Urban congestion",
-                "Remittances",
-                "Brain drain",
-                "Informal settlement"
-            ],
-            "a": 3
-        },
-        {
-            "q": "Which geographical term means: Crowding and pressure on roads, housing and services in urban areas.",
-            "options": [
-                "Urban congestion",
-                "Remittances",
-                "Brain drain",
-                "Mechanisation"
-            ],
             "a": 0
         },
         {
-            "q": "Which geographical term means: Money sent home by migrants to support people at their place of origin.",
+            "q": "The loss of skilled or educated people from an area through migration.",
             "options": [
+                "Mechanisation",
                 "Brain drain",
-                "Remittances",
-                "Mechanisation",
-                "Rural area"
-            ],
-            "a": 1
-        },
-        {
-            "q": "Which geographical term means: The loss of skilled or educated people from an area through migration.",
-            "options": [
-                "Mechanisation",
                 "Rural area",
-                "Brain drain",
                 "Urban area"
             ],
-            "a": 2
-        },
-        {
-            "q": "Which geographical term means: The use of machinery to perform work previously done by people.",
-            "options": [
-                "Rural area",
-                "Urban area",
-                "Push factor",
-                "Mechanisation"
-            ],
-            "a": 3
-        },
-        {
-            "q": "Which geographical term means: A countryside area with low settlement density and strong links to farming.",
-            "options": [
-                "Rural area",
-                "Urban area",
-                "Push factor",
-                "Pull factor"
-            ],
-            "a": 0
-        },
-        {
-            "q": "Which geographical term means: A built-up town or city with relatively high population density.",
-            "options": [
-                "Push factor",
-                "Urban area",
-                "Pull factor",
-                "Rural-urban migration"
-            ],
             "a": 1
-        },
-        {
-            "q": "Which geographical term means: A condition that encourages people to leave a place.",
-            "options": [
-                "Pull factor",
-                "Rural-urban migration",
-                "Push factor",
-                "Urbanisation"
-            ],
-            "a": 2
-        },
-        {
-            "q": "Which geographical term means: A condition that attracts people to a new place.",
-            "options": [
-                "Rural-urban migration",
-                "Urbanisation",
-                "Rural depopulation",
-                "Pull factor"
-            ],
-            "a": 3
         }
     ],
     "game2": [
         {
             "q": "Which statement correctly defines Rural-urban migration?",
             "options": [
-                "An increase in the percentage of people living in urban areas.",
                 "Movement from a rural area to a town or city.",
+                "An increase in the percentage of people living in urban areas.",
                 "A reduction in the number of people living in rural areas.",
                 "Working-age young people who commonly move in search of opportunities."
             ],
-            "a": 1
-        },
-        {
-            "q": "Which statement correctly defines Urbanisation?",
-            "options": [
-                "A reduction in the number of people living in rural areas.",
-                "Working-age young people who commonly move in search of opportunities.",
-                "An increase in the percentage of people living in urban areas.",
-                "The attraction of better job opportunities at a destination."
-            ],
-            "a": 2
+            "a": 0
         },
         {
             "q": "Which statement correctly defines Rural depopulation?",
             "options": [
                 "Working-age young people who commonly move in search of opportunities.",
+                "A reduction in the number of people living in rural areas.",
                 "The attraction of better job opportunities at a destination.",
-                "Poor earnings that encourage people to leave their place of origin.",
-                "A reduction in the number of people living in rural areas."
+                "Poor earnings that encourage people to leave their place of origin."
             ],
-            "a": 3
+            "a": 1
         },
         {
             "q": "Which statement correctly defines Young adult migrants?",
             "options": [
-                "Working-age young people who commonly move in search of opportunities.",
                 "The attraction of better job opportunities at a destination.",
                 "Poor earnings that encourage people to leave their place of origin.",
+                "Working-age young people who commonly move in search of opportunities.",
                 "A decline in available farm workers after people leave rural areas."
             ],
-            "a": 0
+            "a": 2
         },
         {
             "q": "Which statement correctly defines Employment pull?",
             "options": [
                 "Poor earnings that encourage people to leave their place of origin.",
-                "The attraction of better job opportunities at a destination.",
                 "A decline in available farm workers after people leave rural areas.",
-                "A rising proportion of older residents as younger adults move away."
+                "A rising proportion of older residents as younger adults move away.",
+                "The attraction of better job opportunities at a destination."
             ],
-            "a": 1
+            "a": 3
         },
         {
             "q": "Which statement correctly defines Low wages push?",
             "options": [
+                "Poor earnings that encourage people to leave their place of origin.",
                 "A decline in available farm workers after people leave rural areas.",
                 "A rising proportion of older residents as younger adults move away.",
-                "Poor earnings that encourage people to leave their place of origin.",
                 "Lower farm production caused by labour and skills losses."
             ],
-            "a": 2
+            "a": 0
         },
         {
             "q": "Which statement correctly defines Agricultural labour loss?",
             "options": [
                 "A rising proportion of older residents as younger adults move away.",
+                "A decline in available farm workers after people leave rural areas.",
                 "Lower farm production caused by labour and skills losses.",
-                "The weakening or closure of rural schools, shops and other services.",
-                "A decline in available farm workers after people leave rural areas."
+                "The weakening or closure of rural schools, shops and other services."
             ],
-            "a": 3
+            "a": 1
         },
         {
             "q": "Which statement correctly defines Ageing rural population?",
             "options": [
-                "A rising proportion of older residents as younger adults move away.",
                 "Lower farm production caused by labour and skills losses.",
                 "The weakening or closure of rural schools, shops and other services.",
+                "A rising proportion of older residents as younger adults move away.",
                 "A shortage of jobs for people living in towns and cities."
             ],
-            "a": 0
+            "a": 2
         },
         {
             "q": "Which statement correctly defines Reduced agricultural output?",
             "options": [
                 "The weakening or closure of rural schools, shops and other services.",
-                "Lower farm production caused by labour and skills losses.",
-                "A shortage of jobs for people living in towns and cities.",
-                "Housing built without full formal planning or secure services."
-            ],
-            "a": 1
-        },
-        {
-            "q": "Which statement correctly defines Rural service decline?",
-            "options": [
                 "A shortage of jobs for people living in towns and cities.",
                 "Housing built without full formal planning or secure services.",
-                "The weakening or closure of rural schools, shops and other services.",
-                "Crowding and pressure on roads, housing and services in urban areas."
-            ],
-            "a": 2
-        },
-        {
-            "q": "Which statement correctly defines Urban unemployment?",
-            "options": [
-                "Housing built without full formal planning or secure services.",
-                "Crowding and pressure on roads, housing and services in urban areas.",
-                "Money sent home by migrants to support people at their place of origin.",
-                "A shortage of jobs for people living in towns and cities."
+                "Lower farm production caused by labour and skills losses."
             ],
             "a": 3
         },
         {
-            "q": "Which statement correctly defines Informal settlement?",
+            "q": "Which statement correctly defines Rural service decline?",
             "options": [
+                "The weakening or closure of rural schools, shops and other services.",
+                "A shortage of jobs for people living in towns and cities.",
                 "Housing built without full formal planning or secure services.",
-                "Crowding and pressure on roads, housing and services in urban areas.",
-                "Money sent home by migrants to support people at their place of origin.",
-                "The loss of skilled or educated people from an area through migration."
+                "Crowding and pressure on roads, housing and services in urban areas."
             ],
             "a": 0
-        },
-        {
-            "q": "Which statement correctly defines Urban congestion?",
-            "options": [
-                "Money sent home by migrants to support people at their place of origin.",
-                "Crowding and pressure on roads, housing and services in urban areas.",
-                "The loss of skilled or educated people from an area through migration.",
-                "The use of machinery to perform work previously done by people."
-            ],
-            "a": 1
-        },
-        {
-            "q": "Which statement correctly defines Remittances?",
-            "options": [
-                "The loss of skilled or educated people from an area through migration.",
-                "The use of machinery to perform work previously done by people.",
-                "Money sent home by migrants to support people at their place of origin.",
-                "A countryside area with low settlement density and strong links to farming."
-            ],
-            "a": 2
         },
         {
             "q": "Which statement correctly defines Brain drain?",
             "options": [
                 "The use of machinery to perform work previously done by people.",
+                "The loss of skilled or educated people from an area through migration.",
                 "A countryside area with low settlement density and strong links to farming.",
-                "A built-up town or city with relatively high population density.",
-                "The loss of skilled or educated people from an area through migration."
-            ],
-            "a": 3
-        },
-        {
-            "q": "Which statement correctly defines Mechanisation?",
-            "options": [
-                "The use of machinery to perform work previously done by people.",
-                "A countryside area with low settlement density and strong links to farming.",
-                "A built-up town or city with relatively high population density.",
-                "A condition that encourages people to leave a place."
-            ],
-            "a": 0
-        },
-        {
-            "q": "Which statement correctly defines Rural area?",
-            "options": [
-                "A built-up town or city with relatively high population density.",
-                "A countryside area with low settlement density and strong links to farming.",
-                "A condition that encourages people to leave a place.",
-                "A condition that attracts people to a new place."
+                "A built-up town or city with relatively high population density."
             ],
             "a": 1
-        },
-        {
-            "q": "Which statement correctly defines Urban area?",
-            "options": [
-                "A condition that encourages people to leave a place.",
-                "A condition that attracts people to a new place.",
-                "A built-up town or city with relatively high population density.",
-                "Movement from a rural area to a town or city."
-            ],
-            "a": 2
-        },
-        {
-            "q": "Which statement correctly defines Push factor?",
-            "options": [
-                "A condition that attracts people to a new place.",
-                "Movement from a rural area to a town or city.",
-                "An increase in the percentage of people living in urban areas.",
-                "A condition that encourages people to leave a place."
-            ],
-            "a": 3
-        },
-        {
-            "q": "Which statement correctly defines Pull factor?",
-            "options": [
-                "A condition that attracts people to a new place.",
-                "Movement from a rural area to a town or city.",
-                "An increase in the percentage of people living in urban areas.",
-                "A reduction in the number of people living in rural areas."
-            ],
-            "a": 0
         }
     ],
     "game3": [
         {
-            "q": "Identify the concept: Movement from a rural area to a town or city.",
+            "q": "What is movement from the countryside to a town or city called?",
             "options": [
+                "Rural-urban migration",
                 "Urbanisation",
                 "Rural depopulation",
-                "Rural-urban migration",
                 "Young adult migrants"
             ],
-            "a": 2
-        },
-        {
-            "q": "Identify the concept: An increase in the percentage of people living in urban areas.",
-            "options": [
-                "Rural depopulation",
-                "Young adult migrants",
-                "Employment pull",
-                "Urbanisation"
-            ],
-            "a": 3
-        },
-        {
-            "q": "Identify the concept: A reduction in the number of people living in rural areas.",
-            "options": [
-                "Rural depopulation",
-                "Young adult migrants",
-                "Employment pull",
-                "Low wages push"
-            ],
             "a": 0
         },
         {
-            "q": "Identify the concept: Working-age young people who commonly move in search of opportunities.",
+            "q": "Which active age group is most likely to move to cities for work?",
             "options": [
-                "Employment pull",
-                "Young adult migrants",
-                "Low wages push",
-                "Agricultural labour loss"
+                "Retired elderly people",
+                "Young adults of working age",
+                "Children under ten",
+                "People outside the labour force only"
             ],
             "a": 1
         },
         {
-            "q": "Identify the concept: The attraction of better job opportunities at a destination.",
+            "q": "Give one economic reason why young adults move to urban areas.",
             "options": [
-                "Low wages push",
-                "Agricultural labour loss",
-                "Employment pull",
-                "Ageing rural population"
+                "Fewer employment opportunities",
+                "Lower wages in cities",
+                "More jobs, higher wages or better career opportunities",
+                "Less access to markets and services"
             ],
             "a": 2
         },
         {
-            "q": "Identify the concept: Poor earnings that encourage people to leave their place of origin.",
+            "q": "A rural scene contains cultivated fields and grazing livestock. Which economic sector is dominant?",
             "options": [
-                "Agricultural labour loss",
-                "Ageing rural population",
-                "Reduced agricultural output",
-                "Low wages push"
+                "Manufacturing",
+                "Financial services",
+                "Information technology",
+                "Agriculture"
             ],
             "a": 3
         },
         {
-            "q": "Identify the concept: A decline in available farm workers after people leave rural areas.",
+            "q": "Name two visual features that would show agriculture dominates a rural scene.",
             "options": [
-                "Agricultural labour loss",
-                "Ageing rural population",
-                "Reduced agricultural output",
-                "Rural service decline"
+                "Any two of crop fields, livestock, farm buildings, tractors or farming tools",
+                "Traffic lights and office towers",
+                "Harbours and container ships only",
+                "Airports and shopping centres"
             ],
             "a": 0
         },
         {
-            "q": "Identify the concept: A rising proportion of older residents as younger adults move away.",
+            "q": "How can rural-urban migration reduce farm production?",
             "options": [
-                "Reduced agricultural output",
-                "Ageing rural population",
-                "Rural service decline",
-                "Urban unemployment"
+                "It immediately increases the rural labour supply",
+                "It removes young and skilled agricultural workers",
+                "It creates more cultivated land automatically",
+                "It guarantees higher rainfall"
             ],
             "a": 1
         },
         {
-            "q": "Identify the concept: Lower farm production caused by labour and skills losses.",
+            "q": "How can migration change the age structure of a rural community?",
             "options": [
-                "Rural service decline",
-                "Urban unemployment",
-                "Reduced agricultural output",
-                "Informal settlement"
+                "The remaining population becomes entirely younger",
+                "Every age group becomes equal in size",
+                "The remaining population becomes older on average",
+                "Age structure is never affected by migration"
             ],
             "a": 2
         },
         {
-            "q": "Identify the concept: The weakening or closure of rural schools, shops and other services.",
+            "q": "Why may rural schools or shops close after migration?",
             "options": [
-                "Urban unemployment",
-                "Informal settlement",
-                "Urban congestion",
-                "Rural service decline"
+                "The rural population suddenly doubles",
+                "More customers arrive from every city",
+                "Farm output always increases",
+                "The smaller population provides too few learners or customers"
             ],
             "a": 3
         },
         {
-            "q": "Identify the concept: A shortage of jobs for people living in towns and cities.",
+            "q": "What happens to rural labour supply when many young adults leave?",
             "options": [
-                "Urban unemployment",
-                "Informal settlement",
-                "Urban congestion",
-                "Remittances"
+                "It decreases",
+                "It increases immediately",
+                "It remains exactly the same",
+                "It becomes entirely mechanised overnight"
             ],
             "a": 0
         },
         {
-            "q": "Identify the concept: Housing built without full formal planning or secure services.",
+            "q": "What is the loss of educated or skilled residents called?",
             "options": [
-                "Urban congestion",
-                "Informal settlement",
-                "Remittances",
-                "Brain drain"
-            ],
-            "a": 1
-        },
-        {
-            "q": "Identify the concept: Crowding and pressure on roads, housing and services in urban areas.",
-            "options": [
-                "Remittances",
-                "Brain drain",
-                "Urban congestion",
-                "Mechanisation"
-            ],
-            "a": 2
-        },
-        {
-            "q": "Identify the concept: Money sent home by migrants to support people at their place of origin.",
-            "options": [
-                "Brain drain",
                 "Mechanisation",
-                "Rural area",
-                "Remittances"
-            ],
-            "a": 3
-        },
-        {
-            "q": "Identify the concept: The loss of skilled or educated people from an area through migration.",
-            "options": [
                 "Brain drain",
-                "Mechanisation",
                 "Rural area",
                 "Urban area"
-            ],
-            "a": 0
-        },
-        {
-            "q": "Identify the concept: The use of machinery to perform work previously done by people.",
-            "options": [
-                "Rural area",
-                "Mechanisation",
-                "Urban area",
-                "Push factor"
-            ],
-            "a": 1
-        },
-        {
-            "q": "Identify the concept: A countryside area with low settlement density and strong links to farming.",
-            "options": [
-                "Urban area",
-                "Push factor",
-                "Rural area",
-                "Pull factor"
-            ],
-            "a": 2
-        },
-        {
-            "q": "Identify the concept: A built-up town or city with relatively high population density.",
-            "options": [
-                "Push factor",
-                "Pull factor",
-                "Rural-urban migration",
-                "Urban area"
-            ],
-            "a": 3
-        },
-        {
-            "q": "Identify the concept: A condition that encourages people to leave a place.",
-            "options": [
-                "Push factor",
-                "Pull factor",
-                "Rural-urban migration",
-                "Urbanisation"
-            ],
-            "a": 0
-        },
-        {
-            "q": "Identify the concept: A condition that attracts people to a new place.",
-            "options": [
-                "Rural-urban migration",
-                "Pull factor",
-                "Urbanisation",
-                "Rural depopulation"
             ],
             "a": 1
         }
     ],
     "game4": [
         {
-            "q": "Select the accurate description of Rural-urban migration.",
+            "q": "Rural-urban migration: Movement from a rural area to a town or city.",
             "options": [
-                "Movement from a rural area to a town or city.",
-                "An increase in the percentage of people living in urban areas.",
-                "A reduction in the number of people living in rural areas.",
-                "Working-age young people who commonly move in search of opportunities."
+                "True",
+                "False"
             ],
             "a": 0
         },
         {
-            "q": "Select the accurate description of Urbanisation.",
+            "q": "Rural depopulation: A reduction in the number of people living in rural areas.",
             "options": [
-                "A reduction in the number of people living in rural areas.",
-                "An increase in the percentage of people living in urban areas.",
-                "Working-age young people who commonly move in search of opportunities.",
-                "The attraction of better job opportunities at a destination."
-            ],
-            "a": 1
-        },
-        {
-            "q": "Select the accurate description of Rural depopulation.",
-            "options": [
-                "Working-age young people who commonly move in search of opportunities.",
-                "The attraction of better job opportunities at a destination.",
-                "A reduction in the number of people living in rural areas.",
-                "Poor earnings that encourage people to leave their place of origin."
-            ],
-            "a": 2
-        },
-        {
-            "q": "Select the accurate description of Young adult migrants.",
-            "options": [
-                "The attraction of better job opportunities at a destination.",
-                "Poor earnings that encourage people to leave their place of origin.",
-                "A decline in available farm workers after people leave rural areas.",
-                "Working-age young people who commonly move in search of opportunities."
-            ],
-            "a": 3
-        },
-        {
-            "q": "Select the accurate description of Employment pull.",
-            "options": [
-                "The attraction of better job opportunities at a destination.",
-                "Poor earnings that encourage people to leave their place of origin.",
-                "A decline in available farm workers after people leave rural areas.",
-                "A rising proportion of older residents as younger adults move away."
+                "True",
+                "False"
             ],
             "a": 0
         },
         {
-            "q": "Select the accurate description of Low wages push.",
+            "q": "Young adult migrants: The attraction of better job opportunities at a destination.",
             "options": [
-                "A decline in available farm workers after people leave rural areas.",
-                "Poor earnings that encourage people to leave their place of origin.",
-                "A rising proportion of older residents as younger adults move away.",
-                "Lower farm production caused by labour and skills losses."
+                "True",
+                "False"
             ],
             "a": 1
         },
         {
-            "q": "Select the accurate description of Agricultural labour loss.",
+            "q": "Employment pull: The attraction of better job opportunities at a destination.",
             "options": [
-                "A rising proportion of older residents as younger adults move away.",
-                "Lower farm production caused by labour and skills losses.",
-                "A decline in available farm workers after people leave rural areas.",
-                "The weakening or closure of rural schools, shops and other services."
-            ],
-            "a": 2
-        },
-        {
-            "q": "Select the accurate description of Ageing rural population.",
-            "options": [
-                "Lower farm production caused by labour and skills losses.",
-                "The weakening or closure of rural schools, shops and other services.",
-                "A shortage of jobs for people living in towns and cities.",
-                "A rising proportion of older residents as younger adults move away."
-            ],
-            "a": 3
-        },
-        {
-            "q": "Select the accurate description of Reduced agricultural output.",
-            "options": [
-                "Lower farm production caused by labour and skills losses.",
-                "The weakening or closure of rural schools, shops and other services.",
-                "A shortage of jobs for people living in towns and cities.",
-                "Housing built without full formal planning or secure services."
+                "True",
+                "False"
             ],
             "a": 0
         },
         {
-            "q": "Select the accurate description of Rural service decline.",
+            "q": "Low wages push: A decline in available farm workers after people leave rural areas.",
             "options": [
-                "A shortage of jobs for people living in towns and cities.",
-                "The weakening or closure of rural schools, shops and other services.",
-                "Housing built without full formal planning or secure services.",
-                "Crowding and pressure on roads, housing and services in urban areas."
+                "True",
+                "False"
             ],
             "a": 1
         },
         {
-            "q": "Select the accurate description of Urban unemployment.",
+            "q": "Agricultural labour loss: A decline in available farm workers after people leave rural areas.",
             "options": [
-                "Housing built without full formal planning or secure services.",
-                "Crowding and pressure on roads, housing and services in urban areas.",
-                "A shortage of jobs for people living in towns and cities.",
-                "Money sent home by migrants to support people at their place of origin."
-            ],
-            "a": 2
-        },
-        {
-            "q": "Select the accurate description of Informal settlement.",
-            "options": [
-                "Crowding and pressure on roads, housing and services in urban areas.",
-                "Money sent home by migrants to support people at their place of origin.",
-                "The loss of skilled or educated people from an area through migration.",
-                "Housing built without full formal planning or secure services."
-            ],
-            "a": 3
-        },
-        {
-            "q": "Select the accurate description of Urban congestion.",
-            "options": [
-                "Crowding and pressure on roads, housing and services in urban areas.",
-                "Money sent home by migrants to support people at their place of origin.",
-                "The loss of skilled or educated people from an area through migration.",
-                "The use of machinery to perform work previously done by people."
+                "True",
+                "False"
             ],
             "a": 0
         },
         {
-            "q": "Select the accurate description of Remittances.",
+            "q": "Ageing rural population: Lower farm production caused by labour and skills losses.",
             "options": [
-                "The loss of skilled or educated people from an area through migration.",
-                "Money sent home by migrants to support people at their place of origin.",
-                "The use of machinery to perform work previously done by people.",
-                "A countryside area with low settlement density and strong links to farming."
+                "True",
+                "False"
             ],
             "a": 1
         },
         {
-            "q": "Select the accurate description of Brain drain.",
+            "q": "Reduced agricultural output: Lower farm production caused by labour and skills losses.",
             "options": [
-                "The use of machinery to perform work previously done by people.",
-                "A countryside area with low settlement density and strong links to farming.",
-                "The loss of skilled or educated people from an area through migration.",
-                "A built-up town or city with relatively high population density."
-            ],
-            "a": 2
-        },
-        {
-            "q": "Select the accurate description of Mechanisation.",
-            "options": [
-                "A countryside area with low settlement density and strong links to farming.",
-                "A built-up town or city with relatively high population density.",
-                "A condition that encourages people to leave a place.",
-                "The use of machinery to perform work previously done by people."
-            ],
-            "a": 3
-        },
-        {
-            "q": "Select the accurate description of Rural area.",
-            "options": [
-                "A countryside area with low settlement density and strong links to farming.",
-                "A built-up town or city with relatively high population density.",
-                "A condition that encourages people to leave a place.",
-                "A condition that attracts people to a new place."
+                "True",
+                "False"
             ],
             "a": 0
         },
         {
-            "q": "Select the accurate description of Urban area.",
+            "q": "Rural service decline: A shortage of jobs for people living in towns and cities.",
             "options": [
-                "A condition that encourages people to leave a place.",
-                "A built-up town or city with relatively high population density.",
-                "A condition that attracts people to a new place.",
-                "Movement from a rural area to a town or city."
+                "True",
+                "False"
             ],
             "a": 1
         },
         {
-            "q": "Select the accurate description of Push factor.",
+            "q": "Brain drain: Movement from a rural area to a town or city.",
             "options": [
-                "A condition that attracts people to a new place.",
-                "Movement from a rural area to a town or city.",
-                "A condition that encourages people to leave a place.",
-                "An increase in the percentage of people living in urban areas."
+                "True",
+                "False"
             ],
-            "a": 2
-        },
-        {
-            "q": "Select the accurate description of Pull factor.",
-            "options": [
-                "Movement from a rural area to a town or city.",
-                "An increase in the percentage of people living in urban areas.",
-                "A reduction in the number of people living in rural areas.",
-                "A condition that attracts people to a new place."
-            ],
-            "a": 3
+            "a": 1
         }
     ]
 };
@@ -976,11 +559,25 @@
         let isGoldenAppleActive = false;
         let activeQuestionValue = 1; 
         let isPausedPendingInput = true;
+        let currentCategoryKey = null;
+        let correctAnswers = 0;
+        let totalQuestionsForGame = 10;
+        let certificateShown = false;
+        const snakeCategoryTitles = {
+            game1: 'Term Identification',
+            game2: 'Meaning Match',
+            game3: 'Multiple Choice',
+            game4: 'True or False'
+        };
 
         function startGame(categoryKey) {
             document.getElementById('categorySelection').style.display = 'none';
             document.getElementById('gameArea').style.display = 'flex';
+            currentCategoryKey = categoryKey;
             currentTopic = [...questionDB[categoryKey]];
+            correctAnswers = 0;
+            totalQuestionsForGame = currentTopic.length;
+            certificateShown = false;
             snake = [{x: 15, y: 10}, {x: 15, y: 11}, {x: 15, y: 12}];
             dx = 0; dy = -1; score = 0; applesEaten = 0;
             updateScoreboard();
@@ -1142,6 +739,7 @@
             if (selectedIndex === currentQuestionObj.a) {
                 MayHubSounds.playCorrect();
                 clickedBtn.classList.add('correct');
+                correctAnswers++;
                 score += activeQuestionValue;
                 updateScoreboard();
                 snake.push({ ...snake[snake.length - 1] }); 
@@ -1184,7 +782,19 @@
             } else {
                 title.innerText = "Game Over!";
                 title.style.color = "#dc3545";
-                msg.innerText = "Development is a journey. Try again and strengthen your understanding of its concepts and indicators!";
+                msg.innerText = "History takes practice. Try again and strengthen your understanding of this topic!";
+            }
+            if (!certificateShown) {
+                certificateShown = true;
+                setTimeout(() => {
+                    MayHubCertificates.showScored({
+                        gameTitle: 'Rural-Urban Migration Snake Challenge',
+                        category: snakeCategoryTitles[currentCategoryKey] || 'Assessment Game',
+                        correct: correctAnswers,
+                        total: totalQuestionsForGame,
+                        onReplay: () => window.location.reload()
+                    });
+                }, 600);
             }
         }
     </script>

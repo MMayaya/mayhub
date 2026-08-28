@@ -67,7 +67,7 @@
         footer { text-align: center; padding: 1rem; background-color: #002b5e; color: #fff; margin-top: auto; }
     </style>
 </head>
-<body>
+<body data-certificate-grade="Grade 10" data-certificate-subject="Geography" data-certificate-term="Term 3" data-certificate-topic="Migration Concepts" data-certificate-game="Migration Concepts Millionaire Challenge" data-certificate-layout="compact-subject">
 
     <nav>
         <a href="../../../../../../index.html" class="logo">May Learning Hub</a>
@@ -79,7 +79,7 @@
 
     <header class="game-header">
         <h1 class="game-title">R1,000,000 Geography Challenge</h1>
-        <p class="game-subtitle">Revise development terminology, inequality, health, GDP, sustainability and human-development indicators.</p>
+        <p class="game-subtitle">Revise migration terminology, migration types, urbanisation, and push-and-pull factors.</p>
         <p style="font-size: 0.78rem; color: #52606d; margin-top: 0.45rem;">Grade 10 Geography Term 3 revision</p>
     </header>
 
@@ -117,28 +117,31 @@
     </footer>
 
         <script src="../../../../../../game-audio.js"></script>
+        <script src="../../../../../../may-certificate-renderer.js"></script>
+        <script src="../../../../../../may-certificate-actions.js"></script>
+        <script src="../../../../../../assessment-certificate.js"></script>
 <script>
         const questions = [
     {
         "q": "Select the term described here: The movement of people to change their usual place of residence.",
         "options": [
-            "International migration",
             "Migration",
+            "International migration",
             "Immigration",
             "Emigration"
         ],
-        "a": 1,
+        "a": 0,
         "hint": "The correct answer is Migration."
     },
     {
         "q": "Select the term described here: Movement from one country to another.",
         "options": [
             "Immigration",
-            "Emigration",
             "International migration",
+            "Emigration",
             "Regional migration"
         ],
-        "a": 2,
+        "a": 1,
         "hint": "The correct answer is International migration."
     },
     {
@@ -146,43 +149,43 @@
         "options": [
             "Emigration",
             "Regional migration",
-            "Rural-urban migration",
-            "Immigration"
+            "Immigration",
+            "Rural-urban migration"
         ],
-        "a": 3,
+        "a": 2,
         "hint": "The correct answer is Immigration."
     },
     {
         "q": "Select the term described here: Leaving a country to settle elsewhere.",
         "options": [
-            "Emigration",
             "Regional migration",
             "Rural-urban migration",
-            "Urbanisation"
+            "Urbanisation",
+            "Emigration"
         ],
-        "a": 0,
+        "a": 3,
         "hint": "The correct answer is Emigration."
     },
     {
         "q": "Select the term described here: Movement within a region, such as within Southern Africa.",
         "options": [
-            "Rural-urban migration",
             "Regional migration",
+            "Rural-urban migration",
             "Urbanisation",
             "Rural depopulation"
         ],
-        "a": 1,
+        "a": 0,
         "hint": "The correct answer is Regional migration."
     },
     {
         "q": "Select the term described here: Movement from a rural area to a town or city.",
         "options": [
             "Urbanisation",
-            "Rural depopulation",
             "Rural-urban migration",
+            "Rural depopulation",
             "Internal migration"
         ],
-        "a": 2,
+        "a": 1,
         "hint": "The correct answer is Rural-urban migration."
     },
     {
@@ -190,76 +193,54 @@
         "options": [
             "Rural depopulation",
             "Internal migration",
-            "External migration",
-            "Urbanisation"
+            "Urbanisation",
+            "External migration"
         ],
-        "a": 3,
+        "a": 2,
         "hint": "The correct answer is Urbanisation."
     },
     {
         "q": "Select the term described here: A reduction in the number of people living in rural areas.",
         "options": [
-            "Rural depopulation",
             "Internal migration",
             "External migration",
-            "Place of origin"
+            "Place of origin",
+            "Rural depopulation"
         ],
-        "a": 0,
+        "a": 3,
         "hint": "The correct answer is Rural depopulation."
-    },
-    {
-        "q": "Select the term described here: Movement within the borders of the same country.",
-        "options": [
-            "External migration",
-            "Internal migration",
-            "Place of origin",
-            "Destination"
-        ],
-        "a": 1,
-        "hint": "The correct answer is Internal migration."
-    },
-    {
-        "q": "Select the term described here: Movement across an international border.",
-        "options": [
-            "Place of origin",
-            "Destination",
-            "External migration",
-            "Migrant"
-        ],
-        "a": 2,
-        "hint": "The correct answer is External migration."
     },
     {
         "q": "Select the term described here: The place from which a migrant moves.",
         "options": [
+            "Place of origin",
             "Destination",
             "Migrant",
-            "Push factor",
-            "Place of origin"
+            "Push factor"
         ],
-        "a": 3,
+        "a": 0,
         "hint": "The correct answer is Place of origin."
     },
     {
         "q": "Select the term described here: The place to which a migrant moves.",
         "options": [
-            "Destination",
             "Migrant",
+            "Destination",
             "Push factor",
             "Pull factor"
         ],
-        "a": 0,
+        "a": 1,
         "hint": "The correct answer is Destination."
     },
     {
         "q": "Select the term described here: A person who changes their usual place of residence.",
         "options": [
             "Push factor",
-            "Migrant",
             "Pull factor",
+            "Migrant",
             "Voluntary migration"
         ],
-        "a": 1,
+        "a": 2,
         "hint": "The correct answer is Migrant."
     },
     {
@@ -267,204 +248,71 @@
         "options": [
             "Pull factor",
             "Voluntary migration",
-            "Push factor",
-            "Forced migration"
+            "Forced migration",
+            "Push factor"
         ],
-        "a": 2,
+        "a": 3,
         "hint": "The correct answer is Push factor."
     },
     {
         "q": "Select the term described here: A condition that attracts people to a new place.",
         "options": [
+            "Pull factor",
             "Voluntary migration",
             "Forced migration",
-            "Temporary migration",
-            "Pull factor"
+            "Temporary migration"
         ],
-        "a": 3,
+        "a": 0,
         "hint": "The correct answer is Pull factor."
     },
     {
         "q": "Select the term described here: Movement made by personal choice.",
         "options": [
-            "Voluntary migration",
             "Forced migration",
+            "Voluntary migration",
             "Temporary migration",
             "Permanent migration"
         ],
-        "a": 0,
+        "a": 1,
         "hint": "The correct answer is Voluntary migration."
     },
     {
         "q": "Select the term described here: Movement caused by danger, conflict, disaster or compulsion.",
         "options": [
             "Temporary migration",
-            "Forced migration",
             "Permanent migration",
+            "Forced migration",
             "Seasonal migration"
         ],
-        "a": 1,
+        "a": 2,
         "hint": "The correct answer is Forced migration."
-    },
-    {
-        "q": "Select the term described here: Movement for a limited period with an intention to return.",
-        "options": [
-            "Permanent migration",
-            "Seasonal migration",
-            "Temporary migration",
-            "Migration"
-        ],
-        "a": 2,
-        "hint": "The correct answer is Temporary migration."
-    },
-    {
-        "q": "Select the term described here: Movement intended to establish a long-term home elsewhere.",
-        "options": [
-            "Seasonal migration",
-            "Migration",
-            "International migration",
-            "Permanent migration"
-        ],
-        "a": 3,
-        "hint": "The correct answer is Permanent migration."
-    },
-    {
-        "q": "Select the term described here: Temporary movement linked to a season or seasonal work.",
-        "options": [
-            "Seasonal migration",
-            "Migration",
-            "International migration",
-            "Immigration"
-        ],
-        "a": 0,
-        "hint": "The correct answer is Seasonal migration."
-    },
-    {
-        "q": "Migration refers to which of the following?",
-        "options": [
-            "Movement from one country to another.",
-            "Moving into a country to settle there.",
-            "Leaving a country to settle elsewhere.",
-            "The movement of people to change their usual place of residence."
-        ],
-        "a": 3,
-        "hint": "The correct answer is The movement of people to change their usual place of residence.."
-    },
-    {
-        "q": "International migration refers to which of the following?",
-        "options": [
-            "Movement from one country to another.",
-            "Moving into a country to settle there.",
-            "Leaving a country to settle elsewhere.",
-            "Movement within a region, such as within Southern Africa."
-        ],
-        "a": 0,
-        "hint": "The correct answer is Movement from one country to another.."
-    },
-    {
-        "q": "Immigration refers to which of the following?",
-        "options": [
-            "Leaving a country to settle elsewhere.",
-            "Moving into a country to settle there.",
-            "Movement within a region, such as within Southern Africa.",
-            "Movement from a rural area to a town or city."
-        ],
-        "a": 1,
-        "hint": "The correct answer is Moving into a country to settle there.."
-    },
-    {
-        "q": "Emigration refers to which of the following?",
-        "options": [
-            "Movement within a region, such as within Southern Africa.",
-            "Movement from a rural area to a town or city.",
-            "Leaving a country to settle elsewhere.",
-            "An increase in the percentage of people living in urban areas."
-        ],
-        "a": 2,
-        "hint": "The correct answer is Leaving a country to settle elsewhere.."
-    },
-    {
-        "q": "Regional migration refers to which of the following?",
-        "options": [
-            "Movement from a rural area to a town or city.",
-            "An increase in the percentage of people living in urban areas.",
-            "A reduction in the number of people living in rural areas.",
-            "Movement within a region, such as within Southern Africa."
-        ],
-        "a": 3,
-        "hint": "The correct answer is Movement within a region, such as within Southern Africa.."
-    },
-    {
-        "q": "Rural-urban migration refers to which of the following?",
-        "options": [
-            "Movement from a rural area to a town or city.",
-            "An increase in the percentage of people living in urban areas.",
-            "A reduction in the number of people living in rural areas.",
-            "Movement within the borders of the same country."
-        ],
-        "a": 0,
-        "hint": "The correct answer is Movement from a rural area to a town or city.."
-    },
-    {
-        "q": "Urbanisation refers to which of the following?",
-        "options": [
-            "A reduction in the number of people living in rural areas.",
-            "An increase in the percentage of people living in urban areas.",
-            "Movement within the borders of the same country.",
-            "Movement across an international border."
-        ],
-        "a": 1,
-        "hint": "The correct answer is An increase in the percentage of people living in urban areas.."
-    },
-    {
-        "q": "Rural depopulation refers to which of the following?",
-        "options": [
-            "Movement within the borders of the same country.",
-            "Movement across an international border.",
-            "A reduction in the number of people living in rural areas.",
-            "The place from which a migrant moves."
-        ],
-        "a": 2,
-        "hint": "The correct answer is A reduction in the number of people living in rural areas.."
-    },
-    {
-        "q": "Internal migration refers to which of the following?",
-        "options": [
-            "Movement across an international border.",
-            "The place from which a migrant moves.",
-            "The place to which a migrant moves.",
-            "Movement within the borders of the same country."
-        ],
-        "a": 3,
-        "hint": "The correct answer is Movement within the borders of the same country.."
-    },
-    {
-        "q": "External migration refers to which of the following?",
-        "options": [
-            "Movement across an international border.",
-            "The place from which a migrant moves.",
-            "The place to which a migrant moves.",
-            "A person who changes their usual place of residence."
-        ],
-        "a": 0,
-        "hint": "The correct answer is Movement across an international border.."
     }
 ];
 
         const prizes = [
-            "R100", "R200", "R300", "R500", "R1,000",
-            "R2,000", "R3,000", "R4,000", "R5,000", "R10,000",
-            "R15,000", "R20,000", "R25,000", "R30,000", "R40,000",
-            "R50,000", "R60,000", "R70,000", "R80,000", "R100,000",
-            "R150,000", "R200,000", "R250,000", "R300,000", "R400,000",
-            "R500,000", "R600,000", "R750,000", "R850,000", "R1,000,000"
-        ];
+    "R100",
+    "R200",
+    "R300",
+    "R500",
+    "R1,000",
+    "R2,000",
+    "R4,000",
+    "R8,000",
+    "R16,000",
+    "R32,000",
+    "R64,000",
+    "R125,000",
+    "R250,000",
+    "R500,000",
+    "R1,000,000"
+];
 
         let currentLevel = 0;
         let isWaiting = false;
+        let certificateShown = false;
 
         const ladderContainer = document.getElementById('prizeLadder');
-        for (let i = 0; i < 30; i++) {
+        for (let i = 0; i < questions.length; i++) {
             let step = document.createElement('div');
             step.className = 'ladder-step';
             step.id = `ladder-${i}`;
@@ -482,7 +330,7 @@
             document.getElementById(`ladder-${currentLevel}`).classList.add('active');
 
             const qData = questions[currentLevel];
-            document.getElementById('questionText').innerText = `Q${currentLevel + 1}: ${qData.q}`;
+            document.getElementById('questionText').innerText = qData.q;
 
             let options = [...qData.options];
             let correctText = options[qData.a];
@@ -521,7 +369,7 @@
                     selectedBtn.classList.add('correct');
                     setTimeout(() => {
                         currentLevel++;
-                        if (currentLevel >= 30) endGame(true);
+                        if (currentLevel >= questions.length) endGame(true);
                         else loadQuestion();
                     }, 1000); 
                 } else {
@@ -552,18 +400,30 @@
         function useHint() {
             if (isWaiting) return;
             document.getElementById('btnHint').disabled = true;
-            alert("Geography Teacher Hint: " + questions[currentLevel].hint);
+            alert("History Teacher Hint: " + questions[currentLevel].hint);
         }
 
         function endGame(won) {
             document.getElementById('gameBoard').style.display = 'none';
             document.getElementById('endScreen').style.display = 'block';
             if (won) {
-                document.getElementById('endMessage').innerText = "Geography Legend!";
+                document.getElementById('endMessage').innerText = "History Legend!";
                 document.getElementById('endPrize').innerText = "R1,000,000";
             } else {
                 document.getElementById('endMessage').innerText = "Final Winnings:";
                 document.getElementById('endPrize').innerText = currentLevel > 0 ? prizes[currentLevel - 1] : "R0";
+            }
+            if (!certificateShown) {
+                certificateShown = true;
+                setTimeout(() => {
+                    MayHubCertificates.showScored({
+                        gameTitle: 'Migration Concepts Millionaire Challenge',
+                        category: 'Millionaire Quiz',
+                        correct: currentLevel,
+                        total: questions.length,
+                        onReplay: () => window.location.reload()
+                    });
+                }, 600);
             }
         }
         loadQuestion();

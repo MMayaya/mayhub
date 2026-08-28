@@ -72,7 +72,7 @@
         .score-board { background: #002b5e; color: #fff; display: inline-block; padding: 0.8rem 2.5rem; border-radius: 30px; font-size: 1.6rem; font-weight: bold; border: 4px solid #3385ff; box-shadow: 0 4px 10px rgba(0,0,0,0.2); margin-bottom: 2rem; transition: all 0.3s; }
         .score-board span { color: #ffc107; }
 
-        .jeopardy-board { width: 100%; max-width: 1000px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; background: #001a33; padding: 8px; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
+        .jeopardy-board { width: 100%; max-width: 1000px; display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; background: #001a33; padding: 8px; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
         .category-header { background: #004080; color: #fff; text-align: center; font-weight: bold; padding: 1rem 0.5rem; font-size: 1.1rem; border-radius: 6px; border-bottom: 4px solid #3385ff; display: flex; align-items: center; justify-content: center; min-height: 80px; text-transform: uppercase; }
         .point-btn { background: #3385ff; color: #fff; font-size: 1.6rem; font-weight: bold; border: none; padding: 1.5rem 0; border-radius: 6px; cursor: pointer; transition: all 0.2s; text-shadow: 1px 1px 2px rgba(0,0,0,0.5); box-shadow: inset 0 0 10px rgba(0,0,0,0.2); }
         .point-btn:hover:not(:disabled) { background: #1a75ff; transform: scale(0.96); }
@@ -103,7 +103,7 @@
         footer { text-align: center; padding: 1rem; background-color: #002b5e; color: #fff; margin-top: auto; }
     </style>
 </head>
-<body>
+<body data-certificate-grade="Grade 11" data-certificate-subject="Geography" data-certificate-term="Term 3" data-certificate-topic="Trade Patterns" data-certificate-game="Trade Patterns Jeopardy Game" data-certificate-layout="compact-subject">
 
     <nav>
         <a href="../../../../../../index.html" class="logo">May Learning Hub</a>
@@ -115,7 +115,7 @@
 
     <header class="game-header">
         <h1 class="game-title">Grade 11 Geography Jeopardy</h1>
-        <p class="game-subtitle">Revise trade data, trading partners, trade balances, exports, imports, quotas and free trade.</p>
+        <p class="game-subtitle">Revise exports, imports, trade balances, export-led development, and trade barriers.</p>
         <p style="font-size: 0.78rem; color: #52606d; margin-top: 0.45rem;">Grade 11 Geography Term 3 revision</p>
     </header>
 
@@ -133,7 +133,7 @@
                 <button class="btn-edit" id="btnEditNames" onclick="showNameEditor()">Edit Names</button>
                 <button class="btn-reset" onclick="resetPlayerNames()">Reset</button>
             </div>
-            <p class="hint">80 unique clues drawn from the Grade 11 Term 3 Development presentation! </p>
+            <p class="hint">40 paper-bound questions are shuffled each session. Every player receives 10 different questions.</p>
         </div>
     </section>
 
@@ -168,10 +168,10 @@
     <div class="modal" id="questionModal">
         <div class="modal-content">
             <div class="modal-category" id="modalCategory">Category</div>
-            <div class="modal-question" id="modalQuestion">Clue</div>
-            <button class="btn-reveal" id="btnReveal" onclick="revealAnswer()">Reveal Correct Question</button>
+            <div class="modal-question" id="modalQuestion">Question</div>
+            <button class="btn-reveal" id="btnReveal" onclick="revealAnswer()">Reveal Answer</button>
             <div class="modal-answer-area" id="answerArea">
-                <div class="modal-answer" id="modalAnswer">Correct Question</div>
+                <div class="modal-answer" id="modalAnswer">Answer</div>
                 <div class="judgement-area" id="judgementArea">
                     <p>Did <strong id="activePlayerName">Player</strong> get it right?</p>
                     <div class="judgement-buttons">
@@ -190,6 +190,9 @@
     <footer><p>&copy; 2026 May Learning Hub. All rights reserved.</p></footer>
 
         <script src="../../../../../../game-audio.js"></script>
+        <script src="../../../../../../may-certificate-renderer.js"></script>
+        <script src="../../../../../../may-certificate-actions.js"></script>
+        <script src="../../../../../../assessment-certificate.js"></script>
 <script>
         const questionBank = [
     {
@@ -293,206 +296,6 @@
         "a": "A record of all financial transactions between a country and the rest of the world."
     },
     {
-        "category": "Identify",
-        "q": "The difference between the value of a country's exports and imports. Name the correct geographical term.",
-        "a": "Balance of Trade"
-    },
-    {
-        "category": "Identify",
-        "q": "A positive trade balance in which export value is greater than import value. Name the correct geographical term.",
-        "a": "Trade Surplus"
-    },
-    {
-        "category": "Identify",
-        "q": "A negative trade balance in which import value is greater than export value. Name the correct geographical term.",
-        "a": "Trade Deficit"
-    },
-    {
-        "category": "Identify",
-        "q": "A tax placed on imported goods to make them more expensive. Name the correct geographical term.",
-        "a": "Tariff"
-    },
-    {
-        "category": "Identify",
-        "q": "A limit on the quantity of a product that may be imported. Name the correct geographical term.",
-        "a": "Quota"
-    },
-    {
-        "category": "Identify",
-        "q": "International trade with few or no barriers such as tariffs and quotas. Name the correct geographical term.",
-        "a": "Free Trade"
-    },
-    {
-        "category": "Identify",
-        "q": "Trade that promotes fair prices, working conditions and returns for producers. Name the correct geographical term.",
-        "a": "Fair Trade"
-    },
-    {
-        "category": "Identify",
-        "q": "The use of trade barriers to protect domestic producers from foreign competition. Name the correct geographical term.",
-        "a": "Protectionism"
-    },
-    {
-        "category": "Identify",
-        "q": "Goods and services sold to buyers in other countries. Name the correct geographical term.",
-        "a": "Exports"
-    },
-    {
-        "category": "Identify",
-        "q": "Goods and services purchased from sellers in other countries. Name the correct geographical term.",
-        "a": "Imports"
-    },
-    {
-        "category": "Identify",
-        "q": "Economic growth driven by producing goods and services for foreign markets. Name the correct geographical term.",
-        "a": "Export-Led Development"
-    },
-    {
-        "category": "Identify",
-        "q": "A development approach that relies strongly on goods, technology or capital brought in from abroad. Name the correct geographical term.",
-        "a": "Import-Led Development"
-    },
-    {
-        "category": "Identify",
-        "q": "A government measure that restricts the free movement of goods or services between countries. Name the correct geographical term.",
-        "a": "Trade Barrier"
-    },
-    {
-        "category": "Identify",
-        "q": "Financial assistance given by a government to support local producers. Name the correct geographical term.",
-        "a": "Subsidy"
-    },
-    {
-        "category": "Identify",
-        "q": "A foreign country or group of buyers purchasing a country's exported goods. Name the correct geographical term.",
-        "a": "Export Market"
-    },
-    {
-        "category": "Identify",
-        "q": "A country from which another country purchases goods and services. Name the correct geographical term.",
-        "a": "Import Partner"
-    },
-    {
-        "category": "Identify",
-        "q": "Currencies and financial resources used to pay for international transactions. Name the correct geographical term.",
-        "a": "Foreign Exchange"
-    },
-    {
-        "category": "Identify",
-        "q": "The ability to produce a good at a lower opportunity cost than another producer. Name the correct geographical term.",
-        "a": "Comparative Advantage"
-    },
-    {
-        "category": "Identify",
-        "q": "The exchange of goods and services across national borders. Name the correct geographical term.",
-        "a": "International Trade"
-    },
-    {
-        "category": "Identify",
-        "q": "A record of all financial transactions between a country and the rest of the world. Name the correct geographical term.",
-        "a": "Balance of Payments"
-    },
-    {
-        "category": "Choose",
-        "q": "South Africa exported R88.68 billion and imported R101.76 billion. Which total was greater? Options: A) Exports | B) Imports | C) They were equal | D) Neither was recorded",
-        "a": "B) Imports"
-    },
-    {
-        "category": "Choose",
-        "q": "South Africa exported R88.68 billion and imported R101.76 billion. Its overall trade balance was... Options: A) Positive | B) Negative | C) Zero | D) Impossible to calculate",
-        "a": "B) Negative"
-    },
-    {
-        "category": "Choose",
-        "q": "South Africa sent 8.1% of its exports to the USA and received 5.7% of its imports from the USA. Its trade balance with the USA was... Options: A) Positive | B) Negative | C) Zero | D) Cannot be determined",
-        "a": "A) Positive"
-    },
-    {
-        "category": "Choose",
-        "q": "Germany received 6.2% of South Africa's exports. What was Germany's export share? Options: A) 9.2% | B) 6.2% | C) 8.1% | D) 4.8%",
-        "a": "B) 6.2%"
-    },
-    {
-        "category": "Choose",
-        "q": "Germany received 6.2% of South Africa's exports but supplied 9.2% of its imports. South Africa's trade with Germany showed a... Options: A) Surplus | B) Deficit | C) Perfect balance | D) Quota",
-        "a": "B) Deficit"
-    },
-    {
-        "category": "Choose",
-        "q": "The relationship between export value and import value is called the... Options: A) Balance of trade | B) Balance of payments | C) Exchange rate | D) Trade quota",
-        "a": "A) Balance of trade"
-    },
-    {
-        "category": "Choose",
-        "q": "An economy that prioritises producing goods and services for sale in foreign markets follows which development approach? Options: A) Import-led | B) Export-led | C) Aid-led | D) Subsistence-led",
-        "a": "B) Export-led"
-    },
-    {
-        "category": "Choose",
-        "q": "A government limit on the quantity of a product imported is a... Options: A) Subsidy | B) Tariff | C) Quota | D) Grant",
-        "a": "C) Quota"
-    },
-    {
-        "category": "Choose",
-        "q": "Trade without tariffs and quotas is known as... Options: A) Fair trade | B) Free trade | C) Bilateral aid | D) Protectionism",
-        "a": "B) Free trade"
-    },
-    {
-        "category": "Choose",
-        "q": "China received 14.1% of South Africa's exports, compared with 8.1% for the USA and 6.2% for Germany. Which was the largest export market? Options: A) Germany | B) USA | C) China | D) Japan",
-        "a": "C) China"
-    },
-    {
-        "category": "Choose",
-        "q": "China supplied 23.1% of South Africa's imports, Germany 9.2%, the USA 5.7%, India 4.2%, and Saudi Arabia 3.4%. Which country supplied the largest share? Options: A) China | B) Germany | C) India | D) Saudi Arabia",
-        "a": "A) China"
-    },
-    {
-        "category": "Choose",
-        "q": "A tariff differs from a quota because a tariff... Options: A) Limits quantity | B) Taxes imports | C) Rewards exporters | D) Measures GDP",
-        "a": "B) Taxes imports"
-    },
-    {
-        "category": "Choose",
-        "q": "If exports rise above imports, the country has a trade... Options: A) Deficit | B) Surplus | C) Embargo | D) Dependency",
-        "a": "B) Surplus"
-    },
-    {
-        "category": "Apply",
-        "q": "Which total was larger: R88.68bn exports or R101.76bn imports?",
-        "a": "Imports"
-    },
-    {
-        "category": "Apply",
-        "q": "China received 14.1% of South Africa's exports, ahead of the USA at 8.1%, Germany at 6.2%, and Japan and Botswana at 4.8% each. Which country was the leading export destination?",
-        "a": "China"
-    },
-    {
-        "category": "Apply",
-        "q": "What kind of balance results when imports exceed exports?",
-        "a": "A trade deficit / negative balance"
-    },
-    {
-        "category": "Apply",
-        "q": "Identify the policy that fixes a maximum quantity of imports.",
-        "a": "A quota"
-    },
-    {
-        "category": "Apply",
-        "q": "Name the growth approach associated with producing for foreign markets.",
-        "a": "Export-led development"
-    },
-    {
-        "category": "Apply",
-        "q": "South Africa imported R101.76 billion and exported R88.68 billion. By roughly how much did imports exceed exports?",
-        "a": "About R13.08 billion"
-    },
-    {
-        "category": "Apply",
-        "q": "Germany received 6.2% of South Africa's exports. Which country had the 6.2% export share?",
-        "a": "Germany"
-    },
-    {
         "category": "Apply",
         "q": "Complete the rule: exports minus imports gives the...",
         "a": "Balance of trade"
@@ -559,37 +362,37 @@
     },
     {
         "category": "Decide",
-        "q": "Decide whether this statement is true or false: Imports exceed exports — Trade deficit.",
+        "q": "Decide whether this statement is true or false: Imports exceed exports: Trade deficit.",
         "a": "True. Imports exceed exports means: Trade deficit"
     },
     {
         "category": "Decide",
-        "q": "Decide whether this statement is true or false: Exports exceed imports — Tariff.",
+        "q": "Decide whether this statement is true or false: Exports exceed imports: Tariff.",
         "a": "False. Exports exceed imports means: Trade surplus"
     },
     {
         "category": "Decide",
-        "q": "Decide whether this statement is true or false: Tax on imported goods — Tariff.",
+        "q": "Decide whether this statement is true or false: Tax on imported goods: Tariff.",
         "a": "True. Tax on imported goods means: Tariff"
     },
     {
         "category": "Decide",
-        "q": "Decide whether this statement is true or false: Limit on import quantity — Free trade.",
+        "q": "Decide whether this statement is true or false: Limit on import quantity: Free trade.",
         "a": "False. Limit on import quantity means: Quota"
     },
     {
         "category": "Decide",
-        "q": "Decide whether this statement is true or false: Trade with few barriers — Free trade.",
+        "q": "Decide whether this statement is true or false: Trade with few barriers: Free trade.",
         "a": "True. Trade with few barriers means: Free trade"
     },
     {
         "category": "Decide",
-        "q": "Decide whether this statement is true or false: Compares exports and imports — Export-led development.",
+        "q": "Decide whether this statement is true or false: Compares exports and imports: Export-led development.",
         "a": "False. Compares exports and imports means: Balance of trade"
     },
     {
         "category": "Decide",
-        "q": "Decide whether this statement is true or false: Growth driven by overseas sales — Export-led development.",
+        "q": "Decide whether this statement is true or false: Growth driven by overseas sales: Export-led development.",
         "a": "True. Growth driven by overseas sales means: Export-led development"
     }
 ];
@@ -604,9 +407,9 @@
         }
 
         function dealJeopardyPlayerQuestions(items, playerIndex) {
-            const playerQuestions = items.slice(playerIndex * 20, playerIndex * 20 + 20);
-            return Array.from({ length: 4 }, (_, categoryIndex) => ({
-                name: ["Round One", "Round Two", "Round Three", "Round Four"][categoryIndex],
+            const playerQuestions = items.slice(playerIndex * 10, playerIndex * 10 + 10);
+            return Array.from({ length: 2 }, (_, categoryIndex) => ({
+                name: ["Round One", "Round Two"][categoryIndex],
                 questions: playerQuestions.slice(categoryIndex * 5, categoryIndex * 5 + 5).map((item, questionIndex) => ({
                     points: (questionIndex + 1) * 10,
                     q: item.q,
@@ -627,6 +430,11 @@
         let activePointValue = 0;
         let activeTileButton = null;
         let playerNames = ["Player 1", "Player 2", "Player 3", "Player 4"];
+        let answeredTiles = 0;
+        let participationShown = false;
+        const totalJeopardyTiles = gameData.reduce((playerTotal, playerCategories) => {
+            return playerTotal + playerCategories.reduce((categoryTotal, category) => categoryTotal + category.questions.length, 0);
+        }, 0);
 
         const carouselTrack = document.getElementById('carouselTrack');
         const modal = document.getElementById('questionModal');
@@ -738,7 +546,27 @@
         }
 
         function updateScore(i) { document.getElementById(`score-${i}`).innerText = scores[i]; }
-        function closeModal() { activeTileButton.innerText = ""; activeTileButton.disabled = true; modal.style.display = 'none'; }
+        function closeModal() {
+            if (!activeTileButton) {
+                modal.style.display = 'none';
+                return;
+            }
+            activeTileButton.innerText = "";
+            activeTileButton.disabled = true;
+            activeTileButton = null;
+            modal.style.display = 'none';
+            answeredTiles++;
+            if (answeredTiles === totalJeopardyTiles && !participationShown) {
+                participationShown = true;
+                setTimeout(() => {
+                    MayHubCertificates.showParticipation({
+                        gameTitle: 'Trade Patterns Jeopardy Game',
+                        category: 'Round One and Round Two',
+                        onReplay: () => window.location.reload()
+                    });
+                }, 650);
+            }
+        }
         
         buildBoards();
 

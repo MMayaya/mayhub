@@ -138,6 +138,17 @@ function validateRecordCount(file, records, expected, label) {
     }
 }
 
+function validateUniqueQuestions(file, records, label) {
+    if (!Array.isArray(records)) return;
+    const seen = new Set();
+    records.forEach((record, index) => {
+        const key = String(record?.q || '').trim().toLowerCase();
+        if (!key) return;
+        if (seen.has(key)) fail(file, label + ' repeats question ' + (index + 1));
+        seen.add(key);
+    });
+}
+
 function validateAnswerBalance(file, source) {
     const fileName = path.basename(file).toLowerCase();
     if (fileName === 'drag1.html') {
@@ -145,7 +156,10 @@ function validateAnswerBalance(file, source) {
         if (gameData) Object.entries(gameData).forEach(([key, records]) => validateRecordCount(file, records, 5, 'Drag ' + key));
     } else if (fileName === 'jeopardy1.html') {
         const questionBank = readConstLiteral(file, source, 'questionBank');
-        if (questionBank) validateRecordCount(file, questionBank, 40, 'Jeopardy question bank');
+        if (questionBank) {
+            validateRecordCount(file, questionBank, 40, 'Jeopardy question bank');
+            validateUniqueQuestions(file, questionBank, 'Jeopardy question bank');
+        }
     } else if (fileName === 'match1.html') {
         const gameData = readConstLiteral(file, source, 'gameData');
         if (gameData) Object.entries(gameData).forEach(([key, records]) => validateRecordCount(file, records, 20, 'Memory ' + key));
@@ -154,6 +168,7 @@ function validateAnswerBalance(file, source) {
         if (!gameData) return;
         ['definitions', 'terms', 'multipleChoice', 'trueFalse'].forEach(key => {
             validateRecordCount(file, gameData[key], 10, 'Spin-the-Wheel ' + key);
+            validateUniqueQuestions(file, gameData[key], 'Spin-the-Wheel ' + key);
         });
         validateTrueFalseBalance(file, gameData.trueFalse, 'Spin-the-Wheel True or False');
         validateMultipleChoiceBalance(file, gameData.multipleChoice, 'Spin-the-Wheel Multiple Choice');
@@ -161,6 +176,7 @@ function validateAnswerBalance(file, source) {
         const questions = readConstLiteral(file, source, 'questions');
         if (questions) {
             validateRecordCount(file, questions, 15, 'Millionaire');
+            validateUniqueQuestions(file, questions, 'Millionaire');
             validateMultipleChoiceBalance(file, questions, 'Millionaire');
         }
     } else if (fileName === 'snake1.html') {
@@ -168,9 +184,11 @@ function validateAnswerBalance(file, source) {
         if (!questionDB) return;
         ['game1', 'game2', 'game3'].forEach((key, index) => {
             validateRecordCount(file, questionDB[key], 10, 'Snake category ' + (index + 1));
+            validateUniqueQuestions(file, questionDB[key], 'Snake category ' + (index + 1));
             validateMultipleChoiceBalance(file, questionDB[key], 'Snake category ' + (index + 1));
         });
         validateRecordCount(file, questionDB.game4, 10, 'Snake True or False');
+        validateUniqueQuestions(file, questionDB.game4, 'Snake True or False');
         validateTrueFalseBalance(file, questionDB.game4, 'Snake True or False');
     }
 }
@@ -224,6 +242,20 @@ function validateCertificatePage(file, source) {
         'data-certificate-game'
     ]) {
         if (!attributeValue(source, attribute)) fail(file, 'missing required metadata: ' + attribute);
+    }
+    if (/^Grade (?:10|11)$/.test(attributeValue(source, 'data-certificate-grade'))
+        && attributeValue(source, 'data-certificate-subject') === 'Geography'
+        && attributeValue(source, 'data-certificate-layout') !== 'compact-subject') {
+        fail(file, 'Grade 10 and 11 Geography certificates must use the compact-subject layout');
+    }
+    if (/^Grade (?:10|11)$/.test(attributeValue(source, 'data-certificate-grade'))
+        && attributeValue(source, 'data-certificate-subject') === 'Geography') {
+        if (/Which geographical term means/i.test(source)) {
+            fail(file, 'contains the removed “Which geographical term means” wording');
+        }
+        if (/"(?:q|exp)"\s*:\s*"[^"]* — [^"]*"/.test(source)) {
+            fail(file, 'uses a dash instead of a colon between a term and its definition');
+        }
     }
 
     if (/function\s+(?:certificatePalette|canvasToPngBlob|drawCertificateBrandFallback)\s*\(/.test(source)) {

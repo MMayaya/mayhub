@@ -1,15 +1,16 @@
-const CORE_CACHE_NAME = 'may-learning-core-v8-reusable-certificates';
+const CORE_CACHE_NAME = 'may-learning-core-v11-grade11-assessment-rollout';
 const RUNTIME_CACHE_NAME = 'may-learning-runtime-pages';
 const CERTIFICATE_DOWNLOAD_CACHE = 'may-learning-certificate-downloads';
 const CERTIFICATE_DOWNLOAD_PATH = '/certificate-download/';
-const SERVICE_WORKER_VERSION = '8-reusable-certificates';
+const SERVICE_WORKER_VERSION = '11-grade11-assessment-rollout';
 
 const CORE_ASSETS = [
   '/may-certificate-actions.js',
   '/may-certificate-renderer.js',
   '/assessment-certificate.js',
   '/game-audio.js',
-  '/May%20Learning%20Hub%20Logo.png',
+    '/May%20Learning%20Hub%20Logo.png',
+    '/May%20Learning%20Hub%20Signature-transparent.png',
   '/Sounds/Correct.mp3',
   '/Sounds/Wrong.mp3',
   '/Sounds/Pass.mp3',

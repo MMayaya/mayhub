@@ -71,7 +71,7 @@
         footer { text-align: center; padding: 1.5rem; background-color: #002b5e; color: #fff; margin-top: auto; }
     </style>
 </head>
-<body>
+<body data-certificate-grade="Grade 10" data-certificate-subject="Geography" data-certificate-term="Term 3" data-certificate-topic="Population Change and Distribution" data-certificate-game="Population Change and Distribution Memory Game" data-certificate-layout="compact-subject">
 
     <nav>
         <a href="../../../../../../index.html" class="logo">May Learning Hub</a>
@@ -83,15 +83,12 @@
 
     <header class="game-header">
         <h1 class="game-title">Grade 10 Geography: Population Change and Distribution</h1>
-        <p class="game-subtitle">Revise development terminology, inequality, health, GDP, sustainability and human-development indicators.</p>
+        <p class="game-subtitle">Revise natural increase calculations and physical and human factors affecting distribution.</p>
         <p style="font-size: 0.78rem; color: #52606d; margin-top: 0.45rem;">Grade 10 Geography Term 3 revision</p>
         
         <div class="category-selection">
             <div class="cat-buttons">
-                <button class="cat-btn" onclick="selectCategory('topic1', this)">Development Terms</button>
-                <button class="cat-btn" onclick="selectCategory('topic2', this)">Aspects & Countries</button>
-                <button class="cat-btn" onclick="selectCategory('topic3', this)">Development Indicators</button>
-                <button class="cat-btn" onclick="selectCategory('topic4', this)">Environmental Indicators</button>
+                <button class="cat-btn" onclick="selectCategory('topic1', this)">Assessment Review - 10 Pairs</button>
             </div>
         </div>
 
@@ -108,6 +105,9 @@
     </footer>
 
         <script src="../../../../../../game-audio.js"></script>
+        <script src="../../../../../../may-certificate-renderer.js"></script>
+        <script src="../../../../../../may-certificate-actions.js"></script>
+        <script src="../../../../../../assessment-certificate.js"></script>
 <script>
         const gameData = {
     "topic1": [
@@ -190,252 +190,6 @@
         {
             "id": 10,
             "text": "It supports comfortable living and productive farming"
-        }
-    ],
-    "topic2": [
-        {
-            "id": 1,
-            "text": "Why are steep mountains often sparsely populated?"
-        },
-        {
-            "id": 1,
-            "text": "Building, farming and transport are difficult"
-        },
-        {
-            "id": 2,
-            "text": "How does fertile soil affect population distribution?"
-        },
-        {
-            "id": 2,
-            "text": "It attracts farming and settlements"
-        },
-        {
-            "id": 3,
-            "text": "How can mineral deposits create dense settlements?"
-        },
-        {
-            "id": 3,
-            "text": "Mining creates jobs and supporting services"
-        },
-        {
-            "id": 4,
-            "text": "Why do employment opportunities attract people?"
-        },
-        {
-            "id": 4,
-            "text": "People move to earn incomes and improve livelihoods"
-        },
-        {
-            "id": 5,
-            "text": "How do transport routes influence population distribution?"
-        },
-        {
-            "id": 5,
-            "text": "Accessible places attract homes, trade and industry"
-        },
-        {
-            "id": 6,
-            "text": "How does political instability affect settlement?"
-        },
-        {
-            "id": 6,
-            "text": "Conflict and insecurity drive people away"
-        },
-        {
-            "id": 7,
-            "text": "What does population distribution show?"
-        },
-        {
-            "id": 7,
-            "text": "Where people live and how they are spread across an area"
-        },
-        {
-            "id": 8,
-            "text": "What does population density measure?"
-        },
-        {
-            "id": 8,
-            "text": "The average number of people per square kilometre"
-        },
-        {
-            "id": 9,
-            "text": "A region has 50,000 people over 250 km². Calculate its density."
-        },
-        {
-            "id": 9,
-            "text": "200 people per km²"
-        },
-        {
-            "id": 10,
-            "text": "Name one physical and one human factor affecting distribution."
-        },
-        {
-            "id": 10,
-            "text": "Any valid pair, such as water supply and employment opportunities"
-        }
-    ],
-    "topic3": [
-        {
-            "id": 1,
-            "text": "Define Birth rate."
-        },
-        {
-            "id": 1,
-            "text": "The number of live births per 1,000 people in a year."
-        },
-        {
-            "id": 2,
-            "text": "Define Death rate."
-        },
-        {
-            "id": 2,
-            "text": "The number of deaths per 1,000 people in a year."
-        },
-        {
-            "id": 3,
-            "text": "Define Crude birth rate."
-        },
-        {
-            "id": 3,
-            "text": "The annual number of live births per 1,000 people."
-        },
-        {
-            "id": 4,
-            "text": "Define Crude death rate."
-        },
-        {
-            "id": 4,
-            "text": "The annual number of deaths per 1,000 people."
-        },
-        {
-            "id": 5,
-            "text": "Define Natural increase."
-        },
-        {
-            "id": 5,
-            "text": "Population growth calculated by subtracting the death rate from the birth rate."
-        },
-        {
-            "id": 6,
-            "text": "Define Natural decrease."
-        },
-        {
-            "id": 6,
-            "text": "A population decline that occurs when the death rate is higher than the birth rate."
-        },
-        {
-            "id": 7,
-            "text": "Define Positive natural increase."
-        },
-        {
-            "id": 7,
-            "text": "A result above zero because births exceed deaths."
-        },
-        {
-            "id": 8,
-            "text": "Define Negative natural increase."
-        },
-        {
-            "id": 8,
-            "text": "A result below zero because deaths exceed births."
-        },
-        {
-            "id": 9,
-            "text": "Define Zero natural increase."
-        },
-        {
-            "id": 9,
-            "text": "A situation in which the birth rate and death rate are equal."
-        },
-        {
-            "id": 10,
-            "text": "Define Population distribution."
-        },
-        {
-            "id": 10,
-            "text": "The pattern showing where people live across an area."
-        }
-    ],
-    "topic4": [
-        {
-            "id": 1,
-            "text": "Define Population density."
-        },
-        {
-            "id": 1,
-            "text": "The average number of people living in each square kilometre."
-        },
-        {
-            "id": 2,
-            "text": "Define Climate."
-        },
-        {
-            "id": 2,
-            "text": "Long-term weather conditions that can attract or discourage settlement."
-        },
-        {
-            "id": 3,
-            "text": "Define Relief."
-        },
-        {
-            "id": 3,
-            "text": "The height and shape of the land, including slopes and plains."
-        },
-        {
-            "id": 4,
-            "text": "Define Water supply."
-        },
-        {
-            "id": 4,
-            "text": "Accessible water for homes, farming and industry."
-        },
-        {
-            "id": 5,
-            "text": "Define Fertile soil."
-        },
-        {
-            "id": 5,
-            "text": "Soil that supports productive farming and can attract settlement."
-        },
-        {
-            "id": 6,
-            "text": "Define Mineral resources."
-        },
-        {
-            "id": 6,
-            "text": "Valuable materials in the Earth that may attract mines, jobs and settlements."
-        },
-        {
-            "id": 7,
-            "text": "Define Employment opportunities."
-        },
-        {
-            "id": 7,
-            "text": "Available jobs that attract people to an area."
-        },
-        {
-            "id": 8,
-            "text": "Define Transport network."
-        },
-        {
-            "id": 8,
-            "text": "Roads, railways and other routes that improve accessibility."
-        },
-        {
-            "id": 9,
-            "text": "Define Political stability."
-        },
-        {
-            "id": 9,
-            "text": "Safe and predictable government conditions that encourage settlement."
-        },
-        {
-            "id": 10,
-            "text": "Define Accessibility."
-        },
-        {
-            "id": 10,
-            "text": "The ease with which a place can be reached."
         }
     ]
 };
@@ -522,7 +276,13 @@
             secondCard.removeEventListener('click', flipCard);
             matchedPairs++;
             if (matchedPairs === (gameData[currentCategory].length / 2)) {
-                setTimeout(() => alert(`Great job! Grade 10 Geography: Development Revision Complete in ${moves} moves.`), 500);
+                setTimeout(() => {
+                    MayHubCertificates.showParticipation({
+                        gameTitle: 'Population Change and Distribution Memory Game',
+                        category: 'Assessment Review – 10 Pairs',
+                        onReplay: initGame
+                    });
+                }, 500);
             }
             resetBoard();
         }

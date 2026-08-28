@@ -72,7 +72,7 @@
         .score-board { background: #002b5e; color: #fff; display: inline-block; padding: 0.8rem 2.5rem; border-radius: 30px; font-size: 1.6rem; font-weight: bold; border: 4px solid #3385ff; box-shadow: 0 4px 10px rgba(0,0,0,0.2); margin-bottom: 2rem; transition: all 0.3s; }
         .score-board span { color: #ffc107; }
 
-        .jeopardy-board { width: 100%; max-width: 1000px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; background: #001a33; padding: 8px; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
+        .jeopardy-board { width: 100%; max-width: 1000px; display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; background: #001a33; padding: 8px; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
         .category-header { background: #004080; color: #fff; text-align: center; font-weight: bold; padding: 1rem 0.5rem; font-size: 1.1rem; border-radius: 6px; border-bottom: 4px solid #3385ff; display: flex; align-items: center; justify-content: center; min-height: 80px; text-transform: uppercase; }
         .point-btn { background: #3385ff; color: #fff; font-size: 1.6rem; font-weight: bold; border: none; padding: 1.5rem 0; border-radius: 6px; cursor: pointer; transition: all 0.2s; text-shadow: 1px 1px 2px rgba(0,0,0,0.5); box-shadow: inset 0 0 10px rgba(0,0,0,0.2); }
         .point-btn:hover:not(:disabled) { background: #1a75ff; transform: scale(0.96); }
@@ -103,7 +103,7 @@
         footer { text-align: center; padding: 1rem; background-color: #002b5e; color: #fff; margin-top: auto; }
     </style>
 </head>
-<body>
+<body data-certificate-grade="Grade 11" data-certificate-subject="Geography" data-certificate-term="Term 3" data-certificate-topic="Development Measures" data-certificate-game="Development Measures Jeopardy Game" data-certificate-layout="compact-subject">
 
     <nav>
         <a href="../../../../../../index.html" class="logo">May Learning Hub</a>
@@ -115,7 +115,7 @@
 
     <header class="game-header">
         <h1 class="game-title">Grade 11 Geography Jeopardy</h1>
-        <p class="game-subtitle">Revise development terminology, inequality, health, GDP, sustainability and human-development indicators.</p>
+        <p class="game-subtitle">Revise development measures, country categories, quality of life, and sustainable resource use.</p>
         <p style="font-size: 0.78rem; color: #52606d; margin-top: 0.45rem;">Grade 11 Geography Term 3 revision</p>
     </header>
 
@@ -133,7 +133,7 @@
                 <button class="btn-edit" id="btnEditNames" onclick="showNameEditor()">Edit Names</button>
                 <button class="btn-reset" onclick="resetPlayerNames()">Reset</button>
             </div>
-            <p class="hint">80 unique clues drawn from the Grade 11 Term 3 Development presentation! </p>
+            <p class="hint">40 paper-bound questions are shuffled each session. Every player receives 10 different questions.</p>
         </div>
     </section>
 
@@ -168,10 +168,10 @@
     <div class="modal" id="questionModal">
         <div class="modal-content">
             <div class="modal-category" id="modalCategory">Category</div>
-            <div class="modal-question" id="modalQuestion">Clue</div>
-            <button class="btn-reveal" id="btnReveal" onclick="revealAnswer()">Reveal Correct Question</button>
+            <div class="modal-question" id="modalQuestion">Question</div>
+            <button class="btn-reveal" id="btnReveal" onclick="revealAnswer()">Reveal Answer</button>
             <div class="modal-answer-area" id="answerArea">
-                <div class="modal-answer" id="modalAnswer">Correct Question</div>
+                <div class="modal-answer" id="modalAnswer">Answer</div>
                 <div class="judgement-area" id="judgementArea">
                     <p>Did <strong id="activePlayerName">Player</strong> get it right?</p>
                     <div class="judgement-buttons">
@@ -190,6 +190,9 @@
     <footer><p>&copy; 2026 May Learning Hub. All rights reserved.</p></footer>
 
         <script src="../../../../../../game-audio.js"></script>
+        <script src="../../../../../../may-certificate-renderer.js"></script>
+        <script src="../../../../../../may-certificate-actions.js"></script>
+        <script src="../../../../../../assessment-certificate.js"></script>
 <script>
         const questionBank = [
     {
@@ -293,206 +296,6 @@
         "a": "A natural resource that can replenish within a human timescale when managed properly."
     },
     {
-        "category": "Identify",
-        "q": "The process of improving people's quality of life and economic well-being. Name the correct geographical term.",
-        "a": "Development"
-    },
-    {
-        "category": "Identify",
-        "q": "A numerical measure showing the level of income inequality in a country. Name the correct geographical term.",
-        "a": "Gini Coefficient"
-    },
-    {
-        "category": "Identify",
-        "q": "The average number of years a person is expected to live. Name the correct geographical term.",
-        "a": "Life Expectancy"
-    },
-    {
-        "category": "Identify",
-        "q": "The total value of goods and services produced within a country during a given period. Name the correct geographical term.",
-        "a": "Gross Domestic Product"
-    },
-    {
-        "category": "Identify",
-        "q": "Development that meets present needs without limiting future generations. Name the correct geographical term.",
-        "a": "Sustainable Development"
-    },
-    {
-        "category": "Identify",
-        "q": "More economically developed countries with relatively high incomes and standards of living. Name the correct geographical term.",
-        "a": "MEDCs"
-    },
-    {
-        "category": "Identify",
-        "q": "Less economically developed countries with relatively lower incomes and standards of living. Name the correct geographical term.",
-        "a": "LEDCs"
-    },
-    {
-        "category": "Identify",
-        "q": "A composite index combining health, education and standard of living. Name the correct geographical term.",
-        "a": "Human Development Index"
-    },
-    {
-        "category": "Identify",
-        "q": "The careful planning and use of natural resources for long-term availability. Name the correct geographical term.",
-        "a": "Resource Management"
-    },
-    {
-        "category": "Identify",
-        "q": "Gross Domestic Product divided by the population to provide an average per person. Name the correct geographical term.",
-        "a": "GDP Per Capita"
-    },
-    {
-        "category": "Identify",
-        "q": "The number of deaths of babies under one year per 1,000 live births. Name the correct geographical term.",
-        "a": "Infant Mortality Rate"
-    },
-    {
-        "category": "Identify",
-        "q": "The percentage of people who can read and write with understanding. Name the correct geographical term.",
-        "a": "Literacy Rate"
-    },
-    {
-        "category": "Identify",
-        "q": "The level of material comfort and access to goods and services experienced by people. Name the correct geographical term.",
-        "a": "Standard of Living"
-    },
-    {
-        "category": "Identify",
-        "q": "A measure used to describe population health, such as life expectancy. Name the correct geographical term.",
-        "a": "Health Indicator"
-    },
-    {
-        "category": "Identify",
-        "q": "A measure used to describe economic performance, such as GDP. Name the correct geographical term.",
-        "a": "Economic Indicator"
-    },
-    {
-        "category": "Identify",
-        "q": "A measure used to describe people's welfare or quality of life. Name the correct geographical term.",
-        "a": "Social Indicator"
-    },
-    {
-        "category": "Identify",
-        "q": "A measure created by combining several different indicators. Name the correct geographical term.",
-        "a": "Composite Index"
-    },
-    {
-        "category": "Identify",
-        "q": "The uneven distribution of income among people in a country. Name the correct geographical term.",
-        "a": "Income Inequality"
-    },
-    {
-        "category": "Identify",
-        "q": "People's overall well-being, including health, education, safety and material conditions. Name the correct geographical term.",
-        "a": "Quality of Life"
-    },
-    {
-        "category": "Identify",
-        "q": "A natural resource that can replenish within a human timescale when managed properly. Name the correct geographical term.",
-        "a": "Renewable Resource"
-    },
-    {
-        "category": "Choose",
-        "q": "Improving people's quality of life and economic well-being is called... Options: A) Development | B) Globalisation | C) Urbanisation | D) Protectionism",
-        "a": "A) Development"
-    },
-    {
-        "category": "Choose",
-        "q": "Which measure shows how evenly or unevenly income is distributed? Options: A) GDP | B) HDI | C) Gini coefficient | D) Life expectancy",
-        "a": "C) Gini coefficient"
-    },
-    {
-        "category": "Choose",
-        "q": "The average number of years a person is expected to live is... Options: A) Literacy rate | B) Life expectancy | C) GDP per capita | D) Infant mortality",
-        "a": "B) Life expectancy"
-    },
-    {
-        "category": "Choose",
-        "q": "The annual value of goods and services produced inside a country is... Options: A) GDP | B) HDI | C) Gini coefficient | D) Balance of trade",
-        "a": "A) GDP"
-    },
-    {
-        "category": "Choose",
-        "q": "Meeting present needs without reducing future generations' ability to meet theirs is... Options: A) Economic growth | B) Sustainable development | C) Free trade | D) Resource depletion",
-        "a": "B) Sustainable development"
-    },
-    {
-        "category": "Choose",
-        "q": "Countries with high incomes and industrialisation are often classified as... Options: A) LEDCs | B) MEDCs | C) LDCs only | D) NICs only",
-        "a": "B) MEDCs"
-    },
-    {
-        "category": "Choose",
-        "q": "Which index combines health, education and standard of living? Options: A) GDP | B) HDI | C) Gini coefficient | D) CPI",
-        "a": "B) HDI"
-    },
-    {
-        "category": "Choose",
-        "q": "Which item is NOT one of HDI's three dimensions? Options: A) Health | B) Education | C) Standard of living | D) Exports",
-        "a": "D) Exports"
-    },
-    {
-        "category": "Choose",
-        "q": "A high Gini coefficient generally signals... Options: A) Greater income inequality | B) Perfect equality | C) Long life expectancy | D) High literacy only",
-        "a": "A) Greater income inequality"
-    },
-    {
-        "category": "Choose",
-        "q": "Why is GDP alone an incomplete development measure? Options: A) It measures no production | B) It hides distribution and social well-being | C) It is always negative | D) It includes education directly",
-        "a": "B) It hides distribution and social well-being"
-    },
-    {
-        "category": "Choose",
-        "q": "Managing natural resources carefully for long-term use is... Options: A) Resource management | B) Balance of payments | C) Import substitution | D) Urban sprawl",
-        "a": "A) Resource management"
-    },
-    {
-        "category": "Choose",
-        "q": "Which indicator most directly reflects population health outcomes? Options: A) Life expectancy | B) Export value | C) Tariff rate | D) Trade surplus",
-        "a": "A) Life expectancy"
-    },
-    {
-        "category": "Apply",
-        "q": "Name the process of improving economic and social well-being.",
-        "a": "Development"
-    },
-    {
-        "category": "Apply",
-        "q": "Which indicator records expected years of life?",
-        "a": "Life expectancy"
-    },
-    {
-        "category": "Apply",
-        "q": "Name the coefficient used to compare income distribution.",
-        "a": "Gini coefficient"
-    },
-    {
-        "category": "Apply",
-        "q": "What principle protects future generations' ability to meet their needs?",
-        "a": "Sustainable development"
-    },
-    {
-        "category": "Apply",
-        "q": "Expand MEDC.",
-        "a": "More Economically Developed Country"
-    },
-    {
-        "category": "Apply",
-        "q": "What does GDP stand for?",
-        "a": "Gross Domestic Product"
-    },
-    {
-        "category": "Apply",
-        "q": "Which composite index uses health, education and income?",
-        "a": "HDI"
-    },
-    {
-        "category": "Apply",
-        "q": "What does a rising Gini value usually suggest?",
-        "a": "Increasing income inequality"
-    },
-    {
         "category": "Apply",
         "q": "Give one example of responsible resource management.",
         "a": "Any valid example, such as recycling or controlled water use"
@@ -554,42 +357,42 @@
     },
     {
         "category": "Decide",
-        "q": "Decide whether this statement is true or false: Development — Improved quality of life and well-being.",
+        "q": "Decide whether this statement is true or false: Development: Improved quality of life and well-being.",
         "a": "True. Development means: Improved quality of life and well-being"
     },
     {
         "category": "Decide",
-        "q": "Decide whether this statement is true or false: Gini coefficient — Expected average years of life.",
+        "q": "Decide whether this statement is true or false: Gini coefficient: Expected average years of life.",
         "a": "False. Gini coefficient means: Income inequality measure"
     },
     {
         "category": "Decide",
-        "q": "Decide whether this statement is true or false: Life expectancy — Expected average years of life.",
+        "q": "Decide whether this statement is true or false: Life expectancy: Expected average years of life.",
         "a": "True. Life expectancy means: Expected average years of life"
     },
     {
         "category": "Decide",
-        "q": "Decide whether this statement is true or false: GDP — Present needs without harming future needs.",
+        "q": "Decide whether this statement is true or false: GDP: Present needs without harming future needs.",
         "a": "False. GDP means: Value of domestic goods and services"
     },
     {
         "category": "Decide",
-        "q": "Decide whether this statement is true or false: Sustainable development — Present needs without harming future needs.",
+        "q": "Decide whether this statement is true or false: Sustainable development: Present needs without harming future needs.",
         "a": "True. Sustainable development means: Present needs without harming future needs"
     },
     {
         "category": "Decide",
-        "q": "Decide whether this statement is true or false: MEDCs — Health, education and standard of living.",
+        "q": "Decide whether this statement is true or false: MEDCs: Health, education and standard of living.",
         "a": "False. MEDCs means: More economically developed countries"
     },
     {
         "category": "Decide",
-        "q": "Decide whether this statement is true or false: HDI — Health, education and standard of living.",
+        "q": "Decide whether this statement is true or false: HDI: Health, education and standard of living.",
         "a": "True. HDI means: Health, education and standard of living"
     },
     {
         "category": "Decide",
-        "q": "Decide whether this statement is true or false: Resource management — Improved quality of life and well-being.",
+        "q": "Decide whether this statement is true or false: Resource management: Improved quality of life and well-being.",
         "a": "False. Resource management means: Careful planning and use of resources"
     }
 ];
@@ -604,9 +407,9 @@
         }
 
         function dealJeopardyPlayerQuestions(items, playerIndex) {
-            const playerQuestions = items.slice(playerIndex * 20, playerIndex * 20 + 20);
-            return Array.from({ length: 4 }, (_, categoryIndex) => ({
-                name: ["Round One", "Round Two", "Round Three", "Round Four"][categoryIndex],
+            const playerQuestions = items.slice(playerIndex * 10, playerIndex * 10 + 10);
+            return Array.from({ length: 2 }, (_, categoryIndex) => ({
+                name: ["Round One", "Round Two"][categoryIndex],
                 questions: playerQuestions.slice(categoryIndex * 5, categoryIndex * 5 + 5).map((item, questionIndex) => ({
                     points: (questionIndex + 1) * 10,
                     q: item.q,
@@ -627,6 +430,11 @@
         let activePointValue = 0;
         let activeTileButton = null;
         let playerNames = ["Player 1", "Player 2", "Player 3", "Player 4"];
+        let answeredTiles = 0;
+        let participationShown = false;
+        const totalJeopardyTiles = gameData.reduce((playerTotal, playerCategories) => {
+            return playerTotal + playerCategories.reduce((categoryTotal, category) => categoryTotal + category.questions.length, 0);
+        }, 0);
 
         const carouselTrack = document.getElementById('carouselTrack');
         const modal = document.getElementById('questionModal');
@@ -738,7 +546,27 @@
         }
 
         function updateScore(i) { document.getElementById(`score-${i}`).innerText = scores[i]; }
-        function closeModal() { activeTileButton.innerText = ""; activeTileButton.disabled = true; modal.style.display = 'none'; }
+        function closeModal() {
+            if (!activeTileButton) {
+                modal.style.display = 'none';
+                return;
+            }
+            activeTileButton.innerText = "";
+            activeTileButton.disabled = true;
+            activeTileButton = null;
+            modal.style.display = 'none';
+            answeredTiles++;
+            if (answeredTiles === totalJeopardyTiles && !participationShown) {
+                participationShown = true;
+                setTimeout(() => {
+                    MayHubCertificates.showParticipation({
+                        gameTitle: 'Development Measures Jeopardy Game',
+                        category: 'Round One and Round Two',
+                        onReplay: () => window.location.reload()
+                    });
+                }, 650);
+            }
+        }
         
         buildBoards();
 

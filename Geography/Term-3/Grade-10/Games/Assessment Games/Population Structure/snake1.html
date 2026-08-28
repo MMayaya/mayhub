@@ -13,7 +13,7 @@
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>May Learning Hub | Smart Snake - Population Structure</title>
+    <title>May Learning Hub | Grade 10 Geography Smart Snake - Population Structure</title>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f0f4f8; color: #333; line-height: 1.6; display: flex; flex-direction: column; min-height: 100vh; touch-action: manipulation; }
@@ -78,7 +78,7 @@
         footer { text-align: center; padding: 1rem; background-color: #002b5e; color: #fff; margin-top: auto; }
     </style>
 </head>
-<body>
+<body data-certificate-grade="Grade 10" data-certificate-subject="Geography" data-certificate-term="Term 3" data-certificate-topic="Population Structure" data-certificate-game="Population Structure Snake Challenge" data-certificate-layout="compact-subject">
 
     <nav>
         <a href="../../../../../../index.html" class="logo">May Learning Hub</a>
@@ -89,17 +89,17 @@
     </nav>
 
     <header class="game-header">
-        <h1 class="game-title">Smart Snake: Population Structure</h1>
-        <p class="game-subtitle">Revise development terminology, inequality, health, GDP, sustainability and human-development indicators.</p>
+        <h1 class="game-title">Grade 10 Geography Smart Snake: Population Structure</h1>
+        <p class="game-subtitle">Revise population pyramids, age groups, life expectancy, and government planning.</p>
         <p style="font-size: 0.78rem; color: #52606d; margin-top: 0.45rem;">Grade 10 Geography Term 3 revision</p>
     </header>
 
     <div class="category-selection" id="categorySelection">
         <div class="cat-buttons">
-            <button class="cat-btn" onclick="startGame('game1')">Development Concepts</button>
-            <button class="cat-btn" onclick="startGame('game2')">Countries & Aspects</button>
-            <button class="cat-btn" onclick="startGame('game3')">Development Indicators</button>
-            <button class="cat-btn" onclick="startGame('game4')">Environmental Indicators</button>
+            <button class="cat-btn" onclick="startGame('game1')">Term Identification</button>
+            <button class="cat-btn" onclick="startGame('game2')">Meaning Match</button>
+            <button class="cat-btn" onclick="startGame('game3')">Multiple Choice</button>
+            <button class="cat-btn" onclick="startGame('game4')">True or False</button>
         </div>
     </div>
 
@@ -146,11 +146,14 @@
     </footer>
 
         <script src="../../../../../../game-audio.js"></script>
+        <script src="../../../../../../may-certificate-renderer.js"></script>
+        <script src="../../../../../../may-certificate-actions.js"></script>
+        <script src="../../../../../../assessment-certificate.js"></script>
 <script>
         const questionDB = {
     "game1": [
         {
-            "q": "Which geographical term means: A graph showing the age and sex structure of a population.",
+            "q": "A graph showing the age and sex structure of a population.",
             "options": [
                 "Population pyramid",
                 "Age-sex structure",
@@ -160,57 +163,17 @@
             "a": 0
         },
         {
-            "q": "Which geographical term means: The composition of a population according to age groups and sex.",
+            "q": "A pyramid with a broad base, showing a youthful and rapidly growing population.",
             "options": [
-                "Cohort",
-                "Age-sex structure",
+                "Stable pyramid",
                 "Expanding pyramid",
-                "Stable pyramid"
+                "Declining pyramid",
+                "Broad base"
             ],
             "a": 1
         },
         {
-            "q": "Which geographical term means: A group of people within the same age range.",
-            "options": [
-                "Expanding pyramid",
-                "Stable pyramid",
-                "Cohort",
-                "Declining pyramid"
-            ],
-            "a": 2
-        },
-        {
-            "q": "Which geographical term means: A pyramid with a broad base, showing a youthful and rapidly growing population.",
-            "options": [
-                "Stable pyramid",
-                "Declining pyramid",
-                "Broad base",
-                "Expanding pyramid"
-            ],
-            "a": 3
-        },
-        {
-            "q": "Which geographical term means: A pyramid with similar-sized younger and middle cohorts, showing slow change.",
-            "options": [
-                "Stable pyramid",
-                "Declining pyramid",
-                "Broad base",
-                "Narrow apex"
-            ],
-            "a": 0
-        },
-        {
-            "q": "Which geographical term means: A pyramid with a narrow base, showing low birth rates and possible population decline.",
-            "options": [
-                "Broad base",
-                "Declining pyramid",
-                "Narrow apex",
-                "Young dependants"
-            ],
-            "a": 1
-        },
-        {
-            "q": "Which geographical term means: A wide youngest-age section that usually indicates a high birth rate.",
+            "q": "A wide youngest-age section that usually indicates a high birth rate.",
             "options": [
                 "Narrow apex",
                 "Young dependants",
@@ -220,7 +183,7 @@
             "a": 2
         },
         {
-            "q": "Which geographical term means: A small elderly section that usually indicates relatively low life expectancy.",
+            "q": "A small elderly section that usually indicates relatively low life expectancy.",
             "options": [
                 "Young dependants",
                 "Working-age population",
@@ -230,7 +193,7 @@
             "a": 3
         },
         {
-            "q": "Which geographical term means: Children who generally rely on working adults for support.",
+            "q": "Children who generally rely on working adults for support.",
             "options": [
                 "Young dependants",
                 "Working-age population",
@@ -240,7 +203,7 @@
             "a": 0
         },
         {
-            "q": "Which geographical term means: Adults in the age range that normally supplies most workers.",
+            "q": "Adults in the age range that normally supplies most workers.",
             "options": [
                 "Elderly dependants",
                 "Working-age population",
@@ -250,7 +213,7 @@
             "a": 1
         },
         {
-            "q": "Which geographical term means: Older people who may rely on workers, pensions or care services.",
+            "q": "Older people who may rely on workers, pensions or care services.",
             "options": [
                 "Sex ratio",
                 "High birth rate",
@@ -260,244 +223,114 @@
             "a": 2
         },
         {
-            "q": "Which geographical term means: The relationship between the number of males and females in a population.",
+            "q": "A relatively low average number of years that people are expected to live.",
             "options": [
-                "High birth rate",
-                "Low life expectancy",
                 "Dependency ratio",
-                "Sex ratio"
+                "Government planning",
+                "School planning",
+                "Low life expectancy"
             ],
             "a": 3
         },
         {
-            "q": "Which geographical term means: A large number of live births per 1,000 people.",
+            "q": "Using population information to prepare services and infrastructure.",
             "options": [
-                "High birth rate",
-                "Low life expectancy",
-                "Dependency ratio",
-                "Government planning"
+                "Government planning",
+                "School planning",
+                "Healthcare planning",
+                "Housing planning"
             ],
             "a": 0
         },
         {
-            "q": "Which geographical term means: A relatively low average number of years that people are expected to live.",
+            "q": "Using the number of children to estimate classrooms and teachers needed.",
             "options": [
-                "Dependency ratio",
-                "Low life expectancy",
-                "Government planning",
-                "School planning"
-            ],
-            "a": 1
-        },
-        {
-            "q": "Which geographical term means: A comparison of dependants with the working-age population.",
-            "options": [
-                "Government planning",
-                "School planning",
-                "Dependency ratio",
-                "Healthcare planning"
-            ],
-            "a": 2
-        },
-        {
-            "q": "Which geographical term means: Using population information to prepare services and infrastructure.",
-            "options": [
-                "School planning",
                 "Healthcare planning",
-                "Housing planning",
-                "Government planning"
-            ],
-            "a": 3
-        },
-        {
-            "q": "Which geographical term means: Using the number of children to estimate classrooms and teachers needed.",
-            "options": [
                 "School planning",
-                "Healthcare planning",
                 "Housing planning",
                 "Employment planning"
             ],
-            "a": 0
-        },
-        {
-            "q": "Which geographical term means: Using population needs to plan clinics, hospitals and health workers.",
-            "options": [
-                "Housing planning",
-                "Healthcare planning",
-                "Employment planning",
-                "Population pyramid"
-            ],
             "a": 1
-        },
-        {
-            "q": "Which geographical term means: Estimating the number and type of homes required by a population.",
-            "options": [
-                "Employment planning",
-                "Population pyramid",
-                "Housing planning",
-                "Age-sex structure"
-            ],
-            "a": 2
-        },
-        {
-            "q": "Which geographical term means: Preparing training and job opportunities for the working-age population.",
-            "options": [
-                "Population pyramid",
-                "Age-sex structure",
-                "Cohort",
-                "Employment planning"
-            ],
-            "a": 3
         }
     ],
     "game2": [
         {
             "q": "Which statement correctly defines Population pyramid?",
             "options": [
-                "The composition of a population according to age groups and sex.",
                 "A graph showing the age and sex structure of a population.",
+                "The composition of a population according to age groups and sex.",
                 "A group of people within the same age range.",
                 "A pyramid with a broad base, showing a youthful and rapidly growing population."
-            ],
-            "a": 1
-        },
-        {
-            "q": "Which statement correctly defines Age-sex structure?",
-            "options": [
-                "A group of people within the same age range.",
-                "A pyramid with a broad base, showing a youthful and rapidly growing population.",
-                "The composition of a population according to age groups and sex.",
-                "A pyramid with similar-sized younger and middle cohorts, showing slow change."
-            ],
-            "a": 2
-        },
-        {
-            "q": "Which statement correctly defines Cohort?",
-            "options": [
-                "A pyramid with a broad base, showing a youthful and rapidly growing population.",
-                "A pyramid with similar-sized younger and middle cohorts, showing slow change.",
-                "A pyramid with a narrow base, showing low birth rates and possible population decline.",
-                "A group of people within the same age range."
-            ],
-            "a": 3
-        },
-        {
-            "q": "Which statement correctly defines Expanding pyramid?",
-            "options": [
-                "A pyramid with a broad base, showing a youthful and rapidly growing population.",
-                "A pyramid with similar-sized younger and middle cohorts, showing slow change.",
-                "A pyramid with a narrow base, showing low birth rates and possible population decline.",
-                "A wide youngest-age section that usually indicates a high birth rate."
             ],
             "a": 0
         },
         {
-            "q": "Which statement correctly defines Stable pyramid?",
+            "q": "Which statement correctly defines Expanding pyramid?",
             "options": [
-                "A pyramid with a narrow base, showing low birth rates and possible population decline.",
                 "A pyramid with similar-sized younger and middle cohorts, showing slow change.",
-                "A wide youngest-age section that usually indicates a high birth rate.",
-                "A small elderly section that usually indicates relatively low life expectancy."
+                "A pyramid with a broad base, showing a youthful and rapidly growing population.",
+                "A pyramid with a narrow base, showing low birth rates and possible population decline.",
+                "A wide youngest-age section that usually indicates a high birth rate."
             ],
             "a": 1
-        },
-        {
-            "q": "Which statement correctly defines Declining pyramid?",
-            "options": [
-                "A wide youngest-age section that usually indicates a high birth rate.",
-                "A small elderly section that usually indicates relatively low life expectancy.",
-                "A pyramid with a narrow base, showing low birth rates and possible population decline.",
-                "Children who generally rely on working adults for support."
-            ],
-            "a": 2
         },
         {
             "q": "Which statement correctly defines Broad base?",
             "options": [
                 "A small elderly section that usually indicates relatively low life expectancy.",
                 "Children who generally rely on working adults for support.",
-                "Adults in the age range that normally supplies most workers.",
-                "A wide youngest-age section that usually indicates a high birth rate."
+                "A wide youngest-age section that usually indicates a high birth rate.",
+                "Adults in the age range that normally supplies most workers."
             ],
-            "a": 3
+            "a": 2
         },
         {
             "q": "Which statement correctly defines Narrow apex?",
             "options": [
-                "A small elderly section that usually indicates relatively low life expectancy.",
                 "Children who generally rely on working adults for support.",
                 "Adults in the age range that normally supplies most workers.",
-                "Older people who may rely on workers, pensions or care services."
+                "Older people who may rely on workers, pensions or care services.",
+                "A small elderly section that usually indicates relatively low life expectancy."
             ],
-            "a": 0
+            "a": 3
         },
         {
             "q": "Which statement correctly defines Young dependants?",
             "options": [
-                "Adults in the age range that normally supplies most workers.",
                 "Children who generally rely on working adults for support.",
+                "Adults in the age range that normally supplies most workers.",
                 "Older people who may rely on workers, pensions or care services.",
                 "The relationship between the number of males and females in a population."
             ],
-            "a": 1
+            "a": 0
         },
         {
             "q": "Which statement correctly defines Working-age population?",
             "options": [
                 "Older people who may rely on workers, pensions or care services.",
-                "The relationship between the number of males and females in a population.",
                 "Adults in the age range that normally supplies most workers.",
+                "The relationship between the number of males and females in a population.",
                 "A large number of live births per 1,000 people."
             ],
-            "a": 2
+            "a": 1
         },
         {
             "q": "Which statement correctly defines Elderly dependants?",
             "options": [
                 "The relationship between the number of males and females in a population.",
                 "A large number of live births per 1,000 people.",
-                "A relatively low average number of years that people are expected to live.",
-                "Older people who may rely on workers, pensions or care services."
+                "Older people who may rely on workers, pensions or care services.",
+                "A relatively low average number of years that people are expected to live."
             ],
-            "a": 3
-        },
-        {
-            "q": "Which statement correctly defines Sex ratio?",
-            "options": [
-                "The relationship between the number of males and females in a population.",
-                "A large number of live births per 1,000 people.",
-                "A relatively low average number of years that people are expected to live.",
-                "A comparison of dependants with the working-age population."
-            ],
-            "a": 0
-        },
-        {
-            "q": "Which statement correctly defines High birth rate?",
-            "options": [
-                "A relatively low average number of years that people are expected to live.",
-                "A large number of live births per 1,000 people.",
-                "A comparison of dependants with the working-age population.",
-                "Using population information to prepare services and infrastructure."
-            ],
-            "a": 1
+            "a": 2
         },
         {
             "q": "Which statement correctly defines Low life expectancy?",
             "options": [
                 "A comparison of dependants with the working-age population.",
                 "Using population information to prepare services and infrastructure.",
-                "A relatively low average number of years that people are expected to live.",
-                "Using the number of children to estimate classrooms and teachers needed."
-            ],
-            "a": 2
-        },
-        {
-            "q": "Which statement correctly defines Dependency ratio?",
-            "options": [
-                "Using population information to prepare services and infrastructure.",
                 "Using the number of children to estimate classrooms and teachers needed.",
-                "Using population needs to plan clinics, hospitals and health workers.",
-                "A comparison of dependants with the working-age population."
+                "A relatively low average number of years that people are expected to live."
             ],
             "a": 3
         },
@@ -520,440 +353,190 @@
                 "Preparing training and job opportunities for the working-age population."
             ],
             "a": 1
-        },
-        {
-            "q": "Which statement correctly defines Healthcare planning?",
-            "options": [
-                "Estimating the number and type of homes required by a population.",
-                "Preparing training and job opportunities for the working-age population.",
-                "Using population needs to plan clinics, hospitals and health workers.",
-                "A graph showing the age and sex structure of a population."
-            ],
-            "a": 2
-        },
-        {
-            "q": "Which statement correctly defines Housing planning?",
-            "options": [
-                "Preparing training and job opportunities for the working-age population.",
-                "A graph showing the age and sex structure of a population.",
-                "The composition of a population according to age groups and sex.",
-                "Estimating the number and type of homes required by a population."
-            ],
-            "a": 3
-        },
-        {
-            "q": "Which statement correctly defines Employment planning?",
-            "options": [
-                "Preparing training and job opportunities for the working-age population.",
-                "A graph showing the age and sex structure of a population.",
-                "The composition of a population according to age groups and sex.",
-                "A group of people within the same age range."
-            ],
-            "a": 0
         }
     ],
     "game3": [
         {
-            "q": "Identify the concept: A graph showing the age and sex structure of a population.",
+            "q": "What graph displays age groups on the vertical axis and population by sex on opposite sides?",
             "options": [
+                "Population pyramid",
                 "Age-sex structure",
                 "Cohort",
-                "Population pyramid",
                 "Expanding pyramid"
             ],
-            "a": 2
-        },
-        {
-            "q": "Identify the concept: The composition of a population according to age groups and sex.",
-            "options": [
-                "Cohort",
-                "Expanding pyramid",
-                "Stable pyramid",
-                "Age-sex structure"
-            ],
-            "a": 3
-        },
-        {
-            "q": "Identify the concept: A group of people within the same age range.",
-            "options": [
-                "Cohort",
-                "Expanding pyramid",
-                "Stable pyramid",
-                "Declining pyramid"
-            ],
             "a": 0
         },
         {
-            "q": "Identify the concept: A pyramid with a broad base, showing a youthful and rapidly growing population.",
+            "q": "A pyramid has a very broad base and narrows quickly upward. Is it typical of a developing or developed country?",
             "options": [
-                "Stable pyramid",
-                "Expanding pyramid",
-                "Declining pyramid",
-                "Broad base"
+                "A developed country",
+                "A developing country",
+                "A country with no young people",
+                "A country with zero population growth"
             ],
             "a": 1
         },
         {
-            "q": "Identify the concept: A pyramid with similar-sized younger and middle cohorts, showing slow change.",
+            "q": "What does a broad pyramid base normally indicate?",
             "options": [
-                "Declining pyramid",
-                "Broad base",
-                "Stable pyramid",
-                "Narrow apex"
+                "A low birth rate and an ageing population",
+                "Equal numbers in every age group",
+                "A high birth rate and a large youthful population",
+                "High immigration as the only cause"
             ],
             "a": 2
         },
         {
-            "q": "Identify the concept: A pyramid with a narrow base, showing low birth rates and possible population decline.",
+            "q": "What does a very narrow pyramid apex normally indicate?",
             "options": [
-                "Broad base",
-                "Narrow apex",
-                "Young dependants",
-                "Declining pyramid"
+                "Many elderly people and very high life expectancy",
+                "A perfectly stable population",
+                "A high birth rate by itself",
+                "Few elderly people and relatively low life expectancy"
             ],
             "a": 3
         },
         {
-            "q": "Identify the concept: A wide youngest-age section that usually indicates a high birth rate.",
-            "options": [
-                "Broad base",
-                "Narrow apex",
-                "Young dependants",
-                "Working-age population"
-            ],
-            "a": 0
-        },
-        {
-            "q": "Identify the concept: A small elderly section that usually indicates relatively low life expectancy.",
+            "q": "Which population group is represented by the youngest bars?",
             "options": [
                 "Young dependants",
-                "Narrow apex",
-                "Working-age population",
-                "Elderly dependants"
-            ],
-            "a": 1
-        },
-        {
-            "q": "Identify the concept: Children who generally rely on working adults for support.",
-            "options": [
                 "Working-age population",
                 "Elderly dependants",
+                "Recent migrants only"
+            ],
+            "a": 0
+        },
+        {
+            "q": "Which group normally supplies most of the labour force?",
+            "options": [
                 "Young dependants",
-                "Sex ratio"
-            ],
-            "a": 2
-        },
-        {
-            "q": "Identify the concept: Adults in the age range that normally supplies most workers.",
-            "options": [
+                "Working-age population",
                 "Elderly dependants",
-                "Sex ratio",
-                "High birth rate",
-                "Working-age population"
-            ],
-            "a": 3
-        },
-        {
-            "q": "Identify the concept: Older people who may rely on workers, pensions or care services.",
-            "options": [
-                "Elderly dependants",
-                "Sex ratio",
-                "High birth rate",
-                "Low life expectancy"
-            ],
-            "a": 0
-        },
-        {
-            "q": "Identify the concept: The relationship between the number of males and females in a population.",
-            "options": [
-                "High birth rate",
-                "Sex ratio",
-                "Low life expectancy",
-                "Dependency ratio"
+                "Infants only"
             ],
             "a": 1
         },
         {
-            "q": "Identify the concept: A large number of live births per 1,000 people.",
+            "q": "In a population pyramid, which group is represented by the oldest age bars?",
             "options": [
-                "Low life expectancy",
-                "Dependency ratio",
-                "High birth rate",
-                "Government planning"
+                "Young dependants",
+                "Working-age population",
+                "Elderly dependants",
+                "Newborns only"
             ],
             "a": 2
         },
         {
-            "q": "Identify the concept: A relatively low average number of years that people are expected to live.",
+            "q": "Why does a youthful population create demand for schools?",
             "options": [
-                "Dependency ratio",
-                "Government planning",
-                "School planning",
-                "Low life expectancy"
+                "Fewer children require more universities",
+                "Older people require only factories",
+                "It removes the need for public services",
+                "Many children require classrooms, teachers and learning materials"
             ],
             "a": 3
         },
         {
-            "q": "Identify the concept: A comparison of dependants with the working-age population.",
+            "q": "Give one health-related reason for low life expectancy.",
             "options": [
-                "Dependency ratio",
-                "Government planning",
-                "School planning",
-                "Healthcare planning"
+                "Poor healthcare, disease, malnutrition or unsafe water",
+                "A high number of schools",
+                "Improved sanitation and nutrition",
+                "A large working-age population"
             ],
             "a": 0
         },
         {
-            "q": "Identify the concept: Using population information to prepare services and infrastructure.",
+            "q": "How can pyramid data help government plan healthcare?",
             "options": [
-                "School planning",
-                "Government planning",
-                "Healthcare planning",
-                "Housing planning"
-            ],
-            "a": 1
-        },
-        {
-            "q": "Identify the concept: Using the number of children to estimate classrooms and teachers needed.",
-            "options": [
-                "Healthcare planning",
-                "Housing planning",
-                "School planning",
-                "Employment planning"
-            ],
-            "a": 2
-        },
-        {
-            "q": "Identify the concept: Using population needs to plan clinics, hospitals and health workers.",
-            "options": [
-                "Housing planning",
-                "Employment planning",
-                "Population pyramid",
-                "Healthcare planning"
-            ],
-            "a": 3
-        },
-        {
-            "q": "Identify the concept: Estimating the number and type of homes required by a population.",
-            "options": [
-                "Housing planning",
-                "Employment planning",
-                "Population pyramid",
-                "Age-sex structure"
-            ],
-            "a": 0
-        },
-        {
-            "q": "Identify the concept: Preparing training and job opportunities for the working-age population.",
-            "options": [
-                "Population pyramid",
-                "Employment planning",
-                "Age-sex structure",
-                "Cohort"
+                "It gives the names of every patient",
+                "It shows the age groups and likely health services required",
+                "It replaces the need for a national budget",
+                "It shows only the location of hospitals"
             ],
             "a": 1
         }
     ],
     "game4": [
         {
-            "q": "Select the accurate description of Population pyramid.",
+            "q": "Population pyramid: A graph showing the age and sex structure of a population.",
             "options": [
-                "A graph showing the age and sex structure of a population.",
-                "The composition of a population according to age groups and sex.",
-                "A group of people within the same age range.",
-                "A pyramid with a broad base, showing a youthful and rapidly growing population."
+                "True",
+                "False"
             ],
             "a": 0
         },
         {
-            "q": "Select the accurate description of Age-sex structure.",
+            "q": "Expanding pyramid: A pyramid with similar-sized younger and middle cohorts, showing slow change.",
             "options": [
-                "A group of people within the same age range.",
-                "The composition of a population according to age groups and sex.",
-                "A pyramid with a broad base, showing a youthful and rapidly growing population.",
-                "A pyramid with similar-sized younger and middle cohorts, showing slow change."
+                "True",
+                "False"
             ],
             "a": 1
         },
         {
-            "q": "Select the accurate description of Cohort.",
+            "q": "Broad base: A wide youngest-age section that usually indicates a high birth rate.",
             "options": [
-                "A pyramid with a broad base, showing a youthful and rapidly growing population.",
-                "A pyramid with similar-sized younger and middle cohorts, showing slow change.",
-                "A group of people within the same age range.",
-                "A pyramid with a narrow base, showing low birth rates and possible population decline."
-            ],
-            "a": 2
-        },
-        {
-            "q": "Select the accurate description of Expanding pyramid.",
-            "options": [
-                "A pyramid with similar-sized younger and middle cohorts, showing slow change.",
-                "A pyramid with a narrow base, showing low birth rates and possible population decline.",
-                "A wide youngest-age section that usually indicates a high birth rate.",
-                "A pyramid with a broad base, showing a youthful and rapidly growing population."
-            ],
-            "a": 3
-        },
-        {
-            "q": "Select the accurate description of Stable pyramid.",
-            "options": [
-                "A pyramid with similar-sized younger and middle cohorts, showing slow change.",
-                "A pyramid with a narrow base, showing low birth rates and possible population decline.",
-                "A wide youngest-age section that usually indicates a high birth rate.",
-                "A small elderly section that usually indicates relatively low life expectancy."
+                "True",
+                "False"
             ],
             "a": 0
         },
         {
-            "q": "Select the accurate description of Declining pyramid.",
+            "q": "Narrow apex: Children who generally rely on working adults for support.",
             "options": [
-                "A wide youngest-age section that usually indicates a high birth rate.",
-                "A pyramid with a narrow base, showing low birth rates and possible population decline.",
-                "A small elderly section that usually indicates relatively low life expectancy.",
-                "Children who generally rely on working adults for support."
+                "True",
+                "False"
             ],
             "a": 1
         },
         {
-            "q": "Select the accurate description of Broad base.",
+            "q": "Young dependants: Children who generally rely on working adults for support.",
             "options": [
-                "A small elderly section that usually indicates relatively low life expectancy.",
-                "Children who generally rely on working adults for support.",
-                "A wide youngest-age section that usually indicates a high birth rate.",
-                "Adults in the age range that normally supplies most workers."
-            ],
-            "a": 2
-        },
-        {
-            "q": "Select the accurate description of Narrow apex.",
-            "options": [
-                "Children who generally rely on working adults for support.",
-                "Adults in the age range that normally supplies most workers.",
-                "Older people who may rely on workers, pensions or care services.",
-                "A small elderly section that usually indicates relatively low life expectancy."
-            ],
-            "a": 3
-        },
-        {
-            "q": "Select the accurate description of Young dependants.",
-            "options": [
-                "Children who generally rely on working adults for support.",
-                "Adults in the age range that normally supplies most workers.",
-                "Older people who may rely on workers, pensions or care services.",
-                "The relationship between the number of males and females in a population."
+                "True",
+                "False"
             ],
             "a": 0
         },
         {
-            "q": "Select the accurate description of Working-age population.",
+            "q": "Working-age population: Older people who may rely on workers, pensions or care services.",
             "options": [
-                "Older people who may rely on workers, pensions or care services.",
-                "Adults in the age range that normally supplies most workers.",
-                "The relationship between the number of males and females in a population.",
-                "A large number of live births per 1,000 people."
+                "True",
+                "False"
             ],
             "a": 1
         },
         {
-            "q": "Select the accurate description of Elderly dependants.",
+            "q": "Elderly dependants: Older people who may rely on workers, pensions or care services.",
             "options": [
-                "The relationship between the number of males and females in a population.",
-                "A large number of live births per 1,000 people.",
-                "Older people who may rely on workers, pensions or care services.",
-                "A relatively low average number of years that people are expected to live."
-            ],
-            "a": 2
-        },
-        {
-            "q": "Select the accurate description of Sex ratio.",
-            "options": [
-                "A large number of live births per 1,000 people.",
-                "A relatively low average number of years that people are expected to live.",
-                "A comparison of dependants with the working-age population.",
-                "The relationship between the number of males and females in a population."
-            ],
-            "a": 3
-        },
-        {
-            "q": "Select the accurate description of High birth rate.",
-            "options": [
-                "A large number of live births per 1,000 people.",
-                "A relatively low average number of years that people are expected to live.",
-                "A comparison of dependants with the working-age population.",
-                "Using population information to prepare services and infrastructure."
+                "True",
+                "False"
             ],
             "a": 0
         },
         {
-            "q": "Select the accurate description of Low life expectancy.",
+            "q": "Low life expectancy: A comparison of dependants with the working-age population.",
             "options": [
-                "A comparison of dependants with the working-age population.",
-                "A relatively low average number of years that people are expected to live.",
-                "Using population information to prepare services and infrastructure.",
-                "Using the number of children to estimate classrooms and teachers needed."
+                "True",
+                "False"
             ],
             "a": 1
         },
         {
-            "q": "Select the accurate description of Dependency ratio.",
+            "q": "Government planning: Using the number of children to estimate classrooms and teachers needed.",
             "options": [
-                "Using population information to prepare services and infrastructure.",
-                "Using the number of children to estimate classrooms and teachers needed.",
-                "A comparison of dependants with the working-age population.",
-                "Using population needs to plan clinics, hospitals and health workers."
+                "True",
+                "False"
             ],
-            "a": 2
+            "a": 1
         },
         {
-            "q": "Select the accurate description of Government planning.",
+            "q": "School planning: Using the number of children to estimate classrooms and teachers needed.",
             "options": [
-                "Using the number of children to estimate classrooms and teachers needed.",
-                "Using population needs to plan clinics, hospitals and health workers.",
-                "Estimating the number and type of homes required by a population.",
-                "Using population information to prepare services and infrastructure."
-            ],
-            "a": 3
-        },
-        {
-            "q": "Select the accurate description of School planning.",
-            "options": [
-                "Using the number of children to estimate classrooms and teachers needed.",
-                "Using population needs to plan clinics, hospitals and health workers.",
-                "Estimating the number and type of homes required by a population.",
-                "Preparing training and job opportunities for the working-age population."
+                "True",
+                "False"
             ],
             "a": 0
-        },
-        {
-            "q": "Select the accurate description of Healthcare planning.",
-            "options": [
-                "Estimating the number and type of homes required by a population.",
-                "Using population needs to plan clinics, hospitals and health workers.",
-                "Preparing training and job opportunities for the working-age population.",
-                "A graph showing the age and sex structure of a population."
-            ],
-            "a": 1
-        },
-        {
-            "q": "Select the accurate description of Housing planning.",
-            "options": [
-                "Preparing training and job opportunities for the working-age population.",
-                "A graph showing the age and sex structure of a population.",
-                "Estimating the number and type of homes required by a population.",
-                "The composition of a population according to age groups and sex."
-            ],
-            "a": 2
-        },
-        {
-            "q": "Select the accurate description of Employment planning.",
-            "options": [
-                "A graph showing the age and sex structure of a population.",
-                "The composition of a population according to age groups and sex.",
-                "A group of people within the same age range.",
-                "Preparing training and job opportunities for the working-age population."
-            ],
-            "a": 3
         }
     ]
 };
@@ -976,11 +559,25 @@
         let isGoldenAppleActive = false;
         let activeQuestionValue = 1; 
         let isPausedPendingInput = true;
+        let currentCategoryKey = null;
+        let correctAnswers = 0;
+        let totalQuestionsForGame = 10;
+        let certificateShown = false;
+        const snakeCategoryTitles = {
+            game1: 'Term Identification',
+            game2: 'Meaning Match',
+            game3: 'Multiple Choice',
+            game4: 'True or False'
+        };
 
         function startGame(categoryKey) {
             document.getElementById('categorySelection').style.display = 'none';
             document.getElementById('gameArea').style.display = 'flex';
+            currentCategoryKey = categoryKey;
             currentTopic = [...questionDB[categoryKey]];
+            correctAnswers = 0;
+            totalQuestionsForGame = currentTopic.length;
+            certificateShown = false;
             snake = [{x: 15, y: 10}, {x: 15, y: 11}, {x: 15, y: 12}];
             dx = 0; dy = -1; score = 0; applesEaten = 0;
             updateScoreboard();
@@ -1142,6 +739,7 @@
             if (selectedIndex === currentQuestionObj.a) {
                 MayHubSounds.playCorrect();
                 clickedBtn.classList.add('correct');
+                correctAnswers++;
                 score += activeQuestionValue;
                 updateScoreboard();
                 snake.push({ ...snake[snake.length - 1] }); 
@@ -1184,7 +782,19 @@
             } else {
                 title.innerText = "Game Over!";
                 title.style.color = "#dc3545";
-                msg.innerText = "Development is a journey. Try again and strengthen your understanding of its concepts and indicators!";
+                msg.innerText = "History takes practice. Try again and strengthen your understanding of this topic!";
+            }
+            if (!certificateShown) {
+                certificateShown = true;
+                setTimeout(() => {
+                    MayHubCertificates.showScored({
+                        gameTitle: 'Population Structure Snake Challenge',
+                        category: snakeCategoryTitles[currentCategoryKey] || 'Assessment Game',
+                        correct: correctAnswers,
+                        total: totalQuestionsForGame,
+                        onReplay: () => window.location.reload()
+                    });
+                }, 600);
             }
         }
     </script>

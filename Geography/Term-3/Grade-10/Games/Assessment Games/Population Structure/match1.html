@@ -71,7 +71,7 @@
         footer { text-align: center; padding: 1.5rem; background-color: #002b5e; color: #fff; margin-top: auto; }
     </style>
 </head>
-<body>
+<body data-certificate-grade="Grade 10" data-certificate-subject="Geography" data-certificate-term="Term 3" data-certificate-topic="Population Structure" data-certificate-game="Population Structure Memory Game" data-certificate-layout="compact-subject">
 
     <nav>
         <a href="../../../../../../index.html" class="logo">May Learning Hub</a>
@@ -83,15 +83,12 @@
 
     <header class="game-header">
         <h1 class="game-title">Grade 10 Geography: Population Structure</h1>
-        <p class="game-subtitle">Revise development terminology, inequality, health, GDP, sustainability and human-development indicators.</p>
+        <p class="game-subtitle">Revise population pyramids, age groups, life expectancy, and government planning.</p>
         <p style="font-size: 0.78rem; color: #52606d; margin-top: 0.45rem;">Grade 10 Geography Term 3 revision</p>
         
         <div class="category-selection">
             <div class="cat-buttons">
-                <button class="cat-btn" onclick="selectCategory('topic1', this)">Development Terms</button>
-                <button class="cat-btn" onclick="selectCategory('topic2', this)">Aspects & Countries</button>
-                <button class="cat-btn" onclick="selectCategory('topic3', this)">Development Indicators</button>
-                <button class="cat-btn" onclick="selectCategory('topic4', this)">Environmental Indicators</button>
+                <button class="cat-btn" onclick="selectCategory('topic1', this)">Assessment Review - 10 Pairs</button>
             </div>
         </div>
 
@@ -108,6 +105,9 @@
     </footer>
 
         <script src="../../../../../../game-audio.js"></script>
+        <script src="../../../../../../may-certificate-renderer.js"></script>
+        <script src="../../../../../../may-certificate-actions.js"></script>
+        <script src="../../../../../../assessment-certificate.js"></script>
 <script>
         const gameData = {
     "topic1": [
@@ -161,7 +161,7 @@
         },
         {
             "id": 7,
-            "text": "Which group is shown by the oldest age bars?"
+            "text": "In a population pyramid, which group is represented by the oldest age bars?"
         },
         {
             "id": 7,
@@ -190,252 +190,6 @@
         {
             "id": 10,
             "text": "It shows the age groups and likely health services required"
-        }
-    ],
-    "topic2": [
-        {
-            "id": 1,
-            "text": "How can pyramid data help government plan housing?"
-        },
-        {
-            "id": 1,
-            "text": "It helps estimate future household and housing demand"
-        },
-        {
-            "id": 2,
-            "text": "How can pyramid data help government plan employment?"
-        },
-        {
-            "id": 2,
-            "text": "It shows how many young people may enter the labour force"
-        },
-        {
-            "id": 3,
-            "text": "A narrow base and wider middle indicate which broad population trend?"
-        },
-        {
-            "id": 3,
-            "text": "Low birth rates and possible population decline"
-        },
-        {
-            "id": 4,
-            "text": "What type of pyramid has a broad base and rapidly narrowing sides?"
-        },
-        {
-            "id": 4,
-            "text": "Expanding pyramid"
-        },
-        {
-            "id": 5,
-            "text": "What type of pyramid has fairly even younger and middle cohorts?"
-        },
-        {
-            "id": 5,
-            "text": "Stable pyramid"
-        },
-        {
-            "id": 6,
-            "text": "What type of pyramid has a base narrower than the middle?"
-        },
-        {
-            "id": 6,
-            "text": "Declining pyramid"
-        },
-        {
-            "id": 7,
-            "text": "What is an age cohort?"
-        },
-        {
-            "id": 7,
-            "text": "A group of people in the same age range"
-        },
-        {
-            "id": 8,
-            "text": "What does age-sex structure describe?"
-        },
-        {
-            "id": 8,
-            "text": "The composition of a population by age and sex"
-        },
-        {
-            "id": 9,
-            "text": "Why may a broad base create a high dependency burden?"
-        },
-        {
-            "id": 9,
-            "text": "Many children depend on a smaller working population"
-        },
-        {
-            "id": 10,
-            "text": "Name two services that population pyramids help governments plan."
-        },
-        {
-            "id": 10,
-            "text": "Any two of schools, clinics, housing, jobs, pensions or transport"
-        }
-    ],
-    "topic3": [
-        {
-            "id": 1,
-            "text": "Define Population pyramid."
-        },
-        {
-            "id": 1,
-            "text": "A graph showing the age and sex structure of a population."
-        },
-        {
-            "id": 2,
-            "text": "Define Age-sex structure."
-        },
-        {
-            "id": 2,
-            "text": "The composition of a population according to age groups and sex."
-        },
-        {
-            "id": 3,
-            "text": "Define Cohort."
-        },
-        {
-            "id": 3,
-            "text": "A group of people within the same age range."
-        },
-        {
-            "id": 4,
-            "text": "Define Expanding pyramid."
-        },
-        {
-            "id": 4,
-            "text": "A pyramid with a broad base, showing a youthful and rapidly growing population."
-        },
-        {
-            "id": 5,
-            "text": "Define Stable pyramid."
-        },
-        {
-            "id": 5,
-            "text": "A pyramid with similar-sized younger and middle cohorts, showing slow change."
-        },
-        {
-            "id": 6,
-            "text": "Define Declining pyramid."
-        },
-        {
-            "id": 6,
-            "text": "A pyramid with a narrow base, showing low birth rates and possible population decline."
-        },
-        {
-            "id": 7,
-            "text": "Define Broad base."
-        },
-        {
-            "id": 7,
-            "text": "A wide youngest-age section that usually indicates a high birth rate."
-        },
-        {
-            "id": 8,
-            "text": "Define Narrow apex."
-        },
-        {
-            "id": 8,
-            "text": "A small elderly section that usually indicates relatively low life expectancy."
-        },
-        {
-            "id": 9,
-            "text": "Define Young dependants."
-        },
-        {
-            "id": 9,
-            "text": "Children who generally rely on working adults for support."
-        },
-        {
-            "id": 10,
-            "text": "Define Working-age population."
-        },
-        {
-            "id": 10,
-            "text": "Adults in the age range that normally supplies most workers."
-        }
-    ],
-    "topic4": [
-        {
-            "id": 1,
-            "text": "Define Elderly dependants."
-        },
-        {
-            "id": 1,
-            "text": "Older people who may rely on workers, pensions or care services."
-        },
-        {
-            "id": 2,
-            "text": "Define Sex ratio."
-        },
-        {
-            "id": 2,
-            "text": "The relationship between the number of males and females in a population."
-        },
-        {
-            "id": 3,
-            "text": "Define High birth rate."
-        },
-        {
-            "id": 3,
-            "text": "A large number of live births per 1,000 people."
-        },
-        {
-            "id": 4,
-            "text": "Define Low life expectancy."
-        },
-        {
-            "id": 4,
-            "text": "A relatively low average number of years that people are expected to live."
-        },
-        {
-            "id": 5,
-            "text": "Define Dependency ratio."
-        },
-        {
-            "id": 5,
-            "text": "A comparison of dependants with the working-age population."
-        },
-        {
-            "id": 6,
-            "text": "Define Government planning."
-        },
-        {
-            "id": 6,
-            "text": "Using population information to prepare services and infrastructure."
-        },
-        {
-            "id": 7,
-            "text": "Define School planning."
-        },
-        {
-            "id": 7,
-            "text": "Using the number of children to estimate classrooms and teachers needed."
-        },
-        {
-            "id": 8,
-            "text": "Define Healthcare planning."
-        },
-        {
-            "id": 8,
-            "text": "Using population needs to plan clinics, hospitals and health workers."
-        },
-        {
-            "id": 9,
-            "text": "Define Housing planning."
-        },
-        {
-            "id": 9,
-            "text": "Estimating the number and type of homes required by a population."
-        },
-        {
-            "id": 10,
-            "text": "Define Employment planning."
-        },
-        {
-            "id": 10,
-            "text": "Preparing training and job opportunities for the working-age population."
         }
     ]
 };
@@ -522,7 +276,13 @@
             secondCard.removeEventListener('click', flipCard);
             matchedPairs++;
             if (matchedPairs === (gameData[currentCategory].length / 2)) {
-                setTimeout(() => alert(`Great job! Grade 10 Geography: Development Revision Complete in ${moves} moves.`), 500);
+                setTimeout(() => {
+                    MayHubCertificates.showParticipation({
+                        gameTitle: 'Population Structure Memory Game',
+                        category: 'Assessment Review – 10 Pairs',
+                        onReplay: initGame
+                    });
+                }, 500);
             }
             resetBoard();
         }

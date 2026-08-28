@@ -361,7 +361,7 @@
         }
     </style>
 </head>
-<body>
+<body data-certificate-grade="Grade 11" data-certificate-subject="Geography" data-certificate-term="Term 3" data-certificate-topic="Development Measures" data-certificate-game="Development Measures Drag-and-Drop Challenge" data-certificate-layout="compact-subject">
 
     <nav>
         <a href="../../../../../../index.html" class="logo">May Learning Hub</a>
@@ -372,23 +372,23 @@
     </nav>
 
     <main class="game-container">
-        <h1 class="game-title">Drag or Tap Match: Development Measures</h1>
-        <p class="game-subtitle">Revise development terminology, inequality, health, GDP, sustainability and human-development indicators.</p>
+        <h1 class="game-title">Grade 11 Geography Drag or Tap Match: Development Measures</h1>
+        <p class="game-subtitle">Revise development measures, country categories, quality of life, and sustainable resource use.</p>
         <p style="font-size: 0.78rem; color: #52606d; margin-top: 0.45rem;">Grade 11 Geography Term 3 revision</p>
 
         <div class="category-selection">
             <h2>Step 1: Choose a Topic</h2>
             <div class="cat-buttons" id="catButtons">
-                <button class="cat-btn" onclick="selectCategory('unit1', this)">1. Development Concepts</button>
-                <button class="cat-btn" onclick="selectCategory('unit2', this)">2. Country Categories</button>
-                <button class="cat-btn" onclick="selectCategory('unit3', this)">3. Development Indicators</button>
-                <button class="cat-btn" onclick="selectCategory('unit4', this)">4. Environmental Indicators</button>
+                <button class="cat-btn" onclick="selectCategory('unit1', this)">1. Recall</button>
+                <button class="cat-btn" onclick="selectCategory('unit2', this)">2. Interpret</button>
+                <button class="cat-btn" onclick="selectCategory('unit3', this)">3. Apply</button>
+                <button class="cat-btn" onclick="selectCategory('unit4', this)">4. Evaluate</button>
             </div>
         </div>
 
         <div id="gameArea">
             <h2 id="activeCategoryTitle">Category: None</h2>
-            <p class="instructions">Match each Geography term with its correct description. Answers are randomized!</p>
+            <p class="instructions">Match each History answer with its correct question or description. Answers are randomized!</p>
 
             <div class="top-bar">
                 <div class="info-box" id="scoreBox">Score: 0</div>
@@ -398,7 +398,7 @@
 
             <div class="board">
                 <div class="panel">
-                    <h3>Geography Terms</h3>
+                    <h3>History Answers</h3>
                     <div class="draggable-list" id="draggableList"></div>
                 </div>
 
@@ -425,6 +425,9 @@
     </footer>
 
         <script src="../../../../../../game-audio.js"></script>
+        <script src="../../../../../../may-certificate-renderer.js"></script>
+        <script src="../../../../../../may-certificate-actions.js"></script>
+        <script src="../../../../../../assessment-certificate.js"></script>
 <script>
         const gameData = {
     "unit1": [
@@ -531,6 +534,7 @@
         let matchedCount = 0;
         let currentSetNumber = 1;
         let selectedItem = null;
+        let attemptedItems = new Set();
 
         function shuffleArray(array) {
             const arr = [...array];
@@ -545,6 +549,7 @@
             currentCategoryKey = categoryKey;
             matchedCount = 0;
             score = 0;
+            attemptedItems = new Set();
 
             document.getElementById('gameArea').style.display = 'block';
             document.getElementById('activeCategoryTitle').innerText = `Topic: ${categoryTitles[categoryKey]}`;
@@ -596,7 +601,7 @@
 
                 zone.innerHTML = `
                     <div class="drop-title">${matchText}</div>
-                    <div class="drop-desc">Select the matching Geography term.</div>
+                    <div class="drop-desc">Select the matching History answer.</div>
                 `;
 
                 zone.addEventListener('dragover', handleDragOver);
@@ -681,6 +686,8 @@
 
             const correctAnswer = draggedItem.dataset.answer;
             const zoneAnswer = zone.dataset.match;
+            const firstAttempt = !attemptedItems.has(draggedItem.id);
+            attemptedItems.add(draggedItem.id);
 
             if (correctAnswer === zoneAnswer) {
                 MayHubSounds.playCorrect();
@@ -700,7 +707,7 @@
                 selectedItem = null;
 
                 matchedCount++;
-                score++;
+                if (firstAttempt) score++;
 
                 updateInfoBoxes(gameData[currentCategoryKey].length);
 
@@ -727,15 +734,25 @@
             const feedbackTitle = document.getElementById('feedbackTitle');
             const feedbackMessage = document.getElementById('feedbackMessage');
 
-            feedbackTitle.innerText = "Development Master!";
+            feedbackTitle.innerText = "History Master!";
             feedbackMessage.innerText = `You correctly identified all terms for the "${categoryTitles[currentCategoryKey]}" topic!`;
             feedbackBox.style.display = 'block';
+            setTimeout(() => {
+                MayHubCertificates.showScored({
+                    gameTitle: 'Development Measures Drag-and-Drop Challenge',
+                    category: categoryTitles[currentCategoryKey],
+                    correct: score,
+                    total: gameData[currentCategoryKey].length,
+                    onReplay: resetCurrentCategory
+                });
+            }, 700);
         }
 
         function resetCurrentCategory() {
             if (!currentCategoryKey) return;
             score = 0;
             matchedCount = 0;
+            attemptedItems = new Set();
             document.getElementById('feedbackBox').style.display = 'none';
             renderGame();
         }
@@ -759,6 +776,7 @@
             currentSetNumber = nextIndex + 1;
             score = 0;
             matchedCount = 0;
+            attemptedItems = new Set();
             document.getElementById('feedbackBox').style.display = 'none';
             document.getElementById('gameArea').style.display = 'block';
             document.getElementById('activeCategoryTitle').innerText = `Topic: ${categoryTitles[nextKey]}`;

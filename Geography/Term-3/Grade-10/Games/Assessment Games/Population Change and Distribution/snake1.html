@@ -13,7 +13,7 @@
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>May Learning Hub | Smart Snake - Population Change and Distribution</title>
+    <title>May Learning Hub | Grade 10 Geography Smart Snake - Population Change and Distribution</title>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f0f4f8; color: #333; line-height: 1.6; display: flex; flex-direction: column; min-height: 100vh; touch-action: manipulation; }
@@ -78,7 +78,7 @@
         footer { text-align: center; padding: 1rem; background-color: #002b5e; color: #fff; margin-top: auto; }
     </style>
 </head>
-<body>
+<body data-certificate-grade="Grade 10" data-certificate-subject="Geography" data-certificate-term="Term 3" data-certificate-topic="Population Change and Distribution" data-certificate-game="Population Change and Distribution Snake Challenge" data-certificate-layout="compact-subject">
 
     <nav>
         <a href="../../../../../../index.html" class="logo">May Learning Hub</a>
@@ -89,17 +89,17 @@
     </nav>
 
     <header class="game-header">
-        <h1 class="game-title">Smart Snake: Population Change and Distribution</h1>
-        <p class="game-subtitle">Revise development terminology, inequality, health, GDP, sustainability and human-development indicators.</p>
+        <h1 class="game-title">Grade 10 Geography Smart Snake: Population Change and Distribution</h1>
+        <p class="game-subtitle">Revise natural increase calculations and physical and human factors affecting distribution.</p>
         <p style="font-size: 0.78rem; color: #52606d; margin-top: 0.45rem;">Grade 10 Geography Term 3 revision</p>
     </header>
 
     <div class="category-selection" id="categorySelection">
         <div class="cat-buttons">
-            <button class="cat-btn" onclick="startGame('game1')">Development Concepts</button>
-            <button class="cat-btn" onclick="startGame('game2')">Countries & Aspects</button>
-            <button class="cat-btn" onclick="startGame('game3')">Development Indicators</button>
-            <button class="cat-btn" onclick="startGame('game4')">Environmental Indicators</button>
+            <button class="cat-btn" onclick="startGame('game1')">Term Identification</button>
+            <button class="cat-btn" onclick="startGame('game2')">Meaning Match</button>
+            <button class="cat-btn" onclick="startGame('game3')">Multiple Choice</button>
+            <button class="cat-btn" onclick="startGame('game4')">True or False</button>
         </div>
     </div>
 
@@ -146,11 +146,14 @@
     </footer>
 
         <script src="../../../../../../game-audio.js"></script>
+        <script src="../../../../../../may-certificate-renderer.js"></script>
+        <script src="../../../../../../may-certificate-actions.js"></script>
+        <script src="../../../../../../assessment-certificate.js"></script>
 <script>
         const questionDB = {
     "game1": [
         {
-            "q": "Which geographical term means: The number of live births per 1,000 people in a year.",
+            "q": "The number of live births per 1,000 people in a year.",
             "options": [
                 "Birth rate",
                 "Death rate",
@@ -160,7 +163,7 @@
             "a": 0
         },
         {
-            "q": "Which geographical term means: The number of deaths per 1,000 people in a year.",
+            "q": "The number of deaths per 1,000 people in a year.",
             "options": [
                 "Crude birth rate",
                 "Death rate",
@@ -170,344 +173,174 @@
             "a": 1
         },
         {
-            "q": "Which geographical term means: The annual number of live births per 1,000 people.",
+            "q": "Population growth calculated by subtracting the death rate from the birth rate.",
             "options": [
-                "Crude death rate",
+                "Natural decrease",
+                "Positive natural increase",
                 "Natural increase",
-                "Crude birth rate",
+                "Negative natural increase"
+            ],
+            "a": 2
+        },
+        {
+            "q": "A population decline that occurs when the death rate is higher than the birth rate.",
+            "options": [
+                "Positive natural increase",
+                "Negative natural increase",
+                "Zero natural increase",
                 "Natural decrease"
             ],
-            "a": 2
-        },
-        {
-            "q": "Which geographical term means: The annual number of deaths per 1,000 people.",
-            "options": [
-                "Natural increase",
-                "Natural decrease",
-                "Positive natural increase",
-                "Crude death rate"
-            ],
             "a": 3
         },
         {
-            "q": "Which geographical term means: Population growth calculated by subtracting the death rate from the birth rate.",
+            "q": "The pattern showing where people live across an area.",
             "options": [
-                "Natural increase",
-                "Natural decrease",
-                "Positive natural increase",
-                "Negative natural increase"
-            ],
-            "a": 0
-        },
-        {
-            "q": "Which geographical term means: A population decline that occurs when the death rate is higher than the birth rate.",
-            "options": [
-                "Positive natural increase",
-                "Natural decrease",
-                "Negative natural increase",
-                "Zero natural increase"
-            ],
-            "a": 1
-        },
-        {
-            "q": "Which geographical term means: A result above zero because births exceed deaths.",
-            "options": [
-                "Negative natural increase",
-                "Zero natural increase",
-                "Positive natural increase",
-                "Population distribution"
-            ],
-            "a": 2
-        },
-        {
-            "q": "Which geographical term means: A result below zero because deaths exceed births.",
-            "options": [
-                "Zero natural increase",
                 "Population distribution",
                 "Population density",
-                "Negative natural increase"
-            ],
-            "a": 3
-        },
-        {
-            "q": "Which geographical term means: A situation in which the birth rate and death rate are equal.",
-            "options": [
-                "Zero natural increase",
-                "Population distribution",
-                "Population density",
-                "Climate"
-            ],
-            "a": 0
-        },
-        {
-            "q": "Which geographical term means: The pattern showing where people live across an area.",
-            "options": [
-                "Population density",
-                "Population distribution",
                 "Climate",
                 "Relief"
             ],
+            "a": 0
+        },
+        {
+            "q": "The average number of people living in each square kilometre.",
+            "options": [
+                "Climate",
+                "Population density",
+                "Relief",
+                "Water supply"
+            ],
             "a": 1
         },
         {
-            "q": "Which geographical term means: The average number of people living in each square kilometre.",
+            "q": "Long-term weather conditions that can attract or discourage settlement.",
             "options": [
-                "Climate",
                 "Relief",
-                "Population density",
-                "Water supply"
+                "Water supply",
+                "Climate",
+                "Fertile soil"
             ],
             "a": 2
         },
         {
-            "q": "Which geographical term means: Long-term weather conditions that can attract or discourage settlement.",
+            "q": "The height and shape of the land, including slopes and plains.",
             "options": [
-                "Relief",
                 "Water supply",
                 "Fertile soil",
-                "Climate"
+                "Mineral resources",
+                "Relief"
             ],
             "a": 3
         },
         {
-            "q": "Which geographical term means: The height and shape of the land, including slopes and plains.",
+            "q": "Accessible water for homes, farming and industry.",
             "options": [
-                "Relief",
                 "Water supply",
                 "Fertile soil",
-                "Mineral resources"
-            ],
-            "a": 0
-        },
-        {
-            "q": "Which geographical term means: Accessible water for homes, farming and industry.",
-            "options": [
-                "Fertile soil",
-                "Water supply",
                 "Mineral resources",
                 "Employment opportunities"
             ],
-            "a": 1
-        },
-        {
-            "q": "Which geographical term means: Soil that supports productive farming and can attract settlement.",
-            "options": [
-                "Mineral resources",
-                "Employment opportunities",
-                "Fertile soil",
-                "Transport network"
-            ],
-            "a": 2
-        },
-        {
-            "q": "Which geographical term means: Valuable materials in the Earth that may attract mines, jobs and settlements.",
-            "options": [
-                "Employment opportunities",
-                "Transport network",
-                "Political stability",
-                "Mineral resources"
-            ],
-            "a": 3
-        },
-        {
-            "q": "Which geographical term means: Available jobs that attract people to an area.",
-            "options": [
-                "Employment opportunities",
-                "Transport network",
-                "Political stability",
-                "Accessibility"
-            ],
             "a": 0
         },
         {
-            "q": "Which geographical term means: Roads, railways and other routes that improve accessibility.",
+            "q": "Available jobs that attract people to an area.",
             "options": [
-                "Political stability",
                 "Transport network",
-                "Accessibility",
-                "Birth rate"
-            ],
-            "a": 1
-        },
-        {
-            "q": "Which geographical term means: Safe and predictable government conditions that encourage settlement.",
-            "options": [
-                "Accessibility",
-                "Birth rate",
+                "Employment opportunities",
                 "Political stability",
-                "Death rate"
-            ],
-            "a": 2
-        },
-        {
-            "q": "Which geographical term means: The ease with which a place can be reached.",
-            "options": [
-                "Birth rate",
-                "Death rate",
-                "Crude birth rate",
                 "Accessibility"
             ],
-            "a": 3
+            "a": 1
         }
     ],
     "game2": [
         {
             "q": "Which statement correctly defines Birth rate?",
             "options": [
-                "The number of deaths per 1,000 people in a year.",
                 "The number of live births per 1,000 people in a year.",
+                "The number of deaths per 1,000 people in a year.",
                 "The annual number of live births per 1,000 people.",
                 "The annual number of deaths per 1,000 people."
             ],
-            "a": 1
+            "a": 0
         },
         {
             "q": "Which statement correctly defines Death rate?",
             "options": [
                 "The annual number of live births per 1,000 people.",
-                "The annual number of deaths per 1,000 people.",
                 "The number of deaths per 1,000 people in a year.",
+                "The annual number of deaths per 1,000 people.",
                 "Population growth calculated by subtracting the death rate from the birth rate."
             ],
-            "a": 2
-        },
-        {
-            "q": "Which statement correctly defines Crude birth rate?",
-            "options": [
-                "The annual number of deaths per 1,000 people.",
-                "Population growth calculated by subtracting the death rate from the birth rate.",
-                "A population decline that occurs when the death rate is higher than the birth rate.",
-                "The annual number of live births per 1,000 people."
-            ],
-            "a": 3
-        },
-        {
-            "q": "Which statement correctly defines Crude death rate?",
-            "options": [
-                "The annual number of deaths per 1,000 people.",
-                "Population growth calculated by subtracting the death rate from the birth rate.",
-                "A population decline that occurs when the death rate is higher than the birth rate.",
-                "A result above zero because births exceed deaths."
-            ],
-            "a": 0
+            "a": 1
         },
         {
             "q": "Which statement correctly defines Natural increase?",
             "options": [
                 "A population decline that occurs when the death rate is higher than the birth rate.",
-                "Population growth calculated by subtracting the death rate from the birth rate.",
                 "A result above zero because births exceed deaths.",
+                "Population growth calculated by subtracting the death rate from the birth rate.",
                 "A result below zero because deaths exceed births."
             ],
-            "a": 1
+            "a": 2
         },
         {
             "q": "Which statement correctly defines Natural decrease?",
             "options": [
                 "A result above zero because births exceed deaths.",
                 "A result below zero because deaths exceed births.",
-                "A population decline that occurs when the death rate is higher than the birth rate.",
-                "A situation in which the birth rate and death rate are equal."
-            ],
-            "a": 2
-        },
-        {
-            "q": "Which statement correctly defines Positive natural increase?",
-            "options": [
-                "A result below zero because deaths exceed births.",
                 "A situation in which the birth rate and death rate are equal.",
-                "The pattern showing where people live across an area.",
-                "A result above zero because births exceed deaths."
+                "A population decline that occurs when the death rate is higher than the birth rate."
             ],
             "a": 3
         },
         {
-            "q": "Which statement correctly defines Negative natural increase?",
-            "options": [
-                "A result below zero because deaths exceed births.",
-                "A situation in which the birth rate and death rate are equal.",
-                "The pattern showing where people live across an area.",
-                "The average number of people living in each square kilometre."
-            ],
-            "a": 0
-        },
-        {
-            "q": "Which statement correctly defines Zero natural increase?",
-            "options": [
-                "The pattern showing where people live across an area.",
-                "A situation in which the birth rate and death rate are equal.",
-                "The average number of people living in each square kilometre.",
-                "Long-term weather conditions that can attract or discourage settlement."
-            ],
-            "a": 1
-        },
-        {
             "q": "Which statement correctly defines Population distribution?",
             "options": [
+                "The pattern showing where people live across an area.",
                 "The average number of people living in each square kilometre.",
                 "Long-term weather conditions that can attract or discourage settlement.",
-                "The pattern showing where people live across an area.",
                 "The height and shape of the land, including slopes and plains."
             ],
-            "a": 2
+            "a": 0
         },
         {
             "q": "Which statement correctly defines Population density?",
             "options": [
                 "Long-term weather conditions that can attract or discourage settlement.",
+                "The average number of people living in each square kilometre.",
                 "The height and shape of the land, including slopes and plains.",
-                "Accessible water for homes, farming and industry.",
-                "The average number of people living in each square kilometre."
+                "Accessible water for homes, farming and industry."
             ],
-            "a": 3
+            "a": 1
         },
         {
             "q": "Which statement correctly defines Climate?",
             "options": [
-                "Long-term weather conditions that can attract or discourage settlement.",
                 "The height and shape of the land, including slopes and plains.",
                 "Accessible water for homes, farming and industry.",
+                "Long-term weather conditions that can attract or discourage settlement.",
                 "Soil that supports productive farming and can attract settlement."
             ],
-            "a": 0
+            "a": 2
         },
         {
             "q": "Which statement correctly defines Relief?",
             "options": [
                 "Accessible water for homes, farming and industry.",
-                "The height and shape of the land, including slopes and plains.",
-                "Soil that supports productive farming and can attract settlement.",
-                "Valuable materials in the Earth that may attract mines, jobs and settlements."
-            ],
-            "a": 1
-        },
-        {
-            "q": "Which statement correctly defines Water supply?",
-            "options": [
                 "Soil that supports productive farming and can attract settlement.",
                 "Valuable materials in the Earth that may attract mines, jobs and settlements.",
-                "Accessible water for homes, farming and industry.",
-                "Available jobs that attract people to an area."
-            ],
-            "a": 2
-        },
-        {
-            "q": "Which statement correctly defines Fertile soil?",
-            "options": [
-                "Valuable materials in the Earth that may attract mines, jobs and settlements.",
-                "Available jobs that attract people to an area.",
-                "Roads, railways and other routes that improve accessibility.",
-                "Soil that supports productive farming and can attract settlement."
+                "The height and shape of the land, including slopes and plains."
             ],
             "a": 3
         },
         {
-            "q": "Which statement correctly defines Mineral resources?",
+            "q": "Which statement correctly defines Water supply?",
             "options": [
+                "Accessible water for homes, farming and industry.",
+                "Soil that supports productive farming and can attract settlement.",
                 "Valuable materials in the Earth that may attract mines, jobs and settlements.",
-                "Available jobs that attract people to an area.",
-                "Roads, railways and other routes that improve accessibility.",
-                "Safe and predictable government conditions that encourage settlement."
+                "Available jobs that attract people to an area."
             ],
             "a": 0
         },
@@ -520,440 +353,190 @@
                 "The ease with which a place can be reached."
             ],
             "a": 1
-        },
-        {
-            "q": "Which statement correctly defines Transport network?",
-            "options": [
-                "Safe and predictable government conditions that encourage settlement.",
-                "The ease with which a place can be reached.",
-                "Roads, railways and other routes that improve accessibility.",
-                "The number of live births per 1,000 people in a year."
-            ],
-            "a": 2
-        },
-        {
-            "q": "Which statement correctly defines Political stability?",
-            "options": [
-                "The ease with which a place can be reached.",
-                "The number of live births per 1,000 people in a year.",
-                "The number of deaths per 1,000 people in a year.",
-                "Safe and predictable government conditions that encourage settlement."
-            ],
-            "a": 3
-        },
-        {
-            "q": "Which statement correctly defines Accessibility?",
-            "options": [
-                "The ease with which a place can be reached.",
-                "The number of live births per 1,000 people in a year.",
-                "The number of deaths per 1,000 people in a year.",
-                "The annual number of live births per 1,000 people."
-            ],
-            "a": 0
         }
     ],
     "game3": [
         {
-            "q": "Identify the concept: The number of live births per 1,000 people in a year.",
+            "q": "How does birth rate differ from death rate?",
             "options": [
-                "Death rate",
-                "Crude birth rate",
-                "Birth rate",
-                "Crude death rate"
-            ],
-            "a": 2
-        },
-        {
-            "q": "Identify the concept: The number of deaths per 1,000 people in a year.",
-            "options": [
-                "Crude birth rate",
-                "Crude death rate",
-                "Natural increase",
-                "Death rate"
-            ],
-            "a": 3
-        },
-        {
-            "q": "Identify the concept: The annual number of live births per 1,000 people.",
-            "options": [
-                "Crude birth rate",
-                "Crude death rate",
-                "Natural increase",
-                "Natural decrease"
+                "Birth rate counts live births, while death rate counts deaths, per 1,000 people per year",
+                "-2.39 per 1,000",
+                "7.43 per 1,000",
+                "19.76 per 1,000"
             ],
             "a": 0
         },
         {
-            "q": "Identify the concept: The annual number of deaths per 1,000 people.",
+            "q": "A country has a birth rate of 7.44 and death rate of 9.83. Calculate its natural increase.",
             "options": [
-                "Natural increase",
-                "Crude death rate",
-                "Natural decrease",
-                "Positive natural increase"
+                "2.39 per 1,000",
+                "-2.39 per 1,000",
+                "17.27 per 1,000",
+                "-17.27 per 1,000"
             ],
             "a": 1
         },
         {
-            "q": "Identify the concept: Population growth calculated by subtracting the death rate from the birth rate.",
+            "q": "Why will a country with a natural increase of -2.39 decline without migration?",
             "options": [
-                "Natural decrease",
-                "Positive natural increase",
-                "Natural increase",
-                "Negative natural increase"
+                "People move to earn incomes and improve livelihoods",
+                "Where people live and how they are spread across an area",
+                "Its death rate is higher than its birth rate",
+                "The average number of people per square kilometre"
             ],
             "a": 2
         },
         {
-            "q": "Identify the concept: A population decline that occurs when the death rate is higher than the birth rate.",
+            "q": "South Africa has a birth rate of 21.33 and death rate of 13.90. Calculate the natural increase.",
             "options": [
-                "Positive natural increase",
-                "Negative natural increase",
-                "Zero natural increase",
-                "Natural decrease"
+                "35.23 per 1,000",
+                "-7.43 per 1,000",
+                "5.90 per 1,000",
+                "7.43 per 1,000"
             ],
             "a": 3
         },
         {
-            "q": "Identify the concept: A result above zero because births exceed deaths.",
+            "q": "Nigeria has a birth rate of 36.07 and death rate of 16.31. Calculate the natural increase.",
             "options": [
-                "Positive natural increase",
-                "Negative natural increase",
-                "Zero natural increase",
-                "Population distribution"
+                "19.76 per 1,000",
+                "52.38 per 1,000",
+                "-19.76 per 1,000",
+                "20.31 per 1,000"
             ],
             "a": 0
         },
         {
-            "q": "Identify the concept: A result below zero because deaths exceed births.",
+            "q": "Japan has -2.39, South Africa 7.43 and Nigeria 19.76 per 1,000. Which country has the fastest natural growth?",
             "options": [
-                "Zero natural increase",
-                "Negative natural increase",
-                "Population distribution",
-                "Population density"
+                "Japan",
+                "Nigeria",
+                "South Africa",
+                "All three grow at the same rate"
             ],
             "a": 1
         },
         {
-            "q": "Identify the concept: A situation in which the birth rate and death rate are equal.",
+            "q": "State the formula for natural increase.",
             "options": [
-                "Population distribution",
-                "Population density",
-                "Zero natural increase",
-                "Climate"
+                "Nigeria",
+                "There is zero natural increase",
+                "Birth rate minus death rate",
+                "People, farms and industries need water"
             ],
             "a": 2
         },
         {
-            "q": "Identify the concept: The pattern showing where people live across an area.",
+            "q": "What happens naturally when birth and death rates are equal?",
             "options": [
-                "Population density",
-                "Climate",
-                "Relief",
-                "Population distribution"
+                "Nigeria",
+                "Birth rate minus death rate",
+                "People, farms and industries need water",
+                "There is zero natural increase"
             ],
             "a": 3
         },
         {
-            "q": "Identify the concept: The average number of people living in each square kilometre.",
+            "q": "Why do reliable water supplies attract settlement?",
             "options": [
-                "Population density",
-                "Climate",
-                "Relief",
-                "Water supply"
+                "People, farms and industries need water",
+                "Nigeria",
+                "Birth rate minus death rate",
+                "There is zero natural increase"
             ],
             "a": 0
         },
         {
-            "q": "Identify the concept: Long-term weather conditions that can attract or discourage settlement.",
+            "q": "Name one physical and one human factor affecting distribution.",
             "options": [
-                "Relief",
-                "Climate",
-                "Water supply",
-                "Fertile soil"
-            ],
-            "a": 1
-        },
-        {
-            "q": "Identify the concept: The height and shape of the land, including slopes and plains.",
-            "options": [
-                "Water supply",
-                "Fertile soil",
-                "Relief",
-                "Mineral resources"
-            ],
-            "a": 2
-        },
-        {
-            "q": "Identify the concept: Accessible water for homes, farming and industry.",
-            "options": [
-                "Fertile soil",
-                "Mineral resources",
-                "Employment opportunities",
-                "Water supply"
-            ],
-            "a": 3
-        },
-        {
-            "q": "Identify the concept: Soil that supports productive farming and can attract settlement.",
-            "options": [
-                "Fertile soil",
-                "Mineral resources",
-                "Employment opportunities",
-                "Transport network"
-            ],
-            "a": 0
-        },
-        {
-            "q": "Identify the concept: Valuable materials in the Earth that may attract mines, jobs and settlements.",
-            "options": [
-                "Employment opportunities",
-                "Mineral resources",
-                "Transport network",
-                "Political stability"
-            ],
-            "a": 1
-        },
-        {
-            "q": "Identify the concept: Available jobs that attract people to an area.",
-            "options": [
-                "Transport network",
-                "Political stability",
-                "Employment opportunities",
-                "Accessibility"
-            ],
-            "a": 2
-        },
-        {
-            "q": "Identify the concept: Roads, railways and other routes that improve accessibility.",
-            "options": [
-                "Political stability",
-                "Accessibility",
-                "Birth rate",
-                "Transport network"
-            ],
-            "a": 3
-        },
-        {
-            "q": "Identify the concept: Safe and predictable government conditions that encourage settlement.",
-            "options": [
-                "Political stability",
-                "Accessibility",
-                "Birth rate",
-                "Death rate"
-            ],
-            "a": 0
-        },
-        {
-            "q": "Identify the concept: The ease with which a place can be reached.",
-            "options": [
-                "Birth rate",
-                "Accessibility",
-                "Death rate",
-                "Crude birth rate"
+                "Its death rate is higher than its birth rate",
+                "Any valid pair, such as water supply and employment opportunities",
+                "People move to earn incomes and improve livelihoods",
+                "Where people live and how they are spread across an area"
             ],
             "a": 1
         }
     ],
     "game4": [
         {
-            "q": "Select the accurate description of Birth rate.",
+            "q": "Birth rate: The number of live births per 1,000 people in a year.",
             "options": [
-                "The number of live births per 1,000 people in a year.",
-                "The number of deaths per 1,000 people in a year.",
-                "The annual number of live births per 1,000 people.",
-                "The annual number of deaths per 1,000 people."
+                "True",
+                "False"
             ],
             "a": 0
         },
         {
-            "q": "Select the accurate description of Death rate.",
+            "q": "Death rate: The annual number of live births per 1,000 people.",
             "options": [
-                "The annual number of live births per 1,000 people.",
-                "The number of deaths per 1,000 people in a year.",
-                "The annual number of deaths per 1,000 people.",
-                "Population growth calculated by subtracting the death rate from the birth rate."
+                "True",
+                "False"
             ],
             "a": 1
         },
         {
-            "q": "Select the accurate description of Crude birth rate.",
+            "q": "Natural increase: Population growth calculated by subtracting the death rate from the birth rate.",
             "options": [
-                "The annual number of deaths per 1,000 people.",
-                "Population growth calculated by subtracting the death rate from the birth rate.",
-                "The annual number of live births per 1,000 people.",
-                "A population decline that occurs when the death rate is higher than the birth rate."
-            ],
-            "a": 2
-        },
-        {
-            "q": "Select the accurate description of Crude death rate.",
-            "options": [
-                "Population growth calculated by subtracting the death rate from the birth rate.",
-                "A population decline that occurs when the death rate is higher than the birth rate.",
-                "A result above zero because births exceed deaths.",
-                "The annual number of deaths per 1,000 people."
-            ],
-            "a": 3
-        },
-        {
-            "q": "Select the accurate description of Natural increase.",
-            "options": [
-                "Population growth calculated by subtracting the death rate from the birth rate.",
-                "A population decline that occurs when the death rate is higher than the birth rate.",
-                "A result above zero because births exceed deaths.",
-                "A result below zero because deaths exceed births."
+                "True",
+                "False"
             ],
             "a": 0
         },
         {
-            "q": "Select the accurate description of Natural decrease.",
+            "q": "Natural decrease: A result above zero because births exceed deaths.",
             "options": [
-                "A result above zero because births exceed deaths.",
-                "A population decline that occurs when the death rate is higher than the birth rate.",
-                "A result below zero because deaths exceed births.",
-                "A situation in which the birth rate and death rate are equal."
+                "True",
+                "False"
             ],
             "a": 1
         },
         {
-            "q": "Select the accurate description of Positive natural increase.",
+            "q": "Population distribution: The average number of people living in each square kilometre.",
             "options": [
-                "A result below zero because deaths exceed births.",
-                "A situation in which the birth rate and death rate are equal.",
-                "A result above zero because births exceed deaths.",
-                "The pattern showing where people live across an area."
+                "True",
+                "False"
             ],
-            "a": 2
+            "a": 1
         },
         {
-            "q": "Select the accurate description of Negative natural increase.",
+            "q": "Population density: The average number of people living in each square kilometre.",
             "options": [
-                "A situation in which the birth rate and death rate are equal.",
-                "The pattern showing where people live across an area.",
-                "The average number of people living in each square kilometre.",
-                "A result below zero because deaths exceed births."
-            ],
-            "a": 3
-        },
-        {
-            "q": "Select the accurate description of Zero natural increase.",
-            "options": [
-                "A situation in which the birth rate and death rate are equal.",
-                "The pattern showing where people live across an area.",
-                "The average number of people living in each square kilometre.",
-                "Long-term weather conditions that can attract or discourage settlement."
+                "True",
+                "False"
             ],
             "a": 0
         },
         {
-            "q": "Select the accurate description of Population distribution.",
+            "q": "Climate: The height and shape of the land, including slopes and plains.",
             "options": [
-                "The average number of people living in each square kilometre.",
-                "The pattern showing where people live across an area.",
-                "Long-term weather conditions that can attract or discourage settlement.",
-                "The height and shape of the land, including slopes and plains."
+                "True",
+                "False"
             ],
             "a": 1
         },
         {
-            "q": "Select the accurate description of Population density.",
+            "q": "Relief: The height and shape of the land, including slopes and plains.",
             "options": [
-                "Long-term weather conditions that can attract or discourage settlement.",
-                "The height and shape of the land, including slopes and plains.",
-                "The average number of people living in each square kilometre.",
-                "Accessible water for homes, farming and industry."
-            ],
-            "a": 2
-        },
-        {
-            "q": "Select the accurate description of Climate.",
-            "options": [
-                "The height and shape of the land, including slopes and plains.",
-                "Accessible water for homes, farming and industry.",
-                "Soil that supports productive farming and can attract settlement.",
-                "Long-term weather conditions that can attract or discourage settlement."
-            ],
-            "a": 3
-        },
-        {
-            "q": "Select the accurate description of Relief.",
-            "options": [
-                "The height and shape of the land, including slopes and plains.",
-                "Accessible water for homes, farming and industry.",
-                "Soil that supports productive farming and can attract settlement.",
-                "Valuable materials in the Earth that may attract mines, jobs and settlements."
+                "True",
+                "False"
             ],
             "a": 0
         },
         {
-            "q": "Select the accurate description of Water supply.",
+            "q": "Water supply: Soil that supports productive farming and can attract settlement.",
             "options": [
-                "Soil that supports productive farming and can attract settlement.",
-                "Accessible water for homes, farming and industry.",
-                "Valuable materials in the Earth that may attract mines, jobs and settlements.",
-                "Available jobs that attract people to an area."
+                "True",
+                "False"
             ],
             "a": 1
         },
         {
-            "q": "Select the accurate description of Fertile soil.",
+            "q": "Employment opportunities: Available jobs that attract people to an area.",
             "options": [
-                "Valuable materials in the Earth that may attract mines, jobs and settlements.",
-                "Available jobs that attract people to an area.",
-                "Soil that supports productive farming and can attract settlement.",
-                "Roads, railways and other routes that improve accessibility."
-            ],
-            "a": 2
-        },
-        {
-            "q": "Select the accurate description of Mineral resources.",
-            "options": [
-                "Available jobs that attract people to an area.",
-                "Roads, railways and other routes that improve accessibility.",
-                "Safe and predictable government conditions that encourage settlement.",
-                "Valuable materials in the Earth that may attract mines, jobs and settlements."
-            ],
-            "a": 3
-        },
-        {
-            "q": "Select the accurate description of Employment opportunities.",
-            "options": [
-                "Available jobs that attract people to an area.",
-                "Roads, railways and other routes that improve accessibility.",
-                "Safe and predictable government conditions that encourage settlement.",
-                "The ease with which a place can be reached."
+                "True",
+                "False"
             ],
             "a": 0
-        },
-        {
-            "q": "Select the accurate description of Transport network.",
-            "options": [
-                "Safe and predictable government conditions that encourage settlement.",
-                "Roads, railways and other routes that improve accessibility.",
-                "The ease with which a place can be reached.",
-                "The number of live births per 1,000 people in a year."
-            ],
-            "a": 1
-        },
-        {
-            "q": "Select the accurate description of Political stability.",
-            "options": [
-                "The ease with which a place can be reached.",
-                "The number of live births per 1,000 people in a year.",
-                "Safe and predictable government conditions that encourage settlement.",
-                "The number of deaths per 1,000 people in a year."
-            ],
-            "a": 2
-        },
-        {
-            "q": "Select the accurate description of Accessibility.",
-            "options": [
-                "The number of live births per 1,000 people in a year.",
-                "The number of deaths per 1,000 people in a year.",
-                "The annual number of live births per 1,000 people.",
-                "The ease with which a place can be reached."
-            ],
-            "a": 3
         }
     ]
 };
@@ -976,11 +559,25 @@
         let isGoldenAppleActive = false;
         let activeQuestionValue = 1; 
         let isPausedPendingInput = true;
+        let currentCategoryKey = null;
+        let correctAnswers = 0;
+        let totalQuestionsForGame = 10;
+        let certificateShown = false;
+        const snakeCategoryTitles = {
+            game1: 'Term Identification',
+            game2: 'Meaning Match',
+            game3: 'Multiple Choice',
+            game4: 'True or False'
+        };
 
         function startGame(categoryKey) {
             document.getElementById('categorySelection').style.display = 'none';
             document.getElementById('gameArea').style.display = 'flex';
+            currentCategoryKey = categoryKey;
             currentTopic = [...questionDB[categoryKey]];
+            correctAnswers = 0;
+            totalQuestionsForGame = currentTopic.length;
+            certificateShown = false;
             snake = [{x: 15, y: 10}, {x: 15, y: 11}, {x: 15, y: 12}];
             dx = 0; dy = -1; score = 0; applesEaten = 0;
             updateScoreboard();
@@ -1142,6 +739,7 @@
             if (selectedIndex === currentQuestionObj.a) {
                 MayHubSounds.playCorrect();
                 clickedBtn.classList.add('correct');
+                correctAnswers++;
                 score += activeQuestionValue;
                 updateScoreboard();
                 snake.push({ ...snake[snake.length - 1] }); 
@@ -1184,7 +782,19 @@
             } else {
                 title.innerText = "Game Over!";
                 title.style.color = "#dc3545";
-                msg.innerText = "Development is a journey. Try again and strengthen your understanding of its concepts and indicators!";
+                msg.innerText = "History takes practice. Try again and strengthen your understanding of this topic!";
+            }
+            if (!certificateShown) {
+                certificateShown = true;
+                setTimeout(() => {
+                    MayHubCertificates.showScored({
+                        gameTitle: 'Population Change and Distribution Snake Challenge',
+                        category: snakeCategoryTitles[currentCategoryKey] || 'Assessment Game',
+                        correct: correctAnswers,
+                        total: totalQuestionsForGame,
+                        onReplay: () => window.location.reload()
+                    });
+                }, 600);
             }
         }
     </script>

@@ -71,7 +71,7 @@
         footer { text-align: center; padding: 1.5rem; background-color: #002b5e; color: #fff; margin-top: auto; }
     </style>
 </head>
-<body>
+<body data-certificate-grade="Grade 10" data-certificate-subject="Geography" data-certificate-term="Term 3" data-certificate-topic="Migration Concepts" data-certificate-game="Migration Concepts Memory Game" data-certificate-layout="compact-subject">
 
     <nav>
         <a href="../../../../../../index.html" class="logo">May Learning Hub</a>
@@ -83,15 +83,12 @@
 
     <header class="game-header">
         <h1 class="game-title">Grade 10 Geography: Migration Concepts</h1>
-        <p class="game-subtitle">Revise development terminology, inequality, health, GDP, sustainability and human-development indicators.</p>
+        <p class="game-subtitle">Revise migration terminology, migration types, urbanisation, and push-and-pull factors.</p>
         <p style="font-size: 0.78rem; color: #52606d; margin-top: 0.45rem;">Grade 10 Geography Term 3 revision</p>
         
         <div class="category-selection">
             <div class="cat-buttons">
-                <button class="cat-btn" onclick="selectCategory('topic1', this)">Development Terms</button>
-                <button class="cat-btn" onclick="selectCategory('topic2', this)">Aspects & Countries</button>
-                <button class="cat-btn" onclick="selectCategory('topic3', this)">Development Indicators</button>
-                <button class="cat-btn" onclick="selectCategory('topic4', this)">Environmental Indicators</button>
+                <button class="cat-btn" onclick="selectCategory('topic1', this)">Assessment Review - 10 Pairs</button>
             </div>
         </div>
 
@@ -108,6 +105,9 @@
     </footer>
 
         <script src="../../../../../../game-audio.js"></script>
+        <script src="../../../../../../may-certificate-renderer.js"></script>
+        <script src="../../../../../../may-certificate-actions.js"></script>
+        <script src="../../../../../../assessment-certificate.js"></script>
 <script>
         const gameData = {
     "topic1": [
@@ -190,252 +190,6 @@
         {
             "id": 10,
             "text": "Internal migration"
-        }
-    ],
-    "topic2": [
-        {
-            "id": 1,
-            "text": "A person crosses a national border to settle. Is this internal or external migration?"
-        },
-        {
-            "id": 1,
-            "text": "External migration"
-        },
-        {
-            "id": 2,
-            "text": "What do geographers call the place a migrant leaves?"
-        },
-        {
-            "id": 2,
-            "text": "Place of origin"
-        },
-        {
-            "id": 3,
-            "text": "What do geographers call the place a migrant moves to?"
-        },
-        {
-            "id": 3,
-            "text": "Destination"
-        },
-        {
-            "id": 4,
-            "text": "What is a person who changes their usual residence called?"
-        },
-        {
-            "id": 4,
-            "text": "Migrant"
-        },
-        {
-            "id": 5,
-            "text": "Moving by personal choice is classified as what kind of migration?"
-        },
-        {
-            "id": 5,
-            "text": "Voluntary migration"
-        },
-        {
-            "id": 6,
-            "text": "People fleeing armed conflict experience what kind of migration?"
-        },
-        {
-            "id": 6,
-            "text": "Forced migration"
-        },
-        {
-            "id": 7,
-            "text": "A worker moves for six months and plans to return. What pattern is this?"
-        },
-        {
-            "id": 7,
-            "text": "Temporary migration"
-        },
-        {
-            "id": 8,
-            "text": "A family relocates with no intention of returning. What pattern is this?"
-        },
-        {
-            "id": 8,
-            "text": "Permanent migration"
-        },
-        {
-            "id": 9,
-            "text": "Farm workers move during harvest periods. What pattern is this?"
-        },
-        {
-            "id": 9,
-            "text": "Seasonal migration"
-        },
-        {
-            "id": 10,
-            "text": "What rural population change occurs when many residents leave?"
-        },
-        {
-            "id": 10,
-            "text": "Rural depopulation"
-        }
-    ],
-    "topic3": [
-        {
-            "id": 1,
-            "text": "Define Migration."
-        },
-        {
-            "id": 1,
-            "text": "The movement of people to change their usual place of residence."
-        },
-        {
-            "id": 2,
-            "text": "Define International migration."
-        },
-        {
-            "id": 2,
-            "text": "Movement from one country to another."
-        },
-        {
-            "id": 3,
-            "text": "Define Immigration."
-        },
-        {
-            "id": 3,
-            "text": "Moving into a country to settle there."
-        },
-        {
-            "id": 4,
-            "text": "Define Emigration."
-        },
-        {
-            "id": 4,
-            "text": "Leaving a country to settle elsewhere."
-        },
-        {
-            "id": 5,
-            "text": "Define Regional migration."
-        },
-        {
-            "id": 5,
-            "text": "Movement within a region, such as within Southern Africa."
-        },
-        {
-            "id": 6,
-            "text": "Define Rural-urban migration."
-        },
-        {
-            "id": 6,
-            "text": "Movement from a rural area to a town or city."
-        },
-        {
-            "id": 7,
-            "text": "Define Urbanisation."
-        },
-        {
-            "id": 7,
-            "text": "An increase in the percentage of people living in urban areas."
-        },
-        {
-            "id": 8,
-            "text": "Define Rural depopulation."
-        },
-        {
-            "id": 8,
-            "text": "A reduction in the number of people living in rural areas."
-        },
-        {
-            "id": 9,
-            "text": "Define Internal migration."
-        },
-        {
-            "id": 9,
-            "text": "Movement within the borders of the same country."
-        },
-        {
-            "id": 10,
-            "text": "Define External migration."
-        },
-        {
-            "id": 10,
-            "text": "Movement across an international border."
-        }
-    ],
-    "topic4": [
-        {
-            "id": 1,
-            "text": "Define Place of origin."
-        },
-        {
-            "id": 1,
-            "text": "The place from which a migrant moves."
-        },
-        {
-            "id": 2,
-            "text": "Define Destination."
-        },
-        {
-            "id": 2,
-            "text": "The place to which a migrant moves."
-        },
-        {
-            "id": 3,
-            "text": "Define Migrant."
-        },
-        {
-            "id": 3,
-            "text": "A person who changes their usual place of residence."
-        },
-        {
-            "id": 4,
-            "text": "Define Push factor."
-        },
-        {
-            "id": 4,
-            "text": "A condition that encourages people to leave a place."
-        },
-        {
-            "id": 5,
-            "text": "Define Pull factor."
-        },
-        {
-            "id": 5,
-            "text": "A condition that attracts people to a new place."
-        },
-        {
-            "id": 6,
-            "text": "Define Voluntary migration."
-        },
-        {
-            "id": 6,
-            "text": "Movement made by personal choice."
-        },
-        {
-            "id": 7,
-            "text": "Define Forced migration."
-        },
-        {
-            "id": 7,
-            "text": "Movement caused by danger, conflict, disaster or compulsion."
-        },
-        {
-            "id": 8,
-            "text": "Define Temporary migration."
-        },
-        {
-            "id": 8,
-            "text": "Movement for a limited period with an intention to return."
-        },
-        {
-            "id": 9,
-            "text": "Define Permanent migration."
-        },
-        {
-            "id": 9,
-            "text": "Movement intended to establish a long-term home elsewhere."
-        },
-        {
-            "id": 10,
-            "text": "Define Seasonal migration."
-        },
-        {
-            "id": 10,
-            "text": "Temporary movement linked to a season or seasonal work."
         }
     ]
 };
@@ -522,7 +276,13 @@
             secondCard.removeEventListener('click', flipCard);
             matchedPairs++;
             if (matchedPairs === (gameData[currentCategory].length / 2)) {
-                setTimeout(() => alert(`Great job! Grade 10 Geography: Development Revision Complete in ${moves} moves.`), 500);
+                setTimeout(() => {
+                    MayHubCertificates.showParticipation({
+                        gameTitle: 'Migration Concepts Memory Game',
+                        category: 'Assessment Review – 10 Pairs',
+                        onReplay: initGame
+                    });
+                }, 500);
             }
             resetBoard();
         }

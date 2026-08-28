@@ -72,7 +72,7 @@
         .score-board { background: #002b5e; color: #fff; display: inline-block; padding: 0.8rem 2.5rem; border-radius: 30px; font-size: 1.6rem; font-weight: bold; border: 4px solid #3385ff; box-shadow: 0 4px 10px rgba(0,0,0,0.2); margin-bottom: 2rem; transition: all 0.3s; }
         .score-board span { color: #ffc107; }
 
-        .jeopardy-board { width: 100%; max-width: 1000px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; background: #001a33; padding: 8px; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
+        .jeopardy-board { width: 100%; max-width: 1000px; display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; background: #001a33; padding: 8px; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
         .category-header { background: #004080; color: #fff; text-align: center; font-weight: bold; padding: 1rem 0.5rem; font-size: 1.1rem; border-radius: 6px; border-bottom: 4px solid #3385ff; display: flex; align-items: center; justify-content: center; min-height: 80px; text-transform: uppercase; }
         .point-btn { background: #3385ff; color: #fff; font-size: 1.6rem; font-weight: bold; border: none; padding: 1.5rem 0; border-radius: 6px; cursor: pointer; transition: all 0.2s; text-shadow: 1px 1px 2px rgba(0,0,0,0.5); box-shadow: inset 0 0 10px rgba(0,0,0,0.2); }
         .point-btn:hover:not(:disabled) { background: #1a75ff; transform: scale(0.96); }
@@ -103,7 +103,7 @@
         footer { text-align: center; padding: 1rem; background-color: #002b5e; color: #fff; margin-top: auto; }
     </style>
 </head>
-<body>
+<body data-certificate-grade="Grade 11" data-certificate-subject="Geography" data-certificate-term="Term 3" data-certificate-topic="Growth and Wellbeing" data-certificate-game="Growth and Wellbeing Jeopardy Game" data-certificate-layout="compact-subject">
 
     <nav>
         <a href="../../../../../../index.html" class="logo">May Learning Hub</a>
@@ -115,7 +115,7 @@
 
     <header class="game-header">
         <h1 class="game-title">Grade 11 Geography Jeopardy</h1>
-        <p class="game-subtitle">Explore how economic growth, inequality, public services and inclusive policies affect people.</p>
+        <p class="game-subtitle">Revise GDP growth, human development, inequality, public services, and inclusive development.</p>
         <p style="font-size: 0.78rem; color: #52606d; margin-top: 0.45rem;">Grade 11 Geography Term 3 revision</p>
     </header>
 
@@ -133,7 +133,7 @@
                 <button class="btn-edit" id="btnEditNames" onclick="showNameEditor()">Edit Names</button>
                 <button class="btn-reset" onclick="resetPlayerNames()">Reset</button>
             </div>
-            <p class="hint">80 unique clues drawn from the Grade 11 Term 3 Development presentation! </p>
+            <p class="hint">40 paper-bound questions are shuffled each session. Every player receives 10 different questions.</p>
         </div>
     </section>
 
@@ -168,10 +168,10 @@
     <div class="modal" id="questionModal">
         <div class="modal-content">
             <div class="modal-category" id="modalCategory">Category</div>
-            <div class="modal-question" id="modalQuestion">Clue</div>
-            <button class="btn-reveal" id="btnReveal" onclick="revealAnswer()">Reveal Correct Question</button>
+            <div class="modal-question" id="modalQuestion">Question</div>
+            <button class="btn-reveal" id="btnReveal" onclick="revealAnswer()">Reveal Answer</button>
             <div class="modal-answer-area" id="answerArea">
-                <div class="modal-answer" id="modalAnswer">Correct Question</div>
+                <div class="modal-answer" id="modalAnswer">Answer</div>
                 <div class="judgement-area" id="judgementArea">
                     <p>Did <strong id="activePlayerName">Player</strong> get it right?</p>
                     <div class="judgement-buttons">
@@ -190,6 +190,9 @@
     <footer><p>&copy; 2026 May Learning Hub. All rights reserved.</p></footer>
 
         <script src="../../../../../../game-audio.js"></script>
+        <script src="../../../../../../may-certificate-renderer.js"></script>
+        <script src="../../../../../../may-certificate-actions.js"></script>
+        <script src="../../../../../../assessment-certificate.js"></script>
 <script>
         const questionBank = [
     {
@@ -293,206 +296,6 @@
         "a": "GDP divided by population to estimate average economic output per person."
     },
     {
-        "category": "Identify",
-        "q": "An increase in the value of goods and services produced by an economy over time. Name the correct geographical term.",
-        "a": "GDP Growth"
-    },
-    {
-        "category": "Identify",
-        "q": "The expansion of people's choices, capabilities and well-being. Name the correct geographical term.",
-        "a": "Human Development"
-    },
-    {
-        "category": "Identify",
-        "q": "An uneven distribution of income among individuals or groups. Name the correct geographical term.",
-        "a": "Income Inequality"
-    },
-    {
-        "category": "Identify",
-        "q": "A situation in which the benefits of economic growth reach some groups more than others. Name the correct geographical term.",
-        "a": "Unequal Distribution"
-    },
-    {
-        "category": "Identify",
-        "q": "Economic growth that creates opportunities and benefits across broad sections of society. Name the correct geographical term.",
-        "a": "Inclusive Growth"
-    },
-    {
-        "category": "Identify",
-        "q": "A tax system in which higher earners pay a larger proportion of their income. Name the correct geographical term.",
-        "a": "Progressive Taxation"
-    },
-    {
-        "category": "Identify",
-        "q": "Government-supported services such as education, healthcare, water and sanitation. Name the correct geographical term.",
-        "a": "Public Services"
-    },
-    {
-        "category": "Identify",
-        "q": "Basic systems and facilities that support society and economic activity. Name the correct geographical term.",
-        "a": "Infrastructure"
-    },
-    {
-        "category": "Identify",
-        "q": "Spending that develops knowledge, skills and future opportunities. Name the correct geographical term.",
-        "a": "Education Investment"
-    },
-    {
-        "category": "Identify",
-        "q": "Spending that improves access to treatment and population health. Name the correct geographical term.",
-        "a": "Healthcare Investment"
-    },
-    {
-        "category": "Identify",
-        "q": "Paid work that provides income and can improve people's economic security. Name the correct geographical term.",
-        "a": "Employment"
-    },
-    {
-        "category": "Identify",
-        "q": "The level of material comfort and access to necessary goods and services. Name the correct geographical term.",
-        "a": "Standard of Living"
-    },
-    {
-        "category": "Identify",
-        "q": "A condition in which people lack sufficient resources to meet basic needs. Name the correct geographical term.",
-        "a": "Poverty"
-    },
-    {
-        "category": "Identify",
-        "q": "The transfer of income or resources to reduce economic inequality. Name the correct geographical term.",
-        "a": "Redistribution"
-    },
-    {
-        "category": "Identify",
-        "q": "Government financial support provided to eligible people or households. Name the correct geographical term.",
-        "a": "Social Grant"
-    },
-    {
-        "category": "Identify",
-        "q": "Money collected by government through taxation to fund public activities. Name the correct geographical term.",
-        "a": "Tax Revenue"
-    },
-    {
-        "category": "Identify",
-        "q": "The total goods and services produced by an economy. Name the correct geographical term.",
-        "a": "Economic Output"
-    },
-    {
-        "category": "Identify",
-        "q": "Overall well-being measured through economic, social and environmental conditions. Name the correct geographical term.",
-        "a": "Quality of Life"
-    },
-    {
-        "category": "Identify",
-        "q": "A measure combining health, education and standard of living. Name the correct geographical term.",
-        "a": "Human Development Index"
-    },
-    {
-        "category": "Identify",
-        "q": "GDP divided by population to estimate average economic output per person. Name the correct geographical term.",
-        "a": "GDP Per Capita"
-    },
-    {
-        "category": "Choose",
-        "q": "GDP growth means... Options: A) An increase in a country's economic output over time | B) A fall in population | C) Equal income for all | D) More imports than exports",
-        "a": "A) An increase in a country's economic output over time"
-    },
-    {
-        "category": "Choose",
-        "q": "One reason GDP growth matters is that it can... Options: A) Remove all inequality automatically | B) Create jobs and tax revenue | C) End resource use | D) Guarantee equal wealth",
-        "a": "B) Create jobs and tax revenue"
-    },
-    {
-        "category": "Choose",
-        "q": "Which statement best links GDP growth and human development? Options: A) They are identical | B) Growth can help, but benefits must reach people | C) Growth always reduces health | D) Human development ignores income",
-        "a": "B) Growth can help, but benefits must reach people"
-    },
-    {
-        "category": "Choose",
-        "q": "When GDP growth benefits only a small wealthy group instead of the wider population, the main negative human-development impact is... Options: A) Wealth concentration and inequality | B) Falling trade | C) Too much rainfall | D) Lower exports",
-        "a": "A) Wealth concentration and inequality"
-    },
-    {
-        "category": "Choose",
-        "q": "Why may growth fail to improve life for everyone? Options: A) Benefits are unequally distributed | B) GDP includes no money | C) All jobs disappear | D) Public services always improve",
-        "a": "A) Benefits are unequally distributed"
-    },
-    {
-        "category": "Choose",
-        "q": "Which strategy most directly strengthens human development? Options: A) Cutting access to schools | B) Investing in education and healthcare | C) Raising inequality | D) Ignoring public services",
-        "a": "B) Investing in education and healthcare"
-    },
-    {
-        "category": "Choose",
-        "q": "Progressive taxation can support human development by... Options: A) Redistributing revenue toward public services | B) Ending all production | C) Banning exports | D) Reducing literacy",
-        "a": "A) Redistributing revenue toward public services"
-    },
-    {
-        "category": "Choose",
-        "q": "Inclusive economic policy aims to... Options: A) Concentrate gains | B) Share opportunities and benefits widely | C) Measure only GDP | D) Replace healthcare with trade",
-        "a": "B) Share opportunities and benefits widely"
-    },
-    {
-        "category": "Choose",
-        "q": "Which is a social rather than purely economic indicator? Options: A) Life expectancy | B) Total export value | C) Tariff revenue | D) Factory output",
-        "a": "A) Life expectancy"
-    },
-    {
-        "category": "Choose",
-        "q": "Human development is best understood as... Options: A) Expanding people's choices and well-being | B) Growing GDP only | C) Increasing tariffs | D) Increasing imports",
-        "a": "A) Expanding people's choices and well-being"
-    },
-    {
-        "category": "Choose",
-        "q": "If GDP rises while poverty remains widespread, the most likely concern is... Options: A) Unequal distribution | B) Perfect inclusion | C) No production | D) Excess literacy",
-        "a": "A) Unequal distribution"
-    },
-    {
-        "category": "Choose",
-        "q": "Which policy can connect growth to broad well-being? Options: A) Accessible public services | B) Regressive exclusion | C) Unmonitored corruption | D) Reduced schooling",
-        "a": "A) Accessible public services"
-    },
-    {
-        "category": "Apply",
-        "q": "Define GDP growth.",
-        "a": "An increase in a country's economic output/GDP over time"
-    },
-    {
-        "category": "Apply",
-        "q": "Name one dimension of human development besides income.",
-        "a": "Health or education"
-    },
-    {
-        "category": "Apply",
-        "q": "What problem exists when growth benefits only a small elite?",
-        "a": "Inequality / unequal distribution"
-    },
-    {
-        "category": "Apply",
-        "q": "Name one public service in which governments can invest.",
-        "a": "Education or healthcare"
-    },
-    {
-        "category": "Apply",
-        "q": "Why can more jobs improve human development?",
-        "a": "They can raise incomes, security and choices"
-    },
-    {
-        "category": "Apply",
-        "q": "State one source of government revenue that may rise with economic growth.",
-        "a": "Tax revenue"
-    },
-    {
-        "category": "Apply",
-        "q": "What composite index measures health, education and living standards?",
-        "a": "HDI"
-    },
-    {
-        "category": "Apply",
-        "q": "Why is average GDP per person not proof that everyone is prosperous?",
-        "a": "An average hides unequal distribution"
-    },
-    {
         "category": "Apply",
         "q": "What tax system asks higher earners to pay a larger proportion?",
         "a": "Progressive taxation"
@@ -554,42 +357,42 @@
     },
     {
         "category": "Decide",
-        "q": "Decide whether this statement is true or false: GDP growth — Increase in economic output.",
+        "q": "Decide whether this statement is true or false: GDP growth: Increase in economic output.",
         "a": "True. GDP growth means: Increase in economic output"
     },
     {
         "category": "Decide",
-        "q": "Decide whether this statement is true or false: Human development — Growth benefits a small group.",
+        "q": "Decide whether this statement is true or false: Human development: Growth benefits a small group.",
         "a": "False. Human development means: Expansion of choices and well-being"
     },
     {
         "category": "Decide",
-        "q": "Decide whether this statement is true or false: Unequal distribution — Growth benefits a small group.",
+        "q": "Decide whether this statement is true or false: Unequal distribution: Growth benefits a small group.",
         "a": "True. Unequal distribution means: Growth benefits a small group"
     },
     {
         "category": "Decide",
-        "q": "Decide whether this statement is true or false: Education investment — Improves health outcomes.",
+        "q": "Decide whether this statement is true or false: Education investment: Improves health outcomes.",
         "a": "False. Education investment means: Builds skills and capabilities"
     },
     {
         "category": "Decide",
-        "q": "Decide whether this statement is true or false: Healthcare investment — Improves health outcomes.",
+        "q": "Decide whether this statement is true or false: Healthcare investment: Improves health outcomes.",
         "a": "True. Healthcare investment means: Improves health outcomes"
     },
     {
         "category": "Decide",
-        "q": "Decide whether this statement is true or false: Progressive taxation — Benefits reach many social groups.",
+        "q": "Decide whether this statement is true or false: Progressive taxation: Benefits reach many social groups.",
         "a": "False. Progressive taxation means: Higher earners contribute a larger share"
     },
     {
         "category": "Decide",
-        "q": "Decide whether this statement is true or false: Inclusive policy — Benefits reach many social groups.",
+        "q": "Decide whether this statement is true or false: Inclusive policy: Benefits reach many social groups.",
         "a": "True. Inclusive policy means: Benefits reach many social groups"
     },
     {
         "category": "Decide",
-        "q": "Decide whether this statement is true or false: Public infrastructure — Increase in economic output.",
+        "q": "Decide whether this statement is true or false: Public infrastructure: Increase in economic output.",
         "a": "False. Public infrastructure means: Supports services and economic activity"
     }
 ];
@@ -604,9 +407,9 @@
         }
 
         function dealJeopardyPlayerQuestions(items, playerIndex) {
-            const playerQuestions = items.slice(playerIndex * 20, playerIndex * 20 + 20);
-            return Array.from({ length: 4 }, (_, categoryIndex) => ({
-                name: ["Round One", "Round Two", "Round Three", "Round Four"][categoryIndex],
+            const playerQuestions = items.slice(playerIndex * 10, playerIndex * 10 + 10);
+            return Array.from({ length: 2 }, (_, categoryIndex) => ({
+                name: ["Round One", "Round Two"][categoryIndex],
                 questions: playerQuestions.slice(categoryIndex * 5, categoryIndex * 5 + 5).map((item, questionIndex) => ({
                     points: (questionIndex + 1) * 10,
                     q: item.q,
@@ -627,6 +430,11 @@
         let activePointValue = 0;
         let activeTileButton = null;
         let playerNames = ["Player 1", "Player 2", "Player 3", "Player 4"];
+        let answeredTiles = 0;
+        let participationShown = false;
+        const totalJeopardyTiles = gameData.reduce((playerTotal, playerCategories) => {
+            return playerTotal + playerCategories.reduce((categoryTotal, category) => categoryTotal + category.questions.length, 0);
+        }, 0);
 
         const carouselTrack = document.getElementById('carouselTrack');
         const modal = document.getElementById('questionModal');
@@ -738,7 +546,27 @@
         }
 
         function updateScore(i) { document.getElementById(`score-${i}`).innerText = scores[i]; }
-        function closeModal() { activeTileButton.innerText = ""; activeTileButton.disabled = true; modal.style.display = 'none'; }
+        function closeModal() {
+            if (!activeTileButton) {
+                modal.style.display = 'none';
+                return;
+            }
+            activeTileButton.innerText = "";
+            activeTileButton.disabled = true;
+            activeTileButton = null;
+            modal.style.display = 'none';
+            answeredTiles++;
+            if (answeredTiles === totalJeopardyTiles && !participationShown) {
+                participationShown = true;
+                setTimeout(() => {
+                    MayHubCertificates.showParticipation({
+                        gameTitle: 'Growth and Wellbeing Jeopardy Game',
+                        category: 'Round One and Round Two',
+                        onReplay: () => window.location.reload()
+                    });
+                }, 650);
+            }
+        }
         
         buildBoards();
 

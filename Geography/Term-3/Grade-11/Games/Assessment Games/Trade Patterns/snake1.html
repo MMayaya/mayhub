@@ -13,7 +13,7 @@
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>May Learning Hub | Smart Snake - Trade Patterns</title>
+    <title>May Learning Hub | Grade 11 Geography Smart Snake - Trade Patterns</title>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f0f4f8; color: #333; line-height: 1.6; display: flex; flex-direction: column; min-height: 100vh; touch-action: manipulation; }
@@ -78,7 +78,7 @@
         footer { text-align: center; padding: 1rem; background-color: #002b5e; color: #fff; margin-top: auto; }
     </style>
 </head>
-<body>
+<body data-certificate-grade="Grade 11" data-certificate-subject="Geography" data-certificate-term="Term 3" data-certificate-topic="Trade Patterns" data-certificate-game="Trade Patterns Snake Challenge" data-certificate-layout="compact-subject">
 
     <nav>
         <a href="../../../../../../index.html" class="logo">May Learning Hub</a>
@@ -89,17 +89,17 @@
     </nav>
 
     <header class="game-header">
-        <h1 class="game-title">Smart Snake: Trade Patterns</h1>
-        <p class="game-subtitle">Revise trade data, trading partners, trade balances, exports, imports, quotas and free trade.</p>
+        <h1 class="game-title">Grade 11 Geography Smart Snake: Trade Patterns</h1>
+        <p class="game-subtitle">Revise exports, imports, trade balances, export-led development, and trade barriers.</p>
         <p style="font-size: 0.78rem; color: #52606d; margin-top: 0.45rem;">Grade 11 Geography Term 3 revision</p>
     </header>
 
     <div class="category-selection" id="categorySelection">
         <div class="cat-buttons">
-            <button class="cat-btn" onclick="startGame('game1')">Development Concepts</button>
-            <button class="cat-btn" onclick="startGame('game2')">Countries & Aspects</button>
-            <button class="cat-btn" onclick="startGame('game3')">Development Indicators</button>
-            <button class="cat-btn" onclick="startGame('game4')">Environmental Indicators</button>
+            <button class="cat-btn" onclick="startGame('game1')">Term Identification</button>
+            <button class="cat-btn" onclick="startGame('game2')">Meaning Match</button>
+            <button class="cat-btn" onclick="startGame('game3')">Multiple Choice</button>
+            <button class="cat-btn" onclick="startGame('game4')">True or False</button>
         </div>
     </div>
 
@@ -146,18 +146,21 @@
     </footer>
 
         <script src="../../../../../../game-audio.js"></script>
+        <script src="../../../../../../may-certificate-renderer.js"></script>
+        <script src="../../../../../../may-certificate-actions.js"></script>
+        <script src="../../../../../../assessment-certificate.js"></script>
 <script>
         const questionDB = {
     "game1": [
         {
             "q": "South Africa exported R88.68 billion and imported R101.76 billion. Which total was greater?",
             "options": [
-                "Exports",
                 "Imports",
+                "Exports",
                 "They were equal",
                 "Neither was recorded"
             ],
-            "a": 1
+            "a": 0
         },
         {
             "q": "South Africa exported R88.68 billion and imported R101.76 billion. Its overall trade balance was...",
@@ -172,94 +175,94 @@
         {
             "q": "South Africa sent 8.1% of its exports to the USA and received 5.7% of its imports from the USA. Its trade balance with the USA was...",
             "options": [
-                "Positive",
                 "Negative",
                 "Zero",
+                "Positive",
                 "Cannot be determined"
             ],
-            "a": 0
+            "a": 2
         },
         {
             "q": "Germany received 6.2% of South Africa's exports. What was Germany's export share?",
             "options": [
                 "9.2%",
-                "6.2%",
                 "8.1%",
-                "4.8%"
+                "4.8%",
+                "6.2%"
             ],
-            "a": 1
+            "a": 3
         },
         {
             "q": "Germany received 6.2% of South Africa's exports but supplied 9.2% of its imports. South Africa's trade with Germany showed a...",
             "options": [
-                "Surplus",
                 "Deficit",
+                "Surplus",
                 "Perfect balance",
                 "Quota"
             ],
-            "a": 1
+            "a": 0
         },
         {
             "q": "The relationship between export value and import value is called the...",
             "options": [
-                "Balance of trade",
                 "Balance of payments",
+                "Balance of trade",
                 "Exchange rate",
                 "Trade quota"
             ],
-            "a": 0
+            "a": 1
         },
         {
             "q": "China's rapid economic development is commonly linked to which approach?",
             "options": [
                 "Import-led",
-                "Export-led",
                 "Aid-led",
+                "Export-led",
                 "Subsistence-led"
             ],
-            "a": 1
+            "a": 2
         },
         {
             "q": "A government limit on the quantity of a product imported is a...",
             "options": [
                 "Subsidy",
                 "Tariff",
-                "Quota",
-                "Grant"
+                "Grant",
+                "Quota"
             ],
-            "a": 2
+            "a": 3
         },
         {
             "q": "Trade without tariffs and quotas is known as...",
             "options": [
-                "Fair trade",
                 "Free trade",
+                "Fair trade",
                 "Bilateral aid",
                 "Protectionism"
             ],
-            "a": 1
+            "a": 0
         },
         {
-            "q": "China received 14.1% of South Africa's exports, compared with 8.1% for the USA and 6.2% for Germany. Which was the largest export market?",
+            "q": "China received 11.1% of South Africa's exports, compared with 8.1% for the USA and 6.2% for Germany. Which was the largest export market?",
             "options": [
                 "Germany",
-                "USA",
                 "China",
+                "USA",
                 "Japan"
             ],
-            "a": 2
+            "a": 1
         }
     ],
     "game2": [
         {
             "q": "Quick recall: South Africa exported R88.68 billion and imported R101.76 billion. Which total was greater?",
             "options": [
-                "Exports",
                 "Imports",
+                "Exports",
                 "They were equal",
                 "Neither was recorded"
             ],
-            "a": 1
+            "a": 0
         },
         {
             "q": "Quick recall: South Africa exported R88.68 billion and imported R101.76 billion. Its overall trade balance was...",
@@ -274,137 +277,87 @@
         {
             "q": "Quick recall: South Africa sent 8.1% of its exports to the USA and received 5.7% of its imports from the USA. Its trade balance with the USA was...",
             "options": [
-                "Positive",
                 "Negative",
                 "Zero",
+                "Positive",
                 "Cannot be determined"
             ],
-            "a": 0
+            "a": 2
         },
         {
             "q": "Quick recall: Germany received 6.2% of South Africa's exports. What was Germany's export share?",
             "options": [
                 "9.2%",
-                "6.2%",
                 "8.1%",
-                "4.8%"
+                "4.8%",
+                "6.2%"
             ],
-            "a": 1
+            "a": 3
         },
         {
             "q": "Quick recall: Germany received 6.2% of South Africa's exports but supplied 9.2% of its imports. South Africa's trade with Germany showed a...",
             "options": [
-                "Surplus",
                 "Deficit",
+                "Surplus",
                 "Perfect balance",
                 "Quota"
             ],
-            "a": 1
+            "a": 0
         },
         {
             "q": "Quick recall: The relationship between export value and import value is called the...",
             "options": [
-                "Balance of trade",
                 "Balance of payments",
+                "Balance of trade",
                 "Exchange rate",
                 "Trade quota"
             ],
-            "a": 0
+            "a": 1
         },
         {
             "q": "Quick recall: China's rapid economic development is commonly linked to which approach?",
             "options": [
                 "Import-led",
-                "Export-led",
                 "Aid-led",
+                "Export-led",
                 "Subsistence-led"
             ],
-            "a": 1
+            "a": 2
         },
         {
             "q": "Quick recall: A government limit on the quantity of a product imported is a...",
             "options": [
                 "Subsidy",
                 "Tariff",
-                "Quota",
-                "Grant"
+                "Grant",
+                "Quota"
             ],
-            "a": 2
+            "a": 3
         },
         {
             "q": "Quick recall: Trade without tariffs and quotas is known as...",
             "options": [
-                "Fair trade",
                 "Free trade",
+                "Fair trade",
                 "Bilateral aid",
                 "Protectionism"
             ],
-            "a": 1
+            "a": 0
         },
         {
-            "q": "Quick recall: China received 14.1% of South Africa's exports, compared with 8.1% for the USA and 6.2% for Germany. Which was the largest export market?",
+            "q": "Quick recall: China received 11.1% of South Africa's exports, compared with 8.1% for the USA and 6.2% for Germany. Which was the largest export market?",
             "options": [
                 "Germany",
-                "USA",
                 "China",
+                "USA",
                 "Japan"
             ],
-            "a": 2
+            "a": 1
         }
     ],
     "game3": [
         {
-            "q": "Apply your knowledge: South Africa exported R88.68 billion and imported R101.76 billion. Which total was greater?",
-            "options": [
-                "Exports",
-                "Imports",
-                "They were equal",
-                "Neither was recorded"
-            ],
-            "a": 1
-        },
-        {
-            "q": "Apply your knowledge: South Africa exported R88.68 billion and imported R101.76 billion. Its overall trade balance was...",
-            "options": [
-                "Positive",
-                "Negative",
-                "Zero",
-                "Impossible to calculate"
-            ],
-            "a": 1
-        },
-        {
-            "q": "Apply your knowledge: South Africa sent 8.1% of its exports to the USA and received 5.7% of its imports from the USA. Its trade balance with the USA was...",
-            "options": [
-                "Positive",
-                "Negative",
-                "Zero",
-                "Cannot be determined"
-            ],
-            "a": 0
-        },
-        {
-            "q": "Apply your knowledge: Germany received 6.2% of South Africa's exports. What was Germany's export share?",
-            "options": [
-                "9.2%",
-                "6.2%",
-                "8.1%",
-                "4.8%"
-            ],
-            "a": 1
-        },
-        {
-            "q": "Apply your knowledge: Germany received 6.2% of South Africa's exports but supplied 9.2% of its imports. South Africa's trade with Germany showed a...",
-            "options": [
-                "Surplus",
-                "Deficit",
-                "Perfect balance",
-                "Quota"
-            ],
-            "a": 1
-        },
-        {
-            "q": "Apply your knowledge: The relationship between export value and import value is called the...",
+            "q": "Complete the rule: exports minus imports gives the...",
             "options": [
                 "Balance of trade",
                 "Balance of payments",
@@ -414,146 +367,176 @@
             "a": 0
         },
         {
-            "q": "Apply your knowledge: China's rapid economic development is commonly linked to which approach?",
+            "q": "What barrier raises the price of an imported product through a tax?",
             "options": [
-                "Import-led",
-                "Export-led",
-                "Aid-led",
-                "Subsistence-led"
+                "Balance of trade",
+                "A tariff",
+                "India",
+                "A balanced trade position / zero balance"
             ],
             "a": 1
         },
         {
-            "q": "Apply your knowledge: A government limit on the quantity of a product imported is a...",
+            "q": "Why can exports stimulate economic growth?",
             "options": [
-                "Subsidy",
-                "Tariff",
-                "Quota",
-                "Grant"
+                "To protect local producers or conserve foreign currency",
+                "Balance of trade",
+                "They earn foreign currency and support production/employment",
+                "A tariff"
             ],
             "a": 2
         },
         {
-            "q": "Apply your knowledge: Trade without tariffs and quotas is known as...",
+            "q": "South Africa sent 8.1% of its exports to the USA. What was the USA's export share?",
             "options": [
-                "Fair trade",
-                "Free trade",
-                "Bilateral aid",
-                "Protectionism"
+                "23.1%",
+                "Balance of trade",
+                "A tariff",
+                "8.1%"
+            ],
+            "a": 3
+        },
+        {
+            "q": "India supplied 4.2% of South Africa's imports and Saudi Arabia supplied 3.4%. Which supplied more?",
+            "options": [
+                "India",
+                "Balance of trade",
+                "A tariff",
+                "A balanced trade position / zero balance"
+            ],
+            "a": 0
+        },
+        {
+            "q": "What balance exists when export and import values are equal?",
+            "options": [
+                "Balance of trade",
+                "A balanced trade position / zero balance",
+                "A tariff",
+                "India"
             ],
             "a": 1
         },
         {
-            "q": "Apply your knowledge: China received 14.1% of South Africa's exports, compared with 8.1% for the USA and 6.2% for Germany. Which was the largest export market?",
+            "q": "What broad policy uses tariffs and quotas to shield local firms?",
             "options": [
-                "Germany",
-                "USA",
-                "China",
-                "Japan"
+                "Balance of trade",
+                "A tariff",
+                "Protectionism",
+                "India"
             ],
             "a": 2
+        },
+        {
+            "q": "China supplied 23.1% of South Africa's imports. What was China's import share?",
+            "options": [
+                "8.1%",
+                "Balance of trade",
+                "A tariff",
+                "23.1%"
+            ],
+            "a": 3
+        },
+        {
+            "q": "Does a 6.2% export share and 9.2% import share with Germany suggest surplus or deficit?",
+            "options": [
+                "Deficit",
+                "Surplus",
+                "Perfect balance",
+                "Quota"
+            ],
+            "a": 0
+        },
+        {
+            "q": "Why might a country place a quota on imports?",
+            "options": [
+                "They earn foreign currency and support production/employment",
+                "To protect local producers or conserve foreign currency",
+                "Balance of trade",
+                "A tariff"
+            ],
+            "a": 1
         }
     ],
     "game4": [
         {
-            "q": "Challenge: South Africa exported R88.68 billion and imported R101.76 billion. Which total was greater?",
+            "q": "Balance of Trade: The difference between the value of a country's exports and imports.",
             "options": [
-                "Exports",
-                "Imports",
-                "They were equal",
-                "Neither was recorded"
-            ],
-            "a": 1
-        },
-        {
-            "q": "Challenge: South Africa exported R88.68 billion and imported R101.76 billion. Its overall trade balance was...",
-            "options": [
-                "Positive",
-                "Negative",
-                "Zero",
-                "Impossible to calculate"
-            ],
-            "a": 1
-        },
-        {
-            "q": "Challenge: South Africa sent 8.1% of its exports to the USA and received 5.7% of its imports from the USA. Its trade balance with the USA was...",
-            "options": [
-                "Positive",
-                "Negative",
-                "Zero",
-                "Cannot be determined"
+                "True",
+                "False"
             ],
             "a": 0
         },
         {
-            "q": "Challenge: Germany received 6.2% of South Africa's exports. What was Germany's export share?",
+            "q": "Trade Surplus: A negative trade balance in which import value is greater than export value.",
             "options": [
-                "9.2%",
-                "6.2%",
-                "8.1%",
-                "4.8%"
+                "True",
+                "False"
             ],
             "a": 1
         },
         {
-            "q": "Challenge: Germany received 6.2% of South Africa's exports but supplied 9.2% of its imports. South Africa's trade with Germany showed a...",
+            "q": "Trade Deficit: A negative trade balance in which import value is greater than export value.",
             "options": [
-                "Surplus",
-                "Deficit",
-                "Perfect balance",
-                "Quota"
-            ],
-            "a": 1
-        },
-        {
-            "q": "Challenge: The relationship between export value and import value is called the...",
-            "options": [
-                "Balance of trade",
-                "Balance of payments",
-                "Exchange rate",
-                "Trade quota"
+                "True",
+                "False"
             ],
             "a": 0
         },
         {
-            "q": "Challenge: China's rapid economic development is commonly linked to which approach?",
+            "q": "Tariff: A limit on the quantity of a product that may be imported.",
             "options": [
-                "Import-led",
-                "Export-led",
-                "Aid-led",
-                "Subsistence-led"
+                "True",
+                "False"
             ],
             "a": 1
         },
         {
-            "q": "Challenge: A government limit on the quantity of a product imported is a...",
+            "q": "Quota: A limit on the quantity of a product that may be imported.",
             "options": [
-                "Subsidy",
-                "Tariff",
-                "Quota",
-                "Grant"
+                "True",
+                "False"
             ],
-            "a": 2
+            "a": 0
         },
         {
-            "q": "Challenge: Trade without tariffs and quotas is known as...",
+            "q": "Free Trade: Goods and services sold to buyers in other countries.",
             "options": [
-                "Fair trade",
-                "Free trade",
-                "Bilateral aid",
-                "Protectionism"
+                "True",
+                "False"
             ],
             "a": 1
         },
         {
-            "q": "Challenge: China received 14.1% of South Africa's exports, compared with 8.1% for the USA and 6.2% for Germany. Which was the largest export market?",
+            "q": "Exports: Goods and services sold to buyers in other countries.",
             "options": [
-                "Germany",
-                "USA",
-                "China",
-                "Japan"
+                "True",
+                "False"
             ],
-            "a": 2
+            "a": 0
+        },
+        {
+            "q": "Imports: Economic growth driven by producing goods and services for foreign markets.",
+            "options": [
+                "True",
+                "False"
+            ],
+            "a": 1
+        },
+        {
+            "q": "Export-Led Development: Economic growth driven by producing goods and services for foreign markets.",
+            "options": [
+                "True",
+                "False"
+            ],
+            "a": 0
+        },
+        {
+            "q": "Balance of Payments: The difference between the value of a country's exports and imports.",
+            "options": [
+                "True",
+                "False"
+            ],
+            "a": 1
         }
     ]
 };
@@ -576,11 +559,25 @@
         let isGoldenAppleActive = false;
         let activeQuestionValue = 1; 
         let isPausedPendingInput = true;
+        let currentCategoryKey = null;
+        let correctAnswers = 0;
+        let totalQuestionsForGame = 10;
+        let certificateShown = false;
+        const snakeCategoryTitles = {
+            game1: 'Term Identification',
+            game2: 'Meaning Match',
+            game3: 'Multiple Choice',
+            game4: 'True or False'
+        };
 
         function startGame(categoryKey) {
             document.getElementById('categorySelection').style.display = 'none';
             document.getElementById('gameArea').style.display = 'flex';
+            currentCategoryKey = categoryKey;
             currentTopic = [...questionDB[categoryKey]];
+            correctAnswers = 0;
+            totalQuestionsForGame = currentTopic.length;
+            certificateShown = false;
             snake = [{x: 15, y: 10}, {x: 15, y: 11}, {x: 15, y: 12}];
             dx = 0; dy = -1; score = 0; applesEaten = 0;
             updateScoreboard();
@@ -742,6 +739,7 @@
             if (selectedIndex === currentQuestionObj.a) {
                 MayHubSounds.playCorrect();
                 clickedBtn.classList.add('correct');
+                correctAnswers++;
                 score += activeQuestionValue;
                 updateScoreboard();
                 snake.push({ ...snake[snake.length - 1] }); 
@@ -784,7 +782,19 @@
             } else {
                 title.innerText = "Game Over!";
                 title.style.color = "#dc3545";
-                msg.innerText = "Development is a journey. Try again and strengthen your understanding of its concepts and indicators!";
+                msg.innerText = "History takes practice. Try again and strengthen your understanding of this topic!";
+            }
+            if (!certificateShown) {
+                certificateShown = true;
+                setTimeout(() => {
+                    MayHubCertificates.showScored({
+                        gameTitle: 'Trade Patterns Snake Challenge',
+                        category: snakeCategoryTitles[currentCategoryKey] || 'Assessment Game',
+                        correct: correctAnswers,
+                        total: totalQuestionsForGame,
+                        onReplay: () => window.location.reload()
+                    });
+                }, 600);
             }
         }
     </script>

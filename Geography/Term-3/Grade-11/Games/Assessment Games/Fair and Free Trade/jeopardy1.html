@@ -72,7 +72,7 @@
         .score-board { background: #002b5e; color: #fff; display: inline-block; padding: 0.8rem 2.5rem; border-radius: 30px; font-size: 1.6rem; font-weight: bold; border: 4px solid #3385ff; box-shadow: 0 4px 10px rgba(0,0,0,0.2); margin-bottom: 2rem; transition: all 0.3s; }
         .score-board span { color: #ffc107; }
 
-        .jeopardy-board { width: 100%; max-width: 1000px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; background: #001a33; padding: 8px; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
+        .jeopardy-board { width: 100%; max-width: 1000px; display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; background: #001a33; padding: 8px; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
         .category-header { background: #004080; color: #fff; text-align: center; font-weight: bold; padding: 1rem 0.5rem; font-size: 1.1rem; border-radius: 6px; border-bottom: 4px solid #3385ff; display: flex; align-items: center; justify-content: center; min-height: 80px; text-transform: uppercase; }
         .point-btn { background: #3385ff; color: #fff; font-size: 1.6rem; font-weight: bold; border: none; padding: 1.5rem 0; border-radius: 6px; cursor: pointer; transition: all 0.2s; text-shadow: 1px 1px 2px rgba(0,0,0,0.5); box-shadow: inset 0 0 10px rgba(0,0,0,0.2); }
         .point-btn:hover:not(:disabled) { background: #1a75ff; transform: scale(0.96); }
@@ -103,7 +103,7 @@
         footer { text-align: center; padding: 1rem; background-color: #002b5e; color: #fff; margin-top: auto; }
     </style>
 </head>
-<body>
+<body data-certificate-grade="Grade 11" data-certificate-subject="Geography" data-certificate-term="Term 3" data-certificate-topic="Fair and Free Trade" data-certificate-game="Fair and Free Trade Jeopardy Game" data-certificate-layout="compact-subject">
 
     <nav>
         <a href="../../../../../../index.html" class="logo">May Learning Hub</a>
@@ -115,7 +115,7 @@
 
     <header class="game-header">
         <h1 class="game-title">Grade 11 Geography Jeopardy</h1>
-        <p class="game-subtitle">Compare trading relationships and evaluate tariffs, quotas, market access, benefits and risks.</p>
+        <p class="game-subtitle">Revise tariffs, quotas, free and fair trade, unequal bargaining power, and impacts on LEDCs.</p>
         <p style="font-size: 0.78rem; color: #52606d; margin-top: 0.45rem;">Grade 11 Geography Term 3 revision</p>
     </header>
 
@@ -133,7 +133,7 @@
                 <button class="btn-edit" id="btnEditNames" onclick="showNameEditor()">Edit Names</button>
                 <button class="btn-reset" onclick="resetPlayerNames()">Reset</button>
             </div>
-            <p class="hint">80 unique clues drawn from the Grade 11 Term 3 Development presentation! </p>
+            <p class="hint">40 paper-bound questions are shuffled each session. Every player receives 10 different questions.</p>
         </div>
     </section>
 
@@ -168,10 +168,10 @@
     <div class="modal" id="questionModal">
         <div class="modal-content">
             <div class="modal-category" id="modalCategory">Category</div>
-            <div class="modal-question" id="modalQuestion">Clue</div>
-            <button class="btn-reveal" id="btnReveal" onclick="revealAnswer()">Reveal Correct Question</button>
+            <div class="modal-question" id="modalQuestion">Question</div>
+            <button class="btn-reveal" id="btnReveal" onclick="revealAnswer()">Reveal Answer</button>
             <div class="modal-answer-area" id="answerArea">
-                <div class="modal-answer" id="modalAnswer">Correct Question</div>
+                <div class="modal-answer" id="modalAnswer">Answer</div>
                 <div class="judgement-area" id="judgementArea">
                     <p>Did <strong id="activePlayerName">Player</strong> get it right?</p>
                     <div class="judgement-buttons">
@@ -190,6 +190,9 @@
     <footer><p>&copy; 2026 May Learning Hub. All rights reserved.</p></footer>
 
         <script src="../../../../../../game-audio.js"></script>
+        <script src="../../../../../../may-certificate-renderer.js"></script>
+        <script src="../../../../../../may-certificate-actions.js"></script>
+        <script src="../../../../../../assessment-certificate.js"></script>
 <script>
         const questionBank = [
     {
@@ -293,206 +296,6 @@
         "a": "Reliance on another country or external market that creates vulnerability."
     },
     {
-        "category": "Identify",
-        "q": "A tax placed on imported goods. Name the correct geographical term.",
-        "a": "Tariff"
-    },
-    {
-        "category": "Identify",
-        "q": "A maximum quantity of a product that may be imported. Name the correct geographical term.",
-        "a": "Quota"
-    },
-    {
-        "category": "Identify",
-        "q": "Trade conducted with few or no government barriers. Name the correct geographical term.",
-        "a": "Free Trade"
-    },
-    {
-        "category": "Identify",
-        "q": "Trade based on equitable prices, working conditions and returns for producers. Name the correct geographical term.",
-        "a": "Fair Trade"
-    },
-    {
-        "category": "Identify",
-        "q": "Government action that shields domestic industries from foreign competition. Name the correct geographical term.",
-        "a": "Protectionism"
-    },
-    {
-        "category": "Identify",
-        "q": "A more economically developed country with relatively high income and industrialisation. Name the correct geographical term.",
-        "a": "MEDC"
-    },
-    {
-        "category": "Identify",
-        "q": "A less economically developed country with relatively lower income and industrialisation. Name the correct geographical term.",
-        "a": "LEDC"
-    },
-    {
-        "category": "Identify",
-        "q": "The opportunity to sell goods or services to buyers in a particular market. Name the correct geographical term.",
-        "a": "Market Access"
-    },
-    {
-        "category": "Identify",
-        "q": "Investment by a foreign person or company in a business located in another country. Name the correct geographical term.",
-        "a": "Foreign Direct Investment"
-    },
-    {
-        "category": "Identify",
-        "q": "A new domestic industry that is not yet strong enough to compete with established foreign firms. Name the correct geographical term.",
-        "a": "Infant Industry"
-    },
-    {
-        "category": "Identify",
-        "q": "A rule or policy that restricts international trade. Name the correct geographical term.",
-        "a": "Trade Barrier"
-    },
-    {
-        "category": "Identify",
-        "q": "The ability of one party to influence the terms of an agreement. Name the correct geographical term.",
-        "a": "Bargaining Power"
-    },
-    {
-        "category": "Identify",
-        "q": "Businesses producing goods or services within a country. Name the correct geographical term.",
-        "a": "Local Industry"
-    },
-    {
-        "category": "Identify",
-        "q": "A foreign market in which a country sells its goods and services. Name the correct geographical term.",
-        "a": "Export Market"
-    },
-    {
-        "category": "Identify",
-        "q": "Competition from businesses based in other countries. Name the correct geographical term.",
-        "a": "Foreign Competition"
-    },
-    {
-        "category": "Identify",
-        "q": "The reduction or removal of barriers to international trade. Name the correct geographical term.",
-        "a": "Trade Liberalisation"
-    },
-    {
-        "category": "Identify",
-        "q": "Government financial support that helps domestic producers reduce costs. Name the correct geographical term.",
-        "a": "Subsidy"
-    },
-    {
-        "category": "Identify",
-        "q": "The ability to produce a good at a lower opportunity cost than another producer. Name the correct geographical term.",
-        "a": "Comparative Advantage"
-    },
-    {
-        "category": "Identify",
-        "q": "The movement of technical knowledge, skills or equipment between countries or organisations. Name the correct geographical term.",
-        "a": "Technology Transfer"
-    },
-    {
-        "category": "Identify",
-        "q": "Reliance on another country or external market that creates vulnerability. Name the correct geographical term.",
-        "a": "Economic Dependency"
-    },
-    {
-        "category": "Choose",
-        "q": "Does a powerful country imposing restrictive terms represent genuine free trade? Options: A) Yes | B) No | C) Only when GDP falls | D) Only with aid",
-        "a": "B) No"
-    },
-    {
-        "category": "Choose",
-        "q": "In an unequal international trading relationship, the wealthier country with greater bargaining power usually represents... Options: A) LEDCs | B) MEDCs | C) Aid agencies | D) Local consumers only",
-        "a": "B) MEDCs"
-    },
-    {
-        "category": "Choose",
-        "q": "In an unequal international trading relationship, the countries with less bargaining power usually represent... Options: A) MEDCs | B) LEDCs | C) Banks only | D) Export quotas",
-        "a": "B) LEDCs"
-    },
-    {
-        "category": "Choose",
-        "q": "A tariff is... Options: A) A tax on imports | B) A limit on import quantity | C) A cash gift | D) An equality index",
-        "a": "A) A tax on imports"
-    },
-    {
-        "category": "Choose",
-        "q": "A quota is... Options: A) A tax on exports | B) A limit on the quantity imported | C) A health measure | D) A trade surplus",
-        "a": "B) A limit on the quantity imported"
-    },
-    {
-        "category": "Choose",
-        "q": "One advantage of free trade for LEDCs is... Options: A) Access to larger markets | B) Guaranteed equality | C) No competition | D) Automatic debt removal",
-        "a": "A) Access to larger markets"
-    },
-    {
-        "category": "Choose",
-        "q": "Free trade may attract... Options: A) Foreign investment | B) Lower literacy | C) Trade isolation | D) Import bans",
-        "a": "A) Foreign investment"
-    },
-    {
-        "category": "Choose",
-        "q": "One disadvantage of free trade for LEDCs is... Options: A) Local firms may be unable to compete | B) All exports stop | C) No products are available | D) Tariffs automatically rise",
-        "a": "A) Local firms may be unable to compete"
-    },
-    {
-        "category": "Choose",
-        "q": "Why do tariffs protect domestic producers? Options: A) They make imports relatively more expensive | B) They increase import quantity | C) They measure health | D) They remove borders",
-        "a": "A) They make imports relatively more expensive"
-    },
-    {
-        "category": "Choose",
-        "q": "Which policy is a non-tax trade barrier? Options: A) Quota | B) Tariff | C) Income tax | D) VAT",
-        "a": "A) Quota"
-    },
-    {
-        "category": "Choose",
-        "q": "Trade is fairer when... Options: A) Benefits and bargaining power are more equitable | B) One side sets every rule | C) Poor producers earn less | D) Markets are hidden",
-        "a": "A) Benefits and bargaining power are more equitable"
-    },
-    {
-        "category": "Choose",
-        "q": "Foreign firms entering an LEDC can bring... Options: A) Capital, skills and jobs | B) Guaranteed equality | C) No competition | D) Only quotas",
-        "a": "A) Capital, skills and jobs"
-    },
-    {
-        "category": "Apply",
-        "q": "In an unequal international trading relationship, which country group is usually the wealthier partner with greater bargaining power?",
-        "a": "MEDCs"
-    },
-    {
-        "category": "Apply",
-        "q": "Name the tax imposed on imported goods.",
-        "a": "Tariff"
-    },
-    {
-        "category": "Apply",
-        "q": "How can access to a larger market help an LEDC exporter?",
-        "a": "It can increase sales, output, jobs or income"
-    },
-    {
-        "category": "Apply",
-        "q": "What may happen to a small local firm facing a powerful foreign competitor?",
-        "a": "It may lose market share or close"
-    },
-    {
-        "category": "Apply",
-        "q": "Why is trade not truly free when one side dictates restrictive conditions?",
-        "a": "Because barriers and unequal bargaining power limit freedom"
-    },
-    {
-        "category": "Apply",
-        "q": "In an unequal international trading relationship, which country group usually has less bargaining power and is more vulnerable to unfavourable terms?",
-        "a": "LEDCs"
-    },
-    {
-        "category": "Apply",
-        "q": "Name the barrier that caps the number of units imported.",
-        "a": "Quota"
-    },
-    {
-        "category": "Apply",
-        "q": "What kind of overseas capital may free trade attract?",
-        "a": "Foreign direct investment"
-    },
-    {
         "category": "Apply",
         "q": "Give one danger of depending on foreign companies.",
         "a": "Profits may leave, firms may relocate, or local control may weaken"
@@ -554,42 +357,42 @@
     },
     {
         "category": "Decide",
-        "q": "Decide whether this statement is true or false: Tariff — Tax placed on imports.",
+        "q": "Decide whether this statement is true or false: Tariff: Tax placed on imports.",
         "a": "True. Tariff means: Tax placed on imports"
     },
     {
         "category": "Decide",
-        "q": "Decide whether this statement is true or false: Quota — Trade with reduced barriers.",
+        "q": "Decide whether this statement is true or false: Quota: Trade with reduced barriers.",
         "a": "False. Quota means: Maximum import quantity"
     },
     {
         "category": "Decide",
-        "q": "Decide whether this statement is true or false: Free trade — Trade with reduced barriers.",
+        "q": "Decide whether this statement is true or false: Free trade: Trade with reduced barriers.",
         "a": "True. Free trade means: Trade with reduced barriers"
     },
     {
         "category": "Decide",
-        "q": "Decide whether this statement is true or false: Protectionism — More economically developed country.",
+        "q": "Decide whether this statement is true or false: Protectionism: More economically developed country.",
         "a": "False. Protectionism means: Policies shielding domestic industry"
     },
     {
         "category": "Decide",
-        "q": "Decide whether this statement is true or false: MEDC — More economically developed country.",
+        "q": "Decide whether this statement is true or false: MEDC: More economically developed country.",
         "a": "True. MEDC means: More economically developed country"
     },
     {
         "category": "Decide",
-        "q": "Decide whether this statement is true or false: LEDC — Opportunity to sell to more buyers.",
+        "q": "Decide whether this statement is true or false: LEDC: Opportunity to sell to more buyers.",
         "a": "False. LEDC means: Less economically developed country"
     },
     {
         "category": "Decide",
-        "q": "Decide whether this statement is true or false: Market access — Opportunity to sell to more buyers.",
+        "q": "Decide whether this statement is true or false: Market access: Opportunity to sell to more buyers.",
         "a": "True. Market access means: Opportunity to sell to more buyers"
     },
     {
         "category": "Decide",
-        "q": "Decide whether this statement is true or false: Foreign investment — Tax placed on imports.",
+        "q": "Decide whether this statement is true or false: Foreign investment: Tax placed on imports.",
         "a": "False. Foreign investment means: Capital from an overseas investor"
     }
 ];
@@ -604,9 +407,9 @@
         }
 
         function dealJeopardyPlayerQuestions(items, playerIndex) {
-            const playerQuestions = items.slice(playerIndex * 20, playerIndex * 20 + 20);
-            return Array.from({ length: 4 }, (_, categoryIndex) => ({
-                name: ["Round One", "Round Two", "Round Three", "Round Four"][categoryIndex],
+            const playerQuestions = items.slice(playerIndex * 10, playerIndex * 10 + 10);
+            return Array.from({ length: 2 }, (_, categoryIndex) => ({
+                name: ["Round One", "Round Two"][categoryIndex],
                 questions: playerQuestions.slice(categoryIndex * 5, categoryIndex * 5 + 5).map((item, questionIndex) => ({
                     points: (questionIndex + 1) * 10,
                     q: item.q,
@@ -627,6 +430,11 @@
         let activePointValue = 0;
         let activeTileButton = null;
         let playerNames = ["Player 1", "Player 2", "Player 3", "Player 4"];
+        let answeredTiles = 0;
+        let participationShown = false;
+        const totalJeopardyTiles = gameData.reduce((playerTotal, playerCategories) => {
+            return playerTotal + playerCategories.reduce((categoryTotal, category) => categoryTotal + category.questions.length, 0);
+        }, 0);
 
         const carouselTrack = document.getElementById('carouselTrack');
         const modal = document.getElementById('questionModal');
@@ -738,7 +546,27 @@
         }
 
         function updateScore(i) { document.getElementById(`score-${i}`).innerText = scores[i]; }
-        function closeModal() { activeTileButton.innerText = ""; activeTileButton.disabled = true; modal.style.display = 'none'; }
+        function closeModal() {
+            if (!activeTileButton) {
+                modal.style.display = 'none';
+                return;
+            }
+            activeTileButton.innerText = "";
+            activeTileButton.disabled = true;
+            activeTileButton = null;
+            modal.style.display = 'none';
+            answeredTiles++;
+            if (answeredTiles === totalJeopardyTiles && !participationShown) {
+                participationShown = true;
+                setTimeout(() => {
+                    MayHubCertificates.showParticipation({
+                        gameTitle: 'Fair and Free Trade Jeopardy Game',
+                        category: 'Round One and Round Two',
+                        onReplay: () => window.location.reload()
+                    });
+                }, 650);
+            }
+        }
         
         buildBoards();
 

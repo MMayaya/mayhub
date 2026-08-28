@@ -99,7 +99,7 @@ async function testRenderer() {
     assert.strictEqual(compact.blob.type, 'image/png');
     assert(canvases[1].context.drawnText.includes('GRADE 10 GEOGRAPHY'));
     assert(canvases[1].context.drawnText.includes('TERM 3'));
-    assert(canvases[1].context.drawnText.includes('M. Learning Hub'));
+    assert(canvases[1].context.drawnText.includes('M Learning Hub'));
 
     const participation = await window.MayCertificateRenderer.create({
         learnerName: 'Test Learner',

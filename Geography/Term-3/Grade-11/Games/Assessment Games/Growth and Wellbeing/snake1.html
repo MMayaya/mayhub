@@ -13,7 +13,7 @@
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>May Learning Hub | Smart Snake - Growth and Wellbeing</title>
+    <title>May Learning Hub | Grade 11 Geography Smart Snake - Growth and Wellbeing</title>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f0f4f8; color: #333; line-height: 1.6; display: flex; flex-direction: column; min-height: 100vh; touch-action: manipulation; }
@@ -78,7 +78,7 @@
         footer { text-align: center; padding: 1rem; background-color: #002b5e; color: #fff; margin-top: auto; }
     </style>
 </head>
-<body>
+<body data-certificate-grade="Grade 11" data-certificate-subject="Geography" data-certificate-term="Term 3" data-certificate-topic="Growth and Wellbeing" data-certificate-game="Growth and Wellbeing Snake Challenge" data-certificate-layout="compact-subject">
 
     <nav>
         <a href="../../../../../../index.html" class="logo">May Learning Hub</a>
@@ -89,17 +89,17 @@
     </nav>
 
     <header class="game-header">
-        <h1 class="game-title">Smart Snake: Growth and Wellbeing</h1>
-        <p class="game-subtitle">Explore how economic growth, inequality, public services and inclusive policies affect people.</p>
+        <h1 class="game-title">Grade 11 Geography Smart Snake: Growth and Wellbeing</h1>
+        <p class="game-subtitle">Revise GDP growth, human development, inequality, public services, and inclusive development.</p>
         <p style="font-size: 0.78rem; color: #52606d; margin-top: 0.45rem;">Grade 11 Geography Term 3 revision</p>
     </header>
 
     <div class="category-selection" id="categorySelection">
         <div class="cat-buttons">
-            <button class="cat-btn" onclick="startGame('game1')">Development Concepts</button>
-            <button class="cat-btn" onclick="startGame('game2')">Countries & Aspects</button>
-            <button class="cat-btn" onclick="startGame('game3')">Development Indicators</button>
-            <button class="cat-btn" onclick="startGame('game4')">Environmental Indicators</button>
+            <button class="cat-btn" onclick="startGame('game1')">Term Identification</button>
+            <button class="cat-btn" onclick="startGame('game2')">Meaning Match</button>
+            <button class="cat-btn" onclick="startGame('game3')">Multiple Choice</button>
+            <button class="cat-btn" onclick="startGame('game4')">True or False</button>
         </div>
     </div>
 
@@ -146,6 +146,9 @@
     </footer>
 
         <script src="../../../../../../game-audio.js"></script>
+        <script src="../../../../../../may-certificate-renderer.js"></script>
+        <script src="../../../../../../may-certificate-actions.js"></script>
+        <script src="../../../../../../assessment-certificate.js"></script>
 <script>
         const questionDB = {
     "game1": [
@@ -173,21 +176,21 @@
             "q": "Which statement best links GDP growth and human development?",
             "options": [
                 "They are identical",
-                "Growth can help, but benefits must reach people",
                 "Growth always reduces health",
+                "Growth can help, but benefits must reach people",
                 "Human development ignores income"
             ],
-            "a": 1
+            "a": 2
         },
         {
             "q": "When GDP growth benefits only a small wealthy group instead of the wider population, the main negative human-development impact is...",
             "options": [
-                "Wealth concentration and inequality",
                 "Falling trade",
                 "Too much rainfall",
-                "Lower exports"
+                "Lower exports",
+                "Wealth concentration and inequality"
             ],
-            "a": 0
+            "a": 3
         },
         {
             "q": "Why may growth fail to improve life for everyone?",
@@ -212,22 +215,22 @@
         {
             "q": "Progressive taxation can support human development by...",
             "options": [
-                "Redistributing revenue toward public services",
                 "Ending all production",
                 "Banning exports",
+                "Redistributing revenue toward public services",
                 "Reducing literacy"
             ],
-            "a": 0
+            "a": 2
         },
         {
             "q": "Inclusive economic policy aims to...",
             "options": [
                 "Concentrate gains",
-                "Share opportunities and benefits widely",
                 "Measure only GDP",
-                "Replace healthcare with trade"
+                "Replace healthcare with trade",
+                "Share opportunities and benefits widely"
             ],
-            "a": 1
+            "a": 3
         },
         {
             "q": "Which is a social rather than purely economic indicator?",
@@ -242,12 +245,12 @@
         {
             "q": "Human development is best understood as...",
             "options": [
-                "Expanding people's choices and well-being",
                 "Growing GDP only",
+                "Expanding people's choices and well-being",
                 "Increasing tariffs",
                 "Increasing imports"
             ],
-            "a": 0
+            "a": 1
         }
     ],
     "game2": [
@@ -275,21 +278,21 @@
             "q": "Quick recall: Which statement best links GDP growth and human development?",
             "options": [
                 "They are identical",
-                "Growth can help, but benefits must reach people",
                 "Growth always reduces health",
+                "Growth can help, but benefits must reach people",
                 "Human development ignores income"
             ],
-            "a": 1
+            "a": 2
         },
         {
             "q": "Quick recall: When GDP growth benefits only a small wealthy group instead of the wider population, the main negative human-development impact is...",
             "options": [
-                "Wealth concentration and inequality",
                 "Falling trade",
                 "Too much rainfall",
-                "Lower exports"
+                "Lower exports",
+                "Wealth concentration and inequality"
             ],
-            "a": 0
+            "a": 3
         },
         {
             "q": "Quick recall: Why may growth fail to improve life for everyone?",
@@ -314,22 +317,22 @@
         {
             "q": "Quick recall: Progressive taxation can support human development by...",
             "options": [
-                "Redistributing revenue toward public services",
                 "Ending all production",
                 "Banning exports",
+                "Redistributing revenue toward public services",
                 "Reducing literacy"
             ],
-            "a": 0
+            "a": 2
         },
         {
             "q": "Quick recall: Inclusive economic policy aims to...",
             "options": [
                 "Concentrate gains",
-                "Share opportunities and benefits widely",
                 "Measure only GDP",
-                "Replace healthcare with trade"
+                "Replace healthcare with trade",
+                "Share opportunities and benefits widely"
             ],
-            "a": 1
+            "a": 3
         },
         {
             "q": "Quick recall: Which is a social rather than purely economic indicator?",
@@ -344,216 +347,196 @@
         {
             "q": "Quick recall: Human development is best understood as...",
             "options": [
-                "Expanding people's choices and well-being",
                 "Growing GDP only",
+                "Expanding people's choices and well-being",
                 "Increasing tariffs",
                 "Increasing imports"
             ],
-            "a": 0
+            "a": 1
         }
     ],
     "game3": [
         {
-            "q": "Apply your knowledge: GDP growth means...",
+            "q": "What tax system asks higher earners to pay a larger proportion?",
             "options": [
-                "An increase in a country's economic output over time",
-                "A fall in population",
-                "Equal income for all",
-                "More imports than exports"
+                "Progressive taxation",
+                "Human development may remain low or unequal",
+                "Economic growth is not automatically human development",
+                "No"
             ],
             "a": 0
         },
         {
-            "q": "Apply your knowledge: One reason GDP growth matters is that it can...",
+            "q": "How can clinics turn economic resources into better human outcomes?",
             "options": [
-                "Remove all inequality automatically",
-                "Create jobs and tax revenue",
-                "End resource use",
-                "Guarantee equal wealth"
+                "It improves transport/services/productivity and can create jobs",
+                "By improving access to healthcare and life expectancy",
+                "Valid examples: health, education, safety, freedom or environment",
+                "A policy that gives broad groups access to opportunities and benefits"
             ],
             "a": 1
         },
         {
-            "q": "Apply your knowledge: Which statement best links GDP growth and human development?",
+            "q": "Name one way infrastructure spending can support growth.",
             "options": [
-                "They are identical",
-                "Growth can help, but benefits must reach people",
-                "Growth always reduces health",
-                "Human development ignores income"
+                "By improving access to healthcare and life expectancy",
+                "Valid examples: health, education, safety, freedom or environment",
+                "It improves transport/services/productivity and can create jobs",
+                "A policy that gives broad groups access to opportunities and benefits"
+            ],
+            "a": 2
+        },
+        {
+            "q": "What does quality of life include beyond material income?",
+            "options": [
+                "By improving access to healthcare and life expectancy",
+                "It improves transport/services/productivity and can create jobs",
+                "A policy that gives broad groups access to opportunities and benefits",
+                "Valid examples: health, education, safety, freedom or environment"
+            ],
+            "a": 3
+        },
+        {
+            "q": "What happens when social services are neglected during rapid growth?",
+            "options": [
+                "Human development may remain low or unequal",
+                "Progressive taxation",
+                "Economic growth is not automatically human development",
+                "No"
+            ],
+            "a": 0
+        },
+        {
+            "q": "Describe an inclusive economic policy.",
+            "options": [
+                "By improving access to healthcare and life expectancy",
+                "A policy that gives broad groups access to opportunities and benefits",
+                "It improves transport/services/productivity and can create jobs",
+                "Valid examples: health, education, safety, freedom or environment"
             ],
             "a": 1
         },
         {
-            "q": "Apply your knowledge: When GDP growth benefits only a small wealthy group instead of the wider population, the main negative human-development impact is...",
+            "q": "If GDP rises but life expectancy falls, what does this show?",
             "options": [
-                "Wealth concentration and inequality",
-                "Falling trade",
-                "Too much rainfall",
-                "Lower exports"
+                "Progressive taxation",
+                "Human development may remain low or unequal",
+                "Economic growth is not automatically human development",
+                "No"
+            ],
+            "a": 2
+        },
+        {
+            "q": "Does GDP growth measure how income is shared?",
+            "options": [
+                "Progressive taxation",
+                "Human development may remain low or unequal",
+                "Economic growth is not automatically human development",
+                "No"
+            ],
+            "a": 3
+        },
+        {
+            "q": "Why is education considered an investment in development?",
+            "options": [
+                "It builds knowledge, skills and future opportunities",
+                "Progressive taxation",
+                "Human development may remain low or unequal",
+                "Economic growth is not automatically human development"
             ],
             "a": 0
         },
         {
-            "q": "Apply your knowledge: Why may growth fail to improve life for everyone?",
+            "q": "Name one social consequence of extreme inequality.",
             "options": [
-                "Benefits are unequally distributed",
-                "GDP includes no money",
-                "All jobs disappear",
-                "Public services always improve"
-            ],
-            "a": 0
-        },
-        {
-            "q": "Apply your knowledge: Which strategy most directly strengthens human development?",
-            "options": [
-                "Cutting access to schools",
-                "Investing in education and healthcare",
-                "Raising inequality",
-                "Ignoring public services"
+                "By improving access to healthcare and life expectancy",
+                "Valid examples: poverty, exclusion, unrest or unequal access to services",
+                "It improves transport/services/productivity and can create jobs",
+                "Valid examples: health, education, safety, freedom or environment"
             ],
             "a": 1
-        },
-        {
-            "q": "Apply your knowledge: Progressive taxation can support human development by...",
-            "options": [
-                "Redistributing revenue toward public services",
-                "Ending all production",
-                "Banning exports",
-                "Reducing literacy"
-            ],
-            "a": 0
-        },
-        {
-            "q": "Apply your knowledge: Inclusive economic policy aims to...",
-            "options": [
-                "Concentrate gains",
-                "Share opportunities and benefits widely",
-                "Measure only GDP",
-                "Replace healthcare with trade"
-            ],
-            "a": 1
-        },
-        {
-            "q": "Apply your knowledge: Which is a social rather than purely economic indicator?",
-            "options": [
-                "Life expectancy",
-                "Total export value",
-                "Tariff revenue",
-                "Factory output"
-            ],
-            "a": 0
-        },
-        {
-            "q": "Apply your knowledge: Human development is best understood as...",
-            "options": [
-                "Expanding people's choices and well-being",
-                "Growing GDP only",
-                "Increasing tariffs",
-                "Increasing imports"
-            ],
-            "a": 0
         }
     ],
     "game4": [
         {
-            "q": "Challenge: GDP growth means...",
+            "q": "GDP Growth: An increase in the value of goods and services produced by an economy over time.",
             "options": [
-                "An increase in a country's economic output over time",
-                "A fall in population",
-                "Equal income for all",
-                "More imports than exports"
+                "True",
+                "False"
             ],
             "a": 0
         },
         {
-            "q": "Challenge: One reason GDP growth matters is that it can...",
+            "q": "Human Development: An uneven distribution of income among individuals or groups.",
             "options": [
-                "Remove all inequality automatically",
-                "Create jobs and tax revenue",
-                "End resource use",
-                "Guarantee equal wealth"
+                "True",
+                "False"
             ],
             "a": 1
         },
         {
-            "q": "Challenge: Which statement best links GDP growth and human development?",
+            "q": "Income Inequality: An uneven distribution of income among individuals or groups.",
             "options": [
-                "They are identical",
-                "Growth can help, but benefits must reach people",
-                "Growth always reduces health",
-                "Human development ignores income"
+                "True",
+                "False"
+            ],
+            "a": 0
+        },
+        {
+            "q": "Unequal Distribution: Economic growth that creates opportunities and benefits across broad sections of society.",
+            "options": [
+                "True",
+                "False"
             ],
             "a": 1
         },
         {
-            "q": "Challenge: When GDP growth benefits only a small wealthy group instead of the wider population, the main negative human-development impact is...",
+            "q": "Inclusive Growth: Economic growth that creates opportunities and benefits across broad sections of society.",
             "options": [
-                "Wealth concentration and inequality",
-                "Falling trade",
-                "Too much rainfall",
-                "Lower exports"
+                "True",
+                "False"
             ],
             "a": 0
         },
         {
-            "q": "Challenge: Why may growth fail to improve life for everyone?",
+            "q": "Progressive Taxation: Government-supported services such as education, healthcare, water and sanitation.",
             "options": [
-                "Benefits are unequally distributed",
-                "GDP includes no money",
-                "All jobs disappear",
-                "Public services always improve"
-            ],
-            "a": 0
-        },
-        {
-            "q": "Challenge: Which strategy most directly strengthens human development?",
-            "options": [
-                "Cutting access to schools",
-                "Investing in education and healthcare",
-                "Raising inequality",
-                "Ignoring public services"
+                "True",
+                "False"
             ],
             "a": 1
         },
         {
-            "q": "Challenge: Progressive taxation can support human development by...",
+            "q": "Public Services: Government-supported services such as education, healthcare, water and sanitation.",
             "options": [
-                "Redistributing revenue toward public services",
-                "Ending all production",
-                "Banning exports",
-                "Reducing literacy"
+                "True",
+                "False"
             ],
             "a": 0
         },
         {
-            "q": "Challenge: Inclusive economic policy aims to...",
+            "q": "Education Investment: Spending that improves access to treatment and population health.",
             "options": [
-                "Concentrate gains",
-                "Share opportunities and benefits widely",
-                "Measure only GDP",
-                "Replace healthcare with trade"
+                "True",
+                "False"
             ],
             "a": 1
         },
         {
-            "q": "Challenge: Which is a social rather than purely economic indicator?",
+            "q": "Healthcare Investment: Spending that improves access to treatment and population health.",
             "options": [
-                "Life expectancy",
-                "Total export value",
-                "Tariff revenue",
-                "Factory output"
+                "True",
+                "False"
             ],
             "a": 0
         },
         {
-            "q": "Challenge: Human development is best understood as...",
+            "q": "Redistribution: An increase in the value of goods and services produced by an economy over time.",
             "options": [
-                "Expanding people's choices and well-being",
-                "Growing GDP only",
-                "Increasing tariffs",
-                "Increasing imports"
+                "True",
+                "False"
             ],
-            "a": 0
+            "a": 1
         }
     ]
 };
@@ -576,11 +559,25 @@
         let isGoldenAppleActive = false;
         let activeQuestionValue = 1; 
         let isPausedPendingInput = true;
+        let currentCategoryKey = null;
+        let correctAnswers = 0;
+        let totalQuestionsForGame = 10;
+        let certificateShown = false;
+        const snakeCategoryTitles = {
+            game1: 'Term Identification',
+            game2: 'Meaning Match',
+            game3: 'Multiple Choice',
+            game4: 'True or False'
+        };
 
         function startGame(categoryKey) {
             document.getElementById('categorySelection').style.display = 'none';
             document.getElementById('gameArea').style.display = 'flex';
+            currentCategoryKey = categoryKey;
             currentTopic = [...questionDB[categoryKey]];
+            correctAnswers = 0;
+            totalQuestionsForGame = currentTopic.length;
+            certificateShown = false;
             snake = [{x: 15, y: 10}, {x: 15, y: 11}, {x: 15, y: 12}];
             dx = 0; dy = -1; score = 0; applesEaten = 0;
             updateScoreboard();
@@ -742,6 +739,7 @@
             if (selectedIndex === currentQuestionObj.a) {
                 MayHubSounds.playCorrect();
                 clickedBtn.classList.add('correct');
+                correctAnswers++;
                 score += activeQuestionValue;
                 updateScoreboard();
                 snake.push({ ...snake[snake.length - 1] }); 
@@ -784,7 +782,19 @@
             } else {
                 title.innerText = "Game Over!";
                 title.style.color = "#dc3545";
-                msg.innerText = "Development is a journey. Try again and strengthen your understanding of its concepts and indicators!";
+                msg.innerText = "History takes practice. Try again and strengthen your understanding of this topic!";
+            }
+            if (!certificateShown) {
+                certificateShown = true;
+                setTimeout(() => {
+                    MayHubCertificates.showScored({
+                        gameTitle: 'Growth and Wellbeing Snake Challenge',
+                        category: snakeCategoryTitles[currentCategoryKey] || 'Assessment Game',
+                        correct: correctAnswers,
+                        total: totalQuestionsForGame,
+                        onReplay: () => window.location.reload()
+                    });
+                }, 600);
             }
         }
     </script>

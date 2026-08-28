@@ -67,7 +67,7 @@
         footer { text-align: center; padding: 1rem; background-color: #002b5e; color: #fff; margin-top: auto; }
     </style>
 </head>
-<body>
+<body data-certificate-grade="Grade 10" data-certificate-subject="Geography" data-certificate-term="Term 3" data-certificate-topic="Population Measures" data-certificate-game="Population Measures Millionaire Challenge" data-certificate-layout="compact-subject">
 
     <nav>
         <a href="../../../../../../index.html" class="logo">May Learning Hub</a>
@@ -79,7 +79,7 @@
 
     <header class="game-header">
         <h1 class="game-title">R1,000,000 Geography Challenge</h1>
-        <p class="game-subtitle">Revise development terminology, inequality, health, GDP, sustainability and human-development indicators.</p>
+        <p class="game-subtitle">Revise census data, population rates, density, distribution, and natural increase.</p>
         <p style="font-size: 0.78rem; color: #52606d; margin-top: 0.45rem;">Grade 10 Geography Term 3 revision</p>
     </header>
 
@@ -117,28 +117,31 @@
     </footer>
 
         <script src="../../../../../../game-audio.js"></script>
+        <script src="../../../../../../may-certificate-renderer.js"></script>
+        <script src="../../../../../../may-certificate-actions.js"></script>
+        <script src="../../../../../../assessment-certificate.js"></script>
 <script>
         const questions = [
     {
         "q": "Select the term described here: An official survey that counts and records information about a country's population.",
         "options": [
-            "Literacy rate",
             "Census",
+            "Literacy rate",
             "Population density",
             "Population distribution"
         ],
-        "a": 1,
+        "a": 0,
         "hint": "The correct answer is Census."
     },
     {
         "q": "Select the term described here: The percentage of people who can read and write with understanding.",
         "options": [
             "Population density",
-            "Population distribution",
             "Literacy rate",
+            "Population distribution",
             "Infant mortality rate"
         ],
-        "a": 2,
+        "a": 1,
         "hint": "The correct answer is Literacy rate."
     },
     {
@@ -146,43 +149,43 @@
         "options": [
             "Population distribution",
             "Infant mortality rate",
-            "Economically active population",
-            "Population density"
+            "Population density",
+            "Economically active population"
         ],
-        "a": 3,
+        "a": 2,
         "hint": "The correct answer is Population density."
     },
     {
         "q": "Select the term described here: The pattern showing where people live across an area.",
         "options": [
-            "Population distribution",
             "Infant mortality rate",
             "Economically active population",
-            "Birth rate"
+            "Birth rate",
+            "Population distribution"
         ],
-        "a": 0,
+        "a": 3,
         "hint": "The correct answer is Population distribution."
     },
     {
         "q": "Select the term described here: The number of deaths of babies under one year per 1,000 live births.",
         "options": [
-            "Economically active population",
             "Infant mortality rate",
+            "Economically active population",
             "Birth rate",
             "Death rate"
         ],
-        "a": 1,
+        "a": 0,
         "hint": "The correct answer is Infant mortality rate."
     },
     {
         "q": "Select the term described here: People of working age who are employed or actively seeking work.",
         "options": [
             "Birth rate",
-            "Death rate",
             "Economically active population",
+            "Death rate",
             "Crude birth rate"
         ],
-        "a": 2,
+        "a": 1,
         "hint": "The correct answer is Economically active population."
     },
     {
@@ -190,43 +193,43 @@
         "options": [
             "Death rate",
             "Crude birth rate",
-            "Crude death rate",
-            "Birth rate"
+            "Birth rate",
+            "Crude death rate"
         ],
-        "a": 3,
+        "a": 2,
         "hint": "The correct answer is Birth rate."
     },
     {
         "q": "Select the term described here: The number of deaths per 1,000 people in a year.",
         "options": [
-            "Death rate",
             "Crude birth rate",
             "Crude death rate",
-            "Natural increase"
+            "Natural increase",
+            "Death rate"
         ],
-        "a": 0,
+        "a": 3,
         "hint": "The correct answer is Death rate."
     },
     {
         "q": "Select the term described here: The annual number of live births per 1,000 people.",
         "options": [
-            "Crude death rate",
             "Crude birth rate",
+            "Crude death rate",
             "Natural increase",
             "Life expectancy"
         ],
-        "a": 1,
+        "a": 0,
         "hint": "The correct answer is Crude birth rate."
     },
     {
         "q": "Select the term described here: The annual number of deaths per 1,000 people.",
         "options": [
             "Natural increase",
-            "Life expectancy",
             "Crude death rate",
+            "Life expectancy",
             "Fertility rate"
         ],
-        "a": 2,
+        "a": 1,
         "hint": "The correct answer is Crude death rate."
     },
     {
@@ -234,87 +237,43 @@
         "options": [
             "Life expectancy",
             "Fertility rate",
-            "Dependency ratio",
-            "Natural increase"
+            "Natural increase",
+            "Dependency ratio"
         ],
-        "a": 3,
+        "a": 2,
         "hint": "The correct answer is Natural increase."
     },
     {
         "q": "Select the term described here: The average number of years a person is expected to live.",
         "options": [
-            "Life expectancy",
             "Fertility rate",
             "Dependency ratio",
-            "Population growth rate"
-        ],
-        "a": 0,
-        "hint": "The correct answer is Life expectancy."
-    },
-    {
-        "q": "Select the term described here: The average number of children born to a woman during her lifetime.",
-        "options": [
-            "Dependency ratio",
-            "Fertility rate",
             "Population growth rate",
-            "Per thousand"
-        ],
-        "a": 1,
-        "hint": "The correct answer is Fertility rate."
-    },
-    {
-        "q": "Select the term described here: A comparison of dependants with the working-age population.",
-        "options": [
-            "Population growth rate",
-            "Per thousand",
-            "Dependency ratio",
-            "Positive natural increase"
-        ],
-        "a": 2,
-        "hint": "The correct answer is Dependency ratio."
-    },
-    {
-        "q": "Select the term described here: The rate at which the size of a population changes over time.",
-        "options": [
-            "Per thousand",
-            "Positive natural increase",
-            "Negative natural increase",
-            "Population growth rate"
+            "Life expectancy"
         ],
         "a": 3,
-        "hint": "The correct answer is Population growth rate."
-    },
-    {
-        "q": "Select the term described here: A rate expressed for every 1,000 people or live births.",
-        "options": [
-            "Per thousand",
-            "Positive natural increase",
-            "Negative natural increase",
-            "Zero natural increase"
-        ],
-        "a": 0,
-        "hint": "The correct answer is Per thousand."
+        "hint": "The correct answer is Life expectancy."
     },
     {
         "q": "Select the term described here: A result above zero because births exceed deaths.",
         "options": [
-            "Negative natural increase",
             "Positive natural increase",
+            "Negative natural increase",
             "Zero natural increase",
             "Demographic data"
         ],
-        "a": 1,
+        "a": 0,
         "hint": "The correct answer is Positive natural increase."
     },
     {
         "q": "Select the term described here: A result below zero because deaths exceed births.",
         "options": [
             "Zero natural increase",
-            "Demographic data",
             "Negative natural increase",
+            "Demographic data",
             "Census"
         ],
-        "a": 2,
+        "a": 1,
         "hint": "The correct answer is Negative natural increase."
     },
     {
@@ -322,149 +281,38 @@
         "options": [
             "Demographic data",
             "Census",
-            "Literacy rate",
-            "Zero natural increase"
+            "Zero natural increase",
+            "Literacy rate"
         ],
-        "a": 3,
+        "a": 2,
         "hint": "The correct answer is Zero natural increase."
-    },
-    {
-        "q": "Select the term described here: Statistical information about a population.",
-        "options": [
-            "Demographic data",
-            "Census",
-            "Literacy rate",
-            "Population density"
-        ],
-        "a": 0,
-        "hint": "The correct answer is Demographic data."
-    },
-    {
-        "q": "Census refers to which of the following?",
-        "options": [
-            "The percentage of people who can read and write with understanding.",
-            "The average number of people living in each square kilometre.",
-            "The pattern showing where people live across an area.",
-            "An official survey that counts and records information about a country's population."
-        ],
-        "a": 3,
-        "hint": "The correct answer is An official survey that counts and records information about a country's population.."
-    },
-    {
-        "q": "Literacy rate refers to which of the following?",
-        "options": [
-            "The percentage of people who can read and write with understanding.",
-            "The average number of people living in each square kilometre.",
-            "The pattern showing where people live across an area.",
-            "The number of deaths of babies under one year per 1,000 live births."
-        ],
-        "a": 0,
-        "hint": "The correct answer is The percentage of people who can read and write with understanding.."
-    },
-    {
-        "q": "Population density refers to which of the following?",
-        "options": [
-            "The pattern showing where people live across an area.",
-            "The average number of people living in each square kilometre.",
-            "The number of deaths of babies under one year per 1,000 live births.",
-            "People of working age who are employed or actively seeking work."
-        ],
-        "a": 1,
-        "hint": "The correct answer is The average number of people living in each square kilometre.."
-    },
-    {
-        "q": "Population distribution refers to which of the following?",
-        "options": [
-            "The number of deaths of babies under one year per 1,000 live births.",
-            "People of working age who are employed or actively seeking work.",
-            "The pattern showing where people live across an area.",
-            "The number of live births per 1,000 people in a year."
-        ],
-        "a": 2,
-        "hint": "The correct answer is The pattern showing where people live across an area.."
-    },
-    {
-        "q": "Infant mortality rate refers to which of the following?",
-        "options": [
-            "People of working age who are employed or actively seeking work.",
-            "The number of live births per 1,000 people in a year.",
-            "The number of deaths per 1,000 people in a year.",
-            "The number of deaths of babies under one year per 1,000 live births."
-        ],
-        "a": 3,
-        "hint": "The correct answer is The number of deaths of babies under one year per 1,000 live births.."
-    },
-    {
-        "q": "Economically active population refers to which of the following?",
-        "options": [
-            "People of working age who are employed or actively seeking work.",
-            "The number of live births per 1,000 people in a year.",
-            "The number of deaths per 1,000 people in a year.",
-            "The annual number of live births per 1,000 people."
-        ],
-        "a": 0,
-        "hint": "The correct answer is People of working age who are employed or actively seeking work.."
-    },
-    {
-        "q": "Birth rate refers to which of the following?",
-        "options": [
-            "The number of deaths per 1,000 people in a year.",
-            "The number of live births per 1,000 people in a year.",
-            "The annual number of live births per 1,000 people.",
-            "The annual number of deaths per 1,000 people."
-        ],
-        "a": 1,
-        "hint": "The correct answer is The number of live births per 1,000 people in a year.."
-    },
-    {
-        "q": "Death rate refers to which of the following?",
-        "options": [
-            "The annual number of live births per 1,000 people.",
-            "The annual number of deaths per 1,000 people.",
-            "The number of deaths per 1,000 people in a year.",
-            "Population growth calculated by subtracting the death rate from the birth rate."
-        ],
-        "a": 2,
-        "hint": "The correct answer is The number of deaths per 1,000 people in a year.."
-    },
-    {
-        "q": "Crude birth rate refers to which of the following?",
-        "options": [
-            "The annual number of deaths per 1,000 people.",
-            "Population growth calculated by subtracting the death rate from the birth rate.",
-            "The average number of years a person is expected to live.",
-            "The annual number of live births per 1,000 people."
-        ],
-        "a": 3,
-        "hint": "The correct answer is The annual number of live births per 1,000 people.."
-    },
-    {
-        "q": "Crude death rate refers to which of the following?",
-        "options": [
-            "The annual number of deaths per 1,000 people.",
-            "Population growth calculated by subtracting the death rate from the birth rate.",
-            "The average number of years a person is expected to live.",
-            "The average number of children born to a woman during her lifetime."
-        ],
-        "a": 0,
-        "hint": "The correct answer is The annual number of deaths per 1,000 people.."
     }
 ];
 
         const prizes = [
-            "R100", "R200", "R300", "R500", "R1,000",
-            "R2,000", "R3,000", "R4,000", "R5,000", "R10,000",
-            "R15,000", "R20,000", "R25,000", "R30,000", "R40,000",
-            "R50,000", "R60,000", "R70,000", "R80,000", "R100,000",
-            "R150,000", "R200,000", "R250,000", "R300,000", "R400,000",
-            "R500,000", "R600,000", "R750,000", "R850,000", "R1,000,000"
-        ];
+    "R100",
+    "R200",
+    "R300",
+    "R500",
+    "R1,000",
+    "R2,000",
+    "R4,000",
+    "R8,000",
+    "R16,000",
+    "R32,000",
+    "R64,000",
+    "R125,000",
+    "R250,000",
+    "R500,000",
+    "R1,000,000"
+];
 
         let currentLevel = 0;
         let isWaiting = false;
+        let certificateShown = false;
 
         const ladderContainer = document.getElementById('prizeLadder');
-        for (let i = 0; i < 30; i++) {
+        for (let i = 0; i < questions.length; i++) {
             let step = document.createElement('div');
             step.className = 'ladder-step';
             step.id = `ladder-${i}`;
@@ -482,7 +330,7 @@
             document.getElementById(`ladder-${currentLevel}`).classList.add('active');
 
             const qData = questions[currentLevel];
-            document.getElementById('questionText').innerText = `Q${currentLevel + 1}: ${qData.q}`;
+            document.getElementById('questionText').innerText = qData.q;
 
             let options = [...qData.options];
             let correctText = options[qData.a];
@@ -521,7 +369,7 @@
                     selectedBtn.classList.add('correct');
                     setTimeout(() => {
                         currentLevel++;
-                        if (currentLevel >= 30) endGame(true);
+                        if (currentLevel >= questions.length) endGame(true);
                         else loadQuestion();
                     }, 1000); 
                 } else {
@@ -552,18 +400,30 @@
         function useHint() {
             if (isWaiting) return;
             document.getElementById('btnHint').disabled = true;
-            alert("Geography Teacher Hint: " + questions[currentLevel].hint);
+            alert("History Teacher Hint: " + questions[currentLevel].hint);
         }
 
         function endGame(won) {
             document.getElementById('gameBoard').style.display = 'none';
             document.getElementById('endScreen').style.display = 'block';
             if (won) {
-                document.getElementById('endMessage').innerText = "Geography Legend!";
+                document.getElementById('endMessage').innerText = "History Legend!";
                 document.getElementById('endPrize').innerText = "R1,000,000";
             } else {
                 document.getElementById('endMessage').innerText = "Final Winnings:";
                 document.getElementById('endPrize').innerText = currentLevel > 0 ? prizes[currentLevel - 1] : "R0";
+            }
+            if (!certificateShown) {
+                certificateShown = true;
+                setTimeout(() => {
+                    MayHubCertificates.showScored({
+                        gameTitle: 'Population Measures Millionaire Challenge',
+                        category: 'Millionaire Quiz',
+                        correct: currentLevel,
+                        total: questions.length,
+                        onReplay: () => window.location.reload()
+                    });
+                }, 600);
             }
         }
         loadQuestion();

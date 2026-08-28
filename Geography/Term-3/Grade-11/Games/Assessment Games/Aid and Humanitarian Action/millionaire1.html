@@ -67,7 +67,7 @@
         footer { text-align: center; padding: 1rem; background-color: #002b5e; color: #fff; margin-top: auto; }
     </style>
 </head>
-<body>
+<body data-certificate-grade="Grade 11" data-certificate-subject="Geography" data-certificate-term="Term 3" data-certificate-topic="Aid and Humanitarian Action" data-certificate-game="Aid and Humanitarian Action Millionaire Challenge" data-certificate-layout="compact-subject">
 
     <nav>
         <a href="../../../../../../index.html" class="logo">May Learning Hub</a>
@@ -79,7 +79,7 @@
 
     <header class="game-header">
         <h1 class="game-title">R1,000,000 Geography Challenge</h1>
-        <p class="game-subtitle">Revise development aid, humanitarian response, aid agencies, benefits, risks and accountability.</p>
+        <p class="game-subtitle">Revise development and humanitarian aid, delivery channels, emergency relief, and responsible monitoring.</p>
         <p style="font-size: 0.78rem; color: #52606d; margin-top: 0.45rem;">Grade 11 Geography Term 3 revision</p>
     </header>
 
@@ -117,6 +117,9 @@
     </footer>
 
         <script src="../../../../../../game-audio.js"></script>
+        <script src="../../../../../../may-certificate-renderer.js"></script>
+        <script src="../../../../../../may-certificate-actions.js"></script>
+        <script src="../../../../../../assessment-certificate.js"></script>
 <script>
         const questions = [
     {
@@ -133,34 +136,34 @@
     {
         "q": "Bilateral aid is given...",
         "options": [
-            "Directly from one country to another",
             "Only by the UN",
+            "Directly from one country to another",
             "By many countries through one body",
             "Only to businesses"
         ],
-        "a": 0,
+        "a": 1,
         "hint": "Bilateral means a direct country-to-country relationship."
     },
     {
         "q": "Multilateral aid is channelled through...",
         "options": [
             "One household",
-            "International organisations supported by several countries",
             "A tariff office",
+            "International organisations supported by several countries",
             "A single local shop"
         ],
-        "a": 1,
+        "a": 2,
         "hint": "Bodies such as the UN and World Bank coordinate multilateral aid."
     },
     {
         "q": "Which organisation is strongly associated with emergency food assistance?",
         "options": [
-            "World Food Programme",
             "World Trade Organization",
             "International Olympic Committee",
-            "OPEC"
+            "OPEC",
+            "World Food Programme"
         ],
-        "a": 0,
+        "a": 3,
         "hint": "The World Food Programme (WFP) provides food assistance."
     },
     {
@@ -177,34 +180,34 @@
     {
         "q": "An immediate benefit of humanitarian aid is that it can...",
         "options": [
-            "Save lives and prevent malnutrition",
             "Guarantee permanent growth",
+            "Save lives and prevent malnutrition",
             "End all droughts",
             "Remove every conflict"
         ],
-        "a": 0,
+        "a": 1,
         "hint": "Emergency relief targets urgent survival and health needs."
     },
     {
         "q": "A possible long-term concern about poorly designed aid is...",
         "options": [
-            "Dependency",
             "Higher rainfall",
             "Perfect accountability",
+            "Dependency",
             "Guaranteed equality"
         ],
-        "a": 0,
+        "a": 2,
         "hint": "Repeated relief without development planning can create dependency."
     },
     {
         "q": "Why should aid delivery be monitored?",
         "options": [
-            "To reduce corruption and diversion",
             "To create quotas",
             "To lower life expectancy",
-            "To stop all imports"
+            "To stop all imports",
+            "To reduce corruption and diversion"
         ],
-        "a": 0,
+        "a": 3,
         "hint": "Monitoring helps resources reach intended beneficiaries."
     },
     {
@@ -221,250 +224,90 @@
     {
         "q": "Which is an example of multilateral assistance?",
         "options": [
-            "Several states funding a UN programme",
             "One country directly funding another",
+            "Several states funding a UN programme",
             "A household buying food",
             "A firm paying tax"
         ],
-        "a": 0,
+        "a": 1,
         "hint": "Multiple countries acting through an international body is multilateral."
     },
     {
-        "q": "In a famine warning, early aid is valuable because it...",
+        "q": "Why does acting on an early famine warning matter?",
         "options": [
-            "Prevents conditions worsening",
-            "Guarantees rainfall",
-            "Creates tariffs",
-            "Raises import prices"
+            "To provide funds, goods, skills or other assistance",
+            "It reduces suffering, displacement and pressure on services/conflict",
+            "It can prevent deaths and stop the crisis worsening",
+            "It treats illness and malnutrition and supports recovery"
         ],
-        "a": 0,
-        "hint": "Early action can prevent deaths, displacement and severe malnutrition."
+        "a": 2
     },
     {
-        "q": "One way to reduce aid dependency is to combine relief with...",
+        "q": "How might aid help stabilise a crisis-affected region?",
         "options": [
-            "Local capacity and livelihood development",
-            "Permanent emergency handouts only",
-            "Trade isolation",
-            "Less accountability"
+            "To provide funds, goods, skills or other assistance",
+            "It can prevent deaths and stop the crisis worsening",
+            "It treats illness and malnutrition and supports recovery",
+            "It reduces suffering, displacement and pressure on services/conflict"
         ],
-        "a": 0,
-        "hint": "Building local resilience supports longer-term self-reliance."
+        "a": 3
     },
     {
-        "q": "Review: Development aid is best defined as...",
+        "q": "Why can imported free food sometimes harm local farmers?",
         "options": [
-            "Financial and technical assistance supporting development",
-            "A tax on imports",
-            "A measure of inequality",
-            "Trade without barriers"
+            "It may depress local prices and demand",
+            "Medical aid, water, shelter or sanitation",
+            "Relying excessively on continuing outside assistance",
+            "Humanitarian aid"
         ],
-        "a": 0,
-        "hint": "Development aid supports economic, social and political development."
+        "a": 0
     },
     {
-        "q": "Review: Bilateral aid is given...",
+        "q": "Name one quality an effective aid organisation needs.",
         "options": [
-            "Directly from one country to another",
-            "Only by the UN",
-            "By many countries through one body",
-            "Only to businesses"
+            "Medical aid, water, shelter or sanitation",
+            "Accountability, speed, local knowledge or coordination",
+            "Relying excessively on continuing outside assistance",
+            "Humanitarian aid"
         ],
-        "a": 0,
-        "hint": "Bilateral means a direct country-to-country relationship."
+        "a": 1
     },
     {
-        "q": "Review: Multilateral aid is channelled through...",
+        "q": "The semi-arid belt immediately south of the Sahara, stretching across West Africa and often affected by drought, is called what?",
         "options": [
-            "One household",
-            "International organisations supported by several countries",
-            "A tariff office",
-            "A single local shop"
+            "Medical aid, water, shelter or sanitation",
+            "Relying excessively on continuing outside assistance",
+            "The Sahel",
+            "Humanitarian aid"
         ],
-        "a": 1,
-        "hint": "Bodies such as the UN and World Bank coordinate multilateral aid."
-    },
-    {
-        "q": "Review: Which organisation is strongly associated with emergency food assistance?",
-        "options": [
-            "World Food Programme",
-            "World Trade Organization",
-            "International Olympic Committee",
-            "OPEC"
-        ],
-        "a": 0,
-        "hint": "The World Food Programme (WFP) provides food assistance."
-    },
-    {
-        "q": "Review: Besides food, humanitarian aid may include...",
-        "options": [
-            "Medical assistance",
-            "Import tariffs",
-            "Trade quotas",
-            "GDP calculations"
-        ],
-        "a": 0,
-        "hint": "Medicines, equipment and healthcare services are key forms of aid."
-    },
-    {
-        "q": "Review: An immediate benefit of humanitarian aid is that it can...",
-        "options": [
-            "Save lives and prevent malnutrition",
-            "Guarantee permanent growth",
-            "End all droughts",
-            "Remove every conflict"
-        ],
-        "a": 0,
-        "hint": "Emergency relief targets urgent survival and health needs."
-    },
-    {
-        "q": "Review: A possible long-term concern about poorly designed aid is...",
-        "options": [
-            "Dependency",
-            "Higher rainfall",
-            "Perfect accountability",
-            "Guaranteed equality"
-        ],
-        "a": 0,
-        "hint": "Repeated relief without development planning can create dependency."
-    },
-    {
-        "q": "Review: Why should aid delivery be monitored?",
-        "options": [
-            "To reduce corruption and diversion",
-            "To create quotas",
-            "To lower life expectancy",
-            "To stop all imports"
-        ],
-        "a": 0,
-        "hint": "Monitoring helps resources reach intended beneficiaries."
-    },
-    {
-        "q": "Review: Humanitarian aid differs from long-term development aid because it...",
-        "options": [
-            "Responds to urgent crises",
-            "Always funds factories",
-            "Is a trade barrier",
-            "Measures GDP"
-        ],
-        "a": 0,
-        "hint": "Humanitarian aid meets immediate needs during emergencies."
-    },
-    {
-        "q": "Review: Which is an example of multilateral assistance?",
-        "options": [
-            "Several states funding a UN programme",
-            "One country directly funding another",
-            "A household buying food",
-            "A firm paying tax"
-        ],
-        "a": 0,
-        "hint": "Multiple countries acting through an international body is multilateral."
-    },
-    {
-        "q": "Review: In a famine warning, early aid is valuable because it...",
-        "options": [
-            "Prevents conditions worsening",
-            "Guarantees rainfall",
-            "Creates tariffs",
-            "Raises import prices"
-        ],
-        "a": 0,
-        "hint": "Early action can prevent deaths, displacement and severe malnutrition."
-    },
-    {
-        "q": "Review: One way to reduce aid dependency is to combine relief with...",
-        "options": [
-            "Local capacity and livelihood development",
-            "Permanent emergency handouts only",
-            "Trade isolation",
-            "Less accountability"
-        ],
-        "a": 0,
-        "hint": "Building local resilience supports longer-term self-reliance."
-    },
-    {
-        "q": "Challenge: Development aid is best defined as...",
-        "options": [
-            "Financial and technical assistance supporting development",
-            "A tax on imports",
-            "A measure of inequality",
-            "Trade without barriers"
-        ],
-        "a": 0,
-        "hint": "Development aid supports economic, social and political development."
-    },
-    {
-        "q": "Challenge: Bilateral aid is given...",
-        "options": [
-            "Directly from one country to another",
-            "Only by the UN",
-            "By many countries through one body",
-            "Only to businesses"
-        ],
-        "a": 0,
-        "hint": "Bilateral means a direct country-to-country relationship."
-    },
-    {
-        "q": "Challenge: Multilateral aid is channelled through...",
-        "options": [
-            "One household",
-            "International organisations supported by several countries",
-            "A tariff office",
-            "A single local shop"
-        ],
-        "a": 1,
-        "hint": "Bodies such as the UN and World Bank coordinate multilateral aid."
-    },
-    {
-        "q": "Challenge: Which organisation is strongly associated with emergency food assistance?",
-        "options": [
-            "World Food Programme",
-            "World Trade Organization",
-            "International Olympic Committee",
-            "OPEC"
-        ],
-        "a": 0,
-        "hint": "The World Food Programme (WFP) provides food assistance."
-    },
-    {
-        "q": "Challenge: Besides food, humanitarian aid may include...",
-        "options": [
-            "Medical assistance",
-            "Import tariffs",
-            "Trade quotas",
-            "GDP calculations"
-        ],
-        "a": 0,
-        "hint": "Medicines, equipment and healthcare services are key forms of aid."
-    },
-    {
-        "q": "Challenge: An immediate benefit of humanitarian aid is that it can...",
-        "options": [
-            "Save lives and prevent malnutrition",
-            "Guarantee permanent growth",
-            "End all droughts",
-            "Remove every conflict"
-        ],
-        "a": 0,
-        "hint": "Emergency relief targets urgent survival and health needs."
+        "a": 2
     }
 ];
 
         const prizes = [
-            "R100", "R200", "R300", "R500", "R1,000",
-            "R2,000", "R3,000", "R4,000", "R5,000", "R10,000",
-            "R15,000", "R20,000", "R25,000", "R30,000", "R40,000",
-            "R50,000", "R60,000", "R70,000", "R80,000", "R100,000",
-            "R150,000", "R200,000", "R250,000", "R300,000", "R400,000",
-            "R500,000", "R600,000", "R750,000", "R850,000", "R1,000,000"
-        ];
+    "R100",
+    "R200",
+    "R300",
+    "R500",
+    "R1,000",
+    "R2,000",
+    "R4,000",
+    "R8,000",
+    "R16,000",
+    "R32,000",
+    "R64,000",
+    "R125,000",
+    "R250,000",
+    "R500,000",
+    "R1,000,000"
+];
 
         let currentLevel = 0;
         let isWaiting = false;
+        let certificateShown = false;
 
         const ladderContainer = document.getElementById('prizeLadder');
-        for (let i = 0; i < 30; i++) {
+        for (let i = 0; i < questions.length; i++) {
             let step = document.createElement('div');
             step.className = 'ladder-step';
             step.id = `ladder-${i}`;
@@ -482,7 +325,7 @@
             document.getElementById(`ladder-${currentLevel}`).classList.add('active');
 
             const qData = questions[currentLevel];
-            document.getElementById('questionText').innerText = `Q${currentLevel + 1}: ${qData.q}`;
+            document.getElementById('questionText').innerText = qData.q;
 
             let options = [...qData.options];
             let correctText = options[qData.a];
@@ -521,7 +364,7 @@
                     selectedBtn.classList.add('correct');
                     setTimeout(() => {
                         currentLevel++;
-                        if (currentLevel >= 30) endGame(true);
+                        if (currentLevel >= questions.length) endGame(true);
                         else loadQuestion();
                     }, 1000); 
                 } else {
@@ -552,18 +395,30 @@
         function useHint() {
             if (isWaiting) return;
             document.getElementById('btnHint').disabled = true;
-            alert("Geography Teacher Hint: " + questions[currentLevel].hint);
+            alert("History Teacher Hint: " + questions[currentLevel].hint);
         }
 
         function endGame(won) {
             document.getElementById('gameBoard').style.display = 'none';
             document.getElementById('endScreen').style.display = 'block';
             if (won) {
-                document.getElementById('endMessage').innerText = "Geography Legend!";
+                document.getElementById('endMessage').innerText = "History Legend!";
                 document.getElementById('endPrize').innerText = "R1,000,000";
             } else {
                 document.getElementById('endMessage').innerText = "Final Winnings:";
                 document.getElementById('endPrize').innerText = currentLevel > 0 ? prizes[currentLevel - 1] : "R0";
+            }
+            if (!certificateShown) {
+                certificateShown = true;
+                setTimeout(() => {
+                    MayHubCertificates.showScored({
+                        gameTitle: 'Aid and Humanitarian Action Millionaire Challenge',
+                        category: 'Millionaire Quiz',
+                        correct: currentLevel,
+                        total: questions.length,
+                        onReplay: () => window.location.reload()
+                    });
+                }, 600);
             }
         }
         loadQuestion();

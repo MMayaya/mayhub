@@ -13,7 +13,7 @@
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>May Learning Hub | Smart Snake - Development Measures</title>
+    <title>May Learning Hub | Grade 11 Geography Smart Snake - Development Measures</title>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f0f4f8; color: #333; line-height: 1.6; display: flex; flex-direction: column; min-height: 100vh; touch-action: manipulation; }
@@ -78,7 +78,7 @@
         footer { text-align: center; padding: 1rem; background-color: #002b5e; color: #fff; margin-top: auto; }
     </style>
 </head>
-<body>
+<body data-certificate-grade="Grade 11" data-certificate-subject="Geography" data-certificate-term="Term 3" data-certificate-topic="Development Measures" data-certificate-game="Development Measures Snake Challenge" data-certificate-layout="compact-subject">
 
     <nav>
         <a href="../../../../../../index.html" class="logo">May Learning Hub</a>
@@ -89,17 +89,17 @@
     </nav>
 
     <header class="game-header">
-        <h1 class="game-title">Smart Snake: Development Measures</h1>
-        <p class="game-subtitle">Revise development terminology, inequality, health, GDP, sustainability and human-development indicators.</p>
+        <h1 class="game-title">Grade 11 Geography Smart Snake: Development Measures</h1>
+        <p class="game-subtitle">Revise development measures, country categories, quality of life, and sustainable resource use.</p>
         <p style="font-size: 0.78rem; color: #52606d; margin-top: 0.45rem;">Grade 11 Geography Term 3 revision</p>
     </header>
 
     <div class="category-selection" id="categorySelection">
         <div class="cat-buttons">
-            <button class="cat-btn" onclick="startGame('game1')">Development Concepts</button>
-            <button class="cat-btn" onclick="startGame('game2')">Countries & Aspects</button>
-            <button class="cat-btn" onclick="startGame('game3')">Development Indicators</button>
-            <button class="cat-btn" onclick="startGame('game4')">Environmental Indicators</button>
+            <button class="cat-btn" onclick="startGame('game1')">Term Identification</button>
+            <button class="cat-btn" onclick="startGame('game2')">Meaning Match</button>
+            <button class="cat-btn" onclick="startGame('game3')">Multiple Choice</button>
+            <button class="cat-btn" onclick="startGame('game4')">True or False</button>
         </div>
     </div>
 
@@ -146,6 +146,9 @@
     </footer>
 
         <script src="../../../../../../game-audio.js"></script>
+        <script src="../../../../../../may-certificate-renderer.js"></script>
+        <script src="../../../../../../may-certificate-actions.js"></script>
+        <script src="../../../../../../assessment-certificate.js"></script>
 <script>
         const questionDB = {
     "game1": [
@@ -163,41 +166,41 @@
             "q": "Which measure shows how evenly or unevenly income is distributed?",
             "options": [
                 "GDP",
-                "HDI",
                 "Gini coefficient",
+                "HDI",
                 "Life expectancy"
             ],
-            "a": 2
+            "a": 1
         },
         {
             "q": "The average number of years a person is expected to live is...",
             "options": [
                 "Literacy rate",
-                "Life expectancy",
                 "GDP per capita",
+                "Life expectancy",
                 "Infant mortality"
             ],
-            "a": 1
+            "a": 2
         },
         {
             "q": "The annual value of goods and services produced inside a country is...",
             "options": [
-                "GDP",
                 "HDI",
                 "Gini coefficient",
-                "Balance of trade"
+                "Balance of trade",
+                "GDP"
             ],
-            "a": 0
+            "a": 3
         },
         {
             "q": "Meeting present needs without reducing future generations' ability to meet theirs is...",
             "options": [
-                "Economic growth",
                 "Sustainable development",
+                "Economic growth",
                 "Free trade",
                 "Resource depletion"
             ],
-            "a": 1
+            "a": 0
         },
         {
             "q": "Countries with high incomes and industrialisation are often classified as...",
@@ -213,11 +216,11 @@
             "q": "Which index combines health, education and standard of living?",
             "options": [
                 "GDP",
-                "HDI",
                 "Gini coefficient",
+                "HDI",
                 "CPI"
             ],
-            "a": 1
+            "a": 2
         },
         {
             "q": "Which item is NOT one of HDI's three dimensions?",
@@ -265,41 +268,41 @@
             "q": "Quick recall: Which measure shows how evenly or unevenly income is distributed?",
             "options": [
                 "GDP",
-                "HDI",
                 "Gini coefficient",
+                "HDI",
                 "Life expectancy"
             ],
-            "a": 2
+            "a": 1
         },
         {
             "q": "Quick recall: The average number of years a person is expected to live is...",
             "options": [
                 "Literacy rate",
-                "Life expectancy",
                 "GDP per capita",
+                "Life expectancy",
                 "Infant mortality"
             ],
-            "a": 1
+            "a": 2
         },
         {
             "q": "Quick recall: The annual value of goods and services produced inside a country is...",
             "options": [
-                "GDP",
                 "HDI",
                 "Gini coefficient",
-                "Balance of trade"
+                "Balance of trade",
+                "GDP"
             ],
-            "a": 0
+            "a": 3
         },
         {
             "q": "Quick recall: Meeting present needs without reducing future generations' ability to meet theirs is...",
             "options": [
-                "Economic growth",
                 "Sustainable development",
+                "Economic growth",
                 "Free trade",
                 "Resource depletion"
             ],
-            "a": 1
+            "a": 0
         },
         {
             "q": "Quick recall: Countries with high incomes and industrialisation are often classified as...",
@@ -315,11 +318,11 @@
             "q": "Quick recall: Which index combines health, education and standard of living?",
             "options": [
                 "GDP",
-                "HDI",
                 "Gini coefficient",
+                "HDI",
                 "CPI"
             ],
-            "a": 1
+            "a": 2
         },
         {
             "q": "Quick recall: Which item is NOT one of HDI's three dimensions?",
@@ -354,204 +357,184 @@
     ],
     "game3": [
         {
-            "q": "Apply your knowledge: Improving people's quality of life and economic well-being is called...",
+            "q": "Give one example of responsible resource management.",
             "options": [
-                "Development",
-                "Globalisation",
-                "Urbanisation",
-                "Protectionism"
+                "Any valid example, such as recycling or controlled water use",
+                "The average years a person is expected to live",
+                "Any valid example, such as solar, wind or sustainably managed water",
+                "So progress is equitable and can continue long term"
             ],
             "a": 0
         },
         {
-            "q": "Apply your knowledge: Which measure shows how evenly or unevenly income is distributed?",
+            "q": "What broad feature distinguishes MEDCs from LEDCs?",
             "options": [
                 "GDP",
-                "HDI",
-                "Gini coefficient",
-                "Life expectancy"
+                "Higher income/industrialisation/standard of living",
+                "Income distribution and social conditions may differ",
+                "Less Economically Developed Country"
+            ],
+            "a": 1
+        },
+        {
+            "q": "Define life expectancy in one sentence.",
+            "options": [
+                "Any valid example, such as recycling or controlled water use",
+                "Any valid example, such as solar, wind or sustainably managed water",
+                "The average years a person is expected to live",
+                "So progress is equitable and can continue long term"
             ],
             "a": 2
         },
         {
-            "q": "Apply your knowledge: The average number of years a person is expected to live is...",
+            "q": "Which measure totals production within national borders?",
             "options": [
-                "Literacy rate",
-                "Life expectancy",
-                "GDP per capita",
-                "Infant mortality"
-            ],
-            "a": 1
-        },
-        {
-            "q": "Apply your knowledge: The annual value of goods and services produced inside a country is...",
-            "options": [
-                "GDP",
                 "HDI",
                 "Gini coefficient",
-                "Balance of trade"
-            ],
-            "a": 0
-        },
-        {
-            "q": "Apply your knowledge: Meeting present needs without reducing future generations' ability to meet theirs is...",
-            "options": [
-                "Economic growth",
-                "Sustainable development",
-                "Free trade",
-                "Resource depletion"
-            ],
-            "a": 1
-        },
-        {
-            "q": "Apply your knowledge: Countries with high incomes and industrialisation are often classified as...",
-            "options": [
-                "LEDCs",
-                "MEDCs",
-                "LDCs only",
-                "NICs only"
-            ],
-            "a": 1
-        },
-        {
-            "q": "Apply your knowledge: Which index combines health, education and standard of living?",
-            "options": [
-                "GDP",
-                "HDI",
-                "Gini coefficient",
-                "CPI"
-            ],
-            "a": 1
-        },
-        {
-            "q": "Apply your knowledge: Which item is NOT one of HDI's three dimensions?",
-            "options": [
-                "Health",
-                "Education",
-                "Standard of living",
-                "Exports"
+                "Balance of trade",
+                "GDP"
             ],
             "a": 3
         },
         {
-            "q": "Apply your knowledge: A high Gini coefficient generally signals...",
+            "q": "Why can two countries with similar GDP have different living standards?",
             "options": [
-                "Greater income inequality",
-                "Perfect equality",
-                "Long life expectancy",
-                "High literacy only"
+                "Income distribution and social conditions may differ",
+                "Higher income/industrialisation/standard of living",
+                "GDP",
+                "Less Economically Developed Country"
             ],
             "a": 0
         },
         {
-            "q": "Apply your knowledge: Why is GDP alone an incomplete development measure?",
+            "q": "Name one renewable resource.",
             "options": [
-                "It measures no production",
-                "It hides distribution and social well-being",
-                "It is always negative",
-                "It includes education directly"
+                "Any valid example, such as recycling or controlled water use",
+                "Any valid example, such as solar, wind or sustainably managed water",
+                "The average years a person is expected to live",
+                "So progress is equitable and can continue long term"
+            ],
+            "a": 1
+        },
+        {
+            "q": "Expand LEDC.",
+            "options": [
+                "Higher income/industrialisation/standard of living",
+                "GDP",
+                "Less Economically Developed Country",
+                "Income distribution and social conditions may differ"
+            ],
+            "a": 2
+        },
+        {
+            "q": "What does the word composite mean in 'composite index'?",
+            "options": [
+                "Higher income/industrialisation/standard of living",
+                "GDP",
+                "Income distribution and social conditions may differ",
+                "It combines several indicators"
+            ],
+            "a": 3
+        },
+        {
+            "q": "State HDI's education dimension in general terms.",
+            "options": [
+                "Knowledge/years of schooling",
+                "Higher income/industrialisation/standard of living",
+                "GDP",
+                "Income distribution and social conditions may differ"
+            ],
+            "a": 0
+        },
+        {
+            "q": "Would perfect equality have a low or high Gini value?",
+            "options": [
+                "Higher income/industrialisation/standard of living",
+                "Low",
+                "GDP",
+                "Income distribution and social conditions may differ"
             ],
             "a": 1
         }
     ],
     "game4": [
         {
-            "q": "Challenge: Improving people's quality of life and economic well-being is called...",
+            "q": "Development: The process of improving people's quality of life and economic well-being.",
             "options": [
-                "Development",
-                "Globalisation",
-                "Urbanisation",
-                "Protectionism"
+                "True",
+                "False"
             ],
             "a": 0
         },
         {
-            "q": "Challenge: Which measure shows how evenly or unevenly income is distributed?",
+            "q": "Gini Coefficient: The average number of years a person is expected to live.",
             "options": [
-                "GDP",
-                "HDI",
-                "Gini coefficient",
-                "Life expectancy"
-            ],
-            "a": 2
-        },
-        {
-            "q": "Challenge: The average number of years a person is expected to live is...",
-            "options": [
-                "Literacy rate",
-                "Life expectancy",
-                "GDP per capita",
-                "Infant mortality"
+                "True",
+                "False"
             ],
             "a": 1
         },
         {
-            "q": "Challenge: The annual value of goods and services produced inside a country is...",
+            "q": "Life Expectancy: The average number of years a person is expected to live.",
             "options": [
-                "GDP",
-                "HDI",
-                "Gini coefficient",
-                "Balance of trade"
+                "True",
+                "False"
             ],
             "a": 0
         },
         {
-            "q": "Challenge: Meeting present needs without reducing future generations' ability to meet theirs is...",
+            "q": "Gross Domestic Product: Development that meets present needs without limiting future generations.",
             "options": [
-                "Economic growth",
-                "Sustainable development",
-                "Free trade",
-                "Resource depletion"
+                "True",
+                "False"
             ],
             "a": 1
         },
         {
-            "q": "Challenge: Countries with high incomes and industrialisation are often classified as...",
+            "q": "Sustainable Development: Development that meets present needs without limiting future generations.",
             "options": [
-                "LEDCs",
-                "MEDCs",
-                "LDCs only",
-                "NICs only"
-            ],
-            "a": 1
-        },
-        {
-            "q": "Challenge: Which index combines health, education and standard of living?",
-            "options": [
-                "GDP",
-                "HDI",
-                "Gini coefficient",
-                "CPI"
-            ],
-            "a": 1
-        },
-        {
-            "q": "Challenge: Which item is NOT one of HDI's three dimensions?",
-            "options": [
-                "Health",
-                "Education",
-                "Standard of living",
-                "Exports"
-            ],
-            "a": 3
-        },
-        {
-            "q": "Challenge: A high Gini coefficient generally signals...",
-            "options": [
-                "Greater income inequality",
-                "Perfect equality",
-                "Long life expectancy",
-                "High literacy only"
+                "True",
+                "False"
             ],
             "a": 0
         },
         {
-            "q": "Challenge: Why is GDP alone an incomplete development measure?",
+            "q": "MEDCs: A composite index combining health, education and standard of living.",
             "options": [
-                "It measures no production",
-                "It hides distribution and social well-being",
-                "It is always negative",
-                "It includes education directly"
+                "True",
+                "False"
+            ],
+            "a": 1
+        },
+        {
+            "q": "Human Development Index: A composite index combining health, education and standard of living.",
+            "options": [
+                "True",
+                "False"
+            ],
+            "a": 0
+        },
+        {
+            "q": "Resource Management: Gross Domestic Product divided by the population to provide an average per person.",
+            "options": [
+                "True",
+                "False"
+            ],
+            "a": 1
+        },
+        {
+            "q": "GDP Per Capita: Gross Domestic Product divided by the population to provide an average per person.",
+            "options": [
+                "True",
+                "False"
+            ],
+            "a": 0
+        },
+        {
+            "q": "Income Inequality: The process of improving people's quality of life and economic well-being.",
+            "options": [
+                "True",
+                "False"
             ],
             "a": 1
         }
@@ -576,11 +559,25 @@
         let isGoldenAppleActive = false;
         let activeQuestionValue = 1; 
         let isPausedPendingInput = true;
+        let currentCategoryKey = null;
+        let correctAnswers = 0;
+        let totalQuestionsForGame = 10;
+        let certificateShown = false;
+        const snakeCategoryTitles = {
+            game1: 'Term Identification',
+            game2: 'Meaning Match',
+            game3: 'Multiple Choice',
+            game4: 'True or False'
+        };
 
         function startGame(categoryKey) {
             document.getElementById('categorySelection').style.display = 'none';
             document.getElementById('gameArea').style.display = 'flex';
+            currentCategoryKey = categoryKey;
             currentTopic = [...questionDB[categoryKey]];
+            correctAnswers = 0;
+            totalQuestionsForGame = currentTopic.length;
+            certificateShown = false;
             snake = [{x: 15, y: 10}, {x: 15, y: 11}, {x: 15, y: 12}];
             dx = 0; dy = -1; score = 0; applesEaten = 0;
             updateScoreboard();
@@ -742,6 +739,7 @@
             if (selectedIndex === currentQuestionObj.a) {
                 MayHubSounds.playCorrect();
                 clickedBtn.classList.add('correct');
+                correctAnswers++;
                 score += activeQuestionValue;
                 updateScoreboard();
                 snake.push({ ...snake[snake.length - 1] }); 
@@ -784,7 +782,19 @@
             } else {
                 title.innerText = "Game Over!";
                 title.style.color = "#dc3545";
-                msg.innerText = "Development is a journey. Try again and strengthen your understanding of its concepts and indicators!";
+                msg.innerText = "History takes practice. Try again and strengthen your understanding of this topic!";
+            }
+            if (!certificateShown) {
+                certificateShown = true;
+                setTimeout(() => {
+                    MayHubCertificates.showScored({
+                        gameTitle: 'Development Measures Snake Challenge',
+                        category: snakeCategoryTitles[currentCategoryKey] || 'Assessment Game',
+                        correct: correctAnswers,
+                        total: totalQuestionsForGame,
+                        onReplay: () => window.location.reload()
+                    });
+                }, 600);
             }
         }
     </script>

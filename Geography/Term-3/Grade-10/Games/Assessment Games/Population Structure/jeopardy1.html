@@ -72,7 +72,7 @@
         .score-board { background: #002b5e; color: #fff; display: inline-block; padding: 0.8rem 2.5rem; border-radius: 30px; font-size: 1.6rem; font-weight: bold; border: 4px solid #3385ff; box-shadow: 0 4px 10px rgba(0,0,0,0.2); margin-bottom: 2rem; transition: all 0.3s; }
         .score-board span { color: #ffc107; }
 
-        .jeopardy-board { width: 100%; max-width: 1000px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; background: #001a33; padding: 8px; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
+        .jeopardy-board { width: 100%; max-width: 1000px; display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; background: #001a33; padding: 8px; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
         .category-header { background: #004080; color: #fff; text-align: center; font-weight: bold; padding: 1rem 0.5rem; font-size: 1.1rem; border-radius: 6px; border-bottom: 4px solid #3385ff; display: flex; align-items: center; justify-content: center; min-height: 80px; text-transform: uppercase; }
         .point-btn { background: #3385ff; color: #fff; font-size: 1.6rem; font-weight: bold; border: none; padding: 1.5rem 0; border-radius: 6px; cursor: pointer; transition: all 0.2s; text-shadow: 1px 1px 2px rgba(0,0,0,0.5); box-shadow: inset 0 0 10px rgba(0,0,0,0.2); }
         .point-btn:hover:not(:disabled) { background: #1a75ff; transform: scale(0.96); }
@@ -103,7 +103,7 @@
         footer { text-align: center; padding: 1rem; background-color: #002b5e; color: #fff; margin-top: auto; }
     </style>
 </head>
-<body>
+<body data-certificate-grade="Grade 10" data-certificate-subject="Geography" data-certificate-term="Term 3" data-certificate-topic="Population Structure" data-certificate-game="Population Structure Jeopardy Game" data-certificate-layout="compact-subject">
 
     <nav>
         <a href="../../../../../../index.html" class="logo">May Learning Hub</a>
@@ -115,7 +115,7 @@
 
     <header class="game-header">
         <h1 class="game-title">Grade 10 Geography Jeopardy</h1>
-        <p class="game-subtitle">Revise development terminology, inequality, health, GDP, sustainability and human-development indicators.</p>
+        <p class="game-subtitle">Revise population pyramids, age groups, life expectancy, and government planning.</p>
         <p style="font-size: 0.78rem; color: #52606d; margin-top: 0.45rem;">Grade 10 Geography Term 3 revision</p>
     </header>
 
@@ -133,7 +133,7 @@
                 <button class="btn-edit" id="btnEditNames" onclick="showNameEditor()">Edit Names</button>
                 <button class="btn-reset" onclick="resetPlayerNames()">Reset</button>
             </div>
-            <p class="hint">80 unique clues drawn from the Grade 10 Term 3 Development presentation! </p>
+            <p class="hint">40 paper-bound questions are shuffled each session. Every player receives 10 different questions.</p>
         </div>
     </section>
 
@@ -168,10 +168,10 @@
     <div class="modal" id="questionModal">
         <div class="modal-content">
             <div class="modal-category" id="modalCategory">Category</div>
-            <div class="modal-question" id="modalQuestion">Clue</div>
-            <button class="btn-reveal" id="btnReveal" onclick="revealAnswer()">Reveal Correct Question</button>
+            <div class="modal-question" id="modalQuestion">Question</div>
+            <button class="btn-reveal" id="btnReveal" onclick="revealAnswer()">Reveal Answer</button>
             <div class="modal-answer-area" id="answerArea">
-                <div class="modal-answer" id="modalAnswer">Correct Question</div>
+                <div class="modal-answer" id="modalAnswer">Answer</div>
                 <div class="judgement-area" id="judgementArea">
                     <p>Did <strong id="activePlayerName">Player</strong> get it right?</p>
                     <div class="judgement-buttons">
@@ -190,6 +190,9 @@
     <footer><p>&copy; 2026 May Learning Hub. All rights reserved.</p></footer>
 
         <script src="../../../../../../game-audio.js"></script>
+        <script src="../../../../../../may-certificate-renderer.js"></script>
+        <script src="../../../../../../may-certificate-actions.js"></script>
+        <script src="../../../../../../assessment-certificate.js"></script>
 <script>
         const questionBank = [
     {
@@ -293,206 +296,6 @@
         "a": "Preparing training and job opportunities for the working-age population."
     },
     {
-        "category": "Identify",
-        "q": "A graph showing the age and sex structure of a population. Name the correct geographical term.",
-        "a": "Population pyramid"
-    },
-    {
-        "category": "Identify",
-        "q": "The composition of a population according to age groups and sex. Name the correct geographical term.",
-        "a": "Age-sex structure"
-    },
-    {
-        "category": "Identify",
-        "q": "A group of people within the same age range. Name the correct geographical term.",
-        "a": "Cohort"
-    },
-    {
-        "category": "Identify",
-        "q": "A pyramid with a broad base, showing a youthful and rapidly growing population. Name the correct geographical term.",
-        "a": "Expanding pyramid"
-    },
-    {
-        "category": "Identify",
-        "q": "A pyramid with similar-sized younger and middle cohorts, showing slow change. Name the correct geographical term.",
-        "a": "Stable pyramid"
-    },
-    {
-        "category": "Identify",
-        "q": "A pyramid with a narrow base, showing low birth rates and possible population decline. Name the correct geographical term.",
-        "a": "Declining pyramid"
-    },
-    {
-        "category": "Identify",
-        "q": "A wide youngest-age section that usually indicates a high birth rate. Name the correct geographical term.",
-        "a": "Broad base"
-    },
-    {
-        "category": "Identify",
-        "q": "A small elderly section that usually indicates relatively low life expectancy. Name the correct geographical term.",
-        "a": "Narrow apex"
-    },
-    {
-        "category": "Identify",
-        "q": "Children who generally rely on working adults for support. Name the correct geographical term.",
-        "a": "Young dependants"
-    },
-    {
-        "category": "Identify",
-        "q": "Adults in the age range that normally supplies most workers. Name the correct geographical term.",
-        "a": "Working-age population"
-    },
-    {
-        "category": "Identify",
-        "q": "Older people who may rely on workers, pensions or care services. Name the correct geographical term.",
-        "a": "Elderly dependants"
-    },
-    {
-        "category": "Identify",
-        "q": "The relationship between the number of males and females in a population. Name the correct geographical term.",
-        "a": "Sex ratio"
-    },
-    {
-        "category": "Identify",
-        "q": "A large number of live births per 1,000 people. Name the correct geographical term.",
-        "a": "High birth rate"
-    },
-    {
-        "category": "Identify",
-        "q": "A relatively low average number of years that people are expected to live. Name the correct geographical term.",
-        "a": "Low life expectancy"
-    },
-    {
-        "category": "Identify",
-        "q": "A comparison of dependants with the working-age population. Name the correct geographical term.",
-        "a": "Dependency ratio"
-    },
-    {
-        "category": "Identify",
-        "q": "Using population information to prepare services and infrastructure. Name the correct geographical term.",
-        "a": "Government planning"
-    },
-    {
-        "category": "Identify",
-        "q": "Using the number of children to estimate classrooms and teachers needed. Name the correct geographical term.",
-        "a": "School planning"
-    },
-    {
-        "category": "Identify",
-        "q": "Using population needs to plan clinics, hospitals and health workers. Name the correct geographical term.",
-        "a": "Healthcare planning"
-    },
-    {
-        "category": "Identify",
-        "q": "Estimating the number and type of homes required by a population. Name the correct geographical term.",
-        "a": "Housing planning"
-    },
-    {
-        "category": "Identify",
-        "q": "Preparing training and job opportunities for the working-age population. Name the correct geographical term.",
-        "a": "Employment planning"
-    },
-    {
-        "category": "Choose",
-        "q": "Which geographical term means: A graph showing the age and sex structure of a population. Options: A) Population pyramid | B) Age-sex structure | C) Cohort | D) Expanding pyramid",
-        "a": "A) Population pyramid"
-    },
-    {
-        "category": "Choose",
-        "q": "Which geographical term means: The composition of a population according to age groups and sex. Options: A) Cohort | B) Age-sex structure | C) Expanding pyramid | D) Stable pyramid",
-        "a": "B) Age-sex structure"
-    },
-    {
-        "category": "Choose",
-        "q": "Which geographical term means: A group of people within the same age range. Options: A) Expanding pyramid | B) Stable pyramid | C) Cohort | D) Declining pyramid",
-        "a": "C) Cohort"
-    },
-    {
-        "category": "Choose",
-        "q": "Which geographical term means: A pyramid with a broad base, showing a youthful and rapidly growing population. Options: A) Stable pyramid | B) Declining pyramid | C) Broad base | D) Expanding pyramid",
-        "a": "D) Expanding pyramid"
-    },
-    {
-        "category": "Choose",
-        "q": "Which geographical term means: A pyramid with similar-sized younger and middle cohorts, showing slow change. Options: A) Stable pyramid | B) Declining pyramid | C) Broad base | D) Narrow apex",
-        "a": "A) Stable pyramid"
-    },
-    {
-        "category": "Choose",
-        "q": "Which geographical term means: A pyramid with a narrow base, showing low birth rates and possible population decline. Options: A) Broad base | B) Declining pyramid | C) Narrow apex | D) Young dependants",
-        "a": "B) Declining pyramid"
-    },
-    {
-        "category": "Choose",
-        "q": "Which geographical term means: A wide youngest-age section that usually indicates a high birth rate. Options: A) Narrow apex | B) Young dependants | C) Broad base | D) Working-age population",
-        "a": "C) Broad base"
-    },
-    {
-        "category": "Choose",
-        "q": "Which geographical term means: A small elderly section that usually indicates relatively low life expectancy. Options: A) Young dependants | B) Working-age population | C) Elderly dependants | D) Narrow apex",
-        "a": "D) Narrow apex"
-    },
-    {
-        "category": "Choose",
-        "q": "Which geographical term means: Children who generally rely on working adults for support. Options: A) Young dependants | B) Working-age population | C) Elderly dependants | D) Sex ratio",
-        "a": "A) Young dependants"
-    },
-    {
-        "category": "Choose",
-        "q": "Which geographical term means: Adults in the age range that normally supplies most workers. Options: A) Elderly dependants | B) Working-age population | C) Sex ratio | D) High birth rate",
-        "a": "B) Working-age population"
-    },
-    {
-        "category": "Choose",
-        "q": "Which geographical term means: Older people who may rely on workers, pensions or care services. Options: A) Sex ratio | B) High birth rate | C) Elderly dependants | D) Low life expectancy",
-        "a": "C) Elderly dependants"
-    },
-    {
-        "category": "Choose",
-        "q": "Which geographical term means: The relationship between the number of males and females in a population. Options: A) High birth rate | B) Low life expectancy | C) Dependency ratio | D) Sex ratio",
-        "a": "D) Sex ratio"
-    },
-    {
-        "category": "Choose",
-        "q": "Which geographical term means: A large number of live births per 1,000 people. Options: A) High birth rate | B) Low life expectancy | C) Dependency ratio | D) Government planning",
-        "a": "A) High birth rate"
-    },
-    {
-        "category": "Choose",
-        "q": "Which geographical term means: A relatively low average number of years that people are expected to live. Options: A) Dependency ratio | B) Low life expectancy | C) Government planning | D) School planning",
-        "a": "B) Low life expectancy"
-    },
-    {
-        "category": "Choose",
-        "q": "Which geographical term means: A comparison of dependants with the working-age population. Options: A) Government planning | B) School planning | C) Dependency ratio | D) Healthcare planning",
-        "a": "C) Dependency ratio"
-    },
-    {
-        "category": "Choose",
-        "q": "Which geographical term means: Using population information to prepare services and infrastructure. Options: A) School planning | B) Healthcare planning | C) Housing planning | D) Government planning",
-        "a": "D) Government planning"
-    },
-    {
-        "category": "Choose",
-        "q": "Which geographical term means: Using the number of children to estimate classrooms and teachers needed. Options: A) School planning | B) Healthcare planning | C) Housing planning | D) Employment planning",
-        "a": "A) School planning"
-    },
-    {
-        "category": "Choose",
-        "q": "Which geographical term means: Using population needs to plan clinics, hospitals and health workers. Options: A) Housing planning | B) Healthcare planning | C) Employment planning | D) Population pyramid",
-        "a": "B) Healthcare planning"
-    },
-    {
-        "category": "Choose",
-        "q": "Which geographical term means: Estimating the number and type of homes required by a population. Options: A) Employment planning | B) Population pyramid | C) Housing planning | D) Age-sex structure",
-        "a": "C) Housing planning"
-    },
-    {
-        "category": "Choose",
-        "q": "Which geographical term means: Preparing training and job opportunities for the working-age population. Options: A) Population pyramid | B) Age-sex structure | C) Cohort | D) Employment planning",
-        "a": "D) Employment planning"
-    },
-    {
         "category": "Apply",
         "q": "What graph displays age groups on the vertical axis and population by sex on opposite sides?",
         "a": "Population pyramid"
@@ -524,7 +327,7 @@
     },
     {
         "category": "Apply",
-        "q": "Which group is shown by the oldest age bars?",
+        "q": "In a population pyramid, which group is represented by the oldest age bars?",
         "a": "Elderly dependants"
     },
     {
@@ -604,9 +407,9 @@
         }
 
         function dealJeopardyPlayerQuestions(items, playerIndex) {
-            const playerQuestions = items.slice(playerIndex * 20, playerIndex * 20 + 20);
-            return Array.from({ length: 4 }, (_, categoryIndex) => ({
-                name: ["Round One", "Round Two", "Round Three", "Round Four"][categoryIndex],
+            const playerQuestions = items.slice(playerIndex * 10, playerIndex * 10 + 10);
+            return Array.from({ length: 2 }, (_, categoryIndex) => ({
+                name: ["Round One", "Round Two"][categoryIndex],
                 questions: playerQuestions.slice(categoryIndex * 5, categoryIndex * 5 + 5).map((item, questionIndex) => ({
                     points: (questionIndex + 1) * 10,
                     q: item.q,
@@ -627,6 +430,11 @@
         let activePointValue = 0;
         let activeTileButton = null;
         let playerNames = ["Player 1", "Player 2", "Player 3", "Player 4"];
+        let answeredTiles = 0;
+        let participationShown = false;
+        const totalJeopardyTiles = gameData.reduce((playerTotal, playerCategories) => {
+            return playerTotal + playerCategories.reduce((categoryTotal, category) => categoryTotal + category.questions.length, 0);
+        }, 0);
 
         const carouselTrack = document.getElementById('carouselTrack');
         const modal = document.getElementById('questionModal');
@@ -738,7 +546,27 @@
         }
 
         function updateScore(i) { document.getElementById(`score-${i}`).innerText = scores[i]; }
-        function closeModal() { activeTileButton.innerText = ""; activeTileButton.disabled = true; modal.style.display = 'none'; }
+        function closeModal() {
+            if (!activeTileButton) {
+                modal.style.display = 'none';
+                return;
+            }
+            activeTileButton.innerText = "";
+            activeTileButton.disabled = true;
+            activeTileButton = null;
+            modal.style.display = 'none';
+            answeredTiles++;
+            if (answeredTiles === totalJeopardyTiles && !participationShown) {
+                participationShown = true;
+                setTimeout(() => {
+                    MayHubCertificates.showParticipation({
+                        gameTitle: 'Population Structure Jeopardy Game',
+                        category: 'Round One and Round Two',
+                        onReplay: () => window.location.reload()
+                    });
+                }, 650);
+            }
+        }
         
         buildBoards();
 

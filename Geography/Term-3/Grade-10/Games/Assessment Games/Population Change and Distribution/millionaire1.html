@@ -67,7 +67,7 @@
         footer { text-align: center; padding: 1rem; background-color: #002b5e; color: #fff; margin-top: auto; }
     </style>
 </head>
-<body>
+<body data-certificate-grade="Grade 10" data-certificate-subject="Geography" data-certificate-term="Term 3" data-certificate-topic="Population Change and Distribution" data-certificate-game="Population Change and Distribution Millionaire Challenge" data-certificate-layout="compact-subject">
 
     <nav>
         <a href="../../../../../../index.html" class="logo">May Learning Hub</a>
@@ -79,7 +79,7 @@
 
     <header class="game-header">
         <h1 class="game-title">R1,000,000 Geography Challenge</h1>
-        <p class="game-subtitle">Revise development terminology, inequality, health, GDP, sustainability and human-development indicators.</p>
+        <p class="game-subtitle">Revise natural increase calculations and physical and human factors affecting distribution.</p>
         <p style="font-size: 0.78rem; color: #52606d; margin-top: 0.45rem;">Grade 10 Geography Term 3 revision</p>
     </header>
 
@@ -117,28 +117,31 @@
     </footer>
 
         <script src="../../../../../../game-audio.js"></script>
+        <script src="../../../../../../may-certificate-renderer.js"></script>
+        <script src="../../../../../../may-certificate-actions.js"></script>
+        <script src="../../../../../../assessment-certificate.js"></script>
 <script>
         const questions = [
     {
         "q": "Select the term described here: The number of live births per 1,000 people in a year.",
         "options": [
-            "Death rate",
             "Birth rate",
+            "Death rate",
             "Crude birth rate",
             "Crude death rate"
         ],
-        "a": 1,
+        "a": 0,
         "hint": "The correct answer is Birth rate."
     },
     {
         "q": "Select the term described here: The number of deaths per 1,000 people in a year.",
         "options": [
             "Crude birth rate",
-            "Crude death rate",
             "Death rate",
+            "Crude death rate",
             "Natural increase"
         ],
-        "a": 2,
+        "a": 1,
         "hint": "The correct answer is Death rate."
     },
     {
@@ -146,43 +149,43 @@
         "options": [
             "Crude death rate",
             "Natural increase",
-            "Natural decrease",
-            "Crude birth rate"
+            "Crude birth rate",
+            "Natural decrease"
         ],
-        "a": 3,
+        "a": 2,
         "hint": "The correct answer is Crude birth rate."
     },
     {
         "q": "Select the term described here: The annual number of deaths per 1,000 people.",
         "options": [
-            "Crude death rate",
             "Natural increase",
             "Natural decrease",
-            "Positive natural increase"
+            "Positive natural increase",
+            "Crude death rate"
         ],
-        "a": 0,
+        "a": 3,
         "hint": "The correct answer is Crude death rate."
     },
     {
         "q": "Select the term described here: Population growth calculated by subtracting the death rate from the birth rate.",
         "options": [
-            "Natural decrease",
             "Natural increase",
+            "Natural decrease",
             "Positive natural increase",
             "Negative natural increase"
         ],
-        "a": 1,
+        "a": 0,
         "hint": "The correct answer is Natural increase."
     },
     {
         "q": "Select the term described here: A population decline that occurs when the death rate is higher than the birth rate.",
         "options": [
             "Positive natural increase",
-            "Negative natural increase",
             "Natural decrease",
+            "Negative natural increase",
             "Zero natural increase"
         ],
-        "a": 2,
+        "a": 1,
         "hint": "The correct answer is Natural decrease."
     },
     {
@@ -190,43 +193,43 @@
         "options": [
             "Negative natural increase",
             "Zero natural increase",
-            "Population distribution",
-            "Positive natural increase"
+            "Positive natural increase",
+            "Population distribution"
         ],
-        "a": 3,
+        "a": 2,
         "hint": "The correct answer is Positive natural increase."
     },
     {
         "q": "Select the term described here: A result below zero because deaths exceed births.",
         "options": [
-            "Negative natural increase",
             "Zero natural increase",
             "Population distribution",
-            "Population density"
+            "Population density",
+            "Negative natural increase"
         ],
-        "a": 0,
+        "a": 3,
         "hint": "The correct answer is Negative natural increase."
     },
     {
         "q": "Select the term described here: A situation in which the birth rate and death rate are equal.",
         "options": [
-            "Population distribution",
             "Zero natural increase",
+            "Population distribution",
             "Population density",
             "Climate"
         ],
-        "a": 1,
+        "a": 0,
         "hint": "The correct answer is Zero natural increase."
     },
     {
         "q": "Select the term described here: The pattern showing where people live across an area.",
         "options": [
             "Population density",
-            "Climate",
             "Population distribution",
+            "Climate",
             "Relief"
         ],
-        "a": 2,
+        "a": 1,
         "hint": "The correct answer is Population distribution."
     },
     {
@@ -234,237 +237,82 @@
         "options": [
             "Climate",
             "Relief",
-            "Water supply",
-            "Population density"
+            "Population density",
+            "Water supply"
         ],
-        "a": 3,
+        "a": 2,
         "hint": "The correct answer is Population density."
     },
     {
         "q": "Select the term described here: Long-term weather conditions that can attract or discourage settlement.",
         "options": [
-            "Climate",
             "Relief",
             "Water supply",
-            "Fertile soil"
+            "Fertile soil",
+            "Climate"
         ],
-        "a": 0,
+        "a": 3,
         "hint": "The correct answer is Climate."
     },
     {
         "q": "Select the term described here: The height and shape of the land, including slopes and plains.",
         "options": [
-            "Water supply",
             "Relief",
+            "Water supply",
             "Fertile soil",
             "Mineral resources"
         ],
-        "a": 1,
+        "a": 0,
         "hint": "The correct answer is Relief."
     },
     {
         "q": "Select the term described here: Accessible water for homes, farming and industry.",
         "options": [
             "Fertile soil",
-            "Mineral resources",
             "Water supply",
+            "Mineral resources",
             "Employment opportunities"
         ],
-        "a": 2,
+        "a": 1,
         "hint": "The correct answer is Water supply."
-    },
-    {
-        "q": "Select the term described here: Soil that supports productive farming and can attract settlement.",
-        "options": [
-            "Mineral resources",
-            "Employment opportunities",
-            "Transport network",
-            "Fertile soil"
-        ],
-        "a": 3,
-        "hint": "The correct answer is Fertile soil."
-    },
-    {
-        "q": "Select the term described here: Valuable materials in the Earth that may attract mines, jobs and settlements.",
-        "options": [
-            "Mineral resources",
-            "Employment opportunities",
-            "Transport network",
-            "Political stability"
-        ],
-        "a": 0,
-        "hint": "The correct answer is Mineral resources."
     },
     {
         "q": "Select the term described here: Available jobs that attract people to an area.",
         "options": [
             "Transport network",
-            "Employment opportunities",
             "Political stability",
+            "Employment opportunities",
             "Accessibility"
         ],
-        "a": 1,
+        "a": 2,
         "hint": "The correct answer is Employment opportunities."
-    },
-    {
-        "q": "Select the term described here: Roads, railways and other routes that improve accessibility.",
-        "options": [
-            "Political stability",
-            "Accessibility",
-            "Transport network",
-            "Birth rate"
-        ],
-        "a": 2,
-        "hint": "The correct answer is Transport network."
-    },
-    {
-        "q": "Select the term described here: Safe and predictable government conditions that encourage settlement.",
-        "options": [
-            "Accessibility",
-            "Birth rate",
-            "Death rate",
-            "Political stability"
-        ],
-        "a": 3,
-        "hint": "The correct answer is Political stability."
-    },
-    {
-        "q": "Select the term described here: The ease with which a place can be reached.",
-        "options": [
-            "Accessibility",
-            "Birth rate",
-            "Death rate",
-            "Crude birth rate"
-        ],
-        "a": 0,
-        "hint": "The correct answer is Accessibility."
-    },
-    {
-        "q": "Birth rate refers to which of the following?",
-        "options": [
-            "The number of deaths per 1,000 people in a year.",
-            "The annual number of live births per 1,000 people.",
-            "The annual number of deaths per 1,000 people.",
-            "The number of live births per 1,000 people in a year."
-        ],
-        "a": 3,
-        "hint": "The correct answer is The number of live births per 1,000 people in a year.."
-    },
-    {
-        "q": "Death rate refers to which of the following?",
-        "options": [
-            "The number of deaths per 1,000 people in a year.",
-            "The annual number of live births per 1,000 people.",
-            "The annual number of deaths per 1,000 people.",
-            "Population growth calculated by subtracting the death rate from the birth rate."
-        ],
-        "a": 0,
-        "hint": "The correct answer is The number of deaths per 1,000 people in a year.."
-    },
-    {
-        "q": "Crude birth rate refers to which of the following?",
-        "options": [
-            "The annual number of deaths per 1,000 people.",
-            "The annual number of live births per 1,000 people.",
-            "Population growth calculated by subtracting the death rate from the birth rate.",
-            "A population decline that occurs when the death rate is higher than the birth rate."
-        ],
-        "a": 1,
-        "hint": "The correct answer is The annual number of live births per 1,000 people.."
-    },
-    {
-        "q": "Crude death rate refers to which of the following?",
-        "options": [
-            "Population growth calculated by subtracting the death rate from the birth rate.",
-            "A population decline that occurs when the death rate is higher than the birth rate.",
-            "The annual number of deaths per 1,000 people.",
-            "A result above zero because births exceed deaths."
-        ],
-        "a": 2,
-        "hint": "The correct answer is The annual number of deaths per 1,000 people.."
-    },
-    {
-        "q": "Natural increase refers to which of the following?",
-        "options": [
-            "A population decline that occurs when the death rate is higher than the birth rate.",
-            "A result above zero because births exceed deaths.",
-            "A result below zero because deaths exceed births.",
-            "Population growth calculated by subtracting the death rate from the birth rate."
-        ],
-        "a": 3,
-        "hint": "The correct answer is Population growth calculated by subtracting the death rate from the birth rate.."
-    },
-    {
-        "q": "Natural decrease refers to which of the following?",
-        "options": [
-            "A population decline that occurs when the death rate is higher than the birth rate.",
-            "A result above zero because births exceed deaths.",
-            "A result below zero because deaths exceed births.",
-            "A situation in which the birth rate and death rate are equal."
-        ],
-        "a": 0,
-        "hint": "The correct answer is A population decline that occurs when the death rate is higher than the birth rate.."
-    },
-    {
-        "q": "Positive natural increase refers to which of the following?",
-        "options": [
-            "A result below zero because deaths exceed births.",
-            "A result above zero because births exceed deaths.",
-            "A situation in which the birth rate and death rate are equal.",
-            "The pattern showing where people live across an area."
-        ],
-        "a": 1,
-        "hint": "The correct answer is A result above zero because births exceed deaths.."
-    },
-    {
-        "q": "Negative natural increase refers to which of the following?",
-        "options": [
-            "A situation in which the birth rate and death rate are equal.",
-            "The pattern showing where people live across an area.",
-            "A result below zero because deaths exceed births.",
-            "The average number of people living in each square kilometre."
-        ],
-        "a": 2,
-        "hint": "The correct answer is A result below zero because deaths exceed births.."
-    },
-    {
-        "q": "Zero natural increase refers to which of the following?",
-        "options": [
-            "The pattern showing where people live across an area.",
-            "The average number of people living in each square kilometre.",
-            "Long-term weather conditions that can attract or discourage settlement.",
-            "A situation in which the birth rate and death rate are equal."
-        ],
-        "a": 3,
-        "hint": "The correct answer is A situation in which the birth rate and death rate are equal.."
-    },
-    {
-        "q": "Population distribution refers to which of the following?",
-        "options": [
-            "The pattern showing where people live across an area.",
-            "The average number of people living in each square kilometre.",
-            "Long-term weather conditions that can attract or discourage settlement.",
-            "The height and shape of the land, including slopes and plains."
-        ],
-        "a": 0,
-        "hint": "The correct answer is The pattern showing where people live across an area.."
     }
 ];
 
         const prizes = [
-            "R100", "R200", "R300", "R500", "R1,000",
-            "R2,000", "R3,000", "R4,000", "R5,000", "R10,000",
-            "R15,000", "R20,000", "R25,000", "R30,000", "R40,000",
-            "R50,000", "R60,000", "R70,000", "R80,000", "R100,000",
-            "R150,000", "R200,000", "R250,000", "R300,000", "R400,000",
-            "R500,000", "R600,000", "R750,000", "R850,000", "R1,000,000"
-        ];
+    "R100",
+    "R200",
+    "R300",
+    "R500",
+    "R1,000",
+    "R2,000",
+    "R4,000",
+    "R8,000",
+    "R16,000",
+    "R32,000",
+    "R64,000",
+    "R125,000",
+    "R250,000",
+    "R500,000",
+    "R1,000,000"
+];
 
         let currentLevel = 0;
         let isWaiting = false;
+        let certificateShown = false;
 
         const ladderContainer = document.getElementById('prizeLadder');
-        for (let i = 0; i < 30; i++) {
+        for (let i = 0; i < questions.length; i++) {
             let step = document.createElement('div');
             step.className = 'ladder-step';
             step.id = `ladder-${i}`;
@@ -482,7 +330,7 @@
             document.getElementById(`ladder-${currentLevel}`).classList.add('active');
 
             const qData = questions[currentLevel];
-            document.getElementById('questionText').innerText = `Q${currentLevel + 1}: ${qData.q}`;
+            document.getElementById('questionText').innerText = qData.q;
 
             let options = [...qData.options];
             let correctText = options[qData.a];
@@ -521,7 +369,7 @@
                     selectedBtn.classList.add('correct');
                     setTimeout(() => {
                         currentLevel++;
-                        if (currentLevel >= 30) endGame(true);
+                        if (currentLevel >= questions.length) endGame(true);
                         else loadQuestion();
                     }, 1000); 
                 } else {
@@ -552,18 +400,30 @@
         function useHint() {
             if (isWaiting) return;
             document.getElementById('btnHint').disabled = true;
-            alert("Geography Teacher Hint: " + questions[currentLevel].hint);
+            alert("History Teacher Hint: " + questions[currentLevel].hint);
         }
 
         function endGame(won) {
             document.getElementById('gameBoard').style.display = 'none';
             document.getElementById('endScreen').style.display = 'block';
             if (won) {
-                document.getElementById('endMessage').innerText = "Geography Legend!";
+                document.getElementById('endMessage').innerText = "History Legend!";
                 document.getElementById('endPrize').innerText = "R1,000,000";
             } else {
                 document.getElementById('endMessage').innerText = "Final Winnings:";
                 document.getElementById('endPrize').innerText = currentLevel > 0 ? prizes[currentLevel - 1] : "R0";
+            }
+            if (!certificateShown) {
+                certificateShown = true;
+                setTimeout(() => {
+                    MayHubCertificates.showScored({
+                        gameTitle: 'Population Change and Distribution Millionaire Challenge',
+                        category: 'Millionaire Quiz',
+                        correct: currentLevel,
+                        total: questions.length,
+                        onReplay: () => window.location.reload()
+                    });
+                }, 600);
             }
         }
         loadQuestion();

@@ -13,7 +13,7 @@
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>May Learning Hub | Smart Snake - Population Measures</title>
+    <title>May Learning Hub | Grade 10 Geography Smart Snake - Population Measures</title>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f0f4f8; color: #333; line-height: 1.6; display: flex; flex-direction: column; min-height: 100vh; touch-action: manipulation; }
@@ -78,7 +78,7 @@
         footer { text-align: center; padding: 1rem; background-color: #002b5e; color: #fff; margin-top: auto; }
     </style>
 </head>
-<body>
+<body data-certificate-grade="Grade 10" data-certificate-subject="Geography" data-certificate-term="Term 3" data-certificate-topic="Population Measures" data-certificate-game="Population Measures Snake Challenge" data-certificate-layout="compact-subject">
 
     <nav>
         <a href="../../../../../../index.html" class="logo">May Learning Hub</a>
@@ -89,17 +89,17 @@
     </nav>
 
     <header class="game-header">
-        <h1 class="game-title">Smart Snake: Population Measures</h1>
-        <p class="game-subtitle">Revise development terminology, inequality, health, GDP, sustainability and human-development indicators.</p>
+        <h1 class="game-title">Grade 10 Geography Smart Snake: Population Measures</h1>
+        <p class="game-subtitle">Revise census data, population rates, density, distribution, and natural increase.</p>
         <p style="font-size: 0.78rem; color: #52606d; margin-top: 0.45rem;">Grade 10 Geography Term 3 revision</p>
     </header>
 
     <div class="category-selection" id="categorySelection">
         <div class="cat-buttons">
-            <button class="cat-btn" onclick="startGame('game1')">Development Concepts</button>
-            <button class="cat-btn" onclick="startGame('game2')">Countries & Aspects</button>
-            <button class="cat-btn" onclick="startGame('game3')">Development Indicators</button>
-            <button class="cat-btn" onclick="startGame('game4')">Environmental Indicators</button>
+            <button class="cat-btn" onclick="startGame('game1')">Term Identification</button>
+            <button class="cat-btn" onclick="startGame('game2')">Meaning Match</button>
+            <button class="cat-btn" onclick="startGame('game3')">Multiple Choice</button>
+            <button class="cat-btn" onclick="startGame('game4')">True or False</button>
         </div>
     </div>
 
@@ -146,11 +146,14 @@
     </footer>
 
         <script src="../../../../../../game-audio.js"></script>
+        <script src="../../../../../../may-certificate-renderer.js"></script>
+        <script src="../../../../../../may-certificate-actions.js"></script>
+        <script src="../../../../../../assessment-certificate.js"></script>
 <script>
         const questionDB = {
     "game1": [
         {
-            "q": "Which geographical term means: An official survey that counts and records information about a country's population.",
+            "q": "An official survey that counts and records information about a country's population.",
             "options": [
                 "Census",
                 "Literacy rate",
@@ -160,7 +163,7 @@
             "a": 0
         },
         {
-            "q": "Which geographical term means: The percentage of people who can read and write with understanding.",
+            "q": "The percentage of people who can read and write with understanding.",
             "options": [
                 "Population density",
                 "Literacy rate",
@@ -170,7 +173,7 @@
             "a": 1
         },
         {
-            "q": "Which geographical term means: The average number of people living in each square kilometre.",
+            "q": "The average number of people living in each square kilometre.",
             "options": [
                 "Population distribution",
                 "Infant mortality rate",
@@ -180,7 +183,7 @@
             "a": 2
         },
         {
-            "q": "Which geographical term means: The pattern showing where people live across an area.",
+            "q": "The pattern showing where people live across an area.",
             "options": [
                 "Infant mortality rate",
                 "Economically active population",
@@ -190,7 +193,7 @@
             "a": 3
         },
         {
-            "q": "Which geographical term means: The number of deaths of babies under one year per 1,000 live births.",
+            "q": "The number of deaths of babies under one year per 1,000 live births.",
             "options": [
                 "Infant mortality rate",
                 "Economically active population",
@@ -200,7 +203,7 @@
             "a": 0
         },
         {
-            "q": "Which geographical term means: People of working age who are employed or actively seeking work.",
+            "q": "People of working age who are employed or actively seeking work.",
             "options": [
                 "Birth rate",
                 "Economically active population",
@@ -210,7 +213,7 @@
             "a": 1
         },
         {
-            "q": "Which geographical term means: The number of live births per 1,000 people in a year.",
+            "q": "The number of live births per 1,000 people in a year.",
             "options": [
                 "Death rate",
                 "Crude birth rate",
@@ -220,7 +223,7 @@
             "a": 2
         },
         {
-            "q": "Which geographical term means: The number of deaths per 1,000 people in a year.",
+            "q": "The number of deaths per 1,000 people in a year.",
             "options": [
                 "Crude birth rate",
                 "Crude death rate",
@@ -230,431 +233,7 @@
             "a": 3
         },
         {
-            "q": "Which geographical term means: The annual number of live births per 1,000 people.",
-            "options": [
-                "Crude birth rate",
-                "Crude death rate",
-                "Natural increase",
-                "Life expectancy"
-            ],
-            "a": 0
-        },
-        {
-            "q": "Which geographical term means: The annual number of deaths per 1,000 people.",
-            "options": [
-                "Natural increase",
-                "Crude death rate",
-                "Life expectancy",
-                "Fertility rate"
-            ],
-            "a": 1
-        },
-        {
-            "q": "Which geographical term means: Population growth calculated by subtracting the death rate from the birth rate.",
-            "options": [
-                "Life expectancy",
-                "Fertility rate",
-                "Natural increase",
-                "Dependency ratio"
-            ],
-            "a": 2
-        },
-        {
-            "q": "Which geographical term means: The average number of years a person is expected to live.",
-            "options": [
-                "Fertility rate",
-                "Dependency ratio",
-                "Population growth rate",
-                "Life expectancy"
-            ],
-            "a": 3
-        },
-        {
-            "q": "Which geographical term means: The average number of children born to a woman during her lifetime.",
-            "options": [
-                "Fertility rate",
-                "Dependency ratio",
-                "Population growth rate",
-                "Per thousand"
-            ],
-            "a": 0
-        },
-        {
-            "q": "Which geographical term means: A comparison of dependants with the working-age population.",
-            "options": [
-                "Population growth rate",
-                "Dependency ratio",
-                "Per thousand",
-                "Positive natural increase"
-            ],
-            "a": 1
-        },
-        {
-            "q": "Which geographical term means: The rate at which the size of a population changes over time.",
-            "options": [
-                "Per thousand",
-                "Positive natural increase",
-                "Population growth rate",
-                "Negative natural increase"
-            ],
-            "a": 2
-        },
-        {
-            "q": "Which geographical term means: A rate expressed for every 1,000 people or live births.",
-            "options": [
-                "Positive natural increase",
-                "Negative natural increase",
-                "Zero natural increase",
-                "Per thousand"
-            ],
-            "a": 3
-        },
-        {
-            "q": "Which geographical term means: A result above zero because births exceed deaths.",
-            "options": [
-                "Positive natural increase",
-                "Negative natural increase",
-                "Zero natural increase",
-                "Demographic data"
-            ],
-            "a": 0
-        },
-        {
-            "q": "Which geographical term means: A result below zero because deaths exceed births.",
-            "options": [
-                "Zero natural increase",
-                "Negative natural increase",
-                "Demographic data",
-                "Census"
-            ],
-            "a": 1
-        },
-        {
-            "q": "Which geographical term means: A situation in which the birth rate and death rate are equal.",
-            "options": [
-                "Demographic data",
-                "Census",
-                "Zero natural increase",
-                "Literacy rate"
-            ],
-            "a": 2
-        },
-        {
-            "q": "Which geographical term means: Statistical information about a population.",
-            "options": [
-                "Census",
-                "Literacy rate",
-                "Population density",
-                "Demographic data"
-            ],
-            "a": 3
-        }
-    ],
-    "game2": [
-        {
-            "q": "Which statement correctly defines Census?",
-            "options": [
-                "The percentage of people who can read and write with understanding.",
-                "An official survey that counts and records information about a country's population.",
-                "The average number of people living in each square kilometre.",
-                "The pattern showing where people live across an area."
-            ],
-            "a": 1
-        },
-        {
-            "q": "Which statement correctly defines Literacy rate?",
-            "options": [
-                "The average number of people living in each square kilometre.",
-                "The pattern showing where people live across an area.",
-                "The percentage of people who can read and write with understanding.",
-                "The number of deaths of babies under one year per 1,000 live births."
-            ],
-            "a": 2
-        },
-        {
-            "q": "Which statement correctly defines Population density?",
-            "options": [
-                "The pattern showing where people live across an area.",
-                "The number of deaths of babies under one year per 1,000 live births.",
-                "People of working age who are employed or actively seeking work.",
-                "The average number of people living in each square kilometre."
-            ],
-            "a": 3
-        },
-        {
-            "q": "Which statement correctly defines Population distribution?",
-            "options": [
-                "The pattern showing where people live across an area.",
-                "The number of deaths of babies under one year per 1,000 live births.",
-                "People of working age who are employed or actively seeking work.",
-                "The number of live births per 1,000 people in a year."
-            ],
-            "a": 0
-        },
-        {
-            "q": "Which statement correctly defines Infant mortality rate?",
-            "options": [
-                "People of working age who are employed or actively seeking work.",
-                "The number of deaths of babies under one year per 1,000 live births.",
-                "The number of live births per 1,000 people in a year.",
-                "The number of deaths per 1,000 people in a year."
-            ],
-            "a": 1
-        },
-        {
-            "q": "Which statement correctly defines Economically active population?",
-            "options": [
-                "The number of live births per 1,000 people in a year.",
-                "The number of deaths per 1,000 people in a year.",
-                "People of working age who are employed or actively seeking work.",
-                "The annual number of live births per 1,000 people."
-            ],
-            "a": 2
-        },
-        {
-            "q": "Which statement correctly defines Birth rate?",
-            "options": [
-                "The number of deaths per 1,000 people in a year.",
-                "The annual number of live births per 1,000 people.",
-                "The annual number of deaths per 1,000 people.",
-                "The number of live births per 1,000 people in a year."
-            ],
-            "a": 3
-        },
-        {
-            "q": "Which statement correctly defines Death rate?",
-            "options": [
-                "The number of deaths per 1,000 people in a year.",
-                "The annual number of live births per 1,000 people.",
-                "The annual number of deaths per 1,000 people.",
-                "Population growth calculated by subtracting the death rate from the birth rate."
-            ],
-            "a": 0
-        },
-        {
-            "q": "Which statement correctly defines Crude birth rate?",
-            "options": [
-                "The annual number of deaths per 1,000 people.",
-                "The annual number of live births per 1,000 people.",
-                "Population growth calculated by subtracting the death rate from the birth rate.",
-                "The average number of years a person is expected to live."
-            ],
-            "a": 1
-        },
-        {
-            "q": "Which statement correctly defines Crude death rate?",
-            "options": [
-                "Population growth calculated by subtracting the death rate from the birth rate.",
-                "The average number of years a person is expected to live.",
-                "The annual number of deaths per 1,000 people.",
-                "The average number of children born to a woman during her lifetime."
-            ],
-            "a": 2
-        },
-        {
-            "q": "Which statement correctly defines Natural increase?",
-            "options": [
-                "The average number of years a person is expected to live.",
-                "The average number of children born to a woman during her lifetime.",
-                "A comparison of dependants with the working-age population.",
-                "Population growth calculated by subtracting the death rate from the birth rate."
-            ],
-            "a": 3
-        },
-        {
-            "q": "Which statement correctly defines Life expectancy?",
-            "options": [
-                "The average number of years a person is expected to live.",
-                "The average number of children born to a woman during her lifetime.",
-                "A comparison of dependants with the working-age population.",
-                "The rate at which the size of a population changes over time."
-            ],
-            "a": 0
-        },
-        {
-            "q": "Which statement correctly defines Fertility rate?",
-            "options": [
-                "A comparison of dependants with the working-age population.",
-                "The average number of children born to a woman during her lifetime.",
-                "The rate at which the size of a population changes over time.",
-                "A rate expressed for every 1,000 people or live births."
-            ],
-            "a": 1
-        },
-        {
-            "q": "Which statement correctly defines Dependency ratio?",
-            "options": [
-                "The rate at which the size of a population changes over time.",
-                "A rate expressed for every 1,000 people or live births.",
-                "A comparison of dependants with the working-age population.",
-                "A result above zero because births exceed deaths."
-            ],
-            "a": 2
-        },
-        {
-            "q": "Which statement correctly defines Population growth rate?",
-            "options": [
-                "A rate expressed for every 1,000 people or live births.",
-                "A result above zero because births exceed deaths.",
-                "A result below zero because deaths exceed births.",
-                "The rate at which the size of a population changes over time."
-            ],
-            "a": 3
-        },
-        {
-            "q": "Which statement correctly defines Per thousand?",
-            "options": [
-                "A rate expressed for every 1,000 people or live births.",
-                "A result above zero because births exceed deaths.",
-                "A result below zero because deaths exceed births.",
-                "A situation in which the birth rate and death rate are equal."
-            ],
-            "a": 0
-        },
-        {
-            "q": "Which statement correctly defines Positive natural increase?",
-            "options": [
-                "A result below zero because deaths exceed births.",
-                "A result above zero because births exceed deaths.",
-                "A situation in which the birth rate and death rate are equal.",
-                "Statistical information about a population."
-            ],
-            "a": 1
-        },
-        {
-            "q": "Which statement correctly defines Negative natural increase?",
-            "options": [
-                "A situation in which the birth rate and death rate are equal.",
-                "Statistical information about a population.",
-                "A result below zero because deaths exceed births.",
-                "An official survey that counts and records information about a country's population."
-            ],
-            "a": 2
-        },
-        {
-            "q": "Which statement correctly defines Zero natural increase?",
-            "options": [
-                "Statistical information about a population.",
-                "An official survey that counts and records information about a country's population.",
-                "The percentage of people who can read and write with understanding.",
-                "A situation in which the birth rate and death rate are equal."
-            ],
-            "a": 3
-        },
-        {
-            "q": "Which statement correctly defines Demographic data?",
-            "options": [
-                "Statistical information about a population.",
-                "An official survey that counts and records information about a country's population.",
-                "The percentage of people who can read and write with understanding.",
-                "The average number of people living in each square kilometre."
-            ],
-            "a": 0
-        }
-    ],
-    "game3": [
-        {
-            "q": "Identify the concept: An official survey that counts and records information about a country's population.",
-            "options": [
-                "Literacy rate",
-                "Population density",
-                "Census",
-                "Population distribution"
-            ],
-            "a": 2
-        },
-        {
-            "q": "Identify the concept: The percentage of people who can read and write with understanding.",
-            "options": [
-                "Population density",
-                "Population distribution",
-                "Infant mortality rate",
-                "Literacy rate"
-            ],
-            "a": 3
-        },
-        {
-            "q": "Identify the concept: The average number of people living in each square kilometre.",
-            "options": [
-                "Population density",
-                "Population distribution",
-                "Infant mortality rate",
-                "Economically active population"
-            ],
-            "a": 0
-        },
-        {
-            "q": "Identify the concept: The pattern showing where people live across an area.",
-            "options": [
-                "Infant mortality rate",
-                "Population distribution",
-                "Economically active population",
-                "Birth rate"
-            ],
-            "a": 1
-        },
-        {
-            "q": "Identify the concept: The number of deaths of babies under one year per 1,000 live births.",
-            "options": [
-                "Economically active population",
-                "Birth rate",
-                "Infant mortality rate",
-                "Death rate"
-            ],
-            "a": 2
-        },
-        {
-            "q": "Identify the concept: People of working age who are employed or actively seeking work.",
-            "options": [
-                "Birth rate",
-                "Death rate",
-                "Crude birth rate",
-                "Economically active population"
-            ],
-            "a": 3
-        },
-        {
-            "q": "Identify the concept: The number of live births per 1,000 people in a year.",
-            "options": [
-                "Birth rate",
-                "Death rate",
-                "Crude birth rate",
-                "Crude death rate"
-            ],
-            "a": 0
-        },
-        {
-            "q": "Identify the concept: The number of deaths per 1,000 people in a year.",
-            "options": [
-                "Crude birth rate",
-                "Death rate",
-                "Crude death rate",
-                "Natural increase"
-            ],
-            "a": 1
-        },
-        {
-            "q": "Identify the concept: The annual number of live births per 1,000 people.",
-            "options": [
-                "Crude death rate",
-                "Natural increase",
-                "Crude birth rate",
-                "Life expectancy"
-            ],
-            "a": 2
-        },
-        {
-            "q": "Identify the concept: The annual number of deaths per 1,000 people.",
-            "options": [
-                "Natural increase",
-                "Life expectancy",
-                "Fertility rate",
-                "Crude death rate"
-            ],
-            "a": 3
-        },
-        {
-            "q": "Identify the concept: Population growth calculated by subtracting the death rate from the birth rate.",
+            "q": "Population growth calculated by subtracting the death rate from the birth rate.",
             "options": [
                 "Natural increase",
                 "Life expectancy",
@@ -664,7 +243,7 @@
             "a": 0
         },
         {
-            "q": "Identify the concept: The average number of years a person is expected to live.",
+            "q": "The average number of years a person is expected to live.",
             "options": [
                 "Fertility rate",
                 "Life expectancy",
@@ -672,91 +251,11 @@
                 "Population growth rate"
             ],
             "a": 1
-        },
-        {
-            "q": "Identify the concept: The average number of children born to a woman during her lifetime.",
-            "options": [
-                "Dependency ratio",
-                "Population growth rate",
-                "Fertility rate",
-                "Per thousand"
-            ],
-            "a": 2
-        },
-        {
-            "q": "Identify the concept: A comparison of dependants with the working-age population.",
-            "options": [
-                "Population growth rate",
-                "Per thousand",
-                "Positive natural increase",
-                "Dependency ratio"
-            ],
-            "a": 3
-        },
-        {
-            "q": "Identify the concept: The rate at which the size of a population changes over time.",
-            "options": [
-                "Population growth rate",
-                "Per thousand",
-                "Positive natural increase",
-                "Negative natural increase"
-            ],
-            "a": 0
-        },
-        {
-            "q": "Identify the concept: A rate expressed for every 1,000 people or live births.",
-            "options": [
-                "Positive natural increase",
-                "Per thousand",
-                "Negative natural increase",
-                "Zero natural increase"
-            ],
-            "a": 1
-        },
-        {
-            "q": "Identify the concept: A result above zero because births exceed deaths.",
-            "options": [
-                "Negative natural increase",
-                "Zero natural increase",
-                "Positive natural increase",
-                "Demographic data"
-            ],
-            "a": 2
-        },
-        {
-            "q": "Identify the concept: A result below zero because deaths exceed births.",
-            "options": [
-                "Zero natural increase",
-                "Demographic data",
-                "Census",
-                "Negative natural increase"
-            ],
-            "a": 3
-        },
-        {
-            "q": "Identify the concept: A situation in which the birth rate and death rate are equal.",
-            "options": [
-                "Zero natural increase",
-                "Demographic data",
-                "Census",
-                "Literacy rate"
-            ],
-            "a": 0
-        },
-        {
-            "q": "Identify the concept: Statistical information about a population.",
-            "options": [
-                "Census",
-                "Demographic data",
-                "Literacy rate",
-                "Population density"
-            ],
-            "a": 1
         }
     ],
-    "game4": [
+    "game2": [
         {
-            "q": "Select the accurate description of Census.",
+            "q": "Which statement correctly defines Census?",
             "options": [
                 "An official survey that counts and records information about a country's population.",
                 "The percentage of people who can read and write with understanding.",
@@ -766,7 +265,7 @@
             "a": 0
         },
         {
-            "q": "Select the accurate description of Literacy rate.",
+            "q": "Which statement correctly defines Literacy rate?",
             "options": [
                 "The average number of people living in each square kilometre.",
                 "The percentage of people who can read and write with understanding.",
@@ -776,7 +275,7 @@
             "a": 1
         },
         {
-            "q": "Select the accurate description of Population density.",
+            "q": "Which statement correctly defines Population density?",
             "options": [
                 "The pattern showing where people live across an area.",
                 "The number of deaths of babies under one year per 1,000 live births.",
@@ -786,7 +285,7 @@
             "a": 2
         },
         {
-            "q": "Select the accurate description of Population distribution.",
+            "q": "Which statement correctly defines Population distribution?",
             "options": [
                 "The number of deaths of babies under one year per 1,000 live births.",
                 "People of working age who are employed or actively seeking work.",
@@ -796,7 +295,7 @@
             "a": 3
         },
         {
-            "q": "Select the accurate description of Infant mortality rate.",
+            "q": "Which statement correctly defines Infant mortality rate?",
             "options": [
                 "The number of deaths of babies under one year per 1,000 live births.",
                 "People of working age who are employed or actively seeking work.",
@@ -806,7 +305,7 @@
             "a": 0
         },
         {
-            "q": "Select the accurate description of Economically active population.",
+            "q": "Which statement correctly defines Economically active population?",
             "options": [
                 "The number of live births per 1,000 people in a year.",
                 "People of working age who are employed or actively seeking work.",
@@ -816,7 +315,7 @@
             "a": 1
         },
         {
-            "q": "Select the accurate description of Birth rate.",
+            "q": "Which statement correctly defines Birth rate?",
             "options": [
                 "The number of deaths per 1,000 people in a year.",
                 "The annual number of live births per 1,000 people.",
@@ -826,7 +325,7 @@
             "a": 2
         },
         {
-            "q": "Select the accurate description of Death rate.",
+            "q": "Which statement correctly defines Death rate?",
             "options": [
                 "The annual number of live births per 1,000 people.",
                 "The annual number of deaths per 1,000 people.",
@@ -836,124 +335,208 @@
             "a": 3
         },
         {
-            "q": "Select the accurate description of Crude birth rate.",
-            "options": [
-                "The annual number of live births per 1,000 people.",
-                "The annual number of deaths per 1,000 people.",
-                "Population growth calculated by subtracting the death rate from the birth rate.",
-                "The average number of years a person is expected to live."
-            ],
-            "a": 0
-        },
-        {
-            "q": "Select the accurate description of Crude death rate.",
+            "q": "Which statement correctly defines Natural increase?",
             "options": [
                 "Population growth calculated by subtracting the death rate from the birth rate.",
-                "The annual number of deaths per 1,000 people.",
-                "The average number of years a person is expected to live.",
-                "The average number of children born to a woman during her lifetime."
-            ],
-            "a": 1
-        },
-        {
-            "q": "Select the accurate description of Natural increase.",
-            "options": [
                 "The average number of years a person is expected to live.",
                 "The average number of children born to a woman during her lifetime.",
-                "Population growth calculated by subtracting the death rate from the birth rate.",
                 "A comparison of dependants with the working-age population."
             ],
-            "a": 2
+            "a": 0
         },
         {
-            "q": "Select the accurate description of Life expectancy.",
+            "q": "Which statement correctly defines Life expectancy?",
             "options": [
                 "The average number of children born to a woman during her lifetime.",
+                "The average number of years a person is expected to live.",
                 "A comparison of dependants with the working-age population.",
-                "The rate at which the size of a population changes over time.",
-                "The average number of years a person is expected to live."
+                "The rate at which the size of a population changes over time."
             ],
-            "a": 3
-        },
+            "a": 1
+        }
+    ],
+    "game3": [
         {
-            "q": "Select the accurate description of Fertility rate.",
+            "q": "Which measure records the percentage of people who can read and write?",
             "options": [
-                "The average number of children born to a woman during her lifetime.",
-                "A comparison of dependants with the working-age population.",
-                "The rate at which the size of a population changes over time.",
-                "A rate expressed for every 1,000 people or live births."
+                "Literacy rate",
+                "Population density",
+                "Population distribution",
+                "Infant mortality rate"
             ],
             "a": 0
         },
         {
-            "q": "Select the accurate description of Dependency ratio.",
+            "q": "Which measure gives the average number of people per square kilometre?",
             "options": [
-                "The rate at which the size of a population changes over time.",
-                "A comparison of dependants with the working-age population.",
-                "A rate expressed for every 1,000 people or live births.",
-                "A result above zero because births exceed deaths."
+                "Population distribution",
+                "Population density",
+                "Infant mortality rate",
+                "Economically active population"
             ],
             "a": 1
         },
         {
-            "q": "Select the accurate description of Population growth rate.",
+            "q": "Which concept describes how people are spread across an area?",
             "options": [
-                "A rate expressed for every 1,000 people or live births.",
-                "A result above zero because births exceed deaths.",
-                "The rate at which the size of a population changes over time.",
-                "A result below zero because deaths exceed births."
+                "Infant mortality rate",
+                "Economically active population",
+                "Population distribution",
+                "Birth rate"
             ],
             "a": 2
         },
         {
-            "q": "Select the accurate description of Per thousand.",
+            "q": "Which rate counts deaths of babies under one year per 1,000 live births?",
             "options": [
-                "A result above zero because births exceed deaths.",
-                "A result below zero because deaths exceed births.",
-                "A situation in which the birth rate and death rate are equal.",
-                "A rate expressed for every 1,000 people or live births."
+                "Economically active population",
+                "Birth rate",
+                "Death rate",
+                "Infant mortality rate"
             ],
             "a": 3
         },
         {
-            "q": "Select the accurate description of Positive natural increase.",
+            "q": "What official survey counts all people living in a country?",
             "options": [
-                "A result above zero because births exceed deaths.",
-                "A result below zero because deaths exceed births.",
-                "A situation in which the birth rate and death rate are equal.",
-                "Statistical information about a population."
+                "Census",
+                "Literacy rate",
+                "Population density",
+                "Population distribution"
             ],
             "a": 0
         },
         {
-            "q": "Select the accurate description of Negative natural increase.",
+            "q": "What group includes employed people and those actively seeking work?",
             "options": [
-                "A situation in which the birth rate and death rate are equal.",
-                "A result below zero because deaths exceed births.",
-                "Statistical information about a population.",
-                "An official survey that counts and records information about a country's population."
+                "Birth rate",
+                "Economically active population",
+                "Death rate",
+                "Crude birth rate"
             ],
             "a": 1
         },
         {
-            "q": "Select the accurate description of Zero natural increase.",
+            "q": "Which rate counts live births per 1,000 people each year?",
             "options": [
-                "Statistical information about a population.",
-                "An official survey that counts and records information about a country's population.",
-                "A situation in which the birth rate and death rate are equal.",
-                "The percentage of people who can read and write with understanding."
+                "Death rate",
+                "Crude birth rate",
+                "Birth rate",
+                "Crude death rate"
             ],
             "a": 2
         },
         {
-            "q": "Select the accurate description of Demographic data.",
+            "q": "Which rate counts deaths per 1,000 people each year?",
             "options": [
-                "An official survey that counts and records information about a country's population.",
-                "The percentage of people who can read and write with understanding.",
-                "The average number of people living in each square kilometre.",
-                "Statistical information about a population."
+                "Crude birth rate",
+                "Crude death rate",
+                "Natural increase",
+                "Death rate"
             ],
             "a": 3
+        },
+        {
+            "q": "What calculation is birth rate minus death rate?",
+            "options": [
+                "Natural increase",
+                "Life expectancy",
+                "Fertility rate",
+                "Dependency ratio"
+            ],
+            "a": 0
+        },
+        {
+            "q": "What indicator estimates the average years a person may live?",
+            "options": [
+                "Fertility rate",
+                "Life expectancy",
+                "Dependency ratio",
+                "Population growth rate"
+            ],
+            "a": 1
+        }
+    ],
+    "game4": [
+        {
+            "q": "Census: An official survey that counts and records information about a country's population.",
+            "options": [
+                "True",
+                "False"
+            ],
+            "a": 0
+        },
+        {
+            "q": "Literacy rate: The average number of people living in each square kilometre.",
+            "options": [
+                "True",
+                "False"
+            ],
+            "a": 1
+        },
+        {
+            "q": "Population density: The average number of people living in each square kilometre.",
+            "options": [
+                "True",
+                "False"
+            ],
+            "a": 0
+        },
+        {
+            "q": "Population distribution: The number of deaths of babies under one year per 1,000 live births.",
+            "options": [
+                "True",
+                "False"
+            ],
+            "a": 1
+        },
+        {
+            "q": "Infant mortality rate: The number of deaths of babies under one year per 1,000 live births.",
+            "options": [
+                "True",
+                "False"
+            ],
+            "a": 0
+        },
+        {
+            "q": "Economically active population: The number of live births per 1,000 people in a year.",
+            "options": [
+                "True",
+                "False"
+            ],
+            "a": 1
+        },
+        {
+            "q": "Birth rate: The number of live births per 1,000 people in a year.",
+            "options": [
+                "True",
+                "False"
+            ],
+            "a": 0
+        },
+        {
+            "q": "Death rate: The annual number of live births per 1,000 people.",
+            "options": [
+                "True",
+                "False"
+            ],
+            "a": 1
+        },
+        {
+            "q": "Natural increase: Population growth calculated by subtracting the death rate from the birth rate.",
+            "options": [
+                "True",
+                "False"
+            ],
+            "a": 0
+        },
+        {
+            "q": "Life expectancy: The average number of children born to a woman during her lifetime.",
+            "options": [
+                "True",
+                "False"
+            ],
+            "a": 1
         }
     ]
 };
@@ -976,11 +559,25 @@
         let isGoldenAppleActive = false;
         let activeQuestionValue = 1; 
         let isPausedPendingInput = true;
+        let currentCategoryKey = null;
+        let correctAnswers = 0;
+        let totalQuestionsForGame = 10;
+        let certificateShown = false;
+        const snakeCategoryTitles = {
+            game1: 'Term Identification',
+            game2: 'Meaning Match',
+            game3: 'Multiple Choice',
+            game4: 'True or False'
+        };
 
         function startGame(categoryKey) {
             document.getElementById('categorySelection').style.display = 'none';
             document.getElementById('gameArea').style.display = 'flex';
+            currentCategoryKey = categoryKey;
             currentTopic = [...questionDB[categoryKey]];
+            correctAnswers = 0;
+            totalQuestionsForGame = currentTopic.length;
+            certificateShown = false;
             snake = [{x: 15, y: 10}, {x: 15, y: 11}, {x: 15, y: 12}];
             dx = 0; dy = -1; score = 0; applesEaten = 0;
             updateScoreboard();
@@ -1142,6 +739,7 @@
             if (selectedIndex === currentQuestionObj.a) {
                 MayHubSounds.playCorrect();
                 clickedBtn.classList.add('correct');
+                correctAnswers++;
                 score += activeQuestionValue;
                 updateScoreboard();
                 snake.push({ ...snake[snake.length - 1] }); 
@@ -1184,7 +782,19 @@
             } else {
                 title.innerText = "Game Over!";
                 title.style.color = "#dc3545";
-                msg.innerText = "Development is a journey. Try again and strengthen your understanding of its concepts and indicators!";
+                msg.innerText = "History takes practice. Try again and strengthen your understanding of this topic!";
+            }
+            if (!certificateShown) {
+                certificateShown = true;
+                setTimeout(() => {
+                    MayHubCertificates.showScored({
+                        gameTitle: 'Population Measures Snake Challenge',
+                        category: snakeCategoryTitles[currentCategoryKey] || 'Assessment Game',
+                        correct: correctAnswers,
+                        total: totalQuestionsForGame,
+                        onReplay: () => window.location.reload()
+                    });
+                }, 600);
             }
         }
     </script>

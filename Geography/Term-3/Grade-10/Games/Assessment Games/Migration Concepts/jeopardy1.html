@@ -72,7 +72,7 @@
         .score-board { background: #002b5e; color: #fff; display: inline-block; padding: 0.8rem 2.5rem; border-radius: 30px; font-size: 1.6rem; font-weight: bold; border: 4px solid #3385ff; box-shadow: 0 4px 10px rgba(0,0,0,0.2); margin-bottom: 2rem; transition: all 0.3s; }
         .score-board span { color: #ffc107; }
 
-        .jeopardy-board { width: 100%; max-width: 1000px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; background: #001a33; padding: 8px; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
+        .jeopardy-board { width: 100%; max-width: 1000px; display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; background: #001a33; padding: 8px; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
         .category-header { background: #004080; color: #fff; text-align: center; font-weight: bold; padding: 1rem 0.5rem; font-size: 1.1rem; border-radius: 6px; border-bottom: 4px solid #3385ff; display: flex; align-items: center; justify-content: center; min-height: 80px; text-transform: uppercase; }
         .point-btn { background: #3385ff; color: #fff; font-size: 1.6rem; font-weight: bold; border: none; padding: 1.5rem 0; border-radius: 6px; cursor: pointer; transition: all 0.2s; text-shadow: 1px 1px 2px rgba(0,0,0,0.5); box-shadow: inset 0 0 10px rgba(0,0,0,0.2); }
         .point-btn:hover:not(:disabled) { background: #1a75ff; transform: scale(0.96); }
@@ -103,7 +103,7 @@
         footer { text-align: center; padding: 1rem; background-color: #002b5e; color: #fff; margin-top: auto; }
     </style>
 </head>
-<body>
+<body data-certificate-grade="Grade 10" data-certificate-subject="Geography" data-certificate-term="Term 3" data-certificate-topic="Migration Concepts" data-certificate-game="Migration Concepts Jeopardy Game" data-certificate-layout="compact-subject">
 
     <nav>
         <a href="../../../../../../index.html" class="logo">May Learning Hub</a>
@@ -115,7 +115,7 @@
 
     <header class="game-header">
         <h1 class="game-title">Grade 10 Geography Jeopardy</h1>
-        <p class="game-subtitle">Revise development terminology, inequality, health, GDP, sustainability and human-development indicators.</p>
+        <p class="game-subtitle">Revise migration terminology, migration types, urbanisation, and push-and-pull factors.</p>
         <p style="font-size: 0.78rem; color: #52606d; margin-top: 0.45rem;">Grade 10 Geography Term 3 revision</p>
     </header>
 
@@ -133,7 +133,7 @@
                 <button class="btn-edit" id="btnEditNames" onclick="showNameEditor()">Edit Names</button>
                 <button class="btn-reset" onclick="resetPlayerNames()">Reset</button>
             </div>
-            <p class="hint">80 unique clues drawn from the Grade 10 Term 3 Development presentation! </p>
+            <p class="hint">40 paper-bound questions are shuffled each session. Every player receives 10 different questions.</p>
         </div>
     </section>
 
@@ -168,10 +168,10 @@
     <div class="modal" id="questionModal">
         <div class="modal-content">
             <div class="modal-category" id="modalCategory">Category</div>
-            <div class="modal-question" id="modalQuestion">Clue</div>
-            <button class="btn-reveal" id="btnReveal" onclick="revealAnswer()">Reveal Correct Question</button>
+            <div class="modal-question" id="modalQuestion">Question</div>
+            <button class="btn-reveal" id="btnReveal" onclick="revealAnswer()">Reveal Answer</button>
             <div class="modal-answer-area" id="answerArea">
-                <div class="modal-answer" id="modalAnswer">Correct Question</div>
+                <div class="modal-answer" id="modalAnswer">Answer</div>
                 <div class="judgement-area" id="judgementArea">
                     <p>Did <strong id="activePlayerName">Player</strong> get it right?</p>
                     <div class="judgement-buttons">
@@ -190,6 +190,9 @@
     <footer><p>&copy; 2026 May Learning Hub. All rights reserved.</p></footer>
 
         <script src="../../../../../../game-audio.js"></script>
+        <script src="../../../../../../may-certificate-renderer.js"></script>
+        <script src="../../../../../../may-certificate-actions.js"></script>
+        <script src="../../../../../../assessment-certificate.js"></script>
 <script>
         const questionBank = [
     {
@@ -291,206 +294,6 @@
         "category": "Explain",
         "q": "Define the geographical term: Seasonal migration.",
         "a": "Temporary movement linked to a season or seasonal work."
-    },
-    {
-        "category": "Identify",
-        "q": "The movement of people to change their usual place of residence. Name the correct geographical term.",
-        "a": "Migration"
-    },
-    {
-        "category": "Identify",
-        "q": "Movement from one country to another. Name the correct geographical term.",
-        "a": "International migration"
-    },
-    {
-        "category": "Identify",
-        "q": "Moving into a country to settle there. Name the correct geographical term.",
-        "a": "Immigration"
-    },
-    {
-        "category": "Identify",
-        "q": "Leaving a country to settle elsewhere. Name the correct geographical term.",
-        "a": "Emigration"
-    },
-    {
-        "category": "Identify",
-        "q": "Movement within a region, such as within Southern Africa. Name the correct geographical term.",
-        "a": "Regional migration"
-    },
-    {
-        "category": "Identify",
-        "q": "Movement from a rural area to a town or city. Name the correct geographical term.",
-        "a": "Rural-urban migration"
-    },
-    {
-        "category": "Identify",
-        "q": "An increase in the percentage of people living in urban areas. Name the correct geographical term.",
-        "a": "Urbanisation"
-    },
-    {
-        "category": "Identify",
-        "q": "A reduction in the number of people living in rural areas. Name the correct geographical term.",
-        "a": "Rural depopulation"
-    },
-    {
-        "category": "Identify",
-        "q": "Movement within the borders of the same country. Name the correct geographical term.",
-        "a": "Internal migration"
-    },
-    {
-        "category": "Identify",
-        "q": "Movement across an international border. Name the correct geographical term.",
-        "a": "External migration"
-    },
-    {
-        "category": "Identify",
-        "q": "The place from which a migrant moves. Name the correct geographical term.",
-        "a": "Place of origin"
-    },
-    {
-        "category": "Identify",
-        "q": "The place to which a migrant moves. Name the correct geographical term.",
-        "a": "Destination"
-    },
-    {
-        "category": "Identify",
-        "q": "A person who changes their usual place of residence. Name the correct geographical term.",
-        "a": "Migrant"
-    },
-    {
-        "category": "Identify",
-        "q": "A condition that encourages people to leave a place. Name the correct geographical term.",
-        "a": "Push factor"
-    },
-    {
-        "category": "Identify",
-        "q": "A condition that attracts people to a new place. Name the correct geographical term.",
-        "a": "Pull factor"
-    },
-    {
-        "category": "Identify",
-        "q": "Movement made by personal choice. Name the correct geographical term.",
-        "a": "Voluntary migration"
-    },
-    {
-        "category": "Identify",
-        "q": "Movement caused by danger, conflict, disaster or compulsion. Name the correct geographical term.",
-        "a": "Forced migration"
-    },
-    {
-        "category": "Identify",
-        "q": "Movement for a limited period with an intention to return. Name the correct geographical term.",
-        "a": "Temporary migration"
-    },
-    {
-        "category": "Identify",
-        "q": "Movement intended to establish a long-term home elsewhere. Name the correct geographical term.",
-        "a": "Permanent migration"
-    },
-    {
-        "category": "Identify",
-        "q": "Temporary movement linked to a season or seasonal work. Name the correct geographical term.",
-        "a": "Seasonal migration"
-    },
-    {
-        "category": "Choose",
-        "q": "Which geographical term means: The movement of people to change their usual place of residence. Options: A) Migration | B) International migration | C) Immigration | D) Emigration",
-        "a": "A) Migration"
-    },
-    {
-        "category": "Choose",
-        "q": "Which geographical term means: Movement from one country to another. Options: A) Immigration | B) International migration | C) Emigration | D) Regional migration",
-        "a": "B) International migration"
-    },
-    {
-        "category": "Choose",
-        "q": "Which geographical term means: Moving into a country to settle there. Options: A) Emigration | B) Regional migration | C) Immigration | D) Rural-urban migration",
-        "a": "C) Immigration"
-    },
-    {
-        "category": "Choose",
-        "q": "Which geographical term means: Leaving a country to settle elsewhere. Options: A) Regional migration | B) Rural-urban migration | C) Urbanisation | D) Emigration",
-        "a": "D) Emigration"
-    },
-    {
-        "category": "Choose",
-        "q": "Which geographical term means: Movement within a region, such as within Southern Africa. Options: A) Regional migration | B) Rural-urban migration | C) Urbanisation | D) Rural depopulation",
-        "a": "A) Regional migration"
-    },
-    {
-        "category": "Choose",
-        "q": "Which geographical term means: Movement from a rural area to a town or city. Options: A) Urbanisation | B) Rural-urban migration | C) Rural depopulation | D) Internal migration",
-        "a": "B) Rural-urban migration"
-    },
-    {
-        "category": "Choose",
-        "q": "Which geographical term means: An increase in the percentage of people living in urban areas. Options: A) Rural depopulation | B) Internal migration | C) Urbanisation | D) External migration",
-        "a": "C) Urbanisation"
-    },
-    {
-        "category": "Choose",
-        "q": "Which geographical term means: A reduction in the number of people living in rural areas. Options: A) Internal migration | B) External migration | C) Place of origin | D) Rural depopulation",
-        "a": "D) Rural depopulation"
-    },
-    {
-        "category": "Choose",
-        "q": "Which geographical term means: Movement within the borders of the same country. Options: A) Internal migration | B) External migration | C) Place of origin | D) Destination",
-        "a": "A) Internal migration"
-    },
-    {
-        "category": "Choose",
-        "q": "Which geographical term means: Movement across an international border. Options: A) Place of origin | B) External migration | C) Destination | D) Migrant",
-        "a": "B) External migration"
-    },
-    {
-        "category": "Choose",
-        "q": "Which geographical term means: The place from which a migrant moves. Options: A) Destination | B) Migrant | C) Place of origin | D) Push factor",
-        "a": "C) Place of origin"
-    },
-    {
-        "category": "Choose",
-        "q": "Which geographical term means: The place to which a migrant moves. Options: A) Migrant | B) Push factor | C) Pull factor | D) Destination",
-        "a": "D) Destination"
-    },
-    {
-        "category": "Choose",
-        "q": "Which geographical term means: A person who changes their usual place of residence. Options: A) Migrant | B) Push factor | C) Pull factor | D) Voluntary migration",
-        "a": "A) Migrant"
-    },
-    {
-        "category": "Choose",
-        "q": "Which geographical term means: A condition that encourages people to leave a place. Options: A) Pull factor | B) Push factor | C) Voluntary migration | D) Forced migration",
-        "a": "B) Push factor"
-    },
-    {
-        "category": "Choose",
-        "q": "Which geographical term means: A condition that attracts people to a new place. Options: A) Voluntary migration | B) Forced migration | C) Pull factor | D) Temporary migration",
-        "a": "C) Pull factor"
-    },
-    {
-        "category": "Choose",
-        "q": "Which geographical term means: Movement made by personal choice. Options: A) Forced migration | B) Temporary migration | C) Permanent migration | D) Voluntary migration",
-        "a": "D) Voluntary migration"
-    },
-    {
-        "category": "Choose",
-        "q": "Which geographical term means: Movement caused by danger, conflict, disaster or compulsion. Options: A) Forced migration | B) Temporary migration | C) Permanent migration | D) Seasonal migration",
-        "a": "A) Forced migration"
-    },
-    {
-        "category": "Choose",
-        "q": "Which geographical term means: Movement for a limited period with an intention to return. Options: A) Permanent migration | B) Temporary migration | C) Seasonal migration | D) Migration",
-        "a": "B) Temporary migration"
-    },
-    {
-        "category": "Choose",
-        "q": "Which geographical term means: Movement intended to establish a long-term home elsewhere. Options: A) Seasonal migration | B) Migration | C) Permanent migration | D) International migration",
-        "a": "C) Permanent migration"
-    },
-    {
-        "category": "Choose",
-        "q": "Which geographical term means: Temporary movement linked to a season or seasonal work. Options: A) Migration | B) International migration | C) Immigration | D) Seasonal migration",
-        "a": "D) Seasonal migration"
     },
     {
         "category": "Apply",
@@ -604,9 +407,9 @@
         }
 
         function dealJeopardyPlayerQuestions(items, playerIndex) {
-            const playerQuestions = items.slice(playerIndex * 20, playerIndex * 20 + 20);
-            return Array.from({ length: 4 }, (_, categoryIndex) => ({
-                name: ["Round One", "Round Two", "Round Three", "Round Four"][categoryIndex],
+            const playerQuestions = items.slice(playerIndex * 10, playerIndex * 10 + 10);
+            return Array.from({ length: 2 }, (_, categoryIndex) => ({
+                name: ["Round One", "Round Two"][categoryIndex],
                 questions: playerQuestions.slice(categoryIndex * 5, categoryIndex * 5 + 5).map((item, questionIndex) => ({
                     points: (questionIndex + 1) * 10,
                     q: item.q,
@@ -627,6 +430,11 @@
         let activePointValue = 0;
         let activeTileButton = null;
         let playerNames = ["Player 1", "Player 2", "Player 3", "Player 4"];
+        let answeredTiles = 0;
+        let participationShown = false;
+        const totalJeopardyTiles = gameData.reduce((playerTotal, playerCategories) => {
+            return playerTotal + playerCategories.reduce((categoryTotal, category) => categoryTotal + category.questions.length, 0);
+        }, 0);
 
         const carouselTrack = document.getElementById('carouselTrack');
         const modal = document.getElementById('questionModal');
@@ -738,7 +546,27 @@
         }
 
         function updateScore(i) { document.getElementById(`score-${i}`).innerText = scores[i]; }
-        function closeModal() { activeTileButton.innerText = ""; activeTileButton.disabled = true; modal.style.display = 'none'; }
+        function closeModal() {
+            if (!activeTileButton) {
+                modal.style.display = 'none';
+                return;
+            }
+            activeTileButton.innerText = "";
+            activeTileButton.disabled = true;
+            activeTileButton = null;
+            modal.style.display = 'none';
+            answeredTiles++;
+            if (answeredTiles === totalJeopardyTiles && !participationShown) {
+                participationShown = true;
+                setTimeout(() => {
+                    MayHubCertificates.showParticipation({
+                        gameTitle: 'Migration Concepts Jeopardy Game',
+                        category: 'Round One and Round Two',
+                        onReplay: () => window.location.reload()
+                    });
+                }, 650);
+            }
+        }
         
         buildBoards();
 

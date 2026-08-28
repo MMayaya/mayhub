@@ -8,7 +8,7 @@ const vm = require('vm');
 const siteRoot = __dirname;
 const pilotFile = path.join(siteRoot, 'Geography', 'Term-3', 'Grade-10', 'Games', 'Assessment Games', 'Migration Concepts', 'spin1.html');
 const referenceFile = path.join(siteRoot, 'Social-Sciences', 'Term-3', 'Grade-8', 'Games', 'History Assessment Games', 'The Berlin Conference', 'spin1.html');
-const selectedIndexes = [0, 1, 2, 3, 4, 5, 8, 9, 13, 14];
+const selectedIndexes = [0, 1, 2, 3, 4, 5, 6, 7, 13, 14];
 
 function locateDeclaration(source, name) {
     const match = new RegExp('\\bconst\\s+' + name + '\\s*=\\s*').exec(source);
@@ -88,6 +88,12 @@ const gameData = {
     trueFalse: selectQuestions(originalData.trueFalse)
 };
 balanceMultipleChoice(gameData.multipleChoice);
+Object.values(gameData).flat().forEach(record => {
+    if (typeof record.q === 'string') {
+        record.q = record.q.replace(/^Which geographical term means:\s*/i, '').replaceAll(' — ', ': ');
+    }
+    if (typeof record.exp === 'string') record.exp = record.exp.replaceAll(' — ', ': ');
+});
 
 const trueCount = gameData.trueFalse.filter(record => record.a === 'True').length;
 const falseCount = gameData.trueFalse.filter(record => record.a === 'False').length;
@@ -129,11 +135,11 @@ output = output.replace(
 );
 output = output.replace(
     ".certificate-signature { font-family: 'Segoe Script', 'Brush Script MT', cursive; font-size: 1.05rem !important; }",
-    ".certificate-signature { font-family: 'Segoe Script', 'Brush Script MT', cursive; font-size: 1.05rem !important; }\n        body[data-certificate-layout=\"compact-subject\"] .certificate-signature { display: inline-block; font-family: 'Brush Script MT', 'Segoe Script', 'Lucida Handwriting', cursive; font-size: 1.48rem !important; font-weight: 400; letter-spacing: -.045em; transform: rotate(-3deg) skewX(-5deg); transform-origin: center; }\n        .certificate-term-line { margin-top: 0.72rem; color: #96a1ad; font-size: 0.7rem; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; }"
+    ".certificate-signature { font-family: 'Segoe Script', 'Brush Script MT', cursive; font-size: 1.05rem !important; }\n        body[data-certificate-layout=\"compact-subject\"] .certificate-signature { min-height: 52px; display: flex; align-items: flex-end; justify-content: center; font-size: 1rem !important; font-weight: 400; }\n        .certificate-signature-image { display: block; width: min(100%, 220px); height: 45px; object-fit: contain; object-position: center bottom; }\n        .certificate-term-line { margin-top: 0.72rem; color: #96a1ad; font-size: 0.7rem; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; }"
 );
 output = output.replace(
     '<strong class="certificate-signature">May Learning Hub</strong>',
-    '<strong class="certificate-signature">M. Learning Hub</strong>'
+    '<strong class="certificate-signature"><img class="certificate-signature-image" src="../../../../../../May Learning Hub Signature-transparent.png" alt="M Learning Hub signature"></strong>'
 );
 output = output.replace(
     '<p class="certificate-site-line">Get your certificate at www.maylearninghub.co.za</p>',

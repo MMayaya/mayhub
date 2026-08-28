@@ -72,7 +72,7 @@
         .score-board { background: #002b5e; color: #fff; display: inline-block; padding: 0.8rem 2.5rem; border-radius: 30px; font-size: 1.6rem; font-weight: bold; border: 4px solid #3385ff; box-shadow: 0 4px 10px rgba(0,0,0,0.2); margin-bottom: 2rem; transition: all 0.3s; }
         .score-board span { color: #ffc107; }
 
-        .jeopardy-board { width: 100%; max-width: 1000px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; background: #001a33; padding: 8px; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
+        .jeopardy-board { width: 100%; max-width: 1000px; display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; background: #001a33; padding: 8px; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
         .category-header { background: #004080; color: #fff; text-align: center; font-weight: bold; padding: 1rem 0.5rem; font-size: 1.1rem; border-radius: 6px; border-bottom: 4px solid #3385ff; display: flex; align-items: center; justify-content: center; min-height: 80px; text-transform: uppercase; }
         .point-btn { background: #3385ff; color: #fff; font-size: 1.6rem; font-weight: bold; border: none; padding: 1.5rem 0; border-radius: 6px; cursor: pointer; transition: all 0.2s; text-shadow: 1px 1px 2px rgba(0,0,0,0.5); box-shadow: inset 0 0 10px rgba(0,0,0,0.2); }
         .point-btn:hover:not(:disabled) { background: #1a75ff; transform: scale(0.96); }
@@ -103,7 +103,7 @@
         footer { text-align: center; padding: 1rem; background-color: #002b5e; color: #fff; margin-top: auto; }
     </style>
 </head>
-<body>
+<body data-certificate-grade="Grade 10" data-certificate-subject="Geography" data-certificate-term="Term 3" data-certificate-topic="Population Change and Distribution" data-certificate-game="Population Change and Distribution Jeopardy Game" data-certificate-layout="compact-subject">
 
     <nav>
         <a href="../../../../../../index.html" class="logo">May Learning Hub</a>
@@ -115,7 +115,7 @@
 
     <header class="game-header">
         <h1 class="game-title">Grade 10 Geography Jeopardy</h1>
-        <p class="game-subtitle">Revise development terminology, inequality, health, GDP, sustainability and human-development indicators.</p>
+        <p class="game-subtitle">Revise natural increase calculations and physical and human factors affecting distribution.</p>
         <p style="font-size: 0.78rem; color: #52606d; margin-top: 0.45rem;">Grade 10 Geography Term 3 revision</p>
     </header>
 
@@ -133,7 +133,7 @@
                 <button class="btn-edit" id="btnEditNames" onclick="showNameEditor()">Edit Names</button>
                 <button class="btn-reset" onclick="resetPlayerNames()">Reset</button>
             </div>
-            <p class="hint">80 unique clues drawn from the Grade 10 Term 3 Development presentation! </p>
+            <p class="hint">40 paper-bound questions are shuffled each session. Every player receives 10 different questions.</p>
         </div>
     </section>
 
@@ -168,10 +168,10 @@
     <div class="modal" id="questionModal">
         <div class="modal-content">
             <div class="modal-category" id="modalCategory">Category</div>
-            <div class="modal-question" id="modalQuestion">Clue</div>
-            <button class="btn-reveal" id="btnReveal" onclick="revealAnswer()">Reveal Correct Question</button>
+            <div class="modal-question" id="modalQuestion">Question</div>
+            <button class="btn-reveal" id="btnReveal" onclick="revealAnswer()">Reveal Answer</button>
             <div class="modal-answer-area" id="answerArea">
-                <div class="modal-answer" id="modalAnswer">Correct Question</div>
+                <div class="modal-answer" id="modalAnswer">Answer</div>
                 <div class="judgement-area" id="judgementArea">
                     <p>Did <strong id="activePlayerName">Player</strong> get it right?</p>
                     <div class="judgement-buttons">
@@ -190,6 +190,9 @@
     <footer><p>&copy; 2026 May Learning Hub. All rights reserved.</p></footer>
 
         <script src="../../../../../../game-audio.js"></script>
+        <script src="../../../../../../may-certificate-renderer.js"></script>
+        <script src="../../../../../../may-certificate-actions.js"></script>
+        <script src="../../../../../../assessment-certificate.js"></script>
 <script>
         const questionBank = [
     {
@@ -291,206 +294,6 @@
         "category": "Explain",
         "q": "Define the geographical term: Accessibility.",
         "a": "The ease with which a place can be reached."
-    },
-    {
-        "category": "Identify",
-        "q": "The number of live births per 1,000 people in a year. Name the correct geographical term.",
-        "a": "Birth rate"
-    },
-    {
-        "category": "Identify",
-        "q": "The number of deaths per 1,000 people in a year. Name the correct geographical term.",
-        "a": "Death rate"
-    },
-    {
-        "category": "Identify",
-        "q": "The annual number of live births per 1,000 people. Name the correct geographical term.",
-        "a": "Crude birth rate"
-    },
-    {
-        "category": "Identify",
-        "q": "The annual number of deaths per 1,000 people. Name the correct geographical term.",
-        "a": "Crude death rate"
-    },
-    {
-        "category": "Identify",
-        "q": "Population growth calculated by subtracting the death rate from the birth rate. Name the correct geographical term.",
-        "a": "Natural increase"
-    },
-    {
-        "category": "Identify",
-        "q": "A population decline that occurs when the death rate is higher than the birth rate. Name the correct geographical term.",
-        "a": "Natural decrease"
-    },
-    {
-        "category": "Identify",
-        "q": "A result above zero because births exceed deaths. Name the correct geographical term.",
-        "a": "Positive natural increase"
-    },
-    {
-        "category": "Identify",
-        "q": "A result below zero because deaths exceed births. Name the correct geographical term.",
-        "a": "Negative natural increase"
-    },
-    {
-        "category": "Identify",
-        "q": "A situation in which the birth rate and death rate are equal. Name the correct geographical term.",
-        "a": "Zero natural increase"
-    },
-    {
-        "category": "Identify",
-        "q": "The pattern showing where people live across an area. Name the correct geographical term.",
-        "a": "Population distribution"
-    },
-    {
-        "category": "Identify",
-        "q": "The average number of people living in each square kilometre. Name the correct geographical term.",
-        "a": "Population density"
-    },
-    {
-        "category": "Identify",
-        "q": "Long-term weather conditions that can attract or discourage settlement. Name the correct geographical term.",
-        "a": "Climate"
-    },
-    {
-        "category": "Identify",
-        "q": "The height and shape of the land, including slopes and plains. Name the correct geographical term.",
-        "a": "Relief"
-    },
-    {
-        "category": "Identify",
-        "q": "Accessible water for homes, farming and industry. Name the correct geographical term.",
-        "a": "Water supply"
-    },
-    {
-        "category": "Identify",
-        "q": "Soil that supports productive farming and can attract settlement. Name the correct geographical term.",
-        "a": "Fertile soil"
-    },
-    {
-        "category": "Identify",
-        "q": "Valuable materials in the Earth that may attract mines, jobs and settlements. Name the correct geographical term.",
-        "a": "Mineral resources"
-    },
-    {
-        "category": "Identify",
-        "q": "Available jobs that attract people to an area. Name the correct geographical term.",
-        "a": "Employment opportunities"
-    },
-    {
-        "category": "Identify",
-        "q": "Roads, railways and other routes that improve accessibility. Name the correct geographical term.",
-        "a": "Transport network"
-    },
-    {
-        "category": "Identify",
-        "q": "Safe and predictable government conditions that encourage settlement. Name the correct geographical term.",
-        "a": "Political stability"
-    },
-    {
-        "category": "Identify",
-        "q": "The ease with which a place can be reached. Name the correct geographical term.",
-        "a": "Accessibility"
-    },
-    {
-        "category": "Choose",
-        "q": "Which geographical term means: The number of live births per 1,000 people in a year. Options: A) Birth rate | B) Death rate | C) Crude birth rate | D) Crude death rate",
-        "a": "A) Birth rate"
-    },
-    {
-        "category": "Choose",
-        "q": "Which geographical term means: The number of deaths per 1,000 people in a year. Options: A) Crude birth rate | B) Death rate | C) Crude death rate | D) Natural increase",
-        "a": "B) Death rate"
-    },
-    {
-        "category": "Choose",
-        "q": "Which geographical term means: The annual number of live births per 1,000 people. Options: A) Crude death rate | B) Natural increase | C) Crude birth rate | D) Natural decrease",
-        "a": "C) Crude birth rate"
-    },
-    {
-        "category": "Choose",
-        "q": "Which geographical term means: The annual number of deaths per 1,000 people. Options: A) Natural increase | B) Natural decrease | C) Positive natural increase | D) Crude death rate",
-        "a": "D) Crude death rate"
-    },
-    {
-        "category": "Choose",
-        "q": "Which geographical term means: Population growth calculated by subtracting the death rate from the birth rate. Options: A) Natural increase | B) Natural decrease | C) Positive natural increase | D) Negative natural increase",
-        "a": "A) Natural increase"
-    },
-    {
-        "category": "Choose",
-        "q": "Which geographical term means: A population decline that occurs when the death rate is higher than the birth rate. Options: A) Positive natural increase | B) Natural decrease | C) Negative natural increase | D) Zero natural increase",
-        "a": "B) Natural decrease"
-    },
-    {
-        "category": "Choose",
-        "q": "Which geographical term means: A result above zero because births exceed deaths. Options: A) Negative natural increase | B) Zero natural increase | C) Positive natural increase | D) Population distribution",
-        "a": "C) Positive natural increase"
-    },
-    {
-        "category": "Choose",
-        "q": "Which geographical term means: A result below zero because deaths exceed births. Options: A) Zero natural increase | B) Population distribution | C) Population density | D) Negative natural increase",
-        "a": "D) Negative natural increase"
-    },
-    {
-        "category": "Choose",
-        "q": "Which geographical term means: A situation in which the birth rate and death rate are equal. Options: A) Zero natural increase | B) Population distribution | C) Population density | D) Climate",
-        "a": "A) Zero natural increase"
-    },
-    {
-        "category": "Choose",
-        "q": "Which geographical term means: The pattern showing where people live across an area. Options: A) Population density | B) Population distribution | C) Climate | D) Relief",
-        "a": "B) Population distribution"
-    },
-    {
-        "category": "Choose",
-        "q": "Which geographical term means: The average number of people living in each square kilometre. Options: A) Climate | B) Relief | C) Population density | D) Water supply",
-        "a": "C) Population density"
-    },
-    {
-        "category": "Choose",
-        "q": "Which geographical term means: Long-term weather conditions that can attract or discourage settlement. Options: A) Relief | B) Water supply | C) Fertile soil | D) Climate",
-        "a": "D) Climate"
-    },
-    {
-        "category": "Choose",
-        "q": "Which geographical term means: The height and shape of the land, including slopes and plains. Options: A) Relief | B) Water supply | C) Fertile soil | D) Mineral resources",
-        "a": "A) Relief"
-    },
-    {
-        "category": "Choose",
-        "q": "Which geographical term means: Accessible water for homes, farming and industry. Options: A) Fertile soil | B) Water supply | C) Mineral resources | D) Employment opportunities",
-        "a": "B) Water supply"
-    },
-    {
-        "category": "Choose",
-        "q": "Which geographical term means: Soil that supports productive farming and can attract settlement. Options: A) Mineral resources | B) Employment opportunities | C) Fertile soil | D) Transport network",
-        "a": "C) Fertile soil"
-    },
-    {
-        "category": "Choose",
-        "q": "Which geographical term means: Valuable materials in the Earth that may attract mines, jobs and settlements. Options: A) Employment opportunities | B) Transport network | C) Political stability | D) Mineral resources",
-        "a": "D) Mineral resources"
-    },
-    {
-        "category": "Choose",
-        "q": "Which geographical term means: Available jobs that attract people to an area. Options: A) Employment opportunities | B) Transport network | C) Political stability | D) Accessibility",
-        "a": "A) Employment opportunities"
-    },
-    {
-        "category": "Choose",
-        "q": "Which geographical term means: Roads, railways and other routes that improve accessibility. Options: A) Political stability | B) Transport network | C) Accessibility | D) Birth rate",
-        "a": "B) Transport network"
-    },
-    {
-        "category": "Choose",
-        "q": "Which geographical term means: Safe and predictable government conditions that encourage settlement. Options: A) Accessibility | B) Birth rate | C) Political stability | D) Death rate",
-        "a": "C) Political stability"
-    },
-    {
-        "category": "Choose",
-        "q": "Which geographical term means: The ease with which a place can be reached. Options: A) Birth rate | B) Death rate | C) Crude birth rate | D) Accessibility",
-        "a": "D) Accessibility"
     },
     {
         "category": "Apply",
@@ -604,9 +407,9 @@
         }
 
         function dealJeopardyPlayerQuestions(items, playerIndex) {
-            const playerQuestions = items.slice(playerIndex * 20, playerIndex * 20 + 20);
-            return Array.from({ length: 4 }, (_, categoryIndex) => ({
-                name: ["Round One", "Round Two", "Round Three", "Round Four"][categoryIndex],
+            const playerQuestions = items.slice(playerIndex * 10, playerIndex * 10 + 10);
+            return Array.from({ length: 2 }, (_, categoryIndex) => ({
+                name: ["Round One", "Round Two"][categoryIndex],
                 questions: playerQuestions.slice(categoryIndex * 5, categoryIndex * 5 + 5).map((item, questionIndex) => ({
                     points: (questionIndex + 1) * 10,
                     q: item.q,
@@ -627,6 +430,11 @@
         let activePointValue = 0;
         let activeTileButton = null;
         let playerNames = ["Player 1", "Player 2", "Player 3", "Player 4"];
+        let answeredTiles = 0;
+        let participationShown = false;
+        const totalJeopardyTiles = gameData.reduce((playerTotal, playerCategories) => {
+            return playerTotal + playerCategories.reduce((categoryTotal, category) => categoryTotal + category.questions.length, 0);
+        }, 0);
 
         const carouselTrack = document.getElementById('carouselTrack');
         const modal = document.getElementById('questionModal');
@@ -738,7 +546,27 @@
         }
 
         function updateScore(i) { document.getElementById(`score-${i}`).innerText = scores[i]; }
-        function closeModal() { activeTileButton.innerText = ""; activeTileButton.disabled = true; modal.style.display = 'none'; }
+        function closeModal() {
+            if (!activeTileButton) {
+                modal.style.display = 'none';
+                return;
+            }
+            activeTileButton.innerText = "";
+            activeTileButton.disabled = true;
+            activeTileButton = null;
+            modal.style.display = 'none';
+            answeredTiles++;
+            if (answeredTiles === totalJeopardyTiles && !participationShown) {
+                participationShown = true;
+                setTimeout(() => {
+                    MayHubCertificates.showParticipation({
+                        gameTitle: 'Population Change and Distribution Jeopardy Game',
+                        category: 'Round One and Round Two',
+                        onReplay: () => window.location.reload()
+                    });
+                }, 650);
+            }
+        }
         
         buildBoards();
 

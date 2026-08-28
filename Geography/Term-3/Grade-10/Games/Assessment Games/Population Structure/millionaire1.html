@@ -67,7 +67,7 @@
         footer { text-align: center; padding: 1rem; background-color: #002b5e; color: #fff; margin-top: auto; }
     </style>
 </head>
-<body>
+<body data-certificate-grade="Grade 10" data-certificate-subject="Geography" data-certificate-term="Term 3" data-certificate-topic="Population Structure" data-certificate-game="Population Structure Millionaire Challenge" data-certificate-layout="compact-subject">
 
     <nav>
         <a href="../../../../../../index.html" class="logo">May Learning Hub</a>
@@ -79,7 +79,7 @@
 
     <header class="game-header">
         <h1 class="game-title">R1,000,000 Geography Challenge</h1>
-        <p class="game-subtitle">Revise development terminology, inequality, health, GDP, sustainability and human-development indicators.</p>
+        <p class="game-subtitle">Revise population pyramids, age groups, life expectancy, and government planning.</p>
         <p style="font-size: 0.78rem; color: #52606d; margin-top: 0.45rem;">Grade 10 Geography Term 3 revision</p>
     </header>
 
@@ -117,28 +117,31 @@
     </footer>
 
         <script src="../../../../../../game-audio.js"></script>
+        <script src="../../../../../../may-certificate-renderer.js"></script>
+        <script src="../../../../../../may-certificate-actions.js"></script>
+        <script src="../../../../../../assessment-certificate.js"></script>
 <script>
         const questions = [
     {
         "q": "Select the term described here: A graph showing the age and sex structure of a population.",
         "options": [
-            "Age-sex structure",
             "Population pyramid",
+            "Age-sex structure",
             "Cohort",
             "Expanding pyramid"
         ],
-        "a": 1,
+        "a": 0,
         "hint": "The correct answer is Population pyramid."
     },
     {
         "q": "Select the term described here: The composition of a population according to age groups and sex.",
         "options": [
             "Cohort",
-            "Expanding pyramid",
             "Age-sex structure",
+            "Expanding pyramid",
             "Stable pyramid"
         ],
-        "a": 2,
+        "a": 1,
         "hint": "The correct answer is Age-sex structure."
     },
     {
@@ -146,76 +149,54 @@
         "options": [
             "Expanding pyramid",
             "Stable pyramid",
-            "Declining pyramid",
-            "Cohort"
+            "Cohort",
+            "Declining pyramid"
         ],
-        "a": 3,
+        "a": 2,
         "hint": "The correct answer is Cohort."
     },
     {
         "q": "Select the term described here: A pyramid with a broad base, showing a youthful and rapidly growing population.",
         "options": [
-            "Expanding pyramid",
             "Stable pyramid",
             "Declining pyramid",
-            "Broad base"
+            "Broad base",
+            "Expanding pyramid"
         ],
-        "a": 0,
+        "a": 3,
         "hint": "The correct answer is Expanding pyramid."
-    },
-    {
-        "q": "Select the term described here: A pyramid with similar-sized younger and middle cohorts, showing slow change.",
-        "options": [
-            "Declining pyramid",
-            "Stable pyramid",
-            "Broad base",
-            "Narrow apex"
-        ],
-        "a": 1,
-        "hint": "The correct answer is Stable pyramid."
-    },
-    {
-        "q": "Select the term described here: A pyramid with a narrow base, showing low birth rates and possible population decline.",
-        "options": [
-            "Broad base",
-            "Narrow apex",
-            "Declining pyramid",
-            "Young dependants"
-        ],
-        "a": 2,
-        "hint": "The correct answer is Declining pyramid."
     },
     {
         "q": "Select the term described here: A wide youngest-age section that usually indicates a high birth rate.",
         "options": [
+            "Broad base",
             "Narrow apex",
             "Young dependants",
-            "Working-age population",
-            "Broad base"
+            "Working-age population"
         ],
-        "a": 3,
+        "a": 0,
         "hint": "The correct answer is Broad base."
     },
     {
         "q": "Select the term described here: A small elderly section that usually indicates relatively low life expectancy.",
         "options": [
-            "Narrow apex",
             "Young dependants",
+            "Narrow apex",
             "Working-age population",
             "Elderly dependants"
         ],
-        "a": 0,
+        "a": 1,
         "hint": "The correct answer is Narrow apex."
     },
     {
         "q": "Select the term described here: Children who generally rely on working adults for support.",
         "options": [
             "Working-age population",
-            "Young dependants",
             "Elderly dependants",
+            "Young dependants",
             "Sex ratio"
         ],
-        "a": 1,
+        "a": 2,
         "hint": "The correct answer is Young dependants."
     },
     {
@@ -223,43 +204,43 @@
         "options": [
             "Elderly dependants",
             "Sex ratio",
-            "Working-age population",
-            "High birth rate"
+            "High birth rate",
+            "Working-age population"
         ],
-        "a": 2,
+        "a": 3,
         "hint": "The correct answer is Working-age population."
     },
     {
         "q": "Select the term described here: Older people who may rely on workers, pensions or care services.",
         "options": [
+            "Elderly dependants",
             "Sex ratio",
             "High birth rate",
-            "Low life expectancy",
-            "Elderly dependants"
+            "Low life expectancy"
         ],
-        "a": 3,
+        "a": 0,
         "hint": "The correct answer is Elderly dependants."
     },
     {
         "q": "Select the term described here: The relationship between the number of males and females in a population.",
         "options": [
-            "Sex ratio",
             "High birth rate",
+            "Sex ratio",
             "Low life expectancy",
             "Dependency ratio"
         ],
-        "a": 0,
+        "a": 1,
         "hint": "The correct answer is Sex ratio."
     },
     {
         "q": "Select the term described here: A large number of live births per 1,000 people.",
         "options": [
             "Low life expectancy",
-            "High birth rate",
             "Dependency ratio",
+            "High birth rate",
             "Government planning"
         ],
-        "a": 1,
+        "a": 2,
         "hint": "The correct answer is High birth rate."
     },
     {
@@ -267,22 +248,11 @@
         "options": [
             "Dependency ratio",
             "Government planning",
-            "Low life expectancy",
-            "School planning"
-        ],
-        "a": 2,
-        "hint": "The correct answer is Low life expectancy."
-    },
-    {
-        "q": "Select the term described here: A comparison of dependants with the working-age population.",
-        "options": [
-            "Government planning",
             "School planning",
-            "Healthcare planning",
-            "Dependency ratio"
+            "Low life expectancy"
         ],
         "a": 3,
-        "hint": "The correct answer is Dependency ratio."
+        "hint": "The correct answer is Low life expectancy."
     },
     {
         "q": "Select the term described here: Using population information to prepare services and infrastructure.",
@@ -316,155 +286,33 @@
         ],
         "a": 2,
         "hint": "The correct answer is Healthcare planning."
-    },
-    {
-        "q": "Select the term described here: Estimating the number and type of homes required by a population.",
-        "options": [
-            "Employment planning",
-            "Population pyramid",
-            "Age-sex structure",
-            "Housing planning"
-        ],
-        "a": 3,
-        "hint": "The correct answer is Housing planning."
-    },
-    {
-        "q": "Select the term described here: Preparing training and job opportunities for the working-age population.",
-        "options": [
-            "Employment planning",
-            "Population pyramid",
-            "Age-sex structure",
-            "Cohort"
-        ],
-        "a": 0,
-        "hint": "The correct answer is Employment planning."
-    },
-    {
-        "q": "Population pyramid refers to which of the following?",
-        "options": [
-            "The composition of a population according to age groups and sex.",
-            "A group of people within the same age range.",
-            "A pyramid with a broad base, showing a youthful and rapidly growing population.",
-            "A graph showing the age and sex structure of a population."
-        ],
-        "a": 3,
-        "hint": "The correct answer is A graph showing the age and sex structure of a population.."
-    },
-    {
-        "q": "Age-sex structure refers to which of the following?",
-        "options": [
-            "The composition of a population according to age groups and sex.",
-            "A group of people within the same age range.",
-            "A pyramid with a broad base, showing a youthful and rapidly growing population.",
-            "A pyramid with similar-sized younger and middle cohorts, showing slow change."
-        ],
-        "a": 0,
-        "hint": "The correct answer is The composition of a population according to age groups and sex.."
-    },
-    {
-        "q": "Cohort refers to which of the following?",
-        "options": [
-            "A pyramid with a broad base, showing a youthful and rapidly growing population.",
-            "A group of people within the same age range.",
-            "A pyramid with similar-sized younger and middle cohorts, showing slow change.",
-            "A pyramid with a narrow base, showing low birth rates and possible population decline."
-        ],
-        "a": 1,
-        "hint": "The correct answer is A group of people within the same age range.."
-    },
-    {
-        "q": "Expanding pyramid refers to which of the following?",
-        "options": [
-            "A pyramid with similar-sized younger and middle cohorts, showing slow change.",
-            "A pyramid with a narrow base, showing low birth rates and possible population decline.",
-            "A pyramid with a broad base, showing a youthful and rapidly growing population.",
-            "A wide youngest-age section that usually indicates a high birth rate."
-        ],
-        "a": 2,
-        "hint": "The correct answer is A pyramid with a broad base, showing a youthful and rapidly growing population.."
-    },
-    {
-        "q": "Stable pyramid refers to which of the following?",
-        "options": [
-            "A pyramid with a narrow base, showing low birth rates and possible population decline.",
-            "A wide youngest-age section that usually indicates a high birth rate.",
-            "A small elderly section that usually indicates relatively low life expectancy.",
-            "A pyramid with similar-sized younger and middle cohorts, showing slow change."
-        ],
-        "a": 3,
-        "hint": "The correct answer is A pyramid with similar-sized younger and middle cohorts, showing slow change.."
-    },
-    {
-        "q": "Declining pyramid refers to which of the following?",
-        "options": [
-            "A pyramid with a narrow base, showing low birth rates and possible population decline.",
-            "A wide youngest-age section that usually indicates a high birth rate.",
-            "A small elderly section that usually indicates relatively low life expectancy.",
-            "Children who generally rely on working adults for support."
-        ],
-        "a": 0,
-        "hint": "The correct answer is A pyramid with a narrow base, showing low birth rates and possible population decline.."
-    },
-    {
-        "q": "Broad base refers to which of the following?",
-        "options": [
-            "A small elderly section that usually indicates relatively low life expectancy.",
-            "A wide youngest-age section that usually indicates a high birth rate.",
-            "Children who generally rely on working adults for support.",
-            "Adults in the age range that normally supplies most workers."
-        ],
-        "a": 1,
-        "hint": "The correct answer is A wide youngest-age section that usually indicates a high birth rate.."
-    },
-    {
-        "q": "Narrow apex refers to which of the following?",
-        "options": [
-            "Children who generally rely on working adults for support.",
-            "Adults in the age range that normally supplies most workers.",
-            "A small elderly section that usually indicates relatively low life expectancy.",
-            "Older people who may rely on workers, pensions or care services."
-        ],
-        "a": 2,
-        "hint": "The correct answer is A small elderly section that usually indicates relatively low life expectancy.."
-    },
-    {
-        "q": "Young dependants refers to which of the following?",
-        "options": [
-            "Adults in the age range that normally supplies most workers.",
-            "Older people who may rely on workers, pensions or care services.",
-            "The relationship between the number of males and females in a population.",
-            "Children who generally rely on working adults for support."
-        ],
-        "a": 3,
-        "hint": "The correct answer is Children who generally rely on working adults for support.."
-    },
-    {
-        "q": "Working-age population refers to which of the following?",
-        "options": [
-            "Adults in the age range that normally supplies most workers.",
-            "Older people who may rely on workers, pensions or care services.",
-            "The relationship between the number of males and females in a population.",
-            "A large number of live births per 1,000 people."
-        ],
-        "a": 0,
-        "hint": "The correct answer is Adults in the age range that normally supplies most workers.."
     }
 ];
 
         const prizes = [
-            "R100", "R200", "R300", "R500", "R1,000",
-            "R2,000", "R3,000", "R4,000", "R5,000", "R10,000",
-            "R15,000", "R20,000", "R25,000", "R30,000", "R40,000",
-            "R50,000", "R60,000", "R70,000", "R80,000", "R100,000",
-            "R150,000", "R200,000", "R250,000", "R300,000", "R400,000",
-            "R500,000", "R600,000", "R750,000", "R850,000", "R1,000,000"
-        ];
+    "R100",
+    "R200",
+    "R300",
+    "R500",
+    "R1,000",
+    "R2,000",
+    "R4,000",
+    "R8,000",
+    "R16,000",
+    "R32,000",
+    "R64,000",
+    "R125,000",
+    "R250,000",
+    "R500,000",
+    "R1,000,000"
+];
 
         let currentLevel = 0;
         let isWaiting = false;
+        let certificateShown = false;
 
         const ladderContainer = document.getElementById('prizeLadder');
-        for (let i = 0; i < 30; i++) {
+        for (let i = 0; i < questions.length; i++) {
             let step = document.createElement('div');
             step.className = 'ladder-step';
             step.id = `ladder-${i}`;
@@ -482,7 +330,7 @@
             document.getElementById(`ladder-${currentLevel}`).classList.add('active');
 
             const qData = questions[currentLevel];
-            document.getElementById('questionText').innerText = `Q${currentLevel + 1}: ${qData.q}`;
+            document.getElementById('questionText').innerText = qData.q;
 
             let options = [...qData.options];
             let correctText = options[qData.a];
@@ -521,7 +369,7 @@
                     selectedBtn.classList.add('correct');
                     setTimeout(() => {
                         currentLevel++;
-                        if (currentLevel >= 30) endGame(true);
+                        if (currentLevel >= questions.length) endGame(true);
                         else loadQuestion();
                     }, 1000); 
                 } else {
@@ -552,18 +400,30 @@
         function useHint() {
             if (isWaiting) return;
             document.getElementById('btnHint').disabled = true;
-            alert("Geography Teacher Hint: " + questions[currentLevel].hint);
+            alert("History Teacher Hint: " + questions[currentLevel].hint);
         }
 
         function endGame(won) {
             document.getElementById('gameBoard').style.display = 'none';
             document.getElementById('endScreen').style.display = 'block';
             if (won) {
-                document.getElementById('endMessage').innerText = "Geography Legend!";
+                document.getElementById('endMessage').innerText = "History Legend!";
                 document.getElementById('endPrize').innerText = "R1,000,000";
             } else {
                 document.getElementById('endMessage').innerText = "Final Winnings:";
                 document.getElementById('endPrize').innerText = currentLevel > 0 ? prizes[currentLevel - 1] : "R0";
+            }
+            if (!certificateShown) {
+                certificateShown = true;
+                setTimeout(() => {
+                    MayHubCertificates.showScored({
+                        gameTitle: 'Population Structure Millionaire Challenge',
+                        category: 'Millionaire Quiz',
+                        correct: currentLevel,
+                        total: questions.length,
+                        onReplay: () => window.location.reload()
+                    });
+                }, 600);
             }
         }
         loadQuestion();

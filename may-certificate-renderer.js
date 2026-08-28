@@ -7,6 +7,7 @@
     const scriptUrl = new URL(document.currentScript.src);
     const siteRoot = new URL('.', scriptUrl);
     const defaultLogoUrl = new URL('May Learning Hub Logo.png', siteRoot).href;
+    const defaultSignatureUrl = new URL('May Learning Hub Signature-transparent.png', siteRoot).href;
     const logoPromises = new Map();
     const palettes = {
         'tier-bronze': { main: '#b87333', dark: '#6f3b16', soft: '#f7e8d8' },
@@ -62,7 +63,8 @@
             tierClass: palettes[options.tierClass] ? options.tierClass : (mode === 'participation' ? 'tier-participation' : 'tier-bronze'),
             date,
             issuedAt,
-            logoUrl: cleanText(options.logoUrl, defaultLogoUrl)
+            logoUrl: cleanText(options.logoUrl, defaultLogoUrl),
+            signatureUrl: cleanText(options.signatureUrl, defaultSignatureUrl)
         };
     }
 
@@ -204,6 +206,10 @@
 
         const canUseLogo = includeExternalLogo && /^https?:$/.test(window.location.protocol);
         const logo = canUseLogo ? await loadLogo(result.logoUrl) : null;
+        const canUseSignature = includeExternalLogo && /^(?:https?:|file:)$/.test(window.location.protocol);
+        const signature = result.layout === 'compact-subject' && canUseSignature
+            ? await loadLogo(result.signatureUrl)
+            : null;
         if (logo) ctx.drawImage(logo, 95, 85, 200, 200);
         else drawBrandFallback(ctx, palette);
 
@@ -309,18 +315,12 @@
         ctx.font = 'bold 25px "Segoe UI", sans-serif';
         ctx.fillText(result.date, 325, footerY - 34);
         if (result.layout === 'compact-subject') {
-            ctx.save();
-            ctx.translate(875, footerY - 38);
-            ctx.rotate(-0.045);
-            ctx.font = 'italic 40px "Brush Script MT", "Segoe Script", "Lucida Handwriting", cursive';
-            ctx.fillText('M. Learning Hub', 0, 0);
-            ctx.strokeStyle = palette.dark;
-            ctx.lineWidth = 1.4;
-            ctx.beginPath();
-            ctx.moveTo(-126, 18);
-            ctx.bezierCurveTo(-45, 4, 42, 35, 132, 11);
-            ctx.stroke();
-            ctx.restore();
+            if (signature) {
+                ctx.drawImage(signature, 720, footerY - 86, 310, 61);
+            } else {
+                ctx.font = 'italic 36px "Brush Script MT", "Segoe Script", "Lucida Handwriting", cursive';
+                ctx.fillText('M Learning Hub', 875, footerY - 38);
+            }
         } else {
             ctx.font = 'italic 29px "Segoe Script", cursive';
             ctx.fillText('May Learning Hub', 875, footerY - 34);
