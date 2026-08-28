@@ -1,8 +1,8 @@
-const CORE_CACHE_NAME = 'may-learning-core-v17-memory-duration-rollout';
+const CORE_CACHE_NAME = 'may-learning-core-v21-geoquest-stage4';
 const RUNTIME_CACHE_NAME = 'may-learning-runtime-pages';
 const CERTIFICATE_DOWNLOAD_CACHE = 'may-learning-certificate-downloads';
 const CERTIFICATE_DOWNLOAD_PATH = '/certificate-download/';
-const SERVICE_WORKER_VERSION = '17-memory-duration-rollout';
+const SERVICE_WORKER_VERSION = '21-geoquest-stage4';
 
 const CORE_ASSETS = [
   '/may-certificate-actions.js',
@@ -18,7 +18,18 @@ const CORE_ASSETS = [
   '/Sounds/Fail.mp3',
   '/Sounds/Wheel.mp3',
   '/Sounds/MovingSnake.mp3',
-  '/Sounds/SnakeBite.mp3'
+  '/Sounds/SnakeBite.mp3',
+  '/Geography/Term-3/Grade-11/Games/Assessment%20Games/GeoQuest/GeoQuest.html',
+  '/Geography/Term-3/Grade-11/Games/Assessment%20Games/GeoQuest/geoquest.css',
+  '/Geography/Term-3/Grade-11/Games/Assessment%20Games/GeoQuest/geoquest.js',
+  '/Geography/Term-3/Grade-11/Games/Assessment%20Games/GeoQuest/source-packs.js',
+  '/Geography/Term-3/Grade-11/Games/Assessment%20Games/GeoQuest/stage2-data.js',
+  '/Geography/Term-3/Grade-11/Games/Assessment%20Games/GeoQuest/stage3-data.js',
+  '/Geography/Term-3/Grade-11/Games/Assessment%20Games/GeoQuest/stage4-data.js',
+  '/Geography/Term-3/Grade-11/Games/Assessment%20Games/GeoQuest/sources/development-crossroads.jpg',
+  '/Geography/Term-3/Grade-11/Games/Assessment%20Games/GeoQuest/sources/trade-gatekeepers.jpg',
+  '/Geography/Term-3/Grade-11/Games/Assessment%20Games/GeoQuest/sources/trade-brief-a.jpg',
+  '/Geography/Term-3/Grade-11/Games/Assessment%20Games/GeoQuest/sources/trade-brief-b.jpg'
 ];
 
 const CORE_NETWORK_FIRST_PATHS = new Set([
