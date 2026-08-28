@@ -187,15 +187,28 @@
             gap: 2rem;
             align-items: end;
         }
-        .mayhub-cert-footer-item { border-top: 1px solid #6f7d89; padding-top: .4rem; }
-        .mayhub-cert-footer strong { display: block; color: #17324d; font-size: .9rem; }
+        .mayhub-cert-footer-item { padding-top: .4rem; }
+        .mayhub-cert-footer strong {
+            display: block;
+            padding-bottom: .35rem;
+            color: #17324d;
+            border-bottom: 1px solid #6f7d89;
+            font-size: .9rem;
+        }
         .mayhub-cert-signature { font-family: 'Segoe Script', 'Brush Script MT', cursive; font-size: 1.05rem !important; }
         .mayhub-cert-footer span {
             display: block;
+            margin-top: .35rem;
             color: #637180;
             font-size: .72rem;
             letter-spacing: .06em;
             text-transform: uppercase;
+        }
+        .mayhub-cert-site-line {
+            margin-top: .8rem;
+            color: var(--award-dark);
+            font-size: .78rem;
+            font-weight: 800;
         }
         .mayhub-cert-actions {
             display: flex;
@@ -213,10 +226,23 @@
             cursor: pointer;
             box-shadow: 0 5px 14px rgba(0, 0, 0, .22);
         }
+        .mayhub-cert-btn:disabled { cursor: wait; opacity: .72; }
         .mayhub-cert-share { background: #25d366; color: #072d16; }
+        .mayhub-cert-download { background: #1976d2; color: #fff; }
         .mayhub-cert-replay { background: #ffc107; color: #2f2500; }
         .mayhub-cert-close { background: #fff; color: #003f75; }
         .mayhub-cert-note { margin-top: .7rem; color: #e4eff9; font-size: .78rem; }
+        .mayhub-cert-status {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
         @keyframes mayhubCertIn {
             from { opacity: 0; transform: translateY(24px) scale(.97); }
             to { opacity: 1; transform: none; }
@@ -285,13 +311,16 @@
                         <span>Signed by May Learning Hub</span>
                     </div>
                 </div>
+                <p class="mayhub-cert-site-line">Get your certificate at www.maylearninghub.co.za</p>
             </article>
             <div class="mayhub-cert-actions">
-                <button class="mayhub-cert-btn mayhub-cert-share" id="mayhubCertShare" type="button">Share on WhatsApp</button>
+                <button class="mayhub-cert-btn mayhub-cert-share" id="mayhubCertShare" type="button">Share Certificate on WhatsApp</button>
+                <button class="mayhub-cert-btn mayhub-cert-download" id="mayhubCertDownload" type="button">Download Certificate</button>
                 <button class="mayhub-cert-btn mayhub-cert-replay" id="mayhubCertReplay" type="button">Play Again</button>
                 <button class="mayhub-cert-btn mayhub-cert-close" id="mayhubCertClose" type="button">Close</button>
             </div>
             <p class="mayhub-cert-note">WhatsApp will open its sharing screen. Choose <strong>My status</strong> or a contact.</p>
+            <p class="mayhub-cert-status" id="mayhubCertStatus" aria-live="polite"></p>
         </div>
     `;
     document.body.appendChild(overlay);
@@ -299,8 +328,10 @@
     const certificate = document.getElementById('mayhubCertificate');
     const scoreWrap = document.getElementById('mayhubCertScoreWrap');
     const shareButton = document.getElementById('mayhubCertShare');
+    const downloadButton = document.getElementById('mayhubCertDownload');
     const replayButton = document.getElementById('mayhubCertReplay');
     const closeButton = document.getElementById('mayhubCertClose');
+    const statusRegion = document.getElementById('mayhubCertStatus');
 
     function getSignedInLearnerName() {
         for (const storage of [window.localStorage, window.sessionStorage]) {
@@ -372,7 +403,10 @@
             correct,
             total,
             percentage: percentage === null ? null : Math.round(percentage),
+            title: award.title,
             award: award.award,
+            message: award.message,
+            tierClass: award.className,
             date: awardDate,
             detail: options.detail || ''
         };
@@ -413,40 +447,315 @@
         document.body.style.overflow = previousBodyOverflow;
     }
 
-    function requestShareName() {
+    function requestCertificateName(promptMessage) {
         if (activeResult.name) return activeResult.name;
-        const enteredName = window.prompt('Please enter your name and surname to include with your WhatsApp certificate:', '');
+        const enteredName = window.prompt(promptMessage, '');
         if (enteredName === null) return '';
-        const shareName = enteredName.trim();
-        if (!shareName) {
-            window.alert('Please enter your name and surname before sharing.');
+        const learnerName = enteredName.trim();
+        if (!learnerName) {
+            window.alert('Please enter your name and surname to continue.');
             return '';
         }
-        activeResult.name = shareName;
-        document.getElementById('mayhubCertName').textContent = shareName;
-        return shareName;
+        activeResult.name = learnerName;
+        document.getElementById('mayhubCertName').textContent = learnerName;
+        return learnerName;
     }
 
-    function share() {
-        if (!activeResult) return;
-        const shareName = requestShareName();
-        if (!shareName) return;
-        const lines = [
-            '🏆 May Learning Hub Certificate',
-            shareName,
-            'Grade 8 Social Sciences History - The Berlin Conference',
-            activeResult.award,
-            activeResult.gameTitle + ' — ' + activeResult.category
-        ];
-        if (activeResult.mode === 'scored') {
-            lines.push(activeResult.correct + '/' + activeResult.total + ' (' + activeResult.percentage + '%)');
+    function setActionBusy(button, busy, busyLabel) {
+        if (!button.dataset.defaultLabel) button.dataset.defaultLabel = button.textContent;
+        button.disabled = busy;
+        button.textContent = busy ? busyLabel : button.dataset.defaultLabel;
+    }
+
+    function announce(message) {
+        statusRegion.textContent = '';
+        window.setTimeout(() => { statusRegion.textContent = message; }, 20);
+    }
+
+    function buildShareMessage() {
+        return '🏆 I earned my May Learning Hub certificate!\nGet yours: https://www.maylearninghub.co.za';
+    }
+
+    function certificatePalette(result) {
+        const palettes = {
+            'tier-bronze': { main: '#b87333', dark: '#6f3b16', soft: '#f7e8d8' },
+            'tier-silver': { main: '#9aa6b2', dark: '#4e5a66', soft: '#edf1f4' },
+            'tier-gold': { main: '#d4af37', dark: '#755b08', soft: '#fff6cf' },
+            'tier-platinum': { main: '#c7d8e2', dark: '#165173', soft: '#eaf7ff' },
+            'tier-participation': { main: '#1268ad', dark: '#003f75', soft: '#d9efff' }
+        };
+        return palettes[result.tierClass] || palettes['tier-bronze'];
+    }
+
+    function drawCenteredWrappedText(ctx, text, x, y, maxWidth, lineHeight, maxLines = 4) {
+        const words = String(text).split(/\s+/);
+        const lines = [];
+        let line = '';
+        words.forEach(word => {
+            const testLine = line ? line + ' ' + word : word;
+            if (ctx.measureText(testLine).width > maxWidth && line) {
+                lines.push(line);
+                line = word;
+            } else {
+                line = testLine;
+            }
+        });
+        if (line) lines.push(line);
+        lines.slice(0, maxLines).forEach((lineText, index) => ctx.fillText(lineText, x, y + (index * lineHeight)));
+        return y + (Math.min(lines.length, maxLines) * lineHeight);
+    }
+
+    function loadCertificateLogo() {
+        return new Promise(resolve => {
+            const image = new Image();
+            image.onload = () => resolve(image);
+            image.onerror = () => resolve(null);
+            image.crossOrigin = 'anonymous';
+            image.src = logoUrl;
+        });
+    }
+
+    function drawCertificateBrandFallback(ctx, palette) {
+        ctx.save();
+        ctx.fillStyle = '#0b4f8a';
+        ctx.strokeStyle = palette.dark;
+        ctx.lineWidth = 5;
+        ctx.beginPath();
+        ctx.moveTo(100, 100);
+        ctx.lineTo(275, 100);
+        ctx.lineTo(275, 205);
+        ctx.quadraticCurveTo(188, 270, 100, 205);
+        ctx.closePath();
+        ctx.fill();
+        ctx.stroke();
+        ctx.fillStyle = '#ffffff';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.font = 'bold 27px "Segoe UI", sans-serif';
+        ctx.fillText('May Learning', 188, 145);
+        ctx.font = 'bold 31px "Segoe UI", sans-serif';
+        ctx.fillText('Hub', 188, 184);
+        ctx.restore();
+    }
+
+    function canvasToPngBlob(canvas) {
+        return new Promise((resolve, reject) => {
+            try {
+                canvas.toBlob(blob => {
+                    if (blob) resolve(blob);
+                    else reject(new Error('The browser returned an empty certificate image.'));
+                }, 'image/png');
+            } catch (error) {
+                reject(error);
+            }
+        });
+    }
+
+    async function createCertificateImage(learnerName, includeExternalLogo = true) {
+        if (!activeResult) throw new Error('No completed result is available.');
+        const result = activeResult;
+        const participation = result.mode === 'participation';
+        const palette = certificatePalette(result);
+        const canvas = document.createElement('canvas');
+        canvas.width = 1200;
+        canvas.height = 1697;
+        const ctx = canvas.getContext('2d');
+        const background = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+        background.addColorStop(0, participation ? palette.soft : '#fffdf7');
+        background.addColorStop(0.5, '#ffffff');
+        background.addColorStop(1, palette.soft);
+        ctx.fillStyle = background;
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        ctx.strokeStyle = palette.main;
+        ctx.lineWidth = 30;
+        ctx.strokeRect(30, 30, canvas.width - 60, canvas.height - 60);
+        ctx.strokeStyle = palette.dark;
+        ctx.lineWidth = 5;
+        ctx.strokeRect(65, 65, canvas.width - 130, canvas.height - 130);
+        ctx.strokeStyle = palette.main;
+        ctx.lineWidth = 2;
+        ctx.strokeRect(82, 82, canvas.width - 164, canvas.height - 164);
+
+        const canUseExternalLogo = includeExternalLogo && window.location.protocol !== 'file:';
+        const logo = canUseExternalLogo ? await loadCertificateLogo() : null;
+        if (logo) ctx.drawImage(logo, 95, 85, 200, 200);
+        else drawCertificateBrandFallback(ctx, palette);
+
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.font = '94px "Segoe UI Emoji", sans-serif';
+        ctx.fillText('🏆', 1010, 175);
+
+        ctx.fillStyle = palette.dark;
+        ctx.font = 'bold 25px "Segoe UI", sans-serif';
+        ctx.fillText('GRADE 8 SOCIAL SCIENCES HISTORY', 600, 285);
+        ctx.fillStyle = '#17324d';
+        ctx.font = 'bold 62px Georgia, serif';
+        let nextY = drawCenteredWrappedText(ctx, result.title, 600, 370, 900, 72, 2);
+
+        ctx.fillStyle = palette.soft;
+        ctx.strokeStyle = palette.main;
+        ctx.lineWidth = 4;
+        ctx.beginPath();
+        if (typeof ctx.roundRect === 'function') ctx.roundRect(250, nextY + 10, 700, 66, 33);
+        else ctx.rect(250, nextY + 10, 700, 66);
+        ctx.fill();
+        ctx.stroke();
+        ctx.fillStyle = palette.dark;
+        ctx.font = 'bold 24px "Segoe UI", sans-serif';
+        ctx.fillText(result.award.toUpperCase(), 600, nextY + 43);
+
+        nextY += 135;
+        ctx.fillStyle = '#536273';
+        ctx.font = 'italic 28px Georgia, serif';
+        ctx.fillText('This certificate is proudly presented to', 600, nextY);
+        nextY += 72;
+        ctx.fillStyle = '#17324d';
+        ctx.font = 'bold italic 49px Georgia, serif';
+        nextY = drawCenteredWrappedText(ctx, learnerName, 600, nextY, 850, 58, 2);
+        ctx.strokeStyle = palette.main;
+        ctx.lineWidth = 3;
+        ctx.beginPath();
+        ctx.moveTo(205, nextY + 4);
+        ctx.lineTo(995, nextY + 4);
+        ctx.stroke();
+
+        nextY += 70;
+        ctx.fillStyle = '#263442';
+        ctx.font = '29px Georgia, serif';
+        const bodyText = participation
+            ? 'for successful participation in the ' + result.category + ' activity on ' + result.topic + '.'
+            : 'for completing ' + result.gameTitle + ' in the ' + result.category + ' category.';
+        nextY = drawCenteredWrappedText(ctx, bodyText, 600, nextY, 840, 43, 4);
+
+        if (!participation) {
+            const sealY = Math.max(nextY + 115, 900);
+            ctx.fillStyle = '#fff';
+            ctx.strokeStyle = palette.main;
+            ctx.lineWidth = 18;
+            ctx.beginPath();
+            ctx.arc(600, sealY, 112, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.stroke();
+            ctx.fillStyle = palette.dark;
+            ctx.font = 'bold 62px "Segoe UI", sans-serif';
+            ctx.fillText(result.correct + '/' + result.total, 600, sealY - 10);
+            ctx.font = 'bold 20px "Segoe UI", sans-serif';
+            ctx.fillText('CORRECT', 600, sealY + 54);
+            nextY = sealY + 160;
+        } else {
+            nextY += 70;
         }
-        if (activeResult.detail) lines.push(activeResult.detail);
-        lines.push('Awarded: ' + activeResult.date, window.location.href);
-        window.open('https://wa.me/?text=' + encodeURIComponent(lines.join('\n')), '_blank', 'noopener,noreferrer');
+
+        ctx.fillStyle = palette.dark;
+        ctx.font = 'bold 27px "Segoe UI", sans-serif';
+        nextY = drawCenteredWrappedText(ctx, result.message, 600, nextY, 850, 40, 4);
+        if (result.detail) {
+            ctx.fillStyle = '#536273';
+            ctx.font = '22px "Segoe UI", sans-serif';
+            drawCenteredWrappedText(ctx, result.detail, 600, nextY + 15, 820, 34, 2);
+        }
+
+        const footerY = 1450;
+        ctx.strokeStyle = '#6f7d89';
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.moveTo(150, footerY);
+        ctx.lineTo(500, footerY);
+        ctx.moveTo(700, footerY);
+        ctx.lineTo(1050, footerY);
+        ctx.stroke();
+        ctx.fillStyle = '#17324d';
+        ctx.font = 'bold 25px "Segoe UI", sans-serif';
+        ctx.fillText(result.date, 325, footerY - 34);
+        ctx.font = 'italic 29px "Segoe Script", cursive';
+        ctx.fillText('May Learning Hub', 875, footerY - 34);
+        ctx.fillStyle = '#637180';
+        ctx.font = '18px "Segoe UI", sans-serif';
+        ctx.fillText('DATE AWARDED', 325, footerY + 36);
+        ctx.fillText('SIGNED BY MAY LEARNING HUB', 875, footerY + 36);
+        ctx.fillStyle = palette.dark;
+        ctx.font = 'bold 20px "Segoe UI", sans-serif';
+        ctx.fillText('Get your certificate at www.maylearninghub.co.za', 600, 1585);
+
+        const safeName = learnerName.replace(/[^a-z0-9]+/gi, '-').replace(/^-|-$/g, '') || 'Learner';
+        const safeGame = result.gameTitle.replace(/[^a-z0-9]+/gi, '-').replace(/^-|-$/g, '') || 'Assessment-Game';
+        const fileName = 'May-Learning-Hub-' + safeName + '-' + safeGame + '-Certificate.png';
+        try {
+            const blob = await canvasToPngBlob(canvas);
+            return { blob, fileName };
+        } catch (error) {
+            if (includeExternalLogo && logo) return createCertificateImage(learnerName, false);
+            throw error;
+        }
+    }
+
+    async function share() {
+        if (!activeResult) return;
+        const learnerName = requestCertificateName('Please enter your name and surname for the certificate:');
+        if (!learnerName) return;
+        const shareText = buildShareMessage();
+        setActionBusy(shareButton, true, 'Preparing Certificate...');
+        try {
+            if (!window.MayCertificateActions) throw new Error('The certificate helper is unavailable.');
+            const image = await createCertificateImage(learnerName);
+            const outcome = await window.MayCertificateActions.share({
+                blob: image.blob,
+                fileName: image.fileName,
+                mimeType: 'image/png',
+                shareText,
+                fallbackUrl: 'https://wa.me/?text=' + encodeURIComponent(shareText),
+                fallbackMessage: 'Your certificate image has been downloaded. WhatsApp will now open; attach it and choose My status or a contact.'
+            });
+            if (outcome.mode === 'modern-native' || outcome.mode === 'legacy-native') {
+                announce('Choose WhatsApp, then select My status or a contact.');
+            } else if (outcome.mode === 'browser-file-share') {
+                announce('Certificate image shared successfully.');
+            } else if (outcome.mode === 'cancelled') {
+                announce('Certificate sharing cancelled.');
+            } else {
+                announce('Certificate prepared for WhatsApp sharing.');
+            }
+        } catch (error) {
+            console.error('Certificate sharing failed:', error);
+            window.alert(error && error.code === 'native_timeout'
+                ? 'The Android app did not confirm the sharing request. Please try once more.'
+                : 'The certificate image could not be prepared. Please try again.');
+        } finally {
+            setActionBusy(shareButton, false, '');
+        }
+    }
+
+    async function download() {
+        if (!activeResult) return;
+        const learnerName = requestCertificateName('Please enter your name and surname for the downloadable certificate:');
+        if (!learnerName) return;
+        setActionBusy(downloadButton, true, 'Preparing Download...');
+        try {
+            if (!window.MayCertificateActions) throw new Error('The certificate helper is unavailable.');
+            const image = await createCertificateImage(learnerName);
+            const outcome = await window.MayCertificateActions.save({
+                blob: image.blob,
+                fileName: image.fileName,
+                mimeType: 'image/png'
+            });
+            if (outcome.mode === 'modern-native') announce('Certificate sent to the Android app for saving.');
+            else if (outcome.mode === 'legacy-native') announce('Certificate sent to the app for saving.');
+            else if (outcome.mode === 'same-site-download') announce('Certificate download started in the app.');
+            else announce('Certificate downloaded as a PNG image.');
+        } catch (error) {
+            console.error('Certificate download failed:', error);
+            window.alert(error && error.code === 'native_timeout'
+                ? 'The Android app did not confirm the save request. Please try once more.'
+                : 'The certificate could not be downloaded on this browser. Please try again.');
+        } finally {
+            setActionBusy(downloadButton, false, '');
+        }
     }
 
     shareButton.addEventListener('click', share);
+    downloadButton.addEventListener('click', download);
     closeButton.addEventListener('click', hide);
     replayButton.addEventListener('click', () => {
         const action = replayAction;

@@ -9,7 +9,7 @@
     const MAX_CERTIFICATE_BYTES = 12 * 1024 * 1024;
     const MODERN_REPLY_TIMEOUT_MS = 10000;
     const CERTIFICATE_DOWNLOAD_CACHE = 'may-learning-certificate-downloads';
-    const SERVICE_WORKER_VERSION = '6-certificate-actions';
+    const SERVICE_WORKER_VERSION = '7-berlin-certificates';
     const pendingRequests = new Map();
     let installedModernBridge = null;
 

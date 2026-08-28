@@ -1,10 +1,25 @@
-const CACHE_NAME = 'may-learning-v6-certificate-actions';
+const CACHE_NAME = 'may-learning-v7-berlin-certificates';
 const CERTIFICATE_DOWNLOAD_CACHE = 'may-learning-certificate-downloads';
 const CERTIFICATE_DOWNLOAD_PATH = '/certificate-download/';
-const SERVICE_WORKER_VERSION = '6-certificate-actions';
+const SERVICE_WORKER_VERSION = '7-berlin-certificates';
 
 const CERTIFICATE_UPDATE_ASSETS = [
   '/may-certificate-actions.js',
+  '/assessment-certificate.js',
+  '/game-audio.js',
+  '/May%20Learning%20Hub%20Logo.png',
+  '/Sounds/Correct.mp3',
+  '/Sounds/Wrong.mp3',
+  '/Sounds/Pass.mp3',
+  '/Sounds/Fail.mp3',
+  '/Sounds/Wheel.mp3',
+  '/Sounds/MovingSnake.mp3',
+  '/Sounds/SnakeBite.mp3',
+  '/Social-Sciences/Term-3/Grade-8/Games/History%20Assessment%20Games/The%20Berlin%20Conference/drag1.html',
+  '/Social-Sciences/Term-3/Grade-8/Games/History%20Assessment%20Games/The%20Berlin%20Conference/jeopardy1.html',
+  '/Social-Sciences/Term-3/Grade-8/Games/History%20Assessment%20Games/The%20Berlin%20Conference/match1.html',
+  '/Social-Sciences/Term-3/Grade-8/Games/History%20Assessment%20Games/The%20Berlin%20Conference/millionaire1.html',
+  '/Social-Sciences/Term-3/Grade-8/Games/History%20Assessment%20Games/The%20Berlin%20Conference/snake1.html',
   '/Social-Sciences/Term-3/Grade-8/Games/History%20Assessment%20Games/The%20Berlin%20Conference/spin1.html'
 ];
 
@@ -23,6 +38,13 @@ const NETWORK_FIRST_PATHS = new Set([
   '/activity-auth-guard.js',
   '/mayhub-auth-state.js',
   '/may-certificate-actions.js',
+  '/assessment-certificate.js',
+  '/game-audio.js',
+  '/Social-Sciences/Term-3/Grade-8/Games/History%20Assessment%20Games/The%20Berlin%20Conference/drag1.html',
+  '/Social-Sciences/Term-3/Grade-8/Games/History%20Assessment%20Games/The%20Berlin%20Conference/jeopardy1.html',
+  '/Social-Sciences/Term-3/Grade-8/Games/History%20Assessment%20Games/The%20Berlin%20Conference/match1.html',
+  '/Social-Sciences/Term-3/Grade-8/Games/History%20Assessment%20Games/The%20Berlin%20Conference/millionaire1.html',
+  '/Social-Sciences/Term-3/Grade-8/Games/History%20Assessment%20Games/The%20Berlin%20Conference/snake1.html',
   '/Social-Sciences/Term-3/Grade-8/Games/History%20Assessment%20Games/The%20Berlin%20Conference/spin1.html',
   '/sw.js'
 ]);

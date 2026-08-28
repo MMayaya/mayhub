@@ -209,8 +209,8 @@
         <div class="category-selection">
             <h2>Step 1: Choose a Category</h2>
             <div class="cat-buttons" id="catButtons">
-                <button class="cat-btn" type="button" data-category="definitions" aria-pressed="false" onclick="selectCategory('definitions', this)">Definitions: Term → Meaning</button>
-                <button class="cat-btn" type="button" data-category="terms" aria-pressed="false" onclick="selectCategory('terms', this)">Name the Term: Meaning → Term</button>
+                <button class="cat-btn" type="button" data-category="definitions" aria-pressed="false" onclick="selectCategory('definitions', this)">Definitions</button>
+                <button class="cat-btn" type="button" data-category="terms" aria-pressed="false" onclick="selectCategory('terms', this)">Terms</button>
                 <button class="cat-btn" type="button" data-category="multipleChoice" aria-pressed="false" onclick="selectCategory('multipleChoice', this)">Multiple Choice</button>
                 <button class="cat-btn" type="button" data-category="trueFalse" aria-pressed="false" onclick="selectCategory('trueFalse', this)">True or False</button>
             </div>
@@ -268,7 +268,7 @@
                     <p class="certificate-presented">This certificate is proudly presented to</p>
                     <p class="learner-name" id="celebrationLearner">Guest Learner</p>
                     <p class="certificate-body" id="scoredCertificateBody">for completing <strong>The Berlin Conference</strong> challenge in the <strong id="certificateCategory">selected</strong> category.</p>
-                    <p class="certificate-body" id="participationCertificateBody" style="display:none;">for successful participation in the <strong id="participationCategory">Definitions: Term → Meaning</strong> activity on <strong>The Berlin Conference</strong>.</p>
+                    <p class="certificate-body" id="participationCertificateBody" style="display:none;">for successful participation in the <strong id="participationCategory">Definitions</strong> activity on <strong>The Berlin Conference</strong>.</p>
                     <div class="score-ring" id="certificateScoreRing"><div><strong id="celebrationScore">0/10</strong><span>Correct</span></div></div>
                     <p class="celebration-message" id="celebrationMessage"></p>
                     <div class="certificate-footer">
@@ -290,7 +290,7 @@
                     <button class="celebration-btn replay-btn" onclick="playCategoryAgain()">Play Again</button>
                     <button class="celebration-btn category-btn" onclick="chooseAnotherCategory()">Choose Another Category</button>
                 </div>
-                <p class="share-note">Choose <strong>WhatsApp</strong> on your device's sharing screen, then select <strong>My status</strong> or a contact. The certificate image and challenge link will be shared together.</p>
+                <p class="share-note">Choose <strong>WhatsApp</strong> on your device's sharing screen, then select <strong>My status</strong> or a contact. The certificate image and a short May Learning Hub link will be shared together.</p>
             </div>
         </section>
 
@@ -596,7 +596,7 @@
 
         const totalQuestions = 10;
         const sliceAngle = 360 / totalQuestions;
-        const publicGameUrl = 'https://www.maylearninghub.co.za/Social-Sciences/Term-3/Grade-8/Games/History%20Assessment%20Games/The%20Berlin%20Conference/spin1.html';
+        const certificateHomeUrl = 'https://www.maylearninghub.co.za';
         const progressVersion = 2;
         const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
         const spinDuration = prefersReducedMotion ? 350 : 4000;
@@ -751,7 +751,7 @@
 
             currentCategoryKey = state.categoryKey;
             const categoryButton = document.querySelector('.cat-btn[data-category="' + currentCategoryKey + '"]');
-            currentCategoryLabel = state.categoryLabel || categoryButton?.innerText || currentCategoryKey;
+            currentCategoryLabel = categoryButton?.innerText || state.categoryLabel || currentCategoryKey;
             if (Number.isInteger(state.pendingQuestionIndex) && !state.answerResolved) {
                 const available = availableQuestions[currentCategoryKey];
                 if (!available.includes(state.pendingQuestionIndex)) available.push(state.pendingQuestionIndex);
@@ -1204,28 +1204,8 @@
             return shareName;
         }
 
-        function buildCertificateShareMessage(result, shareName) {
-            return result.participation
-                ? [
-                    '🏆 May Learning Hub Certificate',
-                    shareName,
-                    'Grade 8 Social Sciences History - The Berlin Conference',
-                    result.award,
-                    result.category,
-                    'Awarded: ' + result.date,
-                    'I completed this learning activity. Try it yourself at May Learning Hub:',
-                    publicGameUrl
-                ].join('\n')
-                : [
-                    '🏆 May Learning Hub Certificate',
-                    shareName,
-                    'Grade 8 Social Sciences History - The Berlin Conference',
-                    result.award,
-                    result.category + ': ' + result.correct + '/' + result.total + ' (' + Math.round(result.percentage) + '%)',
-                    'Awarded: ' + result.date,
-                    'Can you beat my score? Get your certificate at May Learning Hub:',
-                    publicGameUrl
-                ].join('\n');
+        function buildCertificateShareMessage() {
+            return '🏆 I earned my May Learning Hub certificate!\nGet yours: ' + certificateHomeUrl;
         }
 
         function setCertificateActionBusy(buttonId, busy, busyLabel) {
@@ -1238,10 +1218,9 @@
 
         async function shareWhatsApp() {
             if (!lastCompletedScore) return;
-            const result = lastCompletedScore;
             const shareName = ensureResultName('Please enter your name and surname to include with your WhatsApp certificate:');
             if (!shareName) return;
-            const message = buildCertificateShareMessage(result, shareName);
+            const message = buildCertificateShareMessage();
             setCertificateActionBusy('shareCertificateBtn', true, 'Preparing Certificate...');
             try {
                 if (!window.MayCertificateActions) {
