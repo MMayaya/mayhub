@@ -171,13 +171,6 @@
             font-weight: 800;
             line-height: 1.45;
         }
-        .mayhub-cert-detail {
-            max-width: 470px;
-            margin: .55rem auto 0;
-            color: #536273;
-            font-size: .82rem;
-            line-height: 1.4;
-        }
         .mayhub-cert-footer {
             width: 100%;
             margin-top: auto;
@@ -268,7 +261,6 @@
             .mayhub-cert-score strong { font-size: 1.9rem; }
             .mayhub-cert-score span { font-size: .63rem; }
             .mayhub-cert-message { font-size: .76rem; }
-            .mayhub-cert-detail { margin-top: .35rem; font-size: .68rem; }
             .mayhub-cert-footer { gap: .8rem; padding-top: .8rem; }
             .mayhub-cert-footer strong { font-size: .72rem; }
             .mayhub-cert-signature { font-size: .82rem !important; }
@@ -289,18 +281,17 @@
                     <img class="mayhub-cert-logo" src="${logoUrl}" alt="May Learning Hub">
                     <span class="mayhub-cert-trophy" aria-hidden="true">🏆</span>
                 </header>
-                <p class="mayhub-cert-kicker">Grade 8 Social Sciences History</p>
+                <p class="mayhub-cert-kicker" id="mayhubCertKicker">May Learning Hub Assessment</p>
                 <h2 class="mayhub-cert-title" id="mayhubCertTitle">Certificate of Participation</h2>
                 <p class="mayhub-cert-award" id="mayhubCertAward">May Learning Hub Participation Award</p>
                 <p class="mayhub-cert-presented">This certificate is proudly presented to</p>
                 <p class="mayhub-cert-name" id="mayhubCertName">Guest Learner</p>
-                <p class="mayhub-cert-body" id="mayhubCertScoredBody">for completing <strong id="mayhubCertGame">The Berlin Conference</strong> in the <strong id="mayhubCertCategory">selected</strong> category.</p>
-                <p class="mayhub-cert-body" id="mayhubCertParticipationBody" style="display: none;">for successful participation in the <strong id="mayhubCertParticipationCategory">selected</strong> activity on <strong id="mayhubCertTopic">The Berlin Conference</strong>.</p>
+                <p class="mayhub-cert-body" id="mayhubCertScoredBody">for completing <strong id="mayhubCertGame">the assessment game</strong> in the <strong id="mayhubCertCategory">selected</strong> category.</p>
+                <p class="mayhub-cert-body" id="mayhubCertParticipationBody" style="display: none;">for successful participation in the <strong id="mayhubCertParticipationCategory">selected</strong> activity on <strong id="mayhubCertTopic">the selected topic</strong>.</p>
                 <div class="mayhub-cert-score" id="mayhubCertScoreWrap">
                     <div><strong id="mayhubCertScore">0/10</strong><span>Correct</span></div>
                 </div>
                 <p class="mayhub-cert-message" id="mayhubCertMessage"></p>
-                <p class="mayhub-cert-detail" id="mayhubCertDetail"></p>
                 <div class="mayhub-cert-footer">
                     <div class="mayhub-cert-footer-item">
                         <strong id="mayhubCertDate"></strong>
@@ -345,6 +336,17 @@
         return '';
     }
 
+    function getCertificateContext(options) {
+        const data = document.body.dataset;
+        return {
+            grade: options.grade || data.certificateGrade || '',
+            subject: options.subject || data.certificateSubject || '',
+            term: options.term || data.certificateTerm || '',
+            topic: options.topic || data.certificateTopic || 'Assessment Activity',
+            gameTitle: options.gameTitle || data.certificateGame || 'Assessment Game'
+        };
+    }
+
     function getAward(percentage) {
         if (percentage === 100) {
             return {
@@ -379,7 +381,9 @@
     }
 
     function show(options) {
+        options = options || {};
         const isParticipation = options.mode === 'participation';
+        const context = getCertificateContext(options);
         const learnerName = options.name?.trim() || getSignedInLearnerName();
         const total = Number(options.total) || 0;
         const correct = Math.max(0, Number(options.correct) || 0);
@@ -392,13 +396,17 @@
                 message: options.message || 'Awarded in recognition of active participation.'
             }
             : getAward(percentage);
-        const awardDate = new Date().toLocaleDateString('en-ZA', { day: '2-digit', month: 'long', year: 'numeric' });
+        const issuedAt = new Date();
+        const awardDate = issuedAt.toLocaleDateString('en-ZA', { day: '2-digit', month: 'long', year: 'numeric' });
 
         activeResult = {
             name: learnerName,
             mode: isParticipation ? 'participation' : 'scored',
-            gameTitle: options.gameTitle || 'The Berlin Conference',
-            topic: options.topic || 'The Berlin Conference',
+            grade: context.grade,
+            subject: context.subject,
+            term: context.term,
+            gameTitle: context.gameTitle,
+            topic: context.topic,
             category: options.category || 'Assessment Game',
             correct,
             total,
@@ -408,13 +416,14 @@
             message: award.message,
             tierClass: award.className,
             date: awardDate,
-            detail: options.detail || ''
+            issuedAt: issuedAt.toISOString()
         };
         replayAction = typeof options.onReplay === 'function' ? options.onReplay : null;
 
         certificate.className = 'mayhub-certificate ' + award.className;
         document.getElementById('mayhubCertTitle').textContent = award.title;
         document.getElementById('mayhubCertAward').textContent = award.award;
+        document.getElementById('mayhubCertKicker').textContent = [context.grade, context.subject, context.term].filter(Boolean).join(' • ') || 'May Learning Hub Assessment';
         document.getElementById('mayhubCertName').textContent = learnerName || 'Guest Learner';
         document.getElementById('mayhubCertGame').textContent = activeResult.gameTitle;
         document.getElementById('mayhubCertCategory').textContent = activeResult.category;
@@ -424,8 +433,6 @@
         document.getElementById('mayhubCertParticipationBody').style.display = isParticipation ? 'block' : 'none';
         document.getElementById('mayhubCertDate').textContent = awardDate;
         document.getElementById('mayhubCertMessage').textContent = award.message;
-        document.getElementById('mayhubCertDetail').textContent = activeResult.detail;
-        document.getElementById('mayhubCertDetail').style.display = activeResult.detail ? 'block' : 'none';
         scoreWrap.style.display = isParticipation ? 'none' : 'grid';
         document.getElementById('mayhubCertScore').textContent = correct + '/' + total;
 
@@ -476,220 +483,16 @@
         return '🏆 I earned my May Learning Hub certificate!\nGet yours: https://www.maylearninghub.co.za';
     }
 
-    function certificatePalette(result) {
-        const palettes = {
-            'tier-bronze': { main: '#b87333', dark: '#6f3b16', soft: '#f7e8d8' },
-            'tier-silver': { main: '#9aa6b2', dark: '#4e5a66', soft: '#edf1f4' },
-            'tier-gold': { main: '#d4af37', dark: '#755b08', soft: '#fff6cf' },
-            'tier-platinum': { main: '#c7d8e2', dark: '#165173', soft: '#eaf7ff' },
-            'tier-participation': { main: '#1268ad', dark: '#003f75', soft: '#d9efff' }
-        };
-        return palettes[result.tierClass] || palettes['tier-bronze'];
-    }
-
-    function drawCenteredWrappedText(ctx, text, x, y, maxWidth, lineHeight, maxLines = 4) {
-        const words = String(text).split(/\s+/);
-        const lines = [];
-        let line = '';
-        words.forEach(word => {
-            const testLine = line ? line + ' ' + word : word;
-            if (ctx.measureText(testLine).width > maxWidth && line) {
-                lines.push(line);
-                line = word;
-            } else {
-                line = testLine;
-            }
-        });
-        if (line) lines.push(line);
-        lines.slice(0, maxLines).forEach((lineText, index) => ctx.fillText(lineText, x, y + (index * lineHeight)));
-        return y + (Math.min(lines.length, maxLines) * lineHeight);
-    }
-
-    function loadCertificateLogo() {
-        return new Promise(resolve => {
-            const image = new Image();
-            image.onload = () => resolve(image);
-            image.onerror = () => resolve(null);
-            image.crossOrigin = 'anonymous';
-            image.src = logoUrl;
+    async function createCertificateImage(learnerName) {
+        if (!window.MayCertificateRenderer) {
+            throw new Error('The certificate renderer is unavailable.');
+        }
+        return window.MayCertificateRenderer.create({
+            ...activeResult,
+            learnerName
         });
     }
 
-    function drawCertificateBrandFallback(ctx, palette) {
-        ctx.save();
-        ctx.fillStyle = '#0b4f8a';
-        ctx.strokeStyle = palette.dark;
-        ctx.lineWidth = 5;
-        ctx.beginPath();
-        ctx.moveTo(100, 100);
-        ctx.lineTo(275, 100);
-        ctx.lineTo(275, 205);
-        ctx.quadraticCurveTo(188, 270, 100, 205);
-        ctx.closePath();
-        ctx.fill();
-        ctx.stroke();
-        ctx.fillStyle = '#ffffff';
-        ctx.textAlign = 'center';
-        ctx.textBaseline = 'middle';
-        ctx.font = 'bold 27px "Segoe UI", sans-serif';
-        ctx.fillText('May Learning', 188, 145);
-        ctx.font = 'bold 31px "Segoe UI", sans-serif';
-        ctx.fillText('Hub', 188, 184);
-        ctx.restore();
-    }
-
-    function canvasToPngBlob(canvas) {
-        return new Promise((resolve, reject) => {
-            try {
-                canvas.toBlob(blob => {
-                    if (blob) resolve(blob);
-                    else reject(new Error('The browser returned an empty certificate image.'));
-                }, 'image/png');
-            } catch (error) {
-                reject(error);
-            }
-        });
-    }
-
-    async function createCertificateImage(learnerName, includeExternalLogo = true) {
-        if (!activeResult) throw new Error('No completed result is available.');
-        const result = activeResult;
-        const participation = result.mode === 'participation';
-        const palette = certificatePalette(result);
-        const canvas = document.createElement('canvas');
-        canvas.width = 1200;
-        canvas.height = 1697;
-        const ctx = canvas.getContext('2d');
-        const background = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
-        background.addColorStop(0, participation ? palette.soft : '#fffdf7');
-        background.addColorStop(0.5, '#ffffff');
-        background.addColorStop(1, palette.soft);
-        ctx.fillStyle = background;
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-        ctx.strokeStyle = palette.main;
-        ctx.lineWidth = 30;
-        ctx.strokeRect(30, 30, canvas.width - 60, canvas.height - 60);
-        ctx.strokeStyle = palette.dark;
-        ctx.lineWidth = 5;
-        ctx.strokeRect(65, 65, canvas.width - 130, canvas.height - 130);
-        ctx.strokeStyle = palette.main;
-        ctx.lineWidth = 2;
-        ctx.strokeRect(82, 82, canvas.width - 164, canvas.height - 164);
-
-        const canUseExternalLogo = includeExternalLogo && window.location.protocol !== 'file:';
-        const logo = canUseExternalLogo ? await loadCertificateLogo() : null;
-        if (logo) ctx.drawImage(logo, 95, 85, 200, 200);
-        else drawCertificateBrandFallback(ctx, palette);
-
-        ctx.textAlign = 'center';
-        ctx.textBaseline = 'middle';
-        ctx.font = '94px "Segoe UI Emoji", sans-serif';
-        ctx.fillText('🏆', 1010, 175);
-
-        ctx.fillStyle = palette.dark;
-        ctx.font = 'bold 25px "Segoe UI", sans-serif';
-        ctx.fillText('GRADE 8 SOCIAL SCIENCES HISTORY', 600, 285);
-        ctx.fillStyle = '#17324d';
-        ctx.font = 'bold 62px Georgia, serif';
-        let nextY = drawCenteredWrappedText(ctx, result.title, 600, 370, 900, 72, 2);
-
-        ctx.fillStyle = palette.soft;
-        ctx.strokeStyle = palette.main;
-        ctx.lineWidth = 4;
-        ctx.beginPath();
-        if (typeof ctx.roundRect === 'function') ctx.roundRect(250, nextY + 10, 700, 66, 33);
-        else ctx.rect(250, nextY + 10, 700, 66);
-        ctx.fill();
-        ctx.stroke();
-        ctx.fillStyle = palette.dark;
-        ctx.font = 'bold 24px "Segoe UI", sans-serif';
-        ctx.fillText(result.award.toUpperCase(), 600, nextY + 43);
-
-        nextY += 135;
-        ctx.fillStyle = '#536273';
-        ctx.font = 'italic 28px Georgia, serif';
-        ctx.fillText('This certificate is proudly presented to', 600, nextY);
-        nextY += 72;
-        ctx.fillStyle = '#17324d';
-        ctx.font = 'bold italic 49px Georgia, serif';
-        nextY = drawCenteredWrappedText(ctx, learnerName, 600, nextY, 850, 58, 2);
-        ctx.strokeStyle = palette.main;
-        ctx.lineWidth = 3;
-        ctx.beginPath();
-        ctx.moveTo(205, nextY + 4);
-        ctx.lineTo(995, nextY + 4);
-        ctx.stroke();
-
-        nextY += 70;
-        ctx.fillStyle = '#263442';
-        ctx.font = '29px Georgia, serif';
-        const bodyText = participation
-            ? 'for successful participation in the ' + result.category + ' activity on ' + result.topic + '.'
-            : 'for completing ' + result.gameTitle + ' in the ' + result.category + ' category.';
-        nextY = drawCenteredWrappedText(ctx, bodyText, 600, nextY, 840, 43, 4);
-
-        if (!participation) {
-            const sealY = Math.max(nextY + 115, 900);
-            ctx.fillStyle = '#fff';
-            ctx.strokeStyle = palette.main;
-            ctx.lineWidth = 18;
-            ctx.beginPath();
-            ctx.arc(600, sealY, 112, 0, Math.PI * 2);
-            ctx.fill();
-            ctx.stroke();
-            ctx.fillStyle = palette.dark;
-            ctx.font = 'bold 62px "Segoe UI", sans-serif';
-            ctx.fillText(result.correct + '/' + result.total, 600, sealY - 10);
-            ctx.font = 'bold 20px "Segoe UI", sans-serif';
-            ctx.fillText('CORRECT', 600, sealY + 54);
-            nextY = sealY + 160;
-        } else {
-            nextY += 70;
-        }
-
-        ctx.fillStyle = palette.dark;
-        ctx.font = 'bold 27px "Segoe UI", sans-serif';
-        nextY = drawCenteredWrappedText(ctx, result.message, 600, nextY, 850, 40, 4);
-        if (result.detail) {
-            ctx.fillStyle = '#536273';
-            ctx.font = '22px "Segoe UI", sans-serif';
-            drawCenteredWrappedText(ctx, result.detail, 600, nextY + 15, 820, 34, 2);
-        }
-
-        const footerY = 1450;
-        ctx.strokeStyle = '#6f7d89';
-        ctx.lineWidth = 2;
-        ctx.beginPath();
-        ctx.moveTo(150, footerY);
-        ctx.lineTo(500, footerY);
-        ctx.moveTo(700, footerY);
-        ctx.lineTo(1050, footerY);
-        ctx.stroke();
-        ctx.fillStyle = '#17324d';
-        ctx.font = 'bold 25px "Segoe UI", sans-serif';
-        ctx.fillText(result.date, 325, footerY - 34);
-        ctx.font = 'italic 29px "Segoe Script", cursive';
-        ctx.fillText('May Learning Hub', 875, footerY - 34);
-        ctx.fillStyle = '#637180';
-        ctx.font = '18px "Segoe UI", sans-serif';
-        ctx.fillText('DATE AWARDED', 325, footerY + 36);
-        ctx.fillText('SIGNED BY MAY LEARNING HUB', 875, footerY + 36);
-        ctx.fillStyle = palette.dark;
-        ctx.font = 'bold 20px "Segoe UI", sans-serif';
-        ctx.fillText('Get your certificate at www.maylearninghub.co.za', 600, 1585);
-
-        const safeName = learnerName.replace(/[^a-z0-9]+/gi, '-').replace(/^-|-$/g, '') || 'Learner';
-        const safeGame = result.gameTitle.replace(/[^a-z0-9]+/gi, '-').replace(/^-|-$/g, '') || 'Assessment-Game';
-        const fileName = 'May-Learning-Hub-' + safeName + '-' + safeGame + '-Certificate.png';
-        try {
-            const blob = await canvasToPngBlob(canvas);
-            return { blob, fileName };
-        } catch (error) {
-            if (includeExternalLogo && logo) return createCertificateImage(learnerName, false);
-            throw error;
-        }
-    }
 
     async function share() {
         if (!activeResult) return;

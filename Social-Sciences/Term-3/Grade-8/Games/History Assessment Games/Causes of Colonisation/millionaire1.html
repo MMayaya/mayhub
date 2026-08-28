@@ -67,7 +67,7 @@
         footer { text-align: center; padding: 1rem; background-color: #002b5e; color: #fff; margin-top: auto; }
     </style>
 </head>
-<body>
+<body data-certificate-grade="Grade 8" data-certificate-subject="Social Sciences History" data-certificate-term="Term 3" data-certificate-topic="Causes of Colonisation" data-certificate-game="Causes of Colonisation Millionaire Challenge">
 
     <nav>
         <a href="../../../../../../index.html" class="logo">May Learning Hub</a>
@@ -79,7 +79,7 @@
 
     <header class="game-header">
         <h1 class="game-title">R1,000,000 History Challenge</h1>
-        <p class="game-subtitle">Revise the economic, political, religious, technological, and industrial causes of colonisation.</p>
+        <p class="game-subtitle">Revise the Berlin Conference, its organisers, decisions, rules, and consequences for Africa.</p>
         <p style="font-size: 0.78rem; color: #52606d; margin-top: 0.45rem;">Grade 8 Social Sciences History Term 3 revision</p>
     </header>
 
@@ -117,6 +117,9 @@
     </footer>
 
         <script src="../../../../../../game-audio.js"></script>
+        <script src="../../../../../../may-certificate-renderer.js"></script>
+        <script src="../../../../../../may-certificate-actions.js"></script>
+        <script src="../../../../../../assessment-certificate.js"></script>
 <script>
         const questions = [
     {
@@ -133,34 +136,34 @@
     {
         "q": "How did technology contribute to colonisation?",
         "options": [
-            "It improved exploration, transport, communication and military power",
             "It prevented Europeans from travelling",
+            "It improved exploration, transport, communication and military power",
             "It ended the need for trade routes",
             "It gave African armies all the same weapons immediately"
         ],
-        "a": 0,
+        "a": 1,
         "hint": "The correct answer is It improved exploration, transport, communication and military power."
     },
     {
         "q": "What role did the Industrial Revolution play in colonisation?",
         "options": [
             "It reduced factory production",
-            "It created greater demand for raw materials and markets",
             "It ended European competition",
+            "It created greater demand for raw materials and markets",
             "It made manufactured goods unnecessary"
         ],
-        "a": 1,
+        "a": 2,
         "hint": "The correct answer is It created greater demand for raw materials and markets."
     },
     {
         "q": "What religious aim motivated many missionaries?",
         "options": [
-            "To spread Christianity and promote European ways of life",
             "To close every church",
             "To establish African control over Europe",
-            "To stop all education"
+            "To stop all education",
+            "To spread Christianity and promote European ways of life"
         ],
-        "a": 0,
+        "a": 3,
         "hint": "The correct answer is To spread Christianity and promote European ways of life."
     },
     {
@@ -177,34 +180,34 @@
     {
         "q": "Why did European manufacturers seek new markets in Africa?",
         "options": [
-            "Factory goods were produced faster than European consumers could buy them",
             "Africa had no population",
+            "Factory goods were produced faster than European consumers could buy them",
             "European factories had closed",
             "Colonies banned manufactured goods"
         ],
-        "a": 0,
+        "a": 1,
         "hint": "The correct answer is Factory goods were produced faster than European consumers could buy them."
     },
     {
         "q": "How did the steam engine assist colonisation?",
         "options": [
-            "It made travel and transport faster",
             "It cured malaria",
             "It translated languages",
+            "It made travel and transport faster",
             "It replaced every railway with footpaths"
         ],
-        "a": 0,
+        "a": 2,
         "hint": "The correct answer is It made travel and transport faster."
     },
     {
         "q": "How did the telegraph assist colonial rule?",
         "options": [
-            "It enabled faster communication and administration",
             "It supplied raw materials",
             "It replaced all weapons",
-            "It prevented messages from reaching Europe"
+            "It prevented messages from reaching Europe",
+            "It enabled faster communication and administration"
         ],
-        "a": 0,
+        "a": 3,
         "hint": "The correct answer is It enabled faster communication and administration."
     },
     {
@@ -221,23 +224,23 @@
     {
         "q": "Why was quinine important to European expansion?",
         "options": [
-            "It helped Europeans survive malaria",
             "It created new markets",
+            "It helped Europeans survive malaria",
             "It powered steam engines",
             "It drew colonial boundaries"
         ],
-        "a": 0,
+        "a": 1,
         "hint": "The correct answer is It helped Europeans survive malaria."
     },
     {
         "q": "Which statement correctly defines Industrial Revolution?",
         "options": [
             "Additional groups of consumers where European manufacturers could sell their products.",
-            "The rapid growth of factory production and technology that increased European demand for raw materials and markets.",
             "Products made in factories and offered for sale in African markets.",
+            "The rapid growth of factory production and technology that increased European demand for raw materials and markets.",
             "The combined advantage provided by advanced transport, communication, medicine and weapons."
         ],
-        "a": 1,
+        "a": 2,
         "hint": "The correct answer is The rapid growth of factory production and technology that increased European demand for raw materials and markets."
     },
     {
@@ -245,43 +248,43 @@
         "options": [
             "Products made in factories and offered for sale in African markets.",
             "The combined advantage provided by advanced transport, communication, medicine and weapons.",
-            "Natural resources required by European factories to manufacture goods.",
-            "A transport innovation that made European travel to and within Africa faster."
+            "A transport innovation that made European travel to and within Africa faster.",
+            "Natural resources required by European factories to manufacture goods."
         ],
-        "a": 2,
+        "a": 3,
         "hint": "The correct answer is Natural resources required by European factories to manufacture goods."
     },
     {
         "q": "Which statement correctly defines New markets?",
         "options": [
+            "Additional groups of consumers where European manufacturers could sell their products.",
             "The combined advantage provided by advanced transport, communication, medicine and weapons.",
             "A transport innovation that made European travel to and within Africa faster.",
-            "A communication technology that helped Europeans administer and coordinate colonial activity.",
-            "Additional groups of consumers where European manufacturers could sell their products."
+            "A communication technology that helped Europeans administer and coordinate colonial activity."
         ],
-        "a": 3,
+        "a": 0,
         "hint": "The correct answer is Additional groups of consumers where European manufacturers could sell their products."
     },
     {
         "q": "Which statement correctly defines Manufactured goods?",
         "options": [
-            "Products made in factories and offered for sale in African markets.",
             "A transport innovation that made European travel to and within Africa faster.",
+            "Products made in factories and offered for sale in African markets.",
             "A communication technology that helped Europeans administer and coordinate colonial activity.",
             "An advanced weapon that gave European forces a major military advantage."
         ],
-        "a": 0,
+        "a": 1,
         "hint": "The correct answer is Products made in factories and offered for sale in African markets."
     },
     {
         "q": "Which statement correctly defines Technological superiority?",
         "options": [
             "A communication technology that helped Europeans administer and coordinate colonial activity.",
-            "The combined advantage provided by advanced transport, communication, medicine and weapons.",
             "An advanced weapon that gave European forces a major military advantage.",
+            "The combined advantage provided by advanced transport, communication, medicine and weapons.",
             "A medicine that made it safer for Europeans to survive malaria in Africa."
         ],
-        "a": 1,
+        "a": 2,
         "hint": "The correct answer is The combined advantage provided by advanced transport, communication, medicine and weapons."
     }
 ];
@@ -306,6 +309,7 @@
 
         let currentLevel = 0;
         let isWaiting = false;
+        let certificateShown = false;
 
         const ladderContainer = document.getElementById('prizeLadder');
         for (let i = 0; i < questions.length; i++) {
@@ -408,6 +412,18 @@
             } else {
                 document.getElementById('endMessage').innerText = "Final Winnings:";
                 document.getElementById('endPrize').innerText = currentLevel > 0 ? prizes[currentLevel - 1] : "R0";
+            }
+            if (!certificateShown) {
+                certificateShown = true;
+                setTimeout(() => {
+                    MayHubCertificates.showScored({
+                        gameTitle: 'Causes of Colonisation Millionaire Challenge',
+                        category: 'Millionaire Quiz',
+                        correct: currentLevel,
+                        total: questions.length,
+                        onReplay: () => window.location.reload()
+                    });
+                }, 600);
             }
         }
         loadQuestion();

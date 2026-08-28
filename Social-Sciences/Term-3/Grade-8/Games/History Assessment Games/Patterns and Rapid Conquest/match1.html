@@ -71,7 +71,7 @@
         footer { text-align: center; padding: 1.5rem; background-color: #002b5e; color: #fff; margin-top: auto; }
     </style>
 </head>
-<body>
+<body data-certificate-grade="Grade 8" data-certificate-subject="Social Sciences History" data-certificate-term="Term 3" data-certificate-topic="Patterns and Rapid Conquest" data-certificate-game="Patterns and Rapid Conquest Memory Game">
 
     <nav>
         <a href="../../../../../../index.html" class="logo">May Learning Hub</a>
@@ -83,7 +83,7 @@
 
     <header class="game-header">
         <h1 class="game-title">Grade 8 Social Sciences History: Patterns and Rapid Conquest</h1>
-        <p class="game-subtitle">Revise colonial patterns, independent African states, conquest methods, treaties, and resistance.</p>
+        <p class="game-subtitle">Revise the Berlin Conference, its organisers, decisions, rules, and consequences for Africa.</p>
         <p style="font-size: 0.78rem; color: #52606d; margin-top: 0.45rem;">Grade 8 Social Sciences History Term 3 revision</p>
         
         <div class="category-selection">
@@ -105,6 +105,9 @@
     </footer>
 
         <script src="../../../../../../game-audio.js"></script>
+        <script src="../../../../../../may-certificate-renderer.js"></script>
+        <script src="../../../../../../may-certificate-actions.js"></script>
+        <script src="../../../../../../assessment-certificate.js"></script>
 <script>
         const gameData = {
     "topic1": [
@@ -273,7 +276,13 @@
             secondCard.removeEventListener('click', flipCard);
             matchedPairs++;
             if (matchedPairs === (gameData[currentCategory].length / 2)) {
-                setTimeout(() => alert(`Great job! Grade 8 Social Sciences History: History Assessment Review Complete in ${moves} moves.`), 500);
+                setTimeout(() => {
+                    MayHubCertificates.showParticipation({
+                        gameTitle: 'Patterns and Rapid Conquest Memory Game',
+                        category: 'Assessment Review – 10 Pairs',
+                        onReplay: initGame
+                    });
+                }, 500);
             }
             resetBoard();
         }

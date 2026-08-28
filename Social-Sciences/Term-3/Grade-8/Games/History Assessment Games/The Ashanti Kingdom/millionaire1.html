@@ -67,7 +67,7 @@
         footer { text-align: center; padding: 1rem; background-color: #002b5e; color: #fff; margin-top: auto; }
     </style>
 </head>
-<body>
+<body data-certificate-grade="Grade 8" data-certificate-subject="Social Sciences History" data-certificate-term="Term 3" data-certificate-topic="The Ashanti Kingdom" data-certificate-game="The Ashanti Kingdom Millionaire Challenge">
 
     <nav>
         <a href="../../../../../../index.html" class="logo">May Learning Hub</a>
@@ -79,7 +79,7 @@
 
     <header class="game-header">
         <h1 class="game-title">R1,000,000 History Challenge</h1>
-        <p class="game-subtitle">Revise the Ashanti Kingdom’s location, wealth, government, resistance, and experience of British colonisation.</p>
+        <p class="game-subtitle">Revise the Berlin Conference, its organisers, decisions, rules, and consequences for Africa.</p>
         <p style="font-size: 0.78rem; color: #52606d; margin-top: 0.45rem;">Grade 8 Social Sciences History Term 3 revision</p>
     </header>
 
@@ -117,6 +117,9 @@
     </footer>
 
         <script src="../../../../../../game-audio.js"></script>
+        <script src="../../../../../../may-certificate-renderer.js"></script>
+        <script src="../../../../../../may-certificate-actions.js"></script>
+        <script src="../../../../../../assessment-certificate.js"></script>
 <script>
         const questions = [
     {
@@ -144,23 +147,23 @@
     {
         "q": "Why were the Ashanti considered powerful fighters?",
         "options": [
-            "They were fierce and determined in battle",
             "They refused to organise an army",
             "They had no central government",
+            "They were fierce and determined in battle",
             "They depended entirely on European soldiers"
         ],
-        "a": 0,
+        "a": 2,
         "hint": "The correct answer is They were fierce and determined in battle."
     },
     {
         "q": "Which statement expresses the Ashanti determination to continue fighting?",
         "options": [
-            "Better go forward and die",
             "Always retreat before fighting",
             "Trade is more important than unity",
-            "The Golden Stool belongs to Europe"
+            "The Golden Stool belongs to Europe",
+            "Better go forward and die"
         ],
-        "a": 0,
+        "a": 3,
         "hint": "The correct answer is Better go forward and die."
     },
     {
@@ -200,11 +203,11 @@
         "q": "What symbol represented Ashanti unity and authority?",
         "options": [
             "The General Act",
-            "The Golden Stool",
             "The telegraph",
-            "A colonial flag"
+            "A colonial flag",
+            "The Golden Stool"
         ],
-        "a": 1,
+        "a": 3,
         "hint": "The correct answer is The Golden Stool."
     },
     {
@@ -221,23 +224,23 @@
     {
         "q": "What was one political result of British colonisation for the Ashanti?",
         "options": [
-            "The monarch’s authority was weakened under British oversight",
             "The Ashanti gained full control of Britain",
+            "The monarch’s authority was weakened under British oversight",
             "Colonial administration disappeared",
             "The Golden Stool became a European parliament"
         ],
-        "a": 0,
+        "a": 1,
         "hint": "The correct answer is The monarch’s authority was weakened under British oversight."
     },
     {
         "q": "Which statement correctly defines Ghana?",
         "options": [
             "The mineral that made the Ashanti Kingdom wealthy and commercially important.",
-            "The modern country in which the Ashanti Kingdom was located.",
             "Another valuable product controlled through Ashanti trade.",
+            "The modern country in which the Ashanti Kingdom was located.",
             "A craft for which the Ashanti people were well known."
         ],
-        "a": 1,
+        "a": 2,
         "hint": "The correct answer is The modern country in which the Ashanti Kingdom was located."
     },
     {
@@ -245,43 +248,43 @@
         "options": [
             "Another valuable product controlled through Ashanti trade.",
             "A craft for which the Ashanti people were well known.",
-            "The capital city of the Ashanti Kingdom.",
-            "A political system with authority organised around a strong central government."
+            "A political system with authority organised around a strong central government.",
+            "The capital city of the Ashanti Kingdom."
         ],
-        "a": 2,
+        "a": 3,
         "hint": "The correct answer is The capital city of the Ashanti Kingdom."
     },
     {
         "q": "Which statement correctly defines Gold?",
         "options": [
+            "The mineral that made the Ashanti Kingdom wealthy and commercially important.",
             "A craft for which the Ashanti people were well known.",
             "A political system with authority organised around a strong central government.",
-            "The leader who united Akan-speaking communities into a powerful military state.",
-            "The mineral that made the Ashanti Kingdom wealthy and commercially important."
+            "The leader who united Akan-speaking communities into a powerful military state."
         ],
-        "a": 3,
+        "a": 0,
         "hint": "The correct answer is The mineral that made the Ashanti Kingdom wealthy and commercially important."
     },
     {
         "q": "Which statement correctly defines Ivory?",
         "options": [
-            "Another valuable product controlled through Ashanti trade.",
             "A political system with authority organised around a strong central government.",
+            "Another valuable product controlled through Ashanti trade.",
             "The leader who united Akan-speaking communities into a powerful military state.",
             "The sacred symbol in Ashanti tradition that represented unity and authority."
         ],
-        "a": 0,
+        "a": 1,
         "hint": "The correct answer is Another valuable product controlled through Ashanti trade."
     },
     {
         "q": "Which statement correctly defines Metalworking?",
         "options": [
             "The leader who united Akan-speaking communities into a powerful military state.",
-            "A craft for which the Ashanti people were well known.",
             "The sacred symbol in Ashanti tradition that represented unity and authority.",
+            "A craft for which the Ashanti people were well known.",
             "The selection of government officials according to ability rather than inheritance alone."
         ],
-        "a": 1,
+        "a": 2,
         "hint": "The correct answer is A craft for which the Ashanti people were well known."
     }
 ];
@@ -306,6 +309,7 @@
 
         let currentLevel = 0;
         let isWaiting = false;
+        let certificateShown = false;
 
         const ladderContainer = document.getElementById('prizeLadder');
         for (let i = 0; i < questions.length; i++) {
@@ -408,6 +412,18 @@
             } else {
                 document.getElementById('endMessage').innerText = "Final Winnings:";
                 document.getElementById('endPrize').innerText = currentLevel > 0 ? prizes[currentLevel - 1] : "R0";
+            }
+            if (!certificateShown) {
+                certificateShown = true;
+                setTimeout(() => {
+                    MayHubCertificates.showScored({
+                        gameTitle: 'The Ashanti Kingdom Millionaire Challenge',
+                        category: 'Millionaire Quiz',
+                        correct: currentLevel,
+                        total: questions.length,
+                        onReplay: () => window.location.reload()
+                    });
+                }, 600);
             }
         }
         loadQuestion();

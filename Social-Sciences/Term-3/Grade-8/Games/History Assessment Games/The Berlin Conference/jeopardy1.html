@@ -103,7 +103,7 @@
         footer { text-align: center; padding: 1rem; background-color: #002b5e; color: #fff; margin-top: auto; }
     </style>
 </head>
-<body>
+<body data-certificate-grade="Grade 8" data-certificate-subject="Social Sciences History" data-certificate-term="Term 3" data-certificate-topic="The Berlin Conference" data-certificate-game="The Berlin Conference Jeopardy Game">
 
     <nav>
         <a href="../../../../../../index.html" class="logo">May Learning Hub</a>
@@ -190,6 +190,7 @@
     <footer><p>&copy; 2026 May Learning Hub. All rights reserved.</p></footer>
 
         <script src="../../../../../../game-audio.js"></script>
+        <script src="../../../../../../may-certificate-renderer.js"></script>
         <script src="../../../../../../may-certificate-actions.js"></script>
         <script src="../../../../../../assessment-certificate.js"></script>
 <script>
@@ -557,12 +558,10 @@
             answeredTiles++;
             if (answeredTiles === totalJeopardyTiles && !participationShown) {
                 participationShown = true;
-                const scoreSummary = playerNames.map((name, index) => name + ': ' + scores[index] + ' points').join(' | ');
                 setTimeout(() => {
                     MayHubCertificates.showParticipation({
                         gameTitle: 'The Berlin Conference Jeopardy Game',
                         category: 'Round One and Round Two',
-                        detail: 'Completed all ' + totalJeopardyTiles + ' clues. ' + scoreSummary,
                         onReplay: () => window.location.reload()
                     });
                 }, 650);

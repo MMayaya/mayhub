@@ -67,7 +67,7 @@
         footer { text-align: center; padding: 1rem; background-color: #002b5e; color: #fff; margin-top: auto; }
     </style>
 </head>
-<body>
+<body data-certificate-grade="Grade 8" data-certificate-subject="Social Sciences History" data-certificate-term="Term 3" data-certificate-topic="Patterns and Rapid Conquest" data-certificate-game="Patterns and Rapid Conquest Millionaire Challenge">
 
     <nav>
         <a href="../../../../../../index.html" class="logo">May Learning Hub</a>
@@ -79,7 +79,7 @@
 
     <header class="game-header">
         <h1 class="game-title">R1,000,000 History Challenge</h1>
-        <p class="game-subtitle">Revise colonial patterns, independent African states, conquest methods, treaties, and resistance.</p>
+        <p class="game-subtitle">Revise the Berlin Conference, its organisers, decisions, rules, and consequences for Africa.</p>
         <p style="font-size: 0.78rem; color: #52606d; margin-top: 0.45rem;">Grade 8 Social Sciences History Term 3 revision</p>
     </header>
 
@@ -117,6 +117,9 @@
     </footer>
 
         <script src="../../../../../../game-audio.js"></script>
+        <script src="../../../../../../may-certificate-renderer.js"></script>
+        <script src="../../../../../../may-certificate-actions.js"></script>
+        <script src="../../../../../../assessment-certificate.js"></script>
 <script>
         const questions = [
     {
@@ -133,12 +136,12 @@
     {
         "q": "Which pair consists of territories colonised by Britain?",
         "options": [
-            "South Africa and Nigeria",
             "Ethiopia and Liberia",
+            "South Africa and Nigeria",
             "Angola and Mozambique",
             "Italy and Belgium"
         ],
-        "a": 0,
+        "a": 1,
         "hint": "The correct answer is South Africa and Nigeria."
     },
     {
@@ -155,12 +158,12 @@
     {
         "q": "Which other African country remained independent during the Scramble?",
         "options": [
-            "Liberia",
             "Egypt",
             "Mozambique",
-            "Congo"
+            "Congo",
+            "Liberia"
         ],
-        "a": 0,
+        "a": 3,
         "hint": "The correct answer is Liberia."
     },
     {
@@ -188,23 +191,23 @@
     {
         "q": "Which power was associated with colonial rule in the Congo?",
         "options": [
-            "Belgium",
             "Liberia",
             "Ethiopia",
+            "Belgium",
             "Spain"
         ],
-        "a": 0,
+        "a": 2,
         "hint": "The correct answer is Belgium."
     },
     {
         "q": "Which country defeated an Italian invasion at the Battle of Adwa?",
         "options": [
             "Ghana",
-            "Ethiopia",
             "Nigeria",
-            "South Africa"
+            "South Africa",
+            "Ethiopia"
         ],
-        "a": 1,
+        "a": 3,
         "hint": "The correct answer is Ethiopia."
     },
     {
@@ -221,23 +224,23 @@
     {
         "q": "How did rivalries between African leaders assist European conquest?",
         "options": [
-            "They made united resistance more difficult",
             "They gave every kingdom identical leadership",
+            "They made united resistance more difficult",
             "They ended European competition",
             "They removed the European military advantage"
         ],
-        "a": 0,
+        "a": 1,
         "hint": "The correct answer is They made united resistance more difficult."
     },
     {
         "q": "Which statement correctly defines Britain?",
         "options": [
             "A country that retained its political independence instead of becoming a European colony.",
-            "The European power that controlled the largest number of African colonies during the Scramble.",
             "An African country that remained independent and defeated an Italian invasion at Adwa.",
+            "The European power that controlled the largest number of African colonies during the Scramble.",
             "Another African country identified as independent during the Scramble for Africa."
         ],
-        "a": 1,
+        "a": 2,
         "hint": "The correct answer is The European power that controlled the largest number of African colonies during the Scramble."
     },
     {
@@ -245,43 +248,43 @@
         "options": [
             "An African country that remained independent and defeated an Italian invasion at Adwa.",
             "Another African country identified as independent during the Scramble for Africa.",
-            "Territories such as South Africa, Nigeria, Uganda and Egypt that were ruled by Britain.",
-            "The European power that ruled Angola and Mozambique."
+            "The European power that ruled Angola and Mozambique.",
+            "Territories such as South Africa, Nigeria, Uganda and Egypt that were ruled by Britain."
         ],
-        "a": 2,
+        "a": 3,
         "hint": "The correct answer is Territories such as South Africa, Nigeria, Uganda and Egypt that were ruled by Britain."
     },
     {
         "q": "Which statement correctly defines Independent state?",
         "options": [
+            "A country that retained its political independence instead of becoming a European colony.",
             "Another African country identified as independent during the Scramble for Africa.",
             "The European power that ruled Angola and Mozambique.",
-            "The European power associated with colonial control of the Congo.",
-            "A country that retained its political independence instead of becoming a European colony."
+            "The European power associated with colonial control of the Congo."
         ],
-        "a": 3,
+        "a": 0,
         "hint": "The correct answer is A country that retained its political independence instead of becoming a European colony."
     },
     {
         "q": "Which statement correctly defines Ethiopia?",
         "options": [
-            "An African country that remained independent and defeated an Italian invasion at Adwa.",
             "The European power that ruled Angola and Mozambique.",
+            "An African country that remained independent and defeated an Italian invasion at Adwa.",
             "The European power associated with colonial control of the Congo.",
             "A late-entering colonial power that controlled fewer African territories than Britain or France."
         ],
-        "a": 0,
+        "a": 1,
         "hint": "The correct answer is An African country that remained independent and defeated an Italian invasion at Adwa."
     },
     {
         "q": "Which statement correctly defines Liberia?",
         "options": [
             "The European power associated with colonial control of the Congo.",
-            "Another African country identified as independent during the Scramble for Africa.",
             "A late-entering colonial power that controlled fewer African territories than Britain or France.",
+            "Another African country identified as independent during the Scramble for Africa.",
             "Advanced weapons such as machine guns that helped Europeans conquer territory quickly."
         ],
-        "a": 1,
+        "a": 2,
         "hint": "The correct answer is Another African country identified as independent during the Scramble for Africa."
     }
 ];
@@ -306,6 +309,7 @@
 
         let currentLevel = 0;
         let isWaiting = false;
+        let certificateShown = false;
 
         const ladderContainer = document.getElementById('prizeLadder');
         for (let i = 0; i < questions.length; i++) {
@@ -408,6 +412,18 @@
             } else {
                 document.getElementById('endMessage').innerText = "Final Winnings:";
                 document.getElementById('endPrize').innerText = currentLevel > 0 ? prizes[currentLevel - 1] : "R0";
+            }
+            if (!certificateShown) {
+                certificateShown = true;
+                setTimeout(() => {
+                    MayHubCertificates.showScored({
+                        gameTitle: 'Patterns and Rapid Conquest Millionaire Challenge',
+                        category: 'Millionaire Quiz',
+                        correct: currentLevel,
+                        total: questions.length,
+                        onReplay: () => window.location.reload()
+                    });
+                }, 600);
             }
         }
         loadQuestion();

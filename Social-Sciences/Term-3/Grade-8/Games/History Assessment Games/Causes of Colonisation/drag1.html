@@ -361,7 +361,7 @@
         }
     </style>
 </head>
-<body>
+<body data-certificate-grade="Grade 8" data-certificate-subject="Social Sciences History" data-certificate-term="Term 3" data-certificate-topic="Causes of Colonisation" data-certificate-game="Causes of Colonisation Drag-and-Drop Challenge">
 
     <nav>
         <a href="../../../../../../index.html" class="logo">May Learning Hub</a>
@@ -373,16 +373,16 @@
 
     <main class="game-container">
         <h1 class="game-title">Grade 8 History Drag or Tap Match: Causes of Colonisation</h1>
-        <p class="game-subtitle">Revise the economic, political, religious, technological, and industrial causes of colonisation.</p>
+        <p class="game-subtitle">Revise the Berlin Conference, its organisers, decisions, rules, and consequences for Africa.</p>
         <p style="font-size: 0.78rem; color: #52606d; margin-top: 0.45rem;">Grade 8 Social Sciences History Term 3 revision</p>
 
         <div class="category-selection">
             <h2>Step 1: Choose a Topic</h2>
             <div class="cat-buttons" id="catButtons">
-                <button class="cat-btn" onclick="selectCategory('unit1', this)">1. Industry and Economics</button>
-                <button class="cat-btn" onclick="selectCategory('unit2', this)">2. Religion and Technology</button>
-                <button class="cat-btn" onclick="selectCategory('unit3', this)">3. Conquest and Infrastructure</button>
-                <button class="cat-btn" onclick="selectCategory('unit4', this)">4. Combined Causes</button>
+                <button class="cat-btn" onclick="selectCategory('unit1', this)">1. Conference Basics</button>
+                <button class="cat-btn" onclick="selectCategory('unit2', this)">2. Purpose and Agreement</button>
+                <button class="cat-btn" onclick="selectCategory('unit3', this)">3. Rules and Leaders</button>
+                <button class="cat-btn" onclick="selectCategory('unit4', this)">4. Impact on Africa</button>
             </div>
         </div>
 
@@ -425,6 +425,9 @@
     </footer>
 
         <script src="../../../../../../game-audio.js"></script>
+        <script src="../../../../../../may-certificate-renderer.js"></script>
+        <script src="../../../../../../may-certificate-actions.js"></script>
+        <script src="../../../../../../assessment-certificate.js"></script>
 <script>
         const gameData = {
     "unit1": [
@@ -531,6 +534,7 @@
         let matchedCount = 0;
         let currentSetNumber = 1;
         let selectedItem = null;
+        let attemptedItems = new Set();
 
         function shuffleArray(array) {
             const arr = [...array];
@@ -545,6 +549,7 @@
             currentCategoryKey = categoryKey;
             matchedCount = 0;
             score = 0;
+            attemptedItems = new Set();
 
             document.getElementById('gameArea').style.display = 'block';
             document.getElementById('activeCategoryTitle').innerText = `Topic: ${categoryTitles[categoryKey]}`;
@@ -681,6 +686,8 @@
 
             const correctAnswer = draggedItem.dataset.answer;
             const zoneAnswer = zone.dataset.match;
+            const firstAttempt = !attemptedItems.has(draggedItem.id);
+            attemptedItems.add(draggedItem.id);
 
             if (correctAnswer === zoneAnswer) {
                 MayHubSounds.playCorrect();
@@ -700,7 +707,7 @@
                 selectedItem = null;
 
                 matchedCount++;
-                score++;
+                if (firstAttempt) score++;
 
                 updateInfoBoxes(gameData[currentCategoryKey].length);
 
@@ -730,12 +737,22 @@
             feedbackTitle.innerText = "History Master!";
             feedbackMessage.innerText = `You correctly identified all terms for the "${categoryTitles[currentCategoryKey]}" topic!`;
             feedbackBox.style.display = 'block';
+            setTimeout(() => {
+                MayHubCertificates.showScored({
+                    gameTitle: 'Causes of Colonisation Drag-and-Drop Challenge',
+                    category: categoryTitles[currentCategoryKey],
+                    correct: score,
+                    total: gameData[currentCategoryKey].length,
+                    onReplay: resetCurrentCategory
+                });
+            }, 700);
         }
 
         function resetCurrentCategory() {
             if (!currentCategoryKey) return;
             score = 0;
             matchedCount = 0;
+            attemptedItems = new Set();
             document.getElementById('feedbackBox').style.display = 'none';
             renderGame();
         }
@@ -759,6 +776,7 @@
             currentSetNumber = nextIndex + 1;
             score = 0;
             matchedCount = 0;
+            attemptedItems = new Set();
             document.getElementById('feedbackBox').style.display = 'none';
             document.getElementById('gameArea').style.display = 'block';
             document.getElementById('activeCategoryTitle').innerText = `Topic: ${categoryTitles[nextKey]}`;

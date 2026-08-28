@@ -182,7 +182,7 @@
         footer { text-align: center; padding: 1rem; background-color: #002b5e; color: #fff; margin-top: auto; }
     </style>
 </head>
-<body>
+<body data-certificate-grade="Grade 8" data-certificate-subject="Social Sciences History" data-certificate-term="Term 3" data-certificate-topic="The Berlin Conference" data-certificate-game="The Berlin Conference Spin-the-Wheel Game">
 
     <nav>
         <a href="../../../../../../index.html" class="logo">May Learning Hub</a>
@@ -262,7 +262,7 @@
                         <img class="certificate-logo" src="../../../../../../May Learning Hub Logo.png" alt="May Learning Hub">
                         <span class="certificate-trophy" aria-hidden="true">🏆</span>
                     </header>
-                    <p class="certificate-kicker">Grade 8 Social Sciences History</p>
+                    <p class="certificate-kicker" id="certificateKicker">May Learning Hub Assessment</p>
                     <h2 id="certificateTitle">Certificate of Achievement</h2>
                     <p class="certificate-award" id="certificateAward">Silver Pass Award</p>
                     <p class="certificate-presented">This certificate is proudly presented to</p>
@@ -311,6 +311,7 @@
     </footer>
 
         <script src="../../../../../../game-audio.js"></script>
+        <script src="../../../../../../may-certificate-renderer.js"></script>
         <script src="../../../../../../may-certificate-actions.js"></script>
 <script>
         const gameData = {
@@ -402,62 +403,62 @@
         {
             "q": "What was the Berlin Conference?",
             "options": [
-                "A) A meeting of African rulers about independence",
-                "B) A diplomatic meeting where European powers negotiated rules for colonising and partitioning Africa",
+                "A) A diplomatic meeting where European powers negotiated rules for colonising and partitioning Africa",
+                "B) A meeting of African rulers about independence",
                 "C) A trade fair held in Ghana",
                 "D) A military battle between Britain and Germany"
             ],
-            "a": "B) A diplomatic meeting where European powers negotiated rules for colonising and partitioning Africa"
+            "a": "A) A diplomatic meeting where European powers negotiated rules for colonising and partitioning Africa"
         },
         {
             "q": "Who organised and hosted the Berlin Conference?",
             "options": [
                 "A) Leopold II",
-                "B) Chief Osei Tutu",
-                "C) Otto von Bismarck",
+                "B) Otto von Bismarck",
+                "C) Chief Osei Tutu",
                 "D) A British explorer"
             ],
-            "a": "C) Otto von Bismarck"
+            "a": "B) Otto von Bismarck"
         },
         {
             "q": "Where was the Berlin Conference held?",
             "options": [
                 "A) Kumasi, Ghana",
                 "B) Paris, France",
-                "C) Brussels, Belgium",
-                "D) Berlin, Germany"
+                "C) Berlin, Germany",
+                "D) Brussels, Belgium"
             ],
-            "a": "D) Berlin, Germany"
+            "a": "C) Berlin, Germany"
         },
         {
             "q": "Why was the Berlin Conference held?",
             "options": [
                 "A) To restore African kingdoms",
-                "B) To agree rules for European claims and reduce conflict while Africa was being divided",
-                "C) To end European trade with Africa",
-                "D) To give every African state independence"
+                "B) To end European trade with Africa",
+                "C) To give every African state independence",
+                "D) To agree rules for European claims and reduce conflict while Africa was being divided"
             ],
-            "a": "B) To agree rules for European claims and reduce conflict while Africa was being divided"
+            "a": "D) To agree rules for European claims and reduce conflict while Africa was being divided"
         },
         {
             "q": "Which country participated in the Berlin Conference?",
             "options": [
-                "A) Ethiopia",
-                "B) Britain",
+                "A) Britain",
+                "B) Ethiopia",
                 "C) Liberia",
                 "D) Ghana"
             ],
-            "a": "B) Britain"
+            "a": "A) Britain"
         },
         {
             "q": "When did the Berlin Conference meet?",
             "options": [
-                "A) 15 November 1884 to 26 February 1885",
-                "B) 1 January to 31 December 1900",
+                "A) 1 January to 31 December 1900",
+                "B) 15 November 1884 to 26 February 1885",
                 "C) 15 November 1817 to 26 February 1818",
                 "D) 1881 to 1914 without a break"
             ],
-            "a": "A) 15 November 1884 to 26 February 1885"
+            "a": "B) 15 November 1884 to 26 February 1885"
         },
         {
             "q": "Which agreement was signed when the conference concluded?",
@@ -472,32 +473,32 @@
         {
             "q": "Who requested international discussion of African colonial claims?",
             "options": [
-                "A) Leopold II of Belgium",
-                "B) The Asantehene",
-                "C) The ruler of Liberia",
-                "D) A Portuguese trader"
+                "A) The Asantehene",
+                "B) The ruler of Liberia",
+                "C) A Portuguese trader",
+                "D) Leopold II of Belgium"
             ],
-            "a": "A) Leopold II of Belgium"
+            "a": "D) Leopold II of Belgium"
         },
         {
             "q": "What did the General Act regulate?",
             "options": [
-                "A) Ashanti metalworking",
-                "B) European colonisation and trade in Africa",
+                "A) European colonisation and trade in Africa",
+                "B) Ashanti metalworking",
                 "C) African elections",
                 "D) The abolition of all European colonies"
             ],
-            "a": "B) European colonisation and trade in Africa"
+            "a": "A) European colonisation and trade in Africa"
         },
         {
             "q": "How did the Berlin Conference relate to the Scramble for Africa?",
             "options": [
-                "A) It formalised a scramble that was already under way",
-                "B) It ended the Scramble before it began",
+                "A) It ended the Scramble before it began",
+                "B) It formalised a scramble that was already under way",
                 "C) It gave all land back to African rulers",
                 "D) It concerned Europe only"
             ],
-            "a": "A) It formalised a scramble that was already under way"
+            "a": "B) It formalised a scramble that was already under way"
         }
     ],
     "trueFalse": [
@@ -511,13 +512,13 @@
             "exp": "The meeting took place in Berlin, Germany."
         },
         {
-            "q": "The conference met from November 1884 until February 1885.",
+            "q": "The Berlin Conference met from November 1885 until February 1886.",
             "options": [
                 "True",
                 "False"
             ],
-            "a": "True",
-            "exp": "It opened on 15 November 1884 and concluded on 26 February 1885."
+            "a": "False",
+            "exp": "It opened in November 1884 and concluded in February 1885."
         },
         {
             "q": "Otto von Bismarck organised the Berlin Conference.",
@@ -529,13 +530,13 @@
             "exp": "Bismarck, the first German chancellor, organised and hosted it."
         },
         {
-            "q": "Leopold II of Belgium requested international discussion of African claims.",
+            "q": "Leopold II of Belgium opposed any international discussion of African claims.",
             "options": [
                 "True",
                 "False"
             ],
-            "a": "True",
-            "exp": "Leopold II requested the international discussion."
+            "a": "False",
+            "exp": "Leopold II requested international discussion of African claims."
         },
         {
             "q": "The General Act of Berlin regulated European colonisation and trade in Africa.",
@@ -556,13 +557,13 @@
             "exp": "The conference formalised a scramble that was already in full swing."
         },
         {
-            "q": "Bilateral agreements affecting African claims were made before and after the conference.",
+            "q": "No bilateral agreements affecting African claims were made before or after the conference.",
             "options": [
                 "True",
                 "False"
             ],
-            "a": "True",
-            "exp": "Agreements between pairs of states affected African claims before and after the meeting."
+            "a": "False",
+            "exp": "Bilateral agreements affected African claims both before and after the meeting."
         },
         {
             "q": "Every scholar agrees that the Berlin Conference alone partitioned Africa.",
@@ -597,7 +598,14 @@
         const totalQuestions = 10;
         const sliceAngle = 360 / totalQuestions;
         const certificateHomeUrl = 'https://www.maylearninghub.co.za';
-        const progressVersion = 2;
+        const certificateContext = {
+            grade: document.body.dataset.certificateGrade || '',
+            subject: document.body.dataset.certificateSubject || '',
+            term: document.body.dataset.certificateTerm || '',
+            topic: document.body.dataset.certificateTopic || 'Assessment Activity',
+            gameTitle: document.body.dataset.certificateGame || 'Spin-the-Wheel Game'
+        };
+        const progressVersion = 3;
         const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
         const spinDuration = prefersReducedMotion ? 350 : 4000;
         const interactiveCategories = new Set(['terms', 'multipleChoice', 'trueFalse']);
@@ -684,9 +692,37 @@
             return { signedIn: false, id: 'guest', name: '' };
         }
 
+        function storageKeyPart(value) {
+            return encodeURIComponent(String(value || 'unknown').toLowerCase().replace(/\s+/g, '-'));
+        }
+
+        function gameStorageNamespace() {
+            return [
+                certificateContext.grade,
+                certificateContext.subject,
+                certificateContext.term,
+                certificateContext.topic,
+                certificateContext.gameTitle
+            ].map(storageKeyPart).join(':');
+        }
+
         function progressStorageKey() {
             const identity = getLearnerIdentity();
-            return 'mayhubBerlinSpinProgress:v' + progressVersion + ':' + encodeURIComponent(identity.id);
+            return 'mayhubGameProgress:v' + progressVersion + ':' + gameStorageNamespace() + ':' + encodeURIComponent(identity.id);
+        }
+
+        function legacyProgressStorageKey() {
+            return 'mayhubBerlinSpinProgress:v2:' + encodeURIComponent(getLearnerIdentity().id);
+        }
+
+        function readSavedProgress() {
+            const current = JSON.parse(window.localStorage.getItem(progressStorageKey()) || 'null');
+            if (current) return current;
+            const legacy = JSON.parse(window.localStorage.getItem(legacyProgressStorageKey()) || 'null');
+            if (!legacy || legacy.version !== 2) return null;
+            const migrated = { ...legacy, version: progressVersion };
+            window.localStorage.setItem(progressStorageKey(), JSON.stringify(migrated));
+            return migrated;
         }
 
         function saveProgress() {
@@ -711,6 +747,7 @@
         function clearSavedProgress() {
             try {
                 window.localStorage.removeItem(progressStorageKey());
+                window.localStorage.removeItem(legacyProgressStorageKey());
             } catch {}
             savedProgressState = null;
             document.getElementById('resumePanel').style.display = 'none';
@@ -718,7 +755,7 @@
 
         function offerSavedProgress() {
             try {
-                const state = JSON.parse(window.localStorage.getItem(progressStorageKey()) || 'null');
+                const state = readSavedProgress();
                 if (!state || state.version !== progressVersion || !gameData[state.categoryKey]) return;
                 savedProgressState = state;
                 let completed = state.categoryKey === 'definitions'
@@ -801,6 +838,10 @@
         }
 
         function learnerHistoryKey(identity, categoryKey) {
+            return 'mayhubGameHistory:' + gameStorageNamespace() + ':' + encodeURIComponent(identity.id) + ':' + storageKeyPart(categoryKey);
+        }
+
+        function legacyLearnerHistoryKey(identity, categoryKey) {
             return 'mayhubBerlinSpinHistory:' + encodeURIComponent(identity.id) + ':' + categoryKey;
         }
 
@@ -811,7 +852,11 @@
             }
             try {
                 const key = learnerHistoryKey(identity, currentCategoryKey);
-                const previous = JSON.parse(window.localStorage.getItem(key) || 'null') || {};
+                const previous = JSON.parse(
+                    window.localStorage.getItem(key)
+                    || window.localStorage.getItem(legacyLearnerHistoryKey(identity, currentCategoryKey))
+                    || 'null'
+                ) || {};
                 if (mode === 'participation') {
                     const completions = (previous.completions || 0) + 1;
                     window.localStorage.setItem(key, JSON.stringify({ ...previous, completions, lastPlayed: new Date().toISOString() }));
@@ -1108,7 +1153,8 @@
             const learnerName = getSignedInLearnerName();
             const percentage = (stats.correct / totalQuestions) * 100;
             const tier = getAwardTier(percentage);
-            const awardDate = new Date().toLocaleDateString('en-ZA', { day: '2-digit', month: 'long', year: 'numeric' });
+            const issuedAt = new Date();
+            const awardDate = issuedAt.toLocaleDateString('en-ZA', { day: '2-digit', month: 'long', year: 'numeric' });
             const history = updateLearnerHistory('scored', stats.correct);
             lastCompletedScore = {
                 name: learnerName,
@@ -1122,6 +1168,7 @@
                 message: tier.message,
                 tierClass: tier.className,
                 date: awardDate,
+                issuedAt: issuedAt.toISOString(),
                 participation: false,
                 history: history.text
             };
@@ -1151,7 +1198,8 @@
         function showParticipationCertificate() {
             if (lastCompletedScore) return;
             const learnerName = getSignedInLearnerName();
-            const awardDate = new Date().toLocaleDateString('en-ZA', { day: '2-digit', month: 'long', year: 'numeric' });
+            const issuedAt = new Date();
+            const awardDate = issuedAt.toLocaleDateString('en-ZA', { day: '2-digit', month: 'long', year: 'numeric' });
             const history = updateLearnerHistory('participation');
             lastCompletedScore = {
                 name: learnerName,
@@ -1165,6 +1213,7 @@
                 message: 'Awarded in recognition of active participation.',
                 tierClass: 'tier-participation',
                 date: awardDate,
+                issuedAt: issuedAt.toISOString(),
                 participation: true,
                 history: history.text
             };
@@ -1323,214 +1372,17 @@
             document.getElementById('celebrationPage').scrollIntoView({ behavior: prefersReducedMotion ? 'auto' : 'smooth', block: 'start' });
         }
 
-        function certificatePalette(result) {
-            const palettes = {
-                'tier-bronze': { main: '#b87333', dark: '#6f3b16', soft: '#f7e8d8' },
-                'tier-silver': { main: '#9aa6b2', dark: '#4e5a66', soft: '#edf1f4' },
-                'tier-gold': { main: '#d4af37', dark: '#755b08', soft: '#fff6cf' },
-                'tier-platinum': { main: '#c7d8e2', dark: '#165173', soft: '#eaf7ff' },
-                'tier-participation': { main: '#1268ad', dark: '#003f75', soft: '#d9efff' }
-            };
-            return palettes[result.tierClass] || palettes['tier-bronze'];
-        }
-
-        function drawCenteredWrappedText(ctx, text, x, y, maxWidth, lineHeight, maxLines = 4) {
-            const words = String(text).split(/\s+/);
-            const lines = [];
-            let line = '';
-            words.forEach(word => {
-                const testLine = line ? line + ' ' + word : word;
-                if (ctx.measureText(testLine).width > maxWidth && line) {
-                    lines.push(line);
-                    line = word;
-                } else {
-                    line = testLine;
-                }
-            });
-            if (line) lines.push(line);
-            lines.slice(0, maxLines).forEach((lineText, index) => ctx.fillText(lineText, x, y + (index * lineHeight)));
-            return y + (Math.min(lines.length, maxLines) * lineHeight);
-        }
-
-        function loadCertificateLogo() {
-            return new Promise(resolve => {
-                const image = new Image();
-                image.onload = () => resolve(image);
-                image.onerror = () => resolve(null);
-                image.src = '../../../../../../May Learning Hub Logo.png';
-            });
-        }
-
-        function drawCertificateBrandFallback(ctx, palette) {
-            ctx.save();
-            ctx.fillStyle = '#0b4f8a';
-            ctx.strokeStyle = palette.dark;
-            ctx.lineWidth = 5;
-            ctx.beginPath();
-            ctx.moveTo(100, 100);
-            ctx.lineTo(275, 100);
-            ctx.lineTo(275, 205);
-            ctx.quadraticCurveTo(188, 270, 100, 205);
-            ctx.closePath();
-            ctx.fill();
-            ctx.stroke();
-            ctx.fillStyle = '#ffffff';
-            ctx.textAlign = 'center';
-            ctx.textBaseline = 'middle';
-            ctx.font = 'bold 27px "Segoe UI", sans-serif';
-            ctx.fillText('May Learning', 188, 145);
-            ctx.font = 'bold 31px "Segoe UI", sans-serif';
-            ctx.fillText('Hub', 188, 184);
-            ctx.restore();
-        }
-
-        function canvasToPngBlob(canvas) {
-            return new Promise((resolve, reject) => {
-                try {
-                    canvas.toBlob(blob => {
-                        if (blob) resolve(blob);
-                        else reject(new Error('The browser returned an empty certificate image.'));
-                    }, 'image/png');
-                } catch (error) {
-                    reject(error);
-                }
-            });
-        }
-
-        async function createCertificateImage(learnerName, includeExternalLogo = true) {
+        async function createCertificateImage(learnerName) {
             if (!lastCompletedScore) throw new Error('No completed result is available.');
-            const result = lastCompletedScore;
-            const palette = certificatePalette(result);
-            const canvas = document.createElement('canvas');
-            canvas.width = 1200;
-            canvas.height = 1697;
-            const ctx = canvas.getContext('2d');
-            const background = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
-            background.addColorStop(0, result.participation ? palette.soft : '#fffdf7');
-            background.addColorStop(0.5, '#ffffff');
-            background.addColorStop(1, palette.soft);
-            ctx.fillStyle = background;
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-            ctx.strokeStyle = palette.main;
-            ctx.lineWidth = 30;
-            ctx.strokeRect(30, 30, canvas.width - 60, canvas.height - 60);
-            ctx.strokeStyle = palette.dark;
-            ctx.lineWidth = 5;
-            ctx.strokeRect(65, 65, canvas.width - 130, canvas.height - 130);
-            ctx.strokeStyle = palette.main;
-            ctx.lineWidth = 2;
-            ctx.strokeRect(82, 82, canvas.width - 164, canvas.height - 164);
-
-            const canUseExternalLogo = includeExternalLogo && window.location.protocol !== 'file:';
-            const logo = canUseExternalLogo ? await loadCertificateLogo() : null;
-            if (logo) {
-                const logoSize = 200;
-                ctx.drawImage(logo, 95, 85, logoSize, logoSize);
-            } else {
-                drawCertificateBrandFallback(ctx, palette);
-            }
-            ctx.textAlign = 'center';
-            ctx.textBaseline = 'middle';
-            ctx.font = '94px "Segoe UI Emoji", sans-serif';
-            ctx.fillText('🏆', 1010, 175);
-
-            ctx.fillStyle = palette.dark;
-            ctx.font = 'bold 25px "Segoe UI", sans-serif';
-            ctx.fillText('GRADE 8 SOCIAL SCIENCES HISTORY', 600, 285);
-            ctx.fillStyle = '#17324d';
-            ctx.font = 'bold 62px Georgia, serif';
-            let nextY = drawCenteredWrappedText(ctx, result.title, 600, 370, 900, 72, 2);
-
-            ctx.fillStyle = palette.soft;
-            ctx.strokeStyle = palette.main;
-            ctx.lineWidth = 4;
-            ctx.beginPath();
-            if (typeof ctx.roundRect === 'function') ctx.roundRect(250, nextY + 10, 700, 66, 33);
-            else ctx.rect(250, nextY + 10, 700, 66);
-            ctx.fill();
-            ctx.stroke();
-            ctx.fillStyle = palette.dark;
-            ctx.font = 'bold 24px "Segoe UI", sans-serif';
-            ctx.fillText(result.award.toUpperCase(), 600, nextY + 43);
-
-            nextY += 135;
-            ctx.fillStyle = '#536273';
-            ctx.font = 'italic 28px Georgia, serif';
-            ctx.fillText('This certificate is proudly presented to', 600, nextY);
-            nextY += 72;
-            ctx.fillStyle = '#17324d';
-            ctx.font = 'bold italic 49px Georgia, serif';
-            nextY = drawCenteredWrappedText(ctx, learnerName, 600, nextY, 850, 58, 2);
-            ctx.strokeStyle = palette.main;
-            ctx.lineWidth = 3;
-            ctx.beginPath();
-            ctx.moveTo(205, nextY + 4);
-            ctx.lineTo(995, nextY + 4);
-            ctx.stroke();
-
-            nextY += 70;
-            ctx.fillStyle = '#263442';
-            ctx.font = '29px Georgia, serif';
-            const bodyText = result.participation
-                ? 'for successful participation in the ' + result.category + ' activity on The Berlin Conference.'
-                : 'for completing The Berlin Conference challenge in the ' + result.category + ' category.';
-            nextY = drawCenteredWrappedText(ctx, bodyText, 600, nextY, 840, 43, 4);
-
-            if (!result.participation) {
-                const sealY = Math.max(nextY + 115, 900);
-                ctx.fillStyle = '#fff';
-                ctx.strokeStyle = palette.main;
-                ctx.lineWidth = 18;
-                ctx.beginPath();
-                ctx.arc(600, sealY, 112, 0, Math.PI * 2);
-                ctx.fill();
-                ctx.stroke();
-                ctx.fillStyle = palette.dark;
-                ctx.font = 'bold 62px "Segoe UI", sans-serif';
-                ctx.fillText(result.correct + '/' + result.total, 600, sealY - 10);
-                ctx.font = 'bold 20px "Segoe UI", sans-serif';
-                ctx.fillText('CORRECT', 600, sealY + 54);
-                nextY = sealY + 160;
-            } else {
-                nextY += 70;
-            }
-
-            ctx.fillStyle = palette.dark;
-            ctx.font = 'bold 27px "Segoe UI", sans-serif';
-            nextY = drawCenteredWrappedText(ctx, result.message, 600, nextY, 850, 40, 4);
-            const footerY = 1450;
-            ctx.strokeStyle = '#6f7d89';
-            ctx.lineWidth = 2;
-            ctx.beginPath();
-            ctx.moveTo(150, footerY);
-            ctx.lineTo(500, footerY);
-            ctx.moveTo(700, footerY);
-            ctx.lineTo(1050, footerY);
-            ctx.stroke();
-            ctx.fillStyle = '#17324d';
-            ctx.font = 'bold 25px "Segoe UI", sans-serif';
-            ctx.fillText(result.date, 325, footerY - 34);
-            ctx.font = 'italic 29px "Segoe Script", cursive';
-            ctx.fillText('May Learning Hub', 875, footerY - 34);
-            ctx.fillStyle = '#637180';
-            ctx.font = '18px "Segoe UI", sans-serif';
-            ctx.fillText('DATE AWARDED', 325, footerY + 36);
-            ctx.fillText('SIGNED BY MAY LEARNING HUB', 875, footerY + 36);
-            ctx.fillStyle = palette.dark;
-            ctx.font = 'bold 20px "Segoe UI", sans-serif';
-            ctx.fillText('Get your certificate at www.maylearninghub.co.za', 600, 1585);
-
-            const safeName = learnerName.replace(/[^a-z0-9]+/gi, '-').replace(/^-|-$/g, '') || 'Learner';
-            const fileName = 'May-Learning-Hub-' + safeName + '-' + currentCategoryKey + '-Certificate.png';
-            try {
-                const blob = await canvasToPngBlob(canvas);
-                return { blob, fileName };
-            } catch (error) {
-                if (includeExternalLogo && logo) return createCertificateImage(learnerName, false);
-                throw error;
-            }
+            if (!window.MayCertificateRenderer) throw new Error('The certificate renderer is unavailable.');
+            return window.MayCertificateRenderer.create({
+                ...certificateContext,
+                ...lastCompletedScore,
+                learnerName,
+                mode: lastCompletedScore.participation ? 'participation' : 'scored'
+            });
         }
+
 
 
         async function downloadCertificate() {
@@ -1598,6 +1450,11 @@
             window.scrollTo({ top: 0, behavior: prefersReducedMotion ? 'auto' : 'smooth' });
         }
 
+        document.getElementById('certificateKicker').innerText = [
+            certificateContext.grade,
+            certificateContext.subject,
+            certificateContext.term
+        ].filter(Boolean).join(' • ') || 'May Learning Hub Assessment';
         buildWheel();
         document.addEventListener('keydown', event => {
             const termCarouselVisible = document.getElementById('termCarousel').style.display === 'block';

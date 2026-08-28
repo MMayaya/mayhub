@@ -1,10 +1,12 @@
-const CACHE_NAME = 'may-learning-v7-berlin-certificates';
+const CORE_CACHE_NAME = 'may-learning-core-v8-reusable-certificates';
+const RUNTIME_CACHE_NAME = 'may-learning-runtime-pages';
 const CERTIFICATE_DOWNLOAD_CACHE = 'may-learning-certificate-downloads';
 const CERTIFICATE_DOWNLOAD_PATH = '/certificate-download/';
-const SERVICE_WORKER_VERSION = '7-berlin-certificates';
+const SERVICE_WORKER_VERSION = '8-reusable-certificates';
 
-const CERTIFICATE_UPDATE_ASSETS = [
+const CORE_ASSETS = [
   '/may-certificate-actions.js',
+  '/may-certificate-renderer.js',
   '/assessment-certificate.js',
   '/game-audio.js',
   '/May%20Learning%20Hub%20Logo.png',
@@ -14,16 +16,10 @@ const CERTIFICATE_UPDATE_ASSETS = [
   '/Sounds/Fail.mp3',
   '/Sounds/Wheel.mp3',
   '/Sounds/MovingSnake.mp3',
-  '/Sounds/SnakeBite.mp3',
-  '/Social-Sciences/Term-3/Grade-8/Games/History%20Assessment%20Games/The%20Berlin%20Conference/drag1.html',
-  '/Social-Sciences/Term-3/Grade-8/Games/History%20Assessment%20Games/The%20Berlin%20Conference/jeopardy1.html',
-  '/Social-Sciences/Term-3/Grade-8/Games/History%20Assessment%20Games/The%20Berlin%20Conference/match1.html',
-  '/Social-Sciences/Term-3/Grade-8/Games/History%20Assessment%20Games/The%20Berlin%20Conference/millionaire1.html',
-  '/Social-Sciences/Term-3/Grade-8/Games/History%20Assessment%20Games/The%20Berlin%20Conference/snake1.html',
-  '/Social-Sciences/Term-3/Grade-8/Games/History%20Assessment%20Games/The%20Berlin%20Conference/spin1.html'
+  '/Sounds/SnakeBite.mp3'
 ];
 
-const NETWORK_FIRST_PATHS = new Set([
+const CORE_NETWORK_FIRST_PATHS = new Set([
   '/',
   '/index.html',
   '/signin.html',
@@ -38,27 +34,22 @@ const NETWORK_FIRST_PATHS = new Set([
   '/activity-auth-guard.js',
   '/mayhub-auth-state.js',
   '/may-certificate-actions.js',
+  '/may-certificate-renderer.js',
   '/assessment-certificate.js',
   '/game-audio.js',
-  '/Social-Sciences/Term-3/Grade-8/Games/History%20Assessment%20Games/The%20Berlin%20Conference/drag1.html',
-  '/Social-Sciences/Term-3/Grade-8/Games/History%20Assessment%20Games/The%20Berlin%20Conference/jeopardy1.html',
-  '/Social-Sciences/Term-3/Grade-8/Games/History%20Assessment%20Games/The%20Berlin%20Conference/match1.html',
-  '/Social-Sciences/Term-3/Grade-8/Games/History%20Assessment%20Games/The%20Berlin%20Conference/millionaire1.html',
-  '/Social-Sciences/Term-3/Grade-8/Games/History%20Assessment%20Games/The%20Berlin%20Conference/snake1.html',
-  '/Social-Sciences/Term-3/Grade-8/Games/History%20Assessment%20Games/The%20Berlin%20Conference/spin1.html',
   '/sw.js'
 ]);
 
 self.addEventListener('install', event => {
   event.waitUntil(
-    caches.open(CACHE_NAME).then(cache => Promise.all(
-      CERTIFICATE_UPDATE_ASSETS.map(async assetPath => {
+    caches.open(CORE_CACHE_NAME).then(cache => Promise.all(
+      CORE_ASSETS.map(async assetPath => {
         try {
           const assetRequest = new Request(new URL(assetPath, self.location.origin).href, { cache: 'reload' });
           const response = await fetch(assetRequest);
           if (response && response.ok) await cache.put(assetRequest, response);
         } catch (error) {
-          console.log('Service Worker: Update asset will be cached when next available.', assetPath, error);
+          console.log('Service Worker: Core asset will be cached when next available.', assetPath, error);
         }
       })
     )).then(() => self.skipWaiting())
@@ -66,8 +57,14 @@ self.addEventListener('install', event => {
 });
 
 self.addEventListener('activate', event => {
-  // Preserve earlier caches so learners do not lose previously saved offline pages.
-  event.waitUntil(self.clients.claim());
+  event.waitUntil(
+    caches.keys().then(cacheNames => Promise.all(
+      cacheNames.map(cacheName => {
+        const isEarlierCoreCache = cacheName.startsWith('may-learning-core-') && cacheName !== CORE_CACHE_NAME;
+        return isEarlierCoreCache ? caches.delete(cacheName) : null;
+      })
+    )).then(() => self.clients.claim())
+  );
 });
 
 async function matchCurrentOrPreservedCache(request, currentCache) {
@@ -84,12 +81,48 @@ async function matchCurrentOrPreservedCache(request, currentCache) {
   return preservedResponse;
 }
 
-self.addEventListener('message', event => {
-  if (event.data && event.data.type === 'MAYHUB_GET_SW_VERSION' && event.ports && event.ports[0]) {
-    event.ports[0].postMessage({ version: SERVICE_WORKER_VERSION });
+async function cacheOfflinePack(assetPaths) {
+  if (!Array.isArray(assetPaths)) return { cached: 0, failed: 0, code: 'invalid_assets' };
+  const requestedPaths = [...new Set(assetPaths.filter(path => typeof path === 'string' && path.length <= 500))].slice(0, 150);
+  const runtimeCache = await caches.open(RUNTIME_CACHE_NAME);
+  let cached = 0;
+  let failed = 0;
+
+  for (const assetPath of requestedPaths) {
+    try {
+      const assetUrl = new URL(assetPath, self.location.origin);
+      if (assetUrl.origin !== self.location.origin) {
+        failed += 1;
+        continue;
+      }
+      const request = new Request(assetUrl.href, { cache: 'reload' });
+      const response = await fetch(request);
+      if (!response || !response.ok) {
+        failed += 1;
+        continue;
+      }
+      await runtimeCache.put(request, response);
+      cached += 1;
+    } catch {
+      failed += 1;
+    }
   }
-  if (event.data && event.data.type === 'MAYHUB_SKIP_WAITING') {
+  return { cached, failed, code: failed ? 'partially_cached' : 'cached' };
+}
+
+self.addEventListener('message', event => {
+  const data = event.data || {};
+  const replyPort = event.ports && event.ports[0];
+  if (data.type === 'MAYHUB_GET_SW_VERSION' && replyPort) {
+    replyPort.postMessage({ version: SERVICE_WORKER_VERSION });
+  }
+  if (data.type === 'MAYHUB_SKIP_WAITING') {
     self.skipWaiting();
+  }
+  if (data.type === 'MAYHUB_CACHE_OFFLINE_PACK') {
+    event.waitUntil(cacheOfflinePack(data.assets).then(result => {
+      if (replyPort) replyPort.postMessage(result);
+    }));
   }
 });
 
@@ -98,7 +131,9 @@ self.addEventListener('fetch', event => {
 
   const requestUrl = new URL(event.request.url);
   const isSameOrigin = requestUrl.origin === self.location.origin;
-  const isCertificateDownload = isSameOrigin && requestUrl.pathname.startsWith(CERTIFICATE_DOWNLOAD_PATH);
+  if (!isSameOrigin) return;
+
+  const isCertificateDownload = requestUrl.pathname.startsWith(CERTIFICATE_DOWNLOAD_PATH);
   if (isCertificateDownload) {
     event.respondWith(
       caches.open(CERTIFICATE_DOWNLOAD_CACHE).then(cache => cache.match(event.request)).then(response => {
@@ -111,11 +146,17 @@ self.addEventListener('fetch', event => {
     );
     return;
   }
-  const isNetworkFirst = isSameOrigin && NETWORK_FIRST_PATHS.has(requestUrl.pathname);
+
+  const isCoreAsset = CORE_NETWORK_FIRST_PATHS.has(requestUrl.pathname);
+  const isHtmlPage = event.request.mode === 'navigate'
+    || event.request.destination === 'document'
+    || requestUrl.pathname.endsWith('.html');
+  const cacheName = isCoreAsset ? CORE_CACHE_NAME : RUNTIME_CACHE_NAME;
+  const useNetworkFirst = isCoreAsset || isHtmlPage;
 
   event.respondWith(
-    caches.open(CACHE_NAME).then(async cache => {
-      if (isNetworkFirst) {
+    caches.open(cacheName).then(async cache => {
+      if (useNetworkFirst) {
         try {
           const networkResponse = await fetch(event.request);
           if (networkResponse && networkResponse.status === 200) {

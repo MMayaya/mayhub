@@ -14,6 +14,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Learning Hub | Grade 8 Social Sciences History: Results of Colonisation</title>
+    <link rel="canonical" href="https://www.maylearninghub.co.za/Social-Sciences/Term-3/Grade-8/Games/History%20Assessment%20Games/The%20Berlin%20Conference/spin1.html">
+    <meta name="description" content="Test yourself with the Grade 8 Social Sciences History Berlin Conference Spin-the-Wheel assessment game from May Learning Hub.">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Results of Colonisation Spin-the-Wheel Challenge | May Learning Hub">
+    <meta property="og:description" content="Can you beat the score? Test yourself with this Grade 8 Social Sciences History challenge.">
+    <meta property="og:url" content="https://www.maylearninghub.co.za/Social-Sciences/Term-3/Grade-8/Games/History%20Assessment%20Games/The%20Berlin%20Conference/spin1.html">
+    <meta property="og:image" content="https://www.maylearninghub.co.za/May%20Learning%20Hub%20Logo.png">
+    <meta property="og:image:alt" content="May Learning Hub">
+    <meta name="twitter:card" content="summary">
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f0f4f8; color: #333; line-height: 1.6; display: flex; flex-direction: column; min-height: 100vh; }
@@ -29,9 +38,17 @@
         .cat-buttons { display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem; }
         .cat-btn { background-color: #f0f4f8; border: 2px solid #004080; color: #004080; padding: 0.8rem 1.5rem; font-size: 1.1rem; font-weight: bold; border-radius: 8px; cursor: pointer; transition: all 0.3s ease; }
         .cat-btn:hover, .cat-btn.active { background-color: #004080; color: #fff; transform: translateY(-3px); box-shadow: 0 4px 10px rgba(0,64,128,0.2); }
+        button:focus-visible, a:focus-visible { outline: 3px solid #ffc107; outline-offset: 3px; }
+        .visually-hidden { position: absolute !important; width: 1px !important; height: 1px !important; padding: 0 !important; margin: -1px !important; overflow: hidden !important; clip: rect(0,0,0,0) !important; white-space: nowrap !important; border: 0 !important; }
+        .resume-panel { display: none; margin: 1rem auto 1.5rem; padding: 1rem; max-width: 680px; border: 2px solid #3385ff; border-radius: 12px; background: #edf6ff; color: #17324d; }
+        .resume-panel strong { display: block; margin-bottom: 0.25rem; }
+        .resume-actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.65rem; margin-top: 0.8rem; }
+        .resume-btn { border: none; border-radius: 8px; padding: 0.7rem 1rem; font-weight: 800; cursor: pointer; }
+        .resume-primary { background: #005bb5; color: #fff; }
+        .resume-secondary { background: #fff; color: #004080; border: 1px solid #80b3ff; }
         #wheelArea { display: none; margin-top: 2rem; padding-top: 2rem; border-top: 2px dashed #ccc; animation: fadeIn 0.5s ease; }
         #activeCategoryTitle { color: #3385ff; margin-bottom: 1.5rem; font-size: 1.8rem; }
-        .wheel-wrapper { position: relative; width: 380px; height: 380px; margin: 0 auto 2rem; border-radius: 50%; box-shadow: 0 20px 40px rgba(0,0,0,0.3); }
+        .wheel-wrapper { --wheel-label-radius: clamp(105px, 31vw, 145px); position: relative; width: min(380px, 82vw); height: min(380px, 82vw); margin: 0 auto 2rem; border-radius: 50%; box-shadow: 0 20px 40px rgba(0,0,0,0.3); }
         .pointer { position: absolute; top: -25px; left: 50%; transform: translateX( -50%); width: 0; height: 0; border-left: 22px solid transparent; border-right: 22px solid transparent; border-top: 55px solid #e60000; z-index: 10; filter: drop-shadow(0 6px 6px rgba(0,0,0,0.5)); }
         .wheel { width: 100%; height: 100%; border-radius: 50%; border: 15px solid #001a33; position: relative; overflow: hidden; transition: transform 4s cubic-bezier(0.17, 0.67, 0.12, 0.99); box-shadow: inset 0 0 30px rgba(0,0,0,0.7), inset 0 0 0 6px rgba(255,255,255,0.3); }
         .wheel-center { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 45px; height: 45px; background: radial-gradient(circle, #e6f0fa, #80b3ff); border-radius: 50%; border: 5px solid #001a33; box-shadow: 0 4px 10px rgba(0,0,0,0.6); z-index: 6; }
@@ -46,13 +63,126 @@
         .option-btn { background: #fff; border: 2px solid #b3d4ff; padding: 1rem; font-size: 1.1rem; border-radius: 6px; cursor: pointer; transition: all 0.2s; text-align: left; font-weight: 500; color: #004080; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
         .option-btn.correct { background-color: #d4edda !important; border-color: #28a745 !important; color: #155724 !important; }
         .option-btn.incorrect { background-color: #f8d7da !important; border-color: #dc3545 !important; color: #721c24 !important; }
+        .term-carousel { display: none; max-width: 500px; margin: 0 auto 0.9rem; padding: 0.85rem; border-radius: 15px; background: linear-gradient(145deg, #e8f3ff, #fff); border: 2px solid #80b3ff; box-shadow: 0 8px 20px rgba(0,64,128,.12); }
+        .term-carousel-row { display: grid; grid-template-columns: 44px minmax(0, 1fr) 44px; align-items: stretch; gap: 0.55rem; }
+        .term-nav-btn { border: none; border-radius: 10px; background: #004080; color: #fff; font-size: 1.65rem; font-weight: 900; cursor: pointer; box-shadow: 0 4px 10px rgba(0,64,128,.2); transition: transform .2s, background .2s; }
+        .term-nav-btn:hover { background: #005bb5; transform: scale(1.04); }
+        .term-option-display { width: 100%; min-height: 64px; padding: 0.7rem; display: grid; place-items: center; border-radius: 11px; background: #fff; border: 2px solid #3385ff; color: #003a75; font: inherit; font-size: clamp(1.05rem, 3.5vw, 1.28rem); font-weight: 850; cursor: pointer; box-shadow: inset 0 0 0 2px #e6f1ff; transition: background .2s, border-color .2s, transform .2s; }
+        .term-option-display:hover:not(:disabled) { transform: translateY(-2px); border-color: #005bb5; }
+        .term-option-display.correct { background: #d4edda; border-color: #28a745; color: #155724; transform: scale(1.02); }
+        .term-option-display.incorrect { background: #f8d7da; border-color: #dc3545; color: #721c24; }
+        .term-position { margin: 0.4rem 0 0; color: #52606d; font-size: 0.8rem; font-weight: 750; }
+        .term-nav-btn:disabled { cursor: not-allowed; opacity: .45; transform: none; }
+        .term-option-display:disabled { cursor: not-allowed; }
         .reveal-btn { background-color: #3385ff; color: #fff; border: none; padding: 0.8rem 2rem; font-size: 1.1rem; font-weight: bold; border-radius: 8px; cursor: pointer; transition: background 0.3s; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
         .answer-text { display: none; font-size: 1.2rem; color: #333; margin-top: 1.5rem; padding-top: 1.5rem; border-top: 2px dashed #b3d4ff; }
+
+        .score-tracker { display: none; width: fit-content; margin: 0 auto 1rem; padding: 0.55rem 1.1rem; border-radius: 999px; background: #e8f2ff; color: #003a75; border: 2px solid #80b3ff; font-weight: 800; }
+        .celebration-page { display: none; position: relative; overflow: hidden; margin-top: 2rem; padding: 2rem 1rem; border-radius: 20px; color: #203040; background: linear-gradient(145deg, #dfe9f3, #f8fbff); box-shadow: 0 18px 45px rgba(0,43,94,0.2); animation: celebrationIn 0.65s ease both; }
+        .celebration-content { position: relative; z-index: 2; max-width: 610px; margin: 0 auto; }
+        .certificate { --award: #b87333; --award-dark: #6f3b16; --award-soft: #f7e8d8; position: relative; min-height: 780px; padding: 2rem; display: flex; flex-direction: column; align-items: center; background: linear-gradient(145deg, #fffdf7, var(--award-soft)); color: #263442; border: 12px solid var(--award); outline: 3px double var(--award-dark); outline-offset: -20px; box-shadow: 0 18px 38px rgba(29,42,56,.25); overflow: hidden; }
+        .certificate::before, .certificate::after { content: ''; position: absolute; width: 130px; height: 130px; border: 3px solid var(--award); opacity: .35; transform: rotate(45deg); }
+        .certificate::before { top: -82px; left: -82px; }
+        .certificate::after { right: -82px; bottom: -82px; }
+        .certificate.tier-bronze { --award: #b87333; --award-dark: #6f3b16; --award-soft: #f7e8d8; }
+        .certificate.tier-silver { --award: #9aa6b2; --award-dark: #4e5a66; --award-soft: #edf1f4; }
+        .certificate.tier-gold { --award: #d4af37; --award-dark: #755b08; --award-soft: #fff6cf; }
+        .certificate.tier-platinum { --award: #c7d8e2; --award-dark: #165173; --award-soft: #eaf7ff; }
+        .certificate.tier-participation { --award: #1268ad; --award-dark: #003f75; --award-soft: #eef8ff; background: linear-gradient(155deg, #cfeaff 0%, #f3faff 30%, #fff 58%, #e8f6ff 100%); }
+        .certificate-header { width: 100%; min-height: 120px; display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; position: relative; z-index: 1; }
+        .certificate-logo { display: block; width: 128px; height: auto; object-fit: contain; filter: drop-shadow(0 4px 5px rgba(0,0,0,.13)); }
+        .certificate-trophy { font-size: 4rem; line-height: 1; filter: drop-shadow(0 6px 8px rgba(0,0,0,.22)); animation: trophyBounce 1.1s ease both; }
+        .certificate-kicker { color: var(--award-dark); font-size: 0.82rem; font-weight: 900; letter-spacing: .2em; text-transform: uppercase; }
+        .certificate h2 { margin: 0.35rem 0 0.7rem; color: #17324d; font-family: Georgia, 'Times New Roman', serif; font-size: clamp(2.1rem, 6vw, 3rem); line-height: 1.08; }
+        .certificate-award { display: inline-block; margin-bottom: 1.2rem; padding: 0.38rem 1.1rem; border: 2px solid var(--award); color: var(--award-dark); background: rgba(255,255,255,.6); border-radius: 999px; font-size: 0.82rem; font-weight: 900; letter-spacing: .08em; text-transform: uppercase; }
+        .certificate-presented { font-family: Georgia, 'Times New Roman', serif; font-size: 1rem; font-style: italic; color: #536273; }
+        .learner-name { width: 88%; margin: 0.45rem auto 0.8rem; padding-bottom: 0.35rem; color: #17324d; border-bottom: 2px solid var(--award); font-family: Georgia, 'Times New Roman', serif; font-size: clamp(1.65rem, 5vw, 2.35rem); font-weight: 700; font-style: italic; }
+        .certificate-body { max-width: 455px; margin: 0 auto; font-family: Georgia, 'Times New Roman', serif; font-size: 1rem; line-height: 1.65; }
+        .score-ring { width: 138px; height: 138px; flex: 0 0 auto; margin: 1.15rem auto 0.8rem; border-radius: 50%; display: grid; place-items: center; background: #fff; color: var(--award-dark); border: 9px double var(--award); box-shadow: 0 8px 20px rgba(0,0,0,.16); }
+        .score-ring strong { display: block; font-size: 2.55rem; line-height: 1; }
+        .score-ring span { display: block; margin-top: 0.25rem; font-size: 0.78rem; font-weight: 900; letter-spacing: .08em; text-transform: uppercase; }
+        .celebration-message { max-width: 475px; margin: 0 auto; color: var(--award-dark); font-size: 0.98rem; font-weight: 800; line-height: 1.45; }
+        .certificate-footer { width: 100%; margin-top: auto; padding-top: 1.4rem; display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; align-items: end; }
+        .certificate-footer-item { padding-top: 0.4rem; }
+        .certificate-footer strong { display: block; padding-bottom: 0.35rem; border-bottom: 1px solid #6f7d89; color: #17324d; font-size: 0.9rem; }
+        .certificate-signature { font-family: 'Segoe Script', 'Brush Script MT', cursive; font-size: 1.05rem !important; }
+        .certificate-footer span { display: block; margin-top: 0.35rem; color: #637180; font-size: 0.72rem; letter-spacing: .06em; text-transform: uppercase; }
+        .certificate-site-line { margin-top: 0.8rem; color: var(--award-dark); font-size: 0.78rem; font-weight: 800; }
+        .celebration-actions { display: flex; justify-content: center; flex-wrap: wrap; gap: 0.75rem; margin-top: 1.25rem; }
+        .celebration-btn { border: none; border-radius: 10px; padding: 0.9rem 1.15rem; font-size: 1rem; font-weight: 800; cursor: pointer; transition: transform .2s, box-shadow .2s; }
+        .celebration-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(0,0,0,.22); }
+        .whatsapp-btn { background: #25d366; color: #072d16; }
+        .download-btn { background: #005bb5; color: #fff; }
+        .review-btn { background: #e6f1ff; color: #003f75; border: 1px solid #80b3ff; }
+        .replay-btn { background: #ffc107; color: #2f2500; }
+        .category-btn { background: #fff; color: #003a75; border: 1px solid #aab8c6; }
+        .share-note { margin-top: 0.75rem; color: #536273; font-size: 0.8rem; }
+        .review-page { display: none; margin-top: 2rem; padding: 1.5rem; border-radius: 16px; background: #f7fbff; border: 2px solid #b3d4ff; text-align: left; }
+        .review-page h2 { color: #004080; text-align: center; margin-bottom: 0.4rem; }
+        .review-summary { text-align: center; color: #52606d; margin-bottom: 1rem; }
+        .review-list { display: grid; gap: 0.8rem; }
+        .review-item { padding: 1rem; border-radius: 10px; background: #fff; border-left: 5px solid #dc3545; box-shadow: 0 3px 10px rgba(0,0,0,.07); }
+        .review-item.learning-card { border-left-color: #1268ad; }
+        .review-question { color: #17324d; font-weight: 800; margin-bottom: 0.35rem; }
+        .review-answer { color: #445566; font-size: 0.92rem; }
+        .review-answer strong { color: #17324d; }
+        .review-empty { padding: 1.2rem; text-align: center; border-radius: 10px; background: #e6f7ea; color: #155724; font-weight: 800; }
+        .review-actions { display: flex; justify-content: center; flex-wrap: wrap; gap: 0.7rem; margin-top: 1rem; }
+        .confetti-piece { position: absolute; width: 11px; height: 22px; top: -30px; opacity: .9; animation: confettiFall 4.5s linear infinite; }
+        .confetti-piece:nth-child(1) { left: 7%; background:#ffc107; animation-delay:.1s; transform:rotate(14deg); }
+        .confetti-piece:nth-child(2) { left: 16%; background:#25d366; animation-delay:1.2s; }
+        .confetti-piece:nth-child(3) { left: 27%; background:#ff5f57; animation-delay:.5s; }
+        .confetti-piece:nth-child(4) { left: 39%; background:#fff; animation-delay:1.8s; }
+        .confetti-piece:nth-child(5) { left: 51%; background:#ffc107; animation-delay:.9s; }
+        .confetti-piece:nth-child(6) { left: 62%; background:#25d366; animation-delay:2.1s; }
+        .confetti-piece:nth-child(7) { left: 73%; background:#ff5f57; animation-delay:.3s; }
+        .confetti-piece:nth-child(8) { left: 84%; background:#fff; animation-delay:1.5s; }
+        .confetti-piece:nth-child(9) { left: 93%; background:#ffc107; animation-delay:2.5s; }
+        @keyframes celebrationIn { from { opacity:0; transform:translateY(22px) scale(.97); } to { opacity:1; transform:none; } }
+        @keyframes trophyBounce { 0% { transform:scale(.5) rotate(-10deg); } 65% { transform:scale(1.12) rotate(5deg); } 100% { transform:scale(1); } }
+        @keyframes confettiFall { from { transform:translateY(-40px) rotate(0); } to { transform:translateY(650px) rotate(720deg); } }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        @media (max-width: 600px) {
+            .game-container { margin: 1rem 0.55rem; padding: 1rem; }
+            .question-card { margin-top: 1rem; padding: 1rem 0.7rem; }
+            .question-text { margin-bottom: 0.8rem; font-size: 1.15rem; }
+            .mc-options { gap: 0.5rem; margin-bottom: 0.8rem; }
+            .option-btn { padding: 0.7rem; font-size: 0.95rem; }
+            .term-carousel { padding: 0.6rem; margin-bottom: 0.6rem; border-radius: 12px; }
+            .term-carousel-row { grid-template-columns: 42px minmax(0, 1fr) 42px; gap: 0.35rem; }
+            .term-nav-btn { min-height: 50px; border-radius: 8px; font-size: 1.35rem; }
+            .term-option-display { min-height: 50px; padding: 0.45rem; border-radius: 9px; font-size: 0.98rem; }
+            .term-position { margin-top: 0.25rem; font-size: 0.72rem; }
+            .celebration-page { padding: 1rem 0.45rem; }
+            .certificate { min-height: 610px; padding: 1.15rem 0.9rem; border-width: 8px; outline-offset: -14px; }
+            .certificate-header { min-height: 78px; }
+            .certificate-logo { width: 82px; }
+            .certificate-trophy { font-size: 2.7rem; }
+            .certificate-kicker { font-size: 0.66rem; letter-spacing: .12em; }
+            .certificate h2 { margin-bottom: 0.45rem; font-size: 1.75rem; }
+            .certificate-award { margin-bottom: 0.65rem; padding: 0.3rem 0.75rem; font-size: 0.65rem; }
+            .certificate-presented { font-size: 0.82rem; }
+            .learner-name { margin: 0.25rem auto 0.5rem; font-size: 1.35rem; }
+            .certificate-body { font-size: 0.79rem; line-height: 1.45; }
+            .score-ring { width: 104px; height: 104px; margin: 0.65rem auto 0.5rem; border-width: 6px; }
+            .score-ring strong { font-size: 1.9rem; }
+            .score-ring span { font-size: 0.63rem; }
+            .celebration-message { font-size: 0.76rem; }
+            .certificate-footer { gap: 0.8rem; padding-top: 0.8rem; }
+            .certificate-footer strong { font-size: 0.72rem; }
+            .certificate-signature { font-size: 0.82rem !important; }
+            .certificate-footer span { font-size: 0.58rem; }
+            .review-page { padding: 1rem 0.7rem; }
+            .review-item { padding: 0.75rem; }
+            .resume-panel { font-size: 0.9rem; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after { scroll-behavior: auto !important; animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; }
+        }
         footer { text-align: center; padding: 1rem; background-color: #002b5e; color: #fff; margin-top: auto; }
     </style>
 </head>
-<body>
+<body data-certificate-grade="Grade 8" data-certificate-subject="Social Sciences History" data-certificate-term="Term 3" data-certificate-topic="Results of Colonisation" data-certificate-game="Results of Colonisation Spin-the-Wheel Game">
 
     <nav>
         <a href="../../../../../../index.html" class="logo">May Learning Hub</a>
@@ -64,16 +194,25 @@
 
     <main class="game-container">
         <h1 class="game-title">History Quiz: Results of Colonisation</h1>
-        <p class="game-subtitle">Revise the political, economic, social, cultural, and long-term results of colonisation.</p>
+        <p class="game-subtitle">Revise the Berlin Conference, its organisers, decisions, rules, and consequences for Africa.</p>
         <p style="font-size: 0.78rem; color: #52606d; margin-top: 0.45rem;">Grade 8 Social Sciences History Term 3 revision</p>
+
+        <aside class="resume-panel" id="resumePanel" aria-live="polite">
+            <strong>Continue your saved game?</strong>
+            <span id="resumeMessage"></span>
+            <div class="resume-actions">
+                <button class="resume-btn resume-primary" type="button" onclick="resumeSavedProgress()">Continue</button>
+                <button class="resume-btn resume-secondary" type="button" onclick="discardSavedProgress()">Start Fresh</button>
+            </div>
+        </aside>
 
         <div class="category-selection">
             <h2>Step 1: Choose a Category</h2>
             <div class="cat-buttons" id="catButtons">
-                <button class="cat-btn" onclick="selectCategory('definitions', this)">Definitions: Term → Meaning</button>
-                <button class="cat-btn" onclick="selectCategory('terms', this)">Name the Term: Meaning → Term</button>
-                <button class="cat-btn" onclick="selectCategory('multipleChoice', this)">Multiple Choice</button>
-                <button class="cat-btn" onclick="selectCategory('trueFalse', this)">True or False</button>
+                <button class="cat-btn" type="button" data-category="definitions" aria-pressed="false" onclick="selectCategory('definitions', this)">Definitions</button>
+                <button class="cat-btn" type="button" data-category="terms" aria-pressed="false" onclick="selectCategory('terms', this)">Terms</button>
+                <button class="cat-btn" type="button" data-category="multipleChoice" aria-pressed="false" onclick="selectCategory('multipleChoice', this)">Multiple Choice</button>
+                <button class="cat-btn" type="button" data-category="trueFalse" aria-pressed="false" onclick="selectCategory('trueFalse', this)">True or False</button>
             </div>
         </div>
 
@@ -89,19 +228,82 @@
                 </div>
             </div>
 
+            <div class="score-tracker" id="scoreTracker" aria-live="polite">Score: 0 / 0</div>
             <button class="spin-btn" id="spinBtn" onclick="spinWheel()">SPIN THE WHEEL</button>
             <p id="remainingCount" style="color: #666; font-size: 0.9rem; margin-bottom: 1rem; font-weight: bold;">10 questions remaining</p>
 
-            <div class="question-card" id="questionCard">
+            <div class="question-card" id="questionCard" role="region" aria-labelledby="questionText">
                 <div class="q-number-tag" id="qNumberTag">Question #</div>
                 <div class="question-text" id="questionText">Loading question...</div>
                 
                 <div class="mc-options" id="mcOptions"></div>
+
+                <div class="term-carousel" id="termCarousel">
+                    <div class="term-carousel-row">
+                        <button class="term-nav-btn" id="previousTermBtn" type="button" onclick="moveTermChoice(-1)" aria-label="Show previous term">&#8249;</button>
+                        <button class="term-option-display" id="termOptionDisplay" type="button" onclick="submitCurrentTerm()" aria-live="polite" aria-label="Choose the displayed term"></button>
+                        <button class="term-nav-btn" id="nextTermBtn" type="button" onclick="moveTermChoice(1)" aria-label="Show next term">&#8250;</button>
+                    </div>
+                    <p class="term-position" id="termPosition">Term 1 of 5</p>
+                </div>
                 
                 <button class="reveal-btn" id="revealBtn" onclick="revealAnswer()">Reveal Answer</button>
-                <div class="answer-text" id="answerText"></div>
+                <div class="answer-text" id="answerText" role="status" aria-live="polite"></div>
             </div>
         </div>
+
+        <section class="celebration-page" id="celebrationPage" aria-live="polite">
+            <span class="confetti-piece"></span><span class="confetti-piece"></span><span class="confetti-piece"></span>
+            <span class="confetti-piece"></span><span class="confetti-piece"></span><span class="confetti-piece"></span>
+            <span class="confetti-piece"></span><span class="confetti-piece"></span><span class="confetti-piece"></span>
+            <div class="celebration-content">
+                <article class="certificate tier-bronze" id="resultCertificate" aria-labelledby="certificateTitle">
+                    <header class="certificate-header">
+                        <img class="certificate-logo" src="../../../../../../May Learning Hub Logo.png" alt="May Learning Hub">
+                        <span class="certificate-trophy" aria-hidden="true">🏆</span>
+                    </header>
+                    <p class="certificate-kicker" id="certificateKicker">May Learning Hub Assessment</p>
+                    <h2 id="certificateTitle">Certificate of Achievement</h2>
+                    <p class="certificate-award" id="certificateAward">Silver Pass Award</p>
+                    <p class="certificate-presented">This certificate is proudly presented to</p>
+                    <p class="learner-name" id="celebrationLearner">Guest Learner</p>
+                    <p class="certificate-body" id="scoredCertificateBody">for completing <strong>Results of Colonisation</strong> challenge in the <strong id="certificateCategory">selected</strong> category.</p>
+                    <p class="certificate-body" id="participationCertificateBody" style="display:none;">for successful participation in the <strong id="participationCategory">Definitions</strong> activity on <strong>Results of Colonisation</strong>.</p>
+                    <div class="score-ring" id="certificateScoreRing"><div><strong id="celebrationScore">0/10</strong><span>Correct</span></div></div>
+                    <p class="celebration-message" id="celebrationMessage"></p>
+                    <div class="certificate-footer">
+                        <div class="certificate-footer-item">
+                            <strong id="certificateDate">27 August 2026</strong>
+                            <span>Date awarded</span>
+                        </div>
+                        <div class="certificate-footer-item">
+                            <strong class="certificate-signature">May Learning Hub</strong>
+                            <span>Signed by May Learning Hub</span>
+                        </div>
+                    </div>
+                    <p class="certificate-site-line">Get your certificate at www.maylearninghub.co.za</p>
+                </article>
+                <div class="celebration-actions">
+                    <button type="button" class="celebration-btn whatsapp-btn" id="shareCertificateBtn" onclick="shareWhatsApp()">Share Certificate on WhatsApp</button>
+                    <button type="button" class="celebration-btn download-btn" id="downloadCertificateBtn" onclick="downloadCertificate()">Download Certificate</button>
+                    <button class="celebration-btn review-btn" id="reviewCertificateBtn" onclick="showReview()">Review Answers</button>
+                    <button class="celebration-btn replay-btn" onclick="playCategoryAgain()">Play Again</button>
+                    <button class="celebration-btn category-btn" onclick="chooseAnotherCategory()">Choose Another Category</button>
+                </div>
+                <p class="share-note">Choose <strong>WhatsApp</strong> on your device's sharing screen, then select <strong>My status</strong> or a contact. The certificate image and a short May Learning Hub link will be shared together.</p>
+            </div>
+        </section>
+
+        <section class="review-page" id="reviewPage" aria-labelledby="reviewTitle">
+            <h2 id="reviewTitle">Review</h2>
+            <p class="review-summary" id="reviewSummary"></p>
+            <div class="review-list" id="reviewList"></div>
+            <div class="review-actions">
+                <button class="celebration-btn category-btn" type="button" onclick="backToCertificate()">Back to Certificate</button>
+                <button class="celebration-btn replay-btn" type="button" onclick="playCategoryAgain()">Try Again</button>
+            </div>
+        </section>
+        <div class="visually-hidden" id="gameStatus" aria-live="polite"></div>
     </main>
 
     <footer>
@@ -109,6 +311,8 @@
     </footer>
 
         <script src="../../../../../../game-audio.js"></script>
+        <script src="../../../../../../may-certificate-renderer.js"></script>
+        <script src="../../../../../../may-certificate-actions.js"></script>
 <script>
         const gameData = {
     "definitions": [
@@ -209,32 +413,32 @@
         {
             "q": "Which region, besides Europe, benefited from wealth removed from Africa?",
             "options": [
-                "A) North America",
-                "B) Antarctica",
+                "A) Antarctica",
+                "B) North America",
                 "C) Oceania",
                 "D) South Asia"
             ],
-            "a": "A) North America"
+            "a": "B) North America"
         },
         {
             "q": "What was one political result of colonisation?",
             "options": [
-                "A) African political structures were dismantled or manipulated",
-                "B) Every African state gained full independence",
-                "C) Colonial administrators withdrew immediately",
+                "A) Every African state gained full independence",
+                "B) Colonial administrators withdrew immediately",
+                "C) African political structures were dismantled or manipulated",
                 "D) Traditional rulers gained unlimited authority"
             ],
-            "a": "A) African political structures were dismantled or manipulated"
+            "a": "C) African political structures were dismantled or manipulated"
         },
         {
             "q": "Which pair gives social effects of colonisation?",
             "options": [
-                "A) Forced labour and migration",
-                "B) Equal wages and political freedom",
-                "C) No disease and no movement",
-                "D) Independent borders and local control"
+                "A) Equal wages and political freedom",
+                "B) No disease and no movement",
+                "C) Independent borders and local control",
+                "D) Forced labour and migration"
             ],
-            "a": "A) Forced labour and migration"
+            "a": "D) Forced labour and migration"
         },
         {
             "q": "Which factor helped European powers colonise Africa quickly?",
@@ -249,32 +453,32 @@
         {
             "q": "What happened to many African raw materials under colonial rule?",
             "options": [
-                "A) They were exported for European economic benefit",
-                "B) They were left completely untouched",
+                "A) They were left completely untouched",
+                "B) They were exported for European economic benefit",
                 "C) They were controlled only by independent African governments",
                 "D) They were returned with equal profits immediately"
             ],
-            "a": "A) They were exported for European economic benefit"
+            "a": "B) They were exported for European economic benefit"
         },
         {
             "q": "How did colonial rule affect African labour?",
             "options": [
-                "A) Many Africans were forced into wage labour and paid low wages",
-                "B) All Africans became factory owners",
-                "C) Forced labour ended everywhere",
+                "A) All Africans became factory owners",
+                "B) Forced labour ended everywhere",
+                "C) Many Africans were forced into wage labour and paid low wages",
                 "D) Colonial governments guaranteed equal pay"
             ],
-            "a": "A) Many Africans were forced into wage labour and paid low wages"
+            "a": "C) Many Africans were forced into wage labour and paid low wages"
         },
         {
             "q": "Why did artificial colonial borders cause later problems?",
             "options": [
-                "A) They often ignored existing political communities and contributed to instability",
-                "B) They followed every African community perfectly",
-                "C) They removed all political conflict",
-                "D) They restored every traditional boundary"
+                "A) They followed every African community perfectly",
+                "B) They removed all political conflict",
+                "C) They restored every traditional boundary",
+                "D) They often ignored existing political communities and contributed to instability"
             ],
-            "a": "A) They often ignored existing political communities and contributed to instability"
+            "a": "D) They often ignored existing political communities and contributed to instability"
         },
         {
             "q": "What cultural pressure accompanied colonial rule?",
@@ -289,12 +493,12 @@
         {
             "q": "What social attitude did colonialism help develop?",
             "options": [
-                "A) Racism and racial prejudice",
-                "B) Universal political equality",
+                "A) Universal political equality",
+                "B) Racism and racial prejudice",
                 "C) The end of racial categories",
                 "D) Equal control of all resources"
             ],
-            "a": "A) Racism and racial prejudice"
+            "a": "B) Racism and racial prejudice"
         }
     ],
     "trueFalse": [
@@ -317,12 +521,12 @@
             "exp": "Africans lost political independence and control over their territories."
         },
         {
-            "q": "Traditional rulers were sometimes replaced or co-opted into colonial systems.",
+            "q": "Colonial authorities never replaced or co-opted traditional rulers.",
             "options": [
                 "True",
                 "False"
             ],
-            "a": "True",
+            "a": "False",
             "exp": "Colonial authorities used both replacement and co-option."
         },
         {
@@ -391,143 +595,879 @@
     ]
 };
 
-        const totalQuestions = 10; 
+        const totalQuestions = 10;
         const sliceAngle = 360 / totalQuestions;
+        const certificateHomeUrl = 'https://www.maylearninghub.co.za';
+        const certificateContext = {
+            grade: document.body.dataset.certificateGrade || '',
+            subject: document.body.dataset.certificateSubject || '',
+            term: document.body.dataset.certificateTerm || '',
+            topic: document.body.dataset.certificateTopic || 'Assessment Activity',
+            gameTitle: document.body.dataset.certificateGame || 'Spin-the-Wheel Game'
+        };
+        const progressVersion = 3;
+        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        const spinDuration = prefersReducedMotion ? 350 : 4000;
+        const interactiveCategories = new Set(['terms', 'multipleChoice', 'trueFalse']);
         let currentCategoryKey = null;
+        let currentCategoryLabel = '';
         let currentRotation = 0;
         let currentQuestionData = null;
         let targetQuestionIndex = null;
+        let currentQuestionAnswered = true;
+        let currentAnswerRevealed = false;
+        let lastCompletedScore = null;
+        let currentTermChoices = [];
+        let currentTermChoiceIndex = 0;
+        let savedProgressState = null;
 
-        let availableQuestions = {
-            'definitions': Array.from({length: totalQuestions}, (_, i) => i),
-            'terms': Array.from({length: totalQuestions}, (_, i) => i),
-            'multipleChoice': Array.from({length: totalQuestions}, (_, i) => i),
-            'trueFalse': Array.from({length: totalQuestions}, (_, i) => i)
+        const freshQuestionIndexes = () => Array.from({ length: totalQuestions }, (_, index) => index);
+        const availableQuestions = {
+            definitions: freshQuestionIndexes(),
+            terms: freshQuestionIndexes(),
+            multipleChoice: freshQuestionIndexes(),
+            trueFalse: freshQuestionIndexes()
         };
+        const categoryStats = {
+            terms: { correct: 0, answered: 0 },
+            multipleChoice: { correct: 0, answered: 0 },
+            trueFalse: { correct: 0, answered: 0 }
+        };
+        const categoryResults = {
+            terms: [],
+            multipleChoice: [],
+            trueFalse: []
+        };
+        const sliceColors = ['#0055ff', '#0088ff', '#00bfff', '#0044cc'];
 
-        const sliceColors = ["#0055ff", "#0088ff", "#00bfff", "#0044cc"];
+        function shuffleItems(items) {
+            const shuffled = [...items];
+            for (let index = shuffled.length - 1; index > 0; index--) {
+                const swapIndex = Math.floor(Math.random() * (index + 1));
+                [shuffled[index], shuffled[swapIndex]] = [shuffled[swapIndex], shuffled[index]];
+            }
+            return shuffled;
+        }
 
         function buildWheel() {
             const wheelBg = document.getElementById('wheelBg');
             const wheelLabels = document.getElementById('wheelLabels');
-            let gradientParts = [];
-
-            for (let i = 0; i < totalQuestions; i++) {
-                let startAngle = i * sliceAngle;
-                let endAngle = (i + 1) * sliceAngle;
-                let color = sliceColors[i % sliceColors.length];
-                gradientParts.push(`${color} ${startAngle}deg ${endAngle}deg`);
-
-                let label = document.createElement('div');
+            const gradientParts = [];
+            wheelLabels.innerHTML = '';
+            for (let index = 0; index < totalQuestions; index++) {
+                const startAngle = index * sliceAngle;
+                const endAngle = (index + 1) * sliceAngle;
+                gradientParts.push(sliceColors[index % sliceColors.length] + ' ' + startAngle + 'deg ' + endAngle + 'deg');
+                const label = document.createElement('div');
                 label.className = 'label';
-                let textRotation = startAngle + (sliceAngle / 2) - 90;
-                label.style.transform = `rotate(${textRotation}deg) translate(145px, -50%)`;
-                label.innerText = i + 1;
+                label.style.transform = 'rotate(' + (startAngle + (sliceAngle / 2) - 90) + 'deg) translate(var(--wheel-label-radius), -50%)';
+                label.innerText = index + 1;
                 wheelLabels.appendChild(label);
             }
-            wheelBg.style.background = `conic-gradient(${gradientParts.join(', ')})`;
+            wheelBg.style.background = 'conic-gradient(' + gradientParts.join(', ') + ')';
+            document.getElementById('wheel').style.transitionDuration = spinDuration + 'ms';
         }
 
-        buildWheel();
+        function announce(message) {
+            document.getElementById('gameStatus').innerText = message;
+        }
+
+        function getLearnerIdentity() {
+            for (const storage of [window.localStorage, window.sessionStorage]) {
+                try {
+                    const saved = JSON.parse(storage.getItem('mayhubActivityAccess') || 'null');
+                    if (!saved) continue;
+                    const fullName = saved?.profile?.fullName?.trim() || '';
+                    const email = saved?.email || '';
+                    const id = saved?.uid || email;
+                    if (id) {
+                        return {
+                            signedIn: true,
+                            id: String(id),
+                            name: fullName || email.split('@')[0] || 'Signed-in learner'
+                        };
+                    }
+                } catch {}
+            }
+            return { signedIn: false, id: 'guest', name: '' };
+        }
+
+        function storageKeyPart(value) {
+            return encodeURIComponent(String(value || 'unknown').toLowerCase().replace(/\s+/g, '-'));
+        }
+
+        function gameStorageNamespace() {
+            return [
+                certificateContext.grade,
+                certificateContext.subject,
+                certificateContext.term,
+                certificateContext.topic,
+                certificateContext.gameTitle
+            ].map(storageKeyPart).join(':');
+        }
+
+        function progressStorageKey() {
+            const identity = getLearnerIdentity();
+            return 'mayhubGameProgress:v' + progressVersion + ':' + gameStorageNamespace() + ':' + encodeURIComponent(identity.id);
+        }
+
+        function legacyProgressStorageKey() {
+            return 'mayhubBerlinSpinProgress:v2:' + encodeURIComponent(getLearnerIdentity().id);
+        }
+
+        function readSavedProgress() {
+            const current = JSON.parse(window.localStorage.getItem(progressStorageKey()) || 'null');
+            if (current) return current;
+            const legacy = JSON.parse(window.localStorage.getItem(legacyProgressStorageKey()) || 'null');
+            if (!legacy || legacy.version !== 2) return null;
+            const migrated = { ...legacy, version: progressVersion };
+            window.localStorage.setItem(progressStorageKey(), JSON.stringify(migrated));
+            return migrated;
+        }
+
+        function saveProgress() {
+            if (!currentCategoryKey || lastCompletedScore) return;
+            try {
+                const state = {
+                    version: progressVersion,
+                    categoryKey: currentCategoryKey,
+                    categoryLabel: currentCategoryLabel,
+                    availableQuestions: Object.fromEntries(Object.entries(availableQuestions).map(([key, value]) => [key, [...value]])),
+                    categoryStats: JSON.parse(JSON.stringify(categoryStats)),
+                    categoryResults: JSON.parse(JSON.stringify(categoryResults)),
+                    currentRotation,
+                    pendingQuestionIndex: Number.isInteger(targetQuestionIndex) ? targetQuestionIndex : null,
+                    answerResolved: currentAnswerRevealed,
+                    savedAt: new Date().toISOString()
+                };
+                window.localStorage.setItem(progressStorageKey(), JSON.stringify(state));
+            } catch {}
+        }
+
+        function clearSavedProgress() {
+            try {
+                window.localStorage.removeItem(progressStorageKey());
+                window.localStorage.removeItem(legacyProgressStorageKey());
+            } catch {}
+            savedProgressState = null;
+            document.getElementById('resumePanel').style.display = 'none';
+        }
+
+        function offerSavedProgress() {
+            try {
+                const state = readSavedProgress();
+                if (!state || state.version !== progressVersion || !gameData[state.categoryKey]) return;
+                savedProgressState = state;
+                let completed = state.categoryKey === 'definitions'
+                    ? totalQuestions - state.availableQuestions.definitions.length
+                    : state.categoryStats[state.categoryKey]?.answered || 0;
+                if (state.categoryKey === 'definitions' && Number.isInteger(state.pendingQuestionIndex) && !state.answerResolved) {
+                    completed = Math.max(0, completed - 1);
+                }
+                document.getElementById('resumeMessage').innerText = state.categoryLabel + ' — ' + completed + ' of ' + totalQuestions + ' completed.';
+                document.getElementById('resumePanel').style.display = 'block';
+            } catch {}
+        }
+
+        function resumeSavedProgress() {
+            const state = savedProgressState;
+            if (!state || !gameData[state.categoryKey]) return;
+            Object.keys(availableQuestions).forEach(key => {
+                availableQuestions[key] = Array.isArray(state.availableQuestions?.[key])
+                    ? [...state.availableQuestions[key]]
+                    : freshQuestionIndexes();
+            });
+            Object.keys(categoryStats).forEach(key => {
+                categoryStats[key] = state.categoryStats?.[key]
+                    ? { ...state.categoryStats[key] }
+                    : { correct: 0, answered: 0 };
+                categoryResults[key] = Array.isArray(state.categoryResults?.[key])
+                    ? [...state.categoryResults[key]]
+                    : [];
+            });
+
+            currentCategoryKey = state.categoryKey;
+            const categoryButton = document.querySelector('.cat-btn[data-category="' + currentCategoryKey + '"]');
+            currentCategoryLabel = categoryButton?.innerText || state.categoryLabel || currentCategoryKey;
+            if (Number.isInteger(state.pendingQuestionIndex) && !state.answerResolved) {
+                const available = availableQuestions[currentCategoryKey];
+                if (!available.includes(state.pendingQuestionIndex)) available.push(state.pendingQuestionIndex);
+            }
+
+            currentRotation = Number(state.currentRotation) || 0;
+            currentQuestionData = null;
+            targetQuestionIndex = null;
+            currentQuestionAnswered = true;
+            currentAnswerRevealed = true;
+            lastCompletedScore = null;
+            document.querySelectorAll('.cat-btn').forEach(button => {
+                const isActive = button === categoryButton;
+                button.classList.toggle('active', isActive);
+                button.setAttribute('aria-pressed', String(isActive));
+            });
+            document.getElementById('resumePanel').style.display = 'none';
+            document.querySelector('.category-selection').style.display = 'block';
+            document.getElementById('celebrationPage').style.display = 'none';
+            document.getElementById('reviewPage').style.display = 'none';
+            document.getElementById('wheelArea').style.display = 'block';
+            document.getElementById('activeCategoryTitle').innerText = 'Category: ' + currentCategoryLabel;
+            document.getElementById('questionCard').style.display = 'none';
+            document.getElementById('remainingCount').innerText = availableQuestions[currentCategoryKey].length + ' questions remaining';
+            document.getElementById('wheel').style.transform = 'rotate(' + currentRotation + 'deg)';
+            document.getElementById('spinBtn').disabled = false;
+            document.getElementById('spinBtn').innerText = 'SPIN THE WHEEL';
+            updateScoreTracker();
+            announce('Saved ' + currentCategoryLabel + ' game resumed.');
+
+            const finished = availableQuestions[currentCategoryKey].length === 0;
+            if (finished) {
+                document.getElementById('spinBtn').disabled = true;
+                setTimeout(() => {
+                    if (currentCategoryKey === 'definitions') showParticipationCertificate();
+                    else showCelebration();
+                }, 350);
+            } else {
+                saveProgress();
+            }
+        }
+
+        function discardSavedProgress() {
+            clearSavedProgress();
+            document.getElementById('resumePanel').style.display = 'none';
+            announce('Saved game discarded. Choose a category to start fresh.');
+        }
+
+        function learnerHistoryKey(identity, categoryKey) {
+            return 'mayhubGameHistory:' + gameStorageNamespace() + ':' + encodeURIComponent(identity.id) + ':' + storageKeyPart(categoryKey);
+        }
+
+        function legacyLearnerHistoryKey(identity, categoryKey) {
+            return 'mayhubBerlinSpinHistory:' + encodeURIComponent(identity.id) + ':' + categoryKey;
+        }
+
+        function updateLearnerHistory(mode, correct = null) {
+            const identity = getLearnerIdentity();
+            if (!identity.signedIn) {
+                return { text: '' };
+            }
+            try {
+                const key = learnerHistoryKey(identity, currentCategoryKey);
+                const previous = JSON.parse(
+                    window.localStorage.getItem(key)
+                    || window.localStorage.getItem(legacyLearnerHistoryKey(identity, currentCategoryKey))
+                    || 'null'
+                ) || {};
+                if (mode === 'participation') {
+                    const completions = (previous.completions || 0) + 1;
+                    window.localStorage.setItem(key, JSON.stringify({ ...previous, completions, lastPlayed: new Date().toISOString() }));
+                    return { text: '' };
+                }
+                const attempts = (previous.attempts || 0) + 1;
+                const previousBest = Number.isFinite(previous.bestCorrect) ? previous.bestCorrect : null;
+                const bestCorrect = previousBest === null ? correct : Math.max(previousBest, correct);
+                window.localStorage.setItem(key, JSON.stringify({
+                    ...previous,
+                    attempts,
+                    bestCorrect,
+                    lastCorrect: correct,
+                    total: totalQuestions,
+                    lastPlayed: new Date().toISOString()
+                }));
+                return { text: '' };
+            } catch {
+                return { text: '' };
+            }
+        }
+
+        function resetCategory(categoryKey) {
+            availableQuestions[categoryKey] = freshQuestionIndexes();
+            if (categoryStats[categoryKey]) categoryStats[categoryKey] = { correct: 0, answered: 0 };
+            if (categoryResults[categoryKey]) categoryResults[categoryKey] = [];
+            currentQuestionData = null;
+            targetQuestionIndex = null;
+            currentQuestionAnswered = true;
+            currentAnswerRevealed = false;
+            lastCompletedScore = null;
+        }
+
+        function updateScoreTracker() {
+            const tracker = document.getElementById('scoreTracker');
+            if (!interactiveCategories.has(currentCategoryKey)) {
+                tracker.style.display = 'none';
+                return;
+            }
+            const stats = categoryStats[currentCategoryKey];
+            tracker.style.display = 'block';
+            tracker.innerText = 'Score: ' + stats.correct + ' / ' + stats.answered;
+        }
 
         function selectCategory(categoryKey, btnElement) {
             currentCategoryKey = categoryKey;
-            const buttons = document.querySelectorAll('.cat-btn');
-            buttons.forEach(btn => btn.classList.remove('active'));
+            currentCategoryLabel = btnElement.innerText;
+            if (availableQuestions[categoryKey].length === 0) resetCategory(categoryKey);
+            document.querySelectorAll('.cat-btn').forEach(button => {
+                button.classList.remove('active');
+                button.setAttribute('aria-pressed', 'false');
+            });
             btnElement.classList.add('active');
+            btnElement.setAttribute('aria-pressed', 'true');
+            document.getElementById('resumePanel').style.display = 'none';
+            document.querySelector('.category-selection').style.display = 'block';
+            document.getElementById('celebrationPage').style.display = 'none';
+            document.getElementById('reviewPage').style.display = 'none';
             document.getElementById('wheelArea').style.display = 'block';
-            document.getElementById('activeCategoryTitle').innerText = `Category: ${btnElement.innerText}`;
+            document.getElementById('activeCategoryTitle').innerText = 'Category: ' + currentCategoryLabel;
             document.getElementById('questionCard').style.display = 'none';
-            document.getElementById('remainingCount').innerText = `${availableQuestions[categoryKey].length} questions remaining`;
+            document.getElementById('remainingCount').innerText = availableQuestions[categoryKey].length + ' questions remaining';
+            document.getElementById('spinBtn').disabled = false;
+            document.getElementById('spinBtn').innerText = 'SPIN THE WHEEL';
+            currentQuestionAnswered = true;
+            currentAnswerRevealed = false;
+            currentQuestionData = null;
+            targetQuestionIndex = null;
             currentRotation = 0;
-            document.getElementById('wheel').style.transform = `rotate(0deg)`;
+            document.getElementById('wheel').style.transform = 'rotate(0deg)';
+            updateScoreTracker();
+            announce(currentCategoryLabel + ' selected. Spin the wheel to begin.');
+            saveProgress();
         }
 
         function spinWheel() {
+            if (!currentCategoryKey || !currentQuestionAnswered) return;
             const spinBtn = document.getElementById('spinBtn');
             const wheel = document.getElementById('wheel');
             const questionCard = document.getElementById('questionCard');
-            let available = availableQuestions[currentCategoryKey];
-            
+            const available = availableQuestions[currentCategoryKey];
             if (available.length === 0) {
-                alert(`Resetting ${currentCategoryKey}!`);
-                availableQuestions[currentCategoryKey] = Array.from({length: totalQuestions}, (_, i) => i);
-                available = availableQuestions[currentCategoryKey];
+                if (interactiveCategories.has(currentCategoryKey)) showCelebration();
+                else resetCategory(currentCategoryKey);
+                return;
             }
 
             spinBtn.disabled = true;
-            spinBtn.innerText = "SPINNING...";
+            spinBtn.innerText = 'SPINNING...';
             MayHubSounds.startWheel();
             questionCard.style.display = 'none';
+            currentAnswerRevealed = false;
 
-            let randomArrIndex = Math.floor(Math.random() * available.length);
-            targetQuestionIndex = available[randomArrIndex];
-            available.splice(randomArrIndex, 1);
-            document.getElementById('remainingCount').innerText = `${available.length} questions remaining`;
-
-            let sliceCenterAngle = (targetQuestionIndex * sliceAngle) + (sliceAngle / 2);
-            let targetDegree = 360 - sliceCenterAngle;
-            let currentBase = Math.ceil(currentRotation / 360) * 360; 
+            const randomArrayIndex = Math.floor(Math.random() * available.length);
+            targetQuestionIndex = available[randomArrayIndex];
+            available.splice(randomArrayIndex, 1);
+            document.getElementById('remainingCount').innerText = available.length + ' questions remaining';
+            const sliceCenterAngle = (targetQuestionIndex * sliceAngle) + (sliceAngle / 2);
+            const targetDegree = 360 - sliceCenterAngle;
+            const currentBase = Math.ceil(currentRotation / 360) * 360;
             currentRotation = currentBase + 1800 + targetDegree;
-            wheel.style.transform = `rotate(${currentRotation}deg)`;
+            wheel.style.transform = 'rotate(' + currentRotation + 'deg)';
+            saveProgress();
 
             setTimeout(() => {
                 MayHubSounds.stopWheel();
-                spinBtn.disabled = false;
-                spinBtn.innerText = "SPIN AGAIN";
                 currentQuestionData = gameData[currentCategoryKey][targetQuestionIndex];
-                displayQuestion(targetQuestionIndex + 1, currentQuestionData);
-            }, 4000);
+                currentQuestionAnswered = false;
+                displayQuestion(totalQuestions - available.length, currentQuestionData);
+                spinBtn.disabled = true;
+                spinBtn.innerText = interactiveCategories.has(currentCategoryKey) ? 'CHOOSE AN ANSWER' : 'REVEAL THE ANSWER';
+                announce('Question ready.');
+                saveProgress();
+            }, spinDuration);
         }
 
-        function displayQuestion(questionNumber, data) {
-            document.getElementById('qNumberTag').innerText = `Question #${questionNumber}`;
+        function buildTermChoices(correctAnswer) {
+            const remainingAnswers = availableQuestions.terms
+                .map(index => gameData.terms[index].a)
+                .filter(answer => answer !== correctAnswer);
+            const optionCount = Math.max(1, Math.min(5, availableQuestions.terms.length));
+            return shuffleItems([correctAnswer, ...shuffleItems(remainingAnswers).slice(0, Math.max(0, optionCount - 1))]);
+        }
+
+        function displayQuestion(attemptNumber, data) {
+            currentAnswerRevealed = false;
+            document.getElementById('qNumberTag').innerText = interactiveCategories.has(currentCategoryKey)
+                ? 'Attempt ' + attemptNumber + ' of ' + totalQuestions
+                : 'Card ' + attemptNumber + ' of ' + totalQuestions;
             document.getElementById('questionText').innerText = data.q;
-            const mcOptions = document.getElementById('mcOptions');
+            const optionsContainer = document.getElementById('mcOptions');
+            const termCarousel = document.getElementById('termCarousel');
             const revealBtn = document.getElementById('revealBtn');
             const answerText = document.getElementById('answerText');
-            mcOptions.innerHTML = "";
-            answerText.style.display = "none";
-            
-            if (currentCategoryKey === 'multipleChoice' || currentCategoryKey === 'trueFalse') {
-                revealBtn.style.display = "none"; 
-                mcOptions.style.display = "flex";
-                data.options.forEach(opt => {
-                    let btn = document.createElement("button");
-                    btn.className = "option-btn";
-                    btn.innerText = opt;
-                    btn.onclick = () => checkInteractiveAnswer(btn, opt);
-                    mcOptions.appendChild(btn);
+            optionsContainer.innerHTML = '';
+            termCarousel.style.display = 'none';
+            answerText.style.display = 'none';
+
+            if (currentCategoryKey === 'terms') {
+                revealBtn.style.display = 'none';
+                optionsContainer.style.display = 'none';
+                currentTermChoices = buildTermChoices(data.a);
+                currentTermChoiceIndex = 0;
+                document.getElementById('termOptionDisplay').className = 'term-option-display';
+                document.getElementById('termOptionDisplay').disabled = false;
+                document.getElementById('previousTermBtn').disabled = currentTermChoices.length < 2;
+                document.getElementById('nextTermBtn').disabled = currentTermChoices.length < 2;
+                termCarousel.style.display = 'block';
+                displayCurrentTermChoice();
+            } else if (interactiveCategories.has(currentCategoryKey)) {
+                revealBtn.style.display = 'none';
+                optionsContainer.style.display = 'flex';
+                data.options.forEach(option => {
+                    const button = document.createElement('button');
+                    button.className = 'option-btn';
+                    button.innerText = option;
+                    button.onclick = () => checkInteractiveAnswer(button, option);
+                    optionsContainer.appendChild(button);
                 });
             } else {
-                mcOptions.style.display = "none";
-                revealBtn.style.display = "inline-block";
-                answerText.innerHTML = `<strong>Answer:</strong> ${data.a}`;
+                optionsContainer.style.display = 'none';
+                termCarousel.style.display = 'none';
+                revealBtn.style.display = 'inline-block';
+                answerText.innerHTML = '<strong>Answer:</strong> ' + data.a;
             }
-            document.getElementById('questionCard').style.display = "block";
+            document.getElementById('questionCard').style.display = 'block';
         }
 
-        function checkInteractiveAnswer(clickedBtn, selectedText) {
-            const allBtns = document.querySelectorAll('.option-btn');
-            allBtns.forEach(btn => btn.disabled = true);
-            const isCorrect = (selectedText === currentQuestionData.a || selectedText.startsWith(currentQuestionData.a.charAt(0)));
-            const answerTextDiv = document.getElementById('answerText');
+        function displayCurrentTermChoice() {
+            document.getElementById('termOptionDisplay').innerText = currentTermChoices[currentTermChoiceIndex] || '';
+            document.getElementById('termPosition').innerText = 'Term ' + (currentTermChoiceIndex + 1) + ' of ' + currentTermChoices.length;
+        }
+
+        function moveTermChoice(direction) {
+            if (currentQuestionAnswered || currentTermChoices.length < 2) return;
+            currentTermChoiceIndex = (currentTermChoiceIndex + direction + currentTermChoices.length) % currentTermChoices.length;
+            displayCurrentTermChoice();
+            saveProgress();
+        }
+
+        function submitCurrentTerm() {
+            if (currentQuestionAnswered || !currentTermChoices.length) return;
+            document.getElementById('previousTermBtn').disabled = true;
+            document.getElementById('nextTermBtn').disabled = true;
+            document.getElementById('termOptionDisplay').disabled = true;
+            checkInteractiveAnswer(document.getElementById('termOptionDisplay'), currentTermChoices[currentTermChoiceIndex]);
+        }
+
+        function checkInteractiveAnswer(clickedButton, selectedText) {
+            if (currentQuestionAnswered) return;
+            currentQuestionAnswered = true;
+            document.querySelectorAll('.option-btn').forEach(button => button.disabled = true);
+            const isCorrect = selectedText === currentQuestionData.a;
+            const stats = categoryStats[currentCategoryKey];
+            stats.answered++;
+            if (isCorrect) stats.correct++;
+            categoryResults[currentCategoryKey].push({
+                question: currentQuestionData.q,
+                selected: selectedText,
+                correctAnswer: currentQuestionData.a,
+                correct: isCorrect,
+                explanation: currentQuestionData.exp || ''
+            });
+            currentAnswerRevealed = true;
+            updateScoreTracker();
+
+            const answerText = document.getElementById('answerText');
             if (isCorrect) {
                 MayHubSounds.playCorrect();
-                clickedBtn.classList.add('correct');
-                answerTextDiv.innerHTML = `<div style="color: green; font-weight: bold;">Correct!</div> ${currentQuestionData.exp || ''}`;
+                clickedButton.classList.add('correct');
+                answerText.innerHTML = '<div style="color:#167333;font-weight:800;">Correct!</div> ' + (currentQuestionData.exp || '');
             } else {
                 MayHubSounds.playWrong();
-                clickedBtn.classList.add('incorrect');
-                answerTextDiv.innerHTML = `<div style="color: red; font-weight: bold;">Incorrect!</div> The correct answer was: ${currentQuestionData.a}. ${currentQuestionData.exp || ''}`;
+                clickedButton.classList.add('incorrect');
+                const correctButton = [...document.querySelectorAll('.option-btn')].find(button => button.innerText === currentQuestionData.a);
+                if (correctButton) correctButton.classList.add('correct');
+                answerText.innerHTML = '<div style="color:#b42318;font-weight:800;">Not quite.</div> Correct answer: ' + currentQuestionData.a + '. ' + (currentQuestionData.exp || '');
             }
-            answerTextDiv.style.display = "block";
+            answerText.style.display = 'block';
+            announce(isCorrect ? 'Correct answer.' : 'Incorrect answer. The correct answer is ' + currentQuestionData.a + '.');
+            saveProgress();
+
+            const spinBtn = document.getElementById('spinBtn');
+            if (availableQuestions[currentCategoryKey].length === 0) {
+                spinBtn.disabled = true;
+                spinBtn.innerText = 'CHALLENGE COMPLETE';
+                setTimeout(showCelebration, 1100);
+            } else {
+                spinBtn.disabled = false;
+                spinBtn.innerText = 'SPIN AGAIN';
+            }
         }
 
         function revealAnswer() {
-            document.getElementById('revealBtn').style.display = "none";
-            document.getElementById('answerText').style.display = "block";
+            document.getElementById('revealBtn').style.display = 'none';
+            document.getElementById('answerText').style.display = 'block';
+            currentQuestionAnswered = true;
+            currentAnswerRevealed = true;
+            announce('Answer revealed.');
+            saveProgress();
+            if (currentCategoryKey === 'definitions' && availableQuestions.definitions.length === 0) {
+                const spinBtn = document.getElementById('spinBtn');
+                spinBtn.disabled = true;
+                spinBtn.innerText = 'CATEGORY COMPLETE';
+                setTimeout(showParticipationCertificate, 700);
+            } else {
+                const spinBtn = document.getElementById('spinBtn');
+                spinBtn.disabled = false;
+                spinBtn.innerText = 'SPIN AGAIN';
+            }
         }
+
+        function getSignedInLearnerName() {
+            return getLearnerIdentity().name;
+        }
+
+        function getAwardTier(percentage) {
+            if (percentage === 100) {
+                return {
+                    className: 'tier-platinum',
+                    title: 'Certificate of Excellence',
+                    award: 'Platinum Perfect Score Award',
+                    message: 'PERFECT SCORE — Exceptional work! You mastered every question in this challenge.'
+                };
+            }
+            if (percentage >= 80) {
+                return {
+                    className: 'tier-gold',
+                    title: 'Certificate of Distinction',
+                    award: 'Gold Distinction Award',
+                    message: 'DISTINCTION — Excellent work! You have an impressive understanding of this topic.'
+                };
+            }
+            if (percentage >= 50) {
+                return {
+                    className: 'tier-silver',
+                    title: 'Certificate of Achievement',
+                    award: 'Silver Pass Award',
+                    message: 'PASS — Well done! You passed the challenge. Keep practising to reach a distinction.'
+                };
+            }
+            return {
+                className: 'tier-bronze',
+                title: 'Certificate of Perseverance',
+                award: 'Bronze Progress Award',
+                message: 'NOT YET PASSED — Do not give up. Review the answers, try again, and aim for at least 50%.'
+            };
+        }
+
+        function showCelebration() {
+            if (lastCompletedScore) return;
+            const stats = categoryStats[currentCategoryKey];
+            if (!stats || stats.answered !== totalQuestions) return;
+            const learnerName = getSignedInLearnerName();
+            const percentage = (stats.correct / totalQuestions) * 100;
+            const tier = getAwardTier(percentage);
+            const issuedAt = new Date();
+            const awardDate = issuedAt.toLocaleDateString('en-ZA', { day: '2-digit', month: 'long', year: 'numeric' });
+            const history = updateLearnerHistory('scored', stats.correct);
+            lastCompletedScore = {
+                name: learnerName,
+                categoryKey: currentCategoryKey,
+                category: currentCategoryLabel,
+                correct: stats.correct,
+                total: totalQuestions,
+                percentage,
+                award: tier.award,
+                title: tier.title,
+                message: tier.message,
+                tierClass: tier.className,
+                date: awardDate,
+                issuedAt: issuedAt.toISOString(),
+                participation: false,
+                history: history.text
+            };
+            clearSavedProgress();
+            document.querySelector('.category-selection').style.display = 'none';
+            document.getElementById('wheelArea').style.display = 'none';
+            document.getElementById('reviewPage').style.display = 'none';
+            document.getElementById('resultCertificate').className = 'certificate ' + tier.className;
+            document.getElementById('certificateTitle').innerText = tier.title;
+            document.getElementById('certificateAward').innerText = tier.award;
+            document.getElementById('certificateCategory').innerText = currentCategoryLabel;
+            document.getElementById('certificateDate').innerText = awardDate;
+            document.getElementById('celebrationLearner').innerText = learnerName || 'Guest Learner';
+            document.getElementById('celebrationScore').innerText = stats.correct + '/' + totalQuestions;
+            document.getElementById('celebrationMessage').innerText = tier.message;
+            document.getElementById('scoredCertificateBody').style.display = 'block';
+            document.getElementById('participationCertificateBody').style.display = 'none';
+            document.getElementById('certificateScoreRing').style.display = 'grid';
+            document.getElementById('reviewCertificateBtn').innerText = 'Review Missed Answers';
+            document.getElementById('celebrationPage').style.display = 'block';
+            if (percentage >= 50) MayHubSounds.playPass();
+            else MayHubSounds.playFail();
+            announce(tier.title + ' awarded with a score of ' + stats.correct + ' out of ' + totalQuestions + '.');
+            document.getElementById('celebrationPage').scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+
+        function showParticipationCertificate() {
+            if (lastCompletedScore) return;
+            const learnerName = getSignedInLearnerName();
+            const issuedAt = new Date();
+            const awardDate = issuedAt.toLocaleDateString('en-ZA', { day: '2-digit', month: 'long', year: 'numeric' });
+            const history = updateLearnerHistory('participation');
+            lastCompletedScore = {
+                name: learnerName,
+                categoryKey: currentCategoryKey,
+                category: currentCategoryLabel,
+                correct: null,
+                total: totalQuestions,
+                percentage: null,
+                award: 'May Learning Hub Participation Award',
+                title: 'Certificate of Participation',
+                message: 'Awarded in recognition of active participation.',
+                tierClass: 'tier-participation',
+                date: awardDate,
+                issuedAt: issuedAt.toISOString(),
+                participation: true,
+                history: history.text
+            };
+            clearSavedProgress();
+            document.querySelector('.category-selection').style.display = 'none';
+            document.getElementById('wheelArea').style.display = 'none';
+            document.getElementById('reviewPage').style.display = 'none';
+            document.getElementById('resultCertificate').className = 'certificate tier-participation';
+            document.getElementById('certificateTitle').innerText = lastCompletedScore.title;
+            document.getElementById('certificateAward').innerText = lastCompletedScore.award;
+            document.getElementById('participationCategory').innerText = currentCategoryLabel;
+            document.getElementById('certificateDate').innerText = awardDate;
+            document.getElementById('celebrationLearner').innerText = learnerName || 'Guest Learner';
+            document.getElementById('celebrationMessage').innerText = lastCompletedScore.message;
+            document.getElementById('scoredCertificateBody').style.display = 'none';
+            document.getElementById('participationCertificateBody').style.display = 'block';
+            document.getElementById('certificateScoreRing').style.display = 'none';
+            document.getElementById('reviewCertificateBtn').innerText = 'Review Learning Cards';
+            document.getElementById('celebrationPage').style.display = 'block';
+            MayHubSounds.playPass();
+            announce('Certificate of Participation awarded.');
+            document.getElementById('celebrationPage').scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+
+        function ensureResultName(promptMessage) {
+            if (!lastCompletedScore) return '';
+            if (lastCompletedScore.name) return lastCompletedScore.name;
+            const enteredName = window.prompt(promptMessage, '');
+            if (enteredName === null) return '';
+            const shareName = enteredName.trim();
+            if (!shareName) {
+                window.alert('Please enter your name and surname to continue.');
+                return '';
+            }
+            lastCompletedScore.name = shareName;
+            document.getElementById('celebrationLearner').innerText = shareName;
+            return shareName;
+        }
+
+        function buildCertificateShareMessage() {
+            return '🏆 I earned my May Learning Hub certificate!\nGet yours: ' + certificateHomeUrl;
+        }
+
+        function setCertificateActionBusy(buttonId, busy, busyLabel) {
+            const button = document.getElementById(buttonId);
+            if (!button) return;
+            if (!button.dataset.defaultLabel) button.dataset.defaultLabel = button.innerText;
+            button.disabled = busy;
+            button.innerText = busy ? busyLabel : button.dataset.defaultLabel;
+        }
+
+        async function shareWhatsApp() {
+            if (!lastCompletedScore) return;
+            const shareName = ensureResultName('Please enter your name and surname to include with your WhatsApp certificate:');
+            if (!shareName) return;
+            const message = buildCertificateShareMessage();
+            setCertificateActionBusy('shareCertificateBtn', true, 'Preparing Certificate...');
+            try {
+                if (!window.MayCertificateActions) {
+                    throw new Error('The certificate helper is unavailable.');
+                }
+                const certificate = await createCertificateImage(shareName);
+                const outcome = await window.MayCertificateActions.share({
+                    blob: certificate.blob,
+                    fileName: certificate.fileName,
+                    mimeType: 'image/png',
+                    shareText: message,
+                    fallbackUrl: 'https://wa.me/?text=' + encodeURIComponent(message),
+                    fallbackMessage: 'Your certificate image has been downloaded. WhatsApp will now open; attach it and choose My status or a contact.'
+                });
+                if (outcome.mode === 'modern-native' || outcome.mode === 'legacy-native') {
+                    announce('Choose WhatsApp, then select My status or a contact.');
+                } else if (outcome.mode === 'browser-file-share') {
+                    announce('Certificate image shared successfully.');
+                } else if (outcome.mode === 'cancelled') {
+                    announce('Certificate sharing cancelled.');
+                } else {
+                    announce('Certificate prepared for WhatsApp sharing.');
+                }
+            } catch (error) {
+                console.error('Certificate sharing failed:', error);
+                const message = error && error.code === 'native_timeout'
+                    ? 'The Android app did not confirm the sharing request. Please try once more.'
+                    : 'The certificate image could not be prepared. Please try again.';
+                window.alert(message);
+            } finally {
+                setCertificateActionBusy('shareCertificateBtn', false, '');
+            }
+        }
+
+        function showReview() {
+            if (!lastCompletedScore) return;
+            const reviewPage = document.getElementById('reviewPage');
+            const reviewList = document.getElementById('reviewList');
+            const reviewTitle = document.getElementById('reviewTitle');
+            const reviewSummary = document.getElementById('reviewSummary');
+            reviewList.innerHTML = '';
+
+            if (lastCompletedScore.participation) {
+                reviewTitle.innerText = 'Review Learning Cards';
+                reviewSummary.innerText = 'All ' + gameData.definitions.length + ' term-and-meaning cards from this activity.';
+                gameData.definitions.forEach(card => {
+                    const item = document.createElement('article');
+                    item.className = 'review-item learning-card';
+                    const term = document.createElement('p');
+                    term.className = 'review-question';
+                    term.innerText = card.q;
+                    const meaning = document.createElement('p');
+                    meaning.className = 'review-answer';
+                    meaning.innerText = card.a;
+                    item.append(term, meaning);
+                    reviewList.appendChild(item);
+                });
+            } else {
+                const missed = categoryResults[lastCompletedScore.categoryKey].filter(result => !result.correct);
+                reviewTitle.innerText = 'Review Missed Answers';
+                reviewSummary.innerText = missed.length
+                    ? missed.length + ' question' + (missed.length === 1 ? '' : 's') + ' to review.'
+                    : 'You did not miss any answers.';
+                if (!missed.length) {
+                    const perfect = document.createElement('div');
+                    perfect.className = 'review-empty';
+                    perfect.innerText = 'Perfect work—there are no missed answers to review.';
+                    reviewList.appendChild(perfect);
+                }
+                missed.forEach(result => {
+                    const item = document.createElement('article');
+                    item.className = 'review-item';
+                    const question = document.createElement('p');
+                    question.className = 'review-question';
+                    question.innerText = result.question;
+                    const selected = document.createElement('p');
+                    selected.className = 'review-answer';
+                    selected.innerText = 'Your answer: ' + result.selected;
+                    const correct = document.createElement('p');
+                    correct.className = 'review-answer';
+                    correct.innerText = 'Correct answer: ' + result.correctAnswer;
+                    item.append(question, selected, correct);
+                    if (result.explanation) {
+                        const explanation = document.createElement('p');
+                        explanation.className = 'review-answer';
+                        explanation.innerText = result.explanation;
+                        item.appendChild(explanation);
+                    }
+                    reviewList.appendChild(item);
+                });
+            }
+            document.getElementById('celebrationPage').style.display = 'none';
+            reviewPage.style.display = 'block';
+            reviewPage.scrollIntoView({ behavior: prefersReducedMotion ? 'auto' : 'smooth', block: 'start' });
+        }
+
+        function backToCertificate() {
+            document.getElementById('reviewPage').style.display = 'none';
+            document.getElementById('celebrationPage').style.display = 'block';
+            document.getElementById('celebrationPage').scrollIntoView({ behavior: prefersReducedMotion ? 'auto' : 'smooth', block: 'start' });
+        }
+
+        async function createCertificateImage(learnerName) {
+            if (!lastCompletedScore) throw new Error('No completed result is available.');
+            if (!window.MayCertificateRenderer) throw new Error('The certificate renderer is unavailable.');
+            return window.MayCertificateRenderer.create({
+                ...certificateContext,
+                ...lastCompletedScore,
+                learnerName,
+                mode: lastCompletedScore.participation ? 'participation' : 'scored'
+            });
+        }
+
+
+
+        async function downloadCertificate() {
+            if (!lastCompletedScore) return;
+            const learnerName = ensureResultName('Please enter your name and surname for the downloadable certificate:');
+            if (!learnerName) return;
+            setCertificateActionBusy('downloadCertificateBtn', true, 'Preparing Download...');
+            try {
+                if (!window.MayCertificateActions) {
+                    throw new Error('The certificate helper is unavailable.');
+                }
+                const certificate = await createCertificateImage(learnerName);
+                const outcome = await window.MayCertificateActions.save({
+                    blob: certificate.blob,
+                    fileName: certificate.fileName,
+                    mimeType: 'image/png'
+                });
+                if (outcome.mode === 'modern-native') announce('Certificate sent to the Android app for saving.');
+                else if (outcome.mode === 'legacy-native') announce('Certificate sent to the app for saving.');
+                else if (outcome.mode === 'same-site-download') announce('Certificate download started in the app.');
+                else announce('Certificate downloaded as a PNG image.');
+            } catch (error) {
+                console.error('Certificate download failed:', error);
+                const message = error && error.code === 'native_timeout'
+                    ? 'The Android app did not confirm the save request. Please try once more.'
+                    : 'The certificate could not be downloaded on this browser. Please try again.';
+                window.alert(message);
+            } finally {
+                setCertificateActionBusy('downloadCertificateBtn', false, '');
+            }
+        }
+
+        function playCategoryAgain() {
+            clearSavedProgress();
+            resetCategory(currentCategoryKey);
+            document.getElementById('celebrationPage').style.display = 'none';
+            document.getElementById('reviewPage').style.display = 'none';
+            document.querySelector('.category-selection').style.display = 'block';
+            document.getElementById('wheelArea').style.display = 'block';
+            document.getElementById('questionCard').style.display = 'none';
+            document.getElementById('remainingCount').innerText = totalQuestions + ' questions remaining';
+            document.getElementById('spinBtn').disabled = false;
+            document.getElementById('spinBtn').innerText = 'SPIN THE WHEEL';
+            updateScoreTracker();
+            announce(currentCategoryLabel + ' restarted.');
+            saveProgress();
+        }
+
+        function chooseAnotherCategory() {
+            clearSavedProgress();
+            document.getElementById('celebrationPage').style.display = 'none';
+            document.getElementById('reviewPage').style.display = 'none';
+            document.querySelector('.category-selection').style.display = 'block';
+            document.getElementById('wheelArea').style.display = 'none';
+            document.querySelectorAll('.cat-btn').forEach(button => {
+                button.classList.remove('active');
+                button.setAttribute('aria-pressed', 'false');
+            });
+            currentCategoryKey = null;
+            currentCategoryLabel = '';
+            currentQuestionData = null;
+            targetQuestionIndex = null;
+            lastCompletedScore = null;
+            announce('Choose another category.');
+            window.scrollTo({ top: 0, behavior: prefersReducedMotion ? 'auto' : 'smooth' });
+        }
+
+        document.getElementById('certificateKicker').innerText = [
+            certificateContext.grade,
+            certificateContext.subject,
+            certificateContext.term
+        ].filter(Boolean).join(' • ') || 'May Learning Hub Assessment';
+        buildWheel();
+        document.addEventListener('keydown', event => {
+            const termCarouselVisible = document.getElementById('termCarousel').style.display === 'block';
+            if (!termCarouselVisible || currentQuestionAnswered) return;
+            if (event.key === 'ArrowLeft') {
+                event.preventDefault();
+                moveTermChoice(-1);
+            } else if (event.key === 'ArrowRight') {
+                event.preventDefault();
+                moveTermChoice(1);
+            }
+        });
+        offerSavedProgress();
     </script>
 </body>
 </html>

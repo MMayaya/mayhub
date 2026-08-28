@@ -361,7 +361,7 @@
         }
     </style>
 </head>
-<body>
+<body data-certificate-grade="Grade 8" data-certificate-subject="Social Sciences History" data-certificate-term="Term 3" data-certificate-topic="The Berlin Conference" data-certificate-game="The Berlin Conference Drag-and-Drop Challenge">
 
     <nav>
         <a href="../../../../../../index.html" class="logo">May Learning Hub</a>
@@ -425,6 +425,7 @@
     </footer>
 
         <script src="../../../../../../game-audio.js"></script>
+        <script src="../../../../../../may-certificate-renderer.js"></script>
         <script src="../../../../../../may-certificate-actions.js"></script>
         <script src="../../../../../../assessment-certificate.js"></script>
 <script>
@@ -742,7 +743,6 @@
                     category: categoryTitles[currentCategoryKey],
                     correct: score,
                     total: gameData[currentCategoryKey].length,
-                    detail: score + ' of ' + gameData[currentCategoryKey].length + ' matches were correct on the first attempt.',
                     onReplay: resetCurrentCategory
                 });
             }, 700);

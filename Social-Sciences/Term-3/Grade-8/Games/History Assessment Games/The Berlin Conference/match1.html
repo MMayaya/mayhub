@@ -71,7 +71,7 @@
         footer { text-align: center; padding: 1.5rem; background-color: #002b5e; color: #fff; margin-top: auto; }
     </style>
 </head>
-<body>
+<body data-certificate-grade="Grade 8" data-certificate-subject="Social Sciences History" data-certificate-term="Term 3" data-certificate-topic="The Berlin Conference" data-certificate-game="The Berlin Conference Memory Game">
 
     <nav>
         <a href="../../../../../../index.html" class="logo">May Learning Hub</a>
@@ -105,6 +105,7 @@
     </footer>
 
         <script src="../../../../../../game-audio.js"></script>
+        <script src="../../../../../../may-certificate-renderer.js"></script>
         <script src="../../../../../../may-certificate-actions.js"></script>
         <script src="../../../../../../assessment-certificate.js"></script>
 <script>
@@ -279,7 +280,6 @@
                     MayHubCertificates.showParticipation({
                         gameTitle: 'The Berlin Conference Memory Game',
                         category: 'Assessment Review – 10 Pairs',
-                        detail: 'Completed all 10 matching pairs in ' + moves + ' moves.',
                         onReplay: initGame
                     });
                 }, 500);
