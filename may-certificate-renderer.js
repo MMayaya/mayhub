@@ -49,6 +49,7 @@
             grade: cleanText(options.grade),
             subject: cleanText(options.subject),
             term: cleanText(options.term),
+            layout: options.layout === 'compact-subject' ? 'compact-subject' : 'standard',
             topic: cleanText(options.topic, 'Assessment Activity'),
             gameTitle: cleanText(options.gameTitle, 'Assessment Game'),
             category: cleanText(options.category, 'Assessment Game'),
@@ -211,7 +212,9 @@
         ctx.font = '94px "Segoe UI Emoji", sans-serif';
         ctx.fillText('🏆', 1010, 175);
 
-        const kicker = [result.grade, result.subject, result.term].filter(Boolean).join(' • ') || 'MAY LEARNING HUB';
+        const kicker = result.layout === 'compact-subject'
+            ? [result.grade, result.subject].filter(Boolean).join(' ') || 'MAY LEARNING HUB'
+            : [result.grade, result.subject, result.term].filter(Boolean).join(' • ') || 'MAY LEARNING HUB';
         ctx.fillStyle = palette.dark;
         drawFittedWrappedText(ctx, {
             text: kicker.toUpperCase(), x: 600, y: 285, maxWidth: 850, maxLines: 1,
@@ -305,12 +308,32 @@
         ctx.fillStyle = '#17324d';
         ctx.font = 'bold 25px "Segoe UI", sans-serif';
         ctx.fillText(result.date, 325, footerY - 34);
-        ctx.font = 'italic 29px "Segoe Script", cursive';
-        ctx.fillText('May Learning Hub', 875, footerY - 34);
+        if (result.layout === 'compact-subject') {
+            ctx.save();
+            ctx.translate(875, footerY - 38);
+            ctx.rotate(-0.045);
+            ctx.font = 'italic 40px "Brush Script MT", "Segoe Script", "Lucida Handwriting", cursive';
+            ctx.fillText('M. Learning Hub', 0, 0);
+            ctx.strokeStyle = palette.dark;
+            ctx.lineWidth = 1.4;
+            ctx.beginPath();
+            ctx.moveTo(-126, 18);
+            ctx.bezierCurveTo(-45, 4, 42, 35, 132, 11);
+            ctx.stroke();
+            ctx.restore();
+        } else {
+            ctx.font = 'italic 29px "Segoe Script", cursive';
+            ctx.fillText('May Learning Hub', 875, footerY - 34);
+        }
         ctx.fillStyle = '#637180';
         ctx.font = '18px "Segoe UI", sans-serif';
         ctx.fillText('DATE AWARDED', 325, footerY + 36);
         ctx.fillText('SIGNED BY MAY LEARNING HUB', 875, footerY + 36);
+        if (result.layout === 'compact-subject' && result.term) {
+            ctx.fillStyle = '#96a1ad';
+            ctx.font = '600 17px "Segoe UI", sans-serif';
+            ctx.fillText(result.term.toUpperCase(), 600, 1538);
+        }
         ctx.fillStyle = palette.dark;
         ctx.font = 'bold 20px "Segoe UI", sans-serif';
         ctx.fillText('Get your certificate at www.maylearninghub.co.za', 600, 1585);

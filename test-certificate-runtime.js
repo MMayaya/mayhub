@@ -21,7 +21,8 @@ function mockCanvas() {
         fillText: value => drawnText.push(String(value)),
         fillRect() {}, strokeRect() {}, beginPath() {}, moveTo() {}, lineTo() {},
         quadraticCurveTo() {}, closePath() {}, fill() {}, stroke() {}, save() {},
-        restore() {}, drawImage() {}, arc() {}, roundRect() {}, rect() {}
+        restore() {}, drawImage() {}, arc() {}, roundRect() {}, rect() {},
+        translate() {}, rotate() {}, bezierCurveTo() {}
     };
     return {
         width: 0,
@@ -80,6 +81,25 @@ async function testRenderer() {
     assert(/-20260828-100000-Certificate\.png$/.test(scored.fileName), scored.fileName);
     assert(canvases[0].context.drawnText.some(text => text.includes('GRADE 11')));
     assert(canvases[0].context.drawnText.includes('8/10'));
+
+    const compact = await window.MayCertificateRenderer.create({
+        learnerName: 'Grade Ten Learner',
+        grade: 'Grade 10',
+        subject: 'Geography',
+        term: 'Term 3',
+        topic: 'Migration Concepts',
+        gameTitle: 'Migration Concepts Spin-the-Wheel Game',
+        category: 'Multiple Choice',
+        layout: 'compact-subject',
+        mode: 'scored',
+        correct: 7,
+        total: 10,
+        issuedAt: '2026-08-28T10:00:00.500Z'
+    });
+    assert.strictEqual(compact.blob.type, 'image/png');
+    assert(canvases[1].context.drawnText.includes('GRADE 10 GEOGRAPHY'));
+    assert(canvases[1].context.drawnText.includes('TERM 3'));
+    assert(canvases[1].context.drawnText.includes('M. Learning Hub'));
 
     const participation = await window.MayCertificateRenderer.create({
         learnerName: 'Test Learner',
