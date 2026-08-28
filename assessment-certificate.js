@@ -164,6 +164,37 @@
             letter-spacing: .08em;
             text-transform: uppercase;
         }
+        .mayhub-cert-metric {
+            display: none;
+            min-width: 245px;
+            margin: 1rem auto .55rem;
+            padding: .7rem 1.7rem .8rem;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border: 3px solid var(--award);
+            border-radius: 18px;
+            color: #fff;
+            background: linear-gradient(145deg, #10263e, var(--award-dark));
+            box-shadow: inset 0 0 0 2px rgba(255, 255, 255, .12), 0 10px 24px rgba(16, 38, 62, .24);
+        }
+        .mayhub-cert-metric-label {
+            color: #d9efff;
+            font-size: .68rem;
+            font-weight: 900;
+            letter-spacing: .24em;
+            text-transform: uppercase;
+        }
+        .mayhub-cert-metric-value {
+            margin-top: .12rem;
+            font-family: Consolas, 'SFMono-Regular', 'Courier New', monospace;
+            font-size: 2.5rem;
+            font-weight: 800;
+            line-height: 1;
+            letter-spacing: .12em;
+            font-variant-numeric: tabular-nums;
+            text-shadow: 0 0 14px rgba(152, 225, 255, .48);
+        }
         .mayhub-cert-message {
             max-width: 475px;
             margin: .35rem auto 0;
@@ -292,6 +323,9 @@
             .mayhub-cert-score { width: 104px; height: 104px; margin: .65rem auto .5rem; border-width: 6px; }
             .mayhub-cert-score strong { font-size: 1.9rem; }
             .mayhub-cert-score span { font-size: .63rem; }
+            .mayhub-cert-metric { min-width: 195px; margin: .65rem auto .35rem; padding: .55rem 1rem .65rem; border-radius: 14px; }
+            .mayhub-cert-metric-label { font-size: .55rem; }
+            .mayhub-cert-metric-value { font-size: 1.85rem; }
             .mayhub-cert-message { font-size: .76rem; }
             .mayhub-cert-footer { gap: .8rem; padding-top: .8rem; }
             .mayhub-cert-footer strong { font-size: .72rem; }
@@ -324,6 +358,10 @@
                 <p class="mayhub-cert-body" id="mayhubCertParticipationBody" style="display: none;">for successful participation in the <strong id="mayhubCertParticipationCategory">selected</strong> activity on <strong id="mayhubCertTopic">the selected topic</strong>.</p>
                 <div class="mayhub-cert-score" id="mayhubCertScoreWrap">
                     <div><strong id="mayhubCertScore">0/10</strong><span>Correct</span></div>
+                </div>
+                <div class="mayhub-cert-metric" id="mayhubCertMetric">
+                    <span class="mayhub-cert-metric-label" id="mayhubCertMetricLabel">Completed in</span>
+                    <strong class="mayhub-cert-metric-value" id="mayhubCertMetricValue">00:00</strong>
                 </div>
                 <p class="mayhub-cert-message" id="mayhubCertMessage"></p>
                 <div class="mayhub-cert-footer">
@@ -429,9 +467,11 @@
         const percentage = total > 0 ? (correct / total) * 100 : null;
         const award = isParticipation
             ? {
-                className: 'tier-participation',
-                title: 'Certificate of Participation',
-                award: 'May Learning Hub Participation Award',
+                className: /^tier-(?:bronze|silver|gold|platinum|participation)$/.test(options.tierClass || '')
+                    ? options.tierClass
+                    : 'tier-participation',
+                title: options.certificateTitle || 'Certificate of Participation',
+                award: options.awardLabel || 'May Learning Hub Participation Award',
                 message: options.message || 'Awarded in recognition of active participation.'
             }
             : getAward(percentage);
@@ -455,6 +495,8 @@
             award: award.award,
             message: award.message,
             tierClass: award.className,
+            metricLabel: String(options.metricLabel || '').trim(),
+            metricValue: String(options.metricValue || '').trim(),
             date: awardDate,
             issuedAt: issuedAt.toISOString()
         };
@@ -481,6 +523,11 @@
         document.getElementById('mayhubCertMessage').textContent = award.message;
         scoreWrap.style.display = isParticipation ? 'none' : 'grid';
         document.getElementById('mayhubCertScore').textContent = correct + '/' + total;
+        const metric = document.getElementById('mayhubCertMetric');
+        const hasMetric = Boolean(activeResult.metricValue);
+        metric.style.display = hasMetric ? 'flex' : 'none';
+        document.getElementById('mayhubCertMetricLabel').textContent = activeResult.metricLabel || 'Completed in';
+        document.getElementById('mayhubCertMetricValue').textContent = activeResult.metricValue;
 
         replayButton.style.display = replayAction ? 'inline-block' : 'none';
         previousBodyOverflow = document.body.style.overflow;

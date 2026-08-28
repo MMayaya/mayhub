@@ -1,11 +1,12 @@
-const CORE_CACHE_NAME = 'may-learning-core-v11-grade11-assessment-rollout';
+const CORE_CACHE_NAME = 'may-learning-core-v14-certificate-preview';
 const RUNTIME_CACHE_NAME = 'may-learning-runtime-pages';
 const CERTIFICATE_DOWNLOAD_CACHE = 'may-learning-certificate-downloads';
 const CERTIFICATE_DOWNLOAD_PATH = '/certificate-download/';
-const SERVICE_WORKER_VERSION = '11-grade11-assessment-rollout';
+const SERVICE_WORKER_VERSION = '14-certificate-preview';
 
 const CORE_ASSETS = [
   '/may-certificate-actions.js',
+  '/certificate-preview.js',
   '/may-certificate-renderer.js',
   '/assessment-certificate.js',
   '/game-audio.js',
@@ -35,6 +36,7 @@ const CORE_NETWORK_FIRST_PATHS = new Set([
   '/activity-auth-guard.js',
   '/mayhub-auth-state.js',
   '/may-certificate-actions.js',
+  '/certificate-preview.js',
   '/may-certificate-renderer.js',
   '/assessment-certificate.js',
   '/game-audio.js',

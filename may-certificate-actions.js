@@ -3,15 +3,80 @@
 
     if (window.MayCertificateActions && window.MayCertificateActions.version) return;
 
-    const VERSION = '1.0.0';
+    const VERSION = '1.1.0';
     const PROTOCOL_VERSION = 1;
     const PNG_MIME_TYPE = 'image/png';
     const MAX_CERTIFICATE_BYTES = 12 * 1024 * 1024;
     const MODERN_REPLY_TIMEOUT_MS = 10000;
     const CERTIFICATE_DOWNLOAD_CACHE = 'may-learning-certificate-downloads';
-    const SERVICE_WORKER_VERSION = '11-grade11-assessment-rollout';
+    const SERVICE_WORKER_VERSION = '14-certificate-preview';
     const pendingRequests = new Map();
+    const actionsScriptSource = document.currentScript && document.currentScript.src ? document.currentScript.src : '';
+    const actionsSiteRoot = actionsScriptSource ? new URL('.', actionsScriptSource) : null;
     let installedModernBridge = null;
+    let previewLoaderPromise = null;
+
+    function isLocalPreviewEnvironment() {
+        const host = String(window.location.hostname || '').toLowerCase();
+        return window.location.protocol === 'file:' || host === 'localhost' || host === '127.0.0.1' || host === '[::1]';
+    }
+
+    function activateLoadedPreview(action) {
+        if (!window.MayCertificatePreview) return;
+        if (action === 'toggle') window.MayCertificatePreview.toggle();
+        else window.MayCertificatePreview.open();
+    }
+
+    function loadCertificatePreview(action) {
+        if (!isLocalPreviewEnvironment()) return Promise.resolve(false);
+        if (window.MayCertificatePreview) {
+            activateLoadedPreview(action);
+            return Promise.resolve(true);
+        }
+        if (!actionsSiteRoot || !document.head || typeof document.createElement !== 'function') return Promise.resolve(false);
+        if (!previewLoaderPromise) {
+            previewLoaderPromise = new Promise((resolve, reject) => {
+                const existing = document.getElementById?.('mayhubCertificatePreviewScript');
+                if (existing) {
+                    existing.addEventListener('load', () => resolve(Boolean(window.MayCertificatePreview)), { once: true });
+                    existing.addEventListener('error', () => reject(new Error('Certificate preview could not be loaded.')), { once: true });
+                    return;
+                }
+                const script = document.createElement('script');
+                script.id = 'mayhubCertificatePreviewScript';
+                script.src = new URL('certificate-preview.js', actionsSiteRoot).href;
+                script.onload = () => resolve(Boolean(window.MayCertificatePreview));
+                script.onerror = () => reject(new Error('Certificate preview could not be loaded.'));
+                document.head.appendChild(script);
+            }).catch(error => {
+                previewLoaderPromise = null;
+                throw error;
+            });
+        }
+        return previewLoaderPromise.then(loaded => {
+            if (loaded) activateLoadedPreview(action);
+            return loaded;
+        });
+    }
+
+    function installCertificatePreviewShortcut() {
+        if (!isLocalPreviewEnvironment() || typeof document.addEventListener !== 'function') return;
+        document.addEventListener('keydown', event => {
+            if (event.repeat || !event.ctrlKey || !event.altKey || String(event.key).toLowerCase() !== 'c') return;
+            event.preventDefault();
+            loadCertificatePreview('toggle').catch(error => console.error('Certificate preview shortcut failed:', error));
+        });
+        const query = new URLSearchParams(String(window.location.search || ''));
+        const requested = /^(?:1|true)$/i.test(query.get('certificatePreview') || '');
+        if (!requested) return;
+        const openRequestedPreview = () => loadCertificatePreview('open')
+            .catch(error => console.error('Certificate preview could not start:', error));
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', openRequestedPreview, { once: true });
+        } else {
+            window.setTimeout(openRequestedPreview, 0);
+        }
+    }
 
     function createActionError(message, code) {
         const error = new Error(message);
@@ -409,7 +474,10 @@
         version: VERSION,
         save(options) { return perform('saveCertificate', options); },
         share(options) { return perform('shareCertificate', options); },
+        openPreview() { return loadCertificatePreview('open'); },
+        isPreviewAvailable() { return isLocalPreviewEnvironment(); },
         isModernNativeAvailable() { return Boolean(getModernBridge()); },
         pendingCount() { return pendingRequests.size; }
     });
+    installCertificatePreviewShortcut();
 })();

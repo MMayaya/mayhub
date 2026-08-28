@@ -285,6 +285,7 @@ function validateSharedFiles() {
     const sharedFiles = [
         'may-certificate-renderer.js',
         'may-certificate-actions.js',
+        'certificate-preview.js',
         'assessment-certificate.js',
         'sw.js'
     ].map(name => path.join(siteRoot, name));
@@ -317,6 +318,16 @@ function validateSharedFiles() {
     }
     if (!serviceWorker.includes('/may-certificate-renderer.js')) {
         fail(path.join(siteRoot, 'sw.js'), 'shared renderer is not in the core offline assets');
+    }
+    if (!serviceWorker.includes('/certificate-preview.js')) {
+        fail(path.join(siteRoot, 'sw.js'), 'certificate preview is not in the core offline assets');
+    }
+    const preview = fs.readFileSync(path.join(siteRoot, 'certificate-preview.js'), 'utf8');
+    if (!/window\.location\.protocol === 'file:'/.test(preview) || !/localhost/.test(preview)) {
+        fail(path.join(siteRoot, 'certificate-preview.js'), 'preview tool is missing its local-environment restriction');
+    }
+    if (!/certificatePreview/.test(helper) || !/event\.ctrlKey/.test(helper) || !/event\.altKey/.test(helper)) {
+        fail(path.join(siteRoot, 'may-certificate-actions.js'), 'preview query parameter or keyboard shortcut loader is missing');
     }
     const coreAssetsBlock = serviceWorker.match(/const CORE_ASSETS\s*=\s*\[([\s\S]*?)\];/);
     if (!coreAssetsBlock) {

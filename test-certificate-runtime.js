@@ -115,6 +115,27 @@ async function testRenderer() {
     assert.strictEqual(participation.blob.type, 'image/png');
     assert(/-20260828-100001-Certificate\.png$/.test(participation.fileName));
 
+    const memoryMastery = await window.MayCertificateRenderer.create({
+        learnerName: 'Memory Learner',
+        grade: 'Grade 11',
+        subject: 'Geography',
+        term: 'Term 3',
+        topic: 'Trade Patterns',
+        gameTitle: 'Trade Patterns Memory Match Challenge',
+        category: '10-Pair Memory Match',
+        layout: 'compact-subject',
+        mode: 'participation',
+        title: 'Certificate of Memory Mastery',
+        award: 'Gold Excellent Recall Award',
+        tierClass: 'tier-gold',
+        metricLabel: 'Completed in',
+        metricValue: '01:42',
+        issuedAt: '2026-08-28T10:00:02.000Z'
+    });
+    assert.strictEqual(memoryMastery.blob.type, 'image/png');
+    assert(canvases[3].context.drawnText.includes('COMPLETED IN'));
+    assert(canvases[3].context.drawnText.includes('01:42'));
+
     await assert.rejects(
         () => window.MayCertificateRenderer.create({ mode: 'scored', correct: 0, total: 0 }),
         error => error && error.code === 'invalid_certificate_total'
@@ -147,18 +168,36 @@ function createActionsEnvironment(options = {}) {
     let id = 0;
     let browserClicks = 0;
     const appended = [];
+    const documentListeners = new Map();
     const body = {
+        appendChild(element) { appended.push(element); return element; }
+    };
+    const head = {
         appendChild(element) { appended.push(element); return element; }
     };
     const document = {
         body,
+        head,
+        currentScript: options.currentScript || null,
+        readyState: 'complete',
+        scripts: appended,
+        addEventListener(type, listener) {
+            const listeners = documentListeners.get(type) || [];
+            listeners.push(listener);
+            documentListeners.set(type, listeners);
+        },
+        getElementById(id) { return appended.find(element => element.id === id) || null; },
         createElement(tagName) {
-            assert.strictEqual(tagName, 'a');
-            return {
-                style: {},
-                click() { browserClicks += 1; },
-                remove() {}
-            };
+            if (tagName === 'a') {
+                return {
+                    tagName: 'A',
+                    style: {},
+                    click() { browserClicks += 1; },
+                    remove() {}
+                };
+            }
+            if (tagName === 'script') return { tagName: 'SCRIPT', id: '', src: '', onload: null, onerror: null };
+            throw new Error('Unexpected test element: ' + tagName);
         }
     };
     const navigator = {
@@ -168,7 +207,8 @@ function createActionsEnvironment(options = {}) {
     const location = {
         protocol: options.protocol || 'https:',
         hostname: options.hostname || 'www.maylearninghub.co.za',
-        origin: options.origin || 'https://www.maylearninghub.co.za'
+        origin: options.origin || 'https://www.maylearninghub.co.za',
+        search: options.search || ''
     };
     const runtimeSetTimeout = (callback, delay, ...args) => {
         const timer = setTimeout(callback, delay, ...args);
@@ -200,6 +240,7 @@ function createActionsEnvironment(options = {}) {
         File: globalThis.File,
         FileReader: MockFileReader,
         URL: urlApi,
+        URLSearchParams,
         Response,
         Uint8Array,
         Buffer,
@@ -209,7 +250,69 @@ function createActionsEnvironment(options = {}) {
         clearTimeout
     });
     vm.runInContext(actionsSource, context, { filename: 'may-certificate-actions.js' });
-    return { window, navigator, getBrowserClicks: () => browserClicks, appended };
+    return {
+        window,
+        navigator,
+        getBrowserClicks: () => browserClicks,
+        appended,
+        dispatchDocumentEvent(type, event) {
+            (documentListeners.get(type) || []).forEach(listener => listener(event));
+        }
+    };
+}
+
+async function testCertificatePreviewLoader() {
+    const environment = createActionsEnvironment({
+        protocol: 'file:',
+        hostname: '',
+        origin: 'null',
+        currentScript: { src: 'file:///D:/MayHub/may-certificate-actions.js' }
+    });
+    assert.strictEqual(environment.window.MayCertificateActions.isPreviewAvailable(), true);
+    const previewPromise = environment.window.MayCertificateActions.openPreview();
+    const previewScript = environment.appended.find(element => element.tagName === 'SCRIPT');
+    assert(previewScript, 'local preview must load one shared script');
+    assert(previewScript.src.endsWith('/certificate-preview.js'));
+    let opened = 0;
+    environment.window.MayCertificatePreview = { open() { opened += 1; } };
+    previewScript.onload();
+    assert.strictEqual(await previewPromise, true);
+    assert.strictEqual(opened, 1);
+
+    const keyboard = createActionsEnvironment({
+        protocol: 'file:', hostname: '', origin: 'null',
+        currentScript: { src: 'file:///D:/MayHub/may-certificate-actions.js' }
+    });
+    let prevented = false;
+    keyboard.dispatchDocumentEvent('keydown', {
+        repeat: false, ctrlKey: true, altKey: true, key: 'c',
+        preventDefault() { prevented = true; }
+    });
+    const keyboardScript = keyboard.appended.find(element => element.tagName === 'SCRIPT');
+    assert(keyboardScript, 'Ctrl + Alt + C must request the shared preview script');
+    let toggled = 0;
+    keyboard.window.MayCertificatePreview = { open() {}, toggle() { toggled += 1; } };
+    keyboardScript.onload();
+    await new Promise(resolve => setTimeout(resolve, 0));
+    assert.strictEqual(prevented, true);
+    assert.strictEqual(toggled, 1);
+
+    const query = createActionsEnvironment({
+        protocol: 'file:', hostname: '', origin: 'null', search: '?certificatePreview=1',
+        currentScript: { src: 'file:///D:/MayHub/may-certificate-actions.js' }
+    });
+    await new Promise(resolve => setTimeout(resolve, 0));
+    const queryScript = query.appended.find(element => element.tagName === 'SCRIPT');
+    assert(queryScript, 'certificatePreview=1 must request the shared preview script');
+    let queryOpened = 0;
+    query.window.MayCertificatePreview = { open() { queryOpened += 1; }, toggle() {} };
+    queryScript.onload();
+    await new Promise(resolve => setTimeout(resolve, 0));
+    assert.strictEqual(queryOpened, 1);
+
+    const production = createActionsEnvironment();
+    assert.strictEqual(production.window.MayCertificateActions.isPreviewAvailable(), false);
+    assert.strictEqual(await production.window.MayCertificateActions.openPreview(), false);
 }
 
 function certificateAsset(overrides = {}) {
@@ -290,7 +393,8 @@ async function testBrowserFallback() {
     await testModernBridge();
     await testLegacyBridge();
     await testBrowserFallback();
-    console.log('Certificate runtime tests passed: renderer, modern bridge, legacy bridge, and browser fallback.');
+    await testCertificatePreviewLoader();
+    console.log('Certificate runtime tests passed: renderer, modern bridge, legacy bridge, browser fallback, and local-only preview loader.');
 })().catch(error => {
     console.error(error && error.stack ? error.stack : error);
     process.exit(1);

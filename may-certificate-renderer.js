@@ -3,7 +3,7 @@
 
     if (window.MayCertificateRenderer && window.MayCertificateRenderer.version) return;
 
-    const VERSION = '1.0.0';
+    const VERSION = '1.1.0';
     const scriptUrl = new URL(document.currentScript.src);
     const siteRoot = new URL('.', scriptUrl);
     const defaultLogoUrl = new URL('May Learning Hub Logo.png', siteRoot).href;
@@ -61,6 +61,8 @@
             award: cleanText(options.award, mode === 'participation' ? 'May Learning Hub Participation Award' : 'May Learning Hub Achievement Award'),
             message: cleanText(options.message, mode === 'participation' ? 'Awarded in recognition of active participation.' : 'Awarded in recognition of successful completion.'),
             tierClass: palettes[options.tierClass] ? options.tierClass : (mode === 'participation' ? 'tier-participation' : 'tier-bronze'),
+            metricLabel: cleanText(options.metricLabel, options.metricValue ? 'Completed in' : ''),
+            metricValue: cleanText(options.metricValue),
             date,
             issuedAt,
             logoUrl: cleanText(options.logoUrl, defaultLogoUrl),
@@ -276,6 +278,32 @@
             maxSize: 29, minSize: 21, lineHeightRatio: 1.48,
             font: size => size + 'px Georgia, serif'
         });
+
+        if (result.metricValue) {
+            nextY += 38;
+            const metricX = 330;
+            const metricY = nextY;
+            const metricWidth = 540;
+            const metricHeight = 150;
+            const metricGradient = ctx.createLinearGradient(metricX, metricY, metricX + metricWidth, metricY + metricHeight);
+            metricGradient.addColorStop(0, '#10263e');
+            metricGradient.addColorStop(1, palette.dark);
+            ctx.fillStyle = metricGradient;
+            ctx.strokeStyle = palette.main;
+            ctx.lineWidth = 6;
+            ctx.beginPath();
+            if (typeof ctx.roundRect === 'function') ctx.roundRect(metricX, metricY, metricWidth, metricHeight, 28);
+            else ctx.rect(metricX, metricY, metricWidth, metricHeight);
+            ctx.fill();
+            ctx.stroke();
+            ctx.fillStyle = '#d9efff';
+            ctx.font = 'bold 20px "Segoe UI", sans-serif';
+            ctx.fillText(result.metricLabel.toUpperCase(), 600, metricY + 40);
+            ctx.fillStyle = '#ffffff';
+            ctx.font = 'bold 68px Consolas, "Courier New", monospace';
+            ctx.fillText(result.metricValue, 600, metricY + 102);
+            nextY = metricY + metricHeight;
+        }
 
         if (!participation) {
             const sealY = Math.max(nextY + 115, 900);

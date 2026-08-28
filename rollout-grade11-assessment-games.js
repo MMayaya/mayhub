@@ -44,7 +44,8 @@ const topics = [
         subtitle: 'Revise exports, imports, trade balances, export-led development, and trade barriers.',
         conceptIndexes: [0, 1, 2, 3, 4, 5, 8, 9, 10, 19],
         applicationIndexes: [60, 61, 62, 63, 64, 65, 66, 68, 70, 71],
-        millionaireApplicationIndexes: [63, 64, 68, 70, 71]
+        millionaireApplicationIndexes: [63, 64, 68, 70, 71],
+        memoryMasteryPilot: true
     },
     {
         name: 'Fair and Free Trade',
@@ -469,7 +470,9 @@ for (const config of topics) {
     for (const [fileName, variables] of Object.entries(gameVariables)) {
         let output = fileName === 'spin1.html'
             ? prepareSpinTemplate(spinReference, config)
-            : prepareSharedTemplate(fs.readFileSync(path.join(referenceRoot, fileName), 'utf8'), config);
+            : config.memoryMasteryPilot && fileName === 'match1.html'
+                ? sourceFiles[fileName]
+                : prepareSharedTemplate(fs.readFileSync(path.join(referenceRoot, fileName), 'utf8'), config);
         for (const variableName of variables) {
             const value = transformedData(fileName, variableName, sourceFiles[fileName], sourceFiles, spinData, config);
             output = replaceDeclaration(output, variableName, value);
