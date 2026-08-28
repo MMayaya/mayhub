@@ -311,6 +311,7 @@
     </footer>
 
         <script src="../../../../../../game-audio.js"></script>
+        <script src="../../../../../../may-certificate-actions.js"></script>
 <script>
         const gameData = {
     "definitions": [
@@ -1235,15 +1236,6 @@
             button.innerText = busy ? busyLabel : button.dataset.defaultLabel;
         }
 
-        function supportsCertificateFileShare(file) {
-            if (!navigator.share || !navigator.canShare) return false;
-            try {
-                return navigator.canShare({ files: [file] });
-            } catch {
-                return false;
-            }
-        }
-
         async function shareWhatsApp() {
             if (!lastCompletedScore) return;
             const result = lastCompletedScore;
@@ -1252,51 +1244,33 @@
             const message = buildCertificateShareMessage(result, shareName);
             setCertificateActionBusy('shareCertificateBtn', true, 'Preparing Certificate...');
             try {
+                if (!window.MayCertificateActions) {
+                    throw new Error('The certificate helper is unavailable.');
+                }
                 const certificate = await createCertificateImage(shareName);
-                if (await tryNativeCertificateShare(certificate.blob, certificate.fileName, message)) {
+                const outcome = await window.MayCertificateActions.share({
+                    blob: certificate.blob,
+                    fileName: certificate.fileName,
+                    mimeType: 'image/png',
+                    shareText: message,
+                    fallbackUrl: 'https://wa.me/?text=' + encodeURIComponent(message),
+                    fallbackMessage: 'Your certificate image has been downloaded. WhatsApp will now open; attach it and choose My status or a contact.'
+                });
+                if (outcome.mode === 'modern-native' || outcome.mode === 'legacy-native') {
                     announce('Choose WhatsApp, then select My status or a contact.');
-                    return;
-                }
-                const file = typeof File === 'function'
-                    ? new File([certificate.blob], certificate.fileName, {
-                        type: 'image/png',
-                        lastModified: Date.now()
-                    })
-                    : null;
-
-                if (file && supportsCertificateFileShare(file)) {
-                    try {
-                        await navigator.share({
-                            title: 'May Learning Hub Certificate',
-                            text: message,
-                            files: [file]
-                        });
-                        announce('Certificate image shared successfully.');
-                        return;
-                    } catch (error) {
-                        if (error && error.name === 'AbortError') return;
-                    }
-                }
-
-                const whatsappUrl = 'https://wa.me/?text=' + encodeURIComponent(message);
-                if (isLikelyWebView()) {
-                    const sameSiteDownloadStarted = await triggerServiceWorkerCertificateDownload(certificate.blob, certificate.fileName);
-                    if (sameSiteDownloadStarted) {
-                        window.alert('Your certificate download has started. WhatsApp will now open; attach the downloaded certificate and choose My status or a contact.');
-                        window.location.href = whatsappUrl;
-                        announce('Certificate download started for WhatsApp sharing.');
-                    } else {
-                        await showCertificateSaveFallback(certificate.blob, certificate.fileName, whatsappUrl);
-                    }
+                } else if (outcome.mode === 'browser-file-share') {
+                    announce('Certificate image shared successfully.');
+                } else if (outcome.mode === 'cancelled') {
+                    announce('Certificate sharing cancelled.');
                 } else {
-                    triggerCertificateDownload(certificate.blob, certificate.fileName);
-                    window.alert('Your certificate image has been downloaded. WhatsApp will now open; attach the downloaded certificate and choose My status or a contact.');
-                    window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
-                    announce('Certificate downloaded for WhatsApp sharing.');
+                    announce('Certificate prepared for WhatsApp sharing.');
                 }
             } catch (error) {
                 console.error('Certificate sharing failed:', error);
-                window.alert('The certificate image could not be prepared. Please try again.');
+                const message = error && error.code === 'native_timeout'
+                    ? 'The Android app did not confirm the sharing request. Please try once more.'
+                    : 'The certificate image could not be prepared. Please try again.';
+                window.alert(message);
             } finally {
                 setCertificateActionBusy('shareCertificateBtn', false, '');
             }
@@ -1579,243 +1553,6 @@
             }
         }
 
-        function triggerCertificateDownload(blob, fileName) {
-            const link = document.createElement('a');
-            const objectUrl = URL.createObjectURL(blob);
-            link.href = objectUrl;
-            link.download = fileName;
-            link.style.display = 'none';
-            document.body.appendChild(link);
-            link.click();
-            link.remove();
-            setTimeout(() => URL.revokeObjectURL(objectUrl), 30000);
-        }
-
-        function getCertificateServiceWorkerVersion(controller) {
-            if (!controller || typeof MessageChannel !== 'function') return Promise.resolve('');
-            return new Promise(resolve => {
-                const channel = new MessageChannel();
-                const timeoutId = setTimeout(() => resolve(''), 1500);
-                channel.port1.onmessage = event => {
-                    clearTimeout(timeoutId);
-                    resolve(event.data?.version || '');
-                };
-                try {
-                    controller.postMessage({ type: 'MAYHUB_GET_SW_VERSION' }, [channel.port2]);
-                } catch {
-                    clearTimeout(timeoutId);
-                    resolve('');
-                }
-            });
-        }
-
-        async function ensureCertificateServiceWorker() {
-            if (!('serviceWorker' in navigator) || !('caches' in window)) return false;
-            if (!/^https?:$/.test(window.location.protocol)) return false;
-            try {
-                const registration = await navigator.serviceWorker.register('/sw.js', { updateViaCache: 'none' });
-                try { await registration.update(); } catch {}
-                await navigator.serviceWorker.ready;
-                let activeVersion = await getCertificateServiceWorkerVersion(navigator.serviceWorker.controller);
-                if (activeVersion !== '5-certificate-downloads') {
-                    if (registration.waiting) registration.waiting.postMessage({ type: 'MAYHUB_SKIP_WAITING' });
-                    await new Promise(resolve => {
-                        const timeoutId = setTimeout(resolve, 6000);
-                        navigator.serviceWorker.addEventListener('controllerchange', () => {
-                            clearTimeout(timeoutId);
-                            resolve();
-                        }, { once: true });
-                    });
-                    activeVersion = await getCertificateServiceWorkerVersion(navigator.serviceWorker.controller);
-                }
-                return activeVersion === '5-certificate-downloads';
-            } catch (error) {
-                console.warn('Certificate service worker unavailable:', error);
-                return false;
-            }
-        }
-
-        async function triggerServiceWorkerCertificateDownload(blob, fileName) {
-            if (!await ensureCertificateServiceWorker()) return false;
-            try {
-                const safeFileName = fileName.replace(/[^a-z0-9._-]+/gi, '-');
-                const downloadId = (window.crypto && typeof window.crypto.randomUUID === 'function')
-                    ? window.crypto.randomUUID()
-                    : Date.now().toString(36) + Math.random().toString(36).slice(2);
-                const downloadUrl = new URL('/certificate-download/' + downloadId + '/' + encodeURIComponent(safeFileName), window.location.origin);
-                const downloadCache = await caches.open('may-learning-certificate-downloads');
-                const response = new Response(blob, {
-                    status: 200,
-                    headers: {
-                        'Content-Type': 'image/png',
-                        'Content-Length': String(blob.size),
-                        'Content-Disposition': 'attachment; filename="' + safeFileName + '"',
-                        'Cache-Control': 'no-store, max-age=0'
-                    }
-                });
-                await downloadCache.put(downloadUrl.href, response);
-
-                const link = document.createElement('a');
-                link.href = downloadUrl.href;
-                link.download = safeFileName;
-                link.style.display = 'none';
-                document.body.appendChild(link);
-                link.click();
-                link.remove();
-                setTimeout(() => downloadCache.delete(downloadUrl.href), 300000);
-                return true;
-            } catch (error) {
-                console.warn('Same-site certificate download failed:', error);
-                return false;
-            }
-        }
-
-        function isLikelyWebView() {
-            const userAgent = navigator.userAgent || '';
-            const androidWebView = /\bwv\b|;\s*wv\)|Android.*Version\/[\d.]+.*Chrome\/[\d.]+.*Mobile Safari/i.test(userAgent);
-            const iosWebView = /(iPhone|iPad|iPod)/i.test(userAgent) && !/Safari/i.test(userAgent);
-            return androidWebView
-                || iosWebView
-                || /WebView|MayLearningHub/i.test(userAgent)
-                || Boolean(window.ReactNativeWebView)
-                || Boolean(window.chrome && window.chrome.webview);
-        }
-
-        function blobToDataUrl(blob) {
-            return new Promise((resolve, reject) => {
-                const reader = new FileReader();
-                reader.onload = () => resolve(reader.result);
-                reader.onerror = () => reject(reader.error || new Error('The certificate image could not be read.'));
-                reader.readAsDataURL(blob);
-            });
-        }
-
-        function findNativeCertificateBridge(methodName) {
-            return [window.MayLearningHub, window.CertificateBridge, window.Android]
-                .find(bridge => bridge && typeof bridge[methodName] === 'function') || null;
-        }
-
-        function hasMayLearningHubBridgeToken() {
-            return typeof window.__mayLearningHubCertificateToken === 'string'
-                && window.__mayLearningHubCertificateToken.length >= 64;
-        }
-
-        function buildNativeCertificatePayload(dataUrl, fileName, extra = {}) {
-            return {
-                type: 'mayhub-save-certificate',
-                fileName,
-                mimeType: 'image/png',
-                dataUrl,
-                base64: String(dataUrl).split(',')[1] || '',
-                bridgeToken: typeof window.__mayLearningHubCertificateToken === 'string'
-                    ? window.__mayLearningHubCertificateToken
-                    : '',
-                ...extra
-            };
-        }
-
-        async function tryNativeCertificateSave(blob, fileName) {
-            const directBridge = findNativeCertificateBridge('saveCertificate');
-            if (directBridge === window.MayLearningHub && !hasMayLearningHubBridgeToken()) return false;
-            const handlers = window.webkit && window.webkit.messageHandlers;
-            const iosHandler = handlers && (handlers.saveCertificate || handlers.downloadCertificate);
-            const hasReactNativeBridge = window.ReactNativeWebView
-                && typeof window.ReactNativeWebView.postMessage === 'function';
-            const hasWindowsBridge = window.chrome
-                && window.chrome.webview
-                && typeof window.chrome.webview.postMessage === 'function';
-            if (!directBridge && !iosHandler && !hasReactNativeBridge && !hasWindowsBridge) return false;
-
-            const dataUrl = await blobToDataUrl(blob);
-            const payload = buildNativeCertificatePayload(dataUrl, fileName);
-            const serializedPayload = JSON.stringify(payload);
-
-            if (directBridge) {
-                try {
-                    const accepted = directBridge.saveCertificate(serializedPayload);
-                    if (accepted !== false) return true;
-                } catch {}
-            }
-
-            if (iosHandler && typeof iosHandler.postMessage === 'function') {
-                try {
-                    iosHandler.postMessage(payload);
-                    return true;
-                } catch {}
-            }
-
-            try {
-                if (window.ReactNativeWebView && typeof window.ReactNativeWebView.postMessage === 'function') {
-                    window.ReactNativeWebView.postMessage(serializedPayload);
-                }
-                if (window.chrome && window.chrome.webview && typeof window.chrome.webview.postMessage === 'function') {
-                    window.chrome.webview.postMessage(payload);
-                }
-            } catch {}
-            return false;
-        }
-
-        async function tryNativeCertificateShare(blob, fileName, shareText) {
-            const bridge = findNativeCertificateBridge('shareCertificate');
-            if (!bridge) return false;
-            if (bridge === window.MayLearningHub && !hasMayLearningHubBridgeToken()) return false;
-            try {
-                const dataUrl = await blobToDataUrl(blob);
-                const payload = buildNativeCertificatePayload(dataUrl, fileName, {
-                    type: 'mayhub-share-certificate',
-                    shareText
-                });
-                return bridge.shareCertificate(JSON.stringify(payload)) !== false;
-            } catch (error) {
-                console.warn('Native certificate sharing unavailable:', error);
-                return false;
-            }
-        }
-
-        async function showCertificateSaveFallback(blob, fileName, whatsappUrl = '') {
-            const dataUrl = await blobToDataUrl(blob);
-            const attachmentUrl = String(dataUrl).replace(/^data:image\/png/i, 'data:application/octet-stream');
-            const link = document.createElement('a');
-            link.href = attachmentUrl;
-            link.download = fileName;
-            link.style.display = 'none';
-            document.body.appendChild(link);
-            link.click();
-            link.remove();
-            if (whatsappUrl) {
-                window.alert('The certificate file has been prepared. WhatsApp will now open; attach the certificate and choose My status or a contact.');
-                window.location.href = whatsappUrl;
-            }
-            return 'data-download';
-        }
-
-        async function saveCertificateForDevice(blob, fileName) {
-            if (await tryNativeCertificateSave(blob, fileName)) return 'native';
-
-            if (!isLikelyWebView()) {
-                triggerCertificateDownload(blob, fileName);
-                return 'downloaded';
-            }
-
-            if (typeof File === 'function') {
-                const file = new File([blob], fileName, { type: 'image/png', lastModified: Date.now() });
-                if (supportsCertificateFileShare(file)) {
-                    try {
-                        await navigator.share({
-                            title: 'Save May Learning Hub Certificate',
-                            text: 'Save this May Learning Hub certificate to your device.',
-                            files: [file]
-                        });
-                        return 'shared';
-                    } catch (error) {
-                        if (error && error.name === 'AbortError') return 'cancelled';
-                    }
-                }
-            }
-
-            if (await triggerServiceWorkerCertificateDownload(blob, fileName)) return 'web-download';
-            return showCertificateSaveFallback(blob, fileName);
-        }
 
         async function downloadCertificate() {
             if (!lastCompletedScore) return;
@@ -1823,16 +1560,25 @@
             if (!learnerName) return;
             setCertificateActionBusy('downloadCertificateBtn', true, 'Preparing Download...');
             try {
+                if (!window.MayCertificateActions) {
+                    throw new Error('The certificate helper is unavailable.');
+                }
                 const certificate = await createCertificateImage(learnerName);
-                const saveMode = await saveCertificateForDevice(certificate.blob, certificate.fileName);
-                if (saveMode === 'downloaded') announce('Certificate downloaded as a PNG image.');
-                else if (saveMode === 'web-download') announce('Certificate download started in the app.');
-                else if (saveMode === 'native') announce('Certificate sent to the app for saving.');
-                else if (saveMode === 'shared') announce('Choose where to save the certificate on your device.');
-                else if (saveMode === 'data-download') announce('Certificate file download requested from the app.');
+                const outcome = await window.MayCertificateActions.save({
+                    blob: certificate.blob,
+                    fileName: certificate.fileName,
+                    mimeType: 'image/png'
+                });
+                if (outcome.mode === 'modern-native') announce('Certificate sent to the Android app for saving.');
+                else if (outcome.mode === 'legacy-native') announce('Certificate sent to the app for saving.');
+                else if (outcome.mode === 'same-site-download') announce('Certificate download started in the app.');
+                else announce('Certificate downloaded as a PNG image.');
             } catch (error) {
                 console.error('Certificate download failed:', error);
-                window.alert('The certificate could not be downloaded on this browser. Please try again.');
+                const message = error && error.code === 'native_timeout'
+                    ? 'The Android app did not confirm the save request. Please try once more.'
+                    : 'The certificate could not be downloaded on this browser. Please try again.';
+                window.alert(message);
             } finally {
                 setCertificateActionBusy('downloadCertificateBtn', false, '');
             }
