@@ -35,15 +35,21 @@
         .cat-btn { background-color: #f0f4f8; border: 2px solid #004080; color: #004080; padding: 0.8rem 1.5rem; font-size: 1rem; font-weight: bold; border-radius: 8px; cursor: pointer; transition: all 0.3s ease; }
         .cat-btn:hover, .cat-btn.active { background-color: #004080; color: #fff; transform: translateY(-3px); box-shadow: 0 4px 10px rgba(0,64,128,0.2); }
 
-        .controls { display: none; justify-content: center; align-items: center; gap: 2rem; margin-bottom: 2rem; }
-        .move-counter { font-size: 1.2rem; font-weight: bold; color: #004080; background: #fff; padding: 0.6rem 1.8rem; border-radius: 50px; border: 2px solid #3385ff; }
+        .controls { display: none; flex-wrap: wrap; justify-content: center; align-items: center; gap: 0.75rem; margin-bottom: 1rem; }
+        .stat-pill { min-width: 126px; font-size: 1rem; font-weight: bold; color: #004080; background: #fff; padding: 0.55rem 1rem; border-radius: 50px; border: 2px solid #3385ff; }
         .restart-btn { background-color: #3385ff; color: #fff; border: none; padding: 0.7rem 1.8rem; font-size: 1rem; font-weight: bold; border-radius: 50px; cursor: pointer; border-bottom: 3px solid #004080; }
+        .mastery-status { display: none; max-width: 760px; margin: 0 auto 1.4rem; padding: 0.75rem 1rem; border-radius: 12px; background: #fff; border: 1px solid #b8d4f2; color: #173b63; font-weight: 650; }
 
         /* Memory Grid */
         .memory-game { display: none; width: 100%; max-width: 1200px; margin: 0 auto 4rem; grid-template-columns: repeat(5, 1fr); gap: 15px; padding: 0 20px; perspective: 1000px; }
         
         @media (max-width: 950px) { .memory-game { grid-template-columns: repeat(4, 1fr); } }
-        @media (max-width: 650px) { .memory-game { grid-template-columns: repeat(2, 1fr); } }
+        @media (max-width: 650px) {
+            .memory-game { grid-template-columns: repeat(2, 1fr); }
+            .controls { gap: 0.5rem; }
+            .stat-pill { min-width: 102px; padding: 0.45rem 0.7rem; font-size: 0.9rem; }
+            .restart-btn { padding: 0.58rem 1rem; font-size: 0.9rem; }
+        }
 
         .memory-card { position: relative; width: 100%; aspect-ratio: 1 / 1.2; transform-style: preserve-3d; transition: transform 0.5s; cursor: pointer; }
         .memory-card.flip { transform: rotateY(180deg); }
@@ -71,7 +77,7 @@
         footer { text-align: center; padding: 1.5rem; background-color: #002b5e; color: #fff; margin-top: auto; }
     </style>
 </head>
-<body data-certificate-grade="Grade 11" data-certificate-subject="Geography" data-certificate-term="Term 3" data-certificate-topic="Fair and Free Trade" data-certificate-game="Fair and Free Trade Memory Game" data-certificate-layout="compact-subject">
+<body data-certificate-grade="Grade 11" data-certificate-subject="Geography" data-certificate-term="Term 3" data-certificate-topic="Fair and Free Trade" data-certificate-game="Fair and Free Trade Memory Game" data-certificate-layout="compact-subject" data-certificate-preview-preset="memory-mastery" data-certificate-metric-style="split-duration">
 
     <nav>
         <a href="../../../../../../index.html" class="logo">May Learning Hub</a>
@@ -93,9 +99,12 @@
         </div>
 
         <div class="controls" id="gameControls">
-            <div class="move-counter">Moves: <span id="moves">0</span></div>
+            <div class="stat-pill">Time: <span id="elapsedTime">00:00</span></div>
+            <div class="stat-pill">Moves: <span id="moves">0</span></div>
+            <div class="stat-pill">Best: <span id="bestTime">--</span></div>
             <button class="restart-btn" onclick="initGame()">Restart Level</button>
         </div>
+        <div class="mastery-status" id="masteryStatus" role="status" aria-live="polite"></div>
     </header>
 
     <main class="memory-game" id="gameBoard"></main>
@@ -196,6 +205,9 @@
 
         const gameBoard = document.getElementById('gameBoard');
         const movesDisplay = document.getElementById('moves');
+        const elapsedTimeDisplay = document.getElementById('elapsedTime');
+        const bestTimeDisplay = document.getElementById('bestTime');
+        const masteryStatus = document.getElementById('masteryStatus');
         const gameControls = document.getElementById('gameControls');
         
         let currentCategory = null;
@@ -204,6 +216,170 @@
         let firstCard, secondCard;
         let moves = 0;
         let matchedPairs = 0;
+        let timerStarted = false;
+        let gameCompleted = false;
+        let activeStartedAt = null;
+        let accumulatedTime = 0;
+        let timerInterval = null;
+
+        const masteryAwards = [
+            {
+                maxTime: 90000,
+                maxMoves: 18,
+                className: 'tier-platinum',
+                label: 'Platinum Rapid Recall Award',
+                shortLabel: 'Platinum – Rapid Recall',
+                message: 'RAPID RECALL — Exceptional focus, memory and matching efficiency.'
+            },
+            {
+                maxTime: 150000,
+                maxMoves: 24,
+                className: 'tier-gold',
+                label: 'Gold Excellent Recall Award',
+                shortLabel: 'Gold – Excellent Recall',
+                message: 'EXCELLENT RECALL — Impressive concentration and memory performance.'
+            },
+            {
+                maxTime: 240000,
+                maxMoves: 34,
+                className: 'tier-silver',
+                label: 'Silver Strong Recall Award',
+                shortLabel: 'Silver – Strong Recall',
+                message: 'STRONG RECALL — A focused and thoughtful memory performance.'
+            },
+            {
+                maxTime: Infinity,
+                maxMoves: Infinity,
+                className: 'tier-bronze',
+                label: 'Bronze Determined Recall Award',
+                shortLabel: 'Bronze – Determined Recall',
+                message: 'DETERMINED RECALL — Persistence and concentration completed the challenge.'
+            }
+        ];
+
+        function getLearnerId() {
+            for (const storage of [window.localStorage, window.sessionStorage]) {
+                try {
+                    const saved = JSON.parse(storage.getItem('mayhubActivityAccess') || 'null');
+                    const identity = saved?.uid || saved?.email;
+                    if (identity) return String(identity);
+                } catch {}
+            }
+            return 'guest';
+        }
+
+        function storageKeyPart(value) {
+            return encodeURIComponent(String(value || 'unknown').trim().toLowerCase().replace(/\s+/g, '-'));
+        }
+
+        function bestTimeStorageKey() {
+            const metadata = document.body.dataset;
+            const gameKey = [
+                metadata.certificateGrade,
+                metadata.certificateSubject,
+                metadata.certificateTerm,
+                metadata.certificateTopic,
+                metadata.certificateGame
+            ].map(storageKeyPart).join(':');
+            return 'mayhubMemoryMasteryBest:v1:' + gameKey + ':' + encodeURIComponent(getLearnerId());
+        }
+
+        function memoryChallengeTitle() {
+            const topic = document.body.dataset.certificateTopic || 'Assessment';
+            return topic + ' Memory Match Challenge';
+        }
+
+        function readBestTime() {
+            try {
+                const saved = JSON.parse(window.localStorage.getItem(bestTimeStorageKey()) || 'null');
+                return saved && Number.isFinite(saved.elapsedMs) ? saved : null;
+            } catch {
+                return null;
+            }
+        }
+
+        function saveBestTime(elapsedMs, completedMoves) {
+            const previous = readBestTime();
+            const isNewBest = !previous || elapsedMs < previous.elapsedMs;
+            if (isNewBest) {
+                try {
+                    window.localStorage.setItem(bestTimeStorageKey(), JSON.stringify({
+                        elapsedMs,
+                        moves: completedMoves,
+                        achievedAt: new Date().toISOString()
+                    }));
+                } catch {}
+            }
+            return isNewBest;
+        }
+
+        function formatClock(milliseconds) {
+            const totalSeconds = Math.max(0, Math.floor(milliseconds / 1000));
+            const minutes = Math.floor(totalSeconds / 60);
+            const seconds = totalSeconds % 60;
+            return String(minutes).padStart(2, '0') + ':' + String(seconds).padStart(2, '0');
+        }
+
+        function formatDuration(milliseconds) {
+            const totalSeconds = Math.max(1, Math.round(milliseconds / 1000));
+            const minutes = Math.floor(totalSeconds / 60);
+            const seconds = totalSeconds % 60;
+            const parts = [];
+            if (minutes) parts.push(minutes + ' minute' + (minutes === 1 ? '' : 's'));
+            if (seconds || !minutes) parts.push(seconds + ' second' + (seconds === 1 ? '' : 's'));
+            return parts.join(' ');
+        }
+
+        function currentElapsedTime() {
+            return accumulatedTime + (activeStartedAt === null ? 0 : performance.now() - activeStartedAt);
+        }
+
+        function updateTimerDisplay() {
+            elapsedTimeDisplay.innerText = formatClock(currentElapsedTime());
+        }
+
+        function resumeTimer() {
+            if (!timerStarted || gameCompleted || document.hidden || activeStartedAt !== null) return;
+            activeStartedAt = performance.now();
+        }
+
+        function pauseTimer() {
+            if (activeStartedAt === null) return;
+            accumulatedTime += performance.now() - activeStartedAt;
+            activeStartedAt = null;
+            updateTimerDisplay();
+        }
+
+        function startTimer() {
+            if (timerStarted) return;
+            timerStarted = true;
+            resumeTimer();
+            timerInterval = window.setInterval(updateTimerDisplay, 250);
+        }
+
+        function stopTimer() {
+            pauseTimer();
+            if (timerInterval) window.clearInterval(timerInterval);
+            timerInterval = null;
+            return accumulatedTime;
+        }
+
+        function calculateMasteryAward(elapsedMs, completedMoves) {
+            return masteryAwards.find(award => elapsedMs <= award.maxTime && completedMoves <= award.maxMoves)
+                || masteryAwards[masteryAwards.length - 1];
+        }
+
+        function nextAwardMessage(award) {
+            if (award.className === 'tier-platinum') return 'Top level achieved — replay to improve your personal best.';
+            if (award.className === 'tier-gold') return 'Next target: Platinum within 01:30 and 18 moves.';
+            if (award.className === 'tier-silver') return 'Next target: Gold within 02:30 and 24 moves.';
+            return 'Next target: Silver within 04:00 and 34 moves.';
+        }
+
+        function renderBestTime() {
+            const best = readBestTime();
+            bestTimeDisplay.innerText = best ? formatClock(best.elapsedMs) : '--';
+        }
 
         function selectCategory(categoryKey, btnElement) {
             currentCategory = categoryKey;
@@ -215,10 +391,20 @@
         }
 
         function initGame() {
+            if (timerInterval) window.clearInterval(timerInterval);
             gameBoard.innerHTML = '';
             moves = 0;
             matchedPairs = 0;
+            timerStarted = false;
+            gameCompleted = false;
+            activeStartedAt = null;
+            accumulatedTime = 0;
+            timerInterval = null;
             movesDisplay.innerText = moves;
+            elapsedTimeDisplay.innerText = '00:00';
+            masteryStatus.style.display = 'none';
+            masteryStatus.textContent = '';
+            renderBestTime();
             hasFlippedCard = false;
             lockBoard = false;
 
@@ -243,6 +429,8 @@
         function flipCard() {
             if (lockBoard) return;
             if (this === firstCard) return;
+
+            startTimer();
 
             this.classList.add('flip');
 
@@ -276,10 +464,26 @@
             secondCard.removeEventListener('click', flipCard);
             matchedPairs++;
             if (matchedPairs === (gameData[currentCategory].length / 2)) {
+                gameCompleted = true;
+                const elapsedMs = stopTimer();
+                const award = calculateMasteryAward(elapsedMs, moves);
+                const isNewBest = saveBestTime(elapsedMs, moves);
+                const duration = formatDuration(elapsedMs);
+                renderBestTime();
+                masteryStatus.style.display = 'block';
+                masteryStatus.textContent = award.shortLabel + ' • ' + duration + ' • ' + moves + ' moves. '
+                    + (isNewBest ? 'New personal best! ' : '') + nextAwardMessage(award);
                 setTimeout(() => {
                     MayHubCertificates.showParticipation({
-                        gameTitle: 'Fair and Free Trade Memory Game',
-                        category: 'Assessment Review – 10 Pairs',
+                        gameTitle: memoryChallengeTitle(),
+                        category: '10-Pair Memory Match',
+                        certificateTitle: 'Certificate of Memory Mastery',
+                        awardLabel: award.label,
+                        tierClass: award.className,
+                        metricLabel: 'Completed in',
+                        metricValue: formatClock(elapsedMs),
+                        metricStyle: document.body.dataset.certificateMetricStyle || '',
+                        message: award.message,
                         onReplay: initGame
                     });
                 }, 500);
@@ -300,6 +504,11 @@
             [hasFlippedCard, lockBoard] = [false, false];
             [firstCard, secondCard] = [null, null];
         }
+
+        document.addEventListener('visibilitychange', () => {
+            if (document.hidden) pauseTimer();
+            else resumeTimer();
+        });
     </script>
 </body>
 </html>

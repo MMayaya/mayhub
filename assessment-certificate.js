@@ -195,6 +195,37 @@
             font-variant-numeric: tabular-nums;
             text-shadow: 0 0 14px rgba(152, 225, 255, .48);
         }
+        .mayhub-cert-metric-units {
+            display: none;
+            grid-template-columns: minmax(78px, 1fr) auto minmax(78px, 1fr);
+            align-items: start;
+            gap: .55rem;
+            margin-top: .35rem;
+        }
+        .mayhub-cert-metric.is-split-duration { min-width: 330px; }
+        .mayhub-cert-metric.is-split-duration .mayhub-cert-metric-value { display: none; }
+        .mayhub-cert-metric.is-split-duration .mayhub-cert-metric-units { display: grid; }
+        .mayhub-cert-metric-unit strong,
+        .mayhub-cert-metric-separator {
+            display: block;
+            color: #fff;
+            font-family: Consolas, 'SFMono-Regular', 'Courier New', monospace;
+            font-size: 2.35rem;
+            font-weight: 800;
+            line-height: 1;
+            font-variant-numeric: tabular-nums;
+            text-shadow: 0 0 14px rgba(152, 225, 255, .48);
+        }
+        .mayhub-cert-metric-unit span {
+            display: block;
+            margin-top: .28rem;
+            color: #d9efff;
+            font-size: .62rem;
+            font-weight: 900;
+            letter-spacing: .12em;
+            text-transform: uppercase;
+        }
+        .mayhub-cert-metric-separator { padding-top: .02rem; }
         .mayhub-cert-message {
             max-width: 475px;
             margin: .35rem auto 0;
@@ -326,6 +357,10 @@
             .mayhub-cert-metric { min-width: 195px; margin: .65rem auto .35rem; padding: .55rem 1rem .65rem; border-radius: 14px; }
             .mayhub-cert-metric-label { font-size: .55rem; }
             .mayhub-cert-metric-value { font-size: 1.85rem; }
+            .mayhub-cert-metric.is-split-duration { min-width: 250px; }
+            .mayhub-cert-metric-unit strong,
+            .mayhub-cert-metric-separator { font-size: 1.75rem; }
+            .mayhub-cert-metric-unit span { font-size: .52rem; }
             .mayhub-cert-message { font-size: .76rem; }
             .mayhub-cert-footer { gap: .8rem; padding-top: .8rem; }
             .mayhub-cert-footer strong { font-size: .72rem; }
@@ -362,6 +397,11 @@
                 <div class="mayhub-cert-metric" id="mayhubCertMetric">
                     <span class="mayhub-cert-metric-label" id="mayhubCertMetricLabel">Completed in</span>
                     <strong class="mayhub-cert-metric-value" id="mayhubCertMetricValue">00:00</strong>
+                    <div class="mayhub-cert-metric-units" id="mayhubCertMetricUnits">
+                        <div class="mayhub-cert-metric-unit"><strong id="mayhubCertMetricMinutes">00</strong><span>Minutes</span></div>
+                        <span class="mayhub-cert-metric-separator" aria-hidden="true">:</span>
+                        <div class="mayhub-cert-metric-unit"><strong id="mayhubCertMetricSeconds">00</strong><span>Seconds</span></div>
+                    </div>
                 </div>
                 <p class="mayhub-cert-message" id="mayhubCertMessage"></p>
                 <div class="mayhub-cert-footer">
@@ -497,6 +537,7 @@
             tierClass: award.className,
             metricLabel: String(options.metricLabel || '').trim(),
             metricValue: String(options.metricValue || '').trim(),
+            metricStyle: options.metricStyle === 'split-duration' ? 'split-duration' : '',
             date: awardDate,
             issuedAt: issuedAt.toISOString()
         };
@@ -525,9 +566,14 @@
         document.getElementById('mayhubCertScore').textContent = correct + '/' + total;
         const metric = document.getElementById('mayhubCertMetric');
         const hasMetric = Boolean(activeResult.metricValue);
+        const durationMatch = activeResult.metricValue.match(/^(\d{1,2}):([0-5]\d)$/);
+        const useSplitDuration = activeResult.metricStyle === 'split-duration' && Boolean(durationMatch);
         metric.style.display = hasMetric ? 'flex' : 'none';
+        metric.classList.toggle('is-split-duration', useSplitDuration);
         document.getElementById('mayhubCertMetricLabel').textContent = activeResult.metricLabel || 'Completed in';
         document.getElementById('mayhubCertMetricValue').textContent = activeResult.metricValue;
+        document.getElementById('mayhubCertMetricMinutes').textContent = useSplitDuration ? durationMatch[1].padStart(2, '0') : '00';
+        document.getElementById('mayhubCertMetricSeconds').textContent = useSplitDuration ? durationMatch[2] : '00';
 
         replayButton.style.display = replayAction ? 'inline-block' : 'none';
         previousBodyOverflow = document.body.style.overflow;

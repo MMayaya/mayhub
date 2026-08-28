@@ -130,11 +130,15 @@ async function testRenderer() {
         tierClass: 'tier-gold',
         metricLabel: 'Completed in',
         metricValue: '01:42',
+        metricStyle: 'split-duration',
         issuedAt: '2026-08-28T10:00:02.000Z'
     });
     assert.strictEqual(memoryMastery.blob.type, 'image/png');
     assert(canvases[3].context.drawnText.includes('COMPLETED IN'));
-    assert(canvases[3].context.drawnText.includes('01:42'));
+    assert(canvases[3].context.drawnText.includes('01'));
+    assert(canvases[3].context.drawnText.includes('42'));
+    assert(canvases[3].context.drawnText.includes('MINUTES'));
+    assert(canvases[3].context.drawnText.includes('SECONDS'));
 
     await assert.rejects(
         () => window.MayCertificateRenderer.create({ mode: 'scored', correct: 0, total: 0 }),

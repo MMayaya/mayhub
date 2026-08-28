@@ -3,7 +3,7 @@
 
     if (window.MayCertificateRenderer && window.MayCertificateRenderer.version) return;
 
-    const VERSION = '1.1.0';
+    const VERSION = '1.2.0';
     const scriptUrl = new URL(document.currentScript.src);
     const siteRoot = new URL('.', scriptUrl);
     const defaultLogoUrl = new URL('May Learning Hub Logo.png', siteRoot).href;
@@ -63,6 +63,7 @@
             tierClass: palettes[options.tierClass] ? options.tierClass : (mode === 'participation' ? 'tier-participation' : 'tier-bronze'),
             metricLabel: cleanText(options.metricLabel, options.metricValue ? 'Completed in' : ''),
             metricValue: cleanText(options.metricValue),
+            metricStyle: options.metricStyle === 'split-duration' ? 'split-duration' : '',
             date,
             issuedAt,
             logoUrl: cleanText(options.logoUrl, defaultLogoUrl),
@@ -281,10 +282,12 @@
 
         if (result.metricValue) {
             nextY += 38;
+            const durationMatch = result.metricValue.match(/^(\d{1,2}):([0-5]\d)$/);
+            const useSplitDuration = result.metricStyle === 'split-duration' && Boolean(durationMatch);
             const metricX = 330;
             const metricY = nextY;
             const metricWidth = 540;
-            const metricHeight = 150;
+            const metricHeight = useSplitDuration ? 180 : 150;
             const metricGradient = ctx.createLinearGradient(metricX, metricY, metricX + metricWidth, metricY + metricHeight);
             metricGradient.addColorStop(0, '#10263e');
             metricGradient.addColorStop(1, palette.dark);
@@ -298,10 +301,22 @@
             ctx.stroke();
             ctx.fillStyle = '#d9efff';
             ctx.font = 'bold 20px "Segoe UI", sans-serif';
-            ctx.fillText(result.metricLabel.toUpperCase(), 600, metricY + 40);
-            ctx.fillStyle = '#ffffff';
-            ctx.font = 'bold 68px Consolas, "Courier New", monospace';
-            ctx.fillText(result.metricValue, 600, metricY + 102);
+            ctx.fillText(result.metricLabel.toUpperCase(), 600, metricY + 38);
+            if (useSplitDuration) {
+                ctx.fillStyle = '#ffffff';
+                ctx.font = 'bold 64px Consolas, "Courier New", monospace';
+                ctx.fillText(durationMatch[1].padStart(2, '0'), 485, metricY + 104);
+                ctx.fillText(':', 600, metricY + 104);
+                ctx.fillText(durationMatch[2], 715, metricY + 104);
+                ctx.fillStyle = '#d9efff';
+                ctx.font = 'bold 17px "Segoe UI", sans-serif';
+                ctx.fillText('MINUTES', 485, metricY + 141);
+                ctx.fillText('SECONDS', 715, metricY + 141);
+            } else {
+                ctx.fillStyle = '#ffffff';
+                ctx.font = 'bold 68px Consolas, "Courier New", monospace';
+                ctx.fillText(result.metricValue, 600, metricY + 102);
+            }
             nextY = metricY + metricHeight;
         }
 

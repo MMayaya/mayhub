@@ -284,6 +284,7 @@
                     tierClass: preset.tierClass,
                     metricLabel: 'Completed in',
                     metricValue: normalizeDuration(panel.querySelector('#mayhubPreviewDuration').value, preset.duration),
+                    metricStyle: document.body.dataset.certificateMetricStyle || '',
                     message: preset.message
                 });
             } else {

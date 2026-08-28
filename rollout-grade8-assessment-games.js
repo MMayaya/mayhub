@@ -227,11 +227,15 @@ function migrateTopic(topic) {
         const topicFile = path.join(topicDirectory, fileName);
         const original = fs.readFileSync(topicFile, 'utf8');
         const reference = fs.readFileSync(path.join(referenceDirectory, fileName), 'utf8');
-        let output = topic.name === referenceTopic
+        const preserveMemoryMastery = fileName === 'match1.html'
+            && original.includes('data-certificate-preview-preset="memory-mastery"');
+        let output = preserveMemoryMastery
             ? original
-            : reference
-                .replaceAll(referenceTopic, topic.name)
-                .replaceAll('BerlinConference.html', topic.landing);
+            : topic.name === referenceTopic
+                ? original
+                : reference
+                    .replaceAll(referenceTopic, topic.name)
+                    .replaceAll('BerlinConference.html', topic.landing);
         for (const variableName of variables) {
             const value = transformedData(fileName, variableName, original, topic.name);
             output = replaceDeclaration(output, variableName, formatDeclaration(variableName, value));

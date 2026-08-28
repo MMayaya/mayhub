@@ -162,7 +162,37 @@ function validateAnswerBalance(file, source) {
         }
     } else if (fileName === 'match1.html') {
         const gameData = readConstLiteral(file, source, 'gameData');
-        if (gameData) Object.entries(gameData).forEach(([key, records]) => validateRecordCount(file, records, 20, 'Memory ' + key));
+        if (gameData) Object.entries(gameData).forEach(([key, records]) => {
+            validateRecordCount(file, records, 20, 'Memory ' + key);
+            if (!Array.isArray(records)) return;
+            const pairCounts = new Map();
+            records.forEach(record => pairCounts.set(String(record?.id), (pairCounts.get(String(record?.id)) || 0) + 1));
+            if (pairCounts.size !== 10 || [...pairCounts.values()].some(value => value !== 2)) {
+                fail(file, 'Memory ' + key + ' must contain 10 identifiers appearing exactly twice');
+            }
+        });
+
+        const normalizedFile = file.replace(/\\/g, '/');
+        const isAssessmentMemory = /\/Games\/(?:History )?Assessment Games\//.test(normalizedFile);
+        if (isAssessmentMemory) {
+            const requirements = [
+                ['data-certificate-preview-preset="memory-mastery"', 'Memory Mastery certificate-preview preset'],
+                ['data-certificate-metric-style="split-duration"', 'split minutes-and-seconds certificate duration'],
+                ['Certificate of Memory Mastery', 'Memory Mastery certificate title'],
+                ['function bestTimeStorageKey()', 'topic-specific personal-best storage'],
+                ['function calculateMasteryAward(', 'time-and-move award calculation'],
+                ["metricLabel: 'Completed in'", 'digital completion-time label'],
+                ['metricValue: formatClock(elapsedMs)', 'digital completion-time value'],
+                ["metricStyle: document.body.dataset.certificateMetricStyle || ''", 'page-controlled certificate duration style'],
+                ["document.addEventListener('visibilitychange'", 'timer visibility handling']
+            ];
+            requirements.forEach(([needle, label]) => {
+                if (!source.includes(needle)) fail(file, 'missing ' + label);
+            });
+            for (const threshold of ['maxTime: 90000', 'maxTime: 150000', 'maxTime: 240000']) {
+                if (!source.includes(threshold)) fail(file, 'missing award threshold ' + threshold);
+            }
+        }
     } else if (fileName === 'spin1.html') {
         const gameData = readConstLiteral(file, source, 'gameData');
         if (!gameData) return;

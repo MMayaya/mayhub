@@ -44,8 +44,7 @@ const topics = [
         subtitle: 'Revise exports, imports, trade balances, export-led development, and trade barriers.',
         conceptIndexes: [0, 1, 2, 3, 4, 5, 8, 9, 10, 19],
         applicationIndexes: [60, 61, 62, 63, 64, 65, 66, 68, 70, 71],
-        millionaireApplicationIndexes: [63, 64, 68, 70, 71],
-        memoryMasteryPilot: true
+        millionaireApplicationIndexes: [63, 64, 68, 70, 71]
     },
     {
         name: 'Fair and Free Trade',
@@ -468,9 +467,11 @@ for (const config of topics) {
     const spinData = buildSpinData(sourceFiles['spin1.html'], config);
 
     for (const [fileName, variables] of Object.entries(gameVariables)) {
+        const preserveMemoryMastery = fileName === 'match1.html'
+            && sourceFiles[fileName].includes('data-certificate-preview-preset="memory-mastery"');
         let output = fileName === 'spin1.html'
             ? prepareSpinTemplate(spinReference, config)
-            : config.memoryMasteryPilot && fileName === 'match1.html'
+            : preserveMemoryMastery
                 ? sourceFiles[fileName]
                 : prepareSharedTemplate(fs.readFileSync(path.join(referenceRoot, fileName), 'utf8'), config);
         for (const variableName of variables) {

@@ -77,7 +77,7 @@
         footer { text-align: center; padding: 1.5rem; background-color: #002b5e; color: #fff; margin-top: auto; }
     </style>
 </head>
-<body data-certificate-grade="Grade 11" data-certificate-subject="Geography" data-certificate-term="Term 3" data-certificate-topic="Trade Patterns" data-certificate-game="Trade Patterns Memory Game" data-certificate-layout="compact-subject" data-certificate-preview-preset="memory-mastery">
+<body data-certificate-grade="Grade 11" data-certificate-subject="Geography" data-certificate-term="Term 3" data-certificate-topic="Trade Patterns" data-certificate-game="Trade Patterns Memory Game" data-certificate-layout="compact-subject" data-certificate-preview-preset="memory-mastery" data-certificate-metric-style="split-duration">
 
     <nav>
         <a href="../../../../../../index.html" class="logo">May Learning Hub</a>
@@ -268,8 +268,25 @@
             return 'guest';
         }
 
+        function storageKeyPart(value) {
+            return encodeURIComponent(String(value || 'unknown').trim().toLowerCase().replace(/\s+/g, '-'));
+        }
+
         function bestTimeStorageKey() {
-            return 'mayhubMemoryMasteryBest:v1:grade-11:geography:term-3:trade-patterns:' + encodeURIComponent(getLearnerId());
+            const metadata = document.body.dataset;
+            const gameKey = [
+                metadata.certificateGrade,
+                metadata.certificateSubject,
+                metadata.certificateTerm,
+                metadata.certificateTopic,
+                metadata.certificateGame
+            ].map(storageKeyPart).join(':');
+            return 'mayhubMemoryMasteryBest:v1:' + gameKey + ':' + encodeURIComponent(getLearnerId());
+        }
+
+        function memoryChallengeTitle() {
+            const topic = document.body.dataset.certificateTopic || 'Assessment';
+            return topic + ' Memory Match Challenge';
         }
 
         function readBestTime() {
@@ -458,13 +475,14 @@
                     + (isNewBest ? 'New personal best! ' : '') + nextAwardMessage(award);
                 setTimeout(() => {
                     MayHubCertificates.showParticipation({
-                        gameTitle: 'Trade Patterns Memory Match Challenge',
+                        gameTitle: memoryChallengeTitle(),
                         category: '10-Pair Memory Match',
                         certificateTitle: 'Certificate of Memory Mastery',
                         awardLabel: award.label,
                         tierClass: award.className,
                         metricLabel: 'Completed in',
                         metricValue: formatClock(elapsedMs),
+                        metricStyle: document.body.dataset.certificateMetricStyle || '',
                         message: award.message,
                         onReplay: initGame
                     });

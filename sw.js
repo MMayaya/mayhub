@@ -1,8 +1,8 @@
-const CORE_CACHE_NAME = 'may-learning-core-v14-certificate-preview';
+const CORE_CACHE_NAME = 'may-learning-core-v17-memory-duration-rollout';
 const RUNTIME_CACHE_NAME = 'may-learning-runtime-pages';
 const CERTIFICATE_DOWNLOAD_CACHE = 'may-learning-certificate-downloads';
 const CERTIFICATE_DOWNLOAD_PATH = '/certificate-download/';
-const SERVICE_WORKER_VERSION = '14-certificate-preview';
+const SERVICE_WORKER_VERSION = '17-memory-duration-rollout';
 
 const CORE_ASSETS = [
   '/may-certificate-actions.js',

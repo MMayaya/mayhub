@@ -561,9 +561,13 @@ for (const config of topics) {
     const spinData = buildSpinData(sourceFiles['spin1.html'], config);
 
     for (const [fileName, variables] of Object.entries(gameVariables)) {
+        const preserveMemoryMastery = fileName === 'match1.html'
+            && sourceFiles[fileName].includes('data-certificate-preview-preset="memory-mastery"');
         let output = fileName === 'spin1.html'
             ? prepareSpinTemplate(spinReference, config)
-            : prepareSharedTemplate(fs.readFileSync(path.join(referenceRoot, fileName), 'utf8'), config);
+            : preserveMemoryMastery
+                ? sourceFiles[fileName]
+                : prepareSharedTemplate(fs.readFileSync(path.join(referenceRoot, fileName), 'utf8'), config);
         for (const variableName of variables) {
             const value = transformedData(fileName, variableName, sourceFiles[fileName], sourceFiles, spinData, config);
             output = replaceDeclaration(output, variableName, value);
