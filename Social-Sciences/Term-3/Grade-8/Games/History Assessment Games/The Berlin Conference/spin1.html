@@ -1253,6 +1253,10 @@
             setCertificateActionBusy('shareCertificateBtn', true, 'Preparing Certificate...');
             try {
                 const certificate = await createCertificateImage(shareName);
+                if (await tryNativeCertificateShare(certificate.blob, certificate.fileName, message)) {
+                    announce('Choose WhatsApp, then select My status or a contact.');
+                    return;
+                }
                 const file = typeof File === 'function'
                     ? new File([certificate.blob], certificate.fileName, {
                         type: 'image/png',
@@ -1686,29 +1690,53 @@
             });
         }
 
-        async function tryNativeCertificateSave(blob, fileName) {
-            const dataUrl = await blobToDataUrl(blob);
-            const payload = {
+        function findNativeCertificateBridge(methodName) {
+            return [window.MayLearningHub, window.CertificateBridge, window.Android]
+                .find(bridge => bridge && typeof bridge[methodName] === 'function') || null;
+        }
+
+        function hasMayLearningHubBridgeToken() {
+            return typeof window.__mayLearningHubCertificateToken === 'string'
+                && window.__mayLearningHubCertificateToken.length >= 64;
+        }
+
+        function buildNativeCertificatePayload(dataUrl, fileName, extra = {}) {
+            return {
                 type: 'mayhub-save-certificate',
                 fileName,
                 mimeType: 'image/png',
                 dataUrl,
-                base64: String(dataUrl).split(',')[1] || ''
+                base64: String(dataUrl).split(',')[1] || '',
+                bridgeToken: typeof window.__mayLearningHubCertificateToken === 'string'
+                    ? window.__mayLearningHubCertificateToken
+                    : '',
+                ...extra
             };
-            const serializedPayload = JSON.stringify(payload);
+        }
 
-            const directBridges = [window.MayLearningHub, window.CertificateBridge, window.Android];
-            for (const bridge of directBridges) {
-                if (bridge && typeof bridge.saveCertificate === 'function') {
-                    try {
-                        bridge.saveCertificate(serializedPayload);
-                        return true;
-                    } catch {}
-                }
-            }
-
+        async function tryNativeCertificateSave(blob, fileName) {
+            const directBridge = findNativeCertificateBridge('saveCertificate');
+            if (directBridge === window.MayLearningHub && !hasMayLearningHubBridgeToken()) return false;
             const handlers = window.webkit && window.webkit.messageHandlers;
             const iosHandler = handlers && (handlers.saveCertificate || handlers.downloadCertificate);
+            const hasReactNativeBridge = window.ReactNativeWebView
+                && typeof window.ReactNativeWebView.postMessage === 'function';
+            const hasWindowsBridge = window.chrome
+                && window.chrome.webview
+                && typeof window.chrome.webview.postMessage === 'function';
+            if (!directBridge && !iosHandler && !hasReactNativeBridge && !hasWindowsBridge) return false;
+
+            const dataUrl = await blobToDataUrl(blob);
+            const payload = buildNativeCertificatePayload(dataUrl, fileName);
+            const serializedPayload = JSON.stringify(payload);
+
+            if (directBridge) {
+                try {
+                    const accepted = directBridge.saveCertificate(serializedPayload);
+                    if (accepted !== false) return true;
+                } catch {}
+            }
+
             if (iosHandler && typeof iosHandler.postMessage === 'function') {
                 try {
                     iosHandler.postMessage(payload);
@@ -1725,6 +1753,23 @@
                 }
             } catch {}
             return false;
+        }
+
+        async function tryNativeCertificateShare(blob, fileName, shareText) {
+            const bridge = findNativeCertificateBridge('shareCertificate');
+            if (!bridge) return false;
+            if (bridge === window.MayLearningHub && !hasMayLearningHubBridgeToken()) return false;
+            try {
+                const dataUrl = await blobToDataUrl(blob);
+                const payload = buildNativeCertificatePayload(dataUrl, fileName, {
+                    type: 'mayhub-share-certificate',
+                    shareText
+                });
+                return bridge.shareCertificate(JSON.stringify(payload)) !== false;
+            } catch (error) {
+                console.warn('Native certificate sharing unavailable:', error);
+                return false;
+            }
         }
 
         async function showCertificateSaveFallback(blob, fileName, whatsappUrl = '') {
@@ -1745,6 +1790,8 @@
         }
 
         async function saveCertificateForDevice(blob, fileName) {
+            if (await tryNativeCertificateSave(blob, fileName)) return 'native';
+
             if (!isLikelyWebView()) {
                 triggerCertificateDownload(blob, fileName);
                 return 'downloaded';
@@ -1766,7 +1813,6 @@
                 }
             }
 
-            if (await tryNativeCertificateSave(blob, fileName)) return 'native';
             if (await triggerServiceWorkerCertificateDownload(blob, fileName)) return 'web-download';
             return showCertificateSaveFallback(blob, fileName);
         }
