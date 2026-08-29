@@ -34,16 +34,19 @@
         stage4Result: document.getElementById('stage4ResultScreen'),
         stage5: document.getElementById('stage5Screen'),
         stage5Result: document.getElementById('stage5ResultScreen'),
+        stage6: document.getElementById('stage6Screen'),
         stage1Node: document.getElementById('stage1Node'),
         stage2Node: document.getElementById('stage2Node'),
         stage3Node: document.getElementById('stage3Node'),
         stage4Node: document.getElementById('stage4Node'),
         stage5Node: document.getElementById('stage5Node'),
+        stage6Node: document.getElementById('stage6Node'),
         stage1Status: document.getElementById('stage1Status'),
         stage2Status: document.getElementById('stage2Status'),
         stage3Status: document.getElementById('stage3Status'),
         stage4Status: document.getElementById('stage4Status'),
         stage5Status: document.getElementById('stage5Status'),
+        stage6Status: document.getElementById('stage6Status'),
         headerSource: document.getElementById('headerSourceButton'),
         begin: document.getElementById('beginButton'),
         resumeNote: document.getElementById('resumeNote'),
@@ -138,7 +141,19 @@
         stage5ResultMessage: document.getElementById('stage5ResultMessage'),
         stage5ResultMarks: document.getElementById('stage5ResultMarks'),
         stage5ResultPercent: document.getElementById('stage5ResultPercent'),
+        continueStage6: document.getElementById('continueStage6Button'),
+        stage6ResultTitle: document.getElementById('stage6ResultTitle'),
+        stage6ResultMessage: document.getElementById('stage6ResultMessage'),
+        grandTotalPercent: document.getElementById('grandTotalPercent'),
+        grandTotalComment: document.getElementById('grandTotalComment'),
         finalExpeditionScore: document.getElementById('finalExpeditionScore'),
+        finalStageScores: [
+            [document.getElementById('finalStage1Score'), document.getElementById('finalStage1Percent'), document.getElementById('finalStage1Comment')],
+            [document.getElementById('finalStage2Score'), document.getElementById('finalStage2Percent'), document.getElementById('finalStage2Comment')],
+            [document.getElementById('finalStage3Score'), document.getElementById('finalStage3Percent'), document.getElementById('finalStage3Comment')],
+            [document.getElementById('finalStage4Score'), document.getElementById('finalStage4Percent'), document.getElementById('finalStage4Comment')],
+            [document.getElementById('finalStage5Score'), document.getElementById('finalStage5Percent'), document.getElementById('finalStage5Comment')]
+        ],
         viewCertificate: document.getElementById('viewCertificateButton'),
         newExpedition: document.getElementById('newExpeditionButton'),
         expeditionLimitPanel: document.getElementById('expeditionLimitPanel'),
@@ -767,8 +782,15 @@
         elements.stage5Node.className = 'stage-node ' + stage5Class;
         elements.stage5Node.toggleAttribute('aria-current', stage5IsCurrent && !stage5State.completed);
         elements.stage5Status.textContent = stage5State.completed
-            ? 'Expedition completed'
-            : (stage5IsCurrent ? 'In progress' : (stage4State.completed ? 'Ready for final stage' : 'Complete Stage 4 to unlock'));
+            ? 'Stage completed'
+            : (stage5IsCurrent ? 'In progress' : (stage4State.completed ? 'Ready to explore' : 'Complete Stage 4 to unlock'));
+
+        const stage6IsCurrent = name === 'stage6';
+        elements.stage6Node.className = 'stage-node ' + (stage6IsCurrent ? 'active' : (stage5State.completed ? 'available' : 'locked'));
+        elements.stage6Node.toggleAttribute('aria-current', stage6IsCurrent);
+        elements.stage6Status.textContent = stage6IsCurrent
+            ? 'Viewing final results'
+            : (stage5State.completed ? 'Summary ready' : 'Complete Stage 5 to unlock');
     }
 
     function showScreen(name) {
@@ -783,7 +805,8 @@
         elements.stage4Result.hidden = name !== 'stage4Result';
         elements.stage5.hidden = name !== 'stage5';
         elements.stage5Result.hidden = name !== 'stage5Result';
-        elements.headerSource.hidden = name === 'stage2' || name === 'stage2Result';
+        elements.stage6.hidden = name !== 'stage6';
+        elements.headerSource.hidden = name === 'stage2' || name === 'stage2Result' || name === 'stage6';
         updateStageMap(name);
         window.scrollTo({ top: 0, behavior: 'smooth' });
     }
@@ -1419,6 +1442,29 @@
         return ['Aid plan needs review', 'The expedition is complete, but development aid and humanitarian-response decisions need another careful briefing.'];
     }
 
+    const stagePerformanceComments = [
+        ['Outstanding trade-source interpretation.', 'Strong trade-pattern analysis.', 'Trade concepts are secure; keep strengthening source interpretation.', 'Give trade patterns and source interpretation more attention.'],
+        ['Excellent command of development terminology.', 'Development concepts are very well understood.', 'The main development terms are secure.', 'Spend more time strengthening development vocabulary.'],
+        ['Excellent understanding of growth and human development.', 'Strong analysis of development indicators and inequality.', 'The core growth and development ideas are secure.', 'Strengthen the link between economic growth and people’s quality of life.'],
+        ['Excellent understanding of trade controls and free trade.', 'Strong analysis of trade relationships and regulations.', 'The main free-trade concepts are secure.', 'Give trade regulations and free-trade effects more attention.'],
+        ['Excellent judgement across development-aid decisions.', 'Strong understanding of aid routes and humanitarian responses.', 'The key development-aid ideas are secure.', 'Strengthen your understanding of development aid and humanitarian responses.']
+    ];
+
+    function stagePerformanceComment(stageIndex, percentage) {
+        const comments = stagePerformanceComments[stageIndex];
+        if (percentage === 100) return comments[0];
+        if (percentage >= 80) return comments[1];
+        if (percentage >= 50) return comments[2];
+        return comments[3];
+    }
+
+    function expeditionSummaryCopy(percentage) {
+        if (percentage === 100) return ['Expedition mastered', 'Perfect performance across all five Geography stages.'];
+        if (percentage >= 80) return ['Exceptional expedition', 'You demonstrated an excellent command of the Term 3 Geography assessment themes.'];
+        if (percentage >= 50) return ['Expedition successfully completed', 'You have a sound overall understanding of the five assessed Geography themes.'];
+        return ['Expedition completed', 'Your stage profile shows which Geography themes need the most attention before the assessment.'];
+    }
+
     function showFinalCertificate() {
         if (!window.MayHubCertificates) {
             window.alert('The certificate system is unavailable. Please refresh the page and try again.');
@@ -1433,7 +1479,44 @@
         return true;
     }
 
-    function completeStage5(openCertificate = true) {
+    function showExpeditionSummary(openCertificate = true) {
+        const totalScore = fullExpeditionScore();
+        const overallPercentage = Math.round(totalScore / expeditionTotalMarks * 100);
+        const [title, message] = expeditionSummaryCopy(overallPercentage);
+        elements.stage6ResultTitle.textContent = title;
+        elements.stage6ResultMessage.textContent = 'Your complete performance profile across the five assessed Geography stages.';
+        elements.finalExpeditionScore.textContent = totalScore + '/' + expeditionTotalMarks;
+        elements.grandTotalPercent.textContent = overallPercentage + '%';
+        elements.grandTotalComment.textContent = message;
+
+        const stageResults = [
+            [state.score, totalQuestions],
+            [stage2State.score, stage2Total],
+            [stage3State.score, stage3TotalMarks],
+            [stage4State.score, stage4TotalMarks],
+            [stage5State.score, stage5TotalMarks]
+        ];
+        stageResults.forEach(([score, total], index) => {
+            const percentage = Math.round(score / total * 100);
+            const [scoreElement, percentElement, commentElement] = elements.finalStageScores[index];
+            scoreElement.textContent = score + '/' + total;
+            percentElement.textContent = percentage + '%';
+            commentElement.textContent = stagePerformanceComment(index, percentage);
+        });
+
+        showScreen('stage6');
+        updateExpeditionLimitUI();
+        if (openCertificate) {
+            window.setTimeout(() => {
+                if (!showFinalCertificate()) {
+                    if (overallPercentage >= 50) window.MayHubSounds?.playPass?.();
+                    else window.MayHubSounds?.playFail?.();
+                }
+            }, 450);
+        }
+    }
+
+    function completeStage5() {
         stage5State.completed = true;
         stage5State.current = stage5Total;
         saveStage5State();
@@ -1445,17 +1528,7 @@
         elements.stage5ResultMessage.textContent = message;
         elements.stage5ResultMarks.textContent = String(stage5State.score);
         elements.stage5ResultPercent.textContent = percentage + '%';
-        elements.finalExpeditionScore.textContent = fullExpeditionScore() + '/' + expeditionTotalMarks;
         showScreen('stage5Result');
-        updateExpeditionLimitUI();
-        if (openCertificate) {
-            window.setTimeout(() => {
-                if (!showFinalCertificate()) {
-                    if (percentage >= 50) window.MayHubSounds?.playPass?.();
-                    else window.MayHubSounds?.playFail?.();
-                }
-            }, 450);
-        }
     }
 
     function updateZoom(nextZoom) {
@@ -1541,6 +1614,7 @@
         elements.continueStage5.addEventListener('click', beginStage5);
         elements.confirmStage5.addEventListener('click', lockStage5Question);
         elements.stage5Next.addEventListener('click', nextStage5Question);
+        elements.continueStage6.addEventListener('click', () => showExpeditionSummary(true));
         elements.newExpedition.addEventListener('click', startNewExpedition);
         elements.viewCertificate.addEventListener('click', showFinalCertificate);
         document.getElementById('closeSourceButton').addEventListener('click', closeSource);

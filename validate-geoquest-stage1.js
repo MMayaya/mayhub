@@ -220,7 +220,7 @@ const styles = read('geoquest.css');
 for (const required of ['geoquest.css', 'game-audio.js', 'may-certificate-renderer.js', 'may-certificate-actions.js', 'assessment-certificate.js', 'source-packs.js', 'stage2-data.js', 'stage3-data.js', 'stage4-data.js', 'stage5-data.js', 'geoquest.js']) {
     if (!page.includes(required)) fail('GeoQuest.html is missing ' + required);
 }
-for (const id of ['sourceOverlay', 'sourceImage', 'headerSourceButton', 'closeSourceButton', 'answerGrid', 'feedbackPanel', 'resultScreen', 'stage2Screen', 'termCardButton', 'stage2FeedbackPanel', 'stage2ResultScreen', 'overallScore', 'stage3Screen', 'stage3AnswerGrid', 'confirmStage3Button', 'stage3FeedbackPanel', 'stage3ResultScreen', 'stage3OverallScore', 'stage4Screen', 'stage4AnswerGrid', 'confirmStage4Button', 'stage4FeedbackPanel', 'stage4ResultScreen', 'stage4OverallScore', 'stage5Screen', 'stage5AnswerGrid', 'confirmStage5Button', 'stage5FeedbackPanel', 'stage5ResultScreen', 'finalExpeditionScore', 'viewCertificateButton', 'newExpeditionButton', 'expeditionLimitPanel', 'expeditionCountdown']) {
+for (const id of ['sourceOverlay', 'sourceImage', 'headerSourceButton', 'closeSourceButton', 'answerGrid', 'feedbackPanel', 'resultScreen', 'stage2Screen', 'termCardButton', 'stage2FeedbackPanel', 'stage2ResultScreen', 'overallScore', 'stage3Screen', 'stage3AnswerGrid', 'confirmStage3Button', 'stage3FeedbackPanel', 'stage3ResultScreen', 'stage3OverallScore', 'stage4Screen', 'stage4AnswerGrid', 'confirmStage4Button', 'stage4FeedbackPanel', 'stage4ResultScreen', 'stage4OverallScore', 'stage5Screen', 'stage5AnswerGrid', 'confirmStage5Button', 'stage5FeedbackPanel', 'stage5ResultScreen', 'continueStage6Button', 'stage6Screen', 'stage6Node', 'stage6Status', 'grandTotalPercent', 'grandTotalComment', 'finalExpeditionScore', 'finalStage1Score', 'finalStage2Score', 'finalStage3Score', 'finalStage4Score', 'finalStage5Score', 'finalStage1Comment', 'finalStage2Comment', 'finalStage3Comment', 'finalStage4Comment', 'finalStage5Comment', 'viewCertificateButton', 'newExpeditionButton', 'expeditionLimitPanel', 'expeditionCountdown']) {
     if (!page.includes('id="' + id + '"')) fail('GeoQuest.html is missing #' + id);
 }
 if ((page.match(/id="headerSourceButton"/g) || []).length !== 1 || !page.includes('floating-source-button')) fail('GeoQuest must have exactly one floating source control');
@@ -239,10 +239,15 @@ if (!logic.includes('correctSelections * question.pointsPerCorrect')) fail('Stag
 if (!logic.includes("showScreen('stage4')") || !logic.includes("showScreen('stage4Result')")) fail('Stage 4 navigation flow is incomplete');
 if (!logic.includes("showScreen('stage5')") || !logic.includes("showScreen('stage5Result')")) fail('Stage 5 navigation flow is incomplete');
 if (!logic.includes('state.score + stage2State.score + stage3State.score + stage4State.score + stage5State.score')) fail('Five-stage expedition scoring is missing');
+if (!logic.includes('function showExpeditionSummary') || !logic.includes('stagePerformanceComment') || !styles.includes('.stage-report-list') || !page.includes('Stage 6: Expedition Summary')) fail('The separate Stage 6 summary with performance comments is missing');
+if (!styles.includes('grid-template-columns:repeat(6,minmax(0,1fr))')) fail('The expedition map does not include six desktop columns');
+const stage5ResultMarkup = page.slice(page.indexOf('id="stage5ResultScreen"'), page.indexOf('id="stage6Screen"'));
+if (stage5ResultMarkup.includes('finalExpeditionScore') || stage5ResultMarkup.includes('grand-total-card')) fail('The grand total is still displayed inside the Stage 5 result screen');
+if (/Stage totals are displayed without revealing|review wrong answers|review incorrect answers/i.test(page)) fail('The learner-facing results still contain an internal answer-review note');
 if (!logic.includes('expeditionTotalMarks = 60')) fail('The grand expedition total must be 60 marks');
 if (/Try Another Source Route|Replay Aid Operations|Replay Customs Control|Replay Development Routes|Replay the Term Trail/.test(page + logic)) fail('GeoQuest still exposes an individual-stage replay control');
 if (!page.includes('Return to Question') || !styles.includes('.source-return-button')) fail('The source viewer must return from the same bottom-right control position');
-if (!page.includes('May%20Learning%20Hub%20Logo.png') || !styles.includes('.site-logo img')) fail('The compact May Learning Hub logo is missing');
+if (!page.includes('May%20Learning%20Hub%20Logo.png') || !page.includes('class="quest-heading-logo"') || !styles.includes('.quest-heading-logo img')) fail('The title-height May Learning Hub logo is missing beside the GeoQuest heading');
 if (!logic.includes('expeditionAttemptLimit = 2') || !logic.includes('expeditionCooldownMs = 6 * 60 * 60 * 1000')) fail('GeoQuest must allow two completions followed by a six-hour cooldown');
 if (!logic.includes('formatCountdown') || !logic.includes('setInterval(updateExpeditionLimitUI, 1000)')) fail('The live cooldown countdown is missing');
 if (!logic.includes('order: shuffle(questions.map(question => question.id))') || !logic.includes('optionOrders: Object.fromEntries')) fail('The expedition question and answer shuffling is missing');
@@ -286,4 +291,4 @@ if (failures.length) {
     console.error('GeoQuest Stage 1-5 validation failed:\n- ' + failures.join('\n- '));
     process.exit(1);
 }
-console.log('GeoQuest Stage 1-5 validation passed: regenerated sources, 60 verified marks, saved progress, responsive interactions and certificate integration.');
+console.log('GeoQuest Stage 1-6 validation passed: five assessment stages, a separate summary stage, 60 verified marks, saved progress, responsive interactions and certificate integration.');
