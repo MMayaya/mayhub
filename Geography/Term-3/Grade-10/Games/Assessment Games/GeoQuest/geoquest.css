@@ -269,6 +269,96 @@
     color: #303b44;
 }
 
+.balance-panel .signal-card {
+    border: 2px solid #173f67;
+    background:
+        linear-gradient(90deg, rgba(15, 91, 141, .06) 1px, transparent 1px) 0 0 / 26px 26px,
+        linear-gradient(rgba(15, 91, 141, .06) 1px, transparent 1px) 0 0 / 26px 26px,
+        linear-gradient(180deg, #fcfeff, #eff6fb);
+    box-shadow: 7px 7px 0 #bfd2e2;
+}
+
+.balance-panel .signal-meta {
+    color: #14537c;
+}
+
+.balance-progress span {
+    background: linear-gradient(90deg, #0b426d, #1286a8, #33a16f);
+}
+
+.balance-orbit {
+    background: conic-gradient(#0b426d, #1286a8, #33a16f, #0b426d);
+}
+
+.balance-orbit span {
+    background: #0f405f;
+}
+
+.balance-panel .route-option {
+    border-color: #8aa9bf;
+    box-shadow: 3px 3px 0 #cadbe8;
+}
+
+.balance-panel .route-option:hover:not(:disabled) {
+    border-color: #0f5b8d;
+    background: #edf7fd;
+}
+
+.balance-panel .route-option.selected {
+    border-color: #0f5b8d;
+    background: #e4f3fd;
+}
+
+.balance-confirm {
+    border-color: #0b426d;
+    color: #0b426d;
+}
+
+.journey-panel .signal-card {
+    border: 2px solid #594831;
+    background:
+        linear-gradient(90deg, rgba(96, 111, 66, .06) 1px, transparent 1px) 0 0 / 28px 28px,
+        linear-gradient(rgba(96, 111, 66, .06) 1px, transparent 1px) 0 0 / 28px 28px,
+        linear-gradient(180deg, #fffef9, #f4f0e6);
+    box-shadow: 7px 7px 0 #d7ccb3;
+}
+
+.journey-panel .signal-meta {
+    color: #69502c;
+}
+
+.journey-progress span {
+    background: linear-gradient(90deg, #4d3c29, #9b7a42, #6d884c);
+}
+
+.journey-orbit {
+    background: conic-gradient(#4d3c29, #9b7a42, #6d884c, #4d3c29);
+}
+
+.journey-orbit span {
+    background: #4a3a27;
+}
+
+.journey-panel .route-option {
+    border-color: #ad9c7a;
+    box-shadow: 3px 3px 0 #ded5c2;
+}
+
+.journey-panel .route-option:hover:not(:disabled) {
+    border-color: #6b5535;
+    background: #fbf6eb;
+}
+
+.journey-panel .route-option.selected {
+    border-color: #6b5535;
+    background: #f5ecd9;
+}
+
+.journey-confirm {
+    border-color: #594831;
+    color: #594831;
+}
+
 @media (max-width: 620px) {
     .migration-panel .term-card {
         min-height: 112px;
