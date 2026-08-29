@@ -1,6 +1,6 @@
 window.GeoQuestStage4Data = {
     "sourceImage": "sources/trade-gatekeepers.jpg",
-    "sourceLabel": "Original trade gatekeepers briefing",
+    "sourceLabel": "Free Trade Relationships Source",
     "sourceAlt": "Funny black-and-white cartoon showing a wealthy trade official charging a tariff toll and enforcing a two-box quota on smaller producers entering a global market",
     "questions": [
         {
@@ -15,7 +15,7 @@ window.GeoQuestStage4Data = {
         },
         {
             "id": "source-reason",
-            "prompt": "Which source clue best supports your answer?",
+            "prompt": "Which source clue proves that the wealthy trade official is restricting rather than promoting free trade?",
             "instruction": "Choose the strongest source-based reason.",
             "marks": 2,
             "mode": "single",

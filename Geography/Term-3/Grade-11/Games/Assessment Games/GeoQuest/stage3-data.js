@@ -1,6 +1,6 @@
 window.GeoQuestStage3Data = {
     "sourceImage": "sources/development-crossroads.jpg",
-    "sourceLabel": "Original black-and-white GDP growth cartoon",
+    "sourceLabel": "GDP Growth and Human Development Source",
     "sourceAlt": "Black-and-white editorial cartoon showing a GDP Growth express lift carrying a wealthy few towards a prosperous city while families wait below beside an under-supplied clinic and overcrowded school",
     "questions": [
         {
@@ -69,7 +69,7 @@ window.GeoQuestStage3Data = {
         },
         {
             "id": "inequality-causes",
-            "prompt": "Why is this negative impact prevalent in many countries?",
+            "prompt": "Why are the benefits of GDP growth distributed unequally in many countries?",
             "instruction": "Select two reasons, then lock your choices.",
             "marks": 4,
             "mode": "multiple",

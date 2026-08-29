@@ -5,9 +5,25 @@
     const siteRoot = new URL('.', scriptUrl);
     const logoUrl = new URL('May Learning Hub Logo.png', siteRoot).href;
     const signatureUrl = new URL('May Learning Hub Signature-transparent.png', siteRoot).href;
+    const historyScriptUrl = new URL('may-certificate-history.js', siteRoot).href;
+    const historyPageUrl = new URL('certificate-history.html', siteRoot).href;
     let activeResult = null;
     let replayAction = null;
     let previousBodyOverflow = '';
+    let historyReadyPromise = null;
+
+    function ensureHistoryHelper() {
+        if (window.MayCertificateHistory) return Promise.resolve(window.MayCertificateHistory);
+        if (historyReadyPromise) return historyReadyPromise;
+        historyReadyPromise = new Promise(resolve => {
+            const script = document.createElement('script');
+            script.src = historyScriptUrl;
+            script.onload = () => resolve(window.MayCertificateHistory || null);
+            script.onerror = () => resolve(null);
+            document.head.appendChild(script);
+        });
+        return historyReadyPromise;
+    }
 
     const style = document.createElement('style');
     style.textContent = `
@@ -304,6 +320,21 @@
             gap: .7rem;
             margin-top: 1rem;
         }
+        .mayhub-cert-history-row {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: .45rem .8rem;
+            margin-top: .8rem;
+            font-size: .9rem;
+        }
+        .mayhub-cert-history-link {
+            color: #fff;
+            font-weight: 850;
+            text-underline-offset: 3px;
+        }
+        .mayhub-cert-history-note { color: #e0ebf7; }
         .mayhub-cert-btn {
             border: none;
             border-radius: 10px;
@@ -426,6 +457,10 @@
                 <button class="mayhub-cert-btn mayhub-cert-replay" id="mayhubCertReplay" type="button">Play Again</button>
                 <button class="mayhub-cert-btn mayhub-cert-close" id="mayhubCertClose" type="button">Close</button>
             </div>
+            <div class="mayhub-cert-history-row">
+                <a class="mayhub-cert-history-link" id="mayhubCertHistoryLink" href="${historyPageUrl}">My Certificates</a>
+                <span class="mayhub-cert-history-note" id="mayhubCertHistoryNote"></span>
+            </div>
             <p class="mayhub-cert-note">WhatsApp will open its sharing screen. Choose <strong>My status</strong> or a contact.</p>
             <p class="mayhub-cert-status" id="mayhubCertStatus" aria-live="polite"></p>
         </div>
@@ -439,6 +474,8 @@
     const replayButton = document.getElementById('mayhubCertReplay');
     const closeButton = document.getElementById('mayhubCertClose');
     const statusRegion = document.getElementById('mayhubCertStatus');
+    const historyLink = document.getElementById('mayhubCertHistoryLink');
+    const historyNote = document.getElementById('mayhubCertHistoryNote');
 
     function getSignedInLearnerName() {
         for (const storage of [window.localStorage, window.sessionStorage]) {
@@ -497,6 +534,41 @@
         };
     }
 
+    function createCompletionId(options, context, issuedAt) {
+        if (options.completionId) return String(options.completionId).slice(0, 160);
+        const signature = [location.pathname, context.gameTitle, options.category || 'Assessment Game', options.correct || 0, options.total || 0].join('|');
+        try {
+            const cached = JSON.parse(sessionStorage.getItem('mayhubLastCertificateCompletion') || 'null');
+            if (cached?.signature === signature && issuedAt.getTime() - Number(cached.createdAt) < 300000) return cached.id;
+        } catch {}
+        const id = window.crypto?.randomUUID
+            ? window.crypto.randomUUID()
+            : 'cert-' + Date.now().toString(36) + '-' + Array.from(crypto.getRandomValues(new Uint32Array(3)), value => value.toString(36)).join('');
+        try {
+            sessionStorage.setItem('mayhubLastCertificateCompletion', JSON.stringify({ signature, id, createdAt: issuedAt.getTime() }));
+        } catch {}
+        return id;
+    }
+
+    async function updateHistory(options, result) {
+        const helper = await ensureHistoryHelper();
+        if (!helper || !result) return;
+        if (!helper.isSignedIn()) {
+            if (activeResult === result) {
+                historyLink.textContent = 'Sign in to save certificate history';
+                historyLink.href = new URL('signin.html?redirect=' + encodeURIComponent('/certificate-history.html') + '&notice=certificates', siteRoot).href;
+                historyNote.textContent = 'Sign in to see your certificate history.';
+            }
+            return;
+        }
+        if (activeResult === result) {
+            historyLink.textContent = 'My Certificates';
+            historyLink.href = historyPageUrl;
+            historyNote.textContent = options.skipHistoryRecord ? 'Opened from your history.' : 'Saved to your certificate history.';
+        }
+        if (!options.skipHistoryRecord) helper.record(result);
+    }
+
     function show(options) {
         options = options || {};
         const isParticipation = options.mode === 'participation';
@@ -515,11 +587,14 @@
                 message: options.message || 'Awarded in recognition of active participation.'
             }
             : getAward(percentage);
-        const issuedAt = new Date();
-        const awardDate = issuedAt.toLocaleDateString('en-ZA', { day: '2-digit', month: 'long', year: 'numeric' });
+        const issuedAt = options.issuedAt ? new Date(options.issuedAt) : new Date();
+        const safeIssuedAt = Number.isNaN(issuedAt.getTime()) ? new Date() : issuedAt;
+        const awardDate = options.date || safeIssuedAt.toLocaleDateString('en-ZA', { day: '2-digit', month: 'long', year: 'numeric' });
 
         activeResult = {
+            completionId: createCompletionId(options, context, safeIssuedAt),
             name: learnerName,
+            learnerName,
             mode: isParticipation ? 'participation' : 'scored',
             grade: context.grade,
             subject: context.subject,
@@ -528,18 +603,24 @@
             gameTitle: context.gameTitle,
             topic: context.topic,
             category: options.category || 'Assessment Game',
+            categoryTitle: options.category || 'Assessment Game',
+            subjectLine: [context.grade, context.subject].filter(Boolean).join(' '),
+            termLabel: context.term,
             correct,
             total,
             percentage: percentage === null ? null : Math.round(percentage),
             title: award.title,
+            certificateTitle: award.title,
             award: award.award,
+            awardTitle: award.award,
             message: award.message,
             tierClass: award.className,
             metricLabel: String(options.metricLabel || '').trim(),
             metricValue: String(options.metricValue || '').trim(),
             metricStyle: options.metricStyle === 'split-duration' ? 'split-duration' : '',
             date: awardDate,
-            issuedAt: issuedAt.toISOString()
+            issuedAt: safeIssuedAt.toISOString(),
+            shareUrl: location.href
         };
         replayAction = typeof options.onReplay === 'function' ? options.onReplay : null;
 
@@ -579,6 +660,10 @@
         previousBodyOverflow = document.body.style.overflow;
         document.body.style.overflow = 'hidden';
         overlay.style.display = 'flex';
+        historyLink.textContent = 'My Certificates';
+        historyLink.href = historyPageUrl;
+        historyNote.textContent = 'Checking certificate history…';
+        updateHistory(options, activeResult);
         setTimeout(() => shareButton.focus(), 50);
 
         if (window.MayHubSounds) {
@@ -696,6 +781,34 @@
         }
     }
 
+    function showSaved(record) {
+        if (!record) return;
+        show({
+            mode: record.mode,
+            name: record.learnerName,
+            certificateTitle: record.certificateTitle,
+            awardLabel: record.awardTitle,
+            message: record.message,
+            tierClass: record.tierClass,
+            gameTitle: record.gameTitle,
+            topic: record.topic || record.gameTitle,
+            layout: record.layout,
+            category: record.categoryTitle,
+            grade: record.grade || '',
+            subject: record.subject || '',
+            term: record.termLabel,
+            correct: record.correct,
+            total: record.total,
+            metricLabel: record.metricLabel,
+            metricValue: record.metricValue,
+            metricStyle: /^\d{1,2}:[0-5]\d$/.test(String(record.metricValue || '')) ? 'split-duration' : '',
+            date: record.date,
+            issuedAt: record.issuedAt,
+            completionId: record.completionId,
+            skipHistoryRecord: true
+        });
+    }
+
     shareButton.addEventListener('click', share);
     downloadButton.addEventListener('click', download);
     closeButton.addEventListener('click', hide);
@@ -711,6 +824,7 @@
     window.MayHubCertificates = {
         showScored: options => show({ ...options, mode: 'scored' }),
         showParticipation: options => show({ ...options, mode: 'participation' }),
+        showSaved,
         hide
     };
 })();

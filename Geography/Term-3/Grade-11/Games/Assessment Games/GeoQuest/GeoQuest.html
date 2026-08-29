@@ -10,7 +10,7 @@
 </head>
 <body data-certificate-grade="Grade 11" data-certificate-subject="Geography" data-certificate-term="Term 3" data-certificate-topic="GeoQuest: The Grand Expedition" data-certificate-game="GeoQuest: The Grand Expedition" data-certificate-layout="compact-subject">
     <nav class="site-nav" aria-label="Main navigation">
-        <a href="../../../../../../index.html" class="site-logo">May Learning Hub</a>
+        <a href="../../../../../../index.html" class="site-logo"><img src="../../../../../../May%20Learning%20Hub%20Logo.png" alt=""><span>May Learning Hub</span></a>
         <div class="site-links"><a href="../../../../../../index.html">Home</a><a href="../assessment-games.html">Assessment Games</a></div>
     </nav>
 
@@ -55,7 +55,7 @@
             <p class="stage-kicker">Stage 1 complete</p><h2 id="resultTitle">Route secured</h2><p id="resultMessage"></p>
             <div class="result-summary"><div><strong id="resultCorrect">0</strong><span>Correct signals</span></div><div><strong id="resultPercent">0%</strong><span>Stage accuracy</span></div><div><strong>1/5</strong><span>Expedition stages</span></div></div>
             <div class="next-stage-preview"><span aria-hidden="true">&#129517;</span><div><strong>Concept Compass is ready</strong><p>Continue into seven terminology challenges using a single-term navigation carousel.</p></div></div>
-            <div class="result-actions"><button class="primary-button" id="continueStage2Button" type="button">Continue to Stage 2</button><button class="secondary-button" id="anotherRouteButton" type="button">Try Another Source Route</button></div>
+            <div class="result-actions"><button class="primary-button" id="continueStage2Button" type="button">Continue to Stage 2</button></div>
         </section>
 
         <section class="quest-panel game-panel concept-panel" id="stage2Screen" hidden>
@@ -81,7 +81,7 @@
             <p class="stage-kicker">Stage 2 complete</p><h2 id="stage2ResultTitle">Compass calibrated</h2><p id="stage2ResultMessage"></p>
             <div class="result-summary"><div><strong id="stage2ResultCorrect">0</strong><span>Correct definitions</span></div><div><strong id="stage2ResultPercent">0%</strong><span>Stage accuracy</span></div><div><strong id="overallScore">0/15</strong><span>Expedition score</span></div></div>
             <div class="next-stage-preview"><span aria-hidden="true">&#128200;</span><div><strong>Growth Crossroads is ready</strong><p>Use a new source to investigate whether economic growth improves people's lives fairly.</p></div></div>
-            <div class="result-actions"><button class="primary-button" id="continueStage3Button" type="button">Continue to Stage 3</button><button class="secondary-button" id="replayStage2Button" type="button">Replay Concept Compass</button></div>
+            <div class="result-actions"><button class="primary-button" id="continueStage3Button" type="button">Continue to Stage 3</button></div>
         </section>
 
         <section class="quest-panel game-panel growth-panel" id="stage3Screen" hidden>
@@ -103,7 +103,7 @@
             <p class="stage-kicker">Stage 3 complete</p><h2 id="stage3ResultTitle">Crossroads cleared</h2><p id="stage3ResultMessage"></p>
             <div class="result-summary"><div><strong id="stage3ResultMarks">0</strong><span>Marks earned</span></div><div><strong id="stage3ResultPercent">0%</strong><span>Stage accuracy</span></div><div><strong id="stage3OverallScore">0/30</strong><span>Expedition score</span></div></div>
             <div class="next-stage-preview monochrome-preview"><span aria-hidden="true">&#128682;</span><div><strong>Trade Gatekeepers is ready</strong><p>Inspect a humorous black-and-white customs cartoon and decide who really controls the market gate.</p></div></div>
-            <div class="result-actions"><button class="primary-button" id="continueStage4Button" type="button">Continue to Stage 4</button><button class="secondary-button" id="replayStage3Button" type="button">Replay Growth Crossroads</button></div>
+            <div class="result-actions"><button class="primary-button" id="continueStage4Button" type="button">Continue to Stage 4</button></div>
         </section>
 
         <section class="quest-panel game-panel gate-panel" id="stage4Screen" hidden>
@@ -125,7 +125,7 @@
             <p class="stage-kicker">Stage 4 complete</p><h2 id="stage4ResultTitle">Market gate cleared</h2><p id="stage4ResultMessage"></p>
             <div class="result-summary"><div><strong id="stage4ResultMarks">0</strong><span>Marks earned</span></div><div><strong id="stage4ResultPercent">0%</strong><span>Stage accuracy</span></div><div><strong id="stage4OverallScore">0/45</strong><span>Expedition score</span></div></div>
             <div class="next-stage-preview aid-preview"><span aria-hidden="true">&#129309;</span><div><strong>Aid Operations is ready</strong><p>Analyse a newly written humanitarian field brief and make the five decisions that complete the expedition.</p></div></div>
-            <div class="result-actions"><button class="primary-button" id="continueStage5Button" type="button">Continue to Final Stage</button><button class="secondary-button" id="replayStage4Button" type="button">Replay Trade Gatekeepers</button></div>
+            <div class="result-actions"><button class="primary-button" id="continueStage5Button" type="button">Continue to Final Stage</button></div>
         </section>
 
         <section class="quest-panel game-panel aid-panel" id="stage5Screen" hidden>
@@ -147,7 +147,8 @@
             <p class="stage-kicker">Grand Expedition complete</p><h2 id="stage5ResultTitle">Humanitarian mission complete</h2><p id="stage5ResultMessage"></p>
             <div class="result-summary"><div><strong id="stage5ResultMarks">0</strong><span>Final-stage marks</span></div><div><strong id="stage5ResultPercent">0%</strong><span>Stage accuracy</span></div><div><strong id="finalExpeditionScore">0/60</strong><span>Full expedition score</span></div></div>
             <div class="expedition-complete"><span aria-hidden="true">&#127942;</span><div><strong>All five routes are secured</strong><p>Your professional GeoQuest certificate is ready to view, download or share.</p></div></div>
-            <div class="result-actions"><button class="primary-button certificate-button" id="viewCertificateButton" type="button">View My Certificate</button><button class="secondary-button" id="replayStage5Button" type="button">Replay Aid Operations</button><a class="text-link" href="../assessment-games.html">Return to Assessment Games</a></div>
+            <div class="expedition-limit" id="expeditionLimitPanel"><strong id="expeditionLimitTitle">One new expedition remains</strong><p id="expeditionLimitStatus">Complete another shuffled expedition before the cooldown begins.</p><time id="expeditionCountdown" aria-live="polite" hidden>06:00:00</time></div>
+            <div class="result-actions"><button class="primary-button certificate-button" id="viewCertificateButton" type="button">View My Certificate</button><button class="secondary-button" id="newExpeditionButton" type="button">Start a New Expedition</button><a class="text-link" href="../assessment-games.html">Return to Assessment Games</a></div>
         </section>
     </main>
 
@@ -155,11 +156,12 @@
 
     <div class="source-overlay" id="sourceOverlay" role="dialog" aria-modal="true" aria-labelledby="sourceTitle" hidden>
         <section class="source-dialog">
-            <header><div><p class="source-pack-label" id="sourcePackLabel">Assigned briefing</p><h2 id="sourceTitle">Trade Intelligence Source</h2></div><button class="close-source" id="closeSourceButton" type="button" aria-label="Close source">&times;</button></header>
+            <header><h2 id="sourceTitle">Trade Patterns Source</h2></header>
             <div class="source-tools" aria-label="Source zoom controls"><button type="button" id="zoomOutButton" aria-label="Zoom out">&minus;</button><span id="zoomValue">100%</span><button type="button" id="zoomInButton" aria-label="Zoom in">+</button><button type="button" id="zoomResetButton">Reset</button></div>
             <div class="source-viewport" id="sourceViewport"><img id="sourceImage" src="" alt="Assigned GeoQuest trade intelligence briefing"></div>
             <p class="source-dialog-note">You may reopen this source at any time without losing your progress.</p>
         </section>
+        <button class="source-button floating-source-button source-return-button" id="closeSourceButton" type="button"><span aria-hidden="true">&#8592;</span> Return to Question</button>
     </div>
 
     <footer>&copy; 2026 May Learning Hub. All rights reserved.</footer>

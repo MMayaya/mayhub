@@ -444,6 +444,9 @@
         } else if (noticeType === 'feedback') {
             accessNotice.textContent = 'Please sign in or create an account before sending feedback.';
             accessNotice.hidden = false;
+        } else if (noticeType === 'certificates') {
+            accessNotice.textContent = 'Please sign in to see certificate history saved for this learner on this device.';
+            accessNotice.hidden = false;
         }
 
         const signupUrl = new URL('signup.html', pageUrl);

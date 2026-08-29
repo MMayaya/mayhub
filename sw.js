@@ -2,13 +2,16 @@ const CORE_CACHE_NAME = 'may-learning-core-v23-geoquest-source-controls';
 const RUNTIME_CACHE_NAME = 'may-learning-runtime-pages';
 const CERTIFICATE_DOWNLOAD_CACHE = 'may-learning-certificate-downloads';
 const CERTIFICATE_DOWNLOAD_PATH = '/certificate-download/';
-const SERVICE_WORKER_VERSION = '23-geoquest-source-controls';
+const SERVICE_WORKER_VERSION = '24-geoquest-history-cooldown';
 
 const CORE_ASSETS = [
   '/may-certificate-actions.js',
+  '/may-certificate-history.js',
   '/certificate-preview.js',
   '/may-certificate-renderer.js',
   '/assessment-certificate.js',
+  '/certificate-history.html',
+  '/certificate-history-page.js',
   '/game-audio.js',
     '/May%20Learning%20Hub%20Logo.png',
     '/May%20Learning%20Hub%20Signature-transparent.png',
@@ -38,6 +41,7 @@ const CORE_NETWORK_FIRST_PATHS = new Set([
   '/',
   '/index.html',
   '/signin.html',
+  '/certificate-history.html',
   '/signup.html',
   '/favicon.ico',
   '/favicon-16x16.png',
@@ -52,6 +56,8 @@ const CORE_NETWORK_FIRST_PATHS = new Set([
   '/certificate-preview.js',
   '/may-certificate-renderer.js',
   '/assessment-certificate.js',
+  '/may-certificate-history.js',
+  '/certificate-history-page.js',
   '/game-audio.js',
   '/sw.js'
 ]);

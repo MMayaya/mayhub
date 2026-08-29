@@ -220,7 +220,7 @@ const styles = read('geoquest.css');
 for (const required of ['geoquest.css', 'game-audio.js', 'may-certificate-renderer.js', 'may-certificate-actions.js', 'assessment-certificate.js', 'source-packs.js', 'stage2-data.js', 'stage3-data.js', 'stage4-data.js', 'stage5-data.js', 'geoquest.js']) {
     if (!page.includes(required)) fail('GeoQuest.html is missing ' + required);
 }
-for (const id of ['sourceOverlay', 'sourceImage', 'headerSourceButton', 'answerGrid', 'feedbackPanel', 'resultScreen', 'stage2Screen', 'termCardButton', 'stage2FeedbackPanel', 'stage2ResultScreen', 'overallScore', 'stage3Screen', 'stage3AnswerGrid', 'confirmStage3Button', 'stage3FeedbackPanel', 'stage3ResultScreen', 'stage3OverallScore', 'stage4Screen', 'stage4AnswerGrid', 'confirmStage4Button', 'stage4FeedbackPanel', 'stage4ResultScreen', 'stage4OverallScore', 'stage5Screen', 'stage5AnswerGrid', 'confirmStage5Button', 'stage5FeedbackPanel', 'stage5ResultScreen', 'finalExpeditionScore', 'viewCertificateButton']) {
+for (const id of ['sourceOverlay', 'sourceImage', 'headerSourceButton', 'closeSourceButton', 'answerGrid', 'feedbackPanel', 'resultScreen', 'stage2Screen', 'termCardButton', 'stage2FeedbackPanel', 'stage2ResultScreen', 'overallScore', 'stage3Screen', 'stage3AnswerGrid', 'confirmStage3Button', 'stage3FeedbackPanel', 'stage3ResultScreen', 'stage3OverallScore', 'stage4Screen', 'stage4AnswerGrid', 'confirmStage4Button', 'stage4FeedbackPanel', 'stage4ResultScreen', 'stage4OverallScore', 'stage5Screen', 'stage5AnswerGrid', 'confirmStage5Button', 'stage5FeedbackPanel', 'stage5ResultScreen', 'finalExpeditionScore', 'viewCertificateButton', 'newExpeditionButton', 'expeditionLimitPanel', 'expeditionCountdown']) {
     if (!page.includes('id="' + id + '"')) fail('GeoQuest.html is missing #' + id);
 }
 if ((page.match(/id="headerSourceButton"/g) || []).length !== 1 || !page.includes('floating-source-button')) fail('GeoQuest must have exactly one floating source control');
@@ -240,7 +240,14 @@ if (!logic.includes("showScreen('stage4')") || !logic.includes("showScreen('stag
 if (!logic.includes("showScreen('stage5')") || !logic.includes("showScreen('stage5Result')")) fail('Stage 5 navigation flow is incomplete');
 if (!logic.includes('state.score + stage2State.score + stage3State.score + stage4State.score + stage5State.score')) fail('Five-stage expedition scoring is missing');
 if (!logic.includes('expeditionTotalMarks = 60')) fail('The grand expedition total must be 60 marks');
-if (!logic.includes('Try Another Source Route') && !page.includes('Try Another Source Route')) fail('Alternate source route is missing');
+if (/Try Another Source Route|Replay Aid Operations|Replay Customs Control|Replay Development Routes|Replay the Term Trail/.test(page + logic)) fail('GeoQuest still exposes an individual-stage replay control');
+if (!page.includes('Return to Question') || !styles.includes('.source-return-button')) fail('The source viewer must return from the same bottom-right control position');
+if (!page.includes('May%20Learning%20Hub%20Logo.png') || !styles.includes('.site-logo img')) fail('The compact May Learning Hub logo is missing');
+if (!logic.includes('expeditionAttemptLimit = 2') || !logic.includes('expeditionCooldownMs = 6 * 60 * 60 * 1000')) fail('GeoQuest must allow two completions followed by a six-hour cooldown');
+if (!logic.includes('formatCountdown') || !logic.includes('setInterval(updateExpeditionLimitUI, 1000)')) fail('The live cooldown countdown is missing');
+if (!logic.includes('order: shuffle(questions.map(question => question.id))') || !logic.includes('optionOrders: Object.fromEntries')) fail('The expedition question and answer shuffling is missing');
+if (!stage3Source.includes('Why are the benefits of GDP growth distributed unequally in many countries?')) fail('The shuffled Stage 3 dependent question is not self-contained');
+if (!stage4Source.includes('Which source clue proves that the wealthy trade official is restricting rather than promoting free trade?')) fail('The shuffled Stage 4 dependent question is not self-contained');
 if (!logic.includes('MayHubCertificates.showScored')) fail('Completed GeoQuest certificate integration is missing');
 if (!/@media\(max-width:620px\)/.test(styles)) fail('Mobile layout rules are missing');
 if (!styles.includes('.term-carousel') || !styles.includes('.term-card')) fail('Stage 2 carousel styling is missing');
@@ -263,6 +270,9 @@ const worker = fs.readFileSync(path.join(siteRoot, 'sw.js'), 'utf8');
 const helper = fs.readFileSync(path.join(siteRoot, 'may-certificate-actions.js'), 'utf8');
 for (const asset of ['GeoQuest/GeoQuest.html', 'GeoQuest/geoquest.css', 'GeoQuest/geoquest.js', 'GeoQuest/source-packs.js', 'GeoQuest/stage2-data.js', 'GeoQuest/stage3-data.js', 'GeoQuest/stage4-data.js', 'GeoQuest/stage5-data.js', 'trade-brief-a.jpg', 'trade-brief-b.jpg', 'development-crossroads.jpg', 'trade-gatekeepers.jpg', 'aid-operations-brief.jpg']) {
     if (!worker.includes(asset)) fail('Service worker is missing GeoQuest asset ' + asset);
+}
+for (const asset of ['/may-certificate-history.js', '/certificate-history.html', '/certificate-history-page.js']) {
+    if (!worker.includes(asset)) fail('Service worker is missing certificate-history asset ' + asset);
 }
 const workerVersion = worker.match(/SERVICE_WORKER_VERSION\s*=\s*'([^']+)'/)?.[1];
 const helperVersion = helper.match(/SERVICE_WORKER_VERSION\s*=\s*'([^']+)'/)?.[1];

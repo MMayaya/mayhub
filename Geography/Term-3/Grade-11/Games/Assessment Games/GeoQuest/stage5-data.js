@@ -1,6 +1,6 @@
 window.GeoQuestStage5Data = {
     "sourceImage": "sources/aid-operations-brief.jpg",
-    "sourceLabel": "Original Kumora Basin humanitarian field brief",
+    "sourceLabel": "Development Aid Source",
     "sourceAlt": "Newspaper-style humanitarian briefing about drought warnings, aid routes, emergency support, benefits and safeguards in the fictional Kumora Basin",
     "questions": [
         {

@@ -15,9 +15,12 @@
     const stage5Total = 5;
     const stage5TotalMarks = 15;
     const expeditionTotalMarks = 60;
+    const expeditionAttemptLimit = 2;
+    const expeditionCooldownMs = 6 * 60 * 60 * 1000;
     const storageVersion = 1;
     let zoom = 1;
     let previousBodyOverflow = '';
+    let cooldownTimerId = 0;
 
     const elements = {
         intro: document.getElementById('introScreen'),
@@ -60,7 +63,6 @@
         resultCorrect: document.getElementById('resultCorrect'),
         resultPercent: document.getElementById('resultPercent'),
         continueStage2: document.getElementById('continueStage2Button'),
-        anotherRoute: document.getElementById('anotherRouteButton'),
         stage2Score: document.getElementById('stage2ScoreValue'),
         stage2Progress: document.getElementById('stage2ProgressFill'),
         definitionCounter: document.getElementById('definitionCounter'),
@@ -80,7 +82,6 @@
         stage2ResultCorrect: document.getElementById('stage2ResultCorrect'),
         stage2ResultPercent: document.getElementById('stage2ResultPercent'),
         overallScore: document.getElementById('overallScore'),
-        replayStage2: document.getElementById('replayStage2Button'),
         continueStage3: document.getElementById('continueStage3Button'),
         stage3Score: document.getElementById('stage3ScoreValue'),
         stage3Progress: document.getElementById('stage3ProgressFill'),
@@ -100,7 +101,6 @@
         stage3ResultMarks: document.getElementById('stage3ResultMarks'),
         stage3ResultPercent: document.getElementById('stage3ResultPercent'),
         stage3OverallScore: document.getElementById('stage3OverallScore'),
-        replayStage3: document.getElementById('replayStage3Button'),
         continueStage4: document.getElementById('continueStage4Button'),
         stage4Score: document.getElementById('stage4ScoreValue'),
         stage4Progress: document.getElementById('stage4ProgressFill'),
@@ -120,7 +120,6 @@
         stage4ResultMarks: document.getElementById('stage4ResultMarks'),
         stage4ResultPercent: document.getElementById('stage4ResultPercent'),
         stage4OverallScore: document.getElementById('stage4OverallScore'),
-        replayStage4: document.getElementById('replayStage4Button'),
         continueStage5: document.getElementById('continueStage5Button'),
         stage5Score: document.getElementById('stage5ScoreValue'),
         stage5Progress: document.getElementById('stage5ProgressFill'),
@@ -140,11 +139,14 @@
         stage5ResultMarks: document.getElementById('stage5ResultMarks'),
         stage5ResultPercent: document.getElementById('stage5ResultPercent'),
         finalExpeditionScore: document.getElementById('finalExpeditionScore'),
-        replayStage5: document.getElementById('replayStage5Button'),
         viewCertificate: document.getElementById('viewCertificateButton'),
+        newExpedition: document.getElementById('newExpeditionButton'),
+        expeditionLimitPanel: document.getElementById('expeditionLimitPanel'),
+        expeditionLimitTitle: document.getElementById('expeditionLimitTitle'),
+        expeditionLimitStatus: document.getElementById('expeditionLimitStatus'),
+        expeditionCountdown: document.getElementById('expeditionCountdown'),
         overlay: document.getElementById('sourceOverlay'),
         sourceImage: document.getElementById('sourceImage'),
-        sourcePackLabel: document.getElementById('sourcePackLabel'),
         sourceTitle: document.getElementById('sourceTitle'),
         sourceViewport: document.getElementById('sourceViewport'),
         zoomValue: document.getElementById('zoomValue')
@@ -179,6 +181,10 @@
 
     function stage5StorageKey() {
         return 'mayhubGeoQuest:v' + storageVersion + ':grade-11:geography:term-3:stage-5:' + encodeURIComponent(learnerId());
+    }
+
+    function attemptStorageKey() {
+        return 'mayhubGeoQuest:v' + storageVersion + ':grade-11:geography:term-3:attempts:' + encodeURIComponent(learnerId());
     }
 
     function randomIndex(maximum) {
@@ -314,7 +320,7 @@
             completed: false,
             current: 0,
             score: 0,
-            order: questions.map(question => question.id),
+            order: shuffle(questions.map(question => question.id)),
             optionOrders: Object.fromEntries(questions.map(question => [question.id, shuffle(question.options)])),
             answers: {},
             locked: {},
@@ -328,7 +334,8 @@
         const byId = new Map(questions.map(question => [question.id, question]));
         const validOrder = Array.isArray(candidate.order)
             && candidate.order.length === stage3Total
-            && candidate.order.every((id, index) => id === questions[index]?.id);
+            && new Set(candidate.order).size === stage3Total
+            && candidate.order.every(id => byId.has(id));
         const validOptionOrders = candidate.optionOrders && candidate.order?.every(id => {
             const question = byId.get(id);
             const order = candidate.optionOrders[id];
@@ -384,7 +391,7 @@
             completed: false,
             current: 0,
             score: 0,
-            order: questions.map(question => question.id),
+            order: shuffle(questions.map(question => question.id)),
             optionOrders: Object.fromEntries(questions.map(question => [question.id, shuffle(question.options)])),
             answers: {},
             locked: {},
@@ -398,7 +405,8 @@
         const byId = new Map(questions.map(question => [question.id, question]));
         const validOrder = Array.isArray(candidate.order)
             && candidate.order.length === stage4Total
-            && candidate.order.every((id, index) => id === questions[index]?.id);
+            && new Set(candidate.order).size === stage4Total
+            && candidate.order.every(id => byId.has(id));
         const validOptionOrders = candidate.optionOrders && candidate.order?.every(id => {
             const question = byId.get(id);
             const order = candidate.optionOrders[id];
@@ -454,7 +462,7 @@
             completed: false,
             current: 0,
             score: 0,
-            order: questions.map(question => question.id),
+            order: shuffle(questions.map(question => question.id)),
             optionOrders: Object.fromEntries(questions.map(question => [question.id, shuffle(question.options)])),
             answers: {},
             locked: {},
@@ -468,7 +476,8 @@
         const byId = new Map(questions.map(question => [question.id, question]));
         const validOrder = Array.isArray(candidate.order)
             && candidate.order.length === stage5Total
-            && candidate.order.every((id, index) => id === questions[index]?.id);
+            && new Set(candidate.order).size === stage5Total
+            && candidate.order.every(id => byId.has(id));
         const validOptionOrders = candidate.optionOrders && candidate.order?.every(id => {
             const question = byId.get(id);
             const order = candidate.optionOrders[id];
@@ -516,6 +525,53 @@
 
     let stage5State = loadStage5State();
 
+    function uniqueAttemptId() {
+        if (window.crypto?.randomUUID) return window.crypto.randomUUID();
+        const bytes = new Uint32Array(4);
+        if (window.crypto?.getRandomValues) window.crypto.getRandomValues(bytes);
+        else for (let index = 0; index < bytes.length; index++) bytes[index] = Math.floor(Math.random() * 0xffffffff);
+        return Array.from(bytes, value => value.toString(16).padStart(8, '0')).join('-');
+    }
+
+    function expeditionIsComplete() {
+        return state.completed && stage2State.completed && stage3State.completed && stage4State.completed && stage5State.completed;
+    }
+
+    function createAttemptLedger() {
+        const activeAttemptId = uniqueAttemptId();
+        const alreadyCompleted = expeditionIsComplete();
+        return {
+            version: 1,
+            completedAttempts: alreadyCompleted ? 1 : 0,
+            cooldownUntil: 0,
+            activeAttemptId,
+            lastCompletedAttemptId: alreadyCompleted ? activeAttemptId : ''
+        };
+    }
+
+    function validAttemptLedger(candidate) {
+        return candidate
+            && candidate.version === 1
+            && Number.isInteger(candidate.completedAttempts)
+            && candidate.completedAttempts >= 0
+            && candidate.completedAttempts <= expeditionAttemptLimit
+            && Number.isFinite(candidate.cooldownUntil)
+            && candidate.cooldownUntil >= 0
+            && typeof candidate.activeAttemptId === 'string'
+            && candidate.activeAttemptId.length > 0
+            && typeof candidate.lastCompletedAttemptId === 'string';
+    }
+
+    function loadAttemptLedger() {
+        try {
+            const saved = JSON.parse(window.localStorage.getItem(attemptStorageKey()) || 'null');
+            if (validAttemptLedger(saved)) return saved;
+        } catch {}
+        return createAttemptLedger();
+    }
+
+    let attemptLedger = loadAttemptLedger();
+
     function saveState() {
         try { window.localStorage.setItem(storageKey(), JSON.stringify(state)); } catch {}
     }
@@ -534,6 +590,91 @@
 
     function saveStage5State() {
         try { window.localStorage.setItem(stage5StorageKey(), JSON.stringify(stage5State)); } catch {}
+    }
+
+    function saveAttemptLedger() {
+        try { window.localStorage.setItem(attemptStorageKey(), JSON.stringify(attemptLedger)); } catch {}
+    }
+
+    function refreshExpiredCooldown() {
+        if (!attemptLedger.cooldownUntil || Date.now() < attemptLedger.cooldownUntil) return false;
+        attemptLedger.completedAttempts = 0;
+        attemptLedger.cooldownUntil = 0;
+        attemptLedger.lastCompletedAttemptId = attemptLedger.activeAttemptId;
+        saveAttemptLedger();
+        return true;
+    }
+
+    function recordExpeditionCompletion() {
+        refreshExpiredCooldown();
+        if (attemptLedger.lastCompletedAttemptId === attemptLedger.activeAttemptId) return;
+        attemptLedger.completedAttempts = Math.min(expeditionAttemptLimit, attemptLedger.completedAttempts + 1);
+        attemptLedger.lastCompletedAttemptId = attemptLedger.activeAttemptId;
+        if (attemptLedger.completedAttempts >= expeditionAttemptLimit) {
+            attemptLedger.cooldownUntil = Date.now() + expeditionCooldownMs;
+        }
+        saveAttemptLedger();
+    }
+
+    function formatCountdown(milliseconds) {
+        const seconds = Math.max(0, Math.ceil(milliseconds / 1000));
+        const hours = Math.floor(seconds / 3600);
+        const minutes = Math.floor((seconds % 3600) / 60);
+        const remainingSeconds = seconds % 60;
+        return [hours, minutes, remainingSeconds].map(value => String(value).padStart(2, '0')).join(':');
+    }
+
+    function updateExpeditionLimitUI() {
+        refreshExpiredCooldown();
+        const coolingDown = attemptLedger.cooldownUntil > Date.now();
+        elements.expeditionLimitPanel.classList.toggle('is-cooling', coolingDown);
+        elements.expeditionCountdown.hidden = !coolingDown;
+        elements.newExpedition.disabled = coolingDown;
+
+        if (coolingDown) {
+            elements.expeditionLimitTitle.textContent = 'Two expeditions completed';
+            elements.expeditionLimitStatus.textContent = 'Your next two expeditions become available when this six-hour learning break ends.';
+            elements.expeditionCountdown.textContent = formatCountdown(attemptLedger.cooldownUntil - Date.now());
+            elements.newExpedition.textContent = 'New Expedition Locked';
+            if (!cooldownTimerId) cooldownTimerId = window.setInterval(updateExpeditionLimitUI, 1000);
+            return;
+        }
+
+        if (cooldownTimerId) {
+            window.clearInterval(cooldownTimerId);
+            cooldownTimerId = 0;
+        }
+        const remaining = expeditionAttemptLimit - attemptLedger.completedAttempts;
+        elements.expeditionLimitTitle.textContent = remaining === 1 ? 'One new expedition remains' : 'Two new expeditions are available';
+        elements.expeditionLimitStatus.textContent = remaining === 1
+            ? 'Your next completion will begin a six-hour learning break.'
+            : 'Each new expedition reshuffles the questions and answer options.';
+        elements.newExpedition.textContent = 'Start a New Expedition';
+    }
+
+    function startNewExpedition() {
+        refreshExpiredCooldown();
+        if (attemptLedger.cooldownUntil > Date.now()) {
+            updateExpeditionLimitUI();
+            return;
+        }
+        if (!window.confirm('Start a new shuffled expedition? Your completed score will remain in certificate history, but the five game stages will restart.')) return;
+
+        state = createState();
+        stage2State = createStage2State();
+        stage3State = createStage3State();
+        stage4State = createStage4State();
+        stage5State = createStage5State();
+        attemptLedger.activeAttemptId = uniqueAttemptId();
+        saveState();
+        saveStage2State();
+        saveStage3State();
+        saveStage4State();
+        saveStage5State();
+        saveAttemptLedger();
+        window.MayHubCertificates?.hide?.();
+        elements.resumeNote.textContent = 'A fresh expedition is ready with reshuffled questions and answer choices.';
+        showScreen('intro');
     }
 
     function currentPack() {
@@ -717,7 +858,7 @@
     function completionCopy(score) {
         if (score === totalQuestions) return ['Perfect navigation', 'Every trade signal was interpreted correctly. The first route is completely secure.'];
         if (score >= 7) return ['Excellent navigation', 'You read the briefing with impressive accuracy and secured the first route.'];
-        if (score >= 4) return ['Route secured', 'You completed the stage successfully. Try the alternate source route to sharpen your trade interpretation.'];
+        if (score >= 4) return ['Route secured', 'You completed the stage successfully and can continue to the next expedition stage.'];
         return ['Route needs another attempt', 'You completed the stage, but the trade signals need more practice before the next expedition stage.'];
     }
 
@@ -735,15 +876,6 @@
         if (playCompletionSound && percentage >= 50) window.MayHubSounds?.playPass?.();
         else if (playCompletionSound) window.MayHubSounds?.playFail?.();
         showScreen('result');
-    }
-
-    function tryAnotherRoute() {
-        const alternative = Object.keys(packs).find(packId => packId !== state.packId) || state.packId;
-        state = createState(alternative);
-        state.started = true;
-        saveState();
-        showScreen('game');
-        renderQuestion();
     }
 
     function beginStage2() {
@@ -835,7 +967,7 @@
     function stage2CompletionCopy(score) {
         if (score === stage2Total) return ['Perfect calibration', 'Every development concept was matched correctly. Your Concept Compass is fully aligned.'];
         if (score >= 6) return ['Excellent calibration', 'Your development vocabulary is precise and the expedition can continue confidently.'];
-        if (score >= 4) return ['Compass calibrated', 'You completed the stage successfully. Replay it to strengthen the concepts you missed.'];
+        if (score >= 4) return ['Compass calibrated', 'You completed the stage successfully and can continue with the expedition.'];
         return ['Compass needs recalibration', 'You completed the stage, but these development concepts need another careful route.'];
     }
 
@@ -854,14 +986,6 @@
         if (playCompletionSound && percentage >= 50) window.MayHubSounds?.playPass?.();
         else if (playCompletionSound) window.MayHubSounds?.playFail?.();
         showScreen('stage2Result');
-    }
-
-    function replayStage2() {
-        stage2State = createStage2State();
-        stage2State.started = true;
-        saveStage2State();
-        showScreen('stage2');
-        renderStage2();
     }
 
     function beginStage3() {
@@ -1012,14 +1136,6 @@
         showScreen('stage3Result');
     }
 
-    function replayStage3() {
-        stage3State = createStage3State();
-        stage3State.started = true;
-        saveStage3State();
-        showScreen('stage3');
-        renderStage3();
-    }
-
     function beginStage4() {
         if (!stage3State.completed) return;
         if (stage4State.completed) {
@@ -1168,14 +1284,6 @@
         showScreen('stage4Result');
     }
 
-    function replayStage4() {
-        stage4State = createStage4State();
-        stage4State.started = true;
-        saveStage4State();
-        showScreen('stage4');
-        renderStage4();
-    }
-
     function beginStage5() {
         if (!stage4State.completed) return;
         if (stage5State.completed) {
@@ -1319,7 +1427,8 @@
         window.MayHubCertificates.showScored({
             correct: fullExpeditionScore(),
             total: expeditionTotalMarks,
-            category: 'Five-Stage Geography Expedition'
+            category: 'Five-Stage Geography Expedition',
+            completionId: 'geoquest-' + attemptLedger.activeAttemptId
         });
         return true;
     }
@@ -1328,6 +1437,7 @@
         stage5State.completed = true;
         stage5State.current = stage5Total;
         saveStage5State();
+        recordExpeditionCompletion();
         const [title, message] = stage5CompletionCopy(stage5State.score);
         const percentage = Math.round(stage5State.score / stage5TotalMarks * 100);
         elements.stage5ResultScore.textContent = stage5State.score + '/' + stage5TotalMarks;
@@ -1337,6 +1447,7 @@
         elements.stage5ResultPercent.textContent = percentage + '%';
         elements.finalExpeditionScore.textContent = fullExpeditionScore() + '/' + expeditionTotalMarks;
         showScreen('stage5Result');
+        updateExpeditionLimitUI();
         if (openCertificate) {
             window.setTimeout(() => {
                 if (!showFinalCertificate()) {
@@ -1345,14 +1456,6 @@
                 }
             }, 450);
         }
-    }
-
-    function replayStage5() {
-        stage5State = createStage5State();
-        stage5State.started = true;
-        saveStage5State();
-        showScreen('stage5');
-        renderStage5();
     }
 
     function updateZoom(nextZoom) {
@@ -1366,24 +1469,20 @@
         if (sourceKind === 'stage5') {
             elements.sourceImage.src = stage5Data.sourceImage;
             elements.sourceImage.alt = stage5Data.sourceAlt;
-            elements.sourcePackLabel.textContent = 'Final-stage briefing // Original rewritten source';
-            elements.sourceTitle.textContent = 'Aid Operations Humanitarian Brief';
+            elements.sourceTitle.textContent = 'Development Aid Source';
         } else if (sourceKind === 'stage4') {
             elements.sourceImage.src = stage4Data.sourceImage;
             elements.sourceImage.alt = stage4Data.sourceAlt;
-            elements.sourcePackLabel.textContent = 'Stage 4 briefing // Original black-and-white source';
-            elements.sourceTitle.textContent = 'Trade Gatekeepers Customs File';
+            elements.sourceTitle.textContent = 'Free Trade Relationships Source';
         } else if (sourceKind === 'stage3') {
             elements.sourceImage.src = stage3Data.sourceImage;
             elements.sourceImage.alt = stage3Data.sourceAlt;
-            elements.sourcePackLabel.textContent = 'Stage 3 briefing // Original regenerated source';
-            elements.sourceTitle.textContent = 'Development Crossroads Source';
+            elements.sourceTitle.textContent = 'GDP Growth and Human Development Source';
         } else {
             const pack = currentPack();
             elements.sourceImage.src = pack.sourceImage;
             elements.sourceImage.alt = pack.label + ': South African trade snapshot';
-            elements.sourcePackLabel.textContent = 'Assigned briefing // Source Pack ' + state.packId;
-            elements.sourceTitle.textContent = 'Trade Intelligence Source';
+            elements.sourceTitle.textContent = 'Trade Patterns Source';
         }
         updateZoom(1);
         previousBodyOverflow = document.body.style.overflow;
@@ -1395,6 +1494,7 @@
     function closeSource() {
         elements.overlay.hidden = true;
         document.body.style.overflow = previousBodyOverflow;
+        elements.headerSource.focus();
     }
 
     function initialise() {
@@ -1428,24 +1528,20 @@
         elements.begin.addEventListener('click', beginStage);
         elements.next.addEventListener('click', nextQuestion);
         elements.continueStage2.addEventListener('click', beginStage2);
-        elements.anotherRoute.addEventListener('click', tryAnotherRoute);
         elements.previousTerm.addEventListener('click', () => moveTerm(-1));
         elements.nextTerm.addEventListener('click', () => moveTerm(1));
         elements.termCard.addEventListener('click', selectCandidateTerm);
         elements.stage2Next.addEventListener('click', nextStage2Definition);
-        elements.replayStage2.addEventListener('click', replayStage2);
         elements.continueStage3.addEventListener('click', beginStage3);
         elements.confirmStage3.addEventListener('click', lockStage3Question);
         elements.stage3Next.addEventListener('click', nextStage3Question);
-        elements.replayStage3.addEventListener('click', replayStage3);
         elements.continueStage4.addEventListener('click', beginStage4);
         elements.confirmStage4.addEventListener('click', lockStage4Question);
         elements.stage4Next.addEventListener('click', nextStage4Question);
-        elements.replayStage4.addEventListener('click', replayStage4);
         elements.continueStage5.addEventListener('click', beginStage5);
         elements.confirmStage5.addEventListener('click', lockStage5Question);
         elements.stage5Next.addEventListener('click', nextStage5Question);
-        elements.replayStage5.addEventListener('click', replayStage5);
+        elements.newExpedition.addEventListener('click', startNewExpedition);
         elements.viewCertificate.addEventListener('click', showFinalCertificate);
         document.getElementById('closeSourceButton').addEventListener('click', closeSource);
         document.getElementById('zoomOutButton').addEventListener('click', () => updateZoom(zoom - .25));
