@@ -1,8 +1,8 @@
-const CORE_CACHE_NAME = 'may-learning-core-v32-home-whats-new-pure-black';
+const CORE_CACHE_NAME = 'may-learning-core-v33-grade11-premium-certificate-export';
 const RUNTIME_CACHE_NAME = 'may-learning-runtime-pages';
 const CERTIFICATE_DOWNLOAD_CACHE = 'may-learning-certificate-downloads';
 const CERTIFICATE_DOWNLOAD_PATH = '/certificate-download/';
-const SERVICE_WORKER_VERSION = '49-home-whats-new-pure-black';
+const SERVICE_WORKER_VERSION = '50-grade11-premium-certificate-export';
 
 const CORE_ASSETS = [
   '/may-certificate-actions.js',

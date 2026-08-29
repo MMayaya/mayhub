@@ -712,6 +712,7 @@
             subject: options.subject || data.certificateSubject || '',
             term: options.term || data.certificateTerm || '',
             layout: options.layout || data.certificateLayout || 'standard',
+            exportStyle: options.exportStyle || data.certificateExportStyle || '',
             topic: options.topic || data.certificateTopic || 'Assessment Activity',
             gameTitle: options.gameTitle || data.certificateGame || 'Assessment Game'
         };
@@ -827,6 +828,7 @@
             subject: context.subject,
             term: context.term,
             layout: context.layout,
+            exportStyle: context.exportStyle,
             gameTitle: context.gameTitle,
             topic: context.topic,
             category: options.category || 'Assessment Game',
@@ -1034,6 +1036,7 @@
             gameTitle: record.gameTitle,
             topic: record.topic || record.gameTitle,
             layout: record.layout,
+            exportStyle: record.exportStyle,
             category: record.categoryTitle,
             grade: record.grade || '',
             subject: record.subject || '',

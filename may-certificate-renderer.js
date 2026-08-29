@@ -3,7 +3,7 @@
 
     if (window.MayCertificateRenderer && window.MayCertificateRenderer.version) return;
 
-    const VERSION = '1.4.0';
+    const VERSION = '1.5.0';
     const scriptUrl = new URL(document.currentScript.src);
     const siteRoot = new URL('.', scriptUrl);
     const defaultLogoUrl = new URL('May Learning Hub Logo.png', siteRoot).href;
@@ -73,6 +73,7 @@
             metricLabel: cleanText(options.metricLabel, options.metricValue ? 'Completed in' : ''),
             metricValue: cleanText(options.metricValue),
             metricStyle: options.metricStyle === 'split-duration' ? 'split-duration' : '',
+            exportStyle: options.exportStyle === 'premium-preview' ? 'premium-preview' : '',
             date,
             issuedAt,
             logoUrl: cleanText(options.logoUrl, defaultLogoUrl),
@@ -285,6 +286,365 @@
         ctx.restore();
     }
 
+    function drawTrackedText(ctx, text, x, y, spacing) {
+        const value = cleanText(text);
+        if (!value) return;
+        const letters = Array.from(value);
+        const glyphWidths = letters.map(letter => ctx.measureText(letter).width);
+        const totalWidth = glyphWidths.reduce((sum, width) => sum + width, 0) + Math.max(0, letters.length - 1) * spacing;
+        let cursor = x - totalWidth / 2;
+        letters.forEach((letter, index) => {
+            ctx.fillText(letter, cursor + glyphWidths[index] / 2, y);
+            cursor += glyphWidths[index] + spacing;
+        });
+    }
+
+    function drawPreviewCorner(ctx, x, y, rotation, accent) {
+        ctx.save();
+        ctx.translate(x, y);
+        ctx.rotate(rotation);
+        ctx.globalAlpha = .68;
+        ctx.strokeStyle = '#b99a55';
+        ctx.lineWidth = 3;
+        ctx.strokeRect(-78, -78, 156, 156);
+        ctx.strokeStyle = accent;
+        ctx.lineWidth = 1.5;
+        ctx.strokeRect(-65, -65, 130, 130);
+        ctx.restore();
+    }
+
+    function drawPreviewBeam(ctx, theme, accent) {
+        ctx.save();
+        const beamLeft = 72;
+        const beamTop = 112;
+        const beamWidth = 1056;
+        const beamBottom = 795;
+        const softBeam = ctx.createLinearGradient(0, beamTop, 0, beamBottom);
+        softBeam.addColorStop(0, theme.start);
+        softBeam.addColorStop(.4, theme.middle);
+        softBeam.addColorStop(.72, 'rgba(255,255,255,.20)');
+        softBeam.addColorStop(1, 'rgba(255,255,255,0)');
+        ctx.fillStyle = softBeam;
+        ctx.filter = 'blur(30px)';
+        ctx.globalAlpha = .24;
+        ctx.beginPath();
+        ctx.moveTo(beamLeft + beamWidth * .1, beamTop);
+        ctx.lineTo(beamLeft + beamWidth, beamBottom);
+        ctx.lineTo(beamLeft, beamBottom);
+        ctx.closePath();
+        ctx.fill();
+
+        const focusedBeam = ctx.createLinearGradient(0, beamTop, 0, beamBottom);
+        focusedBeam.addColorStop(0, theme.start);
+        focusedBeam.addColorStop(.4, theme.middle);
+        focusedBeam.addColorStop(.72, 'rgba(255,255,255,.2)');
+        focusedBeam.addColorStop(1, 'rgba(255,255,255,0)');
+        ctx.fillStyle = focusedBeam;
+        ctx.filter = 'blur(16px)';
+        ctx.shadowColor = 'rgba(255,255,240,.88)';
+        ctx.shadowBlur = 15;
+        ctx.globalAlpha = .82;
+        ctx.beginPath();
+        ctx.moveTo(beamLeft + beamWidth * .12, beamTop);
+        ctx.lineTo(beamLeft + beamWidth * .88, beamBottom);
+        ctx.lineTo(beamLeft + beamWidth * .12, beamBottom);
+        ctx.closePath();
+        ctx.fill();
+        ctx.shadowColor = 'transparent';
+        ctx.filter = 'none';
+
+        const nameGlow = ctx.createRadialGradient(600, 666, 25, 600, 666, 410);
+        nameGlow.addColorStop(0, 'rgba(255,255,255,.74)');
+        nameGlow.addColorStop(.42, accent + '1f');
+        nameGlow.addColorStop(1, 'rgba(255,255,255,0)');
+        ctx.fillStyle = nameGlow;
+        ctx.globalAlpha = 1;
+        ctx.fillRect(130, 455, 940, 385);
+        ctx.restore();
+    }
+
+    function drawPreviewTrophy(ctx, x, y, accent, dark, soft) {
+        ctx.save();
+        ctx.translate(x, y);
+        ctx.shadowColor = 'rgba(11, 30, 53, .22)';
+        ctx.shadowBlur = 16;
+        ctx.shadowOffsetY = 7;
+        const face = ctx.createRadialGradient(-22, -28, 8, 0, 0, 76);
+        face.addColorStop(0, '#fffdf2');
+        face.addColorStop(.24, '#fffdf2');
+        face.addColorStop(.58, soft);
+        face.addColorStop(1, accent);
+        ctx.fillStyle = face;
+        ctx.strokeStyle = '#b99a55';
+        ctx.lineWidth = 5;
+        ctx.beginPath();
+        ctx.arc(0, 0, 66, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.stroke();
+        ctx.shadowColor = 'transparent';
+        ctx.strokeStyle = '#0b1e35';
+        ctx.lineWidth = 3;
+        ctx.beginPath();
+        ctx.arc(0, 0, 53, 0, Math.PI * 2);
+        ctx.stroke();
+        ctx.strokeStyle = 'rgba(255,255,255,.8)';
+        ctx.lineWidth = 1.5;
+        ctx.beginPath();
+        ctx.arc(0, 0, 48, 0, Math.PI * 2);
+        ctx.stroke();
+        ctx.font = '54px "Segoe UI Emoji", "Apple Color Emoji", sans-serif';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillStyle = '#17324d';
+        ctx.fillText('🏆', 0, -2);
+        ctx.fillStyle = dark;
+        ctx.strokeStyle = '#fff8df';
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.arc(52, 49, 19, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.stroke();
+        ctx.fillStyle = '#fff8df';
+        ctx.font = 'bold 17px Georgia, serif';
+        ctx.fillText('★', 52, 49);
+        ctx.restore();
+    }
+
+    function drawPremiumPreviewRibbon(ctx, x, y, label, accent, dark) {
+        ctx.save();
+        ctx.translate(x, y);
+        ctx.shadowColor = 'rgba(11, 30, 53, .2)';
+        ctx.shadowBlur = 14;
+        ctx.shadowOffsetY = 6;
+        ctx.fillStyle = dark;
+        ctx.beginPath();
+        ctx.moveTo(-210, -30); ctx.lineTo(-230, 0); ctx.lineTo(-210, 30);
+        ctx.lineTo(210, 30); ctx.lineTo(230, 0); ctx.lineTo(210, -30);
+        ctx.closePath();
+        ctx.fill();
+        ctx.shadowColor = 'transparent';
+        const fill = ctx.createLinearGradient(-210, 0, 210, 0);
+        fill.addColorStop(0, dark);
+        fill.addColorStop(.5, accent);
+        fill.addColorStop(1, dark);
+        ctx.fillStyle = fill;
+        ctx.fillRect(-206, -27, 412, 54);
+        ctx.strokeStyle = 'rgba(255,248,213,.88)';
+        ctx.lineWidth = 2;
+        ctx.strokeRect(-196, -19, 392, 38);
+        ctx.fillStyle = '#fffdf4';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.font = '900 19px "Segoe UI", sans-serif';
+        drawTrackedText(ctx, label.toUpperCase(), 0, 1, 3);
+        ctx.restore();
+    }
+
+    async function renderPremiumPreviewCertificate(result, includeExternalLogo) {
+        const palette = palettes[result.tierClass];
+        const theme = premiumThemes[result.tierClass] || premiumThemes['tier-bronze'];
+        const accent = palette.main;
+        const canvas = document.createElement('canvas');
+        canvas.width = 1200;
+        canvas.height = 1697;
+        const ctx = canvas.getContext('2d');
+        if (!ctx) throw rendererError('Canvas rendering is unavailable.', 'canvas_unavailable');
+
+        const navy = '#0b1e35';
+        const ink = '#344457';
+        const gold = '#b99a55';
+        const paper = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+        paper.addColorStop(0, theme.start);
+        paper.addColorStop(.54, theme.middle);
+        paper.addColorStop(1, theme.end);
+        ctx.fillStyle = paper;
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        const readingGlow = ctx.createRadialGradient(600, 815, 42, 600, 815, 780);
+        readingGlow.addColorStop(0, 'rgba(255,255,255,.92)');
+        readingGlow.addColorStop(.14, 'rgba(255,255,255,.92)');
+        readingGlow.addColorStop(.37, 'rgba(255,255,255,.52)');
+        readingGlow.addColorStop(.68, 'rgba(255,255,255,0)');
+        ctx.fillStyle = readingGlow;
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        ctx.strokeStyle = navy;
+        ctx.lineWidth = 28;
+        ctx.strokeRect(14, 14, canvas.width - 28, canvas.height - 28);
+        ctx.strokeStyle = gold;
+        ctx.lineWidth = 4;
+        ctx.strokeRect(45, 45, canvas.width - 90, canvas.height - 90);
+        ctx.strokeStyle = gold;
+        ctx.lineWidth = 1.5;
+        ctx.strokeRect(58, 58, canvas.width - 116, canvas.height - 116);
+        ctx.strokeStyle = 'rgba(185,154,85,.58)';
+        ctx.lineWidth = 1;
+        ctx.strokeRect(29, 29, canvas.width - 58, canvas.height - 58);
+        drawPreviewCorner(ctx, 15, 15, Math.PI / 4, accent);
+        drawPreviewCorner(ctx, 1185, 1682, Math.PI / 4, accent);
+        drawPreviewBeam(ctx, theme, accent);
+
+        const canLoadAssets = includeExternalLogo && /^(?:https?:|file:)$/.test(window.location.protocol);
+        const [logo, signature] = await Promise.all([
+            canLoadAssets ? loadLogo(result.logoUrl) : Promise.resolve(null),
+            canLoadAssets ? loadLogo(result.signatureUrl) : Promise.resolve(null)
+        ]);
+        if (logo) ctx.drawImage(logo, 82, 78, 172, 172);
+        else drawBrandFallback(ctx, palette);
+        drawPreviewTrophy(ctx, 1040, 158, accent, palette.dark, palette.soft);
+
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillStyle = navy;
+        ctx.font = '900 21px "Segoe UI", sans-serif';
+        drawTrackedText(ctx, [result.grade, result.subject].filter(Boolean).join(' ').toUpperCase(), 600, 252, 5);
+
+        ctx.fillStyle = navy;
+        let y = drawFittedWrappedText(ctx, {
+            text: result.title,
+            x: 600,
+            y: 310,
+            maxWidth: 850,
+            maxLines: 2,
+            maxSize: 61,
+            minSize: 42,
+            lineHeightRatio: 1.1,
+            font: size => 'bold ' + size + 'px Georgia, "Times New Roman", serif'
+        });
+
+        const awardY = y + 46;
+        ctx.fillStyle = navy;
+        ctx.fillRect(285, awardY - 29, 630, 58);
+        ctx.strokeStyle = gold;
+        ctx.lineWidth = 2;
+        ctx.strokeRect(295, awardY - 20, 610, 40);
+        ctx.fillStyle = '#fff8df';
+        ctx.font = '900 20px "Segoe UI", sans-serif';
+        drawTrackedText(ctx, result.award.toUpperCase(), 600, awardY, 2.2);
+
+        y = awardY + 88;
+        ctx.fillStyle = '#6b7480';
+        ctx.font = 'italic 26px Georgia, "Times New Roman", serif';
+        ctx.fillText('Presented in recognition of learning progress to', 600, y);
+        y += 66;
+
+        ctx.fillStyle = navy;
+        y = drawFittedWrappedText(ctx, {
+            text: result.learnerName,
+            x: 600,
+            y,
+            maxWidth: 810,
+            maxLines: 1,
+            maxSize: 56,
+            minSize: 24,
+            lineHeightRatio: 1.08,
+            font: size => 'bold italic ' + size + 'px Georgia, "Times New Roman", serif'
+        });
+        ctx.strokeStyle = gold;
+        ctx.lineWidth = 3;
+        ctx.beginPath();
+        ctx.moveTo(205, y + 10);
+        ctx.lineTo(995, y + 10);
+        ctx.stroke();
+
+        y += 66;
+        ctx.fillStyle = ink;
+        y = drawFittedWrappedText(ctx, {
+            text: 'for completing ' + result.gameTitle + ' in the ' + result.category + ' category.',
+            x: 600,
+            y,
+            maxWidth: 850,
+            maxLines: 3,
+            maxSize: 27,
+            minSize: 20,
+            lineHeightRatio: 1.42,
+            font: size => size + 'px Georgia, "Times New Roman", serif'
+        });
+
+        const scoreY = Math.max(1020, Math.min(y + 155, 1085));
+        ctx.save();
+        ctx.shadowColor = 'rgba(11,30,53,.18)';
+        ctx.shadowBlur = 24;
+        ctx.shadowOffsetY = 10;
+        ctx.fillStyle = 'rgba(255,255,255,.86)';
+        ctx.strokeStyle = gold;
+        ctx.lineWidth = 9;
+        ctx.beginPath();
+        ctx.arc(600, scoreY, 142, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.stroke();
+        ctx.shadowColor = 'transparent';
+        ctx.strokeStyle = navy;
+        ctx.lineWidth = 3;
+        ctx.beginPath();
+        ctx.arc(600, scoreY, 119, 0, Math.PI * 2);
+        ctx.stroke();
+        ctx.strokeStyle = 'rgba(255,255,255,.72)';
+        ctx.lineWidth = 9;
+        ctx.beginPath();
+        ctx.arc(600, scoreY, 105, 0, Math.PI * 2);
+        ctx.stroke();
+        ctx.restore();
+        ctx.fillStyle = navy;
+        ctx.font = 'bold 58px Georgia, "Times New Roman", serif';
+        ctx.fillText(result.correct + '/' + result.total, 600, scoreY - 14);
+        ctx.fillStyle = palette.dark;
+        ctx.font = '900 20px "Segoe UI", sans-serif';
+        drawTrackedText(ctx, 'MARKS', 600, scoreY + 48, 4);
+
+        const messageY = scoreY + 184;
+        ctx.fillStyle = palette.dark;
+        drawFittedWrappedText(ctx, {
+            text: result.message,
+            x: 600,
+            y: messageY,
+            maxWidth: 850,
+            maxLines: 3,
+            maxSize: 23,
+            minSize: 18,
+            lineHeightRatio: 1.42,
+            font: size => 'bold ' + size + 'px "Segoe UI", sans-serif'
+        });
+        drawPremiumPreviewRibbon(ctx, 865, 1390, theme.ribbon, accent, palette.dark);
+
+        const footerY = 1482;
+        ctx.strokeStyle = '#596779';
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.moveTo(145, footerY);
+        ctx.lineTo(500, footerY);
+        ctx.moveTo(700, footerY);
+        ctx.lineTo(1055, footerY);
+        ctx.stroke();
+        ctx.fillStyle = navy;
+        ctx.font = 'bold 23px "Segoe UI", sans-serif';
+        ctx.fillText(result.date, 322, footerY - 34);
+        if (signature) ctx.drawImage(signature, 720, footerY - 88, 310, 61);
+        else {
+            ctx.font = 'italic 35px "Brush Script MT", "Segoe Script", "Lucida Handwriting", cursive';
+            ctx.fillText('M Learning Hub', 878, footerY - 38);
+        }
+        ctx.fillStyle = '#637180';
+        ctx.font = '17px "Segoe UI", sans-serif';
+        ctx.fillText('DATE AWARDED', 322, footerY + 35);
+        ctx.fillText('SIGNED BY MAY LEARNING HUB', 878, footerY + 35);
+        if (result.term) {
+            ctx.fillStyle = '#99917e';
+            ctx.font = '700 16px "Segoe UI", sans-serif';
+            drawTrackedText(ctx, result.term.toUpperCase(), 600, 1574, 3);
+        }
+        ctx.fillStyle = navy;
+        ctx.font = 'bold 18px "Segoe UI", sans-serif';
+        ctx.fillText('Get your certificate at www.maylearninghub.co.za', 600, 1623);
+
+        try {
+            const blob = await canvasToPngBlob(canvas);
+            return { blob, fileName: certificateFileName(result), width: canvas.width, height: canvas.height };
+        } catch (error) {
+            if (includeExternalLogo && (logo || signature)) return renderPremiumPreviewCertificate(result, false);
+            throw error;
+        }
+    }
+
     async function renderPremiumExpeditionCertificate(result, includeExternalLogo) {
         const palette = palettes[result.tierClass];
         const theme = premiumThemes[result.tierClass] || premiumThemes['tier-bronze'];
@@ -445,6 +805,9 @@
 
     async function renderCertificate(result, includeExternalLogo) {
         if (result.mode === 'scored' && result.layout === 'premium-expedition') {
+            if (result.exportStyle === 'premium-preview') {
+                return renderPremiumPreviewCertificate(result, includeExternalLogo);
+            }
             return renderPremiumExpeditionCertificate(result, includeExternalLogo);
         }
         const participation = result.mode === 'participation';

@@ -17,6 +17,7 @@ function mockCanvas() {
     const context = {
         drawnText,
         createLinearGradient: () => gradient,
+        createRadialGradient: () => gradient,
         measureText: value => ({ width: String(value).length * 14 }),
         fillText: value => drawnText.push(String(value)),
         fillRect() {}, strokeRect() {}, beginPath() {}, moveTo() {}, lineTo() {},
@@ -139,6 +140,30 @@ async function testRenderer() {
     assert(canvases[3].context.drawnText.includes('42'));
     assert(canvases[3].context.drawnText.includes('MINUTES'));
     assert(canvases[3].context.drawnText.includes('SECONDS'));
+
+    const premiumPreview = await window.MayCertificateRenderer.create({
+        learnerName: 'Premium Certificate Learner',
+        grade: 'Grade 11',
+        subject: 'Geography',
+        term: 'Term 3',
+        topic: 'GeoQuest: The Grand Expedition',
+        gameTitle: 'GeoQuest: The Grand Expedition',
+        category: 'Five-Stage Geography Expedition',
+        layout: 'premium-expedition',
+        exportStyle: 'premium-preview',
+        mode: 'scored',
+        correct: 52,
+        total: 60,
+        title: 'Certificate of Distinction',
+        award: 'Gold Distinction Award',
+        message: 'DISTINCTION — Excellent work!',
+        tierClass: 'tier-gold',
+        issuedAt: '2026-08-28T10:00:03.000Z'
+    });
+    assert.strictEqual(premiumPreview.blob.type, 'image/png');
+    assert(canvases[4].context.drawnText.includes('Certificate of Distinction'));
+    assert(canvases[4].context.drawnText.includes('52/60'));
+    assert(canvases[4].context.drawnText.includes('Presented in recognition of learning progress to'));
 
     await assert.rejects(
         () => window.MayCertificateRenderer.create({ mode: 'scored', correct: 0, total: 0 }),

@@ -57,6 +57,7 @@
       gameTitle,
       topic: safeText(record.topic, 160),
       layout: safeText(record.layout, 40),
+      exportStyle: safeText(record.exportStyle, 60),
       categoryTitle: safeText(record.categoryTitle, 160),
       subjectLine: safeText(record.subjectLine, 160),
       termLabel: safeText(record.termLabel, 80),
