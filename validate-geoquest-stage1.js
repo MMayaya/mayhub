@@ -177,19 +177,57 @@ else {
     if (bytes.length < 100000 || bytes[0] !== 0xFF || bytes[1] !== 0xD8) fail('Stage 4 source must be a substantial JPEG image');
 }
 
+const stage5Source = read('stage5-data.js');
+const stage5Sandbox = { window: {} };
+try { vm.runInNewContext(stage5Source, stage5Sandbox, { filename: 'stage5-data.js', timeout: 1000 }); }
+catch (error) { fail('stage5-data.js does not parse: ' + error.message); }
+const stage5 = stage5Sandbox.window.GeoQuestStage5Data || {};
+if (!Array.isArray(stage5.questions) || stage5.questions.length !== 5) {
+    fail('Stage 5 must contain five aid operations');
+} else {
+    const ids = new Set();
+    const expectedIds = ['development-aid', 'aid-routes', 'food-organisation', 'other-humanitarian-aid', 'humanitarian-decision'];
+    const expectedMarks = [1, 4, 1, 1, 8];
+    const expectedModes = ['single', 'multiple', 'single', 'single', 'multiple'];
+    stage5.questions.forEach((question, index) => {
+        if (!question.id || ids.has(question.id)) fail('Stage 5 has a missing or repeated question id');
+        ids.add(question.id);
+        if (question.id !== expectedIds[index]) fail('Stage 5 paper sequence is incorrect at operation ' + (index + 1));
+        if (question.marks !== expectedMarks[index]) fail('Stage 5 mark allocation is incorrect for ' + question.id);
+        if (question.mode !== expectedModes[index]) fail('Stage 5 has an invalid mode for ' + question.id);
+        if (!Array.isArray(question.options) || question.options.length < 3 || new Set(question.options).size !== question.options.length) fail('Stage 5 options are invalid for ' + question.id);
+        if (!Array.isArray(question.correctAnswers) || !question.correctAnswers.length || question.correctAnswers.some(answer => !question.options.includes(answer))) fail('Stage 5 correct answers are invalid for ' + question.id);
+        if (!String(question.prompt || '').trim() || !String(question.instruction || '').trim() || !String(question.feedback || '').trim()) fail('Stage 5 operation is incomplete: ' + question.id);
+        if (/\b1\.5(?:\.\d+)?\b/.test(question.prompt)) fail('Stage 5 exposes an examination question number');
+        if (question.mode === 'single' && question.correctAnswers.length !== 1) fail('Stage 5 single-choice answer count is incorrect for ' + question.id);
+        if (question.mode === 'multiple' && (question.selectLimit !== question.correctAnswers.length || question.pointsPerCorrect !== 2)) fail('Stage 5 multi-select marking is incorrect for ' + question.id);
+    });
+    if (stage5.questions.reduce((sum, question) => sum + question.marks, 0) !== 15) fail('Stage 5 must total 15 marks');
+    if (stage5.questions.filter(question => question.mode === 'single').length !== 3 || stage5.questions.filter(question => question.mode === 'multiple').length !== 2) fail('Stage 5 interaction mix must be three single and two multi-select aid operations');
+    if (stage5.questions[1]?.selectLimit !== 2 || stage5.questions[1]?.correctAnswers.length !== 2) fail('Stage 5 aid-route comparison must assess two distinctions');
+    if (stage5.questions[4]?.selectLimit !== 4 || stage5.questions[4]?.correctAnswers.length !== 4) fail('Stage 5 humanitarian decision must assess four balanced motivation points');
+}
+const stage5Image = path.join(questRoot, stage5.sourceImage || '');
+if (!stage5.sourceImage || !fs.existsSync(stage5Image)) fail('Stage 5 source image is missing');
+else {
+    const bytes = fs.readFileSync(stage5Image);
+    if (bytes.length < 100000 || bytes[0] !== 0xFF || bytes[1] !== 0xD8) fail('Stage 5 source must be a substantial JPEG image');
+}
+
 const page = read('GeoQuest.html');
 const logic = read('geoquest.js');
 const styles = read('geoquest.css');
-for (const required of ['geoquest.css', 'game-audio.js', 'source-packs.js', 'stage2-data.js', 'stage3-data.js', 'stage4-data.js', 'geoquest.js']) {
+for (const required of ['geoquest.css', 'game-audio.js', 'may-certificate-renderer.js', 'may-certificate-actions.js', 'assessment-certificate.js', 'source-packs.js', 'stage2-data.js', 'stage3-data.js', 'stage4-data.js', 'stage5-data.js', 'geoquest.js']) {
     if (!page.includes(required)) fail('GeoQuest.html is missing ' + required);
 }
-for (const id of ['sourceOverlay', 'sourceImage', 'answerGrid', 'feedbackPanel', 'resultScreen', 'stage2Screen', 'termCardButton', 'stage2FeedbackPanel', 'stage2ResultScreen', 'overallScore', 'stage3Screen', 'stage3SourceButton', 'stage3AnswerGrid', 'confirmStage3Button', 'stage3FeedbackPanel', 'stage3ResultScreen', 'stage3OverallScore', 'stage4Screen', 'stage4SourceButton', 'stage4AnswerGrid', 'confirmStage4Button', 'stage4FeedbackPanel', 'stage4ResultScreen', 'stage4OverallScore']) {
+for (const id of ['sourceOverlay', 'sourceImage', 'answerGrid', 'feedbackPanel', 'resultScreen', 'stage2Screen', 'termCardButton', 'stage2FeedbackPanel', 'stage2ResultScreen', 'overallScore', 'stage3Screen', 'stage3SourceButton', 'stage3AnswerGrid', 'confirmStage3Button', 'stage3FeedbackPanel', 'stage3ResultScreen', 'stage3OverallScore', 'stage4Screen', 'stage4SourceButton', 'stage4AnswerGrid', 'confirmStage4Button', 'stage4FeedbackPanel', 'stage4ResultScreen', 'stage4OverallScore', 'stage5Screen', 'stage5SourceButton', 'stage5AnswerGrid', 'confirmStage5Button', 'stage5FeedbackPanel', 'stage5ResultScreen', 'finalExpeditionScore', 'viewCertificateButton']) {
     if (!page.includes('id="' + id + '"')) fail('GeoQuest.html is missing #' + id);
 }
 if (!logic.includes('localStorage.setItem(storageKey()')) fail('Saved learner progress is missing');
 if (!logic.includes('localStorage.setItem(stage2StorageKey()')) fail('Saved Stage 2 learner progress is missing');
 if (!logic.includes('localStorage.setItem(stage3StorageKey()')) fail('Saved Stage 3 learner progress is missing');
 if (!logic.includes('localStorage.setItem(stage4StorageKey()')) fail('Saved Stage 4 learner progress is missing');
+if (!logic.includes('localStorage.setItem(stage5StorageKey()')) fail('Saved Stage 5 learner progress is missing');
 if (!logic.includes('shuffle(questions.map')) fail('Question shuffling is missing');
 if (!logic.includes("question.options)]")) fail('Option shuffling is missing');
 if (!logic.includes('termOrders:') || !logic.includes('shuffle(terms)')) fail('Stage 2 term-carousel shuffling is missing');
@@ -197,15 +235,18 @@ if (!logic.includes("showScreen('stage2')") || !logic.includes("showScreen('stag
 if (!logic.includes("showScreen('stage3')") || !logic.includes("showScreen('stage3Result')")) fail('Stage 3 navigation flow is incomplete');
 if (!logic.includes('correctSelections * question.pointsPerCorrect')) fail('Stage 3 partial marking is missing');
 if (!logic.includes("showScreen('stage4')") || !logic.includes("showScreen('stage4Result')")) fail('Stage 4 navigation flow is incomplete');
-if (!logic.includes('state.score + stage2State.score + stage3State.score + stage4State.score')) fail('Four-stage expedition scoring is missing');
+if (!logic.includes("showScreen('stage5')") || !logic.includes("showScreen('stage5Result')")) fail('Stage 5 navigation flow is incomplete');
+if (!logic.includes('state.score + stage2State.score + stage3State.score + stage4State.score + stage5State.score')) fail('Five-stage expedition scoring is missing');
+if (!logic.includes('expeditionTotalMarks = 60')) fail('The grand expedition total must be 60 marks');
 if (!logic.includes('Try Another Source Route') && !page.includes('Try Another Source Route')) fail('Alternate source route is missing');
-if (/MayHubCertificates/.test(page + logic)) fail('The unfinished expedition must not issue a certificate');
+if (!logic.includes('MayHubCertificates.showScored')) fail('Completed GeoQuest certificate integration is missing');
 if (!/@media\(max-width:620px\)/.test(styles)) fail('Mobile layout rules are missing');
 if (!styles.includes('.term-carousel') || !styles.includes('.term-card')) fail('Stage 2 carousel styling is missing');
 if (!styles.includes('.route-grid') || !styles.includes('.route-option') || !styles.includes('.source-callout')) fail('Stage 3 route-card or source styling is missing');
 if (!styles.includes('.gate-panel') || !styles.includes('.monochrome-source') || !styles.includes('.gate-orbit')) fail('Stage 4 monochrome styling is missing');
+if (!styles.includes('.aid-panel') || !styles.includes('.aid-source') || !styles.includes('.final-result-panel') || !styles.includes('.certificate-button')) fail('Stage 5 aid or certificate styling is missing');
 
-for (const file of ['geoquest.js', 'source-packs.js', 'stage2-data.js', 'stage3-data.js', 'stage4-data.js']) {
+for (const file of ['geoquest.js', 'source-packs.js', 'stage2-data.js', 'stage3-data.js', 'stage4-data.js', 'stage5-data.js']) {
     try { new vm.Script(read(file), { filename: file }); }
     catch (error) { fail(file + ' does not parse: ' + error.message); }
 }
@@ -217,19 +258,19 @@ if (gameLinks.at(-1) !== 'GeoQuest/GeoQuest.html') fail('GeoQuest must be the fi
 
 const worker = fs.readFileSync(path.join(siteRoot, 'sw.js'), 'utf8');
 const helper = fs.readFileSync(path.join(siteRoot, 'may-certificate-actions.js'), 'utf8');
-for (const asset of ['GeoQuest/GeoQuest.html', 'GeoQuest/geoquest.css', 'GeoQuest/geoquest.js', 'GeoQuest/source-packs.js', 'GeoQuest/stage2-data.js', 'GeoQuest/stage3-data.js', 'GeoQuest/stage4-data.js', 'trade-brief-a.jpg', 'trade-brief-b.jpg', 'development-crossroads.jpg', 'trade-gatekeepers.jpg']) {
+for (const asset of ['GeoQuest/GeoQuest.html', 'GeoQuest/geoquest.css', 'GeoQuest/geoquest.js', 'GeoQuest/source-packs.js', 'GeoQuest/stage2-data.js', 'GeoQuest/stage3-data.js', 'GeoQuest/stage4-data.js', 'GeoQuest/stage5-data.js', 'trade-brief-a.jpg', 'trade-brief-b.jpg', 'development-crossroads.jpg', 'trade-gatekeepers.jpg', 'aid-operations-brief.jpg']) {
     if (!worker.includes(asset)) fail('Service worker is missing GeoQuest asset ' + asset);
 }
 const workerVersion = worker.match(/SERVICE_WORKER_VERSION\s*=\s*'([^']+)'/)?.[1];
 const helperVersion = helper.match(/SERVICE_WORKER_VERSION\s*=\s*'([^']+)'/)?.[1];
 if (!workerVersion || workerVersion !== helperVersion) fail('Service-worker and certificate-helper versions do not match');
 
-if (/88\s?679\s?256\s?980|101\s?762\s?020\s?372/.test(dataSource + stage2Source + stage3Source + stage4Source + page + logic)) {
+if (/88\s?679\s?256\s?980|101\s?762\s?020\s?372/.test(dataSource + stage2Source + stage3Source + stage4Source + stage5Source + page + logic)) {
     fail('GeoQuest still contains the examination paper trade totals');
 }
 
 if (failures.length) {
-    console.error('GeoQuest Stage 1-4 validation failed:\n- ' + failures.join('\n- '));
+    console.error('GeoQuest Stage 1-5 validation failed:\n- ' + failures.join('\n- '));
     process.exit(1);
 }
-console.log('GeoQuest Stage 1-4 validation passed: regenerated sources, 45 verified marks, saved progress and responsive interactions.');
+console.log('GeoQuest Stage 1-5 validation passed: regenerated sources, 60 verified marks, saved progress, responsive interactions and certificate integration.');

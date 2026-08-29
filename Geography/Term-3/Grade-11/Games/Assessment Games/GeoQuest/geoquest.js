@@ -5,12 +5,16 @@
     const stage2Data = window.GeoQuestStage2Data || { terms: [], definitions: [] };
     const stage3Data = window.GeoQuestStage3Data || { questions: [] };
     const stage4Data = window.GeoQuestStage4Data || { questions: [] };
+    const stage5Data = window.GeoQuestStage5Data || { questions: [] };
     const totalQuestions = 8;
     const stage2Total = 7;
     const stage3Total = 6;
     const stage3TotalMarks = 15;
     const stage4Total = 6;
     const stage4TotalMarks = 15;
+    const stage5Total = 5;
+    const stage5TotalMarks = 15;
+    const expeditionTotalMarks = 60;
     const storageVersion = 1;
     let zoom = 1;
     let previousBodyOverflow = '';
@@ -25,14 +29,18 @@
         stage3Result: document.getElementById('stage3ResultScreen'),
         stage4: document.getElementById('stage4Screen'),
         stage4Result: document.getElementById('stage4ResultScreen'),
+        stage5: document.getElementById('stage5Screen'),
+        stage5Result: document.getElementById('stage5ResultScreen'),
         stage1Node: document.getElementById('stage1Node'),
         stage2Node: document.getElementById('stage2Node'),
         stage3Node: document.getElementById('stage3Node'),
         stage4Node: document.getElementById('stage4Node'),
+        stage5Node: document.getElementById('stage5Node'),
         stage1Status: document.getElementById('stage1Status'),
         stage2Status: document.getElementById('stage2Status'),
         stage3Status: document.getElementById('stage3Status'),
         stage4Status: document.getElementById('stage4Status'),
+        stage5Status: document.getElementById('stage5Status'),
         headerSource: document.getElementById('headerSourceButton'),
         begin: document.getElementById('beginButton'),
         resumeNote: document.getElementById('resumeNote'),
@@ -114,6 +122,27 @@
         stage4ResultPercent: document.getElementById('stage4ResultPercent'),
         stage4OverallScore: document.getElementById('stage4OverallScore'),
         replayStage4: document.getElementById('replayStage4Button'),
+        continueStage5: document.getElementById('continueStage5Button'),
+        stage5Score: document.getElementById('stage5ScoreValue'),
+        stage5Progress: document.getElementById('stage5ProgressFill'),
+        aidCounter: document.getElementById('aidCounter'),
+        aidMarks: document.getElementById('aidMarks'),
+        aidPrompt: document.getElementById('aidPrompt'),
+        aidInstruction: document.getElementById('aidInstruction'),
+        stage5Answers: document.getElementById('stage5AnswerGrid'),
+        confirmStage5: document.getElementById('confirmStage5Button'),
+        stage5Feedback: document.getElementById('stage5FeedbackPanel'),
+        stage5FeedbackTitle: document.getElementById('stage5FeedbackTitle'),
+        stage5FeedbackText: document.getElementById('stage5FeedbackText'),
+        stage5Next: document.getElementById('stage5NextButton'),
+        stage5ResultScore: document.getElementById('stage5ResultScore'),
+        stage5ResultTitle: document.getElementById('stage5ResultTitle'),
+        stage5ResultMessage: document.getElementById('stage5ResultMessage'),
+        stage5ResultMarks: document.getElementById('stage5ResultMarks'),
+        stage5ResultPercent: document.getElementById('stage5ResultPercent'),
+        finalExpeditionScore: document.getElementById('finalExpeditionScore'),
+        replayStage5: document.getElementById('replayStage5Button'),
+        viewCertificate: document.getElementById('viewCertificateButton'),
         overlay: document.getElementById('sourceOverlay'),
         sourceImage: document.getElementById('sourceImage'),
         sourcePackLabel: document.getElementById('sourcePackLabel'),
@@ -147,6 +176,10 @@
 
     function stage4StorageKey() {
         return 'mayhubGeoQuest:v' + storageVersion + ':grade-11:geography:term-3:stage-4:' + encodeURIComponent(learnerId());
+    }
+
+    function stage5StorageKey() {
+        return 'mayhubGeoQuest:v' + storageVersion + ':grade-11:geography:term-3:stage-5:' + encodeURIComponent(learnerId());
     }
 
     function randomIndex(maximum) {
@@ -414,6 +447,76 @@
 
     let stage4State = loadStage4State();
 
+    function createStage5State() {
+        const questions = stage5Data.questions || [];
+        return {
+            version: storageVersion,
+            started: false,
+            completed: false,
+            current: 0,
+            score: 0,
+            order: questions.map(question => question.id),
+            optionOrders: Object.fromEntries(questions.map(question => [question.id, shuffle(question.options)])),
+            answers: {},
+            locked: {},
+            awarded: {}
+        };
+    }
+
+    function validStage5State(candidate) {
+        if (!candidate || candidate.version !== storageVersion) return false;
+        const questions = stage5Data.questions || [];
+        const byId = new Map(questions.map(question => [question.id, question]));
+        const validOrder = Array.isArray(candidate.order)
+            && candidate.order.length === stage5Total
+            && candidate.order.every((id, index) => id === questions[index]?.id);
+        const validOptionOrders = candidate.optionOrders && candidate.order?.every(id => {
+            const question = byId.get(id);
+            const order = candidate.optionOrders[id];
+            return question
+                && Array.isArray(order)
+                && order.length === question.options.length
+                && new Set(order).size === question.options.length
+                && order.every(option => question.options.includes(option));
+        });
+        const validAnswers = candidate.answers && Object.entries(candidate.answers).every(([id, answers]) => {
+            const question = byId.get(id);
+            const limit = question?.mode === 'multiple' ? question.selectLimit : 1;
+            return question
+                && Array.isArray(answers)
+                && answers.length <= limit
+                && new Set(answers).size === answers.length
+                && answers.every(answer => question.options.includes(answer));
+        });
+        const validAwarded = candidate.awarded && Object.entries(candidate.awarded).every(([id, marks]) => {
+            const question = byId.get(id);
+            return question && Number.isInteger(marks) && marks >= 0 && marks <= question.marks;
+        });
+        const awardedTotal = candidate.awarded ? Object.values(candidate.awarded).reduce((sum, marks) => sum + marks, 0) : -1;
+        return validOrder
+            && validOptionOrders
+            && validAnswers
+            && validAwarded
+            && candidate.locked
+            && Number.isInteger(candidate.current)
+            && candidate.current >= 0
+            && candidate.current <= stage5Total
+            && Number.isInteger(candidate.score)
+            && candidate.score === awardedTotal
+            && candidate.score >= 0
+            && candidate.score <= stage5TotalMarks;
+    }
+
+    function loadStage5State() {
+        try {
+            const saved = JSON.parse(window.localStorage.getItem(stage5StorageKey()) || 'null');
+            if (validStage5State(saved)) return saved;
+        } catch {}
+        return createStage5State();
+    }
+
+    let stage5State = loadStage5State();
+
     function saveState() {
         try { window.localStorage.setItem(storageKey(), JSON.stringify(state)); } catch {}
     }
@@ -428,6 +531,10 @@
 
     function saveStage4State() {
         try { window.localStorage.setItem(stage4StorageKey(), JSON.stringify(stage4State)); } catch {}
+    }
+
+    function saveStage5State() {
+        try { window.localStorage.setItem(stage5StorageKey(), JSON.stringify(stage5State)); } catch {}
     }
 
     function currentPack() {
@@ -464,6 +571,14 @@
 
     function currentStage4Question() {
         return stage4QuestionById(stage4State.order[stage4State.current]);
+    }
+
+    function stage5QuestionById(id) {
+        return stage5Data.questions.find(question => question.id === id);
+    }
+
+    function currentStage5Question() {
+        return stage5QuestionById(stage5State.order[stage5State.current]);
     }
 
     function updateStageMap(name) {
@@ -503,6 +618,17 @@
         elements.stage4Status.textContent = stage4State.completed
             ? 'Stage completed'
             : (stage4IsCurrent ? 'In progress' : (stage3State.completed ? 'Ready to explore' : 'Complete Stage 3 to unlock'));
+
+        const stage5IsCurrent = name === 'stage5' || name === 'stage5Result';
+        let stage5Class = 'locked';
+        if (stage5State.completed) stage5Class = 'completed';
+        else if (stage5IsCurrent) stage5Class = 'active';
+        else if (stage4State.completed) stage5Class = 'available';
+        elements.stage5Node.className = 'stage-node ' + stage5Class;
+        elements.stage5Node.toggleAttribute('aria-current', stage5IsCurrent && !stage5State.completed);
+        elements.stage5Status.textContent = stage5State.completed
+            ? 'Expedition completed'
+            : (stage5IsCurrent ? 'In progress' : (stage4State.completed ? 'Ready for final stage' : 'Complete Stage 4 to unlock'));
     }
 
     function showScreen(name) {
@@ -515,8 +641,10 @@
         elements.stage3Result.hidden = name !== 'stage3Result';
         elements.stage4.hidden = name !== 'stage4';
         elements.stage4Result.hidden = name !== 'stage4Result';
+        elements.stage5.hidden = name !== 'stage5';
+        elements.stage5Result.hidden = name !== 'stage5Result';
         elements.headerSource.hidden = name === 'stage2' || name === 'stage2Result';
-        elements.headerSource.innerHTML = name === 'stage3' || name === 'stage3Result' || name === 'stage4' || name === 'stage4Result'
+        elements.headerSource.innerHTML = name === 'stage3' || name === 'stage3Result' || name === 'stage4' || name === 'stage4Result' || name === 'stage5' || name === 'stage5Result'
             ? '<span aria-hidden="true">&#128196;</span> Open Stage Source'
             : '<span aria-hidden="true">&#128196;</span> Open Source';
         updateStageMap(name);
@@ -1053,6 +1181,185 @@
         renderStage4();
     }
 
+    function beginStage5() {
+        if (!stage4State.completed) return;
+        if (stage5State.completed) {
+            completeStage5(false);
+            return;
+        }
+        stage5State.started = true;
+        saveStage5State();
+        showScreen('stage5');
+        renderStage5();
+    }
+
+    function scoreStage5Question(question, selectedAnswers) {
+        if (question.mode === 'multiple') {
+            const correctSelections = selectedAnswers.filter(answer => question.correctAnswers.includes(answer)).length;
+            return Math.min(question.marks, correctSelections * question.pointsPerCorrect);
+        }
+        return question.correctAnswers.includes(selectedAnswers[0]) ? question.marks : 0;
+    }
+
+    function chooseStage5Option(option) {
+        const question = currentStage5Question();
+        if (!question || stage5State.locked[question.id]) return;
+        const selected = [...(stage5State.answers[question.id] || [])];
+        if (question.mode === 'single') {
+            stage5State.answers[question.id] = [option];
+            lockStage5Question();
+            return;
+        }
+        const selectedIndex = selected.indexOf(option);
+        if (selectedIndex >= 0) selected.splice(selectedIndex, 1);
+        else if (selected.length < question.selectLimit) selected.push(option);
+        stage5State.answers[question.id] = selected;
+        saveStage5State();
+        renderStage5();
+    }
+
+    function lockStage5Question() {
+        const question = currentStage5Question();
+        if (!question || stage5State.locked[question.id]) return;
+        const selected = stage5State.answers[question.id] || [];
+        const required = question.mode === 'multiple' ? question.selectLimit : 1;
+        if (selected.length !== required) return;
+        const awarded = scoreStage5Question(question, selected);
+        stage5State.locked[question.id] = true;
+        stage5State.awarded[question.id] = awarded;
+        stage5State.score += awarded;
+        saveStage5State();
+        if (awarded === question.marks) window.MayHubSounds?.playCorrect?.();
+        else window.MayHubSounds?.playWrong?.();
+        renderStage5();
+    }
+
+    function renderStage5() {
+        if (stage5State.current >= stage5Total) {
+            completeStage5();
+            return;
+        }
+        const question = currentStage5Question();
+        const selected = stage5State.answers[question.id] || [];
+        const isLocked = Boolean(stage5State.locked[question.id]);
+        const awarded = stage5State.awarded[question.id] || 0;
+        const optionOrder = stage5State.optionOrders[question.id] || question.options;
+
+        elements.stage5Score.textContent = String(stage5State.score);
+        elements.stage5Progress.style.width = ((stage5State.current + (isLocked ? 1 : 0)) / stage5Total * 100) + '%';
+        elements.aidCounter.textContent = 'Operation ' + (stage5State.current + 1) + ' of ' + stage5Total;
+        elements.aidMarks.textContent = question.marks + (question.marks === 1 ? ' mark' : ' marks');
+        elements.aidPrompt.textContent = question.prompt;
+        elements.aidInstruction.textContent = question.instruction;
+        elements.stage5Answers.replaceChildren();
+
+        optionOrder.forEach(option => {
+            const isSelected = selected.includes(option);
+            const isCorrect = question.correctAnswers.includes(option);
+            const button = document.createElement('button');
+            button.type = 'button';
+            button.className = 'route-option';
+            button.disabled = isLocked;
+            if (isLocked && isCorrect) button.classList.add('correct');
+            else if (isLocked && isSelected) button.classList.add('wrong');
+            else if (isSelected) button.classList.add('selected');
+            const marker = document.createElement('span');
+            marker.className = 'route-marker';
+            marker.setAttribute('aria-hidden', 'true');
+            marker.textContent = isLocked ? (isCorrect ? '\u2713' : (isSelected ? '\u00d7' : '')) : (isSelected ? '\u2713' : '');
+            const label = document.createElement('span');
+            label.textContent = option;
+            button.append(marker, label);
+            button.addEventListener('click', () => chooseStage5Option(option));
+            elements.stage5Answers.appendChild(button);
+        });
+
+        elements.confirmStage5.hidden = question.mode !== 'multiple' || isLocked;
+        elements.confirmStage5.disabled = selected.length !== question.selectLimit;
+        if (question.mode === 'multiple') {
+            elements.confirmStage5.textContent = selected.length === question.selectLimit
+                ? 'Confirm ' + question.selectLimit + ' Points'
+                : 'Select ' + (question.selectLimit - selected.length) + ' More';
+        }
+
+        elements.stage5Feedback.hidden = !isLocked;
+        elements.stage5Next.hidden = !isLocked;
+        if (isLocked) {
+            const resultClass = awarded === question.marks ? 'correct' : (awarded > 0 ? 'partial' : 'wrong');
+            elements.stage5Feedback.className = 'feedback-panel ' + resultClass;
+            elements.stage5FeedbackTitle.textContent = awarded === question.marks
+                ? 'Operation secured'
+                : (awarded > 0 ? 'Partial response secured' : 'Mission correction');
+            elements.stage5FeedbackText.textContent = 'You earned ' + awarded + ' of ' + question.marks + ' marks. ' + question.feedback;
+            elements.stage5Next.textContent = stage5State.current === stage5Total - 1 ? 'Complete the Grand Expedition' : 'Next Operation';
+        }
+    }
+
+    function nextStage5Question() {
+        const question = currentStage5Question();
+        if (!question || !stage5State.locked[question.id]) return;
+        stage5State.current += 1;
+        saveStage5State();
+        if (stage5State.current >= stage5Total) completeStage5();
+        else renderStage5();
+    }
+
+    function fullExpeditionScore() {
+        return state.score + stage2State.score + stage3State.score + stage4State.score + stage5State.score;
+    }
+
+    function stage5CompletionCopy(score) {
+        const percentage = Math.round(score / stage5TotalMarks * 100);
+        if (score === stage5TotalMarks) return ['Humanitarian mission mastered', 'You interpreted every aid concept, delivery route, organisation and crisis decision perfectly.'];
+        if (percentage >= 80) return ['Mission accomplished', 'You completed the humanitarian briefing with exceptional judgement and accuracy.'];
+        if (percentage >= 50) return ['Aid operation secured', 'You completed the final stage successfully and balanced the benefits and risks of humanitarian aid.'];
+        return ['Aid plan needs review', 'The expedition is complete, but development aid and humanitarian-response decisions need another careful briefing.'];
+    }
+
+    function showFinalCertificate() {
+        if (!window.MayHubCertificates) {
+            window.alert('The certificate system is unavailable. Please refresh the page and try again.');
+            return false;
+        }
+        window.MayHubCertificates.showScored({
+            correct: fullExpeditionScore(),
+            total: expeditionTotalMarks,
+            category: 'Five-Stage Geography Expedition'
+        });
+        return true;
+    }
+
+    function completeStage5(openCertificate = true) {
+        stage5State.completed = true;
+        stage5State.current = stage5Total;
+        saveStage5State();
+        const [title, message] = stage5CompletionCopy(stage5State.score);
+        const percentage = Math.round(stage5State.score / stage5TotalMarks * 100);
+        elements.stage5ResultScore.textContent = stage5State.score + '/' + stage5TotalMarks;
+        elements.stage5ResultTitle.textContent = title;
+        elements.stage5ResultMessage.textContent = message;
+        elements.stage5ResultMarks.textContent = String(stage5State.score);
+        elements.stage5ResultPercent.textContent = percentage + '%';
+        elements.finalExpeditionScore.textContent = fullExpeditionScore() + '/' + expeditionTotalMarks;
+        showScreen('stage5Result');
+        if (openCertificate) {
+            window.setTimeout(() => {
+                if (!showFinalCertificate()) {
+                    if (percentage >= 50) window.MayHubSounds?.playPass?.();
+                    else window.MayHubSounds?.playFail?.();
+                }
+            }, 450);
+        }
+    }
+
+    function replayStage5() {
+        stage5State = createStage5State();
+        stage5State.started = true;
+        saveStage5State();
+        showScreen('stage5');
+        renderStage5();
+    }
+
     function updateZoom(nextZoom) {
         zoom = Math.min(2.5, Math.max(.75, Math.round(nextZoom * 100) / 100));
         elements.sourceImage.style.width = (zoom * 100) + '%';
@@ -1061,7 +1368,12 @@
     }
 
     function openSource(sourceKind = 'stage1') {
-        if (sourceKind === 'stage4') {
+        if (sourceKind === 'stage5') {
+            elements.sourceImage.src = stage5Data.sourceImage;
+            elements.sourceImage.alt = stage5Data.sourceAlt;
+            elements.sourcePackLabel.textContent = 'Final-stage briefing // Original rewritten source';
+            elements.sourceTitle.textContent = 'Aid Operations Humanitarian Brief';
+        } else if (sourceKind === 'stage4') {
             elements.sourceImage.src = stage4Data.sourceImage;
             elements.sourceImage.alt = stage4Data.sourceAlt;
             elements.sourcePackLabel.textContent = 'Stage 4 briefing // Original black-and-white source';
@@ -1108,8 +1420,13 @@
             elements.continueStage4.disabled = true;
             elements.continueStage4.textContent = 'Stage 4 unavailable';
         }
+        if (stage5Data.questions.length !== stage5Total || stage5Data.questions.reduce((sum, question) => sum + question.marks, 0) !== stage5TotalMarks) {
+            elements.continueStage5.disabled = true;
+            elements.continueStage5.textContent = 'Final stage unavailable';
+        }
         elements.headerSource.addEventListener('click', () => {
-            if (!elements.stage4.hidden || !elements.stage4Result.hidden) openSource('stage4');
+            if (!elements.stage5.hidden || !elements.stage5Result.hidden) openSource('stage5');
+            else if (!elements.stage4.hidden || !elements.stage4Result.hidden) openSource('stage4');
             else if (!elements.stage3.hidden || !elements.stage3Result.hidden) openSource('stage3');
             else openSource('stage1');
         });
@@ -1121,6 +1438,8 @@
         document.getElementById('stage3ResultSourceButton').addEventListener('click', () => openSource('stage3'));
         document.getElementById('stage4SourceButton').addEventListener('click', () => openSource('stage4'));
         document.getElementById('stage4ResultSourceButton').addEventListener('click', () => openSource('stage4'));
+        document.getElementById('stage5SourceButton').addEventListener('click', () => openSource('stage5'));
+        document.getElementById('stage5ResultSourceButton').addEventListener('click', () => openSource('stage5'));
         elements.begin.addEventListener('click', beginStage);
         elements.next.addEventListener('click', nextQuestion);
         elements.continueStage2.addEventListener('click', beginStage2);
@@ -1138,6 +1457,11 @@
         elements.confirmStage4.addEventListener('click', lockStage4Question);
         elements.stage4Next.addEventListener('click', nextStage4Question);
         elements.replayStage4.addEventListener('click', replayStage4);
+        elements.continueStage5.addEventListener('click', beginStage5);
+        elements.confirmStage5.addEventListener('click', lockStage5Question);
+        elements.stage5Next.addEventListener('click', nextStage5Question);
+        elements.replayStage5.addEventListener('click', replayStage5);
+        elements.viewCertificate.addEventListener('click', showFinalCertificate);
         document.getElementById('closeSourceButton').addEventListener('click', closeSource);
         document.getElementById('zoomOutButton').addEventListener('click', () => updateZoom(zoom - .25));
         document.getElementById('zoomInButton').addEventListener('click', () => updateZoom(zoom + .25));
@@ -1154,7 +1478,12 @@
             }
         });
 
-        if (state.completed && stage2State.completed && stage3State.completed && stage4State.completed) {
+        if (state.completed && stage2State.completed && stage3State.completed && stage4State.completed && stage5State.completed) {
+            completeStage5(false);
+        } else if (state.completed && stage2State.completed && stage3State.completed && stage4State.completed && stage5State.started) {
+            showScreen('stage5');
+            renderStage5();
+        } else if (state.completed && stage2State.completed && stage3State.completed && stage4State.completed) {
             completeStage4(false);
         } else if (state.completed && stage2State.completed && stage3State.completed && stage4State.started) {
             showScreen('stage4');
