@@ -1,8 +1,8 @@
-const CORE_CACHE_NAME = 'may-learning-core-v23-geoquest-source-controls';
+const CORE_CACHE_NAME = 'may-learning-core-v26-grade10-geoquest-stage3';
 const RUNTIME_CACHE_NAME = 'may-learning-runtime-pages';
 const CERTIFICATE_DOWNLOAD_CACHE = 'may-learning-certificate-downloads';
 const CERTIFICATE_DOWNLOAD_PATH = '/certificate-download/';
-const SERVICE_WORKER_VERSION = '40-historyquest-grand-total';
+const SERVICE_WORKER_VERSION = '43-grade10-geoquest-stage3';
 
 const CORE_ASSETS = [
   '/may-certificate-actions.js',
@@ -22,6 +22,14 @@ const CORE_ASSETS = [
   '/Sounds/Wheel.mp3',
   '/Sounds/MovingSnake.mp3',
   '/Sounds/SnakeBite.mp3',
+  '/Geography/Term-3/Grade-10/Games/Assessment%20Games/assessment-games.html',
+  '/Geography/Term-3/Grade-10/Games/Assessment%20Games/GeoQuest/GeoQuest.html',
+  '/Geography/Term-3/Grade-10/Games/Assessment%20Games/GeoQuest/geoquest.css',
+  '/Geography/Term-3/Grade-10/Games/Assessment%20Games/GeoQuest/geoquest.js',
+  '/Geography/Term-3/Grade-10/Games/Assessment%20Games/GeoQuest/stage1-data.js',
+  '/Geography/Term-3/Grade-10/Games/Assessment%20Games/GeoQuest/stage2-data.js',
+  '/Geography/Term-3/Grade-10/Games/Assessment%20Games/GeoQuest/stage3-data.js',
+  '/Geography/Term-3/Grade-10/Games/Assessment%20Games/GeoQuest/sources/population-pyramid-country-k.jpg',
   '/Geography/Term-3/Grade-11/Games/Assessment%20Games/GeoQuest/GeoQuest.html',
   '/Geography/Term-3/Grade-11/Games/Assessment%20Games/GeoQuest/geoquest.css',
   '/Geography/Term-3/Grade-11/Games/Assessment%20Games/GeoQuest/geoquest.js',

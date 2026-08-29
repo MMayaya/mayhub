@@ -9,7 +9,7 @@
     const MAX_CERTIFICATE_BYTES = 12 * 1024 * 1024;
     const MODERN_REPLY_TIMEOUT_MS = 10000;
     const CERTIFICATE_DOWNLOAD_CACHE = 'may-learning-certificate-downloads';
-    const SERVICE_WORKER_VERSION = '40-historyquest-grand-total';
+    const SERVICE_WORKER_VERSION = '43-grade10-geoquest-stage3';
     const pendingRequests = new Map();
     const actionsScriptSource = document.currentScript && document.currentScript.src ? document.currentScript.src : '';
     const actionsSiteRoot = actionsScriptSource ? new URL('.', actionsScriptSource) : null;

@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Play GeoQuest: The Population Expedition, a Grade 10 Geography assessment adventure from May Learning Hub.">
+    <meta name="theme-color" content="#062f5b">
+    <title>GeoQuest: The Population Expedition | May Learning Hub</title>
+    <link rel="stylesheet" href="geoquest.css">
+</head>
+<body data-certificate-grade="Grade 10" data-certificate-subject="Geography" data-certificate-term="Term 3" data-certificate-topic="GeoQuest: The Population Expedition" data-certificate-game="GeoQuest: The Population Expedition" data-certificate-layout="premium-expedition">
+    <nav class="site-nav" aria-label="Main navigation">
+        <a href="../../../../../../index.html" class="site-logo">May Learning Hub</a>
+        <div class="site-links"><a href="../../../../../../index.html">Home</a><a href="../assessment-games.html">Assessment Games</a></div>
+    </nav>
+
+    <header class="quest-header">
+        <div class="quest-identity">
+            <a class="quest-heading-logo" href="../../../../../../index.html" aria-label="May Learning Hub home"><img src="../../../../../../May%20Learning%20Hub%20Logo.png" alt="May Learning Hub"></a>
+            <div><p class="eyebrow">Grade 10 Geography</p><h1>GeoQuest: The Population Expedition</h1><p class="quest-tagline">Track the people. Read the patterns. Complete the expedition.</p></div>
+        </div>
+    </header>
+
+    <main class="quest-shell">
+        <section class="expedition-map" aria-label="Population Expedition stages">
+            <article class="stage-node active" id="stage1Node" aria-current="step"><span class="stage-number">1</span><span><strong>Migration Compass</strong><small id="stage1Status">Available now</small></span></article>
+            <article class="stage-node locked" id="stage2Node"><span class="stage-number">2</span><span><strong>Population Signals</strong><small id="stage2Status">Complete Stage 1 to unlock</small></span></article>
+            <article class="stage-node locked" id="stage3Node"><span class="stage-number">3</span><span><strong>Pyramid Decoder</strong><small id="stage3Status">Locked</small></span></article>
+            <article class="stage-node locked" id="stage4Node"><span class="stage-number">4</span><span><strong>Population Balance</strong><small id="stage4Status">Locked</small></span></article>
+            <article class="stage-node locked" id="stage5Node"><span class="stage-number">5</span><span><strong>Rural-Urban Journey</strong><small id="stage5Status">Locked</small></span></article>
+            <article class="stage-node locked summary-stage" id="stage6Node"><span class="stage-number">6</span><span><strong>Grand Total</strong><small id="stage6Status">Locked</small></span></article>
+        </section>
+
+        <section class="quest-panel intro-panel" id="introScreen">
+            <div class="intro-icon" aria-hidden="true">&#129517;</div>
+            <p class="stage-kicker">Stage 1 of the Population Expedition</p>
+            <h2>Migration Compass</h2>
+            <p class="intro-copy">Read each movement description, navigate the term compass and select the term that fits. Every learner receives a shuffled route.</p>
+            <div class="mission-facts"><span><strong>7</strong> movements</span><span><strong>7</strong> marks</span><span><strong>8</strong> compass terms</span></div>
+            <div class="intro-actions"><button class="primary-button" id="beginButton" type="button">Begin Stage 1</button></div>
+            <p class="resume-note" id="resumeNote"></p>
+        </section>
+
+        <section class="quest-panel game-panel concept-panel migration-panel" id="gameScreen" hidden>
+            <div class="mission-toolbar"><div><span class="toolbar-label">Current stage</span><strong>Migration Compass</strong></div><div class="toolbar-score"><span>Score</span><strong><span id="scoreValue">0</span>/7</strong></div></div>
+            <div class="progress-track" aria-hidden="true"><span id="progressFill"></span></div>
+            <article class="signal-card">
+                <div class="signal-meta"><span id="definitionCounter">Movement 1 of 7</span><span class="bank-count">8 terms in the compass</span></div>
+                <h2 id="definitionPrompt">Loading the first movement...</h2>
+                <div class="term-carousel" aria-label="Term navigator">
+                    <button class="term-arrow" id="previousTermButton" type="button" aria-label="Previous term">&#8592;</button>
+                    <button class="term-card" id="termCardButton" type="button"><span>Candidate term</span><strong id="candidateTerm">Migration</strong><small>Select this term</small></button>
+                    <button class="term-arrow" id="nextTermButton" type="button" aria-label="Next term">&#8594;</button>
+                </div>
+                <div class="carousel-position" id="carouselPosition">Term 1 of 8</div>
+                <div class="feedback-panel" id="feedbackPanel" role="status" aria-live="polite" hidden><strong id="feedbackTitle"></strong><p id="feedbackText"></p></div>
+                <button class="primary-button next-button" id="nextButton" type="button" hidden>Next Movement</button>
+            </article>
+        </section>
+
+        <section class="quest-panel result-panel" id="resultScreen" hidden>
+            <div class="result-orbit concept-orbit" aria-hidden="true"><span id="resultScore">0/7</span></div>
+            <p class="stage-kicker">Stage 1 complete</p><h2 id="resultTitle">Compass calibrated</h2><p id="resultMessage"></p>
+            <div class="result-summary"><div><strong id="resultCorrect">0</strong><span>Correct movements</span></div><div><strong id="resultPercent">0%</strong><span>Stage accuracy</span></div><div><strong>1/6</strong><span>Expedition stages</span></div></div>
+            <div class="locked-preview"><span aria-hidden="true">&#128200;</span><div><strong>Population Signals is next</strong><p>The next route will test population indicators, density, distribution and push factors.</p></div></div>
+            <div class="result-actions"><button class="primary-button" id="continueStage2Button" type="button">Continue to Stage 2</button></div>
+        </section>
+
+        <section class="quest-panel game-panel table-match-panel" id="stage2Screen" hidden>
+            <div class="mission-toolbar"><div><span class="toolbar-label">Current stage</span><strong>Population Signals</strong></div><div class="toolbar-score"><span>Matches</span><strong><span id="stage2ScoreValue">0</span>/8</strong></div></div>
+            <div class="progress-track table-progress" aria-hidden="true"><span id="stage2ProgressFill"></span></div>
+            <article class="signal-card table-match-card">
+                <div class="signal-meta"><span>Table Match</span><span id="stage2SelectionCount">0 of 8 matched</span></div>
+                <h2>Match Column A with Column B</h2>
+                <p class="route-instruction">Use every Column B term once, then check the completed table.</p>
+
+                <section class="column-b-panel" aria-labelledby="columnBTitle">
+                    <h3 id="columnBTitle">Column B: Term Bank</h3>
+                    <div class="column-b-bank" id="columnBBank"></div>
+                </section>
+
+                <div class="match-table-scroll">
+                    <table class="match-table">
+                        <thead><tr><th scope="col">Column A: Description</th><th scope="col">Column B: Your Match</th></tr></thead>
+                        <tbody id="stage2MatchRows"></tbody>
+                    </table>
+                </div>
+
+                <button class="secondary-button confirm-route table-confirm" id="checkStage2Button" type="button" disabled>Complete all 8 matches</button>
+                <div class="feedback-panel" id="stage2FeedbackPanel" role="status" aria-live="polite" hidden><strong id="stage2FeedbackTitle"></strong><p id="stage2FeedbackText"></p></div>
+                <button class="primary-button next-button" id="stage2NextButton" type="button" hidden>View Stage 2 Result</button>
+            </article>
+        </section>
+
+        <section class="quest-panel result-panel" id="stage2ResultScreen" hidden>
+            <div class="result-orbit growth-orbit" aria-hidden="true"><span id="stage2ResultScore">0/8</span></div>
+            <p class="stage-kicker">Stage 2 complete</p><h2 id="stage2ResultTitle">Population signals matched</h2><p id="stage2ResultMessage"></p>
+            <div class="result-summary"><div><strong id="stage2ResultCorrect">0</strong><span>Correct matches</span></div><div><strong id="stage2ResultPercent">0%</strong><span>Stage accuracy</span></div><div><strong id="stage2OverallScore">0/15</strong><span>Expedition score</span></div></div>
+            <div class="locked-preview"><span aria-hidden="true">&#128101;</span><div><strong>Pyramid Decoder is next</strong><p>The next route will use a population pyramid to investigate age, sex structure and government planning.</p></div></div>
+            <div class="result-actions"><button class="primary-button" id="continueStage3Button" type="button">Continue to Stage 3</button></div>
+        </section>
+
+        <section class="quest-panel game-panel growth-panel pyramid-panel" id="stage3Screen" hidden>
+            <div class="mission-toolbar"><div><span class="toolbar-label">Current stage</span><strong>Pyramid Decoder</strong></div><div class="toolbar-score"><span>Marks</span><strong><span id="stage3ScoreValue">0</span>/15</strong></div></div>
+            <div class="progress-track pyramid-progress" aria-hidden="true"><span id="stage3ProgressFill"></span></div>
+            <article class="signal-card">
+                <div class="signal-meta"><span id="stage3Counter">Challenge 1 of 5</span><span id="stage3Marks">2 marks</span></div>
+                <h2 id="stage3Prompt">Loading the first pyramid challenge...</h2>
+                <p class="route-instruction" id="stage3Instruction"></p>
+                <div class="route-grid" id="stage3AnswerGrid"></div>
+                <button class="secondary-button confirm-route pyramid-confirm" id="confirmStage3Button" type="button" hidden>Lock Choices</button>
+                <div class="feedback-panel" id="stage3FeedbackPanel" role="status" aria-live="polite" hidden><strong id="stage3FeedbackTitle"></strong><p id="stage3FeedbackText"></p></div>
+                <button class="primary-button next-button" id="stage3NextButton" type="button" hidden>Next Challenge</button>
+            </article>
+        </section>
+
+        <section class="quest-panel result-panel" id="stage3ResultScreen" hidden>
+            <div class="result-orbit pyramid-orbit" aria-hidden="true"><span id="stage3ResultScore">0/15</span></div>
+            <p class="stage-kicker">Stage 3 complete</p><h2 id="stage3ResultTitle">Pyramid decoded</h2><p id="stage3ResultMessage"></p>
+            <div class="result-summary"><div><strong id="stage3ResultMarks">0</strong><span>Marks earned</span></div><div><strong id="stage3ResultPercent">0%</strong><span>Stage accuracy</span></div><div><strong id="stage3OverallScore">0/30</strong><span>Expedition score</span></div></div>
+            <div class="locked-preview"><span aria-hidden="true">&#128200;</span><div><strong>Population Balance is next</strong><p>The next route will compare birth rates, death rates, natural increase and population distribution.</p></div></div>
+            <div class="result-actions"><button class="primary-button coming-button" type="button" disabled>Stage 4 coming next</button><a class="text-link" href="../assessment-games.html">Return to Assessment Games</a></div>
+        </section>
+    </main>
+
+    <button class="source-button floating-source-button" id="headerSourceButton" type="button" aria-label="Open the population pyramid source" hidden><span aria-hidden="true">&#128196;</span> Open Source</button>
+
+    <div class="source-overlay" id="sourceOverlay" role="dialog" aria-modal="true" aria-labelledby="sourceTitle" hidden>
+        <section class="source-dialog">
+            <header><h2 id="sourceTitle">Population Pyramid</h2></header>
+            <div class="source-tools" aria-label="Source zoom controls"><button type="button" id="zoomOutButton" aria-label="Zoom out">&minus;</button><span id="zoomValue">100%</span><button type="button" id="zoomInButton" aria-label="Zoom in">+</button><button type="button" id="zoomResetButton">Reset</button></div>
+            <div class="source-viewport" id="sourceViewport"><img id="sourceImage" src="sources/population-pyramid-country-k.jpg" alt="Regenerated population pyramid for fictional Country K"></div>
+            <p class="source-dialog-note">You may reopen the source without losing your answers or progress.</p>
+        </section>
+        <button class="source-button floating-source-button source-return-button" id="closeSourceButton" type="button"><span aria-hidden="true">&#8592;</span> Return to Question</button>
+    </div>
+
+    <footer><p>&copy; 2026 May Learning Hub. Geography learning through active exploration.</p></footer>
+
+    <script src="../../../../../../game-audio.js"></script>
+    <script src="stage1-data.js"></script>
+    <script src="stage2-data.js"></script>
+    <script src="stage3-data.js"></script>
+    <script src="geoquest.js"></script>
+</body>
+</html>
