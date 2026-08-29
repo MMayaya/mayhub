@@ -49,7 +49,6 @@
         counter: document.getElementById('signalCounter'),
         prompt: document.getElementById('questionPrompt'),
         sourceHint: document.getElementById('sourceHint'),
-        questionSource: document.getElementById('questionSourceButton'),
         answers: document.getElementById('answerGrid'),
         feedback: document.getElementById('feedbackPanel'),
         feedbackTitle: document.getElementById('feedbackTitle'),
@@ -644,9 +643,6 @@
         elements.stage5.hidden = name !== 'stage5';
         elements.stage5Result.hidden = name !== 'stage5Result';
         elements.headerSource.hidden = name === 'stage2' || name === 'stage2Result';
-        elements.headerSource.innerHTML = name === 'stage3' || name === 'stage3Result' || name === 'stage4' || name === 'stage4Result' || name === 'stage5' || name === 'stage5Result'
-            ? '<span aria-hidden="true">&#128196;</span> Open Stage Source'
-            : '<span aria-hidden="true">&#128196;</span> Open Source';
         updateStageMap(name);
         window.scrollTo({ top: 0, behavior: 'smooth' });
     }
@@ -683,7 +679,6 @@
         elements.progress.style.width = ((state.current + (isAnswered ? 1 : 0)) / totalQuestions * 100) + '%';
         elements.prompt.textContent = question.prompt;
         elements.sourceHint.hidden = !question.usesSource;
-        elements.questionSource.hidden = !question.usesSource;
         elements.answers.replaceChildren();
 
         const optionOrder = state.optionOrder[question.id] || question.options;
@@ -1430,16 +1425,6 @@
             else if (!elements.stage3.hidden || !elements.stage3Result.hidden) openSource('stage3');
             else openSource('stage1');
         });
-        document.getElementById('introSourceButton').addEventListener('click', () => openSource('stage1'));
-        document.getElementById('resultSourceButton').addEventListener('click', () => openSource('stage1'));
-        document.getElementById('stage2SourceButton').addEventListener('click', () => openSource('stage1'));
-        elements.questionSource.addEventListener('click', () => openSource('stage1'));
-        document.getElementById('stage3SourceButton').addEventListener('click', () => openSource('stage3'));
-        document.getElementById('stage3ResultSourceButton').addEventListener('click', () => openSource('stage3'));
-        document.getElementById('stage4SourceButton').addEventListener('click', () => openSource('stage4'));
-        document.getElementById('stage4ResultSourceButton').addEventListener('click', () => openSource('stage4'));
-        document.getElementById('stage5SourceButton').addEventListener('click', () => openSource('stage5'));
-        document.getElementById('stage5ResultSourceButton').addEventListener('click', () => openSource('stage5'));
         elements.begin.addEventListener('click', beginStage);
         elements.next.addEventListener('click', nextQuestion);
         elements.continueStage2.addEventListener('click', beginStage2);

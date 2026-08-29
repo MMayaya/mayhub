@@ -1,8 +1,8 @@
-const CORE_CACHE_NAME = 'may-learning-core-v22-geoquest-complete';
+const CORE_CACHE_NAME = 'may-learning-core-v23-geoquest-source-controls';
 const RUNTIME_CACHE_NAME = 'may-learning-runtime-pages';
 const CERTIFICATE_DOWNLOAD_CACHE = 'may-learning-certificate-downloads';
 const CERTIFICATE_DOWNLOAD_PATH = '/certificate-download/';
-const SERVICE_WORKER_VERSION = '22-geoquest-complete';
+const SERVICE_WORKER_VERSION = '23-geoquest-source-controls';
 
 const CORE_ASSETS = [
   '/may-certificate-actions.js',

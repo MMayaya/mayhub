@@ -220,9 +220,11 @@ const styles = read('geoquest.css');
 for (const required of ['geoquest.css', 'game-audio.js', 'may-certificate-renderer.js', 'may-certificate-actions.js', 'assessment-certificate.js', 'source-packs.js', 'stage2-data.js', 'stage3-data.js', 'stage4-data.js', 'stage5-data.js', 'geoquest.js']) {
     if (!page.includes(required)) fail('GeoQuest.html is missing ' + required);
 }
-for (const id of ['sourceOverlay', 'sourceImage', 'answerGrid', 'feedbackPanel', 'resultScreen', 'stage2Screen', 'termCardButton', 'stage2FeedbackPanel', 'stage2ResultScreen', 'overallScore', 'stage3Screen', 'stage3SourceButton', 'stage3AnswerGrid', 'confirmStage3Button', 'stage3FeedbackPanel', 'stage3ResultScreen', 'stage3OverallScore', 'stage4Screen', 'stage4SourceButton', 'stage4AnswerGrid', 'confirmStage4Button', 'stage4FeedbackPanel', 'stage4ResultScreen', 'stage4OverallScore', 'stage5Screen', 'stage5SourceButton', 'stage5AnswerGrid', 'confirmStage5Button', 'stage5FeedbackPanel', 'stage5ResultScreen', 'finalExpeditionScore', 'viewCertificateButton']) {
+for (const id of ['sourceOverlay', 'sourceImage', 'headerSourceButton', 'answerGrid', 'feedbackPanel', 'resultScreen', 'stage2Screen', 'termCardButton', 'stage2FeedbackPanel', 'stage2ResultScreen', 'overallScore', 'stage3Screen', 'stage3AnswerGrid', 'confirmStage3Button', 'stage3FeedbackPanel', 'stage3ResultScreen', 'stage3OverallScore', 'stage4Screen', 'stage4AnswerGrid', 'confirmStage4Button', 'stage4FeedbackPanel', 'stage4ResultScreen', 'stage4OverallScore', 'stage5Screen', 'stage5AnswerGrid', 'confirmStage5Button', 'stage5FeedbackPanel', 'stage5ResultScreen', 'finalExpeditionScore', 'viewCertificateButton']) {
     if (!page.includes('id="' + id + '"')) fail('GeoQuest.html is missing #' + id);
 }
+if ((page.match(/id="headerSourceButton"/g) || []).length !== 1 || !page.includes('floating-source-button')) fail('GeoQuest must have exactly one floating source control');
+if (/Open Stage Source|Development source available|Black-and-white customs file|Humanitarian field brief|Preview Your Source|Inspect source|Review Stage 1 Source|Review Development Source|Review Customs Cartoon|Review Humanitarian Brief/.test(page + logic)) fail('GeoQuest still contains a redundant or inconsistent source control');
 if (!logic.includes('localStorage.setItem(storageKey()')) fail('Saved learner progress is missing');
 if (!logic.includes('localStorage.setItem(stage2StorageKey()')) fail('Saved Stage 2 learner progress is missing');
 if (!logic.includes('localStorage.setItem(stage3StorageKey()')) fail('Saved Stage 3 learner progress is missing');
@@ -242,9 +244,10 @@ if (!logic.includes('Try Another Source Route') && !page.includes('Try Another S
 if (!logic.includes('MayHubCertificates.showScored')) fail('Completed GeoQuest certificate integration is missing');
 if (!/@media\(max-width:620px\)/.test(styles)) fail('Mobile layout rules are missing');
 if (!styles.includes('.term-carousel') || !styles.includes('.term-card')) fail('Stage 2 carousel styling is missing');
-if (!styles.includes('.route-grid') || !styles.includes('.route-option') || !styles.includes('.source-callout')) fail('Stage 3 route-card or source styling is missing');
-if (!styles.includes('.gate-panel') || !styles.includes('.monochrome-source') || !styles.includes('.gate-orbit')) fail('Stage 4 monochrome styling is missing');
+if (!styles.includes('.route-grid') || !styles.includes('.route-option')) fail('Stage 3 route-card styling is missing');
+if (!styles.includes('.gate-panel') || !styles.includes('.gate-orbit')) fail('Stage 4 monochrome styling is missing');
 if (!styles.includes('.aid-panel') || !styles.includes('.aid-source') || !styles.includes('.final-result-panel') || !styles.includes('.certificate-button')) fail('Stage 5 aid or certificate styling is missing');
+if (!styles.includes('.floating-source-button') || !styles.includes('position:fixed') || !styles.includes('bottom:max(') || !styles.includes('right:max(')) fail('The accessible bottom-right source control styling is missing');
 
 for (const file of ['geoquest.js', 'source-packs.js', 'stage2-data.js', 'stage3-data.js', 'stage4-data.js', 'stage5-data.js']) {
     try { new vm.Script(read(file), { filename: file }); }

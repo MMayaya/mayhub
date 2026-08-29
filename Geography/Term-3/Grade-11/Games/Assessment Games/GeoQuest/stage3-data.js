@@ -1,7 +1,7 @@
 window.GeoQuestStage3Data = {
     "sourceImage": "sources/development-crossroads.jpg",
-    "sourceLabel": "Original development crossroads briefing",
-    "sourceAlt": "Editorial cartoon contrasting a rapidly growing modern city above a GDP arrow with under-resourced communities below",
+    "sourceLabel": "Original black-and-white GDP growth cartoon",
+    "sourceAlt": "Black-and-white editorial cartoon showing a GDP Growth express lift carrying a wealthy few towards a prosperous city while families wait below beside an under-supplied clinic and overcrowded school",
     "questions": [
         {
             "id": "gdp-growth",
