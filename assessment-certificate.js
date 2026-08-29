@@ -666,7 +666,7 @@
         updateHistory(options, activeResult);
         setTimeout(() => shareButton.focus(), 50);
 
-        if (window.MayHubSounds) {
+        if (options.playSound !== false && window.MayHubSounds) {
             if (isParticipation) window.MayHubSounds.playPass?.();
             else if (percentage >= 50) window.MayHubSounds.playPass?.();
             else window.MayHubSounds.playFail?.();

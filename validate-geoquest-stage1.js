@@ -240,6 +240,10 @@ if (!logic.includes("showScreen('stage4')") || !logic.includes("showScreen('stag
 if (!logic.includes("showScreen('stage5')") || !logic.includes("showScreen('stage5Result')")) fail('Stage 5 navigation flow is incomplete');
 if (!logic.includes('state.score + stage2State.score + stage3State.score + stage4State.score + stage5State.score')) fail('Five-stage expedition scoring is missing');
 if (!logic.includes('function showExpeditionSummary') || !logic.includes('stagePerformanceComment') || !styles.includes('.stage-report-list') || !page.includes('Stage 6: Expedition Summary')) fail('The separate Stage 6 summary with performance comments is missing');
+const stage5CompletionLogic = logic.slice(logic.indexOf('function completeStage5'), logic.indexOf('function updateZoom'));
+if (!stage5CompletionLogic.includes('playCompletionSound && percentage >= 50') || !stage5CompletionLogic.includes('playFail')) fail('Stage 5 pass/fail completion audio is missing');
+const expeditionSummaryLogic = logic.slice(logic.indexOf('function showExpeditionSummary'), logic.indexOf('function completeStage5'));
+if (!expeditionSummaryLogic.includes('overallPercentage >= 50') || !expeditionSummaryLogic.includes('showFinalCertificate(false)')) fail('The grand-total sound or duplicate-certificate-sound protection is missing');
 if (!styles.includes('grid-template-columns:repeat(6,minmax(0,1fr))')) fail('The expedition map does not include six desktop columns');
 const stage5ResultMarkup = page.slice(page.indexOf('id="stage5ResultScreen"'), page.indexOf('id="stage6Screen"'));
 if (stage5ResultMarkup.includes('finalExpeditionScore') || stage5ResultMarkup.includes('grand-total-card')) fail('The grand total is still displayed inside the Stage 5 result screen');
@@ -273,6 +277,9 @@ if (gameLinks.at(-1) !== 'GeoQuest/GeoQuest.html') fail('GeoQuest must be the fi
 
 const worker = fs.readFileSync(path.join(siteRoot, 'sw.js'), 'utf8');
 const helper = fs.readFileSync(path.join(siteRoot, 'may-certificate-actions.js'), 'utf8');
+const certificateUiHelper = fs.readFileSync(path.join(siteRoot, 'assessment-certificate.js'), 'utf8');
+const historyPage = fs.readFileSync(path.join(siteRoot, 'certificate-history.html'), 'utf8');
+const historyLogic = fs.readFileSync(path.join(siteRoot, 'certificate-history-page.js'), 'utf8');
 for (const asset of ['GeoQuest/GeoQuest.html', 'GeoQuest/geoquest.css', 'GeoQuest/geoquest.js', 'GeoQuest/source-packs.js', 'GeoQuest/stage2-data.js', 'GeoQuest/stage3-data.js', 'GeoQuest/stage4-data.js', 'GeoQuest/stage5-data.js', 'trade-brief-a.jpg', 'trade-brief-b.jpg', 'development-crossroads.jpg', 'trade-gatekeepers.jpg', 'aid-operations-brief.jpg']) {
     if (!worker.includes(asset)) fail('Service worker is missing GeoQuest asset ' + asset);
 }
@@ -282,6 +289,8 @@ for (const asset of ['/may-certificate-history.js', '/certificate-history.html',
 const workerVersion = worker.match(/SERVICE_WORKER_VERSION\s*=\s*'([^']+)'/)?.[1];
 const helperVersion = helper.match(/SERVICE_WORKER_VERSION\s*=\s*'([^']+)'/)?.[1];
 if (!workerVersion || workerVersion !== helperVersion) fail('Service-worker and certificate-helper versions do not match');
+if (!certificateUiHelper.includes('options.playSound !== false')) fail('The shared certificate helper cannot suppress duplicate result audio');
+if (!historyLogic.includes("toLocaleTimeString('en-ZA'") || !historyPage.includes('.certificate-card .time')) fail('Certificate history does not display the issued time in a smaller style');
 
 if (/88\s?679\s?256\s?980|101\s?762\s?020\s?372/.test(dataSource + stage2Source + stage3Source + stage4Source + stage5Source + page + logic)) {
     fail('GeoQuest still contains the examination paper trade totals');

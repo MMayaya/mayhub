@@ -1465,7 +1465,7 @@
         return ['Expedition completed', 'Your stage profile shows which Geography themes need the most attention before the assessment.'];
     }
 
-    function showFinalCertificate() {
+    function showFinalCertificate(playSound = true) {
         if (!window.MayHubCertificates) {
             window.alert('The certificate system is unavailable. Please refresh the page and try again.');
             return false;
@@ -1474,7 +1474,8 @@
             correct: fullExpeditionScore(),
             total: expeditionTotalMarks,
             category: 'Five-Stage Geography Expedition',
-            completionId: 'geoquest-' + attemptLedger.activeAttemptId
+            completionId: 'geoquest-' + attemptLedger.activeAttemptId,
+            playSound
         });
         return true;
     }
@@ -1507,16 +1508,15 @@
         showScreen('stage6');
         updateExpeditionLimitUI();
         if (openCertificate) {
+            if (overallPercentage >= 50) window.MayHubSounds?.playPass?.();
+            else window.MayHubSounds?.playFail?.();
             window.setTimeout(() => {
-                if (!showFinalCertificate()) {
-                    if (overallPercentage >= 50) window.MayHubSounds?.playPass?.();
-                    else window.MayHubSounds?.playFail?.();
-                }
+                showFinalCertificate(false);
             }, 450);
         }
     }
 
-    function completeStage5() {
+    function completeStage5(playCompletionSound = true) {
         stage5State.completed = true;
         stage5State.current = stage5Total;
         saveStage5State();
@@ -1528,6 +1528,8 @@
         elements.stage5ResultMessage.textContent = message;
         elements.stage5ResultMarks.textContent = String(stage5State.score);
         elements.stage5ResultPercent.textContent = percentage + '%';
+        if (playCompletionSound && percentage >= 50) window.MayHubSounds?.playPass?.();
+        else if (playCompletionSound) window.MayHubSounds?.playFail?.();
         showScreen('stage5Result');
     }
 
@@ -1616,7 +1618,7 @@
         elements.stage5Next.addEventListener('click', nextStage5Question);
         elements.continueStage6.addEventListener('click', () => showExpeditionSummary(true));
         elements.newExpedition.addEventListener('click', startNewExpedition);
-        elements.viewCertificate.addEventListener('click', showFinalCertificate);
+        elements.viewCertificate.addEventListener('click', () => showFinalCertificate(true));
         document.getElementById('closeSourceButton').addEventListener('click', closeSource);
         document.getElementById('zoomOutButton').addEventListener('click', () => updateZoom(zoom - .25));
         document.getElementById('zoomInButton').addEventListener('click', () => updateZoom(zoom + .25));

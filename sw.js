@@ -2,7 +2,7 @@ const CORE_CACHE_NAME = 'may-learning-core-v23-geoquest-source-controls';
 const RUNTIME_CACHE_NAME = 'may-learning-runtime-pages';
 const CERTIFICATE_DOWNLOAD_CACHE = 'may-learning-certificate-downloads';
 const CERTIFICATE_DOWNLOAD_PATH = '/certificate-download/';
-const SERVICE_WORKER_VERSION = '24-geoquest-history-cooldown';
+const SERVICE_WORKER_VERSION = '25-stage6-history-time';
 
 const CORE_ASSETS = [
   '/may-certificate-actions.js',

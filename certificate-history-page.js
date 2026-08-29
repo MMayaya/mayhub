@@ -21,8 +21,17 @@
         ? record.correct + '/' + record.total + ' (' + Math.round(record.percentage || 0) + '%)'
         : record.awardTitle));
     const detail = [record.subjectLine, record.termLabel, record.categoryTitle].filter(Boolean).join(' · ');
+    const issuedAt = new Date(record.issuedAt);
+    const hasIssuedTime = !Number.isNaN(issuedAt.getTime());
+    const issuedDate = record.date || (hasIssuedTime
+      ? issuedAt.toLocaleDateString('en-ZA', { day: 'numeric', month: 'long', year: 'numeric' })
+      : 'Date unavailable');
+    const issuedTime = hasIssuedTime
+      ? issuedAt.toLocaleTimeString('en-ZA', { hour: '2-digit', minute: '2-digit' })
+      : '';
     return '<article class="certificate-card ' + (record.mode === 'participation' ? 'participation' : '') + '">' +
-      '<span class="date">' + escapeHtml(record.date || new Date(record.issuedAt).toLocaleDateString('en-ZA', { day: 'numeric', month: 'long', year: 'numeric' })) + '</span>' +
+      '<div class="issued-date"><span class="date">' + escapeHtml(issuedDate) + '</span>' +
+      (issuedTime ? '<span class="time">' + escapeHtml(issuedTime) + '</span>' : '') + '</div>' +
       '<h2>' + escapeHtml(record.gameTitle) + '</h2>' +
       '<p>' + escapeHtml(detail) + '</p>' +
       '<p class="score">' + escapeHtml(score) + '</p>' +
