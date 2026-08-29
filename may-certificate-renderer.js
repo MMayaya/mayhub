@@ -3,7 +3,7 @@
 
     if (window.MayCertificateRenderer && window.MayCertificateRenderer.version) return;
 
-    const VERSION = '1.2.0';
+    const VERSION = '1.4.0';
     const scriptUrl = new URL(document.currentScript.src);
     const siteRoot = new URL('.', scriptUrl);
     const defaultLogoUrl = new URL('May Learning Hub Logo.png', siteRoot).href;
@@ -15,6 +15,12 @@
         'tier-gold': { main: '#d4af37', dark: '#755b08', soft: '#fff6cf' },
         'tier-platinum': { main: '#c7d8e2', dark: '#165173', soft: '#eaf7ff' },
         'tier-participation': { main: '#1268ad', dark: '#003f75', soft: '#d9efff' }
+    };
+    const premiumThemes = {
+        'tier-bronze': { start: '#fff5e9', middle: '#edc39e', end: '#c77d43', ribbon: 'PROGRESS' },
+        'tier-silver': { start: '#fbfdff', middle: '#dce3e9', end: '#a7b1bb', ribbon: 'MERIT' },
+        'tier-gold': { start: '#fffbea', middle: '#f4dc83', end: '#d4af37', ribbon: 'DISTINCTION' },
+        'tier-platinum': { start: '#f7fcff', middle: '#d7eaf3', end: '#9fc8da', ribbon: 'EXCELLENCE' }
     };
 
     function rendererError(message, code) {
@@ -45,12 +51,15 @@
             month: 'long',
             year: 'numeric'
         });
+        const layout = options.layout === 'compact-subject' || options.layout === 'premium-expedition'
+            ? options.layout
+            : 'standard';
         return {
             learnerName: cleanText(options.learnerName || options.name, 'Guest Learner'),
             grade: cleanText(options.grade),
             subject: cleanText(options.subject),
             term: cleanText(options.term),
-            layout: options.layout === 'compact-subject' ? 'compact-subject' : 'standard',
+            layout,
             topic: cleanText(options.topic, 'Assessment Activity'),
             gameTitle: cleanText(options.gameTitle, 'Assessment Game'),
             category: cleanText(options.category, 'Assessment Game'),
@@ -181,7 +190,263 @@
         ].join('-');
     }
 
+    function drawPremiumCorner(ctx, x, y, sx, sy, accent) {
+        ctx.save();
+        ctx.translate(x, y);
+        ctx.scale(sx, sy);
+        ctx.strokeStyle = '#b99a55';
+        ctx.lineWidth = 3;
+        ctx.beginPath();
+        ctx.moveTo(0, 108); ctx.lineTo(0, 0); ctx.lineTo(108, 0);
+        ctx.moveTo(16, 86); ctx.lineTo(16, 16); ctx.lineTo(86, 16);
+        ctx.stroke();
+        ctx.fillStyle = accent;
+        ctx.translate(20, 20);
+        ctx.rotate(Math.PI / 4);
+        ctx.fillRect(-7, -7, 14, 14);
+        ctx.restore();
+    }
+
+    function drawTrophyCrest(ctx, x, y, accent, dark) {
+        ctx.save();
+        ctx.translate(x, y);
+        ctx.shadowColor = 'rgba(11, 30, 53, .22)';
+        ctx.shadowBlur = 18;
+        ctx.shadowOffsetY = 8;
+        ctx.fillStyle = '#fffdf6';
+        ctx.strokeStyle = '#b99a55';
+        ctx.lineWidth = 5;
+        ctx.beginPath(); ctx.arc(0, 0, 72, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
+        ctx.shadowColor = 'transparent';
+        ctx.strokeStyle = dark;
+        ctx.lineWidth = 2;
+        ctx.beginPath(); ctx.arc(0, 0, 58, 0, Math.PI * 2); ctx.stroke();
+        const cupGradient = ctx.createLinearGradient(-34, -40, 36, 42);
+        cupGradient.addColorStop(0, '#fff4a8'); cupGradient.addColorStop(.42, accent); cupGradient.addColorStop(1, dark);
+        ctx.fillStyle = cupGradient; ctx.strokeStyle = dark; ctx.lineWidth = 3;
+        ctx.beginPath();
+        ctx.moveTo(-31, -32); ctx.quadraticCurveTo(-27, 12, 0, 19);
+        ctx.quadraticCurveTo(27, 12, 31, -32); ctx.closePath(); ctx.fill(); ctx.stroke();
+        ctx.beginPath(); ctx.arc(-31, -18, 19, Math.PI / 2, Math.PI * 1.5); ctx.stroke();
+        ctx.beginPath(); ctx.arc(31, -18, 19, -Math.PI / 2, Math.PI / 2); ctx.stroke();
+        ctx.fillStyle = dark; ctx.fillRect(-4, 18, 8, 22);
+        ctx.beginPath();
+        if (typeof ctx.roundRect === 'function') ctx.roundRect(-24, 38, 48, 8, 4);
+        else ctx.rect(-24, 38, 48, 8);
+        ctx.fill();
+        ctx.fillStyle = accent;
+        ctx.beginPath();
+        for (let point = 0; point < 10; point += 1) {
+            const radius = point % 2 === 0 ? 11 : 5;
+            const angle = -Math.PI / 2 + point * Math.PI / 5;
+            const px = Math.cos(angle) * radius;
+            const py = -10 + Math.sin(angle) * radius;
+            if (point === 0) ctx.moveTo(px, py); else ctx.lineTo(px, py);
+        }
+        ctx.closePath(); ctx.fill();
+        ctx.restore();
+    }
+
+    function drawAwardRibbon(ctx, x, y, label, accent, dark) {
+        ctx.save();
+        ctx.translate(x, y);
+        ctx.fillStyle = dark;
+        ctx.beginPath(); ctx.moveTo(-205, -34); ctx.lineTo(-238, 0); ctx.lineTo(-205, 34); ctx.lineTo(205, 34); ctx.lineTo(238, 0); ctx.lineTo(205, -34); ctx.closePath(); ctx.fill();
+        const ribbonGradient = ctx.createLinearGradient(-185, 0, 185, 0);
+        ribbonGradient.addColorStop(0, dark); ribbonGradient.addColorStop(.5, accent); ribbonGradient.addColorStop(1, dark);
+        ctx.fillStyle = ribbonGradient; ctx.fillRect(-205, -30, 410, 60);
+        ctx.strokeStyle = '#fff4c4'; ctx.lineWidth = 2; ctx.strokeRect(-195, -21, 390, 42);
+        ctx.fillStyle = '#fffdf4'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+        ctx.font = 'bold 22px "Segoe UI", sans-serif'; ctx.fillText(label, 0, 0);
+        ctx.restore();
+    }
+
+    function drawExpeditionWatermark(ctx) {
+        ctx.save();
+        ctx.globalAlpha = 0.055;
+        ctx.strokeStyle = '#17324d';
+        ctx.lineWidth = 2;
+        ctx.beginPath(); ctx.arc(600, 905, 360, 0, Math.PI * 2); ctx.stroke();
+        [-240, -120, 0, 120, 240].forEach(offset => {
+            ctx.beginPath(); ctx.ellipse(600, 905, Math.max(45, 360 - Math.abs(offset)), 360, 0, 0, Math.PI * 2); ctx.stroke();
+        });
+        [-180, -90, 0, 90, 180].forEach(offset => {
+            ctx.beginPath(); ctx.ellipse(600, 905, 360, Math.max(40, 360 - Math.abs(offset)), 0, 0, Math.PI * 2); ctx.stroke();
+        });
+        ctx.setLineDash([14, 14]);
+        ctx.lineWidth = 7;
+        ctx.beginPath();
+        ctx.moveTo(240, 1160); ctx.bezierCurveTo(360, 980, 410, 1120, 520, 915);
+        ctx.bezierCurveTo(630, 720, 765, 910, 940, 665); ctx.stroke();
+        ctx.setLineDash([]);
+        [[240,1160],[520,915],[940,665]].forEach(([x,y]) => {
+            ctx.fillStyle = '#17324d'; ctx.beginPath(); ctx.arc(x, y, 10, 0, Math.PI * 2); ctx.fill();
+        });
+        ctx.restore();
+    }
+
+    async function renderPremiumExpeditionCertificate(result, includeExternalLogo) {
+        const palette = palettes[result.tierClass];
+        const theme = premiumThemes[result.tierClass] || premiumThemes['tier-bronze'];
+        const accent = palette.main;
+        const canvas = document.createElement('canvas');
+        canvas.width = 1200;
+        canvas.height = 1697;
+        const ctx = canvas.getContext('2d');
+        if (!ctx) throw rendererError('Canvas rendering is unavailable.', 'canvas_unavailable');
+
+        const navy = '#0b1e35';
+        const ink = '#17324d';
+        const gold = '#b99a55';
+        ctx.fillStyle = navy;
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        const paper = ctx.createLinearGradient(80, 70, 1120, 1627);
+        paper.addColorStop(0, theme.start); paper.addColorStop(.5, theme.middle); paper.addColorStop(1, theme.end);
+        ctx.fillStyle = paper;
+        ctx.fillRect(66, 66, 1068, 1565);
+        const readingGlow = ctx.createRadialGradient(600, 780, 80, 600, 780, 650);
+        readingGlow.addColorStop(0, 'rgba(255,255,255,.9)'); readingGlow.addColorStop(.58, 'rgba(255,255,255,.54)'); readingGlow.addColorStop(1, 'rgba(255,255,255,0)');
+        ctx.fillStyle = readingGlow; ctx.fillRect(66, 66, 1068, 1565);
+        ctx.strokeStyle = gold; ctx.lineWidth = 8; ctx.strokeRect(45, 45, 1110, 1607);
+        ctx.strokeStyle = '#e5cf92'; ctx.lineWidth = 2; ctx.strokeRect(79, 79, 1042, 1539);
+        ctx.strokeStyle = navy; ctx.lineWidth = 2; ctx.strokeRect(92, 92, 1016, 1513);
+        drawPremiumCorner(ctx, 92, 92, 1, 1, accent);
+        drawPremiumCorner(ctx, 1108, 92, -1, 1, accent);
+        drawPremiumCorner(ctx, 92, 1605, 1, -1, accent);
+        drawPremiumCorner(ctx, 1108, 1605, -1, -1, accent);
+        drawExpeditionWatermark(ctx);
+
+        ctx.save();
+        ctx.filter = 'blur(22px)';
+        const beamGlow = ctx.createLinearGradient(185, 178, 600, 720);
+        beamGlow.addColorStop(0, theme.start);
+        beamGlow.addColorStop(.38, theme.middle);
+        beamGlow.addColorStop(.72, palette.main + '66');
+        beamGlow.addColorStop(1, palette.main + '00');
+        ctx.fillStyle = beamGlow;
+        ctx.globalAlpha = .12;
+        ctx.beginPath(); ctx.moveTo(185, 178); ctx.lineTo(975, 720); ctx.lineTo(225, 720); ctx.closePath(); ctx.fill();
+        ctx.filter = 'blur(24px)';
+        ctx.globalAlpha = .28;
+        ctx.beginPath(); ctx.moveTo(185, 178); ctx.lineTo(900, 714); ctx.lineTo(300, 714); ctx.closePath(); ctx.fill();
+        const beamCore = ctx.createLinearGradient(185, 178, 610, 705);
+        beamCore.addColorStop(0, theme.start);
+        beamCore.addColorStop(.45, theme.middle);
+        beamCore.addColorStop(1, palette.main + '00');
+        ctx.fillStyle = beamCore;
+        ctx.filter = 'blur(16px)';
+        ctx.globalAlpha = .72;
+        ctx.beginPath(); ctx.moveTo(185, 178); ctx.lineTo(820, 705); ctx.lineTo(380, 705); ctx.closePath(); ctx.fill();
+        ctx.globalAlpha = 1;
+        ctx.filter = 'none';
+        ctx.restore();
+
+        const canLoadAssets = includeExternalLogo && /^(?:https?:|file:)$/.test(window.location.protocol);
+        const [logo, signature] = await Promise.all([
+            canLoadAssets ? loadLogo(result.logoUrl) : Promise.resolve(null),
+            canLoadAssets ? loadLogo(result.signatureUrl) : Promise.resolve(null)
+        ]);
+        if (logo) ctx.drawImage(logo, 105, 105, 165, 165);
+        else drawBrandFallback(ctx, palette);
+        drawTrophyCrest(ctx, 1003, 182, accent, palette.dark);
+
+        ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+        ctx.fillStyle = gold;
+        drawFittedWrappedText(ctx, {
+            text: 'MAY LEARNING HUB  •  ' + (result.subject || 'ACADEMIC').toUpperCase() + ' HONOURS',
+            x: 600, y: 154, maxWidth: 520, maxLines: 1,
+            maxSize: 18, minSize: 12, font: size => 'bold ' + size + 'px "Segoe UI", sans-serif'
+        });
+        ctx.strokeStyle = gold; ctx.lineWidth = 2;
+        ctx.beginPath(); ctx.moveTo(350, 181); ctx.lineTo(850, 181); ctx.stroke();
+        ctx.fillStyle = navy;
+        ctx.font = 'bold 24px "Segoe UI", sans-serif';
+        ctx.fillText([result.grade, result.subject].filter(Boolean).join(' ').toUpperCase(), 600, 265);
+        ctx.fillStyle = ink;
+        let nextY = drawFittedWrappedText(ctx, {
+            text: result.title, x: 600, y: 345, maxWidth: 820, maxLines: 2,
+            maxSize: 66, minSize: 44, lineHeightRatio: 1.1,
+            font: size => 'bold ' + size + 'px Georgia, serif'
+        });
+        ctx.fillStyle = navy;
+        ctx.fillRect(250, nextY + 18, 700, 62);
+        ctx.strokeStyle = gold; ctx.lineWidth = 2; ctx.strokeRect(260, nextY + 27, 680, 44);
+        ctx.fillStyle = '#fff8df';
+        drawFittedWrappedText(ctx, {
+            text: result.award.toUpperCase(), x: 600, y: nextY + 49, maxWidth: 630, maxLines: 1,
+            maxSize: 22, minSize: 15, font: size => 'bold ' + size + 'px "Segoe UI", sans-serif'
+        });
+
+        nextY += 145;
+        ctx.fillStyle = '#66717d'; ctx.font = 'italic 27px Georgia, serif';
+        ctx.fillText('Presented in recognition of learning progress to', 600, nextY);
+        nextY += 68;
+        ctx.fillStyle = ink;
+        nextY = drawFittedWrappedText(ctx, {
+            text: result.learnerName, x: 600, y: nextY, maxWidth: 820, maxLines: 1,
+            maxSize: 52, minSize: 18, lineHeightRatio: 1.12,
+            font: size => 'bold italic ' + size + 'px Georgia, serif'
+        });
+        ctx.strokeStyle = gold; ctx.lineWidth = 2;
+        ctx.beginPath(); ctx.moveTo(225, nextY + 10); ctx.lineTo(975, nextY + 10); ctx.stroke();
+
+        nextY += 68;
+        ctx.fillStyle = '#344457';
+        nextY = drawFittedWrappedText(ctx, {
+            text: 'for completing ' + result.gameTitle + ' in the ' + result.category + ' category.',
+            x: 600, y: nextY, maxWidth: 820, maxLines: 3, maxSize: 27, minSize: 20,
+            lineHeightRatio: 1.42, font: size => size + 'px Georgia, serif'
+        });
+
+        const sealY = Math.max(nextY + 150, 1000);
+        ctx.fillStyle = 'rgba(255,255,255,.92)'; ctx.strokeStyle = gold; ctx.lineWidth = 5;
+        ctx.beginPath(); ctx.arc(600, sealY, 138, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
+        ctx.strokeStyle = navy; ctx.lineWidth = 3;
+        ctx.beginPath(); ctx.arc(600, sealY, 119, 0, Math.PI * 2); ctx.stroke();
+        ctx.strokeStyle = accent; ctx.lineWidth = 9;
+        ctx.beginPath(); ctx.arc(600, sealY, 104, -Math.PI / 2, -Math.PI / 2 + Math.PI * 2 * (result.correct / result.total)); ctx.stroke();
+        const percentage = Math.round((result.correct / result.total) * 100);
+        ctx.fillStyle = navy; ctx.font = 'bold 60px Georgia, serif'; ctx.fillText(percentage + '%', 600, sealY - 22);
+        ctx.fillStyle = palette.dark; ctx.font = 'bold 23px "Segoe UI", sans-serif'; ctx.fillText(result.correct + ' / ' + result.total + ' MARKS', 600, sealY + 34);
+        ctx.fillStyle = gold; ctx.font = 'bold 16px "Segoe UI", sans-serif'; ctx.fillText('EXPEDITION SCORE', 600, sealY + 70);
+        for (let i = 0; i < 5; i += 1) {
+            ctx.save(); ctx.translate(520 + i * 40, sealY + 113); ctx.rotate(Math.PI / 4);
+            ctx.fillStyle = i < Math.ceil(percentage / 20) ? accent : '#d8d1bf'; ctx.fillRect(-6, -6, 12, 12); ctx.restore();
+        }
+
+        ctx.fillStyle = palette.dark;
+        drawFittedWrappedText(ctx, {
+            text: result.message, x: 600, y: sealY + 190, maxWidth: 840, maxLines: 3,
+            maxSize: 24, minSize: 18, lineHeightRatio: 1.42,
+            font: size => 'bold ' + size + 'px "Segoe UI", sans-serif'
+        });
+        drawAwardRibbon(ctx, 866, 1370, theme.ribbon, accent, palette.dark);
+
+        const footerY = 1450;
+        ctx.strokeStyle = '#596779'; ctx.lineWidth = 2;
+        ctx.beginPath(); ctx.moveTo(145, footerY); ctx.lineTo(500, footerY); ctx.moveTo(700, footerY); ctx.lineTo(1055, footerY); ctx.stroke();
+        ctx.fillStyle = ink; ctx.font = 'bold 24px "Segoe UI", sans-serif'; ctx.fillText(result.date, 322, footerY - 34);
+        if (signature) ctx.drawImage(signature, 720, footerY - 87, 310, 61);
+        else { ctx.font = 'italic 36px "Brush Script MT", "Segoe Script", cursive'; ctx.fillText('M Learning Hub', 878, footerY - 38); }
+        ctx.fillStyle = '#687483'; ctx.font = '17px "Segoe UI", sans-serif';
+        ctx.fillText('DATE AWARDED', 322, footerY + 34); ctx.fillText('SIGNED BY MAY LEARNING HUB', 878, footerY + 34);
+        if (result.term) { ctx.fillStyle = '#99917e'; ctx.font = '600 16px "Segoe UI", sans-serif'; ctx.fillText(result.term.toUpperCase(), 600, 1543); }
+        ctx.fillStyle = navy; ctx.font = 'bold 19px "Segoe UI", sans-serif';
+        ctx.fillText('Get your certificate at www.maylearninghub.co.za', 600, 1590);
+
+        try {
+            const blob = await canvasToPngBlob(canvas);
+            return { blob, fileName: certificateFileName(result), width: canvas.width, height: canvas.height };
+        } catch (error) {
+            if (includeExternalLogo && (logo || signature)) return renderPremiumExpeditionCertificate(result, false);
+            throw error;
+        }
+    }
+
     async function renderCertificate(result, includeExternalLogo) {
+        if (result.mode === 'scored' && result.layout === 'premium-expedition') {
+            return renderPremiumExpeditionCertificate(result, includeExternalLogo);
+        }
         const participation = result.mode === 'participation';
         const palette = palettes[result.tierClass];
         const canvas = document.createElement('canvas');

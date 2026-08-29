@@ -273,10 +273,12 @@ function validateCertificatePage(file, source) {
     ]) {
         if (!attributeValue(source, attribute)) fail(file, 'missing required metadata: ' + attribute);
     }
+    const isGeoQuest = /[\\/]GeoQuest[\\/]GeoQuest\.html$/i.test(file);
+    const expectedGeographyLayout = isGeoQuest ? 'premium-expedition' : 'compact-subject';
     if (/^Grade (?:10|11)$/.test(attributeValue(source, 'data-certificate-grade'))
         && attributeValue(source, 'data-certificate-subject') === 'Geography'
-        && attributeValue(source, 'data-certificate-layout') !== 'compact-subject') {
-        fail(file, 'Grade 10 and 11 Geography certificates must use the compact-subject layout');
+        && attributeValue(source, 'data-certificate-layout') !== expectedGeographyLayout) {
+        fail(file, 'uses the wrong Geography certificate layout; expected ' + expectedGeographyLayout);
     }
     if (/^Grade (?:10|11)$/.test(attributeValue(source, 'data-certificate-grade'))
         && attributeValue(source, 'data-certificate-subject') === 'Geography') {

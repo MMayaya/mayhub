@@ -7,6 +7,12 @@
     const signatureUrl = new URL('May Learning Hub Signature-transparent.png', siteRoot).href;
     const historyScriptUrl = new URL('may-certificate-history.js', siteRoot).href;
     const historyPageUrl = new URL('certificate-history.html', siteRoot).href;
+    const premiumRibbonLabels = {
+        'tier-bronze': 'Progress',
+        'tier-silver': 'Merit',
+        'tier-gold': 'Distinction',
+        'tier-platinum': 'Excellence'
+    };
     let activeResult = null;
     let replayAction = null;
     let previousBodyOverflow = '';
@@ -313,6 +319,202 @@
         }
         body[data-certificate-layout="compact-subject"] .mayhub-cert-signature-text { display: none; }
         body[data-certificate-layout="compact-subject"] .mayhub-cert-signature-image { display: block; }
+        .mayhub-certificate.premium-expedition {
+            --expedition-navy: #0b1e35;
+            --expedition-gold: #b99a55;
+            --certificate-start: #fff5e9;
+            --certificate-middle: #edc39e;
+            --certificate-end: #c77d43;
+            --beam-soft: rgba(237, 195, 158, .94);
+            min-height: 820px;
+            padding: 2.15rem 2.35rem 1.7rem;
+            color: #344457;
+            background:
+                radial-gradient(circle at 50% 48%, rgba(255, 255, 255, .92) 0 14%, rgba(255, 255, 255, .52) 37%, transparent 68%),
+                linear-gradient(145deg, var(--certificate-start) 0%, var(--certificate-middle) 54%, var(--certificate-end) 100%);
+            border: 14px solid var(--expedition-navy);
+            outline: 4px double var(--expedition-gold);
+            outline-offset: -24px;
+            box-shadow: 0 25px 70px rgba(0, 0, 0, .48), inset 0 0 0 1px rgba(185, 154, 85, .58);
+        }
+        .mayhub-certificate.premium-expedition.tier-bronze {
+            --certificate-start: #fff5e9; --certificate-middle: #edc39e; --certificate-end: #c77d43;
+            --beam-soft: rgba(237, 195, 158, .94);
+        }
+        .mayhub-certificate.premium-expedition.tier-silver {
+            --certificate-start: #fbfdff; --certificate-middle: #dce3e9; --certificate-end: #a7b1bb;
+            --beam-soft: rgba(220, 227, 233, .94);
+        }
+        .mayhub-certificate.premium-expedition.tier-gold {
+            --certificate-start: #fffbea; --certificate-middle: #f4dc83; --certificate-end: #d4af37;
+            --beam-soft: rgba(244, 220, 131, .94);
+        }
+        .mayhub-certificate.premium-expedition.tier-platinum {
+            --certificate-start: #f7fcff; --certificate-middle: #d7eaf3; --certificate-end: #9fc8da;
+            --beam-soft: rgba(215, 234, 243, .94);
+        }
+        .premium-expedition > :not(.mayhub-cert-beam) { position: relative; z-index: 1; }
+        .mayhub-cert-beam { display: none; }
+        .premium-expedition .mayhub-cert-beam {
+            position: absolute;
+            z-index: 0;
+            top: 70px;
+            left: 6%;
+            width: 88%;
+            height: 560px;
+            display: block;
+            pointer-events: none;
+        }
+        .premium-expedition .mayhub-cert-beam::before,
+        .premium-expedition .mayhub-cert-beam::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            background: linear-gradient(to bottom,
+                var(--certificate-start) 0%,
+                var(--beam-soft) 40%,
+                rgba(255,255,255,.2) 72%,
+                rgba(255,255,255,0) 100%);
+            pointer-events: none;
+        }
+        .premium-expedition .mayhub-cert-beam::before {
+            left: 0;
+            width: 100%;
+            clip-path: polygon(10% 0, 100% 100%, 0 100%);
+            filter: blur(30px);
+            opacity: .24;
+        }
+        .premium-expedition .mayhub-cert-beam::after {
+            left: 12%;
+            width: 76%;
+            clip-path: polygon(0 0, 100% 100%, 0 100%);
+            filter: blur(16px) drop-shadow(0 0 15px rgba(255,255,240,.88));
+            opacity: .82;
+        }
+        .mayhub-certificate.premium-expedition::before,
+        .mayhub-certificate.premium-expedition::after {
+            width: 112px;
+            height: 112px;
+            border: 2px solid var(--expedition-gold);
+            opacity: .68;
+        }
+        .mayhub-certificate.premium-expedition::before { top: -71px; left: -71px; }
+        .mayhub-certificate.premium-expedition::after { right: -71px; bottom: -71px; }
+        .premium-expedition .mayhub-cert-header { min-height: 112px; }
+        .premium-expedition .mayhub-cert-logo { width: 112px; }
+        .premium-expedition .mayhub-cert-trophy {
+            position: relative;
+            width: 82px;
+            height: 82px;
+            display: grid;
+            place-items: center;
+            border: 4px solid var(--expedition-gold);
+            border-radius: 50%;
+            color: inherit;
+            background: radial-gradient(circle at 38% 28%, #fffdf2 0 24%, var(--award-soft) 58%, var(--award) 100%);
+            box-shadow: inset 0 0 0 2px var(--expedition-navy), 0 6px 14px rgba(11, 30, 53, .2);
+            font-size: 3.25rem;
+            filter: drop-shadow(0 5px 7px rgba(0, 0, 0, .2));
+            animation: mayhubTrophyIn .9s ease both;
+        }
+        .premium-expedition .mayhub-cert-trophy::before {
+            content: '★';
+            position: absolute;
+            right: -7px;
+            bottom: -4px;
+            width: 25px;
+            height: 25px;
+            display: grid;
+            place-items: center;
+            border: 2px solid #fff8df;
+            border-radius: 50%;
+            color: #fff8df;
+            background: var(--award-dark);
+            font: 800 .68rem Georgia, serif;
+            text-align: center;
+        }
+        .premium-expedition .mayhub-cert-trophy::after {
+            content: '';
+            position: absolute;
+            inset: 8px;
+            border: 1px solid rgba(255,255,255,.8);
+            border-radius: 50%;
+        }
+        .premium-expedition .mayhub-cert-kicker {
+            margin-top: -.2rem;
+            color: var(--expedition-navy);
+            letter-spacing: .26em;
+        }
+        .premium-expedition .mayhub-cert-title {
+            margin: .55rem 0 .8rem;
+            color: var(--expedition-navy);
+            font-size: clamp(2.2rem, 6vw, 3.15rem);
+        }
+        .premium-expedition .mayhub-cert-award {
+            width: min(88%, 430px);
+            margin-bottom: 1.3rem;
+            padding: .52rem 1.1rem;
+            color: #fff8df;
+            background: var(--expedition-navy);
+            border: 1px solid var(--expedition-gold);
+            border-radius: 0;
+            box-shadow: inset 0 0 0 3px var(--expedition-navy), inset 0 0 0 4px rgba(185, 154, 85, .65);
+            letter-spacing: .12em;
+        }
+        .premium-expedition .mayhub-cert-presented { color: #6b7480; }
+        .premium-expedition .mayhub-cert-name {
+            color: var(--expedition-navy);
+            border-bottom-color: var(--expedition-gold);
+            font-size: clamp(1.8rem, 5vw, 2.5rem);
+            white-space: nowrap;
+        }
+        .premium-expedition .mayhub-cert-body { max-width: 470px; }
+        .premium-expedition .mayhub-cert-score {
+            width: 158px;
+            height: 158px;
+            margin-top: 1.35rem;
+            color: var(--expedition-navy);
+            background: rgba(255, 255, 255, .86);
+            border: 5px solid var(--expedition-gold);
+            outline: 3px solid var(--expedition-navy);
+            outline-offset: -14px;
+            box-shadow: 0 10px 25px rgba(11, 30, 53, .18), inset 0 0 0 9px rgba(255, 255, 255, .72);
+        }
+        .premium-expedition .mayhub-cert-score strong { font-family: Georgia, serif; }
+        .premium-expedition .mayhub-cert-score span { color: var(--award-dark); letter-spacing: .13em; }
+        .premium-expedition .mayhub-cert-message { color: var(--award-dark); }
+        .mayhub-cert-ribbon { display: none; }
+        .premium-expedition .mayhub-cert-ribbon {
+            min-width: 205px;
+            align-self: flex-end;
+            display: block;
+            margin: .25rem -.45rem .35rem 0;
+            padding: .55rem 1.75rem;
+            color: #fffdf4;
+            background: linear-gradient(90deg, var(--award-dark), var(--award), var(--award-dark));
+            border: 2px solid rgba(255, 248, 213, .88);
+            clip-path: polygon(0 0, 100% 0, 91% 50%, 100% 100%, 0 100%, 8% 50%);
+            box-shadow: 0 7px 16px rgba(11, 30, 53, .2);
+            font-size: .78rem;
+            font-weight: 900;
+            letter-spacing: .18em;
+            text-align: center;
+            text-transform: uppercase;
+        }
+        .premium-expedition .mayhub-cert-footer { gap: 2.4rem; }
+        .premium-expedition .mayhub-cert-footer strong { color: var(--expedition-navy); border-bottom-color: #596779; }
+        .premium-expedition .mayhub-cert-signature {
+            min-height: 52px;
+            padding-bottom: 0;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+        }
+        .premium-expedition .mayhub-cert-signature-text { display: none; }
+        .premium-expedition .mayhub-cert-signature-image { display: block; }
+        .premium-expedition .mayhub-cert-term-line { color: #99917e; }
+        .premium-expedition .mayhub-cert-site-line { color: var(--expedition-navy); letter-spacing: .02em; }
         .mayhub-cert-actions {
             display: flex;
             justify-content: center;
@@ -399,6 +601,18 @@
             .mayhub-cert-signature-image { width: min(100%, 150px); height: 36px; }
             .mayhub-cert-footer span { font-size: .58rem; }
             .mayhub-cert-term-line { margin-top: .55rem; font-size: .58rem; }
+            .mayhub-certificate.premium-expedition { min-height: 650px; padding: 1.25rem 1rem 1rem; border-width: 9px; outline-offset: -16px; }
+            .premium-expedition .mayhub-cert-header { min-height: 74px; }
+            .premium-expedition .mayhub-cert-logo { width: 75px; }
+            .premium-expedition .mayhub-cert-trophy { width: 56px; height: 56px; border-width: 3px; }
+            .premium-expedition .mayhub-cert-trophy { font-size: 2.15rem; }
+            .premium-expedition .mayhub-cert-trophy::before { right: -5px; bottom: -4px; width: 19px; height: 19px; font-size: .5rem; }
+            .premium-expedition .mayhub-cert-trophy::after { inset: 6px; }
+            .premium-expedition .mayhub-cert-beam { top: 48px; left: 6%; width: 88%; height: 430px; opacity: .72; }
+            .premium-expedition .mayhub-cert-title { font-size: 1.82rem; }
+            .premium-expedition .mayhub-cert-award { margin-bottom: .75rem; padding: .38rem .65rem; }
+            .premium-expedition .mayhub-cert-score { width: 112px; height: 112px; margin-top: .75rem; outline-offset: -10px; }
+            .premium-expedition .mayhub-cert-ribbon { min-width: 150px; margin-top: .15rem; padding: .4rem 1.1rem; font-size: .58rem; }
         }
     `;
     document.head.appendChild(style);
@@ -411,6 +625,7 @@
     overlay.innerHTML = `
         <div class="mayhub-cert-wrap">
             <article class="mayhub-certificate tier-participation" id="mayhubCertificate">
+                <span class="mayhub-cert-beam" aria-hidden="true"></span>
                 <header class="mayhub-cert-header">
                     <img class="mayhub-cert-logo" src="${logoUrl}" alt="May Learning Hub">
                     <span class="mayhub-cert-trophy" aria-hidden="true">🏆</span>
@@ -418,12 +633,12 @@
                 <p class="mayhub-cert-kicker" id="mayhubCertKicker">May Learning Hub Assessment</p>
                 <h2 class="mayhub-cert-title" id="mayhubCertTitle">Certificate of Participation</h2>
                 <p class="mayhub-cert-award" id="mayhubCertAward">May Learning Hub Participation Award</p>
-                <p class="mayhub-cert-presented">This certificate is proudly presented to</p>
+                <p class="mayhub-cert-presented" id="mayhubCertPresented">This certificate is proudly presented to</p>
                 <p class="mayhub-cert-name" id="mayhubCertName">Guest Learner</p>
                 <p class="mayhub-cert-body" id="mayhubCertScoredBody">for completing <strong id="mayhubCertGame">the assessment game</strong> in the <strong id="mayhubCertCategory">selected</strong> category.</p>
                 <p class="mayhub-cert-body" id="mayhubCertParticipationBody" style="display: none;">for successful participation in the <strong id="mayhubCertParticipationCategory">selected</strong> activity on <strong id="mayhubCertTopic">the selected topic</strong>.</p>
                 <div class="mayhub-cert-score" id="mayhubCertScoreWrap">
-                    <div><strong id="mayhubCertScore">0/10</strong><span>Correct</span></div>
+                    <div><strong id="mayhubCertScore">0/10</strong><span id="mayhubCertScoreLabel">Correct</span></div>
                 </div>
                 <div class="mayhub-cert-metric" id="mayhubCertMetric">
                     <span class="mayhub-cert-metric-label" id="mayhubCertMetricLabel">Completed in</span>
@@ -435,6 +650,7 @@
                     </div>
                 </div>
                 <p class="mayhub-cert-message" id="mayhubCertMessage"></p>
+                <p class="mayhub-cert-ribbon" id="mayhubCertRibbon">Progress</p>
                 <div class="mayhub-cert-footer">
                     <div class="mayhub-cert-footer-item">
                         <strong id="mayhubCertDate"></strong>
@@ -499,6 +715,17 @@
             topic: options.topic || data.certificateTopic || 'Assessment Activity',
             gameTitle: options.gameTitle || data.certificateGame || 'Assessment Game'
         };
+    }
+
+    function fitPremiumLearnerName(element, layout) {
+        element.style.fontSize = '';
+        if (layout !== 'premium-expedition') return;
+        const computedSize = Number.parseFloat(getComputedStyle(element).fontSize) || 40;
+        let fittedSize = computedSize;
+        while (element.scrollWidth > element.clientWidth && fittedSize > 14) {
+            fittedSize -= .5;
+            element.style.fontSize = fittedSize + 'px';
+        }
     }
 
     function getAward(percentage) {
@@ -624,17 +851,23 @@
         };
         replayAction = typeof options.onReplay === 'function' ? options.onReplay : null;
 
-        certificate.className = 'mayhub-certificate ' + award.className;
+        const isCompactHeading = context.layout === 'compact-subject' || context.layout === 'premium-expedition';
+        certificate.className = 'mayhub-certificate ' + award.className
+            + (context.layout === 'premium-expedition' ? ' premium-expedition' : '');
         document.getElementById('mayhubCertTitle').textContent = award.title;
         document.getElementById('mayhubCertAward').textContent = award.award;
-        const kickerParts = context.layout === 'compact-subject'
+        document.getElementById('mayhubCertPresented').textContent = context.layout === 'premium-expedition'
+            ? 'Presented in recognition of learning progress to'
+            : 'This certificate is proudly presented to';
+        const kickerParts = isCompactHeading
             ? [context.grade, context.subject]
             : [context.grade, context.subject, context.term];
-        document.getElementById('mayhubCertKicker').textContent = kickerParts.filter(Boolean).join(context.layout === 'compact-subject' ? ' ' : ' • ') || 'May Learning Hub Assessment';
+        document.getElementById('mayhubCertKicker').textContent = kickerParts.filter(Boolean).join(isCompactHeading ? ' ' : ' • ') || 'May Learning Hub Assessment';
         const termLine = document.getElementById('mayhubCertTerm');
         termLine.textContent = context.term;
-        termLine.style.display = context.layout === 'compact-subject' && context.term ? 'block' : 'none';
-        document.getElementById('mayhubCertName').textContent = learnerName || 'Guest Learner';
+        termLine.style.display = isCompactHeading && context.term ? 'block' : 'none';
+        const learnerNameElement = document.getElementById('mayhubCertName');
+        learnerNameElement.textContent = learnerName || 'Guest Learner';
         document.getElementById('mayhubCertGame').textContent = activeResult.gameTitle;
         document.getElementById('mayhubCertCategory').textContent = activeResult.category;
         document.getElementById('mayhubCertParticipationCategory').textContent = activeResult.category;
@@ -643,8 +876,10 @@
         document.getElementById('mayhubCertParticipationBody').style.display = isParticipation ? 'block' : 'none';
         document.getElementById('mayhubCertDate').textContent = awardDate;
         document.getElementById('mayhubCertMessage').textContent = award.message;
+        document.getElementById('mayhubCertRibbon').textContent = premiumRibbonLabels[award.className] || 'Achievement';
         scoreWrap.style.display = isParticipation ? 'none' : 'grid';
         document.getElementById('mayhubCertScore').textContent = correct + '/' + total;
+        document.getElementById('mayhubCertScoreLabel').textContent = context.layout === 'premium-expedition' ? 'Marks' : 'Correct';
         const metric = document.getElementById('mayhubCertMetric');
         const hasMetric = Boolean(activeResult.metricValue);
         const durationMatch = activeResult.metricValue.match(/^(\d{1,2}):([0-5]\d)$/);
@@ -660,6 +895,7 @@
         previousBodyOverflow = document.body.style.overflow;
         document.body.style.overflow = 'hidden';
         overlay.style.display = 'flex';
+        fitPremiumLearnerName(learnerNameElement, context.layout);
         historyLink.textContent = 'My Certificates';
         historyLink.href = historyPageUrl;
         historyNote.textContent = 'Checking certificate history…';
@@ -672,6 +908,11 @@
             else window.MayHubSounds.playFail?.();
         }
     }
+
+    window.addEventListener('resize', () => {
+        if (overlay.style.display !== 'flex' || !activeResult) return;
+        fitPremiumLearnerName(document.getElementById('mayhubCertName'), activeResult.layout);
+    });
 
     function hide() {
         overlay.style.display = 'none';

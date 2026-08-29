@@ -258,6 +258,7 @@ if (!logic.includes('order: shuffle(questions.map(question => question.id))') ||
 if (!stage3Source.includes('Why are the benefits of GDP growth distributed unequally in many countries?')) fail('The shuffled Stage 3 dependent question is not self-contained');
 if (!stage4Source.includes('Which source clue proves that the wealthy trade official is restricting rather than promoting free trade?')) fail('The shuffled Stage 4 dependent question is not self-contained');
 if (!logic.includes('MayHubCertificates.showScored')) fail('Completed GeoQuest certificate integration is missing');
+if (!page.includes('data-certificate-layout="premium-expedition"')) fail('GeoQuest must use its premium expedition certificate layout');
 if (!/@media\(max-width:620px\)/.test(styles)) fail('Mobile layout rules are missing');
 if (!styles.includes('.term-carousel') || !styles.includes('.term-card')) fail('Stage 2 carousel styling is missing');
 if (!styles.includes('.route-grid') || !styles.includes('.route-option')) fail('Stage 3 route-card styling is missing');
@@ -278,6 +279,7 @@ if (gameLinks.at(-1) !== 'GeoQuest/GeoQuest.html') fail('GeoQuest must be the fi
 const worker = fs.readFileSync(path.join(siteRoot, 'sw.js'), 'utf8');
 const helper = fs.readFileSync(path.join(siteRoot, 'may-certificate-actions.js'), 'utf8');
 const certificateUiHelper = fs.readFileSync(path.join(siteRoot, 'assessment-certificate.js'), 'utf8');
+const certificateRenderer = fs.readFileSync(path.join(siteRoot, 'may-certificate-renderer.js'), 'utf8');
 const historyPage = fs.readFileSync(path.join(siteRoot, 'certificate-history.html'), 'utf8');
 const historyLogic = fs.readFileSync(path.join(siteRoot, 'certificate-history-page.js'), 'utf8');
 for (const asset of ['GeoQuest/GeoQuest.html', 'GeoQuest/geoquest.css', 'GeoQuest/geoquest.js', 'GeoQuest/source-packs.js', 'GeoQuest/stage2-data.js', 'GeoQuest/stage3-data.js', 'GeoQuest/stage4-data.js', 'GeoQuest/stage5-data.js', 'trade-brief-a.jpg', 'trade-brief-b.jpg', 'development-crossroads.jpg', 'trade-gatekeepers.jpg', 'aid-operations-brief.jpg']) {
@@ -290,6 +292,10 @@ const workerVersion = worker.match(/SERVICE_WORKER_VERSION\s*=\s*'([^']+)'/)?.[1
 const helperVersion = helper.match(/SERVICE_WORKER_VERSION\s*=\s*'([^']+)'/)?.[1];
 if (!workerVersion || workerVersion !== helperVersion) fail('Service-worker and certificate-helper versions do not match');
 if (!certificateUiHelper.includes('options.playSound !== false')) fail('The shared certificate helper cannot suppress duplicate result audio');
+if (!certificateUiHelper.includes('premium-expedition') || !certificateRenderer.includes('renderPremiumExpeditionCertificate')) fail('The premium GeoQuest certificate preview or PNG renderer is missing');
+if (!certificateRenderer.includes('premiumThemes') || !certificateRenderer.includes('drawTrophyCrest') || !certificateRenderer.includes('drawAwardRibbon')) fail('The four premium award colours, trophy crest or award ribbon is missing');
+if (!certificateUiHelper.includes('mayhub-cert-beam') || !certificateUiHelper.includes('premiumRibbonLabels')) fail('The premium preview light beam or four ribbon labels are missing');
+if (!certificateUiHelper.includes('fitPremiumLearnerName') || !certificateRenderer.includes('maxWidth: 820, maxLines: 1')) fail('Premium learner names are not guaranteed to remain on one line');
 if (!historyLogic.includes("toLocaleTimeString('en-ZA'") || !historyPage.includes('.certificate-card .time')) fail('Certificate history does not display the issued time in a smaller style');
 
 if (/88\s?679\s?256\s?980|101\s?762\s?020\s?372/.test(dataSource + stage2Source + stage3Source + stage4Source + stage5Source + page + logic)) {

@@ -2,7 +2,7 @@ const CORE_CACHE_NAME = 'may-learning-core-v23-geoquest-source-controls';
 const RUNTIME_CACHE_NAME = 'may-learning-runtime-pages';
 const CERTIFICATE_DOWNLOAD_CACHE = 'may-learning-certificate-downloads';
 const CERTIFICATE_DOWNLOAD_PATH = '/certificate-download/';
-const SERVICE_WORKER_VERSION = '25-stage6-history-time';
+const SERVICE_WORKER_VERSION = '40-historyquest-grand-total';
 
 const CORE_ASSETS = [
   '/may-certificate-actions.js',
@@ -34,7 +34,23 @@ const CORE_ASSETS = [
   '/Geography/Term-3/Grade-11/Games/Assessment%20Games/GeoQuest/sources/trade-gatekeepers.jpg',
   '/Geography/Term-3/Grade-11/Games/Assessment%20Games/GeoQuest/sources/aid-operations-brief.jpg',
   '/Geography/Term-3/Grade-11/Games/Assessment%20Games/GeoQuest/sources/trade-brief-a.jpg',
-  '/Geography/Term-3/Grade-11/Games/Assessment%20Games/GeoQuest/sources/trade-brief-b.jpg'
+  '/Geography/Term-3/Grade-11/Games/Assessment%20Games/GeoQuest/sources/trade-brief-b.jpg',
+  '/Social-Sciences/Term-3/Grade-8/Games/History%20Assessment%20Games/history-assessment-games.html',
+  '/Social-Sciences/Term-3/Grade-8/Games/History%20Assessment%20Games/HistoryQuest/HistoryQuest.html',
+  '/Social-Sciences/Term-3/Grade-8/Games/History%20Assessment%20Games/HistoryQuest/historyquest.css',
+  '/Social-Sciences/Term-3/Grade-8/Games/History%20Assessment%20Games/HistoryQuest/essay-stage.css',
+  '/Social-Sciences/Term-3/Grade-8/Games/History%20Assessment%20Games/HistoryQuest/historyquest.js',
+  '/Social-Sciences/Term-3/Grade-8/Games/History%20Assessment%20Games/HistoryQuest/stage1-data.js',
+  '/Social-Sciences/Term-3/Grade-8/Games/History%20Assessment%20Games/HistoryQuest/stage2-data.js',
+  '/Social-Sciences/Term-3/Grade-8/Games/History%20Assessment%20Games/HistoryQuest/stage3-data.js',
+  '/Social-Sciences/Term-3/Grade-8/Games/History%20Assessment%20Games/HistoryQuest/stage4-data.js',
+  '/Social-Sciences/Term-3/Grade-8/Games/History%20Assessment%20Games/HistoryQuest/stage5-data.js',
+  '/Social-Sciences/Term-3/Grade-8/Games/History%20Assessment%20Games/HistoryQuest/stage6-data.js',
+  '/Social-Sciences/Term-3/Grade-8/Games/History%20Assessment%20Games/HistoryQuest/sources/berlin-conference-cartoon.jpg',
+  '/Social-Sciences/Term-3/Grade-8/Games/History%20Assessment%20Games/HistoryQuest/sources/causes-of-colonisation.jpg',
+  '/Social-Sciences/Term-3/Grade-8/Games/History%20Assessment%20Games/HistoryQuest/sources/patterns-of-colonisation.jpg',
+  '/Social-Sciences/Term-3/Grade-8/Games/History%20Assessment%20Games/HistoryQuest/sources/results-of-colonisation.jpg',
+  '/Social-Sciences/Term-3/Grade-8/Games/History%20Assessment%20Games/HistoryQuest/sources/ashanti-resistance.jpg'
 ];
 
 const CORE_NETWORK_FIRST_PATHS = new Set([
