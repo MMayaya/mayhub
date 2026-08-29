@@ -274,25 +274,25 @@ border-radius: 6px;
 
 
 
-/* --- WHAT'S NEW SECTION (GLOWY GLOSSY RED) --- */
+/* --- WHAT'S NEW SECTION (PREMIUM SILVER) --- */
 
 .whats-new-panel {
 
-background: linear-gradient(135deg, #ff1f1f 0%, #c40000 48%, #850000 100%);
+background: #000000;
 
 color: #ffffff;
 
-border-radius: 14px;
+border-radius: 20px;
 
-box-shadow: 0 0 22px rgba(230, 0, 0, 0.55), 0 10px 24px rgba(0,0,0,0.16), inset 0 1px 0 rgba(255,255,255,0.55), inset 0 -26px 42px rgba(0,0,0,0.12);
+box-shadow: 0 12px 30px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.28), inset 0 -26px 42px rgba(0,0,0,0.3);
 
-padding: 1.4rem 1.6rem;
+padding: 0.9rem 1.15rem 1rem;
 
-margin-bottom: 1.2rem;
+margin-bottom: 1rem;
 
-border: 1px solid rgba(255,255,255,0.32);
+border: 1px solid rgba(246,249,252,0.72);
 
-border-left: 5px solid #ffd6d6;
+border-left: 5px solid #f3f6f9;
 
 position: relative;
 
@@ -318,7 +318,7 @@ right: 0;
 
 height: 48%;
 
-background: linear-gradient(to bottom, rgba(255,255,255,0.36), rgba(255,255,255,0.08), rgba(255,255,255,0));
+background: linear-gradient(to bottom, rgba(255,255,255,0.14), rgba(255,255,255,0.03), rgba(255,255,255,0));
 
 pointer-events: none;
 
@@ -341,29 +341,45 @@ text-shadow: 0 2px 8px rgba(0,0,0,0.22);
 
 }
 
+.whats-new-panel .section-title {
+
+margin-bottom: 0.1rem;
+
+font-size: clamp(1.45rem, 3vw, 1.85rem);
+
+}
+
+.whats-new-panel .section-subtitle {
+
+margin: 0;
+
+font-size: 0.92rem;
+
+}
+
 .whats-new-grid {
 
 display: grid;
 
 grid-template-columns: 1fr;
 
-gap: 1rem;
+gap: 0.65rem;
 
-margin-top: 1rem;
+margin-top: 0.65rem;
 
 }
 
 .whats-new-details {
 
-padding: 0.9rem;
+padding: 0.65rem 0.75rem;
 
-border: 1px solid rgba(255,255,255,0.36);
+border: 1px solid rgba(255,255,255,0.4);
 
-border-radius: 11px;
+border-radius: 14px;
 
-background: rgba(255,255,255,0.13);
+background: rgba(10,21,33,0.18);
 
-box-shadow: inset 0 1px 0 rgba(255,255,255,0.25), 0 8px 18px rgba(70,0,0,0.16);
+box-shadow: inset 0 1px 0 rgba(255,255,255,0.24), 0 8px 18px rgba(11,23,37,0.2);
 
 backdrop-filter: blur(4px);
 
@@ -371,7 +387,7 @@ backdrop-filter: blur(4px);
 
 .whats-new-details[open] {
 
-background: rgba(255,255,255,0.18);
+background: rgba(255,255,255,0.2);
 
 }
 
@@ -383,7 +399,7 @@ font-weight: bold;
 
 color: #ffffff;
 
-padding: 0.35rem 0;
+padding: 0.2rem 0;
 
 text-shadow: 0 1px 5px rgba(0,0,0,0.25);
 
@@ -401,9 +417,9 @@ list-style: none;
 
 display: grid;
 
-gap: 0.55rem;
+gap: 0.4rem;
 
-margin-top: 0.75rem;
+margin-top: 0.45rem;
 
 }
 
@@ -413,23 +429,23 @@ display: block;
 
 text-decoration: none;
 
-color: #7a0000;
+color: #283440;
 
-background: rgba(255,255,255,0.94);
+background: linear-gradient(135deg, #ffffff 0%, #e9edf1 100%);
 
-border: 1px solid rgba(255,205,205,0.95);
+border: 1px solid rgba(239,243,247,0.95);
 
-border-left: 4px solid #ff2b2b;
+border-left: 4px solid #b9c3ce;
 
 border-radius: 8px;
 
-padding: 0.65rem 0.85rem;
+padding: 0.52rem 0.72rem;
 
 font-size: 0.95rem;
 
 font-weight: 650;
 
-box-shadow: 0 4px 12px rgba(80,0,0,0.13), inset 0 1px 0 rgba(255,255,255,0.9);
+box-shadow: 0 4px 12px rgba(16,30,44,0.18), inset 0 1px 0 rgba(255,255,255,0.95);
 
 transition: all 0.2s ease;
 
@@ -437,11 +453,11 @@ transition: all 0.2s ease;
 
 .whats-new-list a:hover {
 
-background: #fff4f4;
+background: #f8fafc;
 
 padding-left: 1.05rem;
 
-box-shadow: 0 0 14px rgba(255,255,255,0.45), 0 4px 12px rgba(80,0,0,0.18);
+box-shadow: 0 0 14px rgba(255,255,255,0.4), 0 5px 15px rgba(16,30,44,0.24);
 
 }
 .whats-new-list a.newest-item {
@@ -454,15 +470,15 @@ justify-content: space-between;
 
 gap: 0.75rem;
 
-color: #4a0000;
+color: #1f2b36;
 
-background: linear-gradient(135deg, #ffffff 0%, #fff9cf 100%);
+background: linear-gradient(135deg, #ffffff 0%, #e3e8ed 100%);
 
-border-color: #ffe36b;
+border-color: #f3f6f8;
 
-border-left-color: #ffc400;
+border-left-color: #d6dde4;
 
-box-shadow: 0 0 0 2px rgba(255, 239, 128, 0.72), 0 0 20px rgba(255, 248, 194, 0.95), 0 6px 15px rgba(80,0,0,0.18);
+box-shadow: 0 0 0 2px rgba(239,243,247,0.72), 0 0 20px rgba(214,221,228,0.9), 0 6px 15px rgba(16,30,44,0.2);
 
 }
 
@@ -472,7 +488,7 @@ flex: 0 0 auto;
 
 color: #ffffff;
 
-background: #b00000;
+background: #536170;
 
 border-radius: 999px;
 
@@ -1074,7 +1090,7 @@ font: inherit;
 
 font-weight: 700;
 
-padding: 0.65rem 0.85rem;
+padding: 0.52rem 0.72rem;
 
 cursor: pointer;
 
@@ -4303,55 +4319,9 @@ May Learning Hub provides a professional, CAPS-aligned educational experience sp
 
 <h2 class="section-title" id="whats-new-title">What&rsquo;s New</h2>
 
-<p class="section-subtitle">Open the items below to quickly access the newest resources.</p>
+<p class="section-subtitle">Explore the latest Term 3 learning games.</p>
 
 <div class="whats-new-grid">
-
-<details class="whats-new-details" open>
-
-<summary>New Presentations</summary>
-
-<ul class="whats-new-list">
-
-<li>
-
-<a href="Social-Sciences/Term-3/Grade-8/Notes/notes.html" class="icon-notes newest-item">Grade 8 Social Sciences Term 3 Presentation <span class="new-badge">Newest</span></a>
-
-</li>
-
-<li>
-
-<a href="Life-Sciences/Term-3/Grade-12/Notes/notes.html" class="icon-notes newest-item">Grade 12 Life Sciences Term 3 Presentation <span class="new-badge">Newest</span></a>
-
-</li>
-
-<li>
-
-<a href="Geography/Term-3/Grade-10/Notes/notes.html" class="icon-notes">Grade 10 Geography Term 3 Presentation</a>
-
-</li>
-
-<li>
-
-<a href="Geography/Term-3/Grade-11/Notes/notes.html" class="icon-notes">Grade 11 Geography Term 3 Presentation</a>
-
-</li>
-
-<li>
-
-<a href="Geography/Term-3/Grade-12/Notes/notes.html" class="icon-notes">Grade 12 Geography Term 3 Presentation</a>
-
-</li>
-
-<li>
-
-<a href="Social-Sciences/Term-3/Grade-9/Notes/notes.html" class="icon-notes">Grade 9 Social Sciences Term 3 Presentation</a>
-
-</li>
-
-</ul>
-
-</details>
 
 <details class="whats-new-details" open>
 
@@ -4361,53 +4331,19 @@ May Learning Hub provides a professional, CAPS-aligned educational experience sp
 
 <li>
 
-<a href="Geography/Term-3/Grade-10/Games/games.html" class="icon-games newest-item">Grade 10 Geography Term 3 Games <span class="new-badge">Newest</span></a>
+<a href="Social-Sciences/Term-3/Grade-8/Games/games.html" class="icon-games newest-item">Grade 8 Social Sciences Term 3 Games <span class="new-badge">New</span></a>
 
 </li>
 
 <li>
 
-<a href="Social-Sciences/Term-3/Grade-8/Games/games.html" class="icon-games newest-item">Grade 8 Social Sciences Term 3 Games <span class="new-badge">Newest</span></a>
-
-</li>
-
-<li>
-
-<a href="Life-Sciences/Term-3/Grade-12/Games/games.html" class="icon-games newest-item">Grade 12 Life Sciences Term 3 Games <span class="new-badge">Newest</span></a>
+<a href="Geography/Term-3/Grade-10/Games/games.html" class="icon-games newest-item">Grade 10 Geography Term 3 Games <span class="new-badge">New</span></a>
 
 </li>
 
 <li>
 
 <a href="Geography/Term-3/Grade-11/Games/games.html" class="icon-games newest-item">Grade 11 Geography Term 3 Games <span class="new-badge">New</span></a>
-
-</li>
-
-<li>
-
-<a href="Geography/Term-3/Grade-12/Games/games.html" class="icon-games newest-item">Grade 12 Geography Term 3 Games <span class="new-badge">New</span></a>
-
-</li>
-
-</ul>
-
-</details>
-
-<details class="whats-new-details" open>
-
-<summary>New Learning Guides</summary>
-
-<ul class="whats-new-list">
-
-<li>
-
-<a href="#details-Geography-grade-11-term-2-guides" class="icon-pdf newest-item jump-to-details" data-target-details="details-Geography-grade-11-term-2-guides">Grade 11 Geography Term 2 Learning Guides <span class="new-badge">New</span></a>
-
-</li>
-
-<li>
-
-<a href="#details-Geography-grade-11-term-3-guides" class="icon-pdf newest-item jump-to-details" data-target-details="details-Geography-grade-11-term-3-guides">Grade 11 Geography Term 3 Learning Guides <span class="new-badge">New</span></a>
 
 </li>
 

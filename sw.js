@@ -1,8 +1,8 @@
-const CORE_CACHE_NAME = 'may-learning-core-v29-grade10-geoquest-summary';
+const CORE_CACHE_NAME = 'may-learning-core-v32-home-whats-new-pure-black';
 const RUNTIME_CACHE_NAME = 'may-learning-runtime-pages';
 const CERTIFICATE_DOWNLOAD_CACHE = 'may-learning-certificate-downloads';
 const CERTIFICATE_DOWNLOAD_PATH = '/certificate-download/';
-const SERVICE_WORKER_VERSION = '46-grade10-geoquest-summary';
+const SERVICE_WORKER_VERSION = '49-home-whats-new-pure-black';
 
 const CORE_ASSETS = [
   '/may-certificate-actions.js',
@@ -62,12 +62,14 @@ const CORE_ASSETS = [
   '/Social-Sciences/Term-3/Grade-8/Games/History%20Assessment%20Games/HistoryQuest/sources/causes-of-colonisation.jpg',
   '/Social-Sciences/Term-3/Grade-8/Games/History%20Assessment%20Games/HistoryQuest/sources/patterns-of-colonisation.jpg',
   '/Social-Sciences/Term-3/Grade-8/Games/History%20Assessment%20Games/HistoryQuest/sources/results-of-colonisation.jpg',
-  '/Social-Sciences/Term-3/Grade-8/Games/History%20Assessment%20Games/HistoryQuest/sources/ashanti-resistance.jpg'
+  '/Social-Sciences/Term-3/Grade-8/Games/History%20Assessment%20Games/HistoryQuest/sources/ashanti-resistance.jpg',
+  '/Collab-Hub.html'
 ];
 
 const CORE_NETWORK_FIRST_PATHS = new Set([
   '/',
   '/index.html',
+  '/Collab-Hub.html',
   '/signin.html',
   '/certificate-history.html',
   '/signup.html',
