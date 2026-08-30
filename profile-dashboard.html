@@ -78,6 +78,20 @@
     .quick-link { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: .85rem .95rem; border: 1px solid #dce7f3; border-radius: 14px; color: #173c63; background: #f8fbff; text-decoration: none; font-size: .9rem; font-weight: 850; }
     .quick-link:hover { border-color: #9bc8ee; background: #eff8ff; }
     .quick-link span:last-child { color: var(--blue); font-size: 1.2rem; }
+    .profile-panel[hidden] { display: none !important; }
+    .account-home { display: grid; gap: 22px; }
+    .account-welcome { position: relative; overflow: hidden; padding: clamp(1.7rem, 4vw, 2.7rem); border: 1px solid #0b5fa4; border-radius: 24px; color: #fff; background: linear-gradient(125deg, #06264d, #0b69c0 66%, #2d8bd5); box-shadow: 0 18px 45px #17375f20; }
+    .account-welcome::after { content: ""; position: absolute; width: 240px; height: 240px; right: -92px; bottom: -150px; border: 38px solid #ffffff1b; border-radius: 50%; }
+    .account-welcome .eyebrow { position: relative; color: #cfe9ff; }
+    .account-welcome h1 { max-width: 760px; font-size: clamp(2rem, 5vw, 3.7rem); }
+    .account-welcome p:last-child { position: relative; max-width: 670px; margin: .95rem 0 0; color: #e6f3ff; line-height: 1.62; }
+    .account-choices { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+    .account-choice { display: flex; min-height: 190px; flex-direction: column; align-items: flex-start; gap: .65rem; padding: 1.35rem; border: 1px solid var(--line); border-radius: 20px; color: var(--ink); background: #fff; box-shadow: 0 14px 34px #17375f10; text-align: left; text-decoration: none; font: inherit; cursor: pointer; transition: transform .18s ease, border-color .18s ease, box-shadow .18s ease; }
+    .account-choice:hover, .account-choice:focus-visible { transform: translateY(-3px); border-color: #8cc3ed; box-shadow: 0 18px 38px #17375f1b; outline: none; }
+    .account-choice-icon { display: grid; width: 46px; height: 46px; place-items: center; border-radius: 14px; color: #fff; background: linear-gradient(145deg, #083c72, #0b79d0); font-size: 1.25rem; font-weight: 900; }
+    .account-choice strong { color: var(--navy); font-size: 1.08rem; }
+    .account-choice small { color: var(--muted); font-size: .84rem; line-height: 1.48; }
+    .account-choice-action { margin-top: auto; color: var(--blue); font-size: .8rem; font-weight: 900; }
     .profile-layout { display: grid; grid-template-columns: 238px minmax(0, 1fr); gap: 22px; align-items: start; }
     .profile-page-content { min-width: 0; }
     .profile-navigation { position: sticky; top: 18px; min-height: min(620px, calc(100vh - 36px)); display: flex; flex-direction: column; padding: 1rem; border: 1px solid var(--line); border-radius: 24px; color: #fff; background: linear-gradient(160deg, #061f40, #0a477f 64%, #0b69c0); box-shadow: 0 18px 45px #17375f24; }
@@ -86,7 +100,7 @@
     .profile-nav-name { margin: 0; font-size: 1.12rem; line-height: 1.2; overflow-wrap: anywhere; }
     .profile-nav-email { margin: .32rem 0 0; color: #d4eaff; font-size: .72rem; line-height: 1.35; overflow-wrap: anywhere; }
     .profile-section-links { display: grid; gap: .48rem; margin-top: 1rem; }
-    .profile-section-link { display: flex; align-items: center; justify-content: space-between; gap: .7rem; padding: .72rem .78rem; border: 1px solid transparent; border-radius: 12px; color: #e5f3ff; text-decoration: none; font-size: .84rem; font-weight: 850; }
+    .profile-section-link { display: flex; width: 100%; align-items: center; justify-content: space-between; gap: .7rem; padding: .72rem .78rem; border: 1px solid transparent; border-radius: 12px; color: #e5f3ff; background: transparent; text-align: left; text-decoration: none; font: inherit; font-size: .84rem; font-weight: 850; cursor: pointer; }
     .profile-section-link:hover, .profile-section-link.active { color: #fff; background: #ffffff18; border-color: #ffffff2e; }
     .profile-section-link span:last-child { color: #8dccff; font-size: 1rem; }
     .profile-signout-area { margin-top: auto; padding: 1rem .25rem .15rem; border-top: 1px solid #ffffff28; }
@@ -112,8 +126,8 @@
     .signed-out p { max-width: 500px; margin: 1rem auto 1.45rem; color: #e4f2ff; line-height: 1.65; }
     .signed-out .button { color: var(--navy); background: #fff; }
     .privacy-note { margin: 1.5rem .25rem 0; color: #748296; font-size: .8rem; line-height: 1.5; }
-    @media (max-width: 980px) { .profile-layout { grid-template-columns: 1fr; } .profile-navigation { position: static; min-height: 0; } .profile-section-links { grid-template-columns: repeat(3, minmax(0, 1fr)); } .profile-signout-area { margin-top: 1rem; } }
-    @media (max-width: 860px) { .hero, .dashboard-grid { grid-template-columns: 1fr; } .stats { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+    @media (max-width: 980px) { .profile-layout { grid-template-columns: 1fr; } .profile-navigation { position: static; min-height: 0; } .profile-section-links { grid-template-columns: repeat(2, minmax(0, 1fr)); } .profile-signout-area { margin-top: 1rem; } }
+    @media (max-width: 860px) { .hero, .dashboard-grid { grid-template-columns: 1fr; } .stats { grid-template-columns: repeat(2, minmax(0, 1fr)); } .account-choices { grid-template-columns: 1fr; } .account-choice { min-height: 0; } }
     @media (max-width: 620px) { .profile-section-links, .profile-form, .profile-subject-options { grid-template-columns: 1fr; } .profile-subjects, .profile-form-status, .profile-form-actions { grid-column: 1; } }
     @media (max-width: 540px) { .nav, main { width: min(100% - 24px, 1160px); } .nav { min-height: 68px; } .brand span { display: none; } .nav-actions { gap: .55rem; } .nav-button { padding: .5rem .72rem; } main { padding-top: 26px; } .hero-copy, .profile-card, .card, .profile-navigation { border-radius: 19px; } .stats { grid-template-columns: 1fr 1fr; gap: 10px; } .stat { min-height: 122px; padding: .9rem; } .profile-list div { grid-template-columns: 78px 1fr; } }
   </style>
@@ -133,9 +147,10 @@
           <h2 class="profile-nav-name" id="profileNavName">Learner</h2>
           <p class="profile-nav-email" id="profileNavEmail">Signed-in account</p>
         </div>
-        <nav class="profile-section-links">
-          <a class="profile-section-link active" href="#dashboard-overview"><span>My Dashboard</span><span aria-hidden="true">→</span></a>
-          <a class="profile-section-link" href="#edit-profile"><span>Edit Profile</span><span aria-hidden="true">→</span></a>
+        <nav class="profile-section-links" aria-label="Choose an account area">
+          <button class="profile-section-link active" type="button" data-profile-section="account-home"><span>Profile Home</span><span aria-hidden="true">→</span></button>
+          <button class="profile-section-link" type="button" data-profile-section="dashboard-overview"><span>My Dashboard</span><span aria-hidden="true">→</span></button>
+          <button class="profile-section-link" type="button" data-profile-section="edit-profile"><span>Edit Profile</span><span aria-hidden="true">→</span></button>
           <a class="profile-section-link" href="certificate-history.html"><span>Certificate History</span><span aria-hidden="true">→</span></a>
         </nav>
         <div class="profile-signout-area">
@@ -143,7 +158,35 @@
         </div>
       </aside>
       <div class="profile-page-content">
-    <section class="hero" id="dashboard-overview">
+    <section class="account-home profile-panel" id="account-home" data-profile-panel="account-home">
+      <div class="account-welcome">
+        <p class="eyebrow">My May Learning Hub account</p>
+        <h1 id="accountHomeGreeting">Welcome.</h1>
+        <p>Choose where you would like to go. Your dashboard, profile editor and certificates remain separate so each area stays clear and easy to use.</p>
+      </div>
+      <div class="account-choices" aria-label="Profile areas">
+        <button class="account-choice" type="button" data-profile-section="dashboard-overview">
+          <span class="account-choice-icon" aria-hidden="true">↗</span>
+          <strong>My Dashboard</strong>
+          <small>See learning progress, recent achievements and your recommended next activity.</small>
+          <span class="account-choice-action">Open dashboard →</span>
+        </button>
+        <button class="account-choice" type="button" data-profile-section="edit-profile">
+          <span class="account-choice-icon" aria-hidden="true">✎</span>
+          <strong>Edit Profile</strong>
+          <small>Update your name, contact number, school, grade and selected subjects.</small>
+          <span class="account-choice-action">Open profile editor →</span>
+        </button>
+        <a class="account-choice" href="certificate-history.html">
+          <span class="account-choice-icon" aria-hidden="true">★</span>
+          <strong>Certificate History</strong>
+          <small>Open, download or share the certificates earned on this signed-in account.</small>
+          <span class="account-choice-action">Open certificates →</span>
+        </a>
+      </div>
+    </section>
+    <div class="profile-panel" id="dashboard-overview" data-profile-panel="dashboard-overview" hidden>
+    <section class="hero">
       <div class="hero-copy">
         <p class="eyebrow">My learning dashboard</p>
         <h1 id="dashboardGreeting">Welcome back.</h1>
@@ -159,7 +202,7 @@
           <div><dt>School</dt><dd id="profileSchool">—</dd></div>
           <div><dt>Subjects</dt><dd id="profileSubjects">—</dd></div>
         </dl>
-        <div class="button-row"><a class="button secondary" href="#edit-profile">Edit Profile</a><button class="button" id="refreshDashboard" type="button">Refresh</button></div>
+        <div class="button-row"><button class="button secondary" type="button" data-profile-section="edit-profile">Edit Profile</button><button class="button" id="refreshDashboard" type="button">Refresh</button></div>
       </aside>
     </section>
     <section class="stats" aria-label="Achievement summary">
@@ -184,7 +227,7 @@
         <div class="card-heading"><div><h2>Quick actions</h2><p>Useful learning shortcuts.</p></div></div>
         <nav class="quick-links" aria-label="Quick actions">
           <a class="quick-link" href="certificate-history.html"><span>Certificate History</span><span aria-hidden="true">→</span></a>
-          <a class="quick-link" href="#edit-profile"><span>Manage Profile</span><span aria-hidden="true">→</span></a>
+          <button class="quick-link" type="button" data-profile-section="edit-profile"><span>Manage Profile</span><span aria-hidden="true">→</span></button>
           <a class="quick-link" id="assessmentGamesLink" href="index.html"><span>Explore Assessment Games</span><span aria-hidden="true">→</span></a>
         </nav>
       </div>
@@ -193,7 +236,8 @@
         <p class="empty-state">Certificate History and progress are saved to this signed-in learner’s current device. Download a certificate whenever you want a copy to keep or share.</p>
       </div>
     </section>
-    <section class="card edit-profile-card" id="edit-profile" aria-labelledby="editProfileHeading">
+    </div>
+    <section class="card edit-profile-card profile-panel" id="edit-profile" data-profile-panel="edit-profile" aria-labelledby="editProfileHeading" hidden>
       <div class="card-heading">
         <div>
           <p class="eyebrow">Account details</p>

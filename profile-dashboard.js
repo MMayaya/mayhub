@@ -49,6 +49,9 @@
   const elements = {
     dashboard: document.getElementById('dashboard'),
     signedOut: document.getElementById('signedOut'),
+    accountHomeGreeting: document.getElementById('accountHomeGreeting'),
+    profilePanels: Array.from(document.querySelectorAll('[data-profile-panel]')),
+    profileSectionControls: Array.from(document.querySelectorAll('[data-profile-section]')),
     greeting: document.getElementById('dashboardGreeting'),
     subtitle: document.getElementById('dashboardSubtitle'),
     chips: document.getElementById('dashboardChips'),
@@ -89,6 +92,32 @@
   function safeText(value, fallback) {
     const text = String(value == null ? '' : value).replace(/\s+/g, ' ').trim();
     return text || fallback;
+  }
+
+  function sectionFromLocation() {
+    const section = window.location.hash.replace(/^#/, '');
+    return section === 'dashboard-overview' || section === 'edit-profile' ? section : 'account-home';
+  }
+
+  function showProfileSection(section, updateAddress) {
+    const target = section === 'dashboard-overview' || section === 'edit-profile' ? section : 'account-home';
+    elements.profilePanels.forEach(panel => { panel.hidden = panel.dataset.profilePanel !== target; });
+    elements.profileSectionControls.forEach(control => {
+      const active = control.dataset.profileSection === target;
+      control.classList.toggle('active', active);
+      if (control.matches('button')) {
+        if (active) control.setAttribute('aria-current', 'page');
+        else control.removeAttribute('aria-current');
+      }
+    });
+
+    if (updateAddress) {
+      const nextUrl = target === 'account-home'
+        ? window.location.pathname + window.location.search
+        : '#' + target;
+      window.history.pushState({ profileSection: target }, '', nextUrl);
+    }
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
   function readAccess() {
@@ -217,6 +246,7 @@
       ? profile.subjects.join(', ')
       : (route ? route.subject : 'Not selected');
     elements.greeting.textContent = 'Welcome back, ' + firstName + '.';
+    elements.accountHomeGreeting.textContent = 'Welcome, ' + firstName + '.';
     elements.subtitle.textContent = route
       ? 'Your Grade ' + grade + ' Term 3 progress, certificates and next learning step are ready.'
       : 'Your learning progress, certificates and next best step are all in one place.';
@@ -381,9 +411,7 @@
       formHasBeenFilled = false;
       render();
       fillEditForm(profile, true);
-      if (window.location.hash === '#edit-profile') {
-        window.requestAnimationFrame(() => document.getElementById('edit-profile')?.scrollIntoView({ behavior: 'smooth', block: 'start' }));
-      }
+      showProfileSection(sectionFromLocation(), false);
     });
   }
 
@@ -491,6 +519,11 @@
   }
 
   elements.refresh?.addEventListener('click', render);
+  elements.profileSectionControls.forEach(control => {
+    control.addEventListener('click', () => showProfileSection(control.dataset.profileSection, true));
+  });
+  window.addEventListener('popstate', () => showProfileSection(sectionFromLocation(), false));
+  window.addEventListener('hashchange', () => showProfileSection(sectionFromLocation(), false));
   elements.editGrade?.addEventListener('change', updateEditVisibility);
   elements.editForm?.addEventListener('submit', saveProfile);
   elements.editForm?.addEventListener('reset', () => {
@@ -506,6 +539,7 @@
 
   currentAccess = readAccess();
   render();
+  showProfileSection(sectionFromLocation(), false);
   initializeFirebase().catch(error => {
     console.warn('Online profile services are unavailable.', error);
     if (elements.saveProfile) elements.saveProfile.disabled = true;

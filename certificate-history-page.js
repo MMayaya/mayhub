@@ -3,6 +3,12 @@
 
   const content = document.getElementById('historyContent');
   const privacyNote = document.getElementById('privacyNote');
+  const returnToGames = document.getElementById('returnToGames');
+  const gameRoutes = {
+    8: 'Social-Sciences/Term-3/Grade-8/Games/History%20Assessment%20Games/history-assessment-games.html',
+    10: 'Geography/Term-3/Grade-10/Games/Assessment%20Games/assessment-games.html',
+    11: 'Geography/Term-3/Grade-11/Games/Assessment%20Games/assessment-games.html'
+  };
 
   function escapeHtml(value) {
     return String(value == null ? '' : value).replace(/[&<>'"]/g, (character) => ({
@@ -12,6 +18,23 @@
 
   function signInUrl() {
     return 'signin.html?redirect=' + encodeURIComponent('/certificate-history.html') + '&notice=certificates';
+  }
+
+  function signedInGrade(records) {
+    try {
+      const access = JSON.parse(localStorage.getItem('mayhubActivityAccess') || sessionStorage.getItem('mayhubActivityAccess') || 'null');
+      const profileGrade = Number(access?.profile?.grade || 0);
+      if (gameRoutes[profileGrade]) return profileGrade;
+    } catch {}
+    const recordGrade = Number(String(records?.[0]?.grade || '').replace(/\D/g, ''));
+    return gameRoutes[recordGrade] ? recordGrade : 0;
+  }
+
+  function updateReturnToGames(records) {
+    if (!returnToGames) return;
+    const grade = signedInGrade(records);
+    returnToGames.href = grade ? gameRoutes[grade] : 'index.html';
+    returnToGames.textContent = grade === 8 ? 'Return to History Games' : (grade ? 'Return to Geography Games' : 'Return to Games');
   }
 
   function card(record, index) {
@@ -42,12 +65,14 @@
   function render() {
     const helper = window.MayCertificateHistory;
     if (!helper || !helper.isSignedIn()) {
+      updateReturnToGames([]);
       content.innerHTML = '<div class="notice"><h2>Sign in to see your certificate history</h2><p>When you are signed in, certificates completed on this device will appear here automatically.</p><a href="' + signInUrl() + '">Sign In</a></div>';
       return;
     }
 
     privacyNote.hidden = false;
     const records = helper.list();
+    updateReturnToGames(records);
     if (!records.length) {
       content.innerHTML = '<div class="notice"><h2>No certificates here yet</h2><p>Complete a recent assessment game to add your first certificate.</p></div>';
       return;

@@ -1,8 +1,8 @@
-const CORE_CACHE_NAME = 'may-learning-core-v52-profile-account-centre';
+const CORE_CACHE_NAME = 'may-learning-core-v53-profile-section-navigation';
 const RUNTIME_CACHE_NAME = 'may-learning-runtime-pages';
 const CERTIFICATE_DOWNLOAD_CACHE = 'may-learning-certificate-downloads';
 const CERTIFICATE_DOWNLOAD_PATH = '/certificate-download/';
-const SERVICE_WORKER_VERSION = '69-profile-account-centre';
+const SERVICE_WORKER_VERSION = '70-profile-section-navigation';
 
 const CORE_ASSETS = [
   '/may-certificate-actions.js',
