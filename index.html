@@ -1066,7 +1066,9 @@ display: none;
 
 }
 
-.profile-menu button {
+.profile-menu button,
+
+.profile-menu a {
 
 width: auto;
 
@@ -1096,25 +1098,35 @@ cursor: pointer;
 
 }
 
-.profile-menu button:hover {
+.profile-menu a {
+
+text-decoration: none;
+
+}
+
+.profile-menu button:hover,
+
+.profile-menu a:hover {
 
 background: #edf5ff;
 
 }
 
-.profile-menu button.user-signout-btn {
+.profile-menu-identity {
 
-background: transparent;
+margin: 0.15rem 0.18rem 0.4rem;
 
-border: none;
+padding: 0.28rem 0.52rem 0.5rem;
 
-color: #9f1d1d;
+border-bottom: 1px solid #dce7f2;
 
-}
+color: #526174;
 
-.profile-menu button.user-signout-btn:hover {
+font-size: 0.76rem;
 
-background: #fff0f0;
+font-weight: 700;
+
+line-height: 1.35;
 
 }
 
@@ -4077,17 +4089,21 @@ transition: none !important;
 
 <div id="profile-menu-wrap" class="profile-menu-wrap" style="display: none;">
 
-<button id="user-display-btn" class="user-profile-btn" type="button" aria-haspopup="menu" aria-expanded="false" aria-controls="profile-menu">User Name</button>
+<button id="user-display-btn" class="user-profile-btn" type="button" aria-haspopup="menu" aria-expanded="false" aria-controls="profile-menu" aria-label="Open profile menu">Profile</button>
 
 <div id="profile-menu" class="profile-menu" role="menu" hidden>
 
+<p id="profile-menu-identity" class="profile-menu-identity">Signed in</p>
+
 <button id="edit-profile-btn" type="button" role="menuitem">Edit Profile</button>
 
-<button id="btn-signout" class="user-signout-btn" type="button" role="menuitem">Sign Out</button>
+<a id="certificate-history-link" href="certificate-history.html" role="menuitem">Certificate History</a>
 
 </div>
 
 </div>
+
+<button id="btn-signout" class="user-signout-btn" type="button" style="display: none;">Sign Out</button>
 
 
 
@@ -5284,6 +5300,7 @@ const userDisplayBtn = document.getElementById('user-display-btn');
 const profileMenuWrap = document.getElementById('profile-menu-wrap');
 const profileMenu = document.getElementById('profile-menu');
 const editProfileBtn = document.getElementById('edit-profile-btn');
+const profileMenuIdentity = document.getElementById('profile-menu-identity');
 const btnSignout = document.getElementById('btn-signout');
 const profileModal = document.getElementById('profile-modal');
 const profileFullName = document.getElementById('profileFullName');
@@ -5336,9 +5353,17 @@ function showSignedInControls(user) {
     if (btnSignin) btnSignin.style.display = user ? 'none' : 'inline-block';
     if (userDisplayBtn) {
         userDisplayBtn.style.display = user ? 'inline-block' : 'none';
-        userDisplayBtn.textContent = user ? (user.displayName || (user.email ? user.email.split('@')[0] : 'Student')) : '';
+        userDisplayBtn.textContent = 'Profile';
+        const displayName = user ? (user.displayName || (user.email ? user.email.split('@')[0] : 'Student')) : '';
+        userDisplayBtn.setAttribute('aria-label', displayName ? 'Open profile menu for ' + displayName : 'Open profile menu');
+    }
+    if (profileMenuIdentity) {
+        profileMenuIdentity.textContent = user
+            ? 'Signed in as ' + (user.displayName || user.email || 'Learner')
+            : 'Signed in';
     }
     if (profileMenuWrap) profileMenuWrap.style.display = user ? 'inline-block' : 'none';
+    if (btnSignout) btnSignout.style.display = user ? 'inline-block' : 'none';
     if (!user) closeProfileMenu();
 }
 

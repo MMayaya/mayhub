@@ -79,7 +79,7 @@ draw_paragraph(draw, (96, 985), "Save lives, prevent malnutrition and stabilise 
 draw.line((566, 943, 566, 1094), fill="#c7d7e6", width=3)
 draw.text((610, 943), "SAFEGUARDS", font=SEMIBOLD, fill="#a05a00")
 draw_paragraph(draw, (610, 985), "Monitor delivery to limit corruption, dependency and the risk of aid worsening conflict.", SMALL, 390, ink, 7)
-draw.text((60, 1162), "Created for source analysis in GeoQuest: The Grand Expedition", font=SMALL, fill=muted)
+draw.text((60, 1162), "Created for source analysis in GeoQuest: The Development Expedition", font=SMALL, fill=muted)
 
 OUTPUT.parent.mkdir(parents=True, exist_ok=True)
 canvas.save(OUTPUT, format="JPEG", quality=94, optimize=True, progressive=True)
