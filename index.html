@@ -4095,6 +4095,8 @@ transition: none !important;
 
 <p id="profile-menu-identity" class="profile-menu-identity">Signed in</p>
 
+<a id="profile-dashboard-link" href="profile-dashboard.html" role="menuitem">My Dashboard</a>
+
 <button id="edit-profile-btn" type="button" role="menuitem">Edit Profile</button>
 
 <a id="certificate-history-link" href="certificate-history.html" role="menuitem">Certificate History</a>
@@ -5517,6 +5519,12 @@ onAuthStateChanged(auth, async (user) => {
     }
 
     showSignedInControls(user);
+    if (user && new URLSearchParams(window.location.search).get('profile') === 'edit') {
+        const url = new URL(window.location.href);
+        url.searchParams.delete('profile');
+        window.history.replaceState({}, '', url.href);
+        window.setTimeout(openProfileModal, 0);
+    }
 });
 
 if (userDisplayBtn) userDisplayBtn.addEventListener('click', (event) => {

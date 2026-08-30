@@ -1,8 +1,8 @@
-const CORE_CACHE_NAME = 'may-learning-core-v35-profile-menu-development-quest';
+const CORE_CACHE_NAME = 'may-learning-core-v38-profile-dashboard';
 const RUNTIME_CACHE_NAME = 'may-learning-runtime-pages';
 const CERTIFICATE_DOWNLOAD_CACHE = 'may-learning-certificate-downloads';
 const CERTIFICATE_DOWNLOAD_PATH = '/certificate-download/';
-const SERVICE_WORKER_VERSION = '52-profile-menu-development-quest';
+const SERVICE_WORKER_VERSION = '55-profile-dashboard';
 
 const CORE_ASSETS = [
   '/may-certificate-actions.js',
@@ -11,6 +11,8 @@ const CORE_ASSETS = [
   '/may-certificate-renderer.js',
   '/assessment-certificate.js',
   '/certificate-history.html',
+  '/profile-dashboard.html',
+  '/profile-dashboard.js',
   '/certificate-history-page.js',
   '/game-audio.js',
     '/May%20Learning%20Hub%20Logo.png',
@@ -72,6 +74,8 @@ const CORE_NETWORK_FIRST_PATHS = new Set([
   '/Collab-Hub.html',
   '/signin.html',
   '/certificate-history.html',
+  '/profile-dashboard.html',
+  '/profile-dashboard.js',
   '/signup.html',
   '/favicon.ico',
   '/favicon-16x16.png',

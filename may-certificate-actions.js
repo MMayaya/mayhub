@@ -9,7 +9,7 @@
     const MAX_CERTIFICATE_BYTES = 12 * 1024 * 1024;
     const MODERN_REPLY_TIMEOUT_MS = 10000;
     const CERTIFICATE_DOWNLOAD_CACHE = 'may-learning-certificate-downloads';
-    const SERVICE_WORKER_VERSION = '52-profile-menu-development-quest';
+    const SERVICE_WORKER_VERSION = '55-profile-dashboard';
     const pendingRequests = new Map();
     const actionsScriptSource = document.currentScript && document.currentScript.src ? document.currentScript.src : '';
     const actionsSiteRoot = actionsScriptSource ? new URL('.', actionsScriptSource) : null;

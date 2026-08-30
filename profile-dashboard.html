@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#082b57">
+  <meta name="description" content="View your May Learning Hub learning profile, certificates, progress and next learning step.">
+  <title>My Learning Dashboard | May Learning Hub</title>
+  <style>
+    :root {
+      color-scheme: light;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      --navy: #082b57;
+      --blue: #0b69c0;
+      --ink: #14233a;
+      --muted: #627185;
+      --line: #d9e5f2;
+      --paper: #f5f9fe;
+      --gold: #c99a28;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; min-height: 100vh; color: var(--ink); background: radial-gradient(circle at 12% 0%, #dceeff 0, transparent 34%), linear-gradient(145deg, #f6faff, #edf4fb 48%, #fff9ea); }
+    a { color: inherit; }
+    .topbar { color: #fff; background: var(--navy); box-shadow: 0 10px 28px #082b5726; }
+    .nav, main { width: min(1160px, calc(100% - 32px)); margin: 0 auto; }
+    .nav { min-height: 76px; display: flex; align-items: center; justify-content: space-between; gap: 18px; }
+    .brand { display: inline-flex; align-items: center; gap: 11px; color: #fff; text-decoration: none; font-weight: 850; }
+    .brand img { width: 46px; height: 46px; object-fit: contain; }
+    .nav-actions { display: flex; align-items: center; gap: .75rem; flex-wrap: wrap; justify-content: flex-end; }
+    .nav-link { color: #fff; font-weight: 800; text-underline-offset: 4px; }
+    .nav-button { border: 1px solid #ffffff55; border-radius: 999px; padding: .58rem .95rem; color: #fff; background: #ffffff18; text-decoration: none; font-size: .9rem; font-weight: 850; }
+    main { padding: 44px 0 78px; }
+    .eyebrow { margin: 0 0 .55rem; color: var(--blue); font-size: .76rem; font-weight: 900; letter-spacing: .14em; text-transform: uppercase; }
+    .hero { display: grid; grid-template-columns: minmax(0, 1.45fr) minmax(280px, .8fr); gap: 22px; align-items: stretch; }
+    .hero-copy, .profile-card, .card, .stat { border: 1px solid var(--line); border-radius: 24px; box-shadow: 0 18px 45px #17375f12; }
+    .hero-copy { position: relative; overflow: hidden; padding: clamp(1.7rem, 4vw, 3rem); color: #fff; background: linear-gradient(125deg, #06264d, #0c5597 62%, #2885d1); }
+    .hero-copy::after { content: ""; position: absolute; width: 280px; height: 280px; right: -100px; bottom: -160px; border: 42px solid #ffffff1d; border-radius: 50%; }
+    h1 { position: relative; max-width: 680px; margin: 0; font-size: clamp(2.1rem, 5vw, 4.1rem); line-height: 1.02; letter-spacing: -.045em; }
+    .hero-copy .eyebrow { color: #cfe9ff; }
+    .hero-copy p { position: relative; max-width: 620px; margin: 1rem 0 0; color: #e7f3ff; font-size: 1.04rem; line-height: 1.65; }
+    .hero-chips { position: relative; display: flex; gap: .55rem; flex-wrap: wrap; margin-top: 1.35rem; }
+    .chip { padding: .45rem .72rem; border: 1px solid #ffffff45; border-radius: 999px; color: #fff; background: #082b574d; font-size: .78rem; font-weight: 800; }
+    .profile-card { padding: 1.35rem; background: #fff; }
+    .profile-card h2, .card h2 { margin: 0; color: var(--navy); font-size: 1.15rem; }
+    .profile-name { margin: .75rem 0 .12rem; color: var(--navy); font-size: 1.35rem; font-weight: 900; }
+    .profile-email { margin: 0; color: var(--muted); overflow-wrap: anywhere; font-size: .86rem; }
+    .profile-list { display: grid; gap: .68rem; margin: 1.15rem 0 1.25rem; }
+    .profile-list div { display: grid; grid-template-columns: 95px 1fr; gap: .6rem; align-items: baseline; }
+    .profile-list dt { color: var(--muted); font-size: .75rem; font-weight: 850; text-transform: uppercase; letter-spacing: .07em; }
+    .profile-list dd { margin: 0; color: #24364d; font-size: .9rem; font-weight: 750; }
+    .button-row { display: flex; gap: .65rem; flex-wrap: wrap; }
+    .button { display: inline-flex; align-items: center; justify-content: center; min-height: 42px; padding: .65rem .9rem; border: 0; border-radius: 12px; color: #fff; background: var(--blue); text-decoration: none; font: inherit; font-size: .88rem; font-weight: 850; cursor: pointer; }
+    .button.secondary { color: var(--navy); background: #e8f3ff; }
+    .stats { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; margin: 24px 0; }
+    .stat { min-height: 138px; padding: 1.1rem; background: #fff; }
+    .stat span { display: block; color: var(--muted); font-size: .76rem; font-weight: 850; letter-spacing: .07em; text-transform: uppercase; }
+    .stat strong { display: block; margin-top: .42rem; color: var(--navy); font-size: clamp(1.7rem, 4vw, 2.4rem); line-height: 1; }
+    .stat .note { margin-top: .4rem; color: #6a7888; font-size: .78rem; line-height: 1.35; }
+    .dashboard-grid { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(300px, .75fr); gap: 22px; }
+    .card { padding: clamp(1.2rem, 3vw, 1.7rem); background: #fff; }
+    .card-heading { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; margin-bottom: 1rem; }
+    .card-heading p { margin: .35rem 0 0; color: var(--muted); font-size: .9rem; line-height: 1.45; }
+    .continue-card { min-height: 255px; color: #fff; background: linear-gradient(135deg, #063664, #0b74c7); border-color: #0c609e; }
+    .continue-card h2, .continue-card .card-heading p { color: #fff; }
+    .continue-card .card-heading p { color: #dbeeff; }
+    .continue-stage { display: inline-flex; margin: .25rem 0 .85rem; padding: .35rem .6rem; border-radius: 999px; color: #e8f7ff; background: #ffffff1d; font-size: .76rem; font-weight: 900; letter-spacing: .06em; text-transform: uppercase; }
+    .continue-title { margin: 0; font-size: clamp(1.35rem, 3vw, 1.8rem); }
+    .continue-copy { max-width: 590px; margin: .55rem 0 1.2rem; color: #e6f4ff; line-height: 1.58; }
+    .continue-card .button { color: var(--navy); background: #fff; }
+    .achievement-list { display: grid; gap: .75rem; }
+    .achievement { display: grid; grid-template-columns: 1fr auto; gap: .9rem; padding: .9rem 0; border-bottom: 1px solid #e3ebf4; }
+    .achievement:last-child { border-bottom: 0; padding-bottom: 0; }
+    .achievement h3 { margin: 0; color: #1b3858; font-size: .96rem; }
+    .achievement p { margin: .28rem 0 0; color: var(--muted); font-size: .8rem; line-height: 1.4; }
+    .achievement-score { align-self: center; min-width: 58px; color: #755b08; font-size: .86rem; font-weight: 900; text-align: right; }
+    .empty-state { margin: 0; color: var(--muted); line-height: 1.55; }
+    .quick-links { display: grid; gap: .7rem; margin-top: 1rem; }
+    .quick-link { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: .85rem .95rem; border: 1px solid #dce7f3; border-radius: 14px; color: #173c63; background: #f8fbff; text-decoration: none; font-size: .9rem; font-weight: 850; }
+    .quick-link:hover { border-color: #9bc8ee; background: #eff8ff; }
+    .quick-link span:last-child { color: var(--blue); font-size: 1.2rem; }
+    .signed-out { max-width: 680px; margin: 6vh auto; padding: clamp(1.7rem, 6vw, 3.4rem); border: 1px solid var(--line); border-radius: 28px; color: #fff; background: linear-gradient(135deg, #06264d, #0b69c0); box-shadow: 0 25px 65px #17375f2b; text-align: center; }
+    .signed-out h1 { font-size: clamp(2rem, 6vw, 3.4rem); }
+    .signed-out p { max-width: 500px; margin: 1rem auto 1.45rem; color: #e4f2ff; line-height: 1.65; }
+    .signed-out .button { color: var(--navy); background: #fff; }
+    .privacy-note { margin: 1.5rem .25rem 0; color: #748296; font-size: .8rem; line-height: 1.5; }
+    @media (max-width: 860px) { .hero, .dashboard-grid { grid-template-columns: 1fr; } .stats { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+    @media (max-width: 540px) { .nav, main { width: min(100% - 24px, 1160px); } .nav { min-height: 68px; } .brand span { display: none; } .nav-actions { gap: .55rem; } .nav-button { padding: .5rem .72rem; } main { padding-top: 26px; } .hero-copy, .profile-card, .card { border-radius: 19px; } .stats { grid-template-columns: 1fr 1fr; gap: 10px; } .stat { min-height: 122px; padding: .9rem; } .profile-list div { grid-template-columns: 78px 1fr; } }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <nav class="nav" aria-label="Dashboard navigation">
+      <a class="brand" href="index.html"><img src="May%20Learning%20Hub%20Logo.png" alt=""><span>May Learning Hub</span></a>
+      <div class="nav-actions"><a class="nav-link" href="index.html">Home</a><a class="nav-button" href="certificate-history.html">Certificates</a></div>
+    </nav>
+  </header>
+  <main id="dashboard" hidden>
+    <section class="hero">
+      <div class="hero-copy">
+        <p class="eyebrow">My learning dashboard</p>
+        <h1 id="dashboardGreeting">Welcome back.</h1>
+        <p id="dashboardSubtitle">Your learning progress, certificates and next best step are all in one place.</p>
+        <div class="hero-chips" id="dashboardChips"></div>
+      </div>
+      <aside class="profile-card" aria-labelledby="profileHeading">
+        <h2 id="profileHeading">My profile</h2>
+        <p class="profile-name" id="profileName">Learner</p>
+        <p class="profile-email" id="profileEmail"></p>
+        <dl class="profile-list">
+          <div><dt>Grade</dt><dd id="profileGrade">—</dd></div>
+          <div><dt>School</dt><dd id="profileSchool">—</dd></div>
+          <div><dt>Subjects</dt><dd id="profileSubjects">—</dd></div>
+        </dl>
+        <div class="button-row"><a class="button secondary" href="index.html?profile=edit">Edit Profile</a><button class="button" id="refreshDashboard" type="button">Refresh</button></div>
+      </aside>
+    </section>
+    <section class="stats" aria-label="Achievement summary">
+      <article class="stat"><span>Certificates</span><strong id="statCertificates">0</strong><p class="note">earned on this device</p></article>
+      <article class="stat"><span>Average score</span><strong id="statAverage">—</strong><p class="note">across scored certificates</p></article>
+      <article class="stat"><span>Distinctions</span><strong id="statDistinctions">0</strong><p class="note">scores of 80% or more</p></article>
+      <article class="stat"><span>Latest result</span><strong id="statLatest">—</strong><p class="note" id="statLatestNote">complete a game to begin</p></article>
+    </section>
+    <section class="dashboard-grid">
+      <div class="card continue-card">
+        <div class="card-heading"><div><h2>Continue learning</h2><p>Your next best step is ready when you are.</p></div></div>
+        <span class="continue-stage" id="continueStage">Term 3 games</span>
+        <h3 class="continue-title" id="continueTitle">Choose your next learning game</h3>
+        <p class="continue-copy" id="continueCopy">Explore your assessment games and build your confidence one topic at a time.</p>
+        <a class="button" id="continueLink" href="index.html">Explore My Games</a>
+      </div>
+      <div class="card">
+        <div class="card-heading"><div><h2>Recent achievements</h2><p>Your newest certificates and results.</p></div><a href="certificate-history.html">View all</a></div>
+        <div class="achievement-list" id="achievementList"></div>
+      </div>
+      <div class="card">
+        <div class="card-heading"><div><h2>Quick actions</h2><p>Useful learning shortcuts.</p></div></div>
+        <nav class="quick-links" aria-label="Quick actions">
+          <a class="quick-link" href="certificate-history.html"><span>Certificate History</span><span aria-hidden="true">→</span></a>
+          <a class="quick-link" href="index.html?profile=edit"><span>Manage Profile</span><span aria-hidden="true">→</span></a>
+          <a class="quick-link" id="assessmentGamesLink" href="index.html"><span>Explore Assessment Games</span><span aria-hidden="true">→</span></a>
+        </nav>
+      </div>
+      <div class="card">
+        <div class="card-heading"><div><h2>Keep your progress</h2><p>Your certificates and game progress stay personal.</p></div></div>
+        <p class="empty-state">Certificate History and progress are saved to this signed-in learner’s current device. Download a certificate whenever you want a copy to keep or share.</p>
+      </div>
+    </section>
+    <p class="privacy-note">Dashboard statistics are based on your available certificate history and saved game progress on this device.</p>
+  </main>
+  <section class="signed-out" id="signedOut" hidden>
+    <p class="eyebrow">My learning dashboard</p>
+    <h1>Sign in to see your learning journey.</h1>
+    <p>Your profile, saved certificates and game progress are brought together here when you are signed in.</p>
+    <a class="button" href="signin.html?redirect=%2Fprofile-dashboard.html&notice=dashboard">Sign In</a>
+  </section>
+  <script src="may-certificate-history.js"></script>
+  <script defer src="profile-dashboard.js"></script>
+</body>
+</html>
