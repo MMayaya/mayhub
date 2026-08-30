@@ -74,7 +74,10 @@ function compactProfile(profile, user = null) {
         grade: profile.grade || "",
         subjects: Array.isArray(profile.subjects) ? profile.subjects : [],
         fullName: profile.fullName || "",
+        phone: profile.phone || "",
         school: profile.school || "",
+        profileEditYear: profile.profileEditYear || "",
+        profileEditCount: Number(profile.profileEditCount || 0),
         isAdmin: isMayHubAdmin(user, profile)
     };
 }

@@ -1443,7 +1443,7 @@ text-decoration: none;
 
 
 
-.nav-links button.user-profile-btn {
+.nav-links a.user-profile-btn {
 
 
 
@@ -1491,7 +1491,7 @@ font-family: inherit;
 
 
 
-.nav-links button.user-profile-btn:hover {
+.nav-links a.user-profile-btn:hover {
 
 
 
@@ -5307,25 +5307,7 @@ transition: none !important;
 
 
 
-<div id="profile-menu-wrap" class="profile-menu-wrap" style="display: none;">
-
-<button id="user-display-btn" class="user-profile-btn" type="button" aria-haspopup="menu" aria-expanded="false" aria-controls="profile-menu" aria-label="Open profile menu">Profile</button>
-
-<div id="profile-menu" class="profile-menu" role="menu" hidden>
-
-<p id="profile-menu-identity" class="profile-menu-identity">Signed in</p>
-
-<a id="profile-dashboard-link" href="profile-dashboard.html" role="menuitem">My Dashboard</a>
-
-<button id="edit-profile-btn" type="button" role="menuitem">Edit Profile</button>
-
-<a id="certificate-history-link" href="certificate-history.html" role="menuitem">Certificate History</a>
-
-</div>
-
-</div>
-
-<button id="btn-signout" class="user-signout-btn" type="button" style="display: none;">Sign Out</button>
+<a id="user-display-btn" class="user-profile-btn" href="profile-dashboard.html" style="display: none;" aria-label="Open my profile">Profile</a>
 
 
 
@@ -5335,7 +5317,7 @@ transition: none !important;
 
 </nav>
 
-<div id="profile-modal" class="profile-modal" hidden>
+<template id="legacy-profile-modal-removed">
 
 <div class="profile-dialog" role="dialog" aria-modal="true" aria-labelledby="profile-modal-title">
 
@@ -5407,7 +5389,7 @@ transition: none !important;
 
 </div>
 
-</div>
+</template>
 
 
 
@@ -6622,18 +6604,12 @@ function showSignedInControls(user) {
     if (btnSignin) btnSignin.style.display = user ? 'none' : 'inline-block';
     if (userDisplayBtn) {
         userDisplayBtn.style.display = user ? 'inline-block' : 'none';
-        userDisplayBtn.textContent = 'Profile';
-        const displayName = user ? (user.displayName || (user.email ? user.email.split('@')[0] : 'Student')) : '';
-        userDisplayBtn.setAttribute('aria-label', displayName ? 'Open profile menu for ' + displayName : 'Open profile menu');
+        const displayName = user
+            ? (currentUserProfile?.fullName || user.displayName || (user.email ? user.email.split('@')[0] : 'Learner'))
+            : '';
+        userDisplayBtn.textContent = displayName || 'Profile';
+        userDisplayBtn.setAttribute('aria-label', displayName ? 'Open profile for ' + displayName : 'Open my profile');
     }
-    if (profileMenuIdentity) {
-        profileMenuIdentity.textContent = user
-            ? 'Signed in as ' + (user.displayName || user.email || 'Learner')
-            : 'Signed in';
-    }
-    if (profileMenuWrap) profileMenuWrap.style.display = user ? 'inline-block' : 'none';
-    if (btnSignout) btnSignout.style.display = user ? 'inline-block' : 'none';
-    if (!user) closeProfileMenu();
 }
 
 function setProfileStatus(message, color = '#003a75') {
@@ -6787,10 +6763,7 @@ onAuthStateChanged(auth, async (user) => {
 
     showSignedInControls(user);
     if (user && new URLSearchParams(window.location.search).get('profile') === 'edit') {
-        const url = new URL(window.location.href);
-        url.searchParams.delete('profile');
-        window.history.replaceState({}, '', url.href);
-        window.setTimeout(openProfileModal, 0);
+        window.location.replace(new URL('profile-dashboard.html#edit-profile', window.location.href).href);
     }
 });
 

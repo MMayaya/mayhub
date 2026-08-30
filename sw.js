@@ -1,8 +1,8 @@
-const CORE_CACHE_NAME = 'may-learning-core-v51-learner-notice-text';
+const CORE_CACHE_NAME = 'may-learning-core-v52-profile-account-centre';
 const RUNTIME_CACHE_NAME = 'may-learning-runtime-pages';
 const CERTIFICATE_DOWNLOAD_CACHE = 'may-learning-certificate-downloads';
 const CERTIFICATE_DOWNLOAD_PATH = '/certificate-download/';
-const SERVICE_WORKER_VERSION = '68-learner-notice-text';
+const SERVICE_WORKER_VERSION = '69-profile-account-centre';
 
 const CORE_ASSETS = [
   '/may-certificate-actions.js',
@@ -13,6 +13,7 @@ const CORE_ASSETS = [
   '/certificate-history.html',
   '/profile-dashboard.html',
   '/profile-dashboard.js',
+  '/mayhub-auth-state.js',
   '/certificate-history-page.js',
   '/game-audio.js',
     '/May%20Learning%20Hub%20Logo.png',
