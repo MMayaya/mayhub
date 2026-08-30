@@ -1,8 +1,8 @@
-const CORE_CACHE_NAME = 'may-learning-core-v33-grade11-premium-certificate-export';
+const CORE_CACHE_NAME = 'may-learning-core-v34-grade11-premium-certificate-refinement';
 const RUNTIME_CACHE_NAME = 'may-learning-runtime-pages';
 const CERTIFICATE_DOWNLOAD_CACHE = 'may-learning-certificate-downloads';
 const CERTIFICATE_DOWNLOAD_PATH = '/certificate-download/';
-const SERVICE_WORKER_VERSION = '50-grade11-premium-certificate-export';
+const SERVICE_WORKER_VERSION = '51-grade11-premium-certificate-refinement';
 
 const CORE_ASSETS = [
   '/may-certificate-actions.js',

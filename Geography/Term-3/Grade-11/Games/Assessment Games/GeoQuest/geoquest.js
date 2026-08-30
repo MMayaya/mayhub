@@ -1417,7 +1417,7 @@
                 ? 'Operation secured'
                 : (awarded > 0 ? 'Partial response secured' : 'Mission correction');
             elements.stage5FeedbackText.textContent = 'You earned ' + awarded + ' of ' + question.marks + ' marks. ' + question.feedback;
-            elements.stage5Next.textContent = stage5State.current === stage5Total - 1 ? 'Complete the Grand Expedition' : 'Next Operation';
+            elements.stage5Next.textContent = stage5State.current === stage5Total - 1 ? 'Complete the Development Expedition' : 'Next Operation';
         }
     }
 

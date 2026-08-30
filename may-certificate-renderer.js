@@ -299,6 +299,63 @@
         });
     }
 
+    function drawFittedStyledText(ctx, parts, settings) {
+        const tokens = parts.flatMap(part => cleanText(part.text).split(/\s+/).filter(Boolean).map(word => ({
+            word,
+            bold: Boolean(part.bold)
+        })));
+        let size = settings.maxSize;
+        let lines = [];
+        const spaceWidth = currentSize => currentSize * .29;
+        while (size >= settings.minSize) {
+            lines = [];
+            let line = [];
+            let lineWidth = 0;
+            tokens.forEach(token => {
+                ctx.font = (token.bold ? settings.boldFont : settings.font)(size);
+                const wordWidth = ctx.measureText(token.word).width;
+                const gap = line.length ? spaceWidth(size) : 0;
+                if (line.length && lineWidth + gap + wordWidth > settings.maxWidth) {
+                    lines.push({ tokens: line, width: lineWidth });
+                    line = [];
+                    lineWidth = 0;
+                }
+                const activeGap = line.length ? spaceWidth(size) : 0;
+                line.push({ ...token, width: wordWidth, gap: activeGap });
+                lineWidth += activeGap + wordWidth;
+            });
+            if (line.length) lines.push({ tokens: line, width: lineWidth });
+            if (lines.length <= settings.maxLines) break;
+            size -= 2;
+        }
+        if (lines.length > settings.maxLines) {
+            lines = lines.slice(0, settings.maxLines);
+            const lastLine = lines[lines.length - 1];
+            const finalToken = lastLine.tokens[lastLine.tokens.length - 1];
+            if (finalToken) {
+                finalToken.word = shortenToWidth(ctx, finalToken.word, Math.max(16, finalToken.width));
+                ctx.font = (finalToken.bold ? settings.boldFont : settings.font)(size);
+                finalToken.width = ctx.measureText(finalToken.word).width;
+                lastLine.width = lastLine.tokens.reduce((sum, token) => sum + token.gap + token.width, 0);
+            }
+        }
+        const lineHeight = Math.round(size * (settings.lineHeightRatio || 1.3));
+        ctx.save();
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        lines.forEach((line, lineIndex) => {
+            let cursor = settings.x - line.width / 2;
+            line.tokens.forEach(token => {
+                cursor += token.gap;
+                ctx.font = (token.bold ? settings.boldFont : settings.font)(size);
+                ctx.fillText(token.word, cursor + token.width / 2, settings.y + lineIndex * lineHeight);
+                cursor += token.width;
+            });
+        });
+        ctx.restore();
+        return settings.y + lines.length * lineHeight;
+    }
+
     function drawPreviewCorner(ctx, x, y, rotation, accent) {
         ctx.save();
         ctx.translate(x, y);
@@ -359,7 +416,7 @@
         nameGlow.addColorStop(1, 'rgba(255,255,255,0)');
         ctx.fillStyle = nameGlow;
         ctx.globalAlpha = 1;
-        ctx.fillRect(130, 455, 940, 385);
+        ctx.fillRect(0, 0, 1200, 1200);
         ctx.restore();
     }
 
@@ -418,25 +475,25 @@
         ctx.shadowOffsetY = 6;
         ctx.fillStyle = dark;
         ctx.beginPath();
-        ctx.moveTo(-210, -30); ctx.lineTo(-230, 0); ctx.lineTo(-210, 30);
-        ctx.lineTo(210, 30); ctx.lineTo(230, 0); ctx.lineTo(210, -30);
+        ctx.moveTo(-175, -24); ctx.lineTo(-192, 0); ctx.lineTo(-175, 24);
+        ctx.lineTo(175, 24); ctx.lineTo(192, 0); ctx.lineTo(175, -24);
         ctx.closePath();
         ctx.fill();
         ctx.shadowColor = 'transparent';
-        const fill = ctx.createLinearGradient(-210, 0, 210, 0);
+        const fill = ctx.createLinearGradient(-175, 0, 175, 0);
         fill.addColorStop(0, dark);
         fill.addColorStop(.5, accent);
         fill.addColorStop(1, dark);
         ctx.fillStyle = fill;
-        ctx.fillRect(-206, -27, 412, 54);
+        ctx.fillRect(-172, -21, 344, 42);
         ctx.strokeStyle = 'rgba(255,248,213,.88)';
         ctx.lineWidth = 2;
-        ctx.strokeRect(-196, -19, 392, 38);
+        ctx.strokeRect(-163, -14, 326, 28);
         ctx.fillStyle = '#fffdf4';
         ctx.textAlign = 'center';
         ctx.textBaseline = 'middle';
-        ctx.font = '900 19px "Segoe UI", sans-serif';
-        drawTrackedText(ctx, label.toUpperCase(), 0, 1, 3);
+        ctx.font = '900 16px "Segoe UI", sans-serif';
+        drawTrackedText(ctx, label.toUpperCase(), 0, 1, 2.4);
         ctx.restore();
     }
 
@@ -548,8 +605,13 @@
 
         y += 66;
         ctx.fillStyle = ink;
-        y = drawFittedWrappedText(ctx, {
-            text: 'for completing ' + result.gameTitle + ' in the ' + result.category + ' category.',
+        y = drawFittedStyledText(ctx, [
+            { text: 'for completing' },
+            { text: result.gameTitle, bold: true },
+            { text: 'in the' },
+            { text: result.category, bold: true },
+            { text: 'category.' }
+        ], {
             x: 600,
             y,
             maxWidth: 850,
@@ -557,7 +619,8 @@
             maxSize: 27,
             minSize: 20,
             lineHeightRatio: 1.42,
-            font: size => size + 'px Georgia, "Times New Roman", serif'
+            font: size => size + 'px Georgia, "Times New Roman", serif',
+            boldFont: size => 'bold ' + size + 'px Georgia, "Times New Roman", serif'
         });
 
         const scoreY = Math.max(1020, Math.min(y + 155, 1085));
@@ -590,6 +653,10 @@
         ctx.fillStyle = palette.dark;
         ctx.font = '900 20px "Segoe UI", sans-serif';
         drawTrackedText(ctx, 'MARKS', 600, scoreY + 48, 4);
+        const percentage = Math.round((result.correct / result.total) * 100);
+        ctx.fillStyle = palette.dark;
+        ctx.font = '700 15px "Segoe UI", sans-serif';
+        drawTrackedText(ctx, percentage + '%', 600, scoreY + 78, 1.4);
 
         const messageY = scoreY + 184;
         ctx.fillStyle = palette.dark;
@@ -604,7 +671,7 @@
             lineHeightRatio: 1.42,
             font: size => 'bold ' + size + 'px "Segoe UI", sans-serif'
         });
-        drawPremiumPreviewRibbon(ctx, 865, 1390, theme.ribbon, accent, palette.dark);
+        drawPremiumPreviewRibbon(ctx, 900, 1338, theme.ribbon, accent, palette.dark);
 
         const footerY = 1482;
         ctx.strokeStyle = '#596779';
