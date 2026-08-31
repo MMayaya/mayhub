@@ -8,7 +8,6 @@ const CORE_ASSETS = [
   '/universal-search.css',
   '/universal-search-index.js',
   '/universal-search.js',
-  '/may-read-aloud.js',
   '/may-certificate-actions.js',
   '/may-certificate-history.js',
   '/certificate-preview.js',
@@ -101,7 +100,6 @@ const CORE_NETWORK_FIRST_PATHS = new Set([
   '/universal-search.css',
   '/universal-search-index.js',
   '/universal-search.js',
-  '/may-read-aloud.js',
   '/sw.js'
 ]);
 

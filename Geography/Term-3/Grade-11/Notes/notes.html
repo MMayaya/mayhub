@@ -61,7 +61,6 @@
 	<div id="preloader"></div>
 	<script src="data/browsersupport.js?C5F3A3C1"></script>
 	<script src="data/player.js?C5F3A3C1"></script>
-	<script src="../../../../may-read-aloud.js"></script>
     <div id="content"></div>
     <div id="spr0_15ad97dc"><audio id="snd0_15ad97dc" preload="none"><source src="data/sound1.mp3" type="audio/mpeg"/></audio><audio id="snd1_15ad97dc" preload="none"><source src="data/sound2.mp3" type="audio/mpeg"/></audio><audio id="snd2_15ad97dc" preload="none"><source src="data/sound3.mp3" type="audio/mpeg"/></audio><audio id="snd3_15ad97dc" preload="none"><source src="data/sound2.mp3" type="audio/mpeg"/></audio><audio id="snd4_15ad97dc" preload="none"><source src="data/sound4.mp3" type="audio/mpeg"/></audio><audio id="snd5_15ad97dc" preload="none"><source src="data/sound2.mp3" type="audio/mpeg"/></audio><audio id="snd6_15ad97dc" preload="none"><source src="data/sound3.mp3" type="audio/mpeg"/></audio><audio id="snd7_15ad97dc" preload="none"><source src="data/sound2.mp3" type="audio/mpeg"/></audio><audio id="snd8_15ad97dc" preload="none"><source src="data/sound5.mp3" type="audio/mpeg"/></audio><audio id="snd9_15ad97dc" preload="none"><source src="data/sound2.mp3" type="audio/mpeg"/></audio><audio id="snd10_15ad97dc" preload="none"><source src="data/sound6.mp3" type="audio/mpeg"/></audio><audio id="snd11_15ad97dc" preload="none"><source src="data/sound2.mp3" type="audio/mpeg"/></audio><audio id="snd12_15ad97dc" preload="none"><source src="data/sound7.mp3" type="audio/mpeg"/></audio><audio id="snd13_15ad97dc" preload="none"><source src="data/sound1.mp3" type="audio/mpeg"/></audio></div>
     <script>
@@ -72,10 +71,6 @@
 				PresentationPlayer.start(presInfo, "content", "playerView", onPlayerInit, savedPresentationState);
 				function onPlayerInit(player)
 				{
-					if (window.MayReadAloud && typeof window.MayReadAloud.attachISpringPlayer === "function")
-					{
-						window.MayReadAloud.attachISpringPlayer(player);
-					}
 					(function(player){
 	(function(player)
 {
