@@ -5250,6 +5250,10 @@ transition: none !important;
 
 </style>
 
+<link rel="stylesheet" href="universal-search.css">
+<script src="universal-search-index.js"></script>
+<script src="universal-search.js"></script>
+
 
 
 </head>
@@ -5627,11 +5631,11 @@ May Learning Hub provides a professional, CAPS-aligned educational experience sp
 
 
 
-<h2 class="section-title" id="search-title">Quick Search</h2>
+<h2 class="section-title" id="search-title">Search May Learning Hub</h2>
 
 
 
-<p class="section-subtitle">Search by subject, grade, term, topic, or content type.</p>
+<p class="section-subtitle">Find presentations, games, activities, learning guides, exam papers, and documents across the platform.</p>
 
 
 
@@ -5655,7 +5659,7 @@ id="siteSearch"
 
 
 
-placeholder="Try: Geography Grade 10 Term 2 Plate Tectonics"
+placeholder="Search a topic, grade, game, presentation, or document"
 
 
 
@@ -5671,7 +5675,18 @@ autocomplete="off"
 
 
 
-<p class="search-help">Examples: “Social Sciences Grade 8 Games”, “Life Sciences Term 3 Activities”, “Geography Grade 10 Plate Tectonics”.</p>
+<p class="search-help">Try “rural urban migration”, “Grade 11 development games”, “Life Sciences presentation”, or “Geography memorandum”.</p>
+
+<div class="search-filter-row" id="searchFilters" aria-label="Filter learning resources">
+<button class="search-filter-button active" type="button" data-search-filter="All" aria-pressed="true">All</button>
+<button class="search-filter-button" type="button" data-search-filter="Notes" aria-pressed="false">Presentations</button>
+<button class="search-filter-button" type="button" data-search-filter="Games" aria-pressed="false">Games</button>
+<button class="search-filter-button" type="button" data-search-filter="Activities" aria-pressed="false">Activities</button>
+<button class="search-filter-button" type="button" data-search-filter="Guides" aria-pressed="false">Learning Guides</button>
+<button class="search-filter-button" type="button" data-search-filter="Documents" aria-pressed="false">Documents</button>
+</div>
+
+<p class="search-status" id="searchStatus" aria-live="polite"></p>
 
 
 
@@ -8334,35 +8349,25 @@ ${result.label}
 
 
 
-siteSearch.addEventListener('input', function () {
-
-
-
-const query = this.value.toLowerCase().trim();
-
-
-
-const filtered = searchableLinks.filter(item => {
-
-
-
-const haystack = `${item.subject} grade ${item.grade} term ${item.term} ${item.type} ${item.label}`.toLowerCase();
-
-
-
-return haystack.includes(query);
-
-
-
-});
-
-
-
-renderSearchResults(filtered, query);
-
-
-
-});
+if (window.MayUniversalSearch && typeof window.MayUniversalSearch.mount === 'function') {
+  window.MayUniversalSearch.mount({
+    input: siteSearch,
+    results: searchResults,
+    list: searchResultsList,
+    filters: document.getElementById('searchFilters'),
+    status: document.getElementById('searchStatus'),
+    fallbackItems: searchableLinks
+  });
+} else {
+  siteSearch.addEventListener('input', function () {
+    const query = this.value.toLowerCase().trim();
+    const filtered = searchableLinks.filter(item => {
+      const haystack = `${item.subject} grade ${item.grade} term ${item.term} ${item.type} ${item.label}`.toLowerCase();
+      return haystack.includes(query);
+    });
+    renderSearchResults(filtered, query);
+  });
+}
 
 
 

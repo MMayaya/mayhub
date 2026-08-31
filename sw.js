@@ -1,10 +1,14 @@
-const CORE_CACHE_NAME = 'may-learning-core-v53-profile-section-navigation';
+const CORE_CACHE_NAME = 'may-learning-core-v54-universal-search-read-aloud';
 const RUNTIME_CACHE_NAME = 'may-learning-runtime-pages';
 const CERTIFICATE_DOWNLOAD_CACHE = 'may-learning-certificate-downloads';
 const CERTIFICATE_DOWNLOAD_PATH = '/certificate-download/';
-const SERVICE_WORKER_VERSION = '70-profile-section-navigation';
+const SERVICE_WORKER_VERSION = '71-universal-search-read-aloud';
 
 const CORE_ASSETS = [
+  '/universal-search.css',
+  '/universal-search-index.js',
+  '/universal-search.js',
+  '/may-read-aloud.js',
   '/may-certificate-actions.js',
   '/may-certificate-history.js',
   '/certificate-preview.js',
@@ -94,6 +98,10 @@ const CORE_NETWORK_FIRST_PATHS = new Set([
   '/may-certificate-history.js',
   '/certificate-history-page.js',
   '/game-audio.js',
+  '/universal-search.css',
+  '/universal-search-index.js',
+  '/universal-search.js',
+  '/may-read-aloud.js',
   '/sw.js'
 ]);
 
