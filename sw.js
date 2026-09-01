@@ -1,8 +1,8 @@
-const CORE_CACHE_NAME = 'may-learning-core-v56-searchable-exams';
+const CORE_CACHE_NAME = 'may-learning-core-v57-grade10-activities';
 const RUNTIME_CACHE_NAME = 'may-learning-runtime-pages';
 const CERTIFICATE_DOWNLOAD_CACHE = 'may-learning-certificate-downloads';
 const CERTIFICATE_DOWNLOAD_PATH = '/certificate-download/';
-const SERVICE_WORKER_VERSION = '72-searchable-september-exams';
+const SERVICE_WORKER_VERSION = '73-grade10-term3-activities';
 
 const CORE_ASSETS = [
   '/universal-search.css',

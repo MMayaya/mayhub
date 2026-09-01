@@ -2610,8 +2610,8 @@ window.MAY_UNIVERSAL_SEARCH_INDEX = Object.freeze([
     "category": "Activities",
     "type": "Activities Page",
     "topic": "",
-    "description": "Geography · Grade 10 · Term 3 · Activities Page",
-    "keywords": "Geography Grade 10 Term 3 Activities Page Geography · Grade 10 · Term 3 · Activities Page Geography Activities Page Activities grade 10 term 3 Content in Progress Geography Term 3 Grade 10 Activities activities"
+    "description": "Interactive Grade 10 Geography Term 3 activities from May Learning Hub.",
+    "keywords": "Geography Grade 10 Term 3 Activities Page Interactive Grade 10 Geography Term 3 activities from May Learning Hub. Geography Activities Page Activities grade 10 term 3 Geography Term 3 Grade 10 Activities activities"
   },
   {
     "id": 202,

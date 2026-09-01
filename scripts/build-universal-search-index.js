@@ -25,6 +25,7 @@ const skippedDirectories = new Set([
   '.openai',
   'data',
   'data.local-only',
+  'new folder',
   'node_modules',
   'pdfjs',
   'tmp'
