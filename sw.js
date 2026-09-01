@@ -1,8 +1,8 @@
-const CORE_CACHE_NAME = 'may-learning-core-v57-grade10-activities';
+const CORE_CACHE_NAME = 'may-learning-core-v58-quest-analytics';
 const RUNTIME_CACHE_NAME = 'may-learning-runtime-pages';
 const CERTIFICATE_DOWNLOAD_CACHE = 'may-learning-certificate-downloads';
 const CERTIFICATE_DOWNLOAD_PATH = '/certificate-download/';
-const SERVICE_WORKER_VERSION = '73-grade10-term3-activities';
+const SERVICE_WORKER_VERSION = '74-quest-analytics';
 
 const CORE_ASSETS = [
   '/universal-search.css',
