@@ -1,8 +1,8 @@
-const CORE_CACHE_NAME = 'may-learning-core-v63-compact-fullscreen-control';
+const CORE_CACHE_NAME = 'may-learning-core-v66-responsive-fullscreen-control';
 const RUNTIME_CACHE_NAME = 'may-learning-runtime-pages';
 const CERTIFICATE_DOWNLOAD_CACHE = 'may-learning-certificate-downloads';
 const CERTIFICATE_DOWNLOAD_PATH = '/certificate-download/';
-const SERVICE_WORKER_VERSION = '79-compact-fullscreen-control';
+const SERVICE_WORKER_VERSION = '82-responsive-fullscreen-control';
 
 const CORE_ASSETS = [
   '/universal-search.css',

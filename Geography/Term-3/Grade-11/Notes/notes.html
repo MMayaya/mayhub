@@ -187,6 +187,8 @@
     opacity: 0.72;
   }
 
+  .fullscreen-label { display: none; }
+
   .menu-lines,
   .menu-lines::before,
   .menu-lines::after {
@@ -248,11 +250,10 @@
     position: absolute;
     z-index: 12;
     top: 0;
-    left: 50%;
+    left: max(8px, env(safe-area-inset-left));
     display: none;
     flex-direction: column;
-    align-items: center;
-    transform: translateX(-50%);
+    align-items: flex-start;
   }
 
   .fullscreen-control-toggle {
@@ -379,6 +380,14 @@
     transition: height 260ms ease, flex-basis 260ms ease, opacity 200ms ease, transform 260ms ease;
   }
 
+  @media (min-width: 1121px) {
+    .fullscreen-control {
+      left: auto;
+      right: max(8px, env(safe-area-inset-right));
+      align-items: flex-end;
+    }
+  }
+
   @media (max-width: 1120px) {
     :root { --belt-height: 58px; }
 
@@ -435,7 +444,7 @@
     .mayhub-brand { font-size: 17px; }
     .mayhub-menu-button { padding-inline: 10px; }
     .mayhub-fullscreen-button { padding-inline: 10px; }
-    .fullscreen-label { display: none; }
+
     .menu-label { display: none; }
   }
 
@@ -462,7 +471,7 @@
     <a class="mayhub-link resource-link" href="../../../../index.html#details-Geography-grade-11-term-3-guides">Learning Guides</a>
   </nav>
   <div class="mayhub-header-actions">
-    <button class="mayhub-fullscreen-button" id="presentationFullscreenButton" type="button" title="View the presentation in full screen">
+    <button class="mayhub-fullscreen-button" id="presentationFullscreenButton" type="button" aria-label="View the presentation in full screen" title="View the presentation in full screen">
       <span class="fullscreen-icon" aria-hidden="true"></span>
       <span class="fullscreen-label">Full Screen</span>
     </button>
