@@ -1,4 +1,4 @@
-const CORE_CACHE_NAME = 'may-learning-core-v54-universal-search-read-aloud';
+const CORE_CACHE_NAME = 'may-learning-core-v55-historyquest-replay';
 const RUNTIME_CACHE_NAME = 'may-learning-runtime-pages';
 const CERTIFICATE_DOWNLOAD_CACHE = 'may-learning-certificate-downloads';
 const CERTIFICATE_DOWNLOAD_PATH = '/certificate-download/';

@@ -26,10 +26,13 @@
     const stage6Total = stage6Questions.length;
     const stage6TotalMarks = stage6Questions.reduce((sum, question) => sum + question.marks, 0);
     const historyQuestTotalMarks = totalMarks + stage2TotalMarks + stage3TotalMarks + stage4TotalMarks + stage5TotalMarks + stage6TotalMarks;
+    const expeditionAttemptLimit = 2;
+    const expeditionCooldownMs = 6 * 60 * 60 * 1000;
     const storageVersion = 1;
     let zoom = 1;
     let previousBodyOverflow = '';
     let currentScreen = 'intro';
+    let cooldownTimerId = 0;
 
     const elements = {
         intro: document.getElementById('introScreen'),
@@ -181,6 +184,11 @@
         historyGrandPercent: document.getElementById('historyGrandPercent'),
         historyGrandComment: document.getElementById('historyGrandComment'),
         viewHistoryCertificate: document.getElementById('viewHistoryCertificateButton'),
+        newExpedition: document.getElementById('newExpeditionButton'),
+        expeditionLimitPanel: document.getElementById('expeditionLimitPanel'),
+        expeditionLimitTitle: document.getElementById('expeditionLimitTitle'),
+        expeditionLimitStatus: document.getElementById('expeditionLimitStatus'),
+        expeditionCountdown: document.getElementById('expeditionCountdown'),
         historyFinalStageScores: [1, 2, 3, 4, 5, 6].map(stage => [
             document.getElementById('historyFinalStage' + stage + 'Score'),
             document.getElementById('historyFinalStage' + stage + 'Percent'),
@@ -228,6 +236,10 @@
 
     function stage6StorageKey() {
         return 'mayhubHistoryQuest:v' + storageVersion + ':grade-8:history:term-3:stage-6:' + encodeURIComponent(learnerId());
+    }
+
+    function attemptStorageKey() {
+        return 'mayhubHistoryQuest:v' + storageVersion + ':grade-8:history:term-3:attempt-ledger:' + encodeURIComponent(learnerId());
     }
 
     function randomIndex(maximum) {
@@ -601,6 +613,52 @@
     }
 
     let stage6State = loadStage6State();
+    function uniqueAttemptId() {
+        if (window.crypto?.randomUUID) return window.crypto.randomUUID();
+        const bytes = new Uint32Array(4);
+        if (window.crypto?.getRandomValues) window.crypto.getRandomValues(bytes);
+        else for (let index = 0; index < bytes.length; index++) bytes[index] = Math.floor(Math.random() * 0xffffffff);
+        return Array.from(bytes, value => value.toString(16).padStart(8, '0')).join('-');
+    }
+
+    function expeditionIsComplete() {
+        return state.completed && stage2State.completed && stage3State.completed && stage4State.completed && stage5State.completed && stage6State.completed;
+    }
+
+    function createAttemptLedger() {
+        const activeAttemptId = uniqueAttemptId();
+        const alreadyCompleted = expeditionIsComplete();
+        return {
+            version: 1,
+            completedAttempts: alreadyCompleted ? 1 : 0,
+            cooldownUntil: 0,
+            activeAttemptId,
+            lastCompletedAttemptId: alreadyCompleted ? activeAttemptId : ''
+        };
+    }
+
+    function validAttemptLedger(candidate) {
+        return candidate
+            && candidate.version === 1
+            && Number.isInteger(candidate.completedAttempts)
+            && candidate.completedAttempts >= 0
+            && candidate.completedAttempts <= expeditionAttemptLimit
+            && Number.isFinite(candidate.cooldownUntil)
+            && candidate.cooldownUntil >= 0
+            && typeof candidate.activeAttemptId === 'string'
+            && candidate.activeAttemptId.length > 0
+            && typeof candidate.lastCompletedAttemptId === 'string';
+    }
+
+    function loadAttemptLedger() {
+        try {
+            const saved = JSON.parse(window.localStorage.getItem(attemptStorageKey()) || 'null');
+            if (validAttemptLedger(saved)) return saved;
+        } catch {}
+        return createAttemptLedger();
+    }
+
+    let attemptLedger = loadAttemptLedger();
 
     function saveState() {
         try { window.localStorage.setItem(storageKey(), JSON.stringify(state)); } catch {}
@@ -624,6 +682,93 @@
 
     function saveStage6State() {
         try { window.localStorage.setItem(stage6StorageKey(), JSON.stringify(stage6State)); } catch {}
+    }
+    function saveAttemptLedger() {
+        try { window.localStorage.setItem(attemptStorageKey(), JSON.stringify(attemptLedger)); } catch {}
+    }
+
+    function refreshExpiredCooldown() {
+        if (!attemptLedger.cooldownUntil || Date.now() < attemptLedger.cooldownUntil) return false;
+        attemptLedger.completedAttempts = 0;
+        attemptLedger.cooldownUntil = 0;
+        attemptLedger.lastCompletedAttemptId = attemptLedger.activeAttemptId;
+        saveAttemptLedger();
+        return true;
+    }
+
+    function recordExpeditionCompletion() {
+        refreshExpiredCooldown();
+        if (attemptLedger.lastCompletedAttemptId === attemptLedger.activeAttemptId) return;
+        attemptLedger.completedAttempts = Math.min(expeditionAttemptLimit, attemptLedger.completedAttempts + 1);
+        attemptLedger.lastCompletedAttemptId = attemptLedger.activeAttemptId;
+        if (attemptLedger.completedAttempts >= expeditionAttemptLimit) {
+            attemptLedger.cooldownUntil = Date.now() + expeditionCooldownMs;
+        }
+        saveAttemptLedger();
+    }
+
+    function formatCountdown(milliseconds) {
+        const seconds = Math.max(0, Math.ceil(milliseconds / 1000));
+        const hours = Math.floor(seconds / 3600);
+        const minutes = Math.floor((seconds % 3600) / 60);
+        const remainingSeconds = seconds % 60;
+        return [hours, minutes, remainingSeconds].map(value => String(value).padStart(2, '0')).join(':');
+    }
+
+    function updateExpeditionLimitUI() {
+        refreshExpiredCooldown();
+        const coolingDown = attemptLedger.cooldownUntil > Date.now();
+        elements.expeditionLimitPanel.classList.toggle('is-cooling', coolingDown);
+        elements.expeditionCountdown.hidden = !coolingDown;
+        elements.newExpedition.disabled = coolingDown;
+
+        if (coolingDown) {
+            elements.expeditionLimitTitle.textContent = 'Two expeditions completed';
+            elements.expeditionLimitStatus.textContent = 'Your next two expeditions become available when this six-hour learning break ends.';
+            elements.expeditionCountdown.textContent = formatCountdown(attemptLedger.cooldownUntil - Date.now());
+            elements.newExpedition.textContent = 'New Expedition Locked';
+            if (!cooldownTimerId) cooldownTimerId = window.setInterval(updateExpeditionLimitUI, 1000);
+            return;
+        }
+
+        if (cooldownTimerId) {
+            window.clearInterval(cooldownTimerId);
+            cooldownTimerId = 0;
+        }
+        const remaining = expeditionAttemptLimit - attemptLedger.completedAttempts;
+        elements.expeditionLimitTitle.textContent = remaining === 1 ? 'One new expedition remains' : 'Two new expeditions are available';
+        elements.expeditionLimitStatus.textContent = remaining === 1
+            ? 'Your next completion will begin a six-hour learning break.'
+            : 'Each new expedition reshuffles the questions and answer options.';
+        elements.newExpedition.textContent = 'Start a New Expedition';
+    }
+
+    function startNewExpedition() {
+        refreshExpiredCooldown();
+        if (attemptLedger.cooldownUntil > Date.now()) {
+            updateExpeditionLimitUI();
+            return;
+        }
+        if (!window.confirm('Start a new shuffled expedition? Your completed score will remain in certificate history, but the six assessed History stages will restart.')) return;
+
+        state = createState();
+        stage2State = createStage2State();
+        stage3State = createStage3State();
+        stage4State = createStage4State();
+        stage5State = createStage5State();
+        stage6State = createStage6State();
+        attemptLedger.activeAttemptId = uniqueAttemptId();
+        saveState();
+        saveStage2State();
+        saveStage3State();
+        saveStage4State();
+        saveStage5State();
+        saveStage6State();
+        saveAttemptLedger();
+        window.MayHubCertificates?.hide?.();
+        elements.begin.textContent = 'Begin Stage 1';
+        elements.resumeNote.textContent = 'A fresh expedition is ready with reshuffled questions and answer choices.';
+        showScreen('intro');
     }
 
     function questionById(id) {
@@ -1561,12 +1706,11 @@
             window.alert('The certificate system is unavailable. Please refresh the page and try again.');
             return false;
         }
-        const stageScoreKey = [state.score, stage2State.score, stage3State.score, stage4State.score, stage5State.score, stage6State.score].join('-');
         window.MayHubCertificates.showScored({
             correct: fullHistoryQuestScore(),
             total: historyQuestTotalMarks,
             category: 'Six-Stage History Expedition',
-            completionId: 'historyquest-grand-total-' + stageScoreKey,
+            completionId: 'historyquest-' + attemptLedger.activeAttemptId,
             playSound
         });
         return true;
@@ -1600,6 +1744,7 @@
         });
 
         showScreen('stage7');
+        updateExpeditionLimitUI();
         if (openCertificate) {
             if (overallPercentage >= 50) window.MayHubSounds?.playPass?.();
             else window.MayHubSounds?.playFail?.();
@@ -1611,6 +1756,7 @@
         stage6State.completed = true;
         stage6State.current = stage6Total;
         saveStage6State();
+        recordExpeditionCompletion();
         const percentage = Math.round(stage6State.score / stage6TotalMarks * 100);
         const [title, message] = stage6CompletionCopy(stage6State.score);
         elements.stage6ResultScore.textContent = stage6State.score + '/' + stage6TotalMarks;
@@ -1685,6 +1831,7 @@
         elements.confirmStage6.addEventListener('click', lockStage6Question);
         elements.stage6Next.addEventListener('click', nextStage6Question);
         elements.continueStage7.addEventListener('click', () => showHistoryGrandTotal(true));
+        elements.newExpedition.addEventListener('click', startNewExpedition);
         elements.viewHistoryCertificate.addEventListener('click', () => showHistoryCertificate(true));
         elements.sourceButton.addEventListener('click', openSource);
         elements.closeSource.addEventListener('click', closeSource);
