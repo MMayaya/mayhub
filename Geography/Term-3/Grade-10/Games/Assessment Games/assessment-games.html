@@ -169,6 +169,69 @@
             font-size: 1.1rem;
         }
 
+        .exam-source-link {
+            max-width: 860px;
+            margin: -1.35rem auto 2.2rem;
+            padding: 0.9rem 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.9rem;
+            color: #fff;
+            text-decoration: none;
+            background: linear-gradient(120deg, #001a38, #004080 58%, #7a5b00);
+            border: 1px solid rgba(255, 204, 0, 0.72);
+            border-radius: 16px;
+            box-shadow: 0 9px 24px rgba(0, 43, 94, 0.2);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .exam-source-link:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 13px 30px rgba(0, 43, 94, 0.28);
+        }
+
+        .exam-source-icon {
+            flex: 0 0 52px;
+            width: 52px;
+            height: 52px;
+            display: grid;
+            place-items: center;
+            border-radius: 50%;
+            background: linear-gradient(145deg, #ffe88a, #ffcc00);
+            color: #002b5e;
+            font-size: 1.55rem;
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.75);
+        }
+
+        .exam-source-copy {
+            min-width: 0;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            line-height: 1.35;
+        }
+
+        .exam-source-kicker {
+            color: #ffdc4f;
+            font-size: 0.72rem;
+            font-weight: 800;
+            letter-spacing: 0.13em;
+            text-transform: uppercase;
+        }
+
+        .exam-source-title { font-size: 1.08rem; font-weight: 750; }
+        .exam-source-note { color: #dbe9f8; font-size: 0.88rem; }
+
+        .exam-source-action {
+            flex: 0 0 auto;
+            padding: 0.52rem 0.8rem;
+            border-radius: 999px;
+            background: #fff;
+            color: #003a75;
+            font-weight: 750;
+            font-size: 0.88rem;
+            white-space: nowrap;
+        }
         /* Games Grid System */
         .games-grid {
             display: grid;
@@ -322,6 +385,9 @@
             }
             .nav-links.show { display: flex; }
             .header-text h1 { font-size: 2rem; }
+            .exam-source-link { align-items: flex-start; flex-wrap: wrap; }
+            .exam-source-copy { flex-basis: calc(100% - 70px); }
+            .exam-source-action { margin-left: 61px; }
         }
     </style>
 </head>
@@ -391,6 +457,15 @@
                 <span class="play-btn">Begin GeoQuest &rarr;</span>
             </a>
         </main>
+        <a class="exam-source-link" href="../../../../../exam-hub.html#grade-10-geography-september-2026" aria-label="View the September 2026 Grade 10 Geography assessment paper and memorandum in Exam Hub">
+            <span class="exam-source-icon" aria-hidden="true">&#128196;</span>
+            <span class="exam-source-copy">
+                <span class="exam-source-kicker">Assessment Source</span>
+                <span class="exam-source-title">The Paper Behind the Games</span>
+                <span class="exam-source-note">Find the September 2026 question paper and memorandum in Exam Hub.</span>
+            </span>
+            <span class="exam-source-action">Visit Exam Hub &rarr;</span>
+        </a>
     </div>
 
     <footer>

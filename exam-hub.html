@@ -8,7 +8,7 @@
   gtag('js', new Date());
   gtag('config', 'G-8GCWSKNDL7');
 </script>
-    
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="May Learning Hub Exam Archive. Past question papers and memorandums for Social Sciences, Geography, and Life Sciences.">
@@ -33,7 +33,7 @@
             outline-offset: 3px;
             border-radius: 6px;
         }
-        
+
         /* Animations */
         @keyframes slideInDown {
             0% { opacity: 0; transform: translateY(-30px); }
@@ -95,7 +95,7 @@
         .toggle-option:not(.active):hover { background-color: rgba(255,255,255,0.4); color: #002b5e; }
 
         .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
-        
+
         /* Exam Archive Grid */
         .subjects-grid {
             display: grid;
@@ -119,17 +119,25 @@
         }
         .subject-header h2 { color: #003366; font-size: 1.5rem; margin-bottom: 0.2rem; }
         .subject-header p { font-size: 0.95rem; color: #665c33; font-weight: 500; }
-        
+
         details { padding: 1rem; border-bottom: 1px solid #eee; }
         details[open] { background-color: #fcfdfe; }
         summary { font-weight: bold; font-size: 1.2rem; color: #004080; cursor: pointer; list-style: none; padding: 0.5rem 0; }
         summary::-webkit-details-marker { display: none; }
         summary::before { content: "📁 "; font-size: 1em; display: inline-block; transition: transform 0.2s; margin-right: 8px; }
         details[open] summary::before { content: "📂 "; }
-        
+
         .exam-year-section { margin-top: 1rem; padding-left: 1rem; }
-        .exam-year-section h4 { color: #555; margin-bottom: 0.8rem; font-size: 1.05rem; border-bottom: 2px solid #ffcc00; display: inline-block; padding-bottom: 2px; }
-        
+        .exam-year-section h4 { color: #555; margin-bottom: 0.8rem; font-size: 1.05rem; border-bottom: 2px solid #ffcc00; display: inline-block; padding-bottom: 2px; }        .exam-year-section[id] { scroll-margin-top: 110px; }
+        .exam-year-section.linked-paper-focus {
+            margin-left: -0.35rem;
+            padding: 0.9rem 0.9rem 0.4rem 1.25rem;
+            border-left: 4px solid #ffcc00;
+            border-radius: 10px;
+            background: linear-gradient(90deg, rgba(255, 204, 0, 0.18), rgba(255, 255, 255, 0));
+            box-shadow: 0 8px 24px rgba(0, 43, 94, 0.08);
+        }
+
         .paper-row {
             display: flex;
             justify-content: space-between;
@@ -144,7 +152,7 @@
         }
         .paper-row:hover { background-color: #eaf2fb; border-color: #c0dcf7; }
         .paper-title { font-weight: 600; color: #003366; font-size: 0.95rem; }
-        
+
         .paper-actions { display: flex; gap: 0.5rem; }
         .doc-btn {
             text-decoration: none;
@@ -158,11 +166,158 @@
         .btn-qp:hover { background-color: #004080; color: #fff; }
         .btn-memo { background-color: #e6ffe6; color: #006600; border: 1px solid #00cc00; }
         .btn-memo:hover { background-color: #00cc00; color: #fff; }
-        
+
         .badge-kzn { background: #002b5e; color: #fff; font-size: 0.65rem; padding: 2px 6px; border-radius: 4px; margin-left: 8px; vertical-align: middle; }
         .badge-nat { background: #666; color: #fff; font-size: 0.65rem; padding: 2px 6px; border-radius: 4px; margin-left: 8px; vertical-align: middle; }
+        .badge-mlh { background: #ffcc00; color: #002b5e; font-size: 0.65rem; padding: 2px 6px; border-radius: 4px; margin-left: 8px; vertical-align: middle; }
 
-        footer { background-color: #002b5e; color: #fff; margin-top: 3rem; text-align: center; padding: 2rem 20px; }
+        /* --- WHAT'S NEW SECTION (RICH RED) --- */
+        .whats-new-panel {
+        background:
+        radial-gradient(circle at 92% 0%, rgba(255, 232, 235, 0.42), transparent 31%),
+        linear-gradient(135deg, #b00018 0%, #e3062c 52%, #ff2347 100%);
+        color: #ffffff;
+        border-radius: 22px;
+        box-shadow: 0 14px 32px rgba(91,0,14,0.3), inset 0 1px 0 rgba(255,255,255,0.3), inset 0 -24px 38px rgba(75,0,8,0.2);
+        padding: 0.9rem 1.15rem 1rem;
+        margin-bottom: 1rem;
+        border: 1px solid rgba(255, 211, 216, 0.82);
+        border-left: 5px solid #ffc7ce;
+        position: relative;
+        overflow: hidden;
+        opacity: 0;
+        animation: fadeInUp 0.8s ease-out 0.38s forwards;
+        }
+
+        .whats-new-panel::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 48%;
+        background: linear-gradient(to bottom, rgba(255,255,255,0.18), rgba(255,255,255,0.035), transparent);
+        pointer-events: none;
+        }
+
+        .whats-new-panel::after {
+        content: "";
+        position: absolute;
+        width: 12rem;
+        height: 12rem;
+        right: -6rem;
+        bottom: -8rem;
+        border-radius: 50%;
+        border: 1px solid rgba(255,255,255,0.14);
+        box-shadow: 0 0 0 20px rgba(255,255,255,0.035);
+        pointer-events: none;
+        }
+
+        .whats-new-panel > * {
+        position: relative;
+        z-index: 1;
+        }
+
+        .whats-new-panel .section-title,
+        .whats-new-panel .section-subtitle {
+        color: #ffffff;
+        text-shadow: 0 2px 8px rgba(49,0,7,0.35);
+        }
+
+        .whats-new-panel .section-title {
+        margin-bottom: 0.1rem;
+        font-size: clamp(1.45rem, 3vw, 1.85rem);
+        }
+
+        .whats-new-panel .section-subtitle {
+        margin: 0;
+        font-size: 0.92rem;
+        text-align: center;
+        }
+
+        .whats-new-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 0.65rem;
+        margin-top: 0.65rem;
+        }
+
+        .whats-new-details {
+        padding: 0.62rem 0.75rem;
+        border: 1px solid rgba(255,255,255,0.4);
+        border-radius: 14px;
+        background: rgba(50,0,7,0.22);
+        box-shadow: inset 0 1px 0 rgba(255,255,255,0.2), 0 8px 18px rgba(55,0,8,0.2);
+        backdrop-filter: blur(4px);
+        }
+
+        .whats-new-details[open] {
+        background: rgba(255,255,255,0.13);
+        }
+
+        .whats-new-details summary {
+        font-size: 1.05rem;
+        font-weight: 750;
+        color: #ffffff;
+        padding: 0.18rem 0;
+        text-shadow: 0 1px 5px rgba(49,0,7,0.3);
+        cursor: pointer;
+        }
+
+        .whats-new-details summary::before {
+        color: #ffffff;
+        }
+
+        .whats-new-list {
+        list-style: none;
+        display: grid;
+        gap: 0.42rem;
+        margin: 0.45rem 0 0;
+        padding: 0;
+        }
+
+        .whats-new-list a {
+        display: block;
+        text-decoration: none;
+        color: #451019;
+        background: linear-gradient(135deg, #ffffff 0%, #fff0f2 100%);
+        border: 1px solid rgba(255,225,229,0.98);
+        border-left: 4px solid #d30f2e;
+        border-radius: 9px;
+        padding: 0.54rem 0.74rem;
+        font-size: 0.94rem;
+        font-weight: 650;
+        line-height: 1.35;
+        box-shadow: 0 4px 12px rgba(69,0,10,0.18), inset 0 1px 0 rgba(255,255,255,0.96);
+        transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+        }
+
+        .whats-new-list a:hover {
+        background: #ffffff;
+        transform: translateX(3px);
+        box-shadow: 0 0 15px rgba(255,219,224,0.58), 0 6px 16px rgba(69,0,10,0.22);
+        }
+
+        .whats-new-list a.newest-item {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 0.75rem;
+        }
+
+        .new-badge {
+        flex: 0 0 auto;
+        color: #ffffff;
+        background: linear-gradient(135deg, #ff2347, #d40020);
+        border: 1px solid rgba(255,255,255,0.38);
+        border-radius: 999px;
+        padding: 0.18rem 0.58rem;
+        font-size: 0.7rem;
+        font-weight: 850;
+        line-height: 1.4;
+        box-shadow: 0 3px 8px rgba(91,0,14,0.24);
+        }
+                footer { background-color: #002b5e; color: #fff; margin-top: 3rem; text-align: center; padding: 2rem 20px; }
         footer a { color: #ffcc00; text-decoration: none; }
         footer a:hover { text-decoration: underline; }
 
@@ -199,7 +354,7 @@
     </header>
 
     <div class="container">
-        
+
         <div class="hub-toggle-container">
             <div class="hub-toggle">
                 <a href="index.html" class="toggle-option">Main Hub</a>
@@ -208,16 +363,40 @@
             </div>
         </div>
 
+        <section class="whats-new-panel" id="exam-hub-whats-new" aria-labelledby="exam-hub-whats-new-title">
+            <h2 class="section-title" id="exam-hub-whats-new-title">What&rsquo;s New</h2>
+            <p class="section-subtitle">Three September 2026 controlled-test packs are now available.</p>
+            <div class="whats-new-grid">
+                <details class="whats-new-details" open>
+                    <summary>New Exam Papers</summary>
+                    <ul class="whats-new-list">
+                        <li><a href="#grade-8-social-sciences-september-2026" class="newest-item"><span>Grade 8 Social Sciences History: Term 3</span><span class="new-badge">New</span></a></li>
+                        <li><a href="#grade-10-geography-september-2026" class="newest-item"><span>Grade 10 Geography: Term 3</span><span class="new-badge">New</span></a></li>
+                        <li><a href="#grade-11-geography-september-2026" class="newest-item"><span>Grade 11 Geography: Term 3</span><span class="new-badge">New</span></a></li>
+                    </ul>
+                </details>
+            </div>
+        </section>
         <main class="subjects-grid">
-            
+
             <section class="subject-card" style="animation-delay: 0.2s;">
                 <div class="subject-header">
                     <h2>Social Sciences</h2>
                     <p>Grades 8 – 9</p>
                 </div>
-                
+
                 <details data-state-id="exam-ss-gr8">
                     <summary>Grade 8</summary>
+                    <div class="exam-year-section" id="grade-8-social-sciences-september-2026">
+                        <h4>September 2026 Controlled Test <span class="badge-mlh">MLH</span></h4>
+                        <div class="paper-row">
+                            <span class="paper-title">Term 3 History Assessment</span>
+                            <div class="paper-actions">
+                                <a href="exam-hub/Social%20Sciences/Grade%208/September2026/Grade%208%20SS%20Hist%20Term%203%20MLH.pdf" class="doc-btn btn-qp" aria-label="Open the Grade 8 Social Sciences History September 2026 question paper">📄 QP</a>
+                                <a href="exam-hub/Social%20Sciences/Grade%208/September2026/Grade%208%20SS%20Hist%20Term%203%20MLH%20MG.pdf" class="doc-btn btn-memo" aria-label="Open the Grade 8 Social Sciences History September 2026 memorandum">✔️ Memo</a>
+                            </div>
+                        </div>
+                    </div>
                     <div class="exam-year-section">
                         <h4>2025 Final Exams</h4>
                         <div class="paper-row">
@@ -264,9 +443,19 @@
                     <h2>Geography</h2>
                     <p>Grades 10 – 12</p>
                 </div>
-                
+
                 <details data-state-id="exam-geo-gr10">
                     <summary>Grade 10</summary>
+                    <div class="exam-year-section" id="grade-10-geography-september-2026">
+                        <h4>September 2026 Controlled Test <span class="badge-mlh">MLH</span></h4>
+                        <div class="paper-row">
+                            <span class="paper-title">Term 3 Geography Assessment</span>
+                            <div class="paper-actions">
+                                <a href="exam-hub/Geography/Grade10/September2026/Grade%2010%20Geog%20Term%203%20MLH.pdf" class="doc-btn btn-qp" aria-label="Open the Grade 10 Geography September 2026 question paper">📄 QP</a>
+                                <a href="exam-hub/Geography/Grade10/September2026/Grade%2010%20Geog%20Term%203%20MLH%20MG.pdf" class="doc-btn btn-memo" aria-label="Open the Grade 10 Geography September 2026 memorandum">✔️ Memo</a>
+                            </div>
+                        </div>
+                    </div>
                     <div class="exam-year-section">
                         <h4>NW November 2023</h4>
                         <div class="paper-row">
@@ -288,6 +477,16 @@
 
                 <details data-state-id="exam-geo-gr11">
                     <summary>Grade 11</summary>
+                    <div class="exam-year-section" id="grade-11-geography-september-2026">
+                        <h4>September 2026 Controlled Test <span class="badge-mlh">MLH</span></h4>
+                        <div class="paper-row">
+                            <span class="paper-title">Term 3 Geography Assessment</span>
+                            <div class="paper-actions">
+                                <a href="exam-hub/Geography/Grade11/September2026/Grade%2011%20Geog%20Term%203%20MLH.pdf" class="doc-btn btn-qp" aria-label="Open the Grade 11 Geography September 2026 question paper">📄 QP</a>
+                                <a href="exam-hub/Geography/Grade11/September2026/Grade%2011%20Geog%20Term%203%20MLH%20MG.pdf" class="doc-btn btn-memo" aria-label="Open the Grade 11 Geography September 2026 memorandum">✔️ Memo</a>
+                            </div>
+                        </div>
+                    </div>
                     <div class="exam-year-section">
                         <h4>EC November 2023</h4>
                         <div class="paper-row">
@@ -351,7 +550,7 @@
                     <h2>Life Sciences</h2>
                     <p>Grades 10 – 12</p>
                 </div>
-                
+
                 <details data-state-id="exam-ls-gr10">
                     <summary>Grade 10</summary>
                     <div class="exam-year-section">
@@ -453,7 +652,7 @@
             const detailsElements = document.querySelectorAll('details[data-state-id]');
             detailsElements.forEach(details => {
                 const id = details.getAttribute('data-state-id');
-                
+
                 // Restore state on load
                 if (sessionStorage.getItem(id) === 'true') {
                     details.open = true;
@@ -466,6 +665,30 @@
             });
         }
         initDetailsState();
+
+        // Reveal a specific Exam Hub entry when another page links to its anchor.
+        function revealLinkedExam() {
+            if (!window.location.hash) return;
+
+            const target = document.getElementById(decodeURIComponent(window.location.hash.slice(1)));
+            if (!target) return;
+
+            const parentDetails = target.closest('details');
+            if (parentDetails) {
+                parentDetails.open = true;
+                const stateId = parentDetails.getAttribute('data-state-id');
+                if (stateId) sessionStorage.setItem(stateId, 'true');
+            }
+
+            document.querySelectorAll('.linked-paper-focus').forEach(item => item.classList.remove('linked-paper-focus'));
+            target.classList.add('linked-paper-focus');
+            window.requestAnimationFrame(() => {
+                target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            });
+        }
+
+        revealLinkedExam();
+        window.addEventListener('hashchange', revealLinkedExam);
     </script>
 </body>
 </html>
