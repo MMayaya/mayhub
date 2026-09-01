@@ -145,7 +145,7 @@ function getPathContext(relativePath) {
   const normalisedPath = relativePath.replace(/\\/g, '/');
   const segments = normalisedPath.split('/');
   const lowerSegments = segments.map(segment => segment.toLowerCase());
-  const subjectSegment = segments.find(segment => /^(geography|life-sciences|social-sciences)$/i.test(segment));
+  const subjectSegment = segments.find(segment => /^(geography|life[- ]sciences|social[- ]sciences)$/i.test(segment));
   const subject = subjectSegment
     ? humanise(subjectSegment)
     : lowerSegments.includes('maths')
