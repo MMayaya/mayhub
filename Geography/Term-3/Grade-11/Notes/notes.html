@@ -70,7 +70,8 @@
   .mayhub-menu-button:focus-visible,
   .mayhub-fullscreen-button:focus-visible,
   .belt-restore-button:focus-visible,
-  .fullscreen-exit-button:focus-visible {
+  .fullscreen-control-toggle:focus-visible,
+  .fullscreen-menu-exit:focus-visible {
     outline: 3px solid #8fc5ff;
     outline-offset: 3px;
   }
@@ -243,23 +244,103 @@
     transition: opacity 220ms ease, transform 220ms ease, visibility 220ms ease;
   }
 
-  .fullscreen-exit-button {
+  .fullscreen-control {
     position: absolute;
     z-index: 12;
-    top: max(10px, env(safe-area-inset-top));
-    right: max(10px, env(safe-area-inset-right));
-    min-height: 38px;
-    padding: 0 13px;
-    border: 1px solid rgba(255, 255, 255, 0.38);
-    border-radius: 9px;
+    top: 0;
+    left: 50%;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    transform: translateX(-50%);
+  }
+
+  .fullscreen-control-toggle {
+    width: 36px;
+    height: 27px;
+    display: grid;
+    place-items: center;
+    padding: 0;
+    border: 1px solid rgba(255, 255, 255, 0.36);
+    border-top: 0;
+    border-radius: 0 0 10px 10px;
     color: #fff;
     background: rgba(4, 40, 84, 0.88);
-    box-shadow: 0 5px 18px rgba(0, 16, 40, 0.28);
-    font: inherit;
-    font-size: 13px;
-    font-weight: 750;
+    box-shadow: 0 4px 14px rgba(0, 16, 40, 0.24);
     cursor: pointer;
-    display: none;
+    opacity: 0.94;
+    transition: opacity 180ms ease, transform 180ms ease, background-color 180ms ease;
+  }
+
+  .fullscreen-control-toggle:hover,
+  .fullscreen-control-toggle:focus-visible,
+  .fullscreen-control[data-open="true"] .fullscreen-control-toggle {
+    opacity: 1;
+    background: rgba(7, 70, 134, 0.96);
+    transform: translateY(0);
+  }
+
+  .fullscreen-control[data-open="false"] .fullscreen-control-toggle {
+    opacity: 0.58;
+    transform: translateY(-8px);
+  }
+
+  .fullscreen-control-toggle svg {
+    width: 16px;
+    height: 16px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .fullscreen-control-menu {
+    margin-top: 5px;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transform: translateY(-7px) scale(0.97);
+    transition: opacity 170ms ease, transform 170ms ease, visibility 170ms ease;
+  }
+
+  .fullscreen-control[data-open="true"] .fullscreen-control-menu {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: translateY(0) scale(1);
+  }
+
+  .fullscreen-menu-exit {
+    min-height: 34px;
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 0 12px;
+    border: 1px solid rgba(255, 255, 255, 0.32);
+    border-radius: 9px;
+    color: #fff;
+    background: rgba(4, 40, 84, 0.94);
+    box-shadow: 0 6px 20px rgba(0, 16, 40, 0.26);
+    font: inherit;
+    font-size: 12px;
+    font-weight: 750;
+    white-space: nowrap;
+    cursor: pointer;
+  }
+
+  .fullscreen-menu-exit:hover {
+    background: #07509a;
+  }
+
+  .fullscreen-menu-exit svg {
+    width: 14px;
+    height: 14px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
   }
 
   .presentation-stage:fullscreen,
@@ -269,11 +350,10 @@
     background: #000;
   }
 
-  .presentation-stage:fullscreen .fullscreen-exit-button,
-  .presentation-stage:-webkit-full-screen .fullscreen-exit-button,
-  body.presentation-focus .fullscreen-exit-button {
-    display: inline-flex;
-    align-items: center;
+  .presentation-stage:fullscreen .fullscreen-control,
+  .presentation-stage:-webkit-full-screen .fullscreen-control,
+  body.presentation-focus .fullscreen-control {
+    display: flex;
   }
 
   body.presentation-focus .mayhub-belt,
@@ -363,7 +443,9 @@
     .mayhub-link,
     .mayhub-nav,
     .mayhub-belt,
-    .belt-restore-button { transition: none; }
+    .belt-restore-button,
+    .fullscreen-control-toggle,
+    .fullscreen-control-menu { transition: none; }
   }
 </style>
 </head>
@@ -392,7 +474,17 @@
 </header>
 <button class="belt-restore-button" id="beltRestoreButton" type="button" aria-label="Show May Learning Hub menu">Show menu</button>
 <main class="presentation-stage">
-  <button class="fullscreen-exit-button" id="presentationFullscreenExit" type="button">Exit full screen</button>
+  <div class="fullscreen-control" id="fullscreenControl" data-open="false">
+    <button class="fullscreen-control-toggle" id="fullscreenControlToggle" type="button" aria-expanded="false" aria-controls="fullscreenControlMenu" aria-label="Show full-screen controls" title="Full-screen controls">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 4v5H4M15 4v5h5M9 20v-5H4M15 20v-5h5"></path></svg>
+    </button>
+    <div class="fullscreen-control-menu" id="fullscreenControlMenu">
+      <button class="fullscreen-menu-exit" id="presentationFullscreenExit" type="button">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 4v5H4M15 4v5h5M9 20v-5H4M15 20v-5h5"></path></svg>
+        <span>Exit full screen</span>
+      </button>
+    </div>
+  </div>
   <iframe
     class="presentation-frame"
     src="data/presentation-player.html"
@@ -408,15 +500,22 @@
   const belt = document.querySelector('.mayhub-belt');
   const restoreButton = document.getElementById('beltRestoreButton');
   const fullscreenButton = document.getElementById('presentationFullscreenButton');
+  const fullscreenControl = document.getElementById('fullscreenControl');
+  const fullscreenControlToggle = document.getElementById('fullscreenControlToggle');
   const fullscreenExit = document.getElementById('presentationFullscreenExit');
   const presentationStage = document.querySelector('.presentation-stage');
   const compactLayout = window.matchMedia('(max-width: 1120px)');
   let autoHideTimer = 0;
+  let fullscreenControlTimer = 0;
 
-  if (!button || !nav || !belt || !restoreButton || !fullscreenButton || !fullscreenExit || !presentationStage) return;
+  if (!button || !nav || !belt || !restoreButton || !fullscreenButton || !fullscreenControl || !fullscreenControlToggle || !fullscreenExit || !presentationStage) return;
 
   function fullscreenElement() {
     return document.fullscreenElement || document.webkitFullscreenElement || null;
+  }
+
+  function isPresentationFullscreen() {
+    return Boolean(fullscreenElement() || document.body.classList.contains('presentation-focus'));
   }
 
   function clearAutoHide() {
@@ -424,9 +523,32 @@
     autoHideTimer = 0;
   }
 
+  function clearFullscreenControlTimer() {
+    window.clearTimeout(fullscreenControlTimer);
+    fullscreenControlTimer = 0;
+  }
+
   function setMenu(open) {
     nav.dataset.open = String(open);
     button.setAttribute('aria-expanded', String(open));
+  }
+
+  function setFullscreenControl(open) {
+    fullscreenControl.dataset.open = String(open);
+    fullscreenControlToggle.setAttribute('aria-expanded', String(open));
+  }
+
+  function scheduleFullscreenControlCollapse() {
+    clearFullscreenControlTimer();
+    if (!isPresentationFullscreen()) return;
+    fullscreenControlTimer = window.setTimeout(function () {
+      setFullscreenControl(false);
+    }, 5000);
+  }
+
+  function revealFullscreenControl() {
+    setFullscreenControl(true);
+    scheduleFullscreenControlCollapse();
   }
 
   function setBeltCollapsed(collapsed) {
@@ -438,7 +560,7 @@
 
   function scheduleAutoHide() {
     clearAutoHide();
-    if (!compactLayout.matches || nav.dataset.open === 'true' || fullscreenElement() || document.body.classList.contains('presentation-focus')) return;
+    if (!compactLayout.matches || nav.dataset.open === 'true' || isPresentationFullscreen()) return;
     autoHideTimer = window.setTimeout(function () {
       setBeltCollapsed(true);
     }, 5000);
@@ -463,6 +585,10 @@
       setMenu(false);
       scheduleAutoHide();
     }
+    if (isPresentationFullscreen() && !event.target.closest('.fullscreen-control')) {
+      setFullscreenControl(false);
+      clearFullscreenControlTimer();
+    }
   });
 
   document.addEventListener('keydown', function (event) {
@@ -472,6 +598,7 @@
       return;
     }
     setMenu(false);
+    setFullscreenControl(false);
     scheduleAutoHide();
   });
 
@@ -484,10 +611,18 @@
   belt.addEventListener('focusin', clearAutoHide);
   belt.addEventListener('focusout', scheduleAutoHide);
 
+  fullscreenControlToggle.addEventListener('click', function () {
+    const opening = fullscreenControl.dataset.open !== 'true';
+    setFullscreenControl(opening);
+    if (opening) scheduleFullscreenControlCollapse();
+    else clearFullscreenControlTimer();
+  });
+
   function enterFocusMode() {
     document.body.classList.add('presentation-focus');
     setBeltCollapsed(true);
     clearAutoHide();
+    revealFullscreenControl();
   }
 
   function enterFullscreen() {
@@ -508,6 +643,8 @@
   }
 
   function exitFullscreen() {
+    clearFullscreenControlTimer();
+    setFullscreenControl(false);
     document.body.classList.remove('presentation-focus');
     const exit = document.exitFullscreen || document.webkitExitFullscreen;
     if (fullscreenElement() && exit) {
@@ -529,8 +666,11 @@
   function handleFullscreenChange() {
     if (fullscreenElement()) {
       clearAutoHide();
+      revealFullscreenControl();
       return;
     }
+    clearFullscreenControlTimer();
+    setFullscreenControl(false);
     document.body.classList.remove('presentation-focus');
     setBeltCollapsed(false);
     scheduleAutoHide();
