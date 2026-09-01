@@ -1,8 +1,8 @@
-const CORE_CACHE_NAME = 'may-learning-core-v61-presentation-belt-pilot';
+const CORE_CACHE_NAME = 'may-learning-core-v62-presentation-fullscreen';
 const RUNTIME_CACHE_NAME = 'may-learning-runtime-pages';
 const CERTIFICATE_DOWNLOAD_CACHE = 'may-learning-certificate-downloads';
 const CERTIFICATE_DOWNLOAD_PATH = '/certificate-download/';
-const SERVICE_WORKER_VERSION = '77-presentation-belt-pilot';
+const SERVICE_WORKER_VERSION = '78-presentation-fullscreen';
 
 const CORE_ASSETS = [
   '/universal-search.css',

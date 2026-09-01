@@ -67,7 +67,10 @@
 
   .mayhub-brand:focus-visible,
   .mayhub-link:focus-visible,
-  .mayhub-menu-button:focus-visible {
+  .mayhub-menu-button:focus-visible,
+  .mayhub-fullscreen-button:focus-visible,
+  .belt-restore-button:focus-visible,
+  .fullscreen-exit-button:focus-visible {
     outline: 3px solid #8fc5ff;
     outline-offset: 3px;
   }
@@ -136,6 +139,53 @@
     cursor: pointer;
   }
 
+  .mayhub-header-actions {
+    flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .mayhub-fullscreen-button {
+    min-height: 40px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 0 13px;
+    border: 1px solid rgba(143, 197, 255, 0.38);
+    border-radius: 8px;
+    color: #fff;
+    background: rgba(47, 140, 255, 0.24);
+    font: inherit;
+    font-size: 14px;
+    font-weight: 700;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: background-color 160ms ease, transform 160ms ease;
+  }
+
+  .mayhub-fullscreen-button:hover {
+    background: var(--belt-blue);
+    transform: translateY(-1px);
+  }
+
+  .fullscreen-icon {
+    position: relative;
+    width: 16px;
+    height: 16px;
+    display: block;
+    border: 2px solid currentColor;
+    border-radius: 2px;
+  }
+
+  .fullscreen-icon::after {
+    content: "";
+    position: absolute;
+    inset: 3px;
+    border: 1px solid currentColor;
+    opacity: 0.72;
+  }
+
   .menu-lines,
   .menu-lines::before,
   .menu-lines::after {
@@ -168,6 +218,87 @@
     background: #dcdee0;
   }
 
+  .belt-restore-button {
+    position: fixed;
+    z-index: 1200;
+    top: 0;
+    left: 50%;
+    min-width: 104px;
+    min-height: 28px;
+    padding: 3px 14px 5px;
+    border: 0;
+    border-radius: 0 0 13px 13px;
+    color: #fff;
+    background: linear-gradient(105deg, var(--belt-navy-deep), #0a4c91);
+    box-shadow: 0 5px 16px rgba(2, 25, 55, 0.28);
+    font: inherit;
+    font-size: 12px;
+    font-weight: 750;
+    letter-spacing: 0.01em;
+    cursor: pointer;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transform: translate(-50%, -100%);
+    transition: opacity 220ms ease, transform 220ms ease, visibility 220ms ease;
+  }
+
+  .fullscreen-exit-button {
+    position: absolute;
+    z-index: 12;
+    top: max(10px, env(safe-area-inset-top));
+    right: max(10px, env(safe-area-inset-right));
+    min-height: 38px;
+    padding: 0 13px;
+    border: 1px solid rgba(255, 255, 255, 0.38);
+    border-radius: 9px;
+    color: #fff;
+    background: rgba(4, 40, 84, 0.88);
+    box-shadow: 0 5px 18px rgba(0, 16, 40, 0.28);
+    font: inherit;
+    font-size: 13px;
+    font-weight: 750;
+    cursor: pointer;
+    display: none;
+  }
+
+  .presentation-stage:fullscreen,
+  .presentation-stage:-webkit-full-screen {
+    width: 100%;
+    height: 100%;
+    background: #000;
+  }
+
+  .presentation-stage:fullscreen .fullscreen-exit-button,
+  .presentation-stage:-webkit-full-screen .fullscreen-exit-button,
+  body.presentation-focus .fullscreen-exit-button {
+    display: inline-flex;
+    align-items: center;
+  }
+
+  body.presentation-focus .mayhub-belt,
+  body.belt-collapsed .mayhub-belt {
+    flex-basis: 0;
+    height: 0;
+    min-height: 0;
+    overflow: hidden;
+    border-bottom-width: 0;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(-100%);
+  }
+
+  body.belt-collapsed:not(.presentation-focus) .belt-restore-button {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: translate(-50%, 0);
+  }
+
+  .mayhub-belt {
+    transition: height 260ms ease, flex-basis 260ms ease, opacity 200ms ease, transform 260ms ease;
+  }
+
   @media (max-width: 1120px) {
     :root { --belt-height: 58px; }
 
@@ -176,7 +307,9 @@
       padding-inline: 16px;
     }
 
-    .mayhub-menu-button { display: inline-flex; margin-left: auto; }
+    .mayhub-header-actions { margin-left: auto; }
+
+    .mayhub-menu-button { display: inline-flex; }
 
     .mayhub-nav {
       position: absolute;
@@ -221,22 +354,22 @@
   @media (max-width: 420px) {
     .mayhub-brand { font-size: 17px; }
     .mayhub-menu-button { padding-inline: 10px; }
+    .mayhub-fullscreen-button { padding-inline: 10px; }
+    .fullscreen-label { display: none; }
     .menu-label { display: none; }
   }
 
   @media (prefers-reduced-motion: reduce) {
     .mayhub-link,
-    .mayhub-nav { transition: none; }
+    .mayhub-nav,
+    .mayhub-belt,
+    .belt-restore-button { transition: none; }
   }
 </style>
 </head>
 <body>
 <header class="mayhub-belt">
   <a class="mayhub-brand" href="../../../../index.html" aria-label="May Learning Hub home">May Learning Hub</a>
-  <button class="mayhub-menu-button" id="mayhubMenuButton" type="button" aria-expanded="false" aria-controls="mayhubPresentationNav">
-    <span class="menu-label">Explore</span>
-    <span class="menu-lines" aria-hidden="true"></span>
-  </button>
   <nav class="mayhub-nav" id="mayhubPresentationNav" aria-label="May Learning Hub presentation navigation" data-open="false">
     <a class="mayhub-link" href="../../../../index.html">Home</a>
     <a class="mayhub-link" href="../../../../about.html">About</a>
@@ -246,8 +379,20 @@
     <a class="mayhub-link resource-link" href="../Activities/activities.html">Activities</a>
     <a class="mayhub-link resource-link" href="../../../../index.html#details-Geography-grade-11-term-3-guides">Learning Guides</a>
   </nav>
+  <div class="mayhub-header-actions">
+    <button class="mayhub-fullscreen-button" id="presentationFullscreenButton" type="button" title="View the presentation in full screen">
+      <span class="fullscreen-icon" aria-hidden="true"></span>
+      <span class="fullscreen-label">Full Screen</span>
+    </button>
+    <button class="mayhub-menu-button" id="mayhubMenuButton" type="button" aria-expanded="false" aria-controls="mayhubPresentationNav">
+      <span class="menu-label">Explore</span>
+      <span class="menu-lines" aria-hidden="true"></span>
+    </button>
+  </div>
 </header>
+<button class="belt-restore-button" id="beltRestoreButton" type="button" aria-label="Show May Learning Hub menu">Show menu</button>
 <main class="presentation-stage">
+  <button class="fullscreen-exit-button" id="presentationFullscreenExit" type="button">Exit full screen</button>
   <iframe
     class="presentation-frame"
     src="data/presentation-player.html"
@@ -260,35 +405,152 @@
 (function () {
   const button = document.getElementById('mayhubMenuButton');
   const nav = document.getElementById('mayhubPresentationNav');
-  if (!button || !nav) return;
+  const belt = document.querySelector('.mayhub-belt');
+  const restoreButton = document.getElementById('beltRestoreButton');
+  const fullscreenButton = document.getElementById('presentationFullscreenButton');
+  const fullscreenExit = document.getElementById('presentationFullscreenExit');
+  const presentationStage = document.querySelector('.presentation-stage');
+  const compactLayout = window.matchMedia('(max-width: 1120px)');
+  let autoHideTimer = 0;
+
+  if (!button || !nav || !belt || !restoreButton || !fullscreenButton || !fullscreenExit || !presentationStage) return;
+
+  function fullscreenElement() {
+    return document.fullscreenElement || document.webkitFullscreenElement || null;
+  }
+
+  function clearAutoHide() {
+    window.clearTimeout(autoHideTimer);
+    autoHideTimer = 0;
+  }
 
   function setMenu(open) {
     nav.dataset.open = String(open);
     button.setAttribute('aria-expanded', String(open));
   }
 
+  function setBeltCollapsed(collapsed) {
+    if (document.body.classList.contains('presentation-focus')) collapsed = true;
+    document.body.classList.toggle('belt-collapsed', collapsed);
+    belt.inert = collapsed;
+    if (collapsed) setMenu(false);
+  }
+
+  function scheduleAutoHide() {
+    clearAutoHide();
+    if (!compactLayout.matches || nav.dataset.open === 'true' || fullscreenElement() || document.body.classList.contains('presentation-focus')) return;
+    autoHideTimer = window.setTimeout(function () {
+      setBeltCollapsed(true);
+    }, 5000);
+  }
+
   button.addEventListener('click', function () {
-    setMenu(nav.dataset.open !== 'true');
+    const opening = nav.dataset.open !== 'true';
+    setMenu(opening);
+    if (opening) clearAutoHide();
+    else scheduleAutoHide();
   });
 
   nav.addEventListener('click', function (event) {
-    if (event.target.closest('a')) setMenu(false);
-  });
-
-  document.addEventListener('click', function (event) {
-    if (!event.target.closest('.mayhub-belt')) setMenu(false);
-  });
-
-  document.addEventListener('keydown', function (event) {
-    if (event.key === 'Escape') {
+    if (event.target.closest('a')) {
       setMenu(false);
-      button.focus();
+      scheduleAutoHide();
     }
   });
 
-  window.addEventListener('resize', function () {
-    if (window.innerWidth > 1120) setMenu(false);
+  document.addEventListener('click', function (event) {
+    if (!event.target.closest('.mayhub-belt')) {
+      setMenu(false);
+      scheduleAutoHide();
+    }
   });
+
+  document.addEventListener('keydown', function (event) {
+    if (event.key !== 'Escape') return;
+    if (document.body.classList.contains('presentation-focus')) {
+      exitFullscreen();
+      return;
+    }
+    setMenu(false);
+    scheduleAutoHide();
+  });
+
+  restoreButton.addEventListener('click', function () {
+    setBeltCollapsed(false);
+    scheduleAutoHide();
+  });
+
+  belt.addEventListener('pointerdown', clearAutoHide);
+  belt.addEventListener('focusin', clearAutoHide);
+  belt.addEventListener('focusout', scheduleAutoHide);
+
+  function enterFocusMode() {
+    document.body.classList.add('presentation-focus');
+    setBeltCollapsed(true);
+    clearAutoHide();
+  }
+
+  function enterFullscreen() {
+    setMenu(false);
+    clearAutoHide();
+    const requestFullscreen = presentationStage.requestFullscreen || presentationStage.webkitRequestFullscreen;
+    if (!requestFullscreen) {
+      enterFocusMode();
+      return;
+    }
+
+    try {
+      const result = requestFullscreen.call(presentationStage);
+      if (result && typeof result.catch === 'function') result.catch(enterFocusMode);
+    } catch (error) {
+      enterFocusMode();
+    }
+  }
+
+  function exitFullscreen() {
+    document.body.classList.remove('presentation-focus');
+    const exit = document.exitFullscreen || document.webkitExitFullscreen;
+    if (fullscreenElement() && exit) {
+      try {
+        const result = exit.call(document);
+        if (result && typeof result.finally === 'function') result.finally(scheduleAutoHide);
+      } catch (error) {
+        scheduleAutoHide();
+      }
+    } else {
+      setBeltCollapsed(false);
+      scheduleAutoHide();
+    }
+  }
+
+  fullscreenButton.addEventListener('click', enterFullscreen);
+  fullscreenExit.addEventListener('click', exitFullscreen);
+
+  function handleFullscreenChange() {
+    if (fullscreenElement()) {
+      clearAutoHide();
+      return;
+    }
+    document.body.classList.remove('presentation-focus');
+    setBeltCollapsed(false);
+    scheduleAutoHide();
+  }
+
+  document.addEventListener('fullscreenchange', handleFullscreenChange);
+  document.addEventListener('webkitfullscreenchange', handleFullscreenChange);
+
+  window.addEventListener('resize', function () {
+    setMenu(false);
+    if (!compactLayout.matches) setBeltCollapsed(false);
+    scheduleAutoHide();
+  });
+
+  window.addEventListener('orientationchange', function () {
+    setBeltCollapsed(false);
+    scheduleAutoHide();
+  });
+
+  scheduleAutoHide();
 })();
 </script>
 </body>
