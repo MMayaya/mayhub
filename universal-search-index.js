@@ -2610,8 +2610,8 @@ window.MAY_UNIVERSAL_SEARCH_INDEX = Object.freeze([
     "category": "Activities",
     "type": "Activities Page",
     "topic": "",
-    "description": "Interactive Grade 10 Geography Term 3 activities from May Learning Hub.",
-    "keywords": "Geography Grade 10 Term 3 Activities Page Interactive Grade 10 Geography Term 3 activities from May Learning Hub. Geography Activities Page Activities grade 10 term 3 Geography Term 3 Grade 10 Activities activities"
+    "description": "Grade 10 Geography Term 3 classroom activities from May Learning Hub.",
+    "keywords": "Geography Grade 10 Term 3 Activities Page Grade 10 Geography Term 3 classroom activities from May Learning Hub. Geography Activities Page Activities grade 10 term 3 Geography Term 3 Grade 10 Activities activities"
   },
   {
     "id": 202,
@@ -3689,8 +3689,8 @@ window.MAY_UNIVERSAL_SEARCH_INDEX = Object.freeze([
     "category": "Activities",
     "type": "Activities Page",
     "topic": "",
-    "description": "Geography · Grade 11 · Term 3 · Activities Page",
-    "keywords": "Geography Grade 11 Term 3 Activities Page Geography · Grade 11 · Term 3 · Activities Page Geography Activities Page Activities grade 11 term 3 Content in Progress Geography Term 3 Grade 11 Activities activities"
+    "description": "Grade 11 Geography Term 3 classroom activities from May Learning Hub.",
+    "keywords": "Geography Grade 11 Term 3 Activities Page Grade 11 Geography Term 3 classroom activities from May Learning Hub. Geography Activities Page Activities grade 11 term 3 Geography Term 3 Grade 11 Activities activities"
   },
   {
     "id": 285,
@@ -9566,7 +9566,7 @@ window.MAY_UNIVERSAL_SEARCH_INDEX = Object.freeze([
     "type": "Activities Page",
     "topic": "",
     "description": "Social Sciences · Grade 8 · Term 3 · Activities Page",
-    "keywords": "Social Sciences Grade 8 Term 3 Activities Page Social Sciences · Grade 8 · Term 3 · Activities Page Social Sciences Activities Page Activities grade 8 term 3 Content in Progress Social Sciences Term 3 Grade 8 Activities activities"
+    "keywords": "Social Sciences Grade 8 Term 3 Activities Page Social Sciences · Grade 8 · Term 3 · Activities Page Social Sciences Activities Page Activities grade 8 term 3 Social Sciences Term 3 Grade 8 Activities activities"
   },
   {
     "id": 737,
