@@ -4833,8 +4833,8 @@ window.MAY_UNIVERSAL_SEARCH_INDEX = Object.freeze([
     "category": "Notes",
     "type": "Presentation",
     "topic": "",
-    "description": "Geography · Grade 11 · Term 3 · Presentation",
-    "keywords": "Geography Grade 11 Term 3 Presentation Geography · Grade 11 · Term 3 · Presentation Geography Presentation Notes grade 11 term 3 Geography Term 3 Grade 11 Notes notes"
+    "description": "Explore the Grade 11 Geography Term 3 presentation, games, activities and development learning guides from May Learning Hub.",
+    "keywords": "Geography Grade 11 Term 3 Presentation Explore the Grade 11 Geography Term 3 presentation, games, activities and development learning guides from May Learning Hub. Geography Presentation Notes grade 11 term 3 Geography Term 3 Grade 11 Notes notes"
   },
   {
     "id": 373,

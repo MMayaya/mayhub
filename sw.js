@@ -1,8 +1,8 @@
-const CORE_CACHE_NAME = 'may-learning-core-v60-grade8-activities';
+const CORE_CACHE_NAME = 'may-learning-core-v61-presentation-belt-pilot';
 const RUNTIME_CACHE_NAME = 'may-learning-runtime-pages';
 const CERTIFICATE_DOWNLOAD_CACHE = 'may-learning-certificate-downloads';
 const CERTIFICATE_DOWNLOAD_PATH = '/certificate-download/';
-const SERVICE_WORKER_VERSION = '76-grade8-activities';
+const SERVICE_WORKER_VERSION = '77-presentation-belt-pilot';
 
 const CORE_ASSETS = [
   '/universal-search.css',
@@ -28,6 +28,10 @@ const CORE_ASSETS = [
   '/Sounds/Wheel.mp3',
   '/Sounds/MovingSnake.mp3',
   '/Sounds/SnakeBite.mp3',
+  '/Geography/Term-3/Grade-11/Notes/notes.html',
+  '/Geography/Term-3/Grade-11/Notes/data/presentation-player.html',
+  '/Geography/Term-3/Grade-11/Notes/data/browsersupport.js?C5F3A3C1',
+  '/Geography/Term-3/Grade-11/Notes/data/player.js?C5F3A3C1',
   '/Geography/Term-3/Grade-10/Games/Assessment%20Games/assessment-games.html',
   '/Geography/Term-3/Grade-10/Games/Assessment%20Games/GeoQuest/GeoQuest.html',
   '/Geography/Term-3/Grade-10/Games/Assessment%20Games/GeoQuest/geoquest.css',
