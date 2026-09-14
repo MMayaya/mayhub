@@ -1,4 +1,4 @@
-const CORE_CACHE_NAME = 'may-learning-core-v68-assessment-quest-cards';
+const CORE_CACHE_NAME = 'may-learning-core-v69-grade12-geography-september-exams';
 const RUNTIME_CACHE_NAME = 'may-learning-runtime-pages';
 const CERTIFICATE_DOWNLOAD_CACHE = 'may-learning-certificate-downloads';
 const CERTIFICATE_DOWNLOAD_PATH = '/certificate-download/';
