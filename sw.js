@@ -2,12 +2,16 @@ const CORE_CACHE_NAME = 'may-learning-core-v69-grade12-geography-september-exams
 const RUNTIME_CACHE_NAME = 'may-learning-runtime-pages';
 const CERTIFICATE_DOWNLOAD_CACHE = 'may-learning-certificate-downloads';
 const CERTIFICATE_DOWNLOAD_PATH = '/certificate-download/';
-const SERVICE_WORKER_VERSION = '84-assessment-quest-cards';
+const SERVICE_WORKER_VERSION = '86-home-website-and-app-sharing';
 
 const CORE_ASSETS = [
   '/universal-search.css',
   '/universal-search-index.js',
   '/universal-search.js',
+  '/mayhub-app-share.css',
+  '/mayhub-app-share.js',
+  '/mayhub-app-qr.png',
+  '/mayhub-website-qr.png',
   '/may-certificate-actions.js',
   '/may-certificate-history.js',
   '/certificate-preview.js',
@@ -104,6 +108,10 @@ const CORE_NETWORK_FIRST_PATHS = new Set([
   '/universal-search.css',
   '/universal-search-index.js',
   '/universal-search.js',
+  '/mayhub-app-share.css',
+  '/mayhub-app-share.js',
+  '/mayhub-app-qr.png',
+  '/mayhub-website-qr.png',
   '/sw.js'
 ]);
 
