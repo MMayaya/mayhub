@@ -7,125 +7,699 @@
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
-
   gtag('config', 'G-8GCWSKNDL7');
 </script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Explore the Grade 8 Social Sciences Term 4 presentation, games and activities from May Learning Hub.">
+<meta name="theme-color" content="#07356f">
+<link rel="canonical" href="https://maylearninghub.co.za/Social-Sciences/Term-4/Grade-8/Notes/notes.html">
+<title>Grade 8 Social Sciences Term 4 Presentation | May Learning Hub</title>
+<style>
+  :root {
+    --belt-height: 64px;
+    --belt-navy: #07356f;
+    --belt-navy-deep: #042854;
+    --belt-blue: #2f8cff;
+    --belt-text: #dceaff;
+  }
 
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Learning Hub | Coming Soon</title>
-    <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f0f4f8; color: #333; line-height: 1.6; display: flex; flex-direction: column; min-height: 100vh; }
-        
-        /* Navigation (Re-styled for Blood Red Theme) */
-        nav { background-color: #660000; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; }
-        .logo { color: #fff; font-size: 1.5rem; font-weight: bold; text-decoration: none; }
-        /* Very light crimson for contrast against dark red */
-        .nav-links a { color: #FFCCCC; text-decoration: none; margin-left: 1.5rem; font-weight: 500; transition: color 0.3s; }
-        .nav-links a:hover, .nav-links a.active { color: #fff; text-decoration: underline; }
-        
-        /* Footer (Re-styled for Blood Red Theme) */
-        footer { text-align: center; padding: 1rem; background-color: #660000; color: #fff; margin-top: auto; }
+  * { box-sizing: border-box; }
 
-        /* --- Coming Soon Layout --- */
-        /* This centers the card perfectly in the middle of the screen */
-        .container { flex: 1; display: flex; justify-content: center; align-items: center; padding: 2rem; }
-        
-        .coming-soon-card {
-            background: #fff;
-            border-radius: 8px;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
-            /* Top border now using Primary Crimson accent red */
-            border-top: 6px solid #DC143C; 
-            padding: 4rem 3rem;
-            max-width: 600px;
-            text-align: center;
-            opacity: 0;
-            animation: fadeInUp 0.8s ease-out forwards;
-        }
+  html, body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    overflow: hidden;
+  }
 
-        .icon {
-            font-size: 4rem;
-            margin-bottom: 1rem;
-            display: inline-block;
-            animation: float 3s ease-in-out infinite;
-        }
+  body {
+    display: flex;
+    flex-direction: column;
+    background: #dcdee0;
+    font-family: "Segoe UI", Arial, sans-serif;
+  }
 
-        .coming-soon-card h1 {
-            /* Headline using Deep Red */
-            color: #800000; 
-            font-size: 2.2rem;
-            margin-bottom: 1rem;
-        }
+  .mayhub-belt {
+    position: relative;
+    z-index: 1000;
+    flex: 0 0 var(--belt-height);
+    height: var(--belt-height);
+    display: flex;
+    align-items: center;
+    gap: 28px;
+    padding: 0 clamp(18px, 3vw, 42px);
+    color: white;
+    background: linear-gradient(105deg, var(--belt-navy-deep) 0%, var(--belt-navy) 58%, #08427f 100%);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+    box-shadow: 0 4px 18px rgba(2, 25, 55, 0.22);
+  }
 
-        .coming-soon-card p {
-            font-size: 1.1rem;
-            color: #555;
-            margin-bottom: 2rem;
-        }
+  .mayhub-brand {
+    flex: 0 0 auto;
+    color: #fff;
+    font-size: clamp(18px, 1.35vw, 23px);
+    font-weight: 750;
+    letter-spacing: -0.02em;
+    text-decoration: none;
+    white-space: nowrap;
+  }
 
-        /* Go Back Button (Re-styled for Blood Red Theme) */
-        .back-btn {
-            display: inline-block;
-            /* Default background using Deep Dark Red, matches nav-dark */
-            background-color: #660000; 
-            color: #fff;
-            text-decoration: none;
-            padding: 0.8rem 2rem;
-            border-radius: 30px;
-            font-weight: bold;
-            font-size: 1.1rem;
-            transition: all 0.3s ease;
-            /* Red shadow */
-            box-shadow: 0 4px 10px rgba(102,0,0,0.3); 
-        }
+  .mayhub-brand:focus-visible,
+  .mayhub-link:focus-visible,
+  .mayhub-menu-button:focus-visible,
+  .mayhub-fullscreen-button:focus-visible,
+  .belt-restore-button:focus-visible,
+  .fullscreen-control-toggle:focus-visible,
+  .fullscreen-menu-exit:focus-visible {
+    outline: 3px solid #8fc5ff;
+    outline-offset: 3px;
+  }
 
-        .back-btn:hover {
-            /* Hover background using Bright Crimson */
-            background-color: #DC143C; 
-            transform: translateY(-3px);
-            /* Stronger Crimson shadow for hover */
-            box-shadow: 0 6px 15px rgba(220,20,60,0.4); 
-        }
+  .mayhub-nav {
+    min-width: 0;
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 6px;
+  }
 
-        /* --- Animations (Unchanged) --- */
-        @keyframes fadeInUp {
-            0% { opacity: 0; transform: translateY(40px); }
-            100% { opacity: 1; transform: translateY(0); }
-        }
-        
-        /* A gentle floating animation for the emoji (Unchanged) */
-        @keyframes float {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
-            100% { transform: translateY(0px); }
-        }
-    </style>
+  .mayhub-link {
+    display: inline-flex;
+    align-items: center;
+    min-height: 40px;
+    padding: 0 13px;
+    border-radius: 8px;
+    color: var(--belt-text);
+    font-size: 14px;
+    font-weight: 650;
+    line-height: 1.2;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: color 160ms ease, background-color 160ms ease, transform 160ms ease;
+  }
+
+  .mayhub-link:hover {
+    color: #fff;
+    background: rgba(255, 255, 255, 0.1);
+    transform: translateY(-1px);
+  }
+
+  .mayhub-link.resource-link {
+    color: #fff;
+    background: rgba(47, 140, 255, 0.2);
+    border: 1px solid rgba(143, 197, 255, 0.28);
+  }
+
+  .mayhub-link.resource-link:hover {
+    background: var(--belt-blue);
+    border-color: var(--belt-blue);
+  }
+
+  .mayhub-divider {
+    width: 1px;
+    height: 26px;
+    margin: 0 4px;
+    background: rgba(255, 255, 255, 0.18);
+  }
+
+  .mayhub-menu-button {
+    display: none;
+    align-items: center;
+    gap: 8px;
+    min-height: 40px;
+    padding: 0 12px;
+    border: 1px solid rgba(255, 255, 255, 0.24);
+    border-radius: 8px;
+    color: #fff;
+    background: rgba(255, 255, 255, 0.09);
+    font: inherit;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+  }
+
+  .mayhub-header-actions {
+    flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .mayhub-fullscreen-button {
+    min-height: 40px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 0 13px;
+    border: 1px solid rgba(143, 197, 255, 0.38);
+    border-radius: 8px;
+    color: #fff;
+    background: rgba(47, 140, 255, 0.24);
+    font: inherit;
+    font-size: 14px;
+    font-weight: 700;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: background-color 160ms ease, transform 160ms ease;
+  }
+
+  .mayhub-fullscreen-button:hover {
+    background: var(--belt-blue);
+    transform: translateY(-1px);
+  }
+
+  .fullscreen-icon {
+    position: relative;
+    width: 16px;
+    height: 16px;
+    display: block;
+    border: 2px solid currentColor;
+    border-radius: 2px;
+  }
+
+  .fullscreen-icon::after {
+    content: "";
+    position: absolute;
+    inset: 3px;
+    border: 1px solid currentColor;
+    opacity: 0.72;
+  }
+
+  .fullscreen-label { display: none; }
+
+  .menu-lines,
+  .menu-lines::before,
+  .menu-lines::after {
+    width: 17px;
+    height: 2px;
+    display: block;
+    border-radius: 2px;
+    background: currentColor;
+  }
+
+  .menu-lines { position: relative; }
+  .menu-lines::before,
+  .menu-lines::after { content: ""; position: absolute; left: 0; }
+  .menu-lines::before { top: -5px; }
+  .menu-lines::after { top: 5px; }
+
+  .presentation-stage {
+    position: relative;
+    min-height: 0;
+    flex: 1 1 auto;
+    overflow: hidden;
+    background: #dcdee0;
+  }
+
+  .presentation-frame {
+    width: 100%;
+    height: 100%;
+    display: block;
+    border: 0;
+    background: #dcdee0;
+  }
+
+  .belt-restore-button {
+    position: fixed;
+    z-index: 1200;
+    top: 0;
+    left: 50%;
+    min-width: 104px;
+    min-height: 28px;
+    padding: 3px 14px 5px;
+    border: 0;
+    border-radius: 0 0 13px 13px;
+    color: #fff;
+    background: linear-gradient(105deg, var(--belt-navy-deep), #0a4c91);
+    box-shadow: 0 5px 16px rgba(2, 25, 55, 0.28);
+    font: inherit;
+    font-size: 12px;
+    font-weight: 750;
+    letter-spacing: 0.01em;
+    cursor: pointer;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transform: translate(-50%, -100%);
+    transition: opacity 220ms ease, transform 220ms ease, visibility 220ms ease;
+  }
+
+  .fullscreen-control {
+    position: absolute;
+    z-index: 12;
+    top: 0;
+    left: max(8px, env(safe-area-inset-left));
+    display: none;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .fullscreen-control-toggle {
+    width: 36px;
+    height: 27px;
+    display: grid;
+    place-items: center;
+    padding: 0;
+    border: 1px solid rgba(255, 255, 255, 0.36);
+    border-top: 0;
+    border-radius: 0 0 10px 10px;
+    color: #fff;
+    background: rgba(4, 40, 84, 0.88);
+    box-shadow: 0 4px 14px rgba(0, 16, 40, 0.24);
+    cursor: pointer;
+    opacity: 0.94;
+    transition: opacity 180ms ease, transform 180ms ease, background-color 180ms ease;
+  }
+
+  .fullscreen-control-toggle:hover,
+  .fullscreen-control-toggle:focus-visible,
+  .fullscreen-control[data-open="true"] .fullscreen-control-toggle {
+    opacity: 1;
+    background: rgba(7, 70, 134, 0.96);
+    transform: translateY(0);
+  }
+
+  .fullscreen-control[data-open="false"] .fullscreen-control-toggle {
+    opacity: 0.58;
+    transform: translateY(-8px);
+  }
+
+  .fullscreen-control-toggle svg {
+    width: 16px;
+    height: 16px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .fullscreen-control-menu {
+    margin-top: 5px;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transform: translateY(-7px) scale(0.97);
+    transition: opacity 170ms ease, transform 170ms ease, visibility 170ms ease;
+  }
+
+  .fullscreen-control[data-open="true"] .fullscreen-control-menu {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: translateY(0) scale(1);
+  }
+
+  .fullscreen-menu-exit {
+    min-height: 34px;
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 0 12px;
+    border: 1px solid rgba(255, 255, 255, 0.32);
+    border-radius: 9px;
+    color: #fff;
+    background: rgba(4, 40, 84, 0.94);
+    box-shadow: 0 6px 20px rgba(0, 16, 40, 0.26);
+    font: inherit;
+    font-size: 12px;
+    font-weight: 750;
+    white-space: nowrap;
+    cursor: pointer;
+  }
+
+  .fullscreen-menu-exit:hover {
+    background: #07509a;
+  }
+
+  .fullscreen-menu-exit svg {
+    width: 14px;
+    height: 14px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .presentation-stage:fullscreen,
+  .presentation-stage:-webkit-full-screen {
+    width: 100%;
+    height: 100%;
+    background: #000;
+  }
+
+  .presentation-stage:fullscreen .fullscreen-control,
+  .presentation-stage:-webkit-full-screen .fullscreen-control,
+  body.presentation-focus .fullscreen-control {
+    display: flex;
+  }
+
+  body.presentation-focus .mayhub-belt,
+  body.belt-collapsed .mayhub-belt {
+    flex-basis: 0;
+    height: 0;
+    min-height: 0;
+    overflow: hidden;
+    border-bottom-width: 0;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(-100%);
+  }
+
+  body.belt-collapsed:not(.presentation-focus) .belt-restore-button {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: translate(-50%, 0);
+  }
+
+  .mayhub-belt {
+    transition: height 260ms ease, flex-basis 260ms ease, opacity 200ms ease, transform 260ms ease;
+  }
+
+  @media (min-width: 1121px) {
+    .fullscreen-control {
+      left: auto;
+      right: max(8px, env(safe-area-inset-right));
+      align-items: flex-end;
+    }
+  }
+
+  @media (max-width: 1120px) {
+    :root { --belt-height: 58px; }
+
+    .mayhub-belt {
+      gap: 14px;
+      padding-inline: 16px;
+    }
+
+    .mayhub-header-actions { margin-left: auto; }
+
+    .mayhub-menu-button { display: inline-flex; }
+
+    .mayhub-nav {
+      position: absolute;
+      top: calc(100% + 8px);
+      right: 14px;
+      width: min(340px, calc(100vw - 28px));
+      max-height: calc(100vh - var(--belt-height) - 24px);
+      overflow-y: auto;
+      padding: 10px;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 4px;
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-radius: 12px;
+      background: rgba(4, 40, 84, 0.98);
+      box-shadow: 0 18px 42px rgba(0, 16, 40, 0.34);
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(-8px);
+      transition: opacity 160ms ease, transform 160ms ease, visibility 160ms ease;
+    }
+
+    .mayhub-nav[data-open="true"] {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+
+    .mayhub-link {
+      width: 100%;
+      justify-content: flex-start;
+      padding-inline: 14px;
+    }
+
+    .mayhub-divider {
+      width: 100%;
+      height: 1px;
+      margin: 5px 0;
+    }
+  }
+
+  @media (max-width: 420px) {
+    .mayhub-brand { font-size: 17px; }
+    .mayhub-menu-button { padding-inline: 10px; }
+    .mayhub-fullscreen-button { padding-inline: 10px; }
+
+    .menu-label { display: none; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .mayhub-link,
+    .mayhub-nav,
+    .mayhub-belt,
+    .belt-restore-button,
+    .fullscreen-control-toggle,
+    .fullscreen-control-menu { transition: none; }
+  }
+</style>
 </head>
 <body>
+<header class="mayhub-belt">
+  <a class="mayhub-brand" href="../../../../index.html" aria-label="May Learning Hub home">May Learning Hub</a>
+  <nav class="mayhub-nav" id="mayhubPresentationNav" aria-label="May Learning Hub presentation navigation" data-open="false">
+    <a class="mayhub-link" href="../../../../index.html">Home</a>
+    <a class="mayhub-link" href="../../../../about.html">About</a>
+    <a class="mayhub-link" href="../../../../suppdown.html">Support &amp; Downloads</a>
+    <span class="mayhub-divider" aria-hidden="true"></span>
+    <a class="mayhub-link resource-link" href="../Games/games.html">Games</a>
+    <a class="mayhub-link resource-link" href="../Activities/activities.html">Activities</a>
+  </nav>
+  <div class="mayhub-header-actions">
+    <button class="mayhub-fullscreen-button" id="presentationFullscreenButton" type="button" aria-label="View the presentation in full screen" title="View the presentation in full screen">
+      <span class="fullscreen-icon" aria-hidden="true"></span>
+      <span class="fullscreen-label">Full Screen</span>
+    </button>
+    <button class="mayhub-menu-button" id="mayhubMenuButton" type="button" aria-expanded="false" aria-controls="mayhubPresentationNav">
+      <span class="menu-label">Explore</span>
+      <span class="menu-lines" aria-hidden="true"></span>
+    </button>
+  </div>
+</header>
+<button class="belt-restore-button" id="beltRestoreButton" type="button" aria-label="Show May Learning Hub menu">Show menu</button>
+<main class="presentation-stage">
+  <div class="fullscreen-control" id="fullscreenControl" data-open="false">
+    <button class="fullscreen-control-toggle" id="fullscreenControlToggle" type="button" aria-expanded="false" aria-controls="fullscreenControlMenu" aria-label="Show full-screen controls" title="Full-screen controls">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 4v5H4M15 4v5h5M9 20v-5H4M15 20v-5h5"></path></svg>
+    </button>
+    <div class="fullscreen-control-menu" id="fullscreenControlMenu">
+      <button class="fullscreen-menu-exit" id="presentationFullscreenExit" type="button">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 4v5H4M15 4v5h5M9 20v-5H4M15 20v-5h5"></path></svg>
+        <span>Exit full screen</span>
+      </button>
+    </div>
+  </div>
+  <iframe
+    class="presentation-frame"
+    src="presentation-player.html"
+    title="Grade 8 Social Sciences Term 4 presentation player"
+    allow="autoplay; fullscreen"
+    allowfullscreen
+  ></iframe>
+</main>
+<script>
+(function () {
+  const button = document.getElementById('mayhubMenuButton');
+  const nav = document.getElementById('mayhubPresentationNav');
+  const belt = document.querySelector('.mayhub-belt');
+  const restoreButton = document.getElementById('beltRestoreButton');
+  const fullscreenButton = document.getElementById('presentationFullscreenButton');
+  const fullscreenControl = document.getElementById('fullscreenControl');
+  const fullscreenControlToggle = document.getElementById('fullscreenControlToggle');
+  const fullscreenExit = document.getElementById('presentationFullscreenExit');
+  const presentationStage = document.querySelector('.presentation-stage');
+  const compactLayout = window.matchMedia('(max-width: 1120px)');
+  let autoHideTimer = 0;
+  let fullscreenControlTimer = 0;
 
-    <nav>
-        <a href="https://mmayaya.github.io/MayHub/" class="logo">May Learning Hub</a>
-        <div class="nav-links">
-            <a href="https://mmayaya.github.io/MayHub/">Home</a>
-            <a href="https://mmayaya.github.io/MayHub/about.html">About</a>
-        </div>
-    </nav>
+  if (!button || !nav || !belt || !restoreButton || !fullscreenButton || !fullscreenControl || !fullscreenControlToggle || !fullscreenExit || !presentationStage) return;
 
-    <main class="container">
-        <div class="coming-soon-card">
-            <div class="icon">🛠️</div>
-            <h1>Content in Progress</h1>
-            <p>I am currently crafting these beautifully designed notes and interactive games to ensure they are perfectly CAPS-aligned and ready for your classroom.</p>
-            <p><strong>Check back soon!</strong></p>
-            <a href="https://mmayaya.github.io/MayHub/" class="back-btn">← Return to Home</a>
-        </div>
-    </main>
+  function fullscreenElement() {
+    return document.fullscreenElement || document.webkitFullscreenElement || null;
+  }
 
-    <footer>
-        <p>&copy; 2026 May Learning Hub. All rights reserved.</p>
-    </footer>
+  function isPresentationFullscreen() {
+    return Boolean(fullscreenElement() || document.body.classList.contains('presentation-focus'));
+  }
 
+  function clearAutoHide() {
+    window.clearTimeout(autoHideTimer);
+    autoHideTimer = 0;
+  }
+
+  function clearFullscreenControlTimer() {
+    window.clearTimeout(fullscreenControlTimer);
+    fullscreenControlTimer = 0;
+  }
+
+  function setMenu(open) {
+    nav.dataset.open = String(open);
+    button.setAttribute('aria-expanded', String(open));
+  }
+
+  function setFullscreenControl(open) {
+    fullscreenControl.dataset.open = String(open);
+    fullscreenControlToggle.setAttribute('aria-expanded', String(open));
+  }
+
+  function scheduleFullscreenControlCollapse() {
+    clearFullscreenControlTimer();
+    if (!isPresentationFullscreen()) return;
+    fullscreenControlTimer = window.setTimeout(function () {
+      setFullscreenControl(false);
+    }, 5000);
+  }
+
+  function revealFullscreenControl() {
+    setFullscreenControl(true);
+    scheduleFullscreenControlCollapse();
+  }
+
+  function setBeltCollapsed(collapsed) {
+    if (document.body.classList.contains('presentation-focus')) collapsed = true;
+    document.body.classList.toggle('belt-collapsed', collapsed);
+    belt.inert = collapsed;
+    if (collapsed) setMenu(false);
+  }
+
+  function scheduleAutoHide() {
+    clearAutoHide();
+    if (!compactLayout.matches || nav.dataset.open === 'true' || isPresentationFullscreen()) return;
+    autoHideTimer = window.setTimeout(function () {
+      setBeltCollapsed(true);
+    }, 5000);
+  }
+
+  button.addEventListener('click', function () {
+    const opening = nav.dataset.open !== 'true';
+    setMenu(opening);
+    if (opening) clearAutoHide();
+    else scheduleAutoHide();
+  });
+
+  nav.addEventListener('click', function (event) {
+    if (event.target.closest('a')) {
+      setMenu(false);
+      scheduleAutoHide();
+    }
+  });
+
+  document.addEventListener('click', function (event) {
+    if (!event.target.closest('.mayhub-belt')) {
+      setMenu(false);
+      scheduleAutoHide();
+    }
+    if (isPresentationFullscreen() && !event.target.closest('.fullscreen-control')) {
+      setFullscreenControl(false);
+      clearFullscreenControlTimer();
+    }
+  });
+
+  document.addEventListener('keydown', function (event) {
+    if (event.key !== 'Escape') return;
+    if (document.body.classList.contains('presentation-focus')) {
+      exitFullscreen();
+      return;
+    }
+    setMenu(false);
+    setFullscreenControl(false);
+    scheduleAutoHide();
+  });
+
+  restoreButton.addEventListener('click', function () {
+    setBeltCollapsed(false);
+    scheduleAutoHide();
+  });
+
+  belt.addEventListener('pointerdown', clearAutoHide);
+  belt.addEventListener('focusin', clearAutoHide);
+  belt.addEventListener('focusout', scheduleAutoHide);
+
+  fullscreenControlToggle.addEventListener('click', function () {
+    const opening = fullscreenControl.dataset.open !== 'true';
+    setFullscreenControl(opening);
+    if (opening) scheduleFullscreenControlCollapse();
+    else clearFullscreenControlTimer();
+  });
+
+  function enterFocusMode() {
+    document.body.classList.add('presentation-focus');
+    setBeltCollapsed(true);
+    clearAutoHide();
+    revealFullscreenControl();
+  }
+
+  function enterFullscreen() {
+    setMenu(false);
+    clearAutoHide();
+    const requestFullscreen = presentationStage.requestFullscreen || presentationStage.webkitRequestFullscreen;
+    if (!requestFullscreen) {
+      enterFocusMode();
+      return;
+    }
+
+    try {
+      const result = requestFullscreen.call(presentationStage);
+      if (result && typeof result.catch === 'function') result.catch(enterFocusMode);
+    } catch (error) {
+      enterFocusMode();
+    }
+  }
+
+  function exitFullscreen() {
+    clearFullscreenControlTimer();
+    setFullscreenControl(false);
+    document.body.classList.remove('presentation-focus');
+    const exit = document.exitFullscreen || document.webkitExitFullscreen;
+    if (fullscreenElement() && exit) {
+      try {
+        const result = exit.call(document);
+        if (result && typeof result.finally === 'function') result.finally(scheduleAutoHide);
+      } catch (error) {
+        scheduleAutoHide();
+      }
+    } else {
+      setBeltCollapsed(false);
+      scheduleAutoHide();
+    }
+  }
+
+  fullscreenButton.addEventListener('click', enterFullscreen);
+  fullscreenExit.addEventListener('click', exitFullscreen);
+
+  function handleFullscreenChange() {
+    if (fullscreenElement()) {
+      clearAutoHide();
+      revealFullscreenControl();
+      return;
+    }
+    clearFullscreenControlTimer();
+    setFullscreenControl(false);
+    document.body.classList.remove('presentation-focus');
+    setBeltCollapsed(false);
+    scheduleAutoHide();
+  }
+
+  document.addEventListener('fullscreenchange', handleFullscreenChange);
+  document.addEventListener('webkitfullscreenchange', handleFullscreenChange);
+
+  window.addEventListener('resize', function () {
+    setMenu(false);
+    if (!compactLayout.matches) setBeltCollapsed(false);
+    scheduleAutoHide();
+  });
+
+  window.addEventListener('orientationchange', function () {
+    setBeltCollapsed(false);
+    scheduleAutoHide();
+  });
+
+  scheduleAutoHide();
+})();
+</script>
 </body>
 </html>
