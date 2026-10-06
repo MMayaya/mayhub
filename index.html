@@ -349,8 +349,13 @@ text-align: center;
 .whats-new-grid {
 display: grid;
 grid-template-columns: 1fr;
+align-items: start;
 gap: 0.65rem;
 margin-top: 0.65rem;
+}
+
+@media (min-width: 780px) {
+.whats-new-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 
 .whats-new-details {
@@ -4275,9 +4280,49 @@ May Learning Hub provides a professional, CAPS-aligned educational experience sp
 
 <h2 class="section-title" id="whats-new-title">What&rsquo;s New</h2>
 
-<p class="section-subtitle">Fresh presentations for Grades 8 to 11.</p>
+<p class="section-subtitle">Fresh games and presentations for Grades 8 to 11.</p>
 
 <div class="whats-new-grid">
+
+<details class="whats-new-details" open>
+
+<summary>New Content Games</summary>
+
+<ul class="whats-new-list">
+
+<li>
+
+<a href="Social-Sciences/Term-4/Grade-8/Games/games.html" class="newest-item"><span>Grade 8 Social Sciences Term 4 Games</span><span class="new-badge">New</span></a>
+
+</li>
+
+<li>
+
+<a href="Social-Sciences/Term-4/Grade-9/Games/games.html" class="newest-item"><span>Grade 9 Social Sciences Term 4 Games</span><span class="new-badge">New</span></a>
+
+</li>
+
+<li>
+
+<a href="Geography/Term-4/Grade-10/Games/games.html" class="newest-item"><span>Grade 10 Geography Term 4 Games</span><span class="new-badge">New</span></a>
+
+</li>
+
+<li>
+
+<a href="Geography/Term-4/Grade-11/Games/games.html" class="newest-item"><span>Grade 11 Geography Term 4 Games</span><span class="new-badge">New</span></a>
+
+</li>
+
+<li>
+
+<a href="Life-Sciences/Term-3/Grade-11/Games/games.html" class="newest-item"><span>Grade 11 Life Sciences Term 3 Games</span><span class="new-badge">New</span></a>
+
+</li>
+
+</ul>
+
+</details>
 
 <details class="whats-new-details" open>
 
