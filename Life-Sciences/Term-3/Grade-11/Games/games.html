@@ -1,131 +1,186 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-8GCWSKNDL7"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-8GCWSKNDL7');
-</script>
-
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-8GCWSKNDL7"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-8GCWSKNDL7');
+    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Learning Hub | Coming Soon</title>
+    <meta name="description" content="Grade 11 Life Sciences Term 3 content games on gaseous exchange, human gas exchange, excretion, the urinary system, population size and interactions in the environment. Explore breathing, homeostasis, population ecology and human impacts through interactive games with learning certificates.">
+    <meta name="theme-color" content="#002b5e">
+    <link rel="canonical" href="https://www.maylearninghub.co.za/Life-Sciences/Term-3/Grade-11/Games/games.html">
+    <title>Grade 11 Life Sciences Term 3 Games | May Learning Hub</title>
     <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f0f4f8; color: #333; line-height: 1.6; display: flex; flex-direction: column; min-height: 100vh; }
-        
-        /* Navigation (Re-styled for Blood Red Theme) */
-        nav { background-color: #660000; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; }
-        .logo { color: #fff; font-size: 1.5rem; font-weight: bold; text-decoration: none; }
-        /* Very light crimson for contrast against dark red */
-        .nav-links a { color: #FFCCCC; text-decoration: none; margin-left: 1.5rem; font-weight: 500; transition: color 0.3s; }
-        .nav-links a:hover, .nav-links a.active { color: #fff; text-decoration: underline; }
-        
-        /* Footer (Re-styled for Blood Red Theme) */
-        footer { text-align: center; padding: 1rem; background-color: #660000; color: #fff; margin-top: auto; }
-
-        /* --- Coming Soon Layout --- */
-        /* This centers the card perfectly in the middle of the screen */
-        .container { flex: 1; display: flex; justify-content: center; align-items: center; padding: 2rem; }
-        
-        .coming-soon-card {
-            background: #fff;
-            border-radius: 8px;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
-            /* Top border now using Primary Crimson accent red */
-            border-top: 6px solid #DC143C; 
-            padding: 4rem 3rem;
-            max-width: 600px;
-            text-align: center;
-            opacity: 0;
-            animation: fadeInUp 0.8s ease-out forwards;
+        * { box-sizing: border-box; }
+        body { margin: 0; font-family: 'Segoe UI', Tahoma, sans-serif; color: #18304c; background: #f0f4f8; }
+        a:focus-visible { outline: 3px solid #4b92f2; outline-offset: 3px; }
+        nav { display: flex; justify-content: space-between; align-items: center; gap: 1rem; flex-wrap: wrap; padding: 1rem clamp(1rem, 4vw, 2.5rem); background: #002b5e; color: white; }
+        nav .brand { color: white; font-size: 1.4rem; font-weight: 750; text-decoration: none; }
+        nav .links { display: flex; gap: 1.2rem; flex-wrap: wrap; }
+        nav .links a { color: #d8e9ff; text-decoration: none; }
+        nav .links a:hover { color: white; text-decoration: underline; }
+        header { background: linear-gradient(135deg, #002b5e, #0061a9); color: white; padding: clamp(2.5rem, 6vw, 4.5rem) 1.25rem; text-align: center; }
+        header .eyebrow { display: inline-block; border: 1px solid #c9e5ff80; border-radius: 999px; padding: .35rem .85rem; font-size: .82rem; letter-spacing: .04em; text-transform: uppercase; }
+        h1 { margin: 1rem auto .6rem; font-size: clamp(2rem, 5vw, 3rem); line-height: 1.13; }
+        header p { max-width: 68ch; margin: 0 auto; color: #dfedff; line-height: 1.55; }
+        main { max-width: 1120px; margin: -1.4rem auto 3rem; padding: 0 1rem; position: relative; }
+        .topic-section { background: white; border-radius: 20px; padding: clamp(1.2rem, 3vw, 2rem); margin-bottom: 1.3rem; box-shadow: 0 14px 35px #0c2f591c; border: 1px solid #d8e5f2; scroll-margin-top: 1rem; }
+        .topic-nav { display: flex; flex-wrap: wrap; justify-content: center; gap: .65rem; background: white; border: 1px solid #d8e5f2; border-radius: 16px; padding: .85rem; margin-bottom: 1.2rem; box-shadow: 0 8px 22px #0c2f5914; }
+        .topic-nav a { padding: .55rem .9rem; border-radius: 999px; background: #e0efff; color: #004a90; text-decoration: none; font-weight: 700; font-size: .88rem; }
+        .topic-nav a:hover { background: #c7e2ff; }
+        .topic-heading { display: flex; align-items: center; gap: .9rem; margin-bottom: 1.2rem; }
+        .topic-icon { display: grid; place-items: center; width: 3.5rem; height: 3.5rem; flex: 0 0 auto; border-radius: 16px; background: #e8f3ff; font-size: 1.8rem; }
+        .topic-heading small { color: #60778e; font-weight: 750; letter-spacing: .06em; text-transform: uppercase; }
+        .topic-heading h2 { margin: .12rem 0 .2rem; font-size: clamp(1.2rem, 3vw, 1.55rem); color: #003d7a; }
+        .topic-heading p { margin: 0; line-height: 1.45; color: #53657a; }
+        .game-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .75rem; }
+        .game-link { display: flex; align-items: center; gap: .7rem; min-height: 4.2rem; padding: .85rem 1rem; border: 1px solid #c8dcf0; border-radius: 13px; background: linear-gradient(160deg, #f8fcff, #edf5ff); color: #004280; font-weight: 750; text-decoration: none; transition: transform .18s, box-shadow .18s, border-color .18s; }
+        .game-link:hover { transform: translateY(-2px); box-shadow: 0 8px 18px #003b7a1a; border-color: #6da9e4; }
+        .game-link .game-icon { font-size: 1.55rem; flex: 0 0 auto; }
+        .game-link .arrow { margin-left: auto; color: #2771b8; }
+        .support-links { margin-top: 1.4rem; display: flex; gap: .8rem; flex-wrap: wrap; }
+        .support-links a { color: #0057a6; font-weight: 600; text-decoration: none; padding: .7rem .9rem; border-radius: 9px; background: #e4eef9; }
+        .support-links a:hover { text-decoration: underline; }
+        footer { text-align: center; color: #6c7b8a; font-size: .88rem; padding: 1.5rem; }
+        @keyframes slideInDown { from { opacity: 0; transform: translateY(-30px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes slideInRight { from { opacity: 0; transform: translateX(50px); } to { opacity: 1; transform: translateX(0); } }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @media (prefers-reduced-motion: no-preference) {
+            html { scroll-behavior: smooth; }
+            nav { animation: slideInDown .6s ease-out backwards; }
+            header { overflow: hidden; }
+            header .eyebrow, header h1, header p { animation: slideInRight .8s ease-out .2s backwards; }
+            .topic-section { animation: fadeInUp .8s ease-out .3s backwards; }
+            .topic-nav { animation: fadeIn .7s ease-out .2s backwards; }
+            .game-link { animation: fadeIn .7s ease-out .45s backwards; }
+            .game-link:nth-child(2) { animation-delay: .5s; }
+            .game-link:nth-child(3) { animation-delay: .55s; }
+            .game-link:nth-child(4) { animation-delay: .6s; }
+            .game-link:nth-child(5) { animation-delay: .65s; }
+            .game-link:nth-child(6) { animation-delay: .7s; }
+            footer { animation: fadeIn 1s ease-out 1s backwards; }
         }
-
-        .icon {
-            font-size: 4rem;
-            margin-bottom: 1rem;
-            display: inline-block;
-            animation: float 3s ease-in-out infinite;
-        }
-
-        .coming-soon-card h1 {
-            /* Headline using Deep Red */
-            color: #800000; 
-            font-size: 2.2rem;
-            margin-bottom: 1rem;
-        }
-
-        .coming-soon-card p {
-            font-size: 1.1rem;
-            color: #555;
-            margin-bottom: 2rem;
-        }
-
-        /* Go Back Button (Re-styled for Blood Red Theme) */
-        .back-btn {
-            display: inline-block;
-            /* Default background using Deep Dark Red, matches nav-dark */
-            background-color: #660000; 
-            color: #fff;
-            text-decoration: none;
-            padding: 0.8rem 2rem;
-            border-radius: 30px;
-            font-weight: bold;
-            font-size: 1.1rem;
-            transition: all 0.3s ease;
-            /* Red shadow */
-            box-shadow: 0 4px 10px rgba(102,0,0,0.3); 
-        }
-
-        .back-btn:hover {
-            /* Hover background using Bright Crimson */
-            background-color: #DC143C; 
-            transform: translateY(-3px);
-            /* Stronger Crimson shadow for hover */
-            box-shadow: 0 6px 15px rgba(220,20,60,0.4); 
-        }
-
-        /* --- Animations (Unchanged) --- */
-        @keyframes fadeInUp {
-            0% { opacity: 0; transform: translateY(40px); }
-            100% { opacity: 1; transform: translateY(0); }
-        }
-        
-        /* A gentle floating animation for the emoji (Unchanged) */
-        @keyframes float {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
-            100% { transform: translateY(0px); }
-        }
+        @media (max-width: 760px) { .game-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+        @media (max-width: 480px) { .game-grid { grid-template-columns: 1fr; } .topic-heading { align-items: flex-start; } }
     </style>
 </head>
 <body>
-
     <nav>
-        <a href="https://mmayaya.github.io/MayHub/" class="logo">May Learning Hub</a>
-        <div class="nav-links">
-            <a href="https://mmayaya.github.io/MayHub/">Home</a>
-            <a href="https://mmayaya.github.io/MayHub/about.html">About</a>
+        <a class="brand" href="../../../../index.html">May Learning Hub</a>
+        <div class="links">
+            <a href="../../../../index.html">Home</a>
+            <a href="../Notes/notes.html">Presentation</a>
+            <a href="../../../../about.html">About</a>
         </div>
     </nav>
-
-    <main class="container">
-        <div class="coming-soon-card">
-            <div class="icon">🛠️</div>
-            <h1>Content in Progress</h1>
-            <p>I am currently crafting these beautifully designed notes and interactive games to ensure they are perfectly CAPS-aligned and ready for your classroom.</p>
-            <p><strong>Check back soon!</strong></p>
-            <a href="https://mmayaya.github.io/MayHub/" class="back-btn">← Return to Home</a>
+    <header>
+        <span class="eyebrow">Grade 11 · Life Sciences · Term 3</span>
+        <h1>Content Games</h1>
+        <p>Choose a challenge and explore Life Sciences. Complete an activity to earn your May Learning Hub certificate.</p>
+    </header>
+    <main>
+        <div class="topic-nav" aria-label="Jump to a Life Sciences topic">
+            <a href="#topic-1">Topic 1: Gaseous Exchange</a>
+            <a href="#topic-2">Topic 2: Human Gas Exchange</a>
+            <a href="#topic-3">Topic 3: Excretion</a>
+            <a href="#topic-4">Topic 4: Urinary System</a>
+            <a href="#topic-5">Topic 5: Population Size</a>
+            <a href="#topic-6">Topic 6: Interactions in the Environment</a>
+        </div>
+        <section class="topic-section" id="topic-1" aria-labelledby="topic-1-title">
+            <div class="topic-heading">
+                <span class="topic-icon" aria-hidden="true">🔬</span>
+                <div><small>Topic 1 · Respiration and Adaptations</small><h2 id="topic-1-title">Gaseous Exchange</h2><p>Respiration, breathing and diffusion, efficient exchange surfaces, and adaptations in plants and animals.</p></div>
+            </div>
+            <div class="game-grid">
+                <a class="game-link" href="1.%20Gaseous%20Exchange/spin1.html"><span class="game-icon" aria-hidden="true">🎡</span>Spin the Wheel<span class="arrow" aria-hidden="true">→</span></a>
+                <a class="game-link" href="1.%20Gaseous%20Exchange/jeopardy1.html"><span class="game-icon" aria-hidden="true">🧠</span>Jeopardy<span class="arrow" aria-hidden="true">→</span></a>
+                <a class="game-link" href="1.%20Gaseous%20Exchange/match1.html"><span class="game-icon" aria-hidden="true">🃏</span>Memory Match<span class="arrow" aria-hidden="true">→</span></a>
+                <a class="game-link" href="1.%20Gaseous%20Exchange/millionaire1.html"><span class="game-icon" aria-hidden="true">💰</span>Millionaire<span class="arrow" aria-hidden="true">→</span></a>
+                <a class="game-link" href="1.%20Gaseous%20Exchange/snake1.html"><span class="game-icon" aria-hidden="true">🐍</span>Snake<span class="arrow" aria-hidden="true">→</span></a>
+                <a class="game-link" href="1.%20Gaseous%20Exchange/drag1.html"><span class="game-icon" aria-hidden="true">🤝</span>Drag or Tap Match<span class="arrow" aria-hidden="true">→</span></a>
+            </div>
+        </section>
+        <section class="topic-section" id="topic-2" aria-labelledby="topic-2-title">
+            <div class="topic-heading">
+                <span class="topic-icon" aria-hidden="true">🫁</span>
+                <div><small>Topic 2 · Breathing and Respiratory Health</small><h2 id="topic-2-title">Human Gas Exchange</h2><p>The human breathing system, ventilation, gas transport, respiratory health, smoking and high-altitude adaptations.</p></div>
+            </div>
+            <div class="game-grid">
+                <a class="game-link" href="2.%20Human%20Gas%20Exchange/spin1.html"><span class="game-icon" aria-hidden="true">🎡</span>Spin the Wheel<span class="arrow" aria-hidden="true">→</span></a>
+                <a class="game-link" href="2.%20Human%20Gas%20Exchange/jeopardy1.html"><span class="game-icon" aria-hidden="true">🧠</span>Jeopardy<span class="arrow" aria-hidden="true">→</span></a>
+                <a class="game-link" href="2.%20Human%20Gas%20Exchange/match1.html"><span class="game-icon" aria-hidden="true">🃏</span>Memory Match<span class="arrow" aria-hidden="true">→</span></a>
+                <a class="game-link" href="2.%20Human%20Gas%20Exchange/millionaire1.html"><span class="game-icon" aria-hidden="true">💰</span>Millionaire<span class="arrow" aria-hidden="true">→</span></a>
+                <a class="game-link" href="2.%20Human%20Gas%20Exchange/snake1.html"><span class="game-icon" aria-hidden="true">🐍</span>Snake<span class="arrow" aria-hidden="true">→</span></a>
+                <a class="game-link" href="2.%20Human%20Gas%20Exchange/drag1.html"><span class="game-icon" aria-hidden="true">🤝</span>Drag or Tap Match<span class="arrow" aria-hidden="true">→</span></a>
+            </div>
+        </section>
+        <section class="topic-section" id="topic-3" aria-labelledby="topic-3-title">
+            <div class="topic-heading">
+                <span class="topic-icon" aria-hidden="true">💧</span>
+                <div><small>Topic 3 · Metabolic Waste Removal</small><h2 id="topic-3-title">Excretion</h2><p>Metabolic waste, why it must be removed, and the roles of the skin, lungs, kidneys and digestive elimination route.</p></div>
+            </div>
+            <div class="game-grid">
+                <a class="game-link" href="3.%20Excretion/spin1.html"><span class="game-icon" aria-hidden="true">🎡</span>Spin the Wheel<span class="arrow" aria-hidden="true">→</span></a>
+                <a class="game-link" href="3.%20Excretion/jeopardy1.html"><span class="game-icon" aria-hidden="true">🧠</span>Jeopardy<span class="arrow" aria-hidden="true">→</span></a>
+                <a class="game-link" href="3.%20Excretion/match1.html"><span class="game-icon" aria-hidden="true">🃏</span>Memory Match<span class="arrow" aria-hidden="true">→</span></a>
+                <a class="game-link" href="3.%20Excretion/millionaire1.html"><span class="game-icon" aria-hidden="true">💰</span>Millionaire<span class="arrow" aria-hidden="true">→</span></a>
+                <a class="game-link" href="3.%20Excretion/snake1.html"><span class="game-icon" aria-hidden="true">🐍</span>Snake<span class="arrow" aria-hidden="true">→</span></a>
+                <a class="game-link" href="3.%20Excretion/drag1.html"><span class="game-icon" aria-hidden="true">🤝</span>Drag or Tap Match<span class="arrow" aria-hidden="true">→</span></a>
+            </div>
+        </section>
+        <section class="topic-section" id="topic-4" aria-labelledby="topic-4-title">
+            <div class="topic-heading">
+                <span class="topic-icon" aria-hidden="true">🫘</span>
+                <div><small>Topic 4 · Kidneys and Homeostasis</small><h2 id="topic-4-title">Urinary System</h2><p>Kidney and nephron structure, urine formation, hormonal control of water and salts, and kidney health.</p></div>
+            </div>
+            <div class="game-grid">
+                <a class="game-link" href="4.%20Urinary%20System/spin1.html"><span class="game-icon" aria-hidden="true">🎡</span>Spin the Wheel<span class="arrow" aria-hidden="true">→</span></a>
+                <a class="game-link" href="4.%20Urinary%20System/jeopardy1.html"><span class="game-icon" aria-hidden="true">🧠</span>Jeopardy<span class="arrow" aria-hidden="true">→</span></a>
+                <a class="game-link" href="4.%20Urinary%20System/match1.html"><span class="game-icon" aria-hidden="true">🃏</span>Memory Match<span class="arrow" aria-hidden="true">→</span></a>
+                <a class="game-link" href="4.%20Urinary%20System/millionaire1.html"><span class="game-icon" aria-hidden="true">💰</span>Millionaire<span class="arrow" aria-hidden="true">→</span></a>
+                <a class="game-link" href="4.%20Urinary%20System/snake1.html"><span class="game-icon" aria-hidden="true">🐍</span>Snake<span class="arrow" aria-hidden="true">→</span></a>
+                <a class="game-link" href="4.%20Urinary%20System/drag1.html"><span class="game-icon" aria-hidden="true">🤝</span>Drag or Tap Match<span class="arrow" aria-hidden="true">→</span></a>
+            </div>
+        </section>
+        <section class="topic-section" id="topic-5" aria-labelledby="topic-5-title">
+            <div class="topic-heading">
+                <span class="topic-icon" aria-hidden="true">🦓</span>
+                <div><small>Topic 5 · Population Ecology</small><h2 id="topic-5-title">Population Size</h2><p>Births, deaths and movement, carrying capacity, environmental resistance, limiting factors and population-growth curves.</p></div>
+            </div>
+            <div class="game-grid">
+                <a class="game-link" href="5.%20Population%20Size/spin1.html"><span class="game-icon" aria-hidden="true">🎡</span>Spin the Wheel<span class="arrow" aria-hidden="true">→</span></a>
+                <a class="game-link" href="5.%20Population%20Size/jeopardy1.html"><span class="game-icon" aria-hidden="true">🧠</span>Jeopardy<span class="arrow" aria-hidden="true">→</span></a>
+                <a class="game-link" href="5.%20Population%20Size/match1.html"><span class="game-icon" aria-hidden="true">🃏</span>Memory Match<span class="arrow" aria-hidden="true">→</span></a>
+                <a class="game-link" href="5.%20Population%20Size/millionaire1.html"><span class="game-icon" aria-hidden="true">💰</span>Millionaire<span class="arrow" aria-hidden="true">→</span></a>
+                <a class="game-link" href="5.%20Population%20Size/snake1.html"><span class="game-icon" aria-hidden="true">🐍</span>Snake<span class="arrow" aria-hidden="true">→</span></a>
+                <a class="game-link" href="5.%20Population%20Size/drag1.html"><span class="game-icon" aria-hidden="true">🤝</span>Drag or Tap Match<span class="arrow" aria-hidden="true">→</span></a>
+            </div>
+        </section>
+        <section class="topic-section" id="topic-6" aria-labelledby="topic-6-title">
+            <div class="topic-heading">
+                <span class="topic-icon" aria-hidden="true">🌿</span>
+                <div><small>Topic 6 · Ecology and Human Impacts</small><h2 id="topic-6-title">Interactions in the Environment</h2><p>Predation, competition, resource partitioning and symbiosis, human populations, climate, water, food security and conservation.</p></div>
+            </div>
+            <div class="game-grid">
+                <a class="game-link" href="6.%20Interactions%20in%20the%20Environment/spin1.html"><span class="game-icon" aria-hidden="true">🎡</span>Spin the Wheel<span class="arrow" aria-hidden="true">→</span></a>
+                <a class="game-link" href="6.%20Interactions%20in%20the%20Environment/jeopardy1.html"><span class="game-icon" aria-hidden="true">🧠</span>Jeopardy<span class="arrow" aria-hidden="true">→</span></a>
+                <a class="game-link" href="6.%20Interactions%20in%20the%20Environment/match1.html"><span class="game-icon" aria-hidden="true">🃏</span>Memory Match<span class="arrow" aria-hidden="true">→</span></a>
+                <a class="game-link" href="6.%20Interactions%20in%20the%20Environment/millionaire1.html"><span class="game-icon" aria-hidden="true">💰</span>Millionaire<span class="arrow" aria-hidden="true">→</span></a>
+                <a class="game-link" href="6.%20Interactions%20in%20the%20Environment/snake1.html"><span class="game-icon" aria-hidden="true">🐍</span>Snake<span class="arrow" aria-hidden="true">→</span></a>
+                <a class="game-link" href="6.%20Interactions%20in%20the%20Environment/drag1.html"><span class="game-icon" aria-hidden="true">🤝</span>Drag or Tap Match<span class="arrow" aria-hidden="true">→</span></a>
+            </div>
+        </section>
+        <div class="support-links">
+            <a href="../Notes/notes.html">View the presentation</a>
         </div>
     </main>
-
-    <footer>
-        <p>&copy; 2026 May Learning Hub. All rights reserved.</p>
-    </footer>
-
+    <footer>© May Learning Hub</footer>
 </body>
 </html>

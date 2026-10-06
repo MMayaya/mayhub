@@ -2,7 +2,7 @@ const CORE_CACHE_NAME = 'may-learning-core-v69-grade12-geography-september-exams
 const RUNTIME_CACHE_NAME = 'may-learning-runtime-pages';
 const CERTIFICATE_DOWNLOAD_CACHE = 'may-learning-certificate-downloads';
 const CERTIFICATE_DOWNLOAD_PATH = '/certificate-download/';
-const SERVICE_WORKER_VERSION = '103-grade10-term4-topic4-games';
+const SERVICE_WORKER_VERSION = '113-grade11-life-term3-topic6-games';
 
 const CORE_ASSETS = [
   '/universal-search.css',
@@ -33,6 +33,16 @@ const CORE_ASSETS = [
   '/Geography/Term-4/Grade-10/Games/2.%20Providing%20Free%20Basic%20Water/free-basic-water-data.js',
   '/Geography/Term-4/Grade-10/Games/3.%20Floods/floods-data.js',
   '/Geography/Term-4/Grade-10/Games/4.%20Flood%20Management/flood-management-data.js',
+  '/Geography/Term-4/Grade-11/Games/1.%20Soil%20Erosion/soil-erosion-data.js',
+  '/Geography/Term-4/Grade-11/Games/2.%20Conventional%20Energy%20Sources/conventional-energy-data.js',
+  '/Geography/Term-4/Grade-11/Games/3.%20Non-Conventional%20Energy%20Sources/non-conventional-energy-data.js',
+  '/Geography/Term-4/Grade-11/Games/4.%20Energy%20Management%20in%20South%20Africa/energy-management-data.js',
+  '/Life-Sciences/Term-3/Grade-11/Games/1.%20Gaseous%20Exchange/gaseous-exchange-data.js',
+  '/Life-Sciences/Term-3/Grade-11/Games/2.%20Human%20Gas%20Exchange/human-gas-exchange-data.js',
+  '/Life-Sciences/Term-3/Grade-11/Games/3.%20Excretion/excretion-data.js',
+  '/Life-Sciences/Term-3/Grade-11/Games/4.%20Urinary%20System/urinary-system-data.js',
+  '/Life-Sciences/Term-3/Grade-11/Games/5.%20Population%20Size/population-size-data.js',
+  '/Life-Sciences/Term-3/Grade-11/Games/6.%20Interactions%20in%20the%20Environment/environmental-interactions-data.js',
   '/certificate-history.html',
   '/profile-dashboard.html',
   '/profile-dashboard.js',
@@ -134,6 +144,16 @@ const CORE_NETWORK_FIRST_PATHS = new Set([
   '/Geography/Term-4/Grade-10/Games/2.%20Providing%20Free%20Basic%20Water/free-basic-water-data.js',
   '/Geography/Term-4/Grade-10/Games/3.%20Floods/floods-data.js',
   '/Geography/Term-4/Grade-10/Games/4.%20Flood%20Management/flood-management-data.js',
+  '/Geography/Term-4/Grade-11/Games/1.%20Soil%20Erosion/soil-erosion-data.js',
+  '/Geography/Term-4/Grade-11/Games/2.%20Conventional%20Energy%20Sources/conventional-energy-data.js',
+  '/Geography/Term-4/Grade-11/Games/3.%20Non-Conventional%20Energy%20Sources/non-conventional-energy-data.js',
+  '/Geography/Term-4/Grade-11/Games/4.%20Energy%20Management%20in%20South%20Africa/energy-management-data.js',
+  '/Life-Sciences/Term-3/Grade-11/Games/1.%20Gaseous%20Exchange/gaseous-exchange-data.js',
+  '/Life-Sciences/Term-3/Grade-11/Games/2.%20Human%20Gas%20Exchange/human-gas-exchange-data.js',
+  '/Life-Sciences/Term-3/Grade-11/Games/3.%20Excretion/excretion-data.js',
+  '/Life-Sciences/Term-3/Grade-11/Games/4.%20Urinary%20System/urinary-system-data.js',
+  '/Life-Sciences/Term-3/Grade-11/Games/5.%20Population%20Size/population-size-data.js',
+  '/Life-Sciences/Term-3/Grade-11/Games/6.%20Interactions%20in%20the%20Environment/environmental-interactions-data.js',
   '/may-certificate-history.js',
   '/certificate-history-page.js',
   '/game-audio.js',
