@@ -15,7 +15,7 @@ window.MAY_UNIVERSAL_SEARCH_INDEX = Object.freeze([
   },
   {
     "id": 2,
-    "title": "Collaboration Hub",
+    "title": "Mathematics Hub",
     "href": "Collab-Hub.html",
     "subject": "May Learning Hub",
     "grade": null,
@@ -23,8 +23,8 @@ window.MAY_UNIVERSAL_SEARCH_INDEX = Object.freeze([
     "category": "Pages",
     "type": "Page",
     "topic": "",
-    "description": "Collaboration Hub features shared educational resources from guest educators, including Mathematics revision material for May Learning Hub.",
-    "keywords": "Collaboration Hub Collaboration Hub features shared educational resources from guest educators, including Mathematics revision material for May Learning Hub. May Learning Hub Page Pages Collaboration Hub Shared Educational Resources What’s New Mathematics Corner Mathematics Other Subjects Are you an educator? May Learning Hub Collab Hub"
+    "description": "Explore Maths games, presentations and revision questions by grade and exam paper. The Mathematics Hub is the collaboration wing of May Learning Hub, featuring resources shared by educators.",
+    "keywords": "Mathematics Hub Explore Maths games, presentations and revision questions by grade and exam paper. The Mathematics Hub is the collaboration wing of May Learning Hub, featuring resources shared by educators. May Learning Hub Page Pages Mathematics Hub Your Mathematics Learning Space What’s New Browse Mathematics Resources Mathematics Make Your Practice Count Share Your Mathematics Resources May Learning Hub Collab Hub"
   },
   {
     "id": 3,

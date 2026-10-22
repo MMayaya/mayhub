@@ -2,7 +2,7 @@ const CORE_CACHE_NAME = 'may-learning-core-v69-grade12-geography-september-exams
 const RUNTIME_CACHE_NAME = 'may-learning-runtime-pages';
 const CERTIFICATE_DOWNLOAD_CACHE = 'may-learning-certificate-downloads';
 const CERTIFICATE_DOWNLOAD_PATH = '/certificate-download/';
-const SERVICE_WORKER_VERSION = '119-collab-new-grade10-games';
+const SERVICE_WORKER_VERSION = '120-mathematics-hub-branding';
 
 const CORE_ASSETS = [
   '/universal-search.css',

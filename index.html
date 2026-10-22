@@ -606,15 +606,22 @@ color: #002b5e;
 
 
 
+.toggle-option { display: flex; flex-direction: column; justify-content: center; min-width: 0; min-height: 58px; }
+.toggle-option .hub-name-short { display: none; }
+@media (max-width: 640px) {
+    .toggle-option .hub-name-full { display: none; }
+    .toggle-option .hub-name-short { display: inline; }
+}
+
 .toggle-option .hub-alias {
 
 
 
-font-size: 0.72em;
+font-size: 0.67em;
 
 
 
-font-weight: 600;
+font-weight: 500;
 
 
 
@@ -4214,7 +4221,7 @@ Explore CAPS-aligned presentations, educational games, and classroom activities 
 
 
 
-<a href="Collab-Hub.html" class="toggle-option">Maths Hub <span class="hub-alias">(Collab Hub)</span></a>
+<a href="Collab-Hub.html" class="toggle-option" aria-label="Mathematics Hub, May Learning Hub's collaboration wing"><span class="hub-name-full">Mathematics Hub</span><span class="hub-name-short" aria-hidden="true">Maths Hub</span><span class="hub-alias">Collaboration wing</span></a>
 
 
 
