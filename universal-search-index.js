@@ -24,7 +24,7 @@ window.MAY_UNIVERSAL_SEARCH_INDEX = Object.freeze([
     "type": "Page",
     "topic": "",
     "description": "Collaboration Hub features shared educational resources from guest educators, including Mathematics revision material for May Learning Hub.",
-    "keywords": "Collaboration Hub Collaboration Hub features shared educational resources from guest educators, including Mathematics revision material for May Learning Hub. May Learning Hub Page Pages Collaboration Hub Shared Educational Resources Mathematics Corner Mathematics Other Subjects Are you an educator? May Learning Hub Collab Hub"
+    "keywords": "Collaboration Hub Collaboration Hub features shared educational resources from guest educators, including Mathematics revision material for May Learning Hub. May Learning Hub Page Pages Collaboration Hub Shared Educational Resources What’s New Mathematics Corner Mathematics Other Subjects Are you an educator? May Learning Hub Collab Hub"
   },
   {
     "id": 3,

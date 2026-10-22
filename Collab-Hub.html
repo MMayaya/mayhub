@@ -210,6 +210,67 @@
             animation: fadeInUp 0.8s ease-out 0.3s forwards;
         }
 
+        .whats-new-panel {
+            position: relative;
+            overflow: hidden;
+            color: #fff;
+            background: radial-gradient(circle at 92% 0%, rgba(255, 232, 235, 0.42), transparent 31%),
+                linear-gradient(135deg, #b00018 0%, #e3062c 52%, #ff2347 100%);
+            border: 1px solid #ffd3d8;
+            border-left: 5px solid #ffc7ce;
+            border-radius: 22px;
+            box-shadow: 0 10px 26px rgba(91, 0, 14, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+            padding: 0.9rem 1.15rem 1rem;
+            margin-bottom: 1.5rem;
+        }
+        .whats-new-panel .section-title { color: #fff; font-size: clamp(1.45rem, 3vw, 1.85rem); margin-bottom: 0.1rem; }
+        .whats-new-panel .section-subtitle { color: #fff; font-size: 0.92rem; margin: 0; }
+        .whats-new-grid { display: grid; gap: 0.65rem; margin-top: 0.65rem; align-items: start; }
+        .whats-new-details {
+            min-width: 0;
+            padding: 0.62rem 0.75rem;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            border-radius: 14px;
+            background: rgba(50, 0, 7, 0.22);
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2);
+        }
+        .whats-new-details[open] { background: rgba(255, 255, 255, 0.13); }
+        .whats-new-details > summary { color: #fff; font-size: 1.05rem; padding: 0.18rem 0; }
+        .whats-new-details > summary::before { color: #fff; }
+        .whats-new-list { list-style: none; display: grid; gap: 0.42rem; margin-top: 0.45rem; }
+        .whats-new-list a {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 0.6rem;
+            color: #451019;
+            background: linear-gradient(135deg, #fff, #fff0f2);
+            border: 1px solid #ffe1e5;
+            border-left: 4px solid #d30f2e;
+            border-radius: 9px;
+            padding: 0.54rem 0.74rem;
+            font-size: 0.94rem;
+            font-weight: 650;
+            line-height: 1.35;
+            text-decoration: none;
+            box-shadow: 0 4px 12px rgba(69, 0, 10, 0.18);
+            transition: background-color 0.2s, box-shadow 0.2s;
+        }
+        .whats-new-list a:hover { background: #fff; box-shadow: 0 0 15px rgba(255, 219, 224, 0.58); }
+        .whats-new-list a:focus-visible { outline: 3px solid #fff; outline-offset: 2px; }
+        .new-badge {
+            flex: 0 0 auto;
+            color: #fff;
+            background: linear-gradient(135deg, #ff2347, #d40020);
+            border-radius: 999px;
+            padding: 0.18rem 0.58rem;
+            font-size: 0.7rem;
+            font-weight: 850;
+        }
+        @media (min-width: 780px) {
+            .whats-new-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+        }
+
         .subjects-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -329,7 +390,9 @@
             padding-bottom: 0.35rem;
             margin: 0.95rem 0 0.45rem;
             border-bottom: 1px solid #e2e8f0;
+            scroll-margin-top: 7rem;
         }
+        .paper-topic-title:target { background: var(--paper-tint); color: var(--paper-ink); }
         .paper-section .content-links { margin-top: 0; }
         .paper-section .content-links a {
             color: var(--paper-ink);
@@ -433,6 +496,30 @@
             </p>
         </section>
 
+        <section class="whats-new-panel" id="whats-new" aria-labelledby="whats-new-title">
+            <h2 class="section-title" id="whats-new-title">What&rsquo;s New</h2>
+            <p class="section-subtitle">New Grade 12 Mathematics revision questions.</p>
+            <div class="whats-new-grid">
+                <details class="whats-new-details" open>
+                    <summary>Paper 1</summary>
+                    <ul class="whats-new-list">
+                        <li><a href="#maths-calculus"><span>Calculus</span><span class="new-badge">New</span></a></li>
+                        <li><a href="#maths-probability"><span>Probability</span><span class="new-badge">New</span></a></li>
+                        <li><a href="#maths-functions-inverses"><span>Functions and Inverses</span><span class="new-badge">New</span></a></li>
+                    </ul>
+                </details>
+                <details class="whats-new-details" open>
+                    <summary>Paper 2</summary>
+                    <ul class="whats-new-list">
+                        <li><a href="#maths-analytical-geometry"><span>Analytical Geometry</span><span class="new-badge">New</span></a></li>
+                        <li><a href="#maths-euclidean-geometry"><span>Euclidean Geometry</span><span class="new-badge">New</span></a></li>
+                        <li><a href="#maths-statistics"><span>Statistics</span><span class="new-badge">New</span></a></li>
+                        <li><a href="#maths-trigonometry"><span>Trigonometry</span><span class="new-badge">New</span></a></li>
+                    </ul>
+                </details>
+            </div>
+        </section>
+
         <section id="subjects">
             <h2 class="section-title">Mathematics Corner</h2>
             <p style="margin-bottom: 2rem; color: #555;">Browse through expert-shared Mathematics content.</p>
@@ -473,15 +560,15 @@
                                             <li><a href="Collaboration Hub/Maths/Grade 12/Sequences and Series/games.html" class="icon-games">Games</a></li>
                                             <li><a href="Collaboration Hub/Maths/Grade 12/Sequences and Series/RevisionQ/MLHSequences%26Series.pdf" class="icon-pdf">Revision Questions</a></li>
                                         </ul>
-                                        <h4 class="paper-topic-title">Calculus</h4>
+                                        <h4 class="paper-topic-title" id="maths-calculus" tabindex="-1">Calculus</h4>
                                         <ul class="content-links">
                                             <li><a href="Collaboration Hub/Maths/Grade 12/Calculus/RevisionQ/MLHCalculus.pdf" class="icon-pdf">Revision Questions</a></li>
                                         </ul>
-                                        <h4 class="paper-topic-title">Probability</h4>
+                                        <h4 class="paper-topic-title" id="maths-probability" tabindex="-1">Probability</h4>
                                         <ul class="content-links">
                                             <li><a href="Collaboration Hub/Maths/Grade 12/Probability/RevisionQ/MLHProbability.pdf" class="icon-pdf">Revision Questions</a></li>
                                         </ul>
-                                        <h4 class="paper-topic-title">Functions and Inverses</h4>
+                                        <h4 class="paper-topic-title" id="maths-functions-inverses" tabindex="-1">Functions and Inverses</h4>
                                         <ul class="content-links">
                                             <li><a href="Collaboration Hub/Maths/Grade 12/Functions and Inverses/RevisionQ/MLHFunctionsAndInverses.pdf" class="icon-pdf">Revision Questions</a></li>
                                         </ul>
@@ -494,19 +581,19 @@
                                         <span class="paper-toggle" aria-hidden="true"></span>
                                     </summary>
                                     <div class="paper-content">
-                                        <h4 class="paper-topic-title">Analytical Geometry</h4>
+                                        <h4 class="paper-topic-title" id="maths-analytical-geometry" tabindex="-1">Analytical Geometry</h4>
                                         <ul class="content-links">
                                             <li><a href="Collaboration Hub/Maths/Grade 12/Analytical Geometry/RevisionQ/MLHAnalyticalGeometry.pdf" class="icon-pdf">Revision Questions</a></li>
                                         </ul>
-                                        <h4 class="paper-topic-title">Euclidean Geometry</h4>
+                                        <h4 class="paper-topic-title" id="maths-euclidean-geometry" tabindex="-1">Euclidean Geometry</h4>
                                         <ul class="content-links">
                                             <li><a href="Collaboration Hub/Maths/Grade 12/Euclidean Geometry/RevisionQ/MLHEuclideanGeometry.pdf" class="icon-pdf">Revision Questions</a></li>
                                         </ul>
-                                        <h4 class="paper-topic-title">Statistics</h4>
+                                        <h4 class="paper-topic-title" id="maths-statistics" tabindex="-1">Statistics</h4>
                                         <ul class="content-links">
                                             <li><a href="Collaboration Hub/Maths/Grade 12/Statistics/RevisionQ/MLHStatistics.pdf" class="icon-pdf">Revision Questions</a></li>
                                         </ul>
-                                        <h4 class="paper-topic-title">Trigonometry</h4>
+                                        <h4 class="paper-topic-title" id="maths-trigonometry" tabindex="-1">Trigonometry</h4>
                                         <ul class="content-links">
                                             <li><a href="Collaboration Hub/Maths/Grade 12/Trigonometry/RevisionQ/MLHTrigonometry.pdf" class="icon-pdf">Revision Questions</a></li>
                                         </ul>
@@ -563,6 +650,29 @@
                 navToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
             });
         }
+
+        function revealRevisionTopic() {
+            let topicId;
+            try { topicId = decodeURIComponent(window.location.hash.slice(1)); }
+            catch { return; }
+            const topic = document.getElementById(topicId);
+            if (!topic || !topic.matches('.paper-topic-title')) return;
+
+            for (let parent = topic.parentElement; parent; parent = parent.parentElement) {
+                if (parent.tagName === 'DETAILS') parent.open = true;
+            }
+            requestAnimationFrame(() => {
+                topic.focus({ preventScroll: true });
+                topic.scrollIntoView({ block: 'start' });
+            });
+        }
+
+        window.addEventListener('hashchange', revealRevisionTopic);
+        document.querySelector('.whats-new-panel').addEventListener('click', event => {
+            const link = event.target.closest('a[href^="#maths-"]');
+            if (link && link.hash === window.location.hash) revealRevisionTopic();
+        });
+        revealRevisionTopic();
     </script>
 </body>
 </html>
