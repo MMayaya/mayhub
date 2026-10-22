@@ -248,7 +248,98 @@
         details { padding: 1rem; border-bottom: 1px solid #eee; }
         summary { font-weight: bold; font-size: 1.15rem; color: #00509e; cursor: pointer; list-style: none; }
         summary::before { content: "▶ "; color: #3385ff; display: inline-block; transition: transform 0.2s; }
-        details[open] summary::before { transform: rotate(90deg); }
+        details[open] > summary::before { transform: rotate(90deg); }
+
+        .paper-list { display: grid; gap: 0.9rem; padding: 1rem 0.25rem 0.25rem; }
+        .paper-section {
+            --paper-accent: #0f766e;
+            --paper-ink: #115e59;
+            --paper-tint: #f0fdfa;
+            --paper-border: #b5e4dc;
+            padding: 0;
+            border: 1px solid var(--paper-border);
+            border-left: 4px solid var(--paper-accent);
+            border-radius: 14px;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(15, 23, 42, 0.04);
+        }
+        .paper-section.paper-two {
+            --paper-accent: #6d28d9;
+            --paper-ink: #5b21b6;
+            --paper-tint: #f5f3ff;
+            --paper-border: #ddd6fe;
+        }
+        .paper-section > summary {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            min-height: 76px;
+            padding: 0.9rem;
+            color: var(--paper-ink);
+            background: linear-gradient(110deg, var(--paper-tint), #fff);
+            transition: background-color 0.2s;
+        }
+        .paper-section > summary::before { content: none; }
+        .paper-section > summary::-webkit-details-marker { display: none; }
+        .paper-section > summary:hover { background: var(--paper-tint); }
+        .paper-section > summary:focus-visible {
+            outline: 3px solid var(--paper-accent);
+            outline-offset: -4px;
+            border-radius: 10px;
+        }
+        .paper-badge {
+            display: grid;
+            place-items: center;
+            flex: 0 0 42px;
+            height: 42px;
+            border-radius: 12px;
+            background: var(--paper-accent);
+            color: #fff;
+            font-size: 1rem;
+            letter-spacing: 0.03em;
+        }
+        .paper-label { flex: 1; min-width: 0; }
+        .paper-label strong { display: block; font-size: 1.05rem; }
+        .paper-label small { display: block; font-size: 0.8rem; font-weight: 500; }
+        .paper-toggle {
+            position: relative;
+            flex: 0 0 30px;
+            height: 30px;
+            border: 1px solid var(--paper-border);
+            border-radius: 50%;
+            background: #fff;
+        }
+        .paper-toggle::before, .paper-toggle::after {
+            content: "";
+            position: absolute;
+            top: 13px;
+            left: 8px;
+            width: 12px;
+            height: 2px;
+            border-radius: 2px;
+            background: var(--paper-accent);
+            transition: transform 0.2s, opacity 0.2s;
+        }
+        .paper-toggle::after { transform: rotate(90deg); }
+        .paper-section[open] > summary .paper-toggle::after { transform: rotate(0); opacity: 0; }
+        .paper-content { padding: 0.3rem 0.9rem 0.65rem; border-top: 1px solid var(--paper-border); }
+        .paper-topic-title {
+            color: #334155;
+            font-size: 1rem;
+            padding-bottom: 0.35rem;
+            margin: 0.95rem 0 0.45rem;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        .paper-section .content-links { margin-top: 0; }
+        .paper-section .content-links a {
+            color: var(--paper-ink);
+            background: var(--paper-tint);
+            border-left-color: var(--paper-accent);
+        }
+        .paper-section .content-links a:hover { background: var(--paper-border); }
+        @media (prefers-reduced-motion: reduce) {
+            .paper-section > summary, .paper-toggle::before, .paper-toggle::after { transition: none; }
+        }
 
         .content-links { list-style: none; margin-top: 10px; }
         .content-links li a {
@@ -356,62 +447,71 @@
                     <div class="subject-body">
                         <details open>
                             <summary>Grade 12</summary>
-                            <div style="padding: 10px 15px;">
-                                <h4 style="color: #555; border-bottom: 1px dashed #ccc; margin-bottom: 10px;">Algebra</h4>
-                                <ul class="content-links">
-                                    <li>
-                                        <a href="Collaboration Hub/Maths/Grade 12/Algebra/algebra.html">
-                                            📝 Presentation
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="Collaboration Hub/Maths/Grade 12/Algebra/games.html" class="icon-games">
-                                            Games
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="Collaboration Hub/Maths/Grade 12/Algebra/RevisionQ/MLHAlgebra.pdf" class="icon-pdf">
-                                            Revision Questions
-                                        </a>
-                                    </li>
-                                </ul>
-
-                                <h4 style="color: #555; border-bottom: 1px dashed #ccc; margin-bottom: 10px; margin-top: 15px;">Finance</h4>
-                                <ul class="content-links">
-                                    <li>
-                                        <a href="Collaboration Hub/Maths/Grade 12/Finance/finance.html">
-                                            📝 Presentation
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="Collaboration Hub/Maths/Grade 12/Finance/games.html" class="icon-games">
-                                            Games
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="Collaboration Hub/Maths/Grade 12/Finance/RevisionQ/MLHFinance.pdf" class="icon-pdf">
-                                            Revision Questions
-                                        </a>
-                                    </li>
-                                </ul>
-                                <h4 style='color: #555; border-bottom: 1px dashed #ccc; margin-bottom: 10px; margin-top: 15px;'>Sequences &amp; Series</h4>
-                                <ul class='content-links'>
-                                    <li>
-                                        <a href='Collaboration Hub/Maths/Grade 12/Sequences and Series/SeqSeries.html'>
-                                            Presentation
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href='Collaboration Hub/Maths/Grade 12/Sequences and Series/games.html' class='icon-games'>
-                                            Games
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href='Collaboration Hub/Maths/Grade 12/Sequences and Series/RevisionQ/MLHSequences%26Series.pdf' class='icon-pdf'>
-                                            Revision Questions
-                                        </a>
-                                    </li>
-                                </ul>
+                            <div class="paper-list">
+                                <details class="paper-section" id="maths-paper-1">
+                                    <summary>
+                                        <span class="paper-badge" aria-hidden="true">P1</span>
+                                        <span class="paper-label"><strong>Paper 1</strong><small>6 topics</small></span>
+                                        <span class="paper-toggle" aria-hidden="true"></span>
+                                    </summary>
+                                    <div class="paper-content">
+                                        <h4 class="paper-topic-title">Algebra</h4>
+                                        <ul class="content-links">
+                                            <li><a href="Collaboration Hub/Maths/Grade 12/Algebra/algebra.html">📝 Presentation</a></li>
+                                            <li><a href="Collaboration Hub/Maths/Grade 12/Algebra/games.html" class="icon-games">Games</a></li>
+                                            <li><a href="Collaboration Hub/Maths/Grade 12/Algebra/RevisionQ/MLHAlgebra.pdf" class="icon-pdf">Revision Questions</a></li>
+                                        </ul>
+                                        <h4 class="paper-topic-title">Finance</h4>
+                                        <ul class="content-links">
+                                            <li><a href="Collaboration Hub/Maths/Grade 12/Finance/finance.html">📝 Presentation</a></li>
+                                            <li><a href="Collaboration Hub/Maths/Grade 12/Finance/games.html" class="icon-games">Games</a></li>
+                                            <li><a href="Collaboration Hub/Maths/Grade 12/Finance/RevisionQ/MLHFinance.pdf" class="icon-pdf">Revision Questions</a></li>
+                                        </ul>
+                                        <h4 class="paper-topic-title">Sequences &amp; Series</h4>
+                                        <ul class="content-links">
+                                            <li><a href="Collaboration Hub/Maths/Grade 12/Sequences and Series/SeqSeries.html">Presentation</a></li>
+                                            <li><a href="Collaboration Hub/Maths/Grade 12/Sequences and Series/games.html" class="icon-games">Games</a></li>
+                                            <li><a href="Collaboration Hub/Maths/Grade 12/Sequences and Series/RevisionQ/MLHSequences%26Series.pdf" class="icon-pdf">Revision Questions</a></li>
+                                        </ul>
+                                        <h4 class="paper-topic-title">Calculus</h4>
+                                        <ul class="content-links">
+                                            <li><a href="Collaboration Hub/Maths/Grade 12/Calculus/RevisionQ/MLHCalculus.pdf" class="icon-pdf">Revision Questions</a></li>
+                                        </ul>
+                                        <h4 class="paper-topic-title">Probability</h4>
+                                        <ul class="content-links">
+                                            <li><a href="Collaboration Hub/Maths/Grade 12/Probability/RevisionQ/MLHProbability.pdf" class="icon-pdf">Revision Questions</a></li>
+                                        </ul>
+                                        <h4 class="paper-topic-title">Functions and Inverses</h4>
+                                        <ul class="content-links">
+                                            <li><a href="Collaboration Hub/Maths/Grade 12/Functions and Inverses/RevisionQ/MLHFunctionsAndInverses.pdf" class="icon-pdf">Revision Questions</a></li>
+                                        </ul>
+                                    </div>
+                                </details>
+                                <details class="paper-section paper-two" id="maths-paper-2">
+                                    <summary>
+                                        <span class="paper-badge" aria-hidden="true">P2</span>
+                                        <span class="paper-label"><strong>Paper 2</strong><small>4 topics</small></span>
+                                        <span class="paper-toggle" aria-hidden="true"></span>
+                                    </summary>
+                                    <div class="paper-content">
+                                        <h4 class="paper-topic-title">Analytical Geometry</h4>
+                                        <ul class="content-links">
+                                            <li><a href="Collaboration Hub/Maths/Grade 12/Analytical Geometry/RevisionQ/MLHAnalyticalGeometry.pdf" class="icon-pdf">Revision Questions</a></li>
+                                        </ul>
+                                        <h4 class="paper-topic-title">Euclidean Geometry</h4>
+                                        <ul class="content-links">
+                                            <li><a href="Collaboration Hub/Maths/Grade 12/Euclidean Geometry/RevisionQ/MLHEuclideanGeometry.pdf" class="icon-pdf">Revision Questions</a></li>
+                                        </ul>
+                                        <h4 class="paper-topic-title">Statistics</h4>
+                                        <ul class="content-links">
+                                            <li><a href="Collaboration Hub/Maths/Grade 12/Statistics/RevisionQ/MLHStatistics.pdf" class="icon-pdf">Revision Questions</a></li>
+                                        </ul>
+                                        <h4 class="paper-topic-title">Trigonometry</h4>
+                                        <ul class="content-links">
+                                            <li><a href="Collaboration Hub/Maths/Grade 12/Trigonometry/RevisionQ/MLHTrigonometry.pdf" class="icon-pdf">Revision Questions</a></li>
+                                        </ul>
+                                    </div>
+                                </details>
                             </div>
                         </details>
 
