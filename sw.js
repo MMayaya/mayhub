@@ -2,7 +2,7 @@ const CORE_CACHE_NAME = 'may-learning-core-v69-grade12-geography-september-exams
 const RUNTIME_CACHE_NAME = 'may-learning-runtime-pages';
 const CERTIFICATE_DOWNLOAD_CACHE = 'may-learning-certificate-downloads';
 const CERTIFICATE_DOWNLOAD_PATH = '/certificate-download/';
-const SERVICE_WORKER_VERSION = '117-collab-new-revision-topics';
+const SERVICE_WORKER_VERSION = '119-collab-new-grade10-games';
 
 const CORE_ASSETS = [
   '/universal-search.css',
@@ -17,6 +17,15 @@ const CORE_ASSETS = [
   '/certificate-preview.js',
   '/may-certificate-renderer.js',
   '/assessment-certificate.js',
+  '/Collaboration%20Hub/Maths/Grade%2010/Algebraic%20Expressions/algebra-expressions-data.js',
+  '/Collaboration%20Hub/Maths/Grade%2010/Algebraic%20Expressions/maths-games.css',
+  '/Collaboration%20Hub/Maths/Grade%2010/Algebraic%20Expressions/games.html',
+  '/Collaboration%20Hub/Maths/Grade%2010/Algebraic%20Expressions/spin1.html',
+  '/Collaboration%20Hub/Maths/Grade%2010/Algebraic%20Expressions/jeopardy1.html',
+  '/Collaboration%20Hub/Maths/Grade%2010/Algebraic%20Expressions/match1.html',
+  '/Collaboration%20Hub/Maths/Grade%2010/Algebraic%20Expressions/millionaire1.html',
+  '/Collaboration%20Hub/Maths/Grade%2010/Algebraic%20Expressions/snake1.html',
+  '/Collaboration%20Hub/Maths/Grade%2010/Algebraic%20Expressions/drag1.html',
   '/Social-Sciences/Term-4/Grade-8/Games/History/1.%20Reasons%20Why%20World%20War%20I%20Broke%20Out/world-war-one-data.js',
   '/Social-Sciences/Term-4/Grade-8/Games/History/2.%20Experiences%20of%20World%20War%20I/world-war-one-experiences-data.js',
   '/Social-Sciences/Term-4/Grade-8/Games/History/3.%20Women%20and%20the%20End%20of%20World%20War%20I/women-and-war-data.js',

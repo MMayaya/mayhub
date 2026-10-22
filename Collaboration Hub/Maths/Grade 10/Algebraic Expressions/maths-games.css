@@ -1,0 +1,30 @@
+/* Small mathematics adaptations; game mechanics and certificate styles remain shared. */
+nav { flex-wrap: wrap; gap: 0.7rem; }
+.nav-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.6rem 1rem; }
+.nav-links a { margin-left: 0; }
+.game-title { font-size: clamp(1.7rem, 5vw, 2.5rem); }
+.game-subtitle { max-width: 65ch; margin-left: auto; margin-right: auto; }
+.cat-btn { white-space: normal; max-width: 100%; }
+#questionText, #answerText, .option-btn, .term-option-display,
+.back-face, .drag-item, .drop-title, .answer-btn, #modalQuestion, #modalAnswer {
+    font-family: 'Cambria Math', Cambria, Georgia, serif;
+    overflow-wrap: anywhere;
+    line-height: 1.6;
+}
+.back-face { font-size: clamp(0.95rem, 2.6vw, 1.2rem); }
+#answerText small { display: block; font-family: 'Segoe UI', Tahoma, sans-serif; font-size: 0.9rem; line-height: 1.5; margin-top: 0.5rem; }
+.certificate-term-line:empty { display: none; }
+.term-option-display { font-size: clamp(1rem, 3.5vw, 1.3rem); }
+.drag-item { min-width: 0; }
+.maths-study-note { background: #fff; border: 1px solid #c8dcf0; border-left: 4px solid #0f766e; padding: 1.1rem 1.3rem; margin-bottom: 1.4rem; border-radius: 12px; color: #334155; }
+.maths-study-note h2 { color: #004080; font-size: 1.2rem; margin-bottom: 0.5rem; }
+.maths-study-note p { line-height: 1.65; margin: 0.5rem 0; }
+.maths-study-note .worked-example { background: #f0fdfa; padding: 0.7rem; border-radius: 8px; font-family: 'Cambria Math', Cambria, Georgia, serif; font-size: 1.1rem; }
+@media (max-width: 600px) {
+    nav { padding: 0.8rem 1rem; justify-content: center; }
+    .nav-links { font-size: 0.85rem; }
+    .cat-buttons { gap: 0.6rem; }
+    .cat-btn { padding: 0.65rem 0.9rem; font-size: 0.9rem; }
+    .game-header { padding-top: 1.7rem; }
+    .back-face { padding: 9px; }
+}

@@ -226,6 +226,7 @@
         .whats-new-panel .section-title { color: #fff; font-size: clamp(1.45rem, 3vw, 1.85rem); margin-bottom: 0.1rem; }
         .whats-new-panel .section-subtitle { color: #fff; font-size: 0.92rem; margin: 0; }
         .whats-new-grid { display: grid; gap: 0.65rem; margin-top: 0.65rem; align-items: start; }
+        .whats-new-games { grid-column: 1 / -1; }
         .whats-new-details {
             min-width: 0;
             padding: 0.62rem 0.75rem;
@@ -498,10 +499,16 @@
 
         <section class="whats-new-panel" id="whats-new" aria-labelledby="whats-new-title">
             <h2 class="section-title" id="whats-new-title">What&rsquo;s New</h2>
-            <p class="section-subtitle">New Grade 12 Mathematics revision questions.</p>
+            <p class="section-subtitle">New Mathematics games and revision questions.</p>
             <div class="whats-new-grid">
+                <details class="whats-new-details whats-new-games" open>
+                    <summary>Grade 10 Mathematics Games</summary>
+                    <ul class="whats-new-list">
+                        <li><a href="Collaboration Hub/Maths/Grade 10/Algebraic Expressions/games.html"><span>🎮 Algebraic Expressions: 6 Games</span><span class="new-badge">New</span></a></li>
+                    </ul>
+                </details>
                 <details class="whats-new-details" open>
-                    <summary>Paper 1</summary>
+                    <summary>Grade 12: Paper 1</summary>
                     <ul class="whats-new-list">
                         <li><a href="#maths-calculus"><span>Calculus</span><span class="new-badge">New</span></a></li>
                         <li><a href="#maths-probability"><span>Probability</span><span class="new-badge">New</span></a></li>
@@ -509,7 +516,7 @@
                     </ul>
                 </details>
                 <details class="whats-new-details" open>
-                    <summary>Paper 2</summary>
+                    <summary>Grade 12: Paper 2</summary>
                     <ul class="whats-new-list">
                         <li><a href="#maths-analytical-geometry"><span>Analytical Geometry</span><span class="new-badge">New</span></a></li>
                         <li><a href="#maths-euclidean-geometry"><span>Euclidean Geometry</span><span class="new-badge">New</span></a></li>
@@ -608,7 +615,12 @@
                         </details>
                         <details>
                             <summary>Grade 10</summary>
-                            <p style="padding: 1rem; color: #888; font-style: italic;">Content currently being prepared...</p>
+                            <div style="padding: 10px 15px;">
+                                <h4 class="paper-topic-title" id="maths-grade10-algebraic-expressions" tabindex="-1">Algebraic Expressions</h4>
+                                <ul class="content-links">
+                                    <li><a href="Collaboration Hub/Maths/Grade 10/Algebraic Expressions/games.html" class="icon-games">Games</a></li>
+                                </ul>
+                            </div>
                         </details>
                     </div>
                 </section>

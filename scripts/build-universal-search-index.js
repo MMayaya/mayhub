@@ -159,7 +159,9 @@ function getPathContext(relativePath) {
   const fileName = segments[segments.length - 1];
   const extension = path.extname(fileName).toLowerCase();
   const baseName = fileName.toLowerCase();
-  const isGame = lowerSegments.includes('games') || normalisedPath.includes('/Games/');
+  const isGame = lowerSegments.includes('games') || normalisedPath.includes('/Games/')
+    || (lowerSegments.includes('maths') && extension === '.html'
+      && (Boolean(gameNames[baseName]) || baseName === 'games.html'));
   const isAssessmentGame = /assessment games/i.test(normalisedPath);
   let category = 'Pages';
   let type = 'Page';
